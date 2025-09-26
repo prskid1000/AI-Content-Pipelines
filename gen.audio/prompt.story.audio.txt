@@ -1,0 +1,23 @@
+TASK: Write a Audio Story in form of Dialogue Script divided into 5 PARTS.
+
+CONTENT:
+- Consulting Detective Sherlock Holmes Story \[Victorian Drama] -> Sherlock Holmes and "The Adventure of the Golden Pince-Nez".
+- Use the narrator(Doctor John Watson himself is the narrator) for atmosphere/background and other detailing.
+- Watson, always learning how to do deduction from Holmes, and his loyal assistant and roommate.
+- Holmes, for him, "everything is elementary" and "uses theory of deduction" to solve cases.
+
+CONSTRAINTS:
+- Each PART_x must be at least 7500 characters and 1200 words.
+- Each DIALOGUE must be at least 30 characters.
+- Each PART_x can have multiple locations. 
+
+FORMAT:
+
+[male_doctor_watson] It was warm afternoon. Holmes and I was discussing about England...
+
+[male_detective_holmes] Someone at...
+
+...
+
+[gender_profession_actor_name] ....dialogue in same line as of []
+

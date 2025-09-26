@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"ComfyUI/": true,
+			"comfyui_cpu.bat": true,
+			"comfyui.bat": true,
+		}
+	}
+}

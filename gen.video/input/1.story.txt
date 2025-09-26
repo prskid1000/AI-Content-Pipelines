@@ -1,0 +1,39 @@
+[male_doctor_watson] It was a calm winter morning when I found myself once again in the cozy sitting room of Baker Street, enveloped in the blue haze of Holmes’s pipe smoke and the faint crackle of the fire.
+(scene_1.1) {A British, Victorian Living Room, Baker Street}, {Sunny Winter Morning}; ((male_doctor_watson)) {Neutral} {Sitting on sofa}, {Holding newspaper with one hand, coffee cup resting nearby}; ((male_detective_holmes)) {Neutral} {Standing by window}, {Hands behind his back, gaze fixed outside at the traffic below}.
+(motion_1.1) ((male_doctor_watson)) {Glances at paper, rustling pages slowly}; ((male_detective_holmes)) {Taps fingers lightly against window frame, tilting his head in thought}.
+
+[male_detective_holmes] Look, Watson—have you observed the remarkable absence of hansom cabs on this morning’s thoroughfare?
+(scene_1.2) {Baker Street Sitting Room}, {Morning Sunlight casting long shadows}; ((male_doctor_watson)) {Curious} {Lifting head from paper}, {Eyes narrowed with inquiry}; ((male_detective_holmes)) {Pensive} {Leaning slightly forward at the window}, {Sharp profile outlined against the glass}.
+(motion_1.2) ((male_doctor_watson)) {Sets newspaper upon his knee, fingers still clutching edge}; ((male_detective_holmes)) {Tilts chin toward the distant street, raising brows in subtle emphasis}.
+
+[male_doctor_watson] I cannot say that I have, Holmes. I should think most of London still stirs slowly on such a chill morning.
+(scene_1.3) {Baker Street Living Room}, {Winter Sun weak but steady}; ((male_doctor_watson)) {Neutral, with mild amusement} {Turning slightly toward Holmes}, {Shoulders relaxed}; ((male_detective_holmes)) {Neutral} {Hands folded behind back}, {Posture perfectly upright, eyes bright with calculation}.
+(motion_1.3) ((male_doctor_watson)) {Gives a small shrug, shifting comfortably on sofa}; ((male_detective_holmes)) {Paces a short distance from window toward fireplace, measured steps echoing faintly}.
+
+[male_detective_holmes] Just so, my dear fellow, yet it is precisely the absence of cabs that intrigues me. Routine, you see, is the foundation upon which all anomalies stand out in stark relief. And it is the anomaly that beckons us.
+(scene_1.4) {Baker Street Living Room}, {Morning Light streaming in}; ((male_doctor_watson)) {Thoughtful} {Leaning slightly forward}, {Eyes attentive}; ((male_detective_holmes)) {Engaged} {Standing near hearth}, {Finger raised, gesturing slightly as he explains}.
+(motion_1.4) ((male_doctor_watson)) {Nods subtly, resting chin upon one hand}; ((male_detective_holmes)) {Moves hand with deliberate precision, pacing one step left, then pausing}.
+
+[male_doctor_watson] You make the commonplace sound mysterious, Holmes. Yet surely there are greater enigmas awaiting your attention than the traffic of Baker Street.
+(scene_1.5) {Baker Street Sitting Room}, {Winter Morning, firelight glowing warmly}; ((male_doctor_watson)) {Half-smile} {Sitting upright}, {Voice tinged with good-natured irony}; ((male_detective_holmes)) {Amused} {Turning head toward Watson}, {Eyes glinting with humor}.
+(motion_1.5) ((male_doctor_watson)) {Lifts coffee cup, taking a small sip}; ((male_detective_holmes)) {Allows a faint chuckle, tapping pipe stem lightly against mantelpiece}.
+
+[male_detective_holmes] Indeed, there are, and as chance would have it, one approaches now. I have reason to expect a visitor—an unusual client whose plight may prove most singular.
+(scene_1.6) {Baker Street Living Room}, {Steady daylight through curtains}; ((male_doctor_watson)) {Alert} {Setting cup down carefully}, {Brows raised}; ((male_detective_holmes)) {Serious} {Standing still, one hand in pocket}, {Voice low, almost conspiratorial}.
+(motion_1.6) ((male_doctor_watson)) {Straightens posture, folding newspaper neatly}; ((male_detective_holmes)) {Turns head sharply toward door as faint sound of carriage wheels approaches outside}.
+
+[male_doctor_watson] A visitor? You astonish me. How could you have foreseen such a thing?
+(scene_1.7) {Baker Street Sitting Room}, {Soft draft entering as carriage halts outside}; ((male_doctor_watson)) {Puzzled} {Hands resting upon lap}, {Eyes fixed upon Holmes}; ((male_detective_holmes)) {Confident} {Standing tall}, {Composure serene, as though waiting for inevitable knock}.
+(motion_1.7) ((male_doctor_watson)) {Tilts head inquisitively}; ((male_detective_holmes)) {Smiles faintly, eyes glimmering with unspoken deduction}.
+
+[male_detective_holmes] A hansom approached from Briarfield Lane not two minutes past, driven by a man in livery unbefitting his station, yet whose gloves bore the polish of Mayfair. The contrast itself cried of haste and secrecy. Mark me, Watson, the knock comes now.
+(scene_1.8) {Baker Street Living Room}, {Doorbell chimes faintly from corridor}; ((male_doctor_watson)) {Startled yet intrigued} {Turning head toward door}, {Body tensing slightly}; ((male_detective_holmes)) {Certain} {Gazes calmly at Watson}, {Hands clasped behind back, posture assured}.
+(motion_1.8) ((male_doctor_watson)) {Leans forward upon sofa, gripping armrest}; ((male_detective_holmes)) {Steps slowly toward the door, measured as clockwork}.
+
+[male_doctor_watson] Extraordinary! Holmes, sometimes I feel I shall never master the art of deduction as you do.
+(scene_1.9) {Baker Street Sitting Room}, {Door creaking open faintly}; ((male_doctor_watson)) {Amazed, half smiling} {Leaning toward Holmes}, {Eyes bright with admiration}; ((male_detective_holmes)) {Slightly dismissive} {Opening door with casual grace}, {Expression composed, almost indifferent}.
+(motion_1.9) ((male_doctor_watson)) {Shakes head softly, lips curving upward}; ((male_detective_holmes)) {Pulls door wide, gesturing toward threshold}.
+
+[male_detective_holmes] Nonsense, Watson. You are a conductor of light, though not yourself luminous. Come, observe closely, for you shall have another lesson. Enter, sir! Pray, tell us what grieves you so.
+(scene_1.10) {Baker Street Living Room}, {Daylight muted as figure enters doorway}; ((male_doctor_watson)) {Respectful} {Rising from sofa}, {Hands loosely at sides}; ((male_detective_holmes)) {Commanding yet welcoming} {Stepping back from threshold}, {Gesture open, voice even}.
+(motion_1.10) ((male_doctor_watson)) {Takes two steps toward client, bowing head slightly}; ((male_detective_holmes)) {Extends arm courteously, ushering visitor inward}.

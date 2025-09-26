@@ -1,0 +1,200 @@
+[male_doctor_watson] It was a calm morning when I found myself once again in the company of my friend Sherlock Holmes, that extraordinary consulting detective whose life and work had often overshadowed my own profession as a medical man. As usual, he was restless, while I attempted to enjoy the tranquility afforded by our sitting-room in Baker Street.
+
+[male_detective_holmes] Look, Watson, out there across the rooftops—the frost clings like lace, and yet you bury yourself in the dull columns of that newspaper.
+
+[male_doctor_watson] My dear Holmes, some men find as much adventure in the morning news as you find in a muddy footprint upon the pavement.
+
+[male_detective_holmes] Adventure, Watson, is not printed in ink. It is written in dust upon boots, in the tremor of a hand as it seals a letter, or in the curious case that knocks at our door.
+
+[male_doctor_watson] You speak as if you expect a case this very morning.
+
+[male_detective_holmes] Expect, no—observe, yes. Footsteps ascended our stair only moments ago, deliberate yet halting. A visitor stands now upon our threshold, uncertain whether to knock.
+
+[male_client_stranger] Gentlemen, forgive the intrusion… I am in need of your counsel, Mr. Holmes.
+
+[male_doctor_watson] Pray, come in, sir. The fire is warm, and Mr. Holmes has been expecting you, in a manner of speaking.
+
+[male_detective_holmes] Indeed, sir. You have walked from the northern districts, over the bridge they call Casper, and you come with more upon your conscience than frost upon your boots.
+
+[male_client_stranger] (startled) How on earth could you know such a thing?
+
+[male_doctor_watson] (aside, narrating) Here once again I saw my friend’s extraordinary powers at play, deductions drawn from signs invisible to my untrained eye. Yet I longed to understand, to see what he saw.
+
+[male_detective_holmes] Your boots, sir, still damp with river mist; the clay upon their edges is peculiar to the banks near Casper Bridge. Furthermore, your right glove is missing a button, and the anxiety with which you twist it betrays an urgent matter weighing upon your mind. But come, enough of this display. Take a seat, and tell us what clouds your spirit.
+
+[male_client_stranger] My name is Edward Mason. It is not my own safety I fear, but that of a woman. She has vanished near Casper Bridge, and the police dismiss it as hysteria. But I know she is in peril!
+
+[male_doctor_watson] Vanished, you say? Pray give us the particulars.
+
+[male_client_stranger] She is Clara Whitfield, governess to my sister’s children. Three nights past, she crossed Casper Bridge to return to her lodgings, but never arrived. All that was found was her scarf, caught in the railings above the water.
+
+[male_detective_holmes] A scarf by itself proves nothing. Did she have enemies? Debts? Suitors who might wish her harm?
+
+[male_client_stranger] None that I know of, Mr. Holmes. She was gentle, quiet, much loved by the children. But lately, she seemed troubled—startled by shadows, pale as if pursued by some secret fear.
+
+[male_doctor_watson] Holmes, this has the scent of something dark.
+
+[male_detective_holmes] Indeed, Watson. Mr. Mason, we shall visit this bridge and the young woman’s lodgings. But first—I should like to see the scarf.
+
+[male_client_stranger] (produces item from his coat pocket) Here, sir. It is still damp with river mist.
+
+[male_detective_holmes] Ah! Note, Watson, the faint trace of perfume upon this fabric—yet beneath it, a darker stain. Blood, though partially washed away by the river. Elementary!
+
+[male_doctor_watson] (with awe) You see such things where I perceive nothing.
+
+[male_detective_holmes] You perceive, Watson, but you do not observe. Therein lies all the difference. But come, Mr. Mason, we go at once to Casper Bridge.
+
+[male_doctor_watson] By midday, we had crossed into the northern districts of London. The fog clung to the riverbanks, and the great arc of Casper Bridge loomed before us. It was here, amid the shifting currents and the creak of wagon wheels upon the stone span, that the case drew us deeper into shadow.
+
+[male_detective_holmes] Note, Watson, the marks upon the stone where the scarf was caught. Do you see how the fibers are frayed not merely by wind, but by a violent tug?
+
+[male_doctor_watson] By Jove, Holmes, so they are! And here—I see something glistening upon the stone. Could it be… blood?
+
+[male_detective_holmes] Precisely, Watson. A smear, thin yet undeniable. She struggled here, perhaps dragged or forced against the railing. The river was not her chosen grave—it was an attempt at concealment.
+
+[male_client_stranger] (voice trembling) Then she yet may live?
+
+[male_detective_holmes] That, Mr. Mason, depends upon the swiftness of our pursuit and the cunning of her assailant. Come, let us trace the footprints leading off the bridge. Note their irregular spacing—a man half-dragging, half-carrying a burden heavier than himself.
+
+[male_doctor_watson] (aside, narrating) Thus began our strange pursuit across the cobbles of London, following the faintest impressions upon damp stone, impressions only Holmes could read with such clarity. My heart quickened, for I knew then that we were upon the trail of a mystery whose darkness lay just beyond the veil of this fog.
+
+[male_doctor_watson] The trail from Casper Bridge, faint as it was, led us northward through winding lanes until we reached the narrow street where Clara Whitfield resided. It was there, amid the worn facades and the scent of coal smoke, that Holmes resolved to search for the young woman’s presence—or her absence.
+
+[male_detective_holmes] Observe, Watson—the absence of order in this establishment. It mirrors the turmoil of its inhabitants.
+
+[female_landlady_mrs_hudmore] Gentlemen, you seek Miss Whitfield? Poor soul—she has not been seen since that dreadful night.
+
+[male_doctor_watson] We are here at the request of Mr. Edward Mason. Permit us to view her room, madam.
+
+[female_landlady_mrs_hudmore] Very well, sir, but it chills me to open that door. She left it locked behind her, and yet… when I entered to air the sheets, things were not as she had left them.
+
+[male_detective_holmes] Precisely what we must see. Lead on, if you please.
+
+[male_doctor_watson] (narrating) We ascended to the third floor, where the narrow corridor grew colder and dimmer. The landlady unlocked the chamber door, and Holmes entered at once, his sharp eyes darting from shadow to shadow.
+
+[male_detective_holmes] Note, Watson, the bedcovering—creased at the edge, as though by a hurried departure. And here, on the writing desk, scraps of torn paper.
+
+[male_doctor_watson] They appear to be from a letter. But the ink is smeared, as though moistened by tears or water.
+
+[male_detective_holmes] A careful hand can reconstruct the words. “—bridge—danger—trust no one—” Do you see? The message was hurried, yet deliberate. She anticipated peril.
+
+[male_client_stranger] Then she knew she was pursued! Holmes, what villain dared menace her?
+
+[male_detective_holmes] That, sir, is what we must uncover. Tell me, landlady, who last called upon Miss Whitfield?
+
+[female_landlady_mrs_hudmore] Only a gentleman—a tall figure, well-dressed, though his manner was harsh. He pressed her with questions, and she seemed frightened. I thought him her uncle.
+
+[male_doctor_watson] Did he give his name?
+
+[female_landlady_mrs_hudmore] He signed the register as “Mr. Harland.” But I mistrust it—it was written with a heavy flourish, unlike a true name.
+
+[male_detective_holmes] Harland! Curious. A false name, likely chosen to mislead. And here, Watson, observe beneath the carpet—a scrap of dark cloth.
+
+[male_doctor_watson] It is coarse wool, torn from a man’s overcoat. There are also small grains of sand embedded within.
+
+[male_detective_holmes] Just so. Sand not of London’s streets, but of the riverbank—Casper Bridge once more calls to us. The villain tracked her here, and likely dragged her hence.
+
+[male_client_stranger] Then she was abducted from her very room! Heaven help her!
+
+[male_doctor_watson] Holmes, do you suppose this “Harland” sought to silence her, fearing what she knew?
+
+[male_detective_holmes] An excellent hypothesis, my dear Watson. You are learning. Observe also the open window latch. Though closed now, it bears scratches from recent forcing. She did not depart of her own will.
+
+[male_doctor_watson] By heaven, the villain carried her out into the night!
+
+[male_detective_holmes] Not quite. See these faint impressions on the sill—chalk dust, common to warehouse floors. I deduce she was carried not into the street, but through a rear passage that leads to the wharves.
+
+[male_client_stranger] Then the warehouses conceal her captors! We must hasten there at once!
+
+[male_doctor_watson] Holmes, shall we call upon the constabulary?
+
+[male_detective_holmes] No, Watson. The police, with their blundering zeal, would only frighten the villains into deeper concealment. Subtlety is our ally. Tonight, when fog thickens, we shall visit these warehouses.
+
+[female_landlady_mrs_hudmore] God preserve you, gentlemen. That district is a haunt of rogues and smugglers. Beware, for none return unscathed.
+
+[male_doctor_watson] (narrating) Thus did we glean the clues from Clara Whitfield’s chamber—fragments of warning, a torn cloth, the trace of chalk and sand. And as evening shadows lengthened, I felt the chill of foreboding, knowing that our next steps would lead us into the heart of London’s darkness.
+
+[male_detective_holmes] Come, Watson, there is no time to waste. Tonight, we move from observation to action.
+
+[male_doctor_watson] At your side, Holmes, as always.
+
+[male_doctor_watson] Evening fell upon London like a shroud, the fog rising from the river thick as wool. Holmes led us toward the warehouses that lined the northern bank, their looming shapes half-swallowed in shadow. It was there, he insisted, that the fate of Clara Whitfield awaited discovery.
+
+[male_detective_holmes] Observe, Watson—the lantern glow within yonder warehouse. That, I think, is our destination.
+
+[male_client_stranger] But how shall we enter without alerting them?
+
+[male_detective_holmes] Subtlety, Mr. Mason. The river offers concealment where doors will not. Watson, do you note the planks leading to the side dock?
+
+[male_doctor_watson] I see them—warped and slippery, yet serviceable. Do you mean to approach by the rear?
+
+[male_detective_holmes] Precisely. Follow quietly. Sound is our enemy tonight.
+
+[male_doctor_watson] (narrating) We crept along the damp boards, the river lapping beneath our feet. My heart thudded with each cautious step, fearful that one misstep would betray us. Holmes, by contrast, moved with the precision of a shadow.
+
+[male_detective_holmes] Halt! Do you hear it—the murmur of voices within?
+
+[male_doctor_watson] Yes—two men, speaking harshly. One curses, the other urges silence.
+
+[male_detective_holmes] Let us confirm. Here is a crack in the shutter. Peer through, Watson, and tell me what you see.
+
+[male_doctor_watson] (peering) By heavens! There—Clara Whitfield, bound to a chair! Her face pale, but alive. And beside her—two ruffians, one tall with a scarred cheek, the other shorter, pacing like a hound.
+
+[male_client_stranger] Clara! She lives! We must rush them at once!
+
+[male_detective_holmes] Hush, man! Your zeal would undo us. Action must be precise, not reckless.
+
+[male_doctor_watson] Holmes, what do you propose?
+
+[male_detective_holmes] A diversion, Watson. You shall circle to the front and draw their attention with a firm knock. Mason and I will enter from behind, where the lock is weakest.
+
+[male_doctor_watson] A perilous plan—but I trust you.
+
+[male_client_stranger] And I?
+
+[male_detective_holmes] Your task is silence. Follow me, but do not speak unless bidden.
+
+[male_doctor_watson] (narrating) Thus we parted—Holmes and Mason to the shadows at the rear, I to the fore. My heart thundered as I approached the heavy doors, lifted my stick, and rapped thrice.
+
+[male_villain_scarred] Who goes there? Blast it, who knocks at this hour?
+
+[male_doctor_watson] A lost passerby, sir, seeking directions in the fog.
+
+[male_villain_shorter] Fool! Send him off! We cannot be discovered.
+
+[male_detective_holmes] (bursting in from rear) Now, Watson! Strike true!
+
+[male_doctor_watson] (joining) For Clara!
+
+[male_client_stranger] Unhand her, villains!
+
+[male_villain_scarred] (snarling) A trap! To arms, Ned!
+
+[male_detective_holmes] Not so fast!
+
+[male_doctor_watson] (striking) Down you go!
+
+[male_client_stranger] Clara! Hold on!
+
+[female_clara_whitfield] Edward… oh thank heaven!
+
+[male_detective_holmes] Watson, secure the shorter man! The constable shall find two prizes this night.
+
+[male_doctor_watson] Already done, Holmes. He will not stir soon.
+
+[male_detective_holmes] (to scarred villain) And you, sir, shall answer for your cruelty. You lured the lady with threats, sought to silence her knowledge of your smuggling enterprise, and chose Casper Bridge as the place of terror. But your carelessness betrayed you—sand on your coat, chalk on the sill, and the stain of blood upon her scarf. Elementary.
+
+[male_villain_scarred] Curse you, Holmes!
+
+[male_doctor_watson] Holmes, you have done it again.
+
+[male_detective_holmes] Not I, Watson—the evidence. I merely followed where it led.
+
+[female_clara_whitfield] You saved me, Mr. Holmes. I shall never forget.
+
+[male_client_stranger] Nor shall I. My family owes you a debt beyond words.
+
+[male_doctor_watson] (narrating) Thus ended the adventure of Casper Bridge, with the lady restored, the villains captured, and Holmes once more triumphant. Yet as we stepped into the fog-laden night, I could not help but marvel at the subtle chain of clues—clues that I, though present, might never have seen without my friend’s unerring eye.
+
+[male_detective_holmes] Come, Watson. Another case awaits, and the game, as always, is afoot.
+

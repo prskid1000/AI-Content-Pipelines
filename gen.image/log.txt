@@ -1,0 +1,102 @@
+Workflow runner started. Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
+Working directory: D:\.comfyui\gen.image
+Emptying ComfyUI input and output folders...
+Successfully emptied ComfyUI input and output folders.
+Starting LM Studio backend via lms CLI...
+Command: lms server start
+Success! Server is now running on port 1234
+Waiting for LM Studio to become ready (polling every 15s)...
+LM Studio is ready after 0.1s (attempt 1).
+
+===== START D:\.comfyui\gen.image\scripts\1.story.py @ 2025-09-26 13:12:51 =====
+Extracted 4 unique locations: ['loc_1', 'loc_2', 'loc_3', 'loc_4']
+Detected order: [] first, then ()(())
+Running pre-validation checks...
+Characters match: 7 names ['female_clara_whitfield', 'female_landlady_mrs_hudmore', 'male_client_stranger', 'male_detective_holmes', 'male_doctor_watson', 'male_villain_scarred', 'male_villain_shorter']
+Pre-validation passed. Proceeding with generation...
+Generating story description from story content...
+ERROR: Failed to generate story description: Failed to parse structured story description response
+WARNING: Location expansion failed: Failed to parse structured story description response
+Using original location descriptions...
+Wrote 4 original location entries to: D:\.comfyui\gen.image\input\3.location.txt
+Skipping character description generation due to missing story description
+Wrote 100 dialogue lines to: D:\.comfyui\gen.audio\input\1.story.txt
+Wrote 100 scene entries to: D:\.comfyui\gen.image\input\3.scene.txt
+
+===== END D:\.comfyui\gen.image\scripts\1.story.py @ 2025-09-26 13:13:48 (exit=0, took=57.16s) =====
+
+===== START D:\.comfyui\gen.audio\scripts\1.character.py @ 2025-09-26 13:13:48 =====
+=== VOICE REGION AND LANGUAGE SELECTION ===
+Available regions: in
+Available languages: ba, en, hi
+Current region: in, Current language: en
+[AUTO] Using --change-settings='n'
+=== STORY PREPROCESSING ===
+Found 7 unique characters: male_villain_shorter, male_villain_scarred, male_doctor_watson, male_detective_holmes, female_landlady_mrs_hudmore, male_client_stranger, female_clara_whitfield
+
+Available male voices: alok_en, bala_en, gaurav_en, himanshu_en, indrajeet_en, nikhil_en, ramesh_en, sarang_en, sid_en, yuvraj_en
+Available female voices: aisha_en, ayesha_en, deshna_en, henna_en, koku_en, maya_en, mona_en, mridula_en, paavni_en, vidya_en
+
+=== CHARACTER VOICE ASSIGNMENT ===
+I found the following characters in your story:
+- male_villain_shorter
+- male_villain_scarred
+- male_doctor_watson
+- male_detective_holmes
+- female_landlady_mrs_hudmore
+- male_client_stranger
+- female_clara_whitfield
+
+Currently assigned voices:
+- male_doctor_watson: alok_en
+- male_detective_holmes: ramesh_en
+
+Need to assign voices for: male_villain_shorter, male_villain_scarred, female_landlady_mrs_hudmore, male_client_stranger, female_clara_whitfield
+Auto-assigned male voice 'bala_en' to 'male_villain_shorter' (male_ prefix detected)
+Auto-assigned male voice 'gaurav_en' to 'male_villain_scarred' (male_ prefix detected)
+Auto-assigned female voice 'aisha_en' to 'female_landlady_mrs_hudmore' (female_ prefix detected)
+Auto-assigned male voice 'himanshu_en' to 'male_client_stranger' (male_ prefix detected)
+Auto-assigned female voice 'ayesha_en' to 'female_clara_whitfield' (female_ prefix detected)
+
+=== FINAL CHARACTER-VOICE MAPPING ===
+- male_villain_shorter: bala_en
+- male_villain_scarred: gaurav_en
+- male_doctor_watson: alok_en
+- male_detective_holmes: ramesh_en
+- female_landlady_mrs_hudmore: aisha_en
+- male_client_stranger: himanshu_en
+- female_clara_whitfield: ayesha_en
+[AUTO] Using --auto-confirm='y'
+Voice assignment confirmed!
+Created backup: ../../ComfyUI/custom_nodes/tts_audio_suite/voices_examples/#character_alias_map.txt.backup
+Updated character alias map file: ../../ComfyUI/custom_nodes/tts_audio_suite/voices_examples/#character_alias_map.txt
+Format: character=voice
+
+=== CHAPTER ANALYSIS AND SUMMARIZATION ===
+📊 Story Statistics:
+   📏 Total characters (excluding [names]): 11,694
+   📝 Total words: 2,082
+   📄 Total lines: 199
+
+Story split into 4 chapters of ~50 lines each
+
+Processing Chapter 1/4 (31.7% of story)...
+   Lines 1-50 (3,712 chars)
+✅ Chapter 1 generated:
+   📖 Title: Shadows at Casper
+   📝 Summary words: 229 (target: 500)
+   📏 Summary characters: 1468
+   🔸 Short summary words: 24 (target: 20)
+   ⏱️  Generation time: 28.06s
+
+Processing Chapter 2/4 (28.3% of story)...
+   Lines 51-100 (3,307 chars)
+✅ Chapter 2 generated:
+   📖 Title: Footprints in the Fog
+   📝 Summary words: 228 (target: 500)
+   📏 Summary characters: 1431
+   🔸 Short summary words: 17 (target: 20)
+   ⏱️  Generation time: 23.50s
+
+Processing Chapter 3/4 (25.0% of story)...
+   Lines 101-150 (2,927 chars)

@@ -1,0 +1,301 @@
+[male_doctor_watson] It was a calm morning when I found myself once again in the company of my friend Sherlock Holmes, that extraordinary consulting detective whose life and work had often overshadowed my own profession as a medical man. As usual, he was restless, while I attempted to enjoy the tranquility afforded by our sitting-room in Baker Street.
+(scene_1.1) {{loc_1, A British Victorian Living Room, situated at 221B Baker Street. The room is comfortably cluttered, its atmosphere dense with smoke from Holmes’s pipe and the lingering aroma of strong black tea. Against the far wall stands a tall bookcase, filled with volumes on chemistry, law, and arcane monographs of every kind. A large Persian rug, slightly worn at the edges, spreads across the wooden floor, providing warmth against the chill of winter. Near the fire burns a coal grate, its iron frame blackened from years of use. Holmes’s violin rests upon a side table, beside a stack of case notes tied with string. A heavy sofa with well-worn arms sits in the center, facing the fire, where I am seated. The window, draped in thick curtains, allows pale shafts of morning sun to pierce through the London fog outside. A chemical apparatus on a stand near the mantelpiece bubbles faintly, releasing faint odors of experiment. On a small table rests the morning newspaper, folded and creased. Every object in the room seems to bear the mark of Holmes’s restless intellect.}}, {Sunny Winter Morning};((male_doctor_watson)) {Neutral}, {Sitting on sofa}, {Reading newspaper};
+
+[male_detective_holmes] Look, Watson, out there across the rooftops—the frost clings like lace, and yet you bury yourself in the dull columns of that newspaper.
+(scene_1.2) {{loc_1}}, {Sunny Winter Morning};((male_detective_holmes)) {Surprise}, {Standing by window}, {Looking outside};
+
+[male_doctor_watson] My dear Holmes, some men find as much adventure in the morning news as you find in a muddy footprint upon the pavement.
+(scene_1.3) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)) {Slight Amusement}, {On sofa near fire}, {Turning page of newspaper};
+
+[male_detective_holmes] Adventure, Watson, is not printed in ink. It is written in dust upon boots, in the tremor of a hand as it seals a letter, or in the curious case that knocks at our door.
+(scene_1.4) {{loc_1}}, {Sunny Winter Morning};((male_detective_holmes)) {Thoughtful}, {Leaning on window frame}, {Gesturing with pipe};
+
+[male_doctor_watson] You speak as if you expect a case this very morning.
+(scene_1.5) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)) {Curious}, {Leaning forward on sofa}, {Resting newspaper on knee};
+
+[male_detective_holmes] Expect, no—observe, yes. Footsteps ascended our stair only moments ago, deliberate yet halting. A visitor stands now upon our threshold, uncertain whether to knock.
+(scene_1.6) {{loc_1}}, {Sunny Winter Morning};((male_detective_holmes)) {Confident}, {By window turning towards door}, {Tapping ash from pipe};
+
+[male_client_stranger] Gentlemen, forgive the intrusion… I am in need of your counsel, Mr. Holmes.
+(scene_1.7) {{loc_1}}, {Sunny Winter Morning};((male_client_stranger)) {Anxious}, {At doorway clutching hat}, {Nervously twisting gloves};
+
+[male_doctor_watson] Pray, come in, sir. The fire is warm, and Mr. Holmes has been expecting you, in a manner of speaking.
+(scene_1.8) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)) {Polite}, {Rising from sofa}, {Gesturing toward fire};
+
+[male_detective_holmes] Indeed, sir. You have walked from the northern districts, over the bridge they call Casper, and you come with more upon your conscience than frost upon your boots.
+(scene_1.9) {{loc_1}}, {Sunny Winter Morning};((male_detective_holmes)) {Sharp}, {Approaching visitor}, {Fixing gaze upon client};
+
+[male_client_stranger] (startled) How on earth could you know such a thing?
+(scene_1.10) {{loc_1}}, {Sunny Winter Morning};((male_client_stranger)) {Alarmed}, {Near doorway}, {Clutching hat tighter};
+
+[male_doctor_watson] (aside, narrating) Here once again I saw my friend’s extraordinary powers at play, deductions drawn from signs invisible to my untrained eye. Yet I longed to understand, to see what he saw.
+(scene_1.11) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)) {Reflective}, {Standing by chair}, {Hands folded behind back};
+
+[male_detective_holmes] Your boots, sir, still damp with river mist; the clay upon their edges is peculiar to the banks near Casper Bridge. Furthermore, your right glove is missing a button, and the anxiety with which you twist it betrays an urgent matter weighing upon your mind. But come, enough of this display. Take a seat, and tell us what clouds your spirit.
+(scene_1.12) {{loc_1}}, {Sunny Winter Morning};((male_detective_holmes)) {Commanding}, {Pointing to armchair}, {Lighting pipe anew};
+
+[male_client_stranger] My name is Edward Mason. It is not my own safety I fear, but that of a woman. She has vanished near Casper Bridge, and the police dismiss it as hysteria. But I know she is in peril!
+(scene_1.13) {{loc_1}}, {Sunny Winter Morning};((male_client_stranger)) {Desperate}, {Lowering into armchair}, {Leaning forward imploringly};
+
+[male_doctor_watson] Vanished, you say? Pray give us the particulars.
+(scene_1.14) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)) {Concerned}, {Standing beside Holmes}, {Hands clasped at back};
+
+[male_client_stranger] She is Clara Whitfield, governess to my sister’s children. Three nights past, she crossed Casper Bridge to return to her lodgings, but never arrived. All that was found was her scarf, caught in the railings above the water.
+(scene_1.15) {{loc_1}}, {Sunny Winter Morning};((male_client_stranger)) {Distraught}, {In armchair}, {Gesturing helplessly};
+
+[male_detective_holmes] A scarf by itself proves nothing. Did she have enemies? Debts? Suitors who might wish her harm?
+(scene_1.16) {{loc_1}}, {Sunny Winter Morning};((male_detective_holmes)) {Analytical}, {Standing over client}, {Hands behind back};
+
+[male_client_stranger] None that I know of, Mr. Holmes. She was gentle, quiet, much loved by the children. But lately, she seemed troubled—startled by shadows, pale as if pursued by some secret fear.
+(scene_1.17) {{loc_1}}, {Sunny Winter Morning};((male_client_stranger)) {Uneasy}, {In chair}, {Shaking head slowly};
+
+[male_doctor_watson] Holmes, this has the scent of something dark.
+(scene_1.18) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)) {Grave}, {Standing near mantelpiece}, {Glancing at Holmes};
+
+[male_detective_holmes] Indeed, Watson. Mr. Mason, we shall visit this bridge and the young woman’s lodgings. But first—I should like to see the scarf.
+(scene_1.19) {{loc_1}}, {Sunny Winter Morning};((male_detective_holmes)) {Firm}, {Facing client}, {Reaching hand expectantly};
+
+[male_client_stranger] (produces item from his coat pocket) Here, sir. It is still damp with river mist.
+(scene_1.20) {{loc_1}}, {Sunny Winter Morning};((male_client_stranger)) {Resigned}, {Holding out scarf}, {Hand trembling};
+
+[male_detective_holmes] Ah! Note, Watson, the faint trace of perfume upon this fabric—yet beneath it, a darker stain. Blood, though partially washed away by the river. Elementary!
+(scene_1.21) {{loc_1}}, {Sunny Winter Morning};((male_detective_holmes)) {Intense}, {Examining scarf}, {Holding close to lamp};
+
+[male_doctor_watson] (with awe) You see such things where I perceive nothing.
+(scene_1.22) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)) {Amazed}, {Looking at scarf}, {Hands clasped tightly};
+
+[male_detective_holmes] You perceive, Watson, but you do not observe. Therein lies all the difference. But come, Mr. Mason, we go at once to Casper Bridge.
+(scene_1.23) {{loc_1}}, {Sunny Winter Morning};((male_detective_holmes)) {Resolute}, {Turning toward door}, {Reaching for hat and coat};
+
+Transition to new location
+
+[male_doctor_watson] By midday, we had crossed into the northern districts of London. The fog clung to the riverbanks, and the great arc of Casper Bridge loomed before us. It was here, amid the shifting currents and the creak of wagon wheels upon the stone span, that the case drew us deeper into shadow.
+(scene_1.24) {{loc_2, Casper Bridge, an old Victorian stone bridge arching across the grey waters of the Thames. Its structure is formidable, built of large blocks of soot-stained stone, with iron railings running along its length. Beneath it, the river swirls with sluggish menace, reflecting pale light through the morning mist. At either end of the bridge, gas lamps rise from ornate posts, their glass fogged and cracked from years of weather. The cobblestoned surface bears the marks of hooves and carriage wheels, damp with condensation. A ragged newspaper flaps against the base of the railing, caught in the wind. Seagulls wheel above, their cries echoing against the water. On the southern approach, a cluster of warehouses loom with shuttered windows, and beyond them, faint outlines of tenements where chimney smoke rises. A single constable stands idly at the eastern parapet, stamping his boots against the cold. The air smells of wet stone, coal smoke, and the faint tang of iron from the river below. It is a bleak and desolate place, yet holds an aura of foreboding mystery.}}, {Cold Midday Fog};((male_doctor_watson)) {Narrative Neutral}, {Standing beside Holmes}, {Holding walking stick};
+
+[male_detective_holmes] Note, Watson, the marks upon the stone where the scarf was caught. Do you see how the fibers are frayed not merely by wind, but by a violent tug?
+(scene_1.25) {{loc_2}}, {Cold Midday Fog};((male_detective_holmes)) {Focused}, {Kneeling by railing}, {Running fingers along iron};
+
+[male_doctor_watson] By Jove, Holmes, so they are! And here—I see something glistening upon the stone. Could it be… blood?
+(scene_1.26) {{loc_2}}, {Cold Midday Fog};((male_doctor_watson)) {Alarmed}, {Bending over railing}, {Pointing with stick};
+
+[male_detective_holmes] Precisely, Watson. A smear, thin yet undeniable. She struggled here, perhaps dragged or forced against the railing. The river was not her chosen grave—it was an attempt at concealment.
+(scene_1.27) {{loc_2}}, {Cold Midday Fog};((male_detective_holmes)) {Serious}, {Examining railing}, {Holding magnifying glass};
+
+[male_client_stranger] (voice trembling) Then she yet may live?
+(scene_1.28) {{loc_2}}, {Cold Midday Fog};((male_client_stranger)) {Hopeful}, {Standing close behind Holmes}, {Clutching coat tightly};
+
+[male_detective_holmes] That, Mr. Mason, depends upon the swiftness of our pursuit and the cunning of her assailant. Come, let us trace the footprints leading off the bridge. Note their irregular spacing—a man half-dragging, half-carrying a burden heavier than himself.
+(scene_1.29) {{loc_2}}, {Cold Midday Fog};((male_detective_holmes)) {Determined}, {Pointing toward northern end}, {Gesturing Mason and Watson forward};
+
+[male_doctor_watson] (aside, narrating) Thus began our strange pursuit across the cobbles of London, following the faintest impressions upon damp stone, impressions only Holmes could read with such clarity. My heart quickened, for I knew then that we were upon the trail of a mystery whose darkness lay just beyond the veil of this fog.
+(scene_1.30) {{loc_2}}, {Cold Midday Fog};((male_doctor_watson)) {Reflective}, {Walking behind Holmes}, {Holding scarf carefully};
+
+[male_doctor_watson] The trail from Casper Bridge, faint as it was, led us northward through winding lanes until we reached the narrow street where Clara Whitfield resided. It was there, amid the worn facades and the scent of coal smoke, that Holmes resolved to search for the young woman’s presence—or her absence.
+(scene_2.1) {{loc_3, Clara Whitfield’s Lodgings. The building is a tall, narrow Victorian townhouse with peeling paint on its shutters and soot-darkened brickwork. A crooked iron sign above the doorway reads “Rooms to Let.” The entrance hall inside is dimly lit by a sputtering oil lamp, its glass shade stained by years of smoke. A stairway of worn oak rises steeply upward, the banister smooth from countless hands. Faded wallpaper with floral patterns curls at the corners, and the scent of boiled cabbage wafts faintly from below. At the far end of the corridor stands a wooden door, its surface scuffed, marked with scratches, and secured with a tarnished brass lock. On a nearby table rests a vase of wilted roses, their petals fallen upon a stack of unpaid bills. A grandfather clock ticks ponderously in the corner, though its chime is muffled by dust. Outside the narrow window at the landing, one glimpses the bleak rooftops of neighboring houses, black against the pale fog. The atmosphere is one of genteel poverty, touched with sorrow.}}, {Overcast Afternoon};((male_doctor_watson)) {Neutral}, {Standing in hallway}, {Holding walking stick};
+
+[male_detective_holmes] Observe, Watson—the absence of order in this establishment. It mirrors the turmoil of its inhabitants.
+(scene_2.2) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Analytical}, {Standing beside Watson}, {Glancing up staircase};
+
+[female_landlady_mrs_hudmore] Gentlemen, you seek Miss Whitfield? Poor soul—she has not been seen since that dreadful night.
+(scene_2.3) {{loc_3}}, {Overcast Afternoon};((female_landlady_mrs_hudmore)) {Sad}, {At foot of staircase}, {Wringing hands in apron};
+
+[male_doctor_watson] We are here at the request of Mr. Edward Mason. Permit us to view her room, madam.
+(scene_2.4) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Polite}, {Turning toward landlady}, {Gesturing respectfully};
+
+[female_landlady_mrs_hudmore] Very well, sir, but it chills me to open that door. She left it locked behind her, and yet… when I entered to air the sheets, things were not as she had left them.
+(scene_2.5) {{loc_3}}, {Overcast Afternoon};((female_landlady_mrs_hudmore)) {Uneasy}, {Ascending stairs slowly}, {Holding key nervously};
+
+[male_detective_holmes] Precisely what we must see. Lead on, if you please.
+(scene_2.6) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Focused}, {Following behind}, {Hands clasped behind back};
+
+[male_doctor_watson] (narrating) We ascended to the third floor, where the narrow corridor grew colder and dimmer. The landlady unlocked the chamber door, and Holmes entered at once, his sharp eyes darting from shadow to shadow.
+(scene_2.7) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Narrative Neutral}, {Standing behind Holmes}, {Watching intently};
+
+[male_detective_holmes] Note, Watson, the bedcovering—creased at the edge, as though by a hurried departure. And here, on the writing desk, scraps of torn paper.
+(scene_2.8) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Concentrated}, {Bending over desk}, {Picking up fragments};
+
+[male_doctor_watson] They appear to be from a letter. But the ink is smeared, as though moistened by tears or water.
+(scene_2.9) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Concerned}, {Leaning over desk}, {Peering at scraps};
+
+[male_detective_holmes] A careful hand can reconstruct the words. “—bridge—danger—trust no one—” Do you see? The message was hurried, yet deliberate. She anticipated peril.
+(scene_2.10) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Triumphant}, {Arranging fragments}, {Pointing with finger};
+
+[male_client_stranger] Then she knew she was pursued! Holmes, what villain dared menace her?
+(scene_2.11) {{loc_3}}, {Overcast Afternoon};((male_client_stranger)) {Alarmed}, {Standing in doorway}, {Clutching hat};
+
+[male_detective_holmes] That, sir, is what we must uncover. Tell me, landlady, who last called upon Miss Whitfield?
+(scene_2.12) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Questioning}, {Turning sharply}, {Fixing eyes on landlady};
+
+[female_landlady_mrs_hudmore] Only a gentleman—a tall figure, well-dressed, though his manner was harsh. He pressed her with questions, and she seemed frightened. I thought him her uncle.
+(scene_2.13) {{loc_3}}, {Overcast Afternoon};((female_landlady_mrs_hudmore)) {Uneasy}, {Shifting on feet}, {Glancing down stairs};
+
+[male_doctor_watson] Did he give his name?
+(scene_2.14) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Inquisitive}, {Facing landlady}, {Holding notebook ready};
+
+[female_landlady_mrs_hudmore] He signed the register as “Mr. Harland.” But I mistrust it—it was written with a heavy flourish, unlike a true name.
+(scene_2.15) {{loc_3}}, {Overcast Afternoon};((female_landlady_mrs_hudmore)) {Suspicious}, {Crossing arms}, {Shaking head};
+
+[male_detective_holmes] Harland! Curious. A false name, likely chosen to mislead. And here, Watson, observe beneath the carpet—a scrap of dark cloth.
+(scene_2.16) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Eager}, {Kneeling on floor}, {Lifting corner of carpet};
+
+[male_doctor_watson] It is coarse wool, torn from a man’s overcoat. There are also small grains of sand embedded within.
+(scene_2.17) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Surprised}, {Holding scrap}, {Examining closely};
+
+[male_detective_holmes] Just so. Sand not of London’s streets, but of the riverbank—Casper Bridge once more calls to us. The villain tracked her here, and likely dragged her hence.
+(scene_2.18) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Decisive}, {Straightening}, {Pocketing cloth};
+
+[male_client_stranger] Then she was abducted from her very room! Heaven help her!
+(scene_2.19) {{loc_3}}, {Overcast Afternoon};((male_client_stranger)) {Distressed}, {Gripping chair}, {Lowering head};
+
+[male_doctor_watson] Holmes, do you suppose this “Harland” sought to silence her, fearing what she knew?
+(scene_2.20) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Speculative}, {Turning toward Holmes}, {Resting hand on desk};
+
+[male_detective_holmes] An excellent hypothesis, my dear Watson. You are learning. Observe also the open window latch. Though closed now, it bears scratches from recent forcing. She did not depart of her own will.
+(scene_2.21) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Approving}, {Pointing at window}, {Holding magnifying lens};
+
+[male_doctor_watson] By heaven, the villain carried her out into the night!
+(scene_2.22) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Alarmed}, {Stepping toward window}, {Looking outside fog};
+
+[male_detective_holmes] Not quite. See these faint impressions on the sill—chalk dust, common to warehouse floors. I deduce she was carried not into the street, but through a rear passage that leads to the wharves.
+(scene_2.23) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Calm}, {Tracing finger across sill}, {Smiling faintly};
+
+[male_client_stranger] Then the warehouses conceal her captors! We must hasten there at once!
+(scene_2.24) {{loc_3}}, {Overcast Afternoon};((male_client_stranger)) {Urgent}, {Rising from chair}, {Clenching fists};
+
+[male_doctor_watson] Holmes, shall we call upon the constabulary?
+(scene_2.25) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Practical}, {Turning from window}, {Adjusting coat};
+
+[male_detective_holmes] No, Watson. The police, with their blundering zeal, would only frighten the villains into deeper concealment. Subtlety is our ally. Tonight, when fog thickens, we shall visit these warehouses.
+(scene_2.26) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Resolute}, {Facing Watson and Mason}, {Tapping pipe against palm};
+
+[female_landlady_mrs_hudmore] God preserve you, gentlemen. That district is a haunt of rogues and smugglers. Beware, for none return unscathed.
+(scene_2.27) {{loc_3}}, {Overcast Afternoon};((female_landlady_mrs_hudmore)) {Fearful}, {Clutching apron}, {Backing toward stairs};
+
+[male_doctor_watson] (narrating) Thus did we glean the clues from Clara Whitfield’s chamber—fragments of warning, a torn cloth, the trace of chalk and sand. And as evening shadows lengthened, I felt the chill of foreboding, knowing that our next steps would lead us into the heart of London’s darkness.
+(scene_2.28) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Reflective}, {Standing at door}, {Looking back at room};
+
+[male_detective_holmes] Come, Watson, there is no time to waste. Tonight, we move from observation to action.
+(scene_2.29) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Determined}, {Turning down staircase}, {Pulling coat tighter};
+
+[male_doctor_watson] At your side, Holmes, as always.
+(scene_2.30) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Loyal}, {Following Holmes}, {Gripping walking stick firmly};
+
+[male_doctor_watson] Evening fell upon London like a shroud, the fog rising from the river thick as wool. Holmes led us toward the warehouses that lined the northern bank, their looming shapes half-swallowed in shadow. It was there, he insisted, that the fate of Clara Whitfield awaited discovery.
+(scene_3.1) {{loc_4, The Riverside Warehouses near Casper Bridge. The district is a grim labyrinth of storage buildings, their soot-stained bricks rising four stories high. Iron shutters cover most windows, some hanging askew on rusted hinges. Wooden crates and barrels litter the cobblestoned yards, some broken open to reveal straw and rotting fruit. Rats scurry between heaps of refuse, their eyes glinting in the lamplight. Gas lamps along the quay flicker weakly, their light struggling against the heavy fog that rolls off the Thames. The river itself laps darkly at the wharf’s edge, carrying debris—splintered wood, scraps of cloth—on its sluggish current. Narrow alleys twist between the warehouses, strewn with ropes, chains, and damp sacking. The air reeks of tar, coal smoke, and brine. At the farthest warehouse, a lantern burns behind shuttered glass, throwing faint yellow stripes across the mist. The silence is broken only by distant hooves, the groan of timber, and the creak of a moored barge. The entire quarter breathes menace, as though it watches intruders with unseen eyes.}}, {Foggy Night};((male_doctor_watson)) {Neutral}, {Walking beside Holmes}, {Holding walking stick tightly};
+
+[male_detective_holmes] Observe, Watson—the lantern glow within yonder warehouse. That, I think, is our destination.
+(scene_3.2) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Focused}, {Pointing toward far building}, {Keeping voice low};
+
+[male_client_stranger] But how shall we enter without alerting them?
+(scene_3.3) {{loc_4}}, {Foggy Night};((male_client_stranger)) {Worried}, {Glancing about nervously}, {Clutching coat collar};
+
+[male_detective_holmes] Subtlety, Mr. Mason. The river offers concealment where doors will not. Watson, do you note the planks leading to the side dock?
+(scene_3.4) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Calm}, {Pointing toward dock}, {Stepping carefully over cobbles};
+
+[male_doctor_watson] I see them—warped and slippery, yet serviceable. Do you mean to approach by the rear?
+(scene_3.5) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Cautious}, {Looking at planks}, {Adjusting hat brim};
+
+[male_detective_holmes] Precisely. Follow quietly. Sound is our enemy tonight.
+(scene_3.6) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Stern}, {Moving toward dock}, {Holding lantern hooded in hand};
+
+[male_doctor_watson] (narrating) We crept along the damp boards, the river lapping beneath our feet. My heart thudded with each cautious step, fearful that one misstep would betray us. Holmes, by contrast, moved with the precision of a shadow.
+(scene_3.7) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Tense}, {Following behind Holmes}, {Clutching walking stick};
+
+[male_detective_holmes] Halt! Do you hear it—the murmur of voices within?
+(scene_3.8) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Alert}, {Stopping abruptly}, {Tilting head to listen};
+
+[male_doctor_watson] Yes—two men, speaking harshly. One curses, the other urges silence.
+(scene_3.9) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Focused}, {Leaning nearer to wall}, {Listening intently};
+
+[male_detective_holmes] Let us confirm. Here is a crack in the shutter. Peer through, Watson, and tell me what you see.
+(scene_3.10) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Commanding}, {Stepping aside}, {Gesturing to window crack};
+
+[male_doctor_watson] (peering) By heavens! There—Clara Whitfield, bound to a chair! Her face pale, but alive. And beside her—two ruffians, one tall with a scarred cheek, the other shorter, pacing like a hound.
+(scene_3.11) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Shocked}, {Looking through shutter}, {Gripping sill tightly};
+
+[male_client_stranger] Clara! She lives! We must rush them at once!
+(scene_3.12) {{loc_4}}, {Foggy Night};((male_client_stranger)) {Overcome}, {Trying to push forward}, {Raising voice inadvertently};
+
+[male_detective_holmes] Hush, man! Your zeal would undo us. Action must be precise, not reckless.
+(scene_3.13) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Sharp}, {Holding Mason back}, {Pressing finger to lips};
+
+[male_doctor_watson] Holmes, what do you propose?
+(scene_3.14) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Urgent}, {Whispering near Holmes}, {Gripping stick tighter};
+
+[male_detective_holmes] A diversion, Watson. You shall circle to the front and draw their attention with a firm knock. Mason and I will enter from behind, where the lock is weakest.
+(scene_3.15) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Strategic}, {Pointing directions}, {Speaking low};
+
+[male_doctor_watson] A perilous plan—but I trust you.
+(scene_3.16) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Resolute}, {Nodding}, {Stepping back from shutter};
+
+[male_client_stranger] And I?
+(scene_3.17) {{loc_4}}, {Foggy Night};((male_client_stranger)) {Anxious}, {Looking between them}, {Clutching fists};
+
+[male_detective_holmes] Your task is silence. Follow me, but do not speak unless bidden.
+(scene_3.18) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Firm}, {Gripping Mason’s shoulder}, {Staring intensely};
+
+[male_doctor_watson] (narrating) Thus we parted—Holmes and Mason to the shadows at the rear, I to the fore. My heart thundered as I approached the heavy doors, lifted my stick, and rapped thrice.
+(scene_3.19) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Anxious}, {At warehouse door}, {Rapping wood with stick};
+
+[male_villain_scarred] Who goes there? Blast it, who knocks at this hour?
+(scene_3.20) {{loc_4}}, {Foggy Night};((male_villain_scarred)) {Suspicious}, {Inside warehouse}, {Moving toward door};
+
+[male_doctor_watson] A lost passerby, sir, seeking directions in the fog.
+(scene_3.21) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Feigning Calm}, {Outside door}, {Calling through planks};
+
+[male_villain_shorter] Fool! Send him off! We cannot be discovered.
+(scene_3.22) {{loc_4}}, {Foggy Night};((male_villain_shorter)) {Irritated}, {Pacing inside}, {Kicking crate};
+
+[male_detective_holmes] (bursting in from rear) Now, Watson! Strike true!
+(scene_3.23) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Commanding}, {Forcing back door}, {Rushing inside};
+
+[male_doctor_watson] (joining) For Clara!
+(scene_3.24) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Determined}, {Charging in}, {Swinging walking stick};
+
+[male_client_stranger] Unhand her, villains!
+(scene_3.25) {{loc_4}}, {Foggy Night};((male_client_stranger)) {Furious}, {Rushing after Holmes}, {Leaping toward chair};
+
+[male_villain_scarred] (snarling) A trap! To arms, Ned!
+(scene_3.26) {{loc_4}}, {Foggy Night};((male_villain_scarred)) {Enraged}, {Drawing knife}, {Lunging at Holmes};
+
+[male_detective_holmes] Not so fast!
+(scene_3.27) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Cold}, {Sidestepping blow}, {Seizing villain’s wrist};
+
+[male_doctor_watson] (striking) Down you go!
+(scene_3.28) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Forceful}, {Swinging stick}, {Striking shorter villain};
+
+[male_client_stranger] Clara! Hold on!
+(scene_3.29) {{loc_4}}, {Foggy Night};((male_client_stranger)) {Desperate}, {Cutting Clara’s bonds}, {Falling to knees beside her};
+
+[female_clara_whitfield] Edward… oh thank heaven!
+(scene_3.30) {{loc_4}}, {Foggy Night};((female_clara_whitfield)) {Weak but Relieved}, {Slumping forward}, {Grasping Mason’s arm};
+
+[male_detective_holmes] Watson, secure the shorter man! The constable shall find two prizes this night.
+(scene_3.31) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Commanding}, {Binding villain’s wrists}, {Kneeling firmly};
+
+[male_doctor_watson] Already done, Holmes. He will not stir soon.
+(scene_3.32) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Satisfied}, {Kneeling on shorter man}, {Tying rope};
+
+[male_detective_holmes] (to scarred villain) And you, sir, shall answer for your cruelty. You lured the lady with threats, sought to silence her knowledge of your smuggling enterprise, and chose Casper Bridge as the place of terror. But your carelessness betrayed you—sand on your coat, chalk on the sill, and the stain of blood upon her scarf. Elementary.
+(scene_3.33) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Triumphant}, {Standing over villain}, {Pointing accusing finger};
+
+[male_villain_scarred] Curse you, Holmes!
+(scene_3.34) {{loc_4}}, {Foggy Night};((male_villain_scarred)) {Defeated}, {On knees}, {Spitting at ground};
+
+[male_doctor_watson] Holmes, you have done it again.
+(scene_3.35) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Respectful}, {Standing beside Holmes}, {Wiping brow};
+
+[male_detective_holmes] Not I, Watson—the evidence. I merely followed where it led.
+(scene_3.36) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Modest}, {Adjusting cuffs}, {Glancing at Clara};
+
+[female_clara_whitfield] You saved me, Mr. Holmes. I shall never forget.
+(scene_3.37) {{loc_4}}, {Foggy Night};((female_clara_whitfield)) {Grateful}, {Clutching Mason’s arm}, {Looking toward Holmes};
+
+[male_client_stranger] Nor shall I. My family owes you a debt beyond words.
+(scene_3.38) {{loc_4}}, {Foggy Night};((male_client_stranger)) {Emotional}, {Embracing Clara}, {Looking to Holmes with gratitude};
+
+[male_doctor_watson] (narrating) Thus ended the adventure of Casper Bridge, with the lady restored, the villains captured, and Holmes once more triumphant. Yet as we stepped into the fog-laden night, I could not help but marvel at the subtle chain of clues—clues that I, though present, might never have seen without my friend’s unerring eye.
+(scene_3.39) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Reflective}, {Walking with Holmes}, {Holding stick loosely};
+
+[male_detective_holmes] Come, Watson. Another case awaits, and the game, as always, is afoot.
+(scene_3.40) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Smiling}, {Walking beside Watson}, {Placing pipe between teeth};

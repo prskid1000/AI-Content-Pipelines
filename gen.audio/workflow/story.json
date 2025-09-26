@@ -1,0 +1,62 @@
+{
+  "43": {
+    "inputs": {
+      "value": ""
+    },
+    "class_type": "PrimitiveStringMultiline",
+    "_meta": {
+      "title": "String (Multiline)"
+    }
+  },
+  "47": {
+    "inputs": {
+      "text": [
+        "43",
+        0
+      ],
+      "narrator_voice": "voices_examples/narrator.wav",
+      "seed": 333555666,
+      "enable_chunking": true,
+      "max_chars_per_chunk": 100,
+      "chunk_combination_method": "silence_padding",
+      "silence_between_chunks_ms": 500,
+      "enable_audio_cache": false,
+      "TTS_engine": [
+        "64",
+        0
+      ]
+    },
+    "class_type": "UnifiedTTSTextNode",
+    "_meta": {
+      "title": "TTS Text"
+    }
+  },
+  "64": {
+    "inputs": {
+      "language": "English",
+      "device": "auto",
+      "exaggeration": 0.8,
+      "temperature": 1.0000000000000002,
+      "cfg_weight": 0.2
+    },
+    "class_type": "ChatterBoxEngineNode",
+    "_meta": {
+      "title": "ChatterBox TTS Engine"
+    }
+  },
+  "69": {
+    "inputs": {
+      "filename_prefix": "audio",
+      "quality": "V0",
+      "audioUI": "",
+      "audio": [
+        "47",
+        0
+      ]
+    },
+    "class_type": "SaveAudioMP3",
+    "_meta": {
+      "title": "Save Audio (MP3)"
+    }
+  }
+}

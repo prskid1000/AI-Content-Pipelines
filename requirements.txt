@@ -1,0 +1,30 @@
+# AI Content Studio - Combined Requirements
+# 
+# This file contains all dependencies for the complete AI Content Studio system
+# including audio generation, image generation, video processing, and YouTube upload
+
+# Core audio processing
+requests>=2.25.1
+pydub>=0.25.1
+pathlib2>=2.3.5
+futures>=3.1.1
+
+# AI/ML frameworks
+torch
+torchaudio
+
+# Audio transcription
+openai-whisper
+
+# Image processing
+Pillow>=10.0.0
+
+# YouTube API integration
+google-api-python-client==2.108.0
+google-auth-httplib2==0.1.1
+google-auth-oauthlib==1.1.0
+
+# System dependencies (install separately):
+# - FFmpeg (for video processing)
+# - ComfyUI (AI workflow engine)
+# - LM Studio (language model inference)

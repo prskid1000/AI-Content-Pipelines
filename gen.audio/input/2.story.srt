@@ -1,0 +1,801 @@
+00:00:00,000 --> 00:00:04,690
+It was a calm morning when I found myself once again in the company of my friend Sherlock Holmes,
+
+00:00:04,690 --> 00:00:10,640
+that extraordinary consulting detective whose life and work had often overshadowed my own profession as a medical man.
+
+00:00:10,640 --> 00:00:17,500
+As usual, he was restless while I attempted to enjoy the tranquility afforded by our sitting room in Baker Street.
+
+00:00:17,500 --> 00:00:23,359
+Look, Watson, out there across the rooftops, the frost clings like lace.
+
+00:00:23,359 --> 00:00:28,120
+And yet you bury yourself in the dull columns of that newspaper.
+
+00:00:28,120 --> 00:00:32,420
+My dear Holmes, some men find as much adventure in the morning news
+
+00:00:32,420 --> 00:00:35,590
+as you find in a muddy footprint upon the pavement.
+
+00:00:35,590 --> 00:00:39,120
+Adventure, Watson, is not printed in ink.
+
+00:00:39,120 --> 00:00:44,289
+It is written in dust upon boots, in the tremor of a hand as it seals a letter,
+
+00:00:44,289 --> 00:00:47,240
+or in the curious case that knocks at our door.
+
+00:00:47,240 --> 00:00:48,280
+..
+
+00:00:48,280 --> 00:00:51,320
+You speak as if you expect a case this very morning.
+
+00:00:51,320 --> 00:00:54,880
+Expect? No. Observe? Yes.
+
+00:00:54,880 --> 00:00:57,950
+Footsteps ascended our stair only moments ago.
+
+00:00:57,950 --> 00:01:05,920
+deliberate yet halting a visitor stands now upon our threshold uncertain whether to knock
+
+00:01:05,920 --> 00:01:12,359
+gentlemen forgive the intrusion i am in need of your counsel mr holmes break come in sir the fire
+
+00:01:12,359 --> 00:01:17,239
+is warm and mr do and mr upward holmes has been expecting you in a manner of speaking
+
+00:01:17,239 --> 00:01:18,519
+..
+
+00:01:18,519 --> 00:01:25,719
+indeed sir you have walked from the northern districts over the bridge they called casper
+
+00:01:25,719 --> 00:01:30,719
+And you come with more upon your conscience than frost upon your boots.
+
+00:01:30,719 --> 00:01:31,959
+..
+
+00:01:31,959 --> 00:01:34,639
+Startled, how on earth could you know such a thing?
+
+00:01:34,639 --> 00:01:39,590
+Aside, narrating, here once again I saw my friend's extraordinary powers at play.
+
+00:01:39,590 --> 00:01:43,099
+Deductions drawn from signs invisible to my untrained eye.
+
+00:01:43,099 --> 00:01:47,659
+Les amis and more no one here as les amis fears this to see what he saw.
+
+00:01:47,659 --> 00:01:51,460
+Your boots, sir, still damp with viver mist.
+
+00:01:51,459 --> 00:01:57,680
+the clay upon their edges is peculiar to the banks near Casper Bridge. Furthermore,
+
+00:01:57,680 --> 00:02:02,199
+your right glove is missing a button, and the anxiety with which you twisted
+
+00:02:02,199 --> 00:02:08,250
+betrays an urgent matter weighing upon your mind. But come, enough of this display.
+
+00:02:08,250 --> 00:02:12,019
+Take a seat, and tell us what clouds your spirit.
+
+00:02:12,019 --> 00:02:16,000
+My name is Edward Mason. It is not my own safety I fear, but that of a woman.
+
+00:02:16,000 --> 00:02:19,379
+She has vanished near Casper Bridge, and the police dismiss it as hysteria.
+
+00:02:19,379 --> 00:02:20,780
+But I know she's in peril.
+
+00:02:20,780 --> 00:02:22,120
+..
+
+00:02:22,120 --> 00:02:23,120
+Vanished, you say?
+
+00:02:23,120 --> 00:02:24,920
+Pray give us the particulars.
+
+00:02:24,920 --> 00:02:26,689
+She is Clara Whitfield,
+
+00:02:26,689 --> 00:02:28,409
+governess to my sister's children.
+
+00:02:28,409 --> 00:02:29,250
+At three nights past,
+
+00:02:29,250 --> 00:02:30,039
+she crossed Casper Bridge
+
+00:02:30,039 --> 00:02:30,949
+to return to her lodgings,
+
+00:02:30,949 --> 00:02:31,800
+but never arrived.
+
+00:02:31,800 --> 00:02:33,490
+All that was found was her scarf,
+
+00:02:33,490 --> 00:02:35,449
+caught on the railings above the water.
+
+00:02:35,449 --> 00:02:38,310
+A scarf by itself proves nothing.
+
+00:02:38,310 --> 00:02:39,639
+Did she have enemies?
+
+00:02:39,639 --> 00:02:40,819
+..
+
+00:02:40,819 --> 00:02:42,389
+Deaths, suitors,
+
+00:02:42,389 --> 00:02:43,900
+who might wish her harm?
+
+00:02:43,900 --> 00:02:44,939
+..
+
+00:02:44,939 --> 00:02:46,589
+None that I know of, Mr. Holmes.
+
+00:02:46,589 --> 00:02:47,859
+She was gentle, quiet,
+
+00:02:47,860 --> 00:02:52,200
+much loved by the children, but lately she seemed troubled, startled by shadows, pale
+
+00:02:52,200 --> 00:02:54,100
+as if pursued by some secret fear.
+
+00:02:54,100 --> 00:02:56,980
+The Holmes this has the scent of something dark.
+
+00:02:56,980 --> 00:02:58,980
+Indeed, Watson.
+
+00:02:58,980 --> 00:03:03,040
+Mr. Mason, we shall visit this bridge and the young woman's lodgings.
+
+00:03:03,040 --> 00:03:05,800
+But first I should like to see the scarf.
+
+00:03:05,800 --> 00:03:07,800
+Produce his item from his coat-pocket.
+
+00:03:07,800 --> 00:03:08,800
+Here, sir.
+
+00:03:08,800 --> 00:03:10,800
+It is still damp with river mist.
+
+00:03:10,800 --> 00:03:11,800
+Ha!
+
+00:03:11,800 --> 00:03:22,480
+Note, Watson, the faint trace of perfume upon this phadric, yet beneath it a darker stain, blood, though partially washed away by the river, elementary.
+
+00:03:22,480 --> 00:03:26,720
+Uncle, with awe, you see such things where I perceive nothing.
+
+00:03:26,720 --> 00:03:30,520
+You perceive, Watson, but you do not observe.
+
+00:03:30,520 --> 00:03:32,470
+Therein lies all the difference.
+
+00:03:32,470 --> 00:03:36,840
+But come, Mr. Mason, we go at once to Casper Bridge.
+
+00:03:36,840 --> 00:03:40,580
+By midday, we had crossed into the northern districts of London,
+
+00:03:40,580 --> 00:03:42,220
+the fog clung to the riverbanks,
+
+00:03:42,220 --> 00:03:45,269
+and the great arc of Casper Bridge loomed before us.
+
+00:03:45,269 --> 00:03:47,680
+It was here, amid the shifting currents
+
+00:03:47,680 --> 00:03:50,420
+and the creak of wagon wheels upon the stone span,
+
+00:03:50,420 --> 00:03:53,030
+that the case drew us deeper into shadow.
+
+00:03:53,030 --> 00:03:57,870
+Note, Watson, the marks upon the stone where the scarf was caught.
+
+00:03:57,870 --> 00:04:00,280
+Do you see how the fibres are frayed,
+
+00:04:00,280 --> 00:04:03,740
+not merely by wind, but by a violent tug?
+
+00:04:03,740 --> 00:04:05,960
+By Jove, Holmes, so they are.
+
+00:04:05,960 --> 00:04:09,110
+and here I see something glistening upon the stone.
+
+00:04:09,110 --> 00:04:10,640
+Could it be blood?
+
+00:04:10,640 --> 00:04:12,319
+Precisely, Watson.
+
+00:04:12,319 --> 00:04:15,420
+A smear, thin yet undeniable.
+
+00:04:15,420 --> 00:04:17,110
+She straddled here,
+
+00:04:17,110 --> 00:04:19,939
+perhaps dragged or forced against the railing.
+
+00:04:19,939 --> 00:04:22,420
+The river was not her chosen grave.
+
+00:04:22,420 --> 00:04:25,120
+It was an attempt at concealment.
+
+00:04:25,120 --> 00:04:27,180
+Boy is trembling, when she yet may live.
+
+00:04:27,180 --> 00:04:28,240
+..
+
+00:04:28,240 --> 00:04:32,060
+That, Mr. Mason, depends upon the swiftness of our pursuit
+
+00:04:32,060 --> 00:04:34,620
+and the cunning of her assailant.
+
+00:04:34,620 --> 00:04:38,430
+Come, let us face the footprints leading off the bridge.
+
+00:04:38,430 --> 00:04:40,679
+Note their irregular spacing.
+
+00:04:40,679 --> 00:04:45,439
+A man half dragging, half carrying, a burden heavier than himself.
+
+00:04:45,439 --> 00:04:47,090
+Aside, narrating.
+
+00:04:47,090 --> 00:04:50,430
+Thus began our strange pursuit across the cobbles of London,
+
+00:04:50,430 --> 00:04:53,399
+following the faintest impressions upon damp stone,
+
+00:04:53,399 --> 00:04:54,949
+impressions only Holmes could read.
+
+00:04:54,949 --> 00:04:57,230
+With such clarity, my heart quickened,
+
+00:04:57,230 --> 00:05:00,199
+for I knew then that we were upon the trail of a mystery
+
+00:05:00,199 --> 00:05:03,340
+whose darkness lay just beyond the veil of this fog.
+
+00:05:03,339 --> 00:05:08,209
+No chain bamp in, goes the tray from Casper Bridge, faint as it was,
+
+00:05:08,209 --> 00:05:13,239
+led us northward through winding lanes until we reached the narrow street where Clara Whitfield resided.
+
+00:05:13,239 --> 00:05:16,769
+It was there, amid the worn facades and the scent of coal smoke,
+
+00:05:16,769 --> 00:05:20,539
+that Holmes resolved to search for the young woman's presence or her absence.
+
+00:05:20,539 --> 00:05:21,599
+..
+
+00:05:21,599 --> 00:05:26,079
+Observe, Watson, the absence of order in this establishment.
+
+00:05:26,079 --> 00:05:27,219
+..
+
+00:05:27,219 --> 00:05:30,500
+It mirrors the turmoil of its inhabitants.
+
+00:05:30,500 --> 00:05:38,680
+Gentlemen, you seek Miss Whitfield? Poor soul, she has not been seen since that dreadful night.
+
+00:05:38,680 --> 00:05:39,779
+..
+
+00:05:39,779 --> 00:05:43,639
+We are here at the request of Mr. Edward Mason. Permit us to view her room, madam.
+
+00:05:43,639 --> 00:05:44,920
+..
+
+00:05:44,920 --> 00:05:47,840
+Very well, sir, but it chills me to open that door.
+
+00:05:47,840 --> 00:05:54,300
+She left it locked behind her, and yet, when I entered the air to she's, things were not as she had left them.
+
+00:05:54,300 --> 00:05:55,319
+..
+
+00:05:55,319 --> 00:05:59,930
+Precisely what we must see. Lead on, if you please.
+
+00:05:59,930 --> 00:06:05,240
+Narrating, we ascended to the third floor, where the narrow corridor grew colder and dimmer.
+
+00:06:05,240 --> 00:06:08,730
+The landlady unlocked the chamber door, and Holmes entered at once,
+
+00:06:08,730 --> 00:06:10,800
+his sharp eyes darting from shadow to shadow.
+
+00:06:10,800 --> 00:06:11,839
+..
+
+00:06:11,839 --> 00:06:17,060
+Note, Watson, the bed covering creased at the edge, as though by a hurried departure.
+
+00:06:17,060 --> 00:06:21,580
+And here, on the writing desk, scraps of torn paper.
+
+00:06:21,580 --> 00:06:27,120
+They appear to be from a litter, but the ink is smeared as though moistened by tears of water.
+
+00:06:27,120 --> 00:06:30,930
+A careful hand can reconstruct the words.
+
+00:06:30,930 --> 00:06:33,960
+Bridge danger, trust no one.
+
+00:06:33,960 --> 00:06:35,180
+Do you see?
+
+00:06:35,180 --> 00:06:38,430
+The message was hurried, yet deliberate.
+
+00:06:38,430 --> 00:06:40,800
+She anticipated peril.
+
+00:06:40,800 --> 00:06:43,470
+Then she knew she was pursued.
+
+00:06:43,470 --> 00:06:46,199
+Holmes, what villain dared menace her?
+
+00:06:46,199 --> 00:06:47,319
+..
+
+00:06:47,319 --> 00:06:50,149
+That, sir, is what we must uncover.
+
+00:06:50,149 --> 00:06:54,060
+Tell me, landlady, who last called upon Miss Whitfield?
+
+00:06:54,060 --> 00:06:56,250
+Only a gentleman.
+
+00:06:56,250 --> 00:07:00,210
+A tall figure, well-dressed, though his manner was harsh.
+
+00:07:00,210 --> 00:07:03,740
+He pressed her with questions, and she seemed frightened.
+
+00:07:03,740 --> 00:07:05,889
+I thought him her uncle.
+
+00:07:05,889 --> 00:07:07,639
+Did he give his name?
+
+00:07:07,639 --> 00:07:11,379
+He signed the register as Mr. Harland.
+
+00:07:11,379 --> 00:07:13,200
+But I mistrust it.
+
+00:07:13,200 --> 00:07:17,060
+It was written with a heavy flourish, unlike a true name.
+
+00:07:17,060 --> 00:07:24,160
+Farland, curious, a false name, likely chosen to mislead
+
+00:07:24,160 --> 00:07:29,920
+And here, Watson, observe beneath the carpet a scrap of dark cloth
+
+00:07:29,920 --> 00:07:33,319
+It is coarse wool, torn from a man's overcoat
+
+00:07:33,319 --> 00:07:35,939
+There are also small drains of sand embedded within
+
+00:07:35,939 --> 00:07:41,120
+Just so, sand not of London's streets, but of the villa bank
+
+00:07:41,120 --> 00:07:43,819
+Casper Bridge once more calls to us
+
+00:07:43,819 --> 00:07:48,829
+The villain tracked her here and lightly dragged her hence.
+
+00:07:48,829 --> 00:07:51,689
+Then she was abducted from her very room. Heaven help her.
+
+00:07:51,689 --> 00:07:56,250
+Bones, do you suppose this Harlan sought to silence her, fearing what she knew?
+
+00:07:56,250 --> 00:07:59,310
+An excellent hypothesis, my dear Watson.
+
+00:07:59,310 --> 00:08:01,300
+You are learning.
+
+00:08:01,300 --> 00:08:05,240
+Observe also the open window latch, though closed now.
+
+00:08:05,240 --> 00:08:07,730
+It bears scratches from recent forcing.
+
+00:08:07,730 --> 00:08:10,149
+She did not depart of her own will.
+
+00:08:10,149 --> 00:08:13,539
+By heaven, the villain carried her out into the night.
+
+00:08:13,539 --> 00:08:20,269
+Not quite. See these faint impressions on the silchock dust common to warehouse floors.
+
+00:08:20,269 --> 00:08:28,259
+I deduce she was carried not into the street, but through a rear passage that leads to the wards.
+
+00:08:28,259 --> 00:08:31,909
+Then the warehouses conceal her captors. We must hasten there at once.
+
+00:08:31,909 --> 00:08:34,579
+Holmes, shall we call upon the constabulary?
+
+00:08:34,579 --> 00:08:36,100
+No, Watson.
+
+00:08:36,100 --> 00:08:38,600
+Hmm. Hint. Oh.
+
+00:08:38,600 --> 00:08:44,620
+The police, with their blundering zeal, would only frighten the villains into deeper concealment.
+
+00:08:44,620 --> 00:08:46,640
+Subtlety is our ally.
+
+00:08:46,640 --> 00:08:51,000
+Tonight, when fog thickens, we shall visit these warehouses.
+
+00:08:51,000 --> 00:08:52,080
+..
+
+00:08:52,080 --> 00:08:54,180
+God preserve you, gentlemen.
+
+00:08:54,180 --> 00:08:57,970
+That district is a haunt of rogues and smugglers.
+
+00:08:57,970 --> 00:09:01,100
+Beware, for none return unscathed.
+
+00:09:01,100 --> 00:09:02,600
+..
+
+00:09:02,600 --> 00:09:03,160
+Narrating.
+
+00:09:03,159 --> 00:09:07,439
+Thus did we glean the clues from Clara Whitfield's chamber fragments of warning,
+
+00:09:07,439 --> 00:09:10,279
+pounded cloth, the trace of chalk and sand,
+
+00:09:10,279 --> 00:09:13,289
+and as evening shadows lengthened, I felt the chill of foreboding,
+
+00:09:13,289 --> 00:09:16,719
+knowing that our next steps would lead us into the heart of London's darkness.
+
+00:09:16,719 --> 00:09:17,759
+..
+
+00:09:17,759 --> 00:09:20,419
+Come, Watson, there is no time to waste.
+
+00:09:20,419 --> 00:09:24,089
+Tonight we move from observation to action.
+
+00:09:24,089 --> 00:09:26,399
+Dossied Holmes, as always.
+
+00:09:26,399 --> 00:09:28,819
+Hildning fell upon London like a shroud,
+
+00:09:28,819 --> 00:09:31,039
+the fog rising from the river thick as wool.
+
+00:09:31,039 --> 00:09:34,619
+Holmes led us toward the warehouses that lined the northern bank,
+
+00:09:34,619 --> 00:09:37,370
+their looming shapes half-swallowed in shadow.
+
+00:09:37,370 --> 00:09:42,079
+It was there, he insisted, that the fate of Clara Whitfield awaited discovery.
+
+00:09:42,079 --> 00:09:46,269
+Observe, Watson, the lantern glow within yonder warehouse.
+
+00:09:46,269 --> 00:09:49,869
+That, I think, is our destination.
+
+00:09:49,869 --> 00:09:52,470
+But how shall we enter without alerting them?
+
+00:09:52,470 --> 00:09:54,149
+Subtlety, Mr. Mason.
+
+00:09:54,149 --> 00:09:57,659
+The river offers concealment where doors will not.
+
+00:09:57,659 --> 00:10:01,829
+Watson, do you note the planks leading to the side dock?
+
+00:10:01,829 --> 00:10:05,000
+I see them, warped and slippery, yet serviceable
+
+00:10:05,000 --> 00:10:06,419
+Do you mean to approach by the rear?
+
+00:10:06,419 --> 00:10:07,500
+..
+
+00:10:07,500 --> 00:10:09,319
+Precisely, follow quietly
+
+00:10:09,319 --> 00:10:11,579
+Sound is our enemy tonight
+
+00:10:11,579 --> 00:10:15,120
+Narrating, we crept along the dam boards
+
+00:10:15,120 --> 00:10:16,740
+The river lapping beneath our feet
+
+00:10:16,740 --> 00:10:18,819
+My heart thudded with each cautious step
+
+00:10:18,819 --> 00:10:21,079
+Fearful that one misstep would betray us
+
+00:10:21,079 --> 00:10:24,379
+Holmes, by contrast, moved with the precision of a shadow
+
+00:10:24,379 --> 00:10:26,539
+Colt, do you hear it?
+
+00:10:26,539 --> 00:10:28,970
+The murmur of voices within?
+
+00:10:28,970 --> 00:10:31,179
+Yes, two men speaking harshly.
+
+00:10:31,179 --> 00:10:33,539
+One curses, the other urges silence.
+
+00:10:33,539 --> 00:10:35,109
+Let us confirm.
+
+00:10:35,109 --> 00:10:36,849
+Here is a crack in the shutter.
+
+00:10:36,849 --> 00:10:39,689
+Clear through Watson and tell me what you see.
+
+00:10:39,689 --> 00:10:41,730
+Fearing? By heavens!
+
+00:10:41,730 --> 00:10:44,139
+There, Clara Whitfield bound to a chair,
+
+00:10:44,139 --> 00:10:45,740
+her face pale but alive.
+
+00:10:45,740 --> 00:10:47,109
+And beside her, two ruffians,
+
+00:10:47,109 --> 00:10:48,559
+one taut with a scarred cheek,
+
+00:10:48,559 --> 00:10:51,029
+the other shorter, pacing like a hound.
+
+00:10:51,029 --> 00:10:53,599
+Clara, she lives. We must rush them at once.
+
+00:10:53,600 --> 00:11:00,519
+Hush, man. Your zeal would undo us. Action must be precise, not reckless.
+
+00:11:00,519 --> 00:11:01,980
+Holmes, what do you propose?
+
+00:11:01,980 --> 00:11:03,040
+..
+
+00:11:03,040 --> 00:11:10,549
+A diversion, Watson. You shall circle to the front and draw their attention with a firm knock.
+
+00:11:10,549 --> 00:11:15,059
+Mason and I will enter from behind, where the knock is weakest.
+
+00:11:15,059 --> 00:11:17,710
+A perilous plan, but I trust you.
+
+00:11:17,710 --> 00:11:19,580
+Um, and I, hmm.
+
+00:11:19,580 --> 00:11:26,860
+Your task is silence. Follow me, but do not speak unless bidden.
+
+00:11:26,860 --> 00:11:32,220
+Narrating, thus we parted, Holmes and Mason to the shadows at the rear, I to the fore.
+
+00:11:32,220 --> 00:11:37,580
+My heart thundered as I approached the heavy doors, lifted my stick, and rapped thrice.
+
+00:11:37,580 --> 00:11:41,470
+Who goes there? Blasted! Who knocks at this hour?
+
+00:11:41,470 --> 00:11:45,230
+A lost passerby, sir, seeking directions in the fog.
+
+00:11:45,230 --> 00:11:49,279
+Pool, send him off. We cannot be discovered.
+
+00:11:49,279 --> 00:11:54,480
+Bursting in from rear. Now, Watson, strike true.
+
+00:11:54,480 --> 00:11:55,520
+..
+
+00:11:55,520 --> 00:11:58,600
+Joining for Clara. Unhand the villains.
+
+00:11:58,600 --> 00:11:59,620
+..
+
+00:11:59,620 --> 00:12:02,940
+Gnarling a trap. Two arms, Ned.
+
+00:12:02,940 --> 00:12:05,390
+Move. Not so fast.
+
+00:12:05,390 --> 00:12:07,830
+Striking down you go.
+
+00:12:07,830 --> 00:12:09,450
+Clara, hold on.
+
+00:12:09,450 --> 00:12:12,170
+Edward, oh thank heaven.
+
+00:12:12,170 --> 00:12:15,020
+Watson, secure the shorter man.
+
+00:12:15,020 --> 00:12:18,360
+The constable shall find two prizes this night.
+
+00:12:18,360 --> 00:12:20,200
+Already done, Holmes
+
+00:12:20,200 --> 00:12:21,720
+He will not stir soon
+
+00:12:21,720 --> 00:12:23,379
+To scard villain
+
+00:12:23,379 --> 00:12:26,720
+And you, sir, shall answer for your cruelty
+
+00:12:26,720 --> 00:12:29,019
+You lured the lady with threats
+
+00:12:29,019 --> 00:12:32,820
+Sought to silence her knowledge of your smuggling enterprise
+
+00:12:32,820 --> 00:12:36,500
+And chose Casper Bridge as the place of terror
+
+00:12:36,500 --> 00:12:39,259
+But your carelessness betrayed you
+
+00:12:39,259 --> 00:12:42,080
+Sand on your coat, chalk on the sill
+
+00:12:42,080 --> 00:12:44,879
+And the stain of blood upon her scarf
+
+00:12:44,879 --> 00:12:46,060
+Elementary
+
+00:12:46,059 --> 00:12:47,059
+inventory.
+
+00:12:47,059 --> 00:12:48,059
+Hm.
+
+00:12:48,059 --> 00:12:49,739
+Curse you, Holmes.
+
+00:12:49,739 --> 00:12:52,459
+Holmes, you have done it again.
+
+00:12:52,459 --> 00:12:55,119
+Not I, Watson, the evidence.
+
+00:12:55,119 --> 00:12:58,259
+I merely followed where it led.
+
+00:12:58,259 --> 00:12:59,939
+You saved me, Mr. Holmes.
+
+00:12:59,939 --> 00:13:01,659
+I shall never forget.
+
+00:13:01,659 --> 00:13:03,179
+Nor shall I.
+
+00:13:03,179 --> 00:13:05,500
+My family owes you a debt beyond words.
+
+00:13:05,500 --> 00:13:10,559
+Ah, narrating, thus ended the adventure of Caspel Bridge, with the lady restored, the
+
+00:13:10,559 --> 00:13:13,859
+villains captured, and Holmes once more triumphant.
+
+00:13:13,860 --> 00:13:15,629
+as we stepped into the fog-laden night,
+
+00:13:15,629 --> 00:13:18,490
+I could not help but marvel at the subtle chain of cues,
+
+00:13:18,490 --> 00:13:20,240
+cues that I, though present,
+
+00:13:20,240 --> 00:13:23,210
+might never have seen without my friend's unerring eye.
+
+00:13:23,210 --> 00:13:25,960
+Come, Watson, another case awaits,
+
+00:13:25,960 --> 00:13:28,560
+and the game, as always, is afoot.
+
+00:13:28,560 --> 00:13:28,779
+.
+

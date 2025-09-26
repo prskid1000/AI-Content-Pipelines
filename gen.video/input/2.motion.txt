@@ -1,0 +1,10 @@
+(motion_1.1) ((male_doctor_watson)) {Glances at paper, rustling pages slowly}; ((male_detective_holmes)) {Taps fingers lightly against window frame, tilting his head in thought}.
+(motion_1.2) ((male_doctor_watson)) {Sets newspaper upon his knee, fingers still clutching edge}; ((male_detective_holmes)) {Tilts chin toward the distant street, raising brows in subtle emphasis}.
+(motion_1.3) ((male_doctor_watson)) {Gives a small shrug, shifting comfortably on sofa}; ((male_detective_holmes)) {Paces a short distance from window toward fireplace, measured steps echoing faintly}.
+(motion_1.4) ((male_doctor_watson)) {Nods subtly, resting chin upon one hand}; ((male_detective_holmes)) {Moves hand with deliberate precision, pacing one step left, then pausing}.
+(motion_1.5) ((male_doctor_watson)) {Lifts coffee cup, taking a small sip}; ((male_detective_holmes)) {Allows a faint chuckle, tapping pipe stem lightly against mantelpiece}.
+(motion_1.6) ((male_doctor_watson)) {Straightens posture, folding newspaper neatly}; ((male_detective_holmes)) {Turns head sharply toward door as faint sound of carriage wheels approaches outside}.
+(motion_1.7) ((male_doctor_watson)) {Tilts head inquisitively}; ((male_detective_holmes)) {Smiles faintly, eyes glimmering with unspoken deduction}.
+(motion_1.8) ((male_doctor_watson)) {Leans forward upon sofa, gripping armrest}; ((male_detective_holmes)) {Steps slowly toward the door, measured as clockwork}.
+(motion_1.9) ((male_doctor_watson)) {Shakes head softly, lips curving upward}; ((male_detective_holmes)) {Pulls door wide, gesturing toward threshold}.
+(motion_1.10) ((male_doctor_watson)) {Takes two steps toward client, bowing head slightly}; ((male_detective_holmes)) {Extends arm courteously, ushering visitor inward}.

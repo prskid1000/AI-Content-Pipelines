@@ -1,0 +1,127 @@
+{
+  "10": {
+    "inputs": {
+      "clip_name1": "t5xxl_fp16.safetensors",
+      "clip_name2": "clip_l.safetensors",
+      "type": "flux",
+      "device": "default"
+    },
+    "class_type": "DualCLIPLoader",
+    "_meta": {
+      "title": "DualCLIPLoader"
+    }
+  },
+  "11": {
+    "inputs": {
+      "vae_name": "flux_kontext_vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE"
+    }
+  },
+  "16": {
+    "inputs": {
+      "seed": 333555666,
+      "steps": 45,
+      "cfg": 1,
+      "sampler_name": "euler",
+      "scheduler": "beta",
+      "denoise": 1,
+      "model": [
+        "41",
+        0
+      ],
+      "positive": [
+        "33",
+        0
+      ],
+      "negative": [
+        "34",
+        0
+      ],
+      "latent_image": [
+        "19",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "19": {
+    "inputs": {
+      "width": 1280,
+      "height": 720,
+      "batch_size": 1
+    },
+    "class_type": "EmptySD3LatentImage",
+    "_meta": {
+      "title": "EmptySD3LatentImage"
+    }
+  },
+  "20": {
+    "inputs": {
+      "samples": [
+        "16",
+        0
+      ],
+      "vae": [
+        "11",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "21": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "20",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Output"
+    }
+  },
+  "33": {
+    "inputs": {
+      "text": "TASK: Studio Ghibli animation style, Hayao Miyazaki art direction, masterpiece, highly detailed, professional animation quality.\n    - Cinematic composition, dynamic camera angle, rule of thirds, atmospheric perspective, depth of field. Seamless character integration with background environment, natural shadows, realistic lighting, cohesive scene blending.\n    - Hand-drawn traditional animation aesthetic, soft watercolor backgrounds, warm natural lighting, dappled sunlight effects, organic shapes, detailed environmental textures. Expressive character animation, emotional depth, storytelling composition.\n    - Character positioning and scaling consistent with environment, natural ground contact, proper depth layering, foreground midground background separation. Color harmony, consistent art style, smooth visual integration of reference materials.\n    - Warm color palette, soft gradients, natural illumination, professional animation art, high resolution output, crisp details, visual coherence.\n    - Keywords: scene composition, character placement, background integration, lighting consistency, Studio Ghibli aesthetic, cinematic framing, animation quality, visual storytelling.\n\nIn the heart of a quiet English countryside lane, under a pale afternoon sun filtered through a hazy veil of mist that clings to the low-lying grass, Violet Smith stands in the center-left of the scene, her posture tense yet composed. Clad in a high-collared grey wool coat with a matching skirt and gloves, the fabric slightly creased from her frantic journey, she grips a silver-topped walking stick tightly at her side, her wide brown eyes scanning the road ahead with an anxious intensity. To her immediate right, standing just behind a stone bench carved with fading initials, is Dr. John Watson, his deerstalker hat tilted back slightly as he adjusts the lens of his pocket telescope, its brass fittings gleaming in the muted light. Beside him on the bench, half-hidden by a tattered green parasol, lies Sherlock Holmes, leaning casually yet observant, his tall frame draped in a dark blue frock coat with brass buttons and a waistcoat of deep burgundy, the edges slightly frayed from recent use; he wears a pair of round wire-rimmed glasses that catch the light as he scrutinizes the distant road. In the far background, stretching along the horizon, is a narrow lane lined with tall dark oak trees whose gnarled branches twist skyward like grasping fingers, their leaves a mosaic of deep greens and amber hints of autumn. To the left wall of the scene, just behind a small wrought-iron gate that hangs slightly ajar, stands a pair of hunched figures: Woodley, the brutish antagonist with broad shoulders and a thick red beard, clad in a rough wool vest and trousers of dull brown, his hands resting on the haft of a hunting knife at his belt; beside him is another man, his face obscured by the shadows cast by a crumbling stone archway. In the center focus of the scene, directly between Holmes and Violet, sits an ancient wooden trunk with a brass lock and weathered leather straps, half-buried in the dirt near a crooked fence post, its surface scuffed and painted over with faded symbols that hint at hidden contents. To the background-right, a small group of figures emerges from the mist—Carruthers, with a leaner build than Woodley, his face softened by concern as he clutches a folded letter in one hand and a well-worn leather satchel in the other; his dark hair is slightly disheveled, and his attire consists of a dark grey waistcoat over a light brown frock coat, the fabric slightly frayed at the cuffs. In the far background, behind a cluster of crooked farmhouses with slanted roofs and stone chimneys that belch thin plumes of smoke into the air, two figures can be seen in the distance: one is Woodley's accomplice, crouched low against the earth, his hand resting on a rifle; the other is an unseen cyclist, their silhouette barely visible beneath the swaying branches of the dark oak trees. The atmosphere is thick with tension, the air heavy and still, broken only by the distant sound of hooves and the faint rustle of leaves stirred by an absent breeze. A weather-worn signpost stands near Violet’s feet, its wooden surface cracked and splintered, bearing a faded notice about a nearby estate that had long since fallen to ruin. The time period is clearly late Victorian England, marked by the presence of old-style lamps, horse-drawn carriages visible on the periphery, and the distinct architecture of the buildings in the background. The sky is overcast with low clouds that reflect the muted tones of the landscape, casting everything in a pale blue hue that contrasts subtly with the rich textures of the clothing and objects around the scene. Every element of the composition—Violet’s poised stance, Holmes's analytical gaze, the weathered trunk, the distant figures, the aged signpost, the mist-laden lane—is positioned to tell the story of an unfolding mystery where hidden motives and long-held secrets are about to be revealed.",
+      "clip": [
+        "10",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "34": {
+    "inputs": {
+      "conditioning": [
+        "33",
+        0
+      ]
+    },
+    "class_type": "ConditioningZeroOut",
+    "_meta": {
+      "title": "ConditioningZeroOut"
+    }
+  },
+  "41": {
+    "inputs": {
+      "unet_name": "flux1-kontext-dev-Q8_0.gguf"
+    },
+    "class_type": "UnetLoaderGGUF",
+    "_meta": {
+      "title": "Unet Loader (GGUF)"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+((female_clara_whitfield)): heart-shaped face,warm caramel skin tone,deep-set emerald eyes,high cheekbones,sharp determined jawline,full lips stained with ink or chemicals,small mole on left cheek,black hair in loose waves,wire-rimmed glasses,deep indigo skirts,cream cotton blouses,Victorian-style bodice,leather satchel with vials and tools,brass compass,tiny carved wooden pendant on leather cord
+
+((female_landlady_mrs_hudmore)): long angular head, pale complexion, sharp ice-blue eyes, straight slightly bumped nose, thin lips often frowning, short dark hair, thin eyebrows, high cheekbones, aged skin with faint lines, dark navy high collar dress, velvet shawl, round spectacles, silver locket on chain, key ring on wrist
+
+((male_client_stranger)): angular head, sun-kissed skin, dark tired eyes, crooked nose, thin trembling lips, dark hair, sparse facial hair, frayed waistcoat, dark blue shirt, patched trousers, battered hat, small leather satchel
+
+((male_detective_holmes)): long angular head, pale translucent skin, piercing blue eyes, sharp nose, thin lips, dark wavy hair, faint shadow under eyes, deep charcoal wool suit, rumpled fit, dark red scarf, deerstalker cap, magnifying glass on belt
+
+((male_doctor_watson)): round head, warm golden-brown complexion, kind brown eyes, strong jawline, neatly trimmed slight mustache, round face, faint scar on cheek, dark green wool suit, well-worn dignified fit, engraved pocket watch, waistcoat, medical bag over shoulder, round spectacles
+
+((male_villain_scarred)): wide rugged head, weathered skin tone, pale blue eye, deep brown eye, crooked smile, jagged facial scar, dark green tattered coat, patched trousers, silver chain with dagger pendant, torn red scarf bandana
+
+((male_villain_shorter)): round head, smooth face, pale skin tone, sharp brown eyes, thin lips in cold smile, short dark hair, no facial hair, dark gray waistcoat, white linen shirt, frayed trousers, green asymmetrical cravat, silver pocket watch chain
+

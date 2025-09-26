@@ -1,0 +1,98 @@
+4.116: Silence
+1.8: Soft ambient sounds of a quiet winter morning; faint creaking floorboards; distant muffled city noises
+95.196: Silence
+2.5: Faint creaking of metal, soft crunch of gravel underfoot, distant muffled wind
+3.766: Silence
+2.5: Distant creaking of metal, soft crunch of gravel under careful footsteps, faint rustle of fabric as magnifying glass is handled
+33.954: Silence
+2.5: Low crackling fire, faint rustle of paper, soft muttering
+2.774: Silence
+2.0: Low crackling fire, faint rustle of paper, soft muttering
+2.699: Silence
+2.5: Low crackling fire, faint rustle of paper, soft muttering
+7.891: Silence
+2.3: Damp cobblestones crunch underfoot, faint rustle of fabric as measuring tape is unspooled, low murmuring voice
+3.73: Silence
+2.5: Damp cobblestones creak underfoot, faint crunch of gravel, low rustle of wind through trees.
+8.77: Silence
+1.0: Soft crunch of snow under gloved foot, low amplitude, crisp
+81.319: Silence
+1.2: Subtle creaking of wooden crate, low amplitude, faint scratching sounds
+5.123: Silence
+2.5: Subtle creaks and soft rustles of fabric as the detective examines the crate.
+25.268: Silence
+2.38: Distant water lapping against stone, faint footstep echoes on cobblestone, low ambient city hum
+1.0: Silence
+2.02: Distant water lapping against stone, faint footstep echoes on cobblestone
+1.54: Distant water lapping against stone, faint footstep echoes on cobblestone, low ambient city hum
+12.55: Silence
+2.0: Low hum of oil lamp; soft rustle of paper pages; distant muffled city sounds
+3.666: Silence
+2.5: Low hum of oil lamp; soft rustle of paper pages; distant muffled city sounds
+2.888: Silence
+2.5: Low hum of oil lamp; soft rustle of paper pages; faint muffled city sounds through fog
+1.884: Silence
+2.5: Low hum of oil lamp; soft rustle of paper pages; distant muffled city sounds
+3.048: Silence
+2.5: Distant muffled footsteps on wet cobblestones, faint crunch of gravel under gloved hand
+3.708: Silence
+2.5: Faint crunch of snow under gloved hand; distant muffled footsteps fading into fog
+4.136: Silence
+2.5: Distant, muffled footsteps on wet cobblestones; faint rustle of fabric; low, ambient wind
+4.086: Silence
+2.5: Distant muffled footsteps on wet cobblestones, faint wind rustling through fog
+1.786: Silence
+1.2: Faint creaking of magnifying glass adjusting; low murmur of explanation; distant muffled scraping from brickwork.
+1.743: Silence
+1.2: Faint creaking of magnifying glass on brick surface, low murmuring voice, distant muffled footstep
+2.055: Silence
+1.2: Faint creaking of wooden ladder against brickwork, low amplitude, distant
+1.65: Silence
+1.2: Faint creaking of magnifying glass on brick surface, low murmuring voice, distant muffled footsteps
+1.25: Silence
+1.2: Faint creaking of wooden ladder against brickwork, low amplitude, distant
+1.55: Silence
+1.2: Faint, low-pitched rustle of fabric; subtle, dry sniffing; distant, muffled footsteps on gravel.
+1.32: Silence
+1.566: Faint, low-pitched rustle of fabric; subtle, dry sniffing; distant, muffled footsteps on gravel
+2.1: Faint, low-pitched rustle of fabric; subtle, dry sniffing; distant, muffled footsteps on gravel.
+1.0: Silence
+1.134: Pencil scratching on paper, faint rustle of fog, low ambient hum
+2.92: Silence
+1.675: Pencil scratching on paper, faint rustle of fog, low murmuring voice
+1.18: Pencil scratching on paper, faintly
+1.0: Silence
+1.155: Pencil scratching on paper, faint rustle of fog, low ambient hum
+1.045: Silence
+1.2: Pencil scratching on paper, faint rustle of fog
+12.071: Silence
+2.5: Low, distant foghorn echo, faint rustling of pages in notebook, soft footsteps on wooden floorboards
+12.937: Silence
+1.621: Low rustling of fabric, faint creaking of wooden chair, distant muffled footsteps in fog
+1.429: Low, distant rustling of fabric in heavy fog; faint creaking of wooden bridge planks underfoot
+1.498: Low rustling of fabric, faint creaking of wooden chair, distant muffled footsteps in fog
+2.337: Low rustling of fabric, faint creaking of wooden chair, distant muffled footsteps in fog
+1.547: Low rustling of fabric, faint creaking of wooden chair, distant whisper of wind through fog
+6.196: Silence
+1.09: Soft pencil scratching on paper, faint murmuring, distant rustling of fabric and soft footsteps.
+1.0: Silence
+1.405: Soft pencil scratching on paper, faint murmuring, distant rustling of fabric and heavy footsteps in fog.
+1.515: Soft pencil scratching on paper, faint murmuring, distant rustling of fabric and soft footsteps.
+28.997: Silence
+2.5: Low amplitude ambient mist rustling against bridge railings, calm distant footsteps
+5.401: Silence
+2.5: Low murmur of a man speaking, faint rustle of pages turning, distant echo of footsteps on cobblestones
+2.826: Silence
+2.5: Distant foghorn blare, low and muffled, echoing through damp air
+26.847: Silence
+2.5: Distant river whisper, low amplitude, cold timbre, faint foghorn in background
+2.839: Silence
+1.325: Distant river whisper, low amplitude, cold timbre, faint misty ambiance
+3.125: Distant river whisper, low amplitude, cold timbre, faint foghorn echo
+2.01: Silence
+2.0: Distant river whisper, low amplitude, ambient, cold timbre
+2.94: Silence
+2.0: Distant river whisper, low amplitude, cold timbre, faint foghorn in background
+1.198: Silence
+2.5: Distant river whisper, low amplitude, cold timbre, faint foghorn echo
+125.752: Silence
