@@ -1,8 +1,8 @@
 32%: Shadows at Casper
-SHORT_SUMMARY : 🕵️‍♂️ A mysterious disappearance leads Holmes and Watson to Casper Bridge, where clues point to a hidden danger.
-28%: Shadows of the Bridge
-SHORT_SUMMARY : 🔍 Holmes and Watson track bloodstains and clues from Casper Bridge to Clara Whitfield's room, uncovering a cryptic message and a mysterious visitor named 'Harland.'
+SHORT_SUMMARY : 🧠 A mysterious disappearance leads Holmes and Watson to Casper Bridge, where clues hidden in a scarf hint at danger lurking beneath the surface.
+28%: Footprints in the Fog
+SHORT_SUMMARY : 🔍 Holmes and Watson follow bloodstains and footprints to investigate Clara Whitfield's mysterious abduction in London's fog.
 25%: Shadows of the Wharves
-SHORT_SUMMARY : 🔍 Fog thickens as Holmes and Watson infiltrate shadowy warehouses to rescue Clara Whitfield from her captors.
-15%: Shadows Unveiled
-SHORT_SUMMARY : 🌟 Holmes and Watson rescue Clara from villains at Casper Bridge, using clues to expose their smuggling plot and secure justice.
+SHORT_SUMMARY : 🕵️‍♂️ Holmes and Watson infiltrate shadowy warehouses to rescue Clara Whitfield, discovering her bound and fearing for her life as they prepare a stealthy attack.
+15%: Shadows Reveal Truth
+SHORT_SUMMARY : 🔍 Fog, danger, and justice converge as Holmes rescues Clara from villains, revealing their crimes through subtle clues.

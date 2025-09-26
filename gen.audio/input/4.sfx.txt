@@ -1,98 +1,159 @@
-4.116: Silence
-1.8: Soft ambient sounds of a quiet winter morning; faint creaking floorboards; distant muffled city noises
-95.196: Silence
-2.5: Faint creaking of metal, soft crunch of gravel underfoot, distant muffled wind
-3.766: Silence
-2.5: Distant creaking of metal, soft crunch of gravel under careful footsteps, faint rustle of fabric as magnifying glass is handled
-33.954: Silence
-2.5: Low crackling fire, faint rustle of paper, soft muttering
-2.774: Silence
-2.0: Low crackling fire, faint rustle of paper, soft muttering
-2.699: Silence
-2.5: Low crackling fire, faint rustle of paper, soft muttering
-7.891: Silence
-2.3: Damp cobblestones crunch underfoot, faint rustle of fabric as measuring tape is unspooled, low murmuring voice
-3.73: Silence
-2.5: Damp cobblestones creak underfoot, faint crunch of gravel, low rustle of wind through trees.
-8.77: Silence
-1.0: Soft crunch of snow under gloved foot, low amplitude, crisp
-81.319: Silence
-1.2: Subtle creaking of wooden crate, low amplitude, faint scratching sounds
-5.123: Silence
-2.5: Subtle creaks and soft rustles of fabric as the detective examines the crate.
-25.268: Silence
-2.38: Distant water lapping against stone, faint footstep echoes on cobblestone, low ambient city hum
+213.031: Silence
+2.5: Low-frequency foghorn hum, distant wagon wheel creaks, faint river current lapping
+2.179: Silence
+2.0: Distant creaking of wagon wheels on stone; low, damp ambient fog sounds
+1.09: Silence
+1.475: Low-frequency foghorn hum, distant wagon wheel creaks, faint river current lapping
+3.037: Low-frequency foghorn hum, distant wagon wheel creaks, faint river current gurgles
+1.9: Low-frequency foghorn hum, distant wagon wheel creaks, faint river current gurgle
 1.0: Silence
-2.02: Distant water lapping against stone, faint footstep echoes on cobblestone
-1.54: Distant water lapping against stone, faint footstep echoes on cobblestone, low ambient city hum
-12.55: Silence
-2.0: Low hum of oil lamp; soft rustle of paper pages; distant muffled city sounds
-3.666: Silence
-2.5: Low hum of oil lamp; soft rustle of paper pages; distant muffled city sounds
-2.888: Silence
-2.5: Low hum of oil lamp; soft rustle of paper pages; faint muffled city sounds through fog
-1.884: Silence
-2.5: Low hum of oil lamp; soft rustle of paper pages; distant muffled city sounds
-3.048: Silence
-2.5: Distant muffled footsteps on wet cobblestones, faint crunch of gravel under gloved hand
-3.708: Silence
-2.5: Faint crunch of snow under gloved hand; distant muffled footsteps fading into fog
-4.136: Silence
-2.5: Distant, muffled footsteps on wet cobblestones; faint rustle of fabric; low, ambient wind
-4.086: Silence
-2.5: Distant muffled footsteps on wet cobblestones, faint wind rustling through fog
-1.786: Silence
-1.2: Faint creaking of magnifying glass adjusting; low murmur of explanation; distant muffled scraping from brickwork.
-1.743: Silence
-1.2: Faint creaking of magnifying glass on brick surface, low murmuring voice, distant muffled footstep
-2.055: Silence
-1.2: Faint creaking of wooden ladder against brickwork, low amplitude, distant
-1.65: Silence
-1.2: Faint creaking of magnifying glass on brick surface, low murmuring voice, distant muffled footsteps
-1.25: Silence
-1.2: Faint creaking of wooden ladder against brickwork, low amplitude, distant
-1.55: Silence
-1.2: Faint, low-pitched rustle of fabric; subtle, dry sniffing; distant, muffled footsteps on gravel.
-1.32: Silence
-1.566: Faint, low-pitched rustle of fabric; subtle, dry sniffing; distant, muffled footsteps on gravel
-2.1: Faint, low-pitched rustle of fabric; subtle, dry sniffing; distant, muffled footsteps on gravel.
+1.734: Distant creaking of wagon wheels on stone, low amplitude, ambient fog sounds
 1.0: Silence
-1.134: Pencil scratching on paper, faint rustle of fog, low ambient hum
-2.92: Silence
-1.675: Pencil scratching on paper, faint rustle of fog, low murmuring voice
-1.18: Pencil scratching on paper, faintly
+1.097: Metallic scraping of fingers along cold iron railing, faint rustle of fabric fibers
+2.807: Silence
+1.2: Metallic scraping of fingers along cold iron railing, faint rustle of fabric fibers
+2.728: Silence
+1.2: Metallic scraping, low amplitude, faint rustling of fabric
+1.032: Silence
+1.97: Cold midday fog ambiance, faint rustling of fabric, distant muffled voices
 1.0: Silence
-1.155: Pencil scratching on paper, faint rustle of fog, low ambient hum
-1.045: Silence
-1.2: Pencil scratching on paper, faint rustle of fog
-12.071: Silence
-2.5: Low, distant foghorn echo, faint rustling of pages in notebook, soft footsteps on wooden floorboards
-12.937: Silence
-1.621: Low rustling of fabric, faint creaking of wooden chair, distant muffled footsteps in fog
-1.429: Low, distant rustling of fabric in heavy fog; faint creaking of wooden bridge planks underfoot
-1.498: Low rustling of fabric, faint creaking of wooden chair, distant muffled footsteps in fog
-2.337: Low rustling of fabric, faint creaking of wooden chair, distant muffled footsteps in fog
-1.547: Low rustling of fabric, faint creaking of wooden chair, distant whisper of wind through fog
-6.196: Silence
-1.09: Soft pencil scratching on paper, faint murmuring, distant rustling of fabric and soft footsteps.
+1.663: Cold midday fog ambiance, faint rustling of fabric, distant muffled voices
 1.0: Silence
-1.405: Soft pencil scratching on paper, faint murmuring, distant rustling of fabric and heavy footsteps in fog.
-1.515: Soft pencil scratching on paper, faint murmuring, distant rustling of fabric and soft footsteps.
-28.997: Silence
-2.5: Low amplitude ambient mist rustling against bridge railings, calm distant footsteps
-5.401: Silence
-2.5: Low murmur of a man speaking, faint rustle of pages turning, distant echo of footsteps on cobblestones
-2.826: Silence
-2.5: Distant foghorn blare, low and muffled, echoing through damp air
-26.847: Silence
-2.5: Distant river whisper, low amplitude, cold timbre, faint foghorn in background
-2.839: Silence
-1.325: Distant river whisper, low amplitude, cold timbre, faint misty ambiance
-3.125: Distant river whisper, low amplitude, cold timbre, faint foghorn echo
-2.01: Silence
-2.0: Distant river whisper, low amplitude, ambient, cold timbre
-2.94: Silence
-2.0: Distant river whisper, low amplitude, cold timbre, faint foghorn in background
-1.198: Silence
-2.5: Distant river whisper, low amplitude, cold timbre, faint foghorn echo
-125.752: Silence
+2.263: Cold midday fog ambiance, faint rustling of fabric, distant muffled voices
+1.697: Distant foghorn blare, low and muffled, echoing through cold, still air.
+1.948: Distant foghorn blare, low and resonant
+2.595: Distant foghorn blare, low and muffled
+2.172: Distant foghorn blare, low and mournful, echoing through cold, still air.
+3.119: Silence
+1.712: Distant, low-frequency hum of foghorn; faint rustle of fabric dragging along metal railing
+3.128: Silence
+1.8: Cold wind rustling through fog, faint crunch of footsteps on gravel, distant muffled breaths
+1.956: Silence
+2.492: Cold midday fog; faint crunch of footsteps on gravel; distant rustle of wind through trees
+1.0: Silence
+1.792: Cold wind rustling through fog, faint crunch of footsteps on gravel, distant muffled breaths
+1.09: Silence
+2.5: Cold wind rustling through fog, faint crunch of footsteps on gravel, distant muffled breaths
+1.087: Silence
+1.5: Cold wind rustling through fog; faint crunch of footsteps on gravel
+1.091: Silence
+2.5: Damp cobblestones crunching underfoot, faint breaths, distant foghorn
+1.581: Silence
+1.147: Damp cobblestones underfoot, faint crunching, distant foghorn echo, low amplitude
+1.0: Silence
+1.948: Damp cobblestones underfoot, faint crunching, distant foghorn echo, low amplitude
+1.155: Silence
+2.33: Damp cobblestones underfoot, faint crunching; distant foghorn wail, low and mournful
+1.738: Damp cobblestones underfoot, faint crunching; distant foghorn echo, low and muffled
+1.87: Damp cobblestones underfoot, faint crunching, low distant foghorn, muffled breaths
+1.0: Silence
+1.863: Damp cobblestones crunch underfoot, faint breaths and rustling scarf in cold fog
+1.169: Silence
+2.0: Distant muffled footsteps on cobblestones, faint rustle of fabric, low hum of ambient city noise
+1.878: Silence
+2.5: Distant muffled footsteps on cobblestones, faint rustling of fabric, low ambient hum of distant city sounds
+2.466: Silence
+2.5: Distant faint footsteps on cobbled street, low ambient coal smoke hiss
+1.777: Silence
+2.0: Distant faint rustling of wind through narrow alleyways, low distant rumble of a passing carriage
+12.103: Silence
+1.8: Low, distant rumble of thunder, faint echo of footsteps on wooden stairs
+10.67: Silence
+1.2: Distant creaking of old wooden stairs, low amplitude, uneven rhythm
+3.814: Silence
+1.8: Distant creak of wooden stairs, low whisper of wind through open window
+9.333: Silence
+1.8: Distant echo of footsteps on wooden floorboards, faint creaking of old door hinges
+3.091: Silence
+2.5: Distant echo of footsteps on wooden floorboards, faint creaking of old doors
+2.138: Silence
+1.8: Distant echo of footsteps on wooden floorboards, faint creaking of old hinges
+78.086: Silence
+1.8: Soft rustling of coarse wool, faint crunching of sand under close examination.
+2.78: Silence
+1.8: Soft rustling of coarse wool, faint crunching of sand
+59.831: Silence
+1.2: Metal pipe tapping against palm, sharp and rhythmic
+1.289: Silence
+0.91: Metallic tapping of pipe against palm, sharp and rhythmic
+1.0: Silence
+1.2: Metal pipe tapping against palm, sharp and rhythmic, with a metallic timbre.
+2.096: Silence
+1.2: Metal pipe tapping against leather palm, sharp and rhythmic
+3.784: Silence
+1.2: Metal pipe tapping against palm, sharp and rhythmic
+38.115: Silence
+2.021: Distant foghorn blare, low and mournful, echoing through thick fog
+2.304: Distant foghorn blares low and mournful, thick fog muffling footsteps
+2.222: Low, distant foghorn blare, faint footstep echoes on damp cobblestones
+1.0: Silence
+1.834: Distant foghorn blare, low and mournful, echoing through thick fog
+1.0: Silence
+2.645: Distant foghorn blare, low and mournful, echoing through thick fog
+1.326: Silence
+2.5: Low, muffled voice; distant foghorn echo; faint rustling of fabric; soft footstep on wet cobblestone
+1.898: Silence
+2.5: Low, muffled voice; distant foghorn echo; soft rustling of fabric; faint creaking of wooden structure
+1.396: Silence
+2.34: Low, distant rustling of fog; faint, tense breathing; muffled footsteps on damp ground
+1.0: Silence
+1.967: Distant foghorn blare, low and muffled, echoing through mist
+1.667: Distant foghorn blare, low and muffled, echoing through damp air.
+1.0: Silence
+1.94: Distant foghorn blare, low and muffled, echoing through mist
+5.747: Silence
+1.8: Distant creaks of wooden planks underfoot, low rustling of fog
+3.42: Silence
+1.439: Low rustling of fabric, soft crunching of gravel under boots, distant foghorn echo
+6.029: Silence
+1.559: Damp boards creak underfoot, river lapping softly, faint heart thudding, tense atmosphere.
+1.883: Damp boards creak underfoot, river lapping softly, faint heart thudding, tense atmosphere.
+2.081: Damp boards creak underfoot, river lapping softly, faint heart thudding, tense atmosphere.
+1.0: Silence
+1.767: Distant, muffled murmurs of indistinct voices, low amplitude, echoing slightly
+1.23: Silence
+1.2: Distant, muffled murmurs of indistinct voices, faint and echoing
+1.095: Silence
+1.185: muffled voices, low amplitude, tense atmosphere, faint cursing
+1.0: Silence
+1.453: muffled voices, low amplitude, tense atmosphere, distant cursing
+1.0: Silence
+1.55: Distant creak of wooden shutters, faint rustle of fog against glass
+1.81: Distant creak of wooden shutters, faint rustle of fog against glass
+1.427: Distant creak of wooden shutters, faint rustle of fog against glass
+12.315: Silence
+2.173: muffled voices, distant echoes, faint rustling of fog
+1.573: Low, hushed whisper; faint breathiness
+2.285: Silence
+2.5: Low, hushed whispering in the fog; distant rustling of leaves and faint creaking of wooden sticks
+23.888: Silence
+1.5: Muffled wooden door thuds, low amplitude, dull timbre
+5.294: Silence
+1.2: Muffled wooden door thuds, low amplitude, dull timbre
+4.16: Silence
+1.2: Distant muffled echo of a voice, low and rough
+3.329: Silence
+2.5: Distant muffled voices, low amplitude, foggy atmosphere, faint creaking of wooden planks
+1.849: Silence
+2.3: Low growl of frustration, heavy boots thudding on wet pavement, muffled kick against wooden crate
+1.349: Silence
+1.5: loud burst of wind, heavy footsteps rushing, muffled voices
+2.505: Silence
+2.8: Low amplitude foghorn echo, distant thunder rumble, wooden walking stick thudding on wet cobblestones
+3.66: Silence
+1.2: Low growl, metallic scrape of a drawing knife, heavy breathing
+6.005: Silence
+1.0: Forceful striking sound, sharp and resonant, with a metallic timbre.
+5.545: Silence
+1.2: Low amplitude rustling of fabric, faint creaking of wooden floorboards
+51.93: Silence
+2.0: Distant foghorn blare, low and mournful, echoing through dense fog
+2.08: Silence
+2.395: Distant foghorn blares faintly, low and mournful, echoing through thick fog.
+1.0: Silence
+2.87: Distant foghorn blare, low and mournful, fading into ambient foggy night atmosphere
+1.768: Distant foghorn blare, low and mournful, echoing through thick fog
+1.0: Silence
+2.118: Distant foghorn blares low and mournful, echoing through the mist.
+1.545: Distant foghorn blare, low and muffled, with faint rustling of fabric and soft footstep echoes on damp cobblestones.
+8.665: Silence
