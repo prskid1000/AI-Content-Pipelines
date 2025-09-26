@@ -20,7 +20,7 @@ IMAGE_CUSTOM_RATIO = False
 IMAGE_CUSTOM_ASPECT_RATIO = "1:1"
 
 # LoRA Configuration
-USE_LORA = True  # Set to False to disable LoRA usage in workflow
+USE_LORA = False  # Set to False to disable LoRA usage in workflow
 LORA_NAME = "FLUX.1-Turbo-Alpha.safetensors"  # LoRA file name
 LORA_STRENGTH_MODEL = 2.0  # LoRA strength for the model (0.0 - 2.0)
 LORA_STRENGTH_CLIP = 2.0   # LoRA strength for CLIP (0.0 - 2.0)
@@ -475,7 +475,13 @@ class CharacterGenerator:
             print(f"ERROR: Failed to overlay character name '{character_name}': {e}")
             return False
 
-    def generate_all_characters(self) -> dict[str, str]:
+    def _get_completed_characters(self) -> set[str]:
+        """Get character names that have already been generated."""
+        if not os.path.exists(self.final_output_dir):
+            return set()
+        return {f[:-4] for f in os.listdir(self.final_output_dir) if f.endswith('.png')}
+
+    def generate_all_characters(self, force_regenerate: bool = False) -> dict[str, str]:
         """Generate images for all characters.
         
         Returns:
@@ -486,17 +492,29 @@ class CharacterGenerator:
             print("ERROR: No character data found")
             return {}
 
-        print(f"Found {len(characters)} characters to generate:")
-        for name in characters.keys():
-            print(f"  - {name}")
+        completed_characters = self._get_completed_characters()
+        if not force_regenerate and completed_characters:
+            print(f"Found {len(completed_characters)} completed characters: {sorted(completed_characters)}")
+
+        characters_to_process = {name: desc for name, desc in characters.items() 
+                               if force_regenerate or name not in completed_characters}
+
+        if not characters_to_process:
+            print("All characters already generated!")
+            return {}
+
+        print(f"Processing {len(characters_to_process)} characters, skipped {len(completed_characters)}")
+        print("=" * 60)
 
         results = {}
-        for character_name, description in characters.items():
+        for i, (character_name, description) in enumerate(characters_to_process.items(), 1):
+            print(f"\n[{i}/{len(characters_to_process)}] Processing {character_name}...")
             output_path = self._generate_character_image(character_name, description)
             if output_path:
                 results[character_name] = output_path
+                print(f"[OK] Generated: {character_name}")
             else:
-                print(f"FAILED: Could not generate image for {character_name}")
+                print(f"[FAILED] {character_name}")
 
         return results
 
@@ -504,23 +522,29 @@ class CharacterGenerator:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Generate character images using flux (default) or diffusion workflow.")
     parser.add_argument("--mode", "-m", choices=["flux", "diffusion"], default="flux", help="Select workflow: flux (default) or diffusion")
+    parser.add_argument("--force", "-f", action="store_true", help="Force regeneration of all characters")
+    parser.add_argument("--list-completed", "-l", action="store_true", help="List completed characters")
     args = parser.parse_args()
     
-    start_time = time.time()
-    
     generator = CharacterGenerator(mode=args.mode)
-    results = generator.generate_all_characters()
     
+    if args.list_completed:
+        completed = generator._get_completed_characters()
+        print(f"Completed characters ({len(completed)}): {sorted(completed)}" if completed else "No completed characters")
+        return 0
+    
+    start_time = time.time()
+    results = generator.generate_all_characters(force_regenerate=args.force)
     elapsed = time.time() - start_time
     
     if results:
-        print(f"\nSuccessfully generated {len(results)} character images in {elapsed:.2f}s using {args.mode} mode:")
+        print(f"\nGenerated {len(results)} character images in {elapsed:.2f}s using {args.mode} mode:")
         for name, path in results.items():
             print(f"  {name}: {path}")
         return 0
     else:
-        print("ERROR: No character images were generated")
-        return 1
+        print("No new character images generated")
+        return 0
 
 
 if __name__ == "__main__":
