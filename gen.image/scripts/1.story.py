@@ -12,7 +12,7 @@ LOCATION_CHARACTER_COUNT = 1600
 STORY_DESCRIPTION_CHARACTER_COUNT = 3600
 
 # Feature flags
-ENABLE_CHARACTER_REWRITE = True  # Set to False to skip character rewriting step
+ENABLE_CHARACTER_REWRITE = False  # Set to False to skip character rewriting step
 
 # Model constants for easy switching
 MODEL_STORY_DESCRIPTION = "qwen2.5-omni-7b"  # Model for generating story descriptions
