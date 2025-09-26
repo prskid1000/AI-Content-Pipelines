@@ -36,7 +36,7 @@ NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, p
 USE_RANDOM_SEED = True  # Set to True to use random seeds, False to use fixed seed
 FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 
-ART_STYLE = "Anime"
+ART_STYLE = "Realistic Anime"
 
 # Character image dimensions: 320x1024 (width x height)
 CHARACTER_IMAGE_WIDTH = 320
