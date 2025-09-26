@@ -12,6 +12,10 @@ print = partial(_builtins.print, flush=True)
 import re
 import random
 
+# Random seed configuration
+USE_FIXED_SEED = True  # Set to False to use random seeds for each generation
+RANDOM_SEED = 42
+
 # Controls text generation method:
 # - True: use text overlay after image generation (generates 1 image: thumbnail.png)
 # - False: let Flux generate text in the image itself (generates 5 versions: thumbnail.flux.v1-v5.png)
@@ -245,13 +249,20 @@ class ThumbnailProcessor:
             workflow = self._update_prompt_text(workflow, prompt_text)
             workflow = self._update_workflow_resolution(workflow, gen_width, gen_height)
             workflow = self._update_saveimage_prefix(workflow, "thumbnail")
+            
+            # Set seed based on configuration
+            if USE_FIXED_SEED:
+                workflow = self._update_workflow_seed(workflow, RANDOM_SEED)
 
             # If not using overlay, generate multiple variants (like flux mode)
             if not use_overlay:
                 saved_paths: list[str] = []
                 for idx in range(1, 6):
-                    # Use a different random seed for each iteration
-                    seed_value = random.randint(1, 2**31 - 1)
+                    # Use fixed seed or random seed based on configuration
+                    if USE_FIXED_SEED:
+                        seed_value = RANDOM_SEED
+                    else:
+                        seed_value = random.randint(1, 2**31 - 1)
                     workflow = self._update_workflow_seed(workflow, seed_value)
                     resp = requests.post(f"{self.comfyui_url}prompt", json={"prompt": workflow}, timeout=60)
                     if resp.status_code != 200:

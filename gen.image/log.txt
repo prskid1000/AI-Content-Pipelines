@@ -1,8 +1,618 @@
 Workflow runner started. Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
 Working directory: D:\.comfyui\gen.image
 Emptying ComfyUI input and output folders...
+Removed file: D:\.comfyui\ComfyUI\input\male_client_stranger.jpg
+Removed file: D:\.comfyui\ComfyUI\input\male_detective_holmes.jpg
 Removed file: D:\.comfyui\ComfyUI\input\male_doctor_watson.jpg
+Removed file: D:\.comfyui\ComfyUI\output\female_clara_whitfield_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\female_landlady_mrs_hudmore_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\male_client_stranger_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\male_detective_holmes_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\male_doctor_watson_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\male_villain_scarred_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\male_villain_shorter_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.10_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.11_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.3_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.4_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.5_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.6_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.7_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.8_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.9_00001_.png
 Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00002_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00003_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00004_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00005_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00006_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00007_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00008_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00009_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00010_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00011_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00012_.png
 Successfully emptied ComfyUI input and output folders.
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
+[START] Security scan
+[DONE] Security scan
+## ComfyUI-Manager: installing dependencies done.
+** ComfyUI startup time: 2025-09-26 15:34:15.661
+** Platform: Windows
+** Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+** Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
+** ComfyUI Path: D:\.comfyui\ComfyUI
+** ComfyUI Base Folder Path: D:\.comfyui\ComfyUI
+** User directory: D:\.comfyui\ComfyUI\user
+** ComfyUI-Manager config path: D:\.comfyui\ComfyUI\user\default\ComfyUI-Manager\config.ini
+** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
+ComfyUI not ready yet (attempt 1). Retrying in 15s...
+
+Prestartup times for custom nodes:
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\rgthree-comfy
+   2.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+
+Checkpoint files will always be loaded safely.
+Total VRAM 12227 MB, total RAM 64957 MB
+pytorch version: 2.8.0+cu129
+Set vram state to: NORMAL_VRAM
+Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
+Using pytorch attention
+Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+ComfyUI version: 0.3.60
+ComfyUI frontend version: 1.26.13
+[Prompt Server] web root: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\Lib\site-packages\comfyui_frontend_package\static
+ComfyUI-GGUF: Allowing full torch compile
+### Loading: ComfyUI-Impact-Pack (V8.22.2)
+[Impact Pack] Wildcards loading done.
+### Loading: ComfyUI-Manager (V3.36)
+[ComfyUI-Manager] network_mode: public
+### ComfyUI Version: v0.3.60-6-gabc1e5d1 | Released on '2025-09-26'
+
+[32mInitializing ControlAltAI Nodes[0m
+
+[92m[rgthree-comfy] Loaded 48 exciting nodes. 🎉[0m
+
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
+✅ ChatterboxTTS loaded from bundled package
+✅ ChatterboxVC loaded from bundled package
+JAX version 0.7.1 available.
+✅ F5-TTS loaded from system package
+🎭 Character voices: Found 61 characters, 7 aliases
+✅ SRT modules loaded from system package
+🔧 Registering TTS Audio Suite nodes...
+======================================================================
+🚀 TTS Audio Suite v4.2.1
+Universal multi-engine TTS extension for ComfyUI
+⚠️ No local ChatterBox models found - will download from Hugging Face
+💡 Tip: First generation will download models (~1GB)
+   Models will be saved locally for future use
+✅ TTS Audio Suite v4.2.1 loaded with 16 nodes:
+   • ⚙️ ChatterBox TTS Engine
+   • ⚙️ F5 TTS Engine
+   • ⚙️ RVC Engine
+   • 🌊 Audio Wave Analyzer
+   • 🎙️ Voice Capture
+   • 🎤 TTS Text
+   • 🎭 Character Voices
+   • 🎭 Load RVC Character Model
+   • 👄 F5-TTS Speech Editor
+   • 📺 TTS SRT
+   • 🔄 Voice Changer
+   • 🔧 Audio Analyzer Options
+   • 🔧 F5-TTS Edit Options
+   • 🔧 RVC Pitch Extraction Options
+   • 🤐 Noise or Vocal Removal
+   • 🥪 Merge Audio
+======================================================================
+
+Import times for custom nodes:
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\rgthree-comfy
+   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
+   0.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-impact-pack
+   0.7 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   2.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
+   4.3 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
+
+Context impl SQLiteImpl.
+Will assume non-transactional DDL.
+No target revision found.
+Starting server
+
+To see the GUI go to: http://127.0.0.1:8188
+FETCH ComfyRegistry Data: 5/98
+ComfyUI is ready after 17.1s (attempt 2).
+
+===== START D:\.comfyui\gen.image\scripts\2.character.py @ 2025-09-26 15:34:31 =====
+Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+Processing 7 characters, skipped 0
+============================================================
+
+[1/7] Processing female_clara_whitfield...
+Generating image for: female_clara_whitfield
+Loaded flux workflow from: ../workflow/character.flux.json
+LoRA enabled in character workflow
+Sampling steps set to: 8
+Negative prompt disabled - using ConditioningZeroOut
+Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
+Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
+got prompt
+Waiting for generation to complete (prompt_id: b8d93b63-1cb6-402b-9178-01cb1cbe42d7)...
+Using pytorch attention in VAE
+Using pytorch attention in VAE
+VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
+CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
+FETCH ComfyRegistry Data: 10/98
+clip missing: ['text_projection.weight']
+gguf qtypes: F32 (466), Q8_0 (304), BF16 (10)
+model weight dtype torch.bfloat16, manual cast: None
+model_type FLUX
+Requested to load FluxClipModel_
+FETCH ComfyRegistry Data: 15/98
+loaded completely 9520.8 9319.23095703125 True
+Requested to load Flux
+FETCH ComfyRegistry Data: 20/98
+loaded partially 9462.674965667724 9462.435546875 0
+Attempting to release mmap (126)
+FETCH ComfyRegistry Data: 25/98
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:02<00:18,  2.66s/it] 25%|██▌       | 2/8 [00:04<00:13,  2.28s/it]FETCH ComfyRegistry Data: 30/98
+ 38%|███▊      | 3/8 [00:06<00:11,  2.26s/it] 50%|█████     | 4/8 [00:09<00:09,  2.35s/it]FETCH ComfyRegistry Data: 35/98
+ 62%|██████▎   | 5/8 [00:11<00:07,  2.41s/it] 75%|███████▌  | 6/8 [00:14<00:04,  2.39s/it]FETCH ComfyRegistry Data: 40/98
+ 88%|████████▊ | 7/8 [00:16<00:02,  2.24s/it]100%|██████████| 8/8 [00:18<00:00,  2.14s/it]100%|██████████| 8/8 [00:18<00:00,  2.26s/it]
+Requested to load AutoencodingEngine
+loaded completely 187.6484375 159.87335777282715 True
+Prompt executed in 38.29 seconds
+FETCH ComfyRegistry Data: 45/98
+Saved: ../output/characters\female_clara_whitfield.png
+[OK] Generated: female_clara_whitfield
+
+[2/7] Processing female_landlady_mrs_hudmore...
+Generating image for: female_landlady_mrs_hudmore
+Loaded flux workflow from: ../workflow/character.flux.json
+LoRA enabled in character workflow
+Sampling steps set to: 8
+Negative prompt disabled - using ConditioningZeroOut
+Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
+Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
+got prompt
+Waiting for generation to complete (prompt_id: b976b253-8d50-489f-afb3-88c3d098fde7)...
+Requested to load FluxClipModel_
+FETCH ComfyRegistry Data: 50/98
+loaded completely 9460.675 9319.23095703125 True
+Requested to load Flux
+FETCH ComfyRegistry Data: 55/98
+loaded partially 9458.674965667724 9458.6748046875 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:02<00:16,  2.35s/it] 25%|██▌       | 2/8 [00:04<00:13,  2.21s/it]FETCH ComfyRegistry Data: 60/98
+ 38%|███▊      | 3/8 [00:06<00:11,  2.32s/it] 50%|█████     | 4/8 [00:09<00:09,  2.36s/it] 62%|██████▎   | 5/8 [00:11<00:07,  2.36s/it] 75%|███████▌  | 6/8 [00:13<00:04,  2.24s/it]FETCH ComfyRegistry Data: 65/98
+ 88%|████████▊ | 7/8 [00:15<00:02,  2.14s/it]100%|██████████| 8/8 [00:17<00:00,  2.05s/it]100%|██████████| 8/8 [00:17<00:00,  2.19s/it]
+Requested to load AutoencodingEngine
+loaded completely 185.6484375 159.87335777282715 True
+Prompt executed in 27.60 seconds
+FETCH ComfyRegistry Data: 70/98
+Saved: ../output/characters\female_landlady_mrs_hudmore.png
+[OK] Generated: female_landlady_mrs_hudmore
+
+[3/7] Processing male_client_stranger...
+Generating image for: male_client_stranger
+Loaded flux workflow from: ../workflow/character.flux.json
+LoRA enabled in character workflow
+Sampling steps set to: 8
+Negative prompt disabled - using ConditioningZeroOut
+Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
+Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
+got prompt
+Waiting for generation to complete (prompt_id: 9004ff96-6275-41f9-b522-6ee081350d93)...
+Requested to load FluxClipModel_
+FETCH ComfyRegistry Data: 75/98
+loaded completely 9458.675 9319.23095703125 True
+Requested to load Flux
+loaded partially 9458.674965667724 9458.6748046875 0
+  0%|          | 0/8 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 80/98
+ 12%|█▎        | 1/8 [00:02<00:14,  2.01s/it] 25%|██▌       | 2/8 [00:03<00:11,  1.97s/it] 38%|███▊      | 3/8 [00:06<00:10,  2.04s/it]FETCH ComfyRegistry Data: 85/98
+ 50%|█████     | 4/8 [00:08<00:08,  2.18s/it] 62%|██████▎   | 5/8 [00:10<00:06,  2.28s/it]FETCH ComfyRegistry Data: 90/98
+ 75%|███████▌  | 6/8 [00:13<00:04,  2.23s/it] 88%|████████▊ | 7/8 [00:14<00:02,  2.12s/it]100%|██████████| 8/8 [00:16<00:00,  2.07s/it]100%|██████████| 8/8 [00:16<00:00,  2.12s/it]
+Requested to load AutoencodingEngine
+loaded completely 185.6484375 159.87335777282715 True
+Prompt executed in 25.86 seconds
+FETCH ComfyRegistry Data: 95/98
+Saved: ../output/characters\male_client_stranger.png
+[OK] Generated: male_client_stranger
+
+[4/7] Processing male_detective_holmes...
+Generating image for: male_detective_holmes
+Loaded flux workflow from: ../workflow/character.flux.json
+LoRA enabled in character workflow
+Sampling steps set to: 8
+Negative prompt disabled - using ConditioningZeroOut
+Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
+Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
+got prompt
+Waiting for generation to complete (prompt_id: 6e7f23ff-3762-4b36-b9be-c2ded844171e)...
+Requested to load FluxClipModel_
+FETCH ComfyRegistry Data [DONE]
+[ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
+FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
+[ComfyUI-Manager] All startup tasks have been completed.
+loaded completely 9458.675 9319.23095703125 True
+Requested to load Flux
+loaded partially 9458.674965667724 9458.6748046875 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:02<00:15,  2.19s/it] 25%|██▌       | 2/8 [00:04<00:12,  2.01s/it] 38%|███▊      | 3/8 [00:05<00:09,  1.96s/it] 50%|█████     | 4/8 [00:07<00:07,  1.97s/it] 62%|██████▎   | 5/8 [00:10<00:06,  2.03s/it] 75%|███████▌  | 6/8 [00:12<00:04,  2.03s/it] 88%|████████▊ | 7/8 [00:14<00:02,  2.03s/it]100%|██████████| 8/8 [00:16<00:00,  1.99s/it]100%|██████████| 8/8 [00:16<00:00,  2.01s/it]
+Requested to load AutoencodingEngine
+loaded completely 185.6484375 159.87335777282715 True
+Prompt executed in 25.70 seconds
+Saved: ../output/characters\male_detective_holmes.png
+[OK] Generated: male_detective_holmes
+
+[5/7] Processing male_doctor_watson...
+Generating image for: male_doctor_watson
+Loaded flux workflow from: ../workflow/character.flux.json
+LoRA enabled in character workflow
+Sampling steps set to: 8
+Negative prompt disabled - using ConditioningZeroOut
+Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
+Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
+got prompt
+Waiting for generation to complete (prompt_id: 024e6c21-4d94-4176-9445-d3f9aab6127f)...
+Requested to load FluxClipModel_
+loaded completely 9458.675 9319.23095703125 True
+Requested to load Flux
+loaded partially 9458.674965667724 9458.6748046875 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:01<00:13,  1.91s/it] 25%|██▌       | 2/8 [00:03<00:11,  1.87s/it] 38%|███▊      | 3/8 [00:05<00:09,  1.88s/it] 50%|█████     | 4/8 [00:07<00:07,  1.87s/it] 62%|██████▎   | 5/8 [00:09<00:05,  1.87s/it] 75%|███████▌  | 6/8 [00:11<00:03,  1.91s/it] 88%|████████▊ | 7/8 [00:13<00:01,  1.97s/it]100%|██████████| 8/8 [00:15<00:00,  2.01s/it]100%|██████████| 8/8 [00:15<00:00,  1.94s/it]
+Requested to load AutoencodingEngine
+loaded completely 185.6484375 159.87335777282715 True
+Prompt executed in 25.39 seconds
+Saved: ../output/characters\male_doctor_watson.png
+[OK] Generated: male_doctor_watson
+
+[6/7] Processing male_villain_scarred...
+Generating image for: male_villain_scarred
+Loaded flux workflow from: ../workflow/character.flux.json
+LoRA enabled in character workflow
+Sampling steps set to: 8
+Negative prompt disabled - using ConditioningZeroOut
+Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
+Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
+got prompt
+Waiting for generation to complete (prompt_id: 139e1757-4bed-4b7f-a766-574e6851feed)...
+Requested to load FluxClipModel_
+loaded completely 9458.675 9319.23095703125 True
+Requested to load Flux
+loaded partially 9458.674965667724 9458.6748046875 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:02<00:15,  2.15s/it] 25%|██▌       | 2/8 [00:04<00:12,  2.08s/it] 38%|███▊      | 3/8 [00:06<00:11,  2.29s/it] 50%|█████     | 4/8 [00:09<00:09,  2.38s/it] 62%|██████▎   | 5/8 [00:11<00:06,  2.31s/it] 75%|███████▌  | 6/8 [00:13<00:04,  2.23s/it] 88%|████████▊ | 7/8 [00:15<00:02,  2.16s/it]100%|██████████| 8/8 [00:17<00:00,  2.08s/it]100%|██████████| 8/8 [00:17<00:00,  2.18s/it]
+Requested to load AutoencodingEngine
+loaded completely 185.6484375 159.87335777282715 True
+Prompt executed in 26.34 seconds
+Saved: ../output/characters\male_villain_scarred.png
+[OK] Generated: male_villain_scarred
+
+[7/7] Processing male_villain_shorter...
+Generating image for: male_villain_shorter
+Loaded flux workflow from: ../workflow/character.flux.json
+LoRA enabled in character workflow
+Sampling steps set to: 8
+Negative prompt disabled - using ConditioningZeroOut
+Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
+Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
+got prompt
+Waiting for generation to complete (prompt_id: 90cf6e04-d89a-4660-8fa8-e97937051585)...
+Requested to load FluxClipModel_
+loaded completely 9458.675 9319.23095703125 True
+Requested to load Flux
+loaded partially 9458.674965667724 9458.6748046875 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:02<00:16,  2.41s/it] 25%|██▌       | 2/8 [00:04<00:12,  2.16s/it] 38%|███▊      | 3/8 [00:06<00:10,  2.03s/it] 50%|█████     | 4/8 [00:08<00:07,  1.98s/it] 62%|██████▎   | 5/8 [00:10<00:05,  1.94s/it] 75%|███████▌  | 6/8 [00:11<00:03,  1.93s/it] 88%|████████▊ | 7/8 [00:13<00:01,  1.91s/it]100%|██████████| 8/8 [00:15<00:00,  1.88s/it]100%|██████████| 8/8 [00:15<00:00,  1.95s/it]
+Requested to load AutoencodingEngine
+loaded completely 185.6484375 159.87335777282715 True
+Prompt executed in 23.31 seconds
+Saved: ../output/characters\male_villain_shorter.png
+[OK] Generated: male_villain_shorter
+
+Generated 7 character images in 212.60s using flux mode:
+  female_clara_whitfield: ../output/characters\female_clara_whitfield.png
+  female_landlady_mrs_hudmore: ../output/characters\female_landlady_mrs_hudmore.png
+  male_client_stranger: ../output/characters\male_client_stranger.png
+  male_detective_holmes: ../output/characters\male_detective_holmes.png
+  male_doctor_watson: ../output/characters\male_doctor_watson.png
+  male_villain_scarred: ../output/characters\male_villain_scarred.png
+  male_villain_shorter: ../output/characters\male_villain_shorter.png
+
+===== END D:\.comfyui\gen.image\scripts\2.character.py @ 2025-09-26 15:38:04 (exit=0, took=212.78s) =====
+
+===== START D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-09-26 15:38:04 =====
+Location info enabled: 4 locations loaded
+Processing 100 scenes, skipped 0
+============================================================
+
+[1/100] Processing scene_1.1...
+Generating scene: scene_1.1 with characters: male_doctor_watson
+LoRA enabled in workflow
+Sampling steps set to: 8
+Seed set to: 333555666
+Compressed male_doctor_watson image: 281.0KB → 18.8KB (93.3% reduction)
+Character mode: IMAGE_TEXT, Images: 1
+Image stitching: 1 images → 1 groups []
+Using single reference conditioning
+Negative prompt disabled - using ConditioningZeroOut
+Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
+Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
+Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
+All Non-Living Objects mentioned in Scene text-description must be present in illustration
+        
+SCENE TEXT-DESCRIPTION:
+ Illustrate an exact scenery like {{A British Victorian living room in 221B Baker Street, steeped in the atmosphere of a detective’s quarters. The space is comfortably cluttered, with the scent of pipe smoke and strong black tea lingering in the air. A tall bookcase lines one wall, crammed with tomes on chemistry, law, and obscure monographs. Beneath it lies a large Persian rug, its once-vibrant colors faded and edges worn from years of use, covering the dark wooden floor. Near the center of the room stands a heavy, well-worn sofa with deep cushions, positioned to face a roaring coal grate that sits against the opposite wall, its iron frame blackened by soot and age. A side table holds Holmes’s violin beside a stack of case notes tied with string. The large bay window is framed by thick, heavy curtains that filter pale winter sunlight through the morning London fog outside. On a small side table rests a folded newspaper, its pages creased from frequent handling. A chemical apparatus on a stand near the mantelpiece releases faint bubbling sounds and subtle odors of experimentation. The room exudes an air of intellectual intensity, every object reflecting the restless mind of its occupant.}}, {Sunny Winter Morning};Place ((male_doctor_watson)), the Character in Image 1, {Neutral}, {Sitting on sofa}, {Reading newspaper};.
+
+CHARACTER TEXT-DESCRIPTION:
+(Character in Image 1) is ((male_doctor_watson)) who looks like {round head shape, fair skin tone, hazel eyes, straight slightly prominent nose, full pursed lips, dark brown neatly trimmed wavy hair, fine lines around eyes and forehead, Victorian gentleman's attire, fine wool cotton leather clothing, silver pocket watch chain, revolver holstered at hip, medical bag slung over shoulder, black polished high-top leather boots with brass buckles}.
+got prompt
+Waiting for completion (prompt_id: dcca645f-a15d-4f5e-b7ee-a6d3beff9f44)...
+Requested to load FluxClipModel_
+loaded completely 9458.675 9319.23095703125 True
+Requested to load AutoencodingEngine
+loaded completely 247.01171112060547 159.87335777282715 True
+Requested to load Flux
+loaded partially 8085.554965667725 8085.330078125 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:45,  6.46s/it] 25%|██▌       | 2/8 [00:13<00:40,  6.75s/it] 38%|███▊      | 3/8 [00:19<00:32,  6.54s/it] 50%|█████     | 4/8 [00:26<00:26,  6.51s/it] 62%|██████▎   | 5/8 [00:32<00:19,  6.61s/it] 75%|███████▌  | 6/8 [00:39<00:13,  6.53s/it] 88%|████████▊ | 7/8 [00:46<00:06,  6.60s/it]100%|██████████| 8/8 [00:52<00:00,  6.47s/it]100%|██████████| 8/8 [00:52<00:00,  6.53s/it]
+Requested to load AutoencodingEngine
+loaded completely 221.41796875 159.87335777282715 True
+Prompt executed in 62.07 seconds
+Saved: ../output/scene\scene_1.1.png
+[OK] Generated: scene_1.1
+
+[2/100] Processing scene_1.2...
+Generating scene: scene_1.2 with characters: male_detective_holmes
+LoRA enabled in workflow
+Sampling steps set to: 8
+Seed set to: 333555666
+Compressed male_detective_holmes image: 277.4KB → 18.3KB (93.4% reduction)
+Character mode: IMAGE_TEXT, Images: 1
+Image stitching: 1 images → 1 groups []
+Using single reference conditioning
+Negative prompt disabled - using ConditioningZeroOut
+Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
+Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
+Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
+All Non-Living Objects mentioned in Scene text-description must be present in illustration
+        
+SCENE TEXT-DESCRIPTION:
+ Illustrate an exact scenery like {{A British Victorian living room in 221B Baker Street, steeped in the atmosphere of a detective’s quarters. The space is comfortably cluttered, with the scent of pipe smoke and strong black tea lingering in the air. A tall bookcase lines one wall, crammed with tomes on chemistry, law, and obscure monographs. Beneath it lies a large Persian rug, its once-vibrant colors faded and edges worn from years of use, covering the dark wooden floor. Near the center of the room stands a heavy, well-worn sofa with deep cushions, positioned to face a roaring coal grate that sits against the opposite wall, its iron frame blackened by soot and age. A side table holds Holmes’s violin beside a stack of case notes tied with string. The large bay window is framed by thick, heavy curtains that filter pale winter sunlight through the morning London fog outside. On a small side table rests a folded newspaper, its pages creased from frequent handling. A chemical apparatus on a stand near the mantelpiece releases faint bubbling sounds and subtle odors of experimentation. The room exudes an air of intellectual intensity, every object reflecting the restless mind of its occupant.}}, {Sunny Winter Morning};Place ((male_detective_holmes)), the Character in Image 1, {Surprise}, {Standing by window}, {Looking outside};.
+
+CHARACTER TEXT-DESCRIPTION:
+(Character in Image 1) is ((male_detective_holmes)) who looks like {square head shape,pale skin tone,sharp piercing dark brown eyes with gold flecks,straight slightly prominent nose,thin lips often in pensive frown or thoughtful smile,dark brown thick unkempt hair combed back,meticulously groomed,faint shadow of stubble,Victorian gentleman's attire,fine wool and linen,long coat with pockets,dark leather boots,deerstalker hat,magnifying glass,pocket watch with chain}.
+got prompt
+Waiting for completion (prompt_id: 40514468-0c04-4d4f-acae-c623a53c6a62)...
+Requested to load FluxClipModel_
+loaded completely 9458.675 9319.23095703125 True
+Requested to load AutoencodingEngine
+loaded completely 247.01171112060547 159.87335777282715 True
+Requested to load Flux
+loaded partially 8085.554965667725 8085.330078125 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:45,  6.44s/it] 25%|██▌       | 2/8 [00:12<00:38,  6.47s/it] 38%|███▊      | 3/8 [00:19<00:32,  6.42s/it] 50%|█████     | 4/8 [00:25<00:25,  6.30s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.32s/it] 75%|███████▌  | 6/8 [00:38<00:12,  6.38s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.49s/it]100%|██████████| 8/8 [00:51<00:00,  6.43s/it]100%|██████████| 8/8 [00:51<00:00,  6.41s/it]
+Requested to load AutoencodingEngine
+loaded completely 221.41796875 159.87335777282715 True
+Prompt executed in 60.73 seconds
+Saved: ../output/scene\scene_1.2.png
+[OK] Generated: scene_1.2
+
+[3/100] Processing scene_1.3...
+Generating scene: scene_1.3 with characters: male_doctor_watson
+LoRA enabled in workflow
+Sampling steps set to: 8
+Seed set to: 333555666
+Compressed male_doctor_watson image: 281.0KB → 18.8KB (93.3% reduction)
+Character mode: IMAGE_TEXT, Images: 1
+Image stitching: 1 images → 1 groups []
+Using single reference conditioning
+Negative prompt disabled - using ConditioningZeroOut
+Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
+Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
+Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
+All Non-Living Objects mentioned in Scene text-description must be present in illustration
+        
+SCENE TEXT-DESCRIPTION:
+ Illustrate an exact scenery like {{A British Victorian living room in 221B Baker Street, steeped in the atmosphere of a detective’s quarters. The space is comfortably cluttered, with the scent of pipe smoke and strong black tea lingering in the air. A tall bookcase lines one wall, crammed with tomes on chemistry, law, and obscure monographs. Beneath it lies a large Persian rug, its once-vibrant colors faded and edges worn from years of use, covering the dark wooden floor. Near the center of the room stands a heavy, well-worn sofa with deep cushions, positioned to face a roaring coal grate that sits against the opposite wall, its iron frame blackened by soot and age. A side table holds Holmes’s violin beside a stack of case notes tied with string. The large bay window is framed by thick, heavy curtains that filter pale winter sunlight through the morning London fog outside. On a small side table rests a folded newspaper, its pages creased from frequent handling. A chemical apparatus on a stand near the mantelpiece releases faint bubbling sounds and subtle odors of experimentation. The room exudes an air of intellectual intensity, every object reflecting the restless mind of its occupant.}}, {Sunny Winter Morning};Place ((male_doctor_watson)), the Character in Image 1, {Slight Amusement}, {On sofa near fire}, {Turning page of newspaper};.
+
+CHARACTER TEXT-DESCRIPTION:
+(Character in Image 1) is ((male_doctor_watson)) who looks like {round head shape, fair skin tone, hazel eyes, straight slightly prominent nose, full pursed lips, dark brown neatly trimmed wavy hair, fine lines around eyes and forehead, Victorian gentleman's attire, fine wool cotton leather clothing, silver pocket watch chain, revolver holstered at hip, medical bag slung over shoulder, black polished high-top leather boots with brass buckles}.
+got prompt
+Waiting for completion (prompt_id: 994bd2e0-cb6a-4896-913b-e3dce5f49a97)...
+Requested to load FluxClipModel_
+loaded completely 9458.675 9319.23095703125 True
+Requested to load AutoencodingEngine
+loaded completely 247.01171112060547 159.87335777282715 True
+Requested to load Flux
+loaded partially 8085.554965667725 8085.330078125 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:45,  6.46s/it] 25%|██▌       | 2/8 [00:12<00:38,  6.42s/it] 38%|███▊      | 3/8 [00:19<00:32,  6.48s/it] 50%|█████     | 4/8 [00:25<00:25,  6.39s/it] 62%|██████▎   | 5/8 [00:32<00:19,  6.40s/it] 75%|███████▌  | 6/8 [00:38<00:12,  6.49s/it] 88%|████████▊ | 7/8 [00:45<00:06,  6.56s/it]100%|██████████| 8/8 [00:51<00:00,  6.53s/it]100%|██████████| 8/8 [00:51<00:00,  6.49s/it]
+Requested to load AutoencodingEngine
+loaded completely 221.41796875 159.87335777282715 True
+Prompt executed in 61.37 seconds
+Saved: ../output/scene\scene_1.3.png
+[OK] Generated: scene_1.3
+
+[4/100] Processing scene_1.4...
+Generating scene: scene_1.4 with characters: male_detective_holmes
+LoRA enabled in workflow
+Sampling steps set to: 8
+Seed set to: 333555666
+Compressed male_detective_holmes image: 277.4KB → 18.3KB (93.4% reduction)
+Character mode: IMAGE_TEXT, Images: 1
+Image stitching: 1 images → 1 groups []
+Using single reference conditioning
+Negative prompt disabled - using ConditioningZeroOut
+Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
+Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
+Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
+All Non-Living Objects mentioned in Scene text-description must be present in illustration
+        
+SCENE TEXT-DESCRIPTION:
+ Illustrate an exact scenery like {{A British Victorian living room in 221B Baker Street, steeped in the atmosphere of a detective’s quarters. The space is comfortably cluttered, with the scent of pipe smoke and strong black tea lingering in the air. A tall bookcase lines one wall, crammed with tomes on chemistry, law, and obscure monographs. Beneath it lies a large Persian rug, its once-vibrant colors faded and edges worn from years of use, covering the dark wooden floor. Near the center of the room stands a heavy, well-worn sofa with deep cushions, positioned to face a roaring coal grate that sits against the opposite wall, its iron frame blackened by soot and age. A side table holds Holmes’s violin beside a stack of case notes tied with string. The large bay window is framed by thick, heavy curtains that filter pale winter sunlight through the morning London fog outside. On a small side table rests a folded newspaper, its pages creased from frequent handling. A chemical apparatus on a stand near the mantelpiece releases faint bubbling sounds and subtle odors of experimentation. The room exudes an air of intellectual intensity, every object reflecting the restless mind of its occupant.}}, {Sunny Winter Morning};Place ((male_detective_holmes)), the Character in Image 1, {Thoughtful}, {Leaning on window frame}, {Gesturing with pipe};.
+
+CHARACTER TEXT-DESCRIPTION:
+(Character in Image 1) is ((male_detective_holmes)) who looks like {square head shape,pale skin tone,sharp piercing dark brown eyes with gold flecks,straight slightly prominent nose,thin lips often in pensive frown or thoughtful smile,dark brown thick unkempt hair combed back,meticulously groomed,faint shadow of stubble,Victorian gentleman's attire,fine wool and linen,long coat with pockets,dark leather boots,deerstalker hat,magnifying glass,pocket watch with chain}.
+got prompt
+Waiting for completion (prompt_id: 5e73e9fa-b21c-4314-949f-74bec4db5512)...
+Requested to load FluxClipModel_
+loaded completely 9458.675 9319.23095703125 True
+Requested to load AutoencodingEngine
+loaded completely 247.01171112060547 159.87335777282715 True
+Requested to load Flux
+loaded partially 8085.554965667725 8085.330078125 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:46,  6.68s/it] 25%|██▌       | 2/8 [00:13<00:40,  6.73s/it] 38%|███▊      | 3/8 [00:20<00:33,  6.77s/it] 50%|█████     | 4/8 [00:26<00:26,  6.63s/it] 62%|██████▎   | 5/8 [00:33<00:19,  6.57s/it] 75%|███████▌  | 6/8 [00:39<00:12,  6.48s/it] 88%|████████▊ | 7/8 [00:45<00:06,  6.43s/it]100%|██████████| 8/8 [00:52<00:00,  6.40s/it]100%|██████████| 8/8 [00:52<00:00,  6.52s/it]
+Requested to load AutoencodingEngine
+loaded completely 219.41796875 159.87335777282715 True
+Prompt executed in 61.45 seconds
+Saved: ../output/scene\scene_1.4.png
+[OK] Generated: scene_1.4
+
+[5/100] Processing scene_1.5...
+Generating scene: scene_1.5 with characters: male_doctor_watson
+LoRA enabled in workflow
+Sampling steps set to: 8
+Seed set to: 333555666
+Compressed male_doctor_watson image: 281.0KB → 18.8KB (93.3% reduction)
+Character mode: IMAGE_TEXT, Images: 1
+Image stitching: 1 images → 1 groups []
+Using single reference conditioning
+Negative prompt disabled - using ConditioningZeroOut
+Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
+Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
+Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
+All Non-Living Objects mentioned in Scene text-description must be present in illustration
+        
+SCENE TEXT-DESCRIPTION:
+ Illustrate an exact scenery like {{A British Victorian living room in 221B Baker Street, steeped in the atmosphere of a detective’s quarters. The space is comfortably cluttered, with the scent of pipe smoke and strong black tea lingering in the air. A tall bookcase lines one wall, crammed with tomes on chemistry, law, and obscure monographs. Beneath it lies a large Persian rug, its once-vibrant colors faded and edges worn from years of use, covering the dark wooden floor. Near the center of the room stands a heavy, well-worn sofa with deep cushions, positioned to face a roaring coal grate that sits against the opposite wall, its iron frame blackened by soot and age. A side table holds Holmes’s violin beside a stack of case notes tied with string. The large bay window is framed by thick, heavy curtains that filter pale winter sunlight through the morning London fog outside. On a small side table rests a folded newspaper, its pages creased from frequent handling. A chemical apparatus on a stand near the mantelpiece releases faint bubbling sounds and subtle odors of experimentation. The room exudes an air of intellectual intensity, every object reflecting the restless mind of its occupant.}}, {Sunny Winter Morning};Place ((male_doctor_watson)), the Character in Image 1, {Curious}, {Leaning forward on sofa}, {Resting newspaper on knee};.
+
+CHARACTER TEXT-DESCRIPTION:
+(Character in Image 1) is ((male_doctor_watson)) who looks like {round head shape, fair skin tone, hazel eyes, straight slightly prominent nose, full pursed lips, dark brown neatly trimmed wavy hair, fine lines around eyes and forehead, Victorian gentleman's attire, fine wool cotton leather clothing, silver pocket watch chain, revolver holstered at hip, medical bag slung over shoulder, black polished high-top leather boots with brass buckles}.
+got prompt
+Waiting for completion (prompt_id: ac41ab99-f3ab-49f6-a90c-5f38ac47bae1)...
+Requested to load FluxClipModel_
+loaded completely 9456.675 9319.23095703125 True
+Requested to load AutoencodingEngine
+loaded completely 245.01171112060547 159.87335777282715 True
+Requested to load Flux
+loaded partially 8083.554965667725 8083.455078125 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:44,  6.36s/it] 25%|██▌       | 2/8 [00:12<00:37,  6.33s/it] 38%|███▊      | 3/8 [00:18<00:31,  6.25s/it] 50%|█████     | 4/8 [00:25<00:25,  6.35s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.30s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.34s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.40s/it]100%|██████████| 8/8 [00:50<00:00,  6.39s/it]100%|██████████| 8/8 [00:50<00:00,  6.35s/it]
+Requested to load AutoencodingEngine
+loaded completely 219.41796875 159.87335777282715 True
+Prompt executed in 59.87 seconds
+Saved: ../output/scene\scene_1.5.png
+[OK] Generated: scene_1.5
+
+[6/100] Processing scene_1.6...
+Generating scene: scene_1.6 with characters: male_detective_holmes
+LoRA enabled in workflow
+Sampling steps set to: 8
+Seed set to: 333555666
+Compressed male_detective_holmes image: 277.4KB → 18.3KB (93.4% reduction)
+Character mode: IMAGE_TEXT, Images: 1
+Image stitching: 1 images → 1 groups []
+Using single reference conditioning
+Negative prompt disabled - using ConditioningZeroOut
+Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
+Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
+Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
+All Non-Living Objects mentioned in Scene text-description must be present in illustration
+        
+SCENE TEXT-DESCRIPTION:
+ Illustrate an exact scenery like {{A British Victorian living room in 221B Baker Street, steeped in the atmosphere of a detective’s quarters. The space is comfortably cluttered, with the scent of pipe smoke and strong black tea lingering in the air. A tall bookcase lines one wall, crammed with tomes on chemistry, law, and obscure monographs. Beneath it lies a large Persian rug, its once-vibrant colors faded and edges worn from years of use, covering the dark wooden floor. Near the center of the room stands a heavy, well-worn sofa with deep cushions, positioned to face a roaring coal grate that sits against the opposite wall, its iron frame blackened by soot and age. A side table holds Holmes’s violin beside a stack of case notes tied with string. The large bay window is framed by thick, heavy curtains that filter pale winter sunlight through the morning London fog outside. On a small side table rests a folded newspaper, its pages creased from frequent handling. A chemical apparatus on a stand near the mantelpiece releases faint bubbling sounds and subtle odors of experimentation. The room exudes an air of intellectual intensity, every object reflecting the restless mind of its occupant.}}, {Sunny Winter Morning};Place ((male_detective_holmes)), the Character in Image 1, {Confident}, {By window turning towards door}, {Tapping ash from pipe};.
+
+CHARACTER TEXT-DESCRIPTION:
+(Character in Image 1) is ((male_detective_holmes)) who looks like {square head shape,pale skin tone,sharp piercing dark brown eyes with gold flecks,straight slightly prominent nose,thin lips often in pensive frown or thoughtful smile,dark brown thick unkempt hair combed back,meticulously groomed,faint shadow of stubble,Victorian gentleman's attire,fine wool and linen,long coat with pockets,dark leather boots,deerstalker hat,magnifying glass,pocket watch with chain}.
+got prompt
+Waiting for completion (prompt_id: 15420e70-5499-47fa-86ef-1ee2ba66258c)...
+Requested to load FluxClipModel_
+loaded completely 9456.675 9319.23095703125 True
+Requested to load AutoencodingEngine
+loaded completely 245.01171112060547 159.87335777282715 True
+Requested to load Flux
+loaded partially 8083.554965667725 8083.455078125 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:43,  6.21s/it] 25%|██▌       | 2/8 [00:12<00:36,  6.15s/it] 38%|███▊      | 3/8 [00:18<00:30,  6.13s/it] 50%|█████     | 4/8 [00:24<00:24,  6.14s/it] 62%|██████▎   | 5/8 [00:30<00:18,  6.14s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.30s/it] 88%|████████▊ | 7/8 [00:43<00:06,  6.33s/it]100%|██████████| 8/8 [00:50<00:00,  6.42s/it]100%|██████████| 8/8 [00:50<00:00,  6.29s/it]
+Requested to load AutoencodingEngine
+loaded completely 219.41796875 159.87335777282715 True
+Prompt executed in 59.83 seconds
+Saved: ../output/scene\scene_1.6.png
+[OK] Generated: scene_1.6
+
+[7/100] Processing scene_1.7...
+Generating scene: scene_1.7 with characters: male_client_stranger
+LoRA enabled in workflow
+Sampling steps set to: 8
+Seed set to: 333555666
+Compressed male_client_stranger image: 294.1KB → 19.7KB (93.3% reduction)
+Character mode: IMAGE_TEXT, Images: 1
+Image stitching: 1 images → 1 groups []
+Using single reference conditioning
+Negative prompt disabled - using ConditioningZeroOut
+Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
+Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
+Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
+All Non-Living Objects mentioned in Scene text-description must be present in illustration
+        
+SCENE TEXT-DESCRIPTION:
+ Illustrate an exact scenery like {{A British Victorian living room in 221B Baker Street, steeped in the atmosphere of a detective’s quarters. The space is comfortably cluttered, with the scent of pipe smoke and strong black tea lingering in the air. A tall bookcase lines one wall, crammed with tomes on chemistry, law, and obscure monographs. Beneath it lies a large Persian rug, its once-vibrant colors faded and edges worn from years of use, covering the dark wooden floor. Near the center of the room stands a heavy, well-worn sofa with deep cushions, positioned to face a roaring coal grate that sits against the opposite wall, its iron frame blackened by soot and age. A side table holds Holmes’s violin beside a stack of case notes tied with string. The large bay window is framed by thick, heavy curtains that filter pale winter sunlight through the morning London fog outside. On a small side table rests a folded newspaper, its pages creased from frequent handling. A chemical apparatus on a stand near the mantelpiece releases faint bubbling sounds and subtle odors of experimentation. The room exudes an air of intellectual intensity, every object reflecting the restless mind of its occupant.}}, {Sunny Winter Morning};Place ((male_client_stranger)), the Character in Image 1, {Anxious}, {At doorway clutching hat}, {Nervously twisting gloves};.
+
+CHARACTER TEXT-DESCRIPTION:
+(Character in Image 1) is ((male_client_stranger)) who looks like {oval head shape,pale skin tone,dark brown eyes,thin nose,tightly drawn mouth,unkempt black hair with streaks of gray,worn wool clothing,frayed scarf,well-worn satchel,tarnished ring on left hand,tattered leather boots with salt stains}.
+got prompt
+Waiting for completion (prompt_id: b2948aaf-a5b8-4051-8842-6c49e4b8f25b)...
+Requested to load FluxClipModel_
+loaded completely 9456.675 9319.23095703125 True
+Requested to load AutoencodingEngine
+loaded completely 245.01171112060547 159.87335777282715 True
+Requested to load Flux
+loaded partially 8083.554965667725 8083.455078125 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:45,  6.55s/it] 25%|██▌       | 2/8 [00:13<00:39,  6.57s/it] 38%|███▊      | 3/8 [00:20<00:34,  6.93s/it] 50%|█████     | 4/8 [00:26<00:26,  6.63s/it] 62%|██████▎   | 5/8 [00:33<00:19,  6.64s/it] 75%|███████▌  | 6/8 [00:40<00:13,  6.94s/it] 88%|████████▊ | 7/8 [00:47<00:06,  6.70s/it]100%|██████████| 8/8 [00:53<00:00,  6.54s/it]100%|██████████| 8/8 [00:53<00:00,  6.65s/it]
+Requested to load AutoencodingEngine
+loaded completely 219.41796875 159.87335777282715 True
+Prompt executed in 62.90 seconds
+Saved: ../output/scene\scene_1.7.png
+[OK] Generated: scene_1.7
+
+[8/100] Processing scene_1.8...
+Generating scene: scene_1.8 with characters: male_doctor_watson
+LoRA enabled in workflow
+Sampling steps set to: 8
+Seed set to: 333555666
+Compressed male_doctor_watson image: 281.0KB → 18.8KB (93.3% reduction)
+Character mode: IMAGE_TEXT, Images: 1
+Image stitching: 1 images → 1 groups []
+Using single reference conditioning
+Negative prompt disabled - using ConditioningZeroOut
+Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
+Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
+Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
+All Non-Living Objects mentioned in Scene text-description must be present in illustration
+        
+SCENE TEXT-DESCRIPTION:
+ Illustrate an exact scenery like {{A British Victorian living room in 221B Baker Street, steeped in the atmosphere of a detective’s quarters. The space is comfortably cluttered, with the scent of pipe smoke and strong black tea lingering in the air. A tall bookcase lines one wall, crammed with tomes on chemistry, law, and obscure monographs. Beneath it lies a large Persian rug, its once-vibrant colors faded and edges worn from years of use, covering the dark wooden floor. Near the center of the room stands a heavy, well-worn sofa with deep cushions, positioned to face a roaring coal grate that sits against the opposite wall, its iron frame blackened by soot and age. A side table holds Holmes’s violin beside a stack of case notes tied with string. The large bay window is framed by thick, heavy curtains that filter pale winter sunlight through the morning London fog outside. On a small side table rests a folded newspaper, its pages creased from frequent handling. A chemical apparatus on a stand near the mantelpiece releases faint bubbling sounds and subtle odors of experimentation. The room exudes an air of intellectual intensity, every object reflecting the restless mind of its occupant.}}, {Sunny Winter Morning};Place ((male_doctor_watson)), the Character in Image 1, {Polite}, {Rising from sofa}, {Gesturing toward fire};.
+
+CHARACTER TEXT-DESCRIPTION:
+(Character in Image 1) is ((male_doctor_watson)) who looks like {round head shape, fair skin tone, hazel eyes, straight slightly prominent nose, full pursed lips, dark brown neatly trimmed wavy hair, fine lines around eyes and forehead, Victorian gentleman's attire, fine wool cotton leather clothing, silver pocket watch chain, revolver holstered at hip, medical bag slung over shoulder, black polished high-top leather boots with brass buckles}.
+got prompt
+Waiting for completion (prompt_id: fe486ddf-bff5-4906-8089-1843d876e674)...
+Requested to load FluxClipModel_
+loaded completely 9456.675 9319.23095703125 True
+Requested to load AutoencodingEngine
+loaded completely 245.01171112060547 159.87335777282715 True
+Requested to load Flux
+loaded partially 8083.554965667725 8083.455078125 0
+  0%|          | 0/8 [00:00<?, ?it/s]
+===== END D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-09-26 15:45:47 (exit=3221225786, took=462.75s) =====
+Stopping ComfyUI backend...
