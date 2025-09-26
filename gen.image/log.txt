@@ -1,46 +1,88 @@
 Workflow runner started. Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
 Working directory: D:\.comfyui\gen.image
 Emptying ComfyUI input and output folders...
-Removed file: D:\.comfyui\ComfyUI\input\male_client_stranger.jpg
-Removed file: D:\.comfyui\ComfyUI\input\male_detective_holmes.jpg
-Removed file: D:\.comfyui\ComfyUI\input\male_doctor_watson.jpg
-Removed file: D:\.comfyui\ComfyUI\output\female_clara_whitfield_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\female_landlady_mrs_hudmore_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_client_stranger_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_detective_holmes_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_doctor_watson_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_villain_scarred_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_villain_shorter_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.10_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.11_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.3_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.4_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.5_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.6_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.7_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.8_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.9_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00002_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00003_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00004_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00005_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00006_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00007_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00008_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00009_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00010_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00011_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00012_.png
 Successfully emptied ComfyUI input and output folders.
+Starting LM Studio backend via lms CLI...
+Command: lms server start
+Success! Server is now running on port 1234
+Waiting for LM Studio to become ready (polling every 15s)...
+LM Studio is ready after 0.0s (attempt 1).
+
+===== START D:\.comfyui\gen.image\scripts\1.story.py @ 2025-09-26 18:10:53 =====
+Extracted 4 unique locations: ['loc_1', 'loc_2', 'loc_3', 'loc_4']
+Detected order: [] first, then ()(())
+Running pre-validation checks...
+Characters match: 7 names ['female_clara_whitfield', 'female_landlady_mrs_hudmore', 'male_client_stranger', 'male_detective_holmes', 'male_doctor_watson', 'male_villain_scarred', 'male_villain_shorter']
+Pre-validation passed. Proceeding with generation...
+Generating story description from story content...
+Generated story description: The story unfolds in the bustling and shadowy world of Victorian London, centered around two main characters: Dr. John Watson, a medical professional with a quiet demeanor, and Sherlock Holmes, an extraordinary consulting detective known for his sharp intellect and deductive prowess. Set primarily in the shadowy interiors of Baker Street and the grim outskirts of the city, the narrative captures the essence of suspense, mystery, and detective work during this period. The main events revolve around a case involving Clara Whitfield, who has vanished near Casper Bridge, leading Holmes and Watson on an intense pursuit through the fog-laden streets and the sinister warehouses along the Thames.
+Expanding location descriptions: 4 total
+(1/4) loc_1: filtering story content and expanding description...
+(1/4) loc_1: filtered content length: 6284 characters
+(1/4) loc_1: done (1269 characters)
+(2/4) loc_2: filtering story content and expanding description...
+(2/4) loc_2: filtered content length: 1974 characters
+(2/4) loc_2: done (1543 characters)
+(3/4) loc_3: filtering story content and expanding description...
+(3/4) loc_3: filtered content length: 7759 characters
+(3/4) loc_3: done (955 characters)
+(4/4) loc_4: filtering story content and expanding description...
+(4/4) loc_4: filtered content length: 8664 characters
+(4/4) loc_4: done (1058 characters)
+Wrote 4 expanded location entries to: D:\.comfyui\gen.image\input\3.location.txt
+Generating structured character descriptions: 7 total
+(1/7) female_clara_whitfield: generating structured description...
+(1/7) female_clara_whitfield: done (214 words)
+(2/7) female_landlady_mrs_hudmore: generating structured description...
+(2/7) female_landlady_mrs_hudmore: done (149 words)
+(3/7) male_client_stranger: generating structured description...
+(3/7) male_client_stranger: done (113 words)
+(4/7) male_detective_holmes: generating structured description...
+(4/7) male_detective_holmes: done (234 words)
+(5/7) male_doctor_watson: generating structured description...
+(5/7) male_doctor_watson: done (179 words)
+(6/7) male_villain_scarred: generating structured description...
+(6/7) male_villain_scarred: done (170 words)
+(7/7) male_villain_shorter: generating structured description...
+(7/7) male_villain_shorter: done (120 words)
+Rewriting character descriptions to make them look completely different...
+Rewriting all character descriptions using Qwen model: 7 characters
+Successfully rewrote 7 character descriptions
+Wrote 7 character descriptions to: D:\.comfyui\gen.image\input\2.character.txt
+Generating character summaries: 7 total
+(1/7) female_clara_whitfield: generating summary...
+(1/7) female_clara_whitfield: done (60 words)
+(2/7) female_landlady_mrs_hudmore: generating summary...
+(2/7) female_landlady_mrs_hudmore: done (43 words)
+(3/7) male_client_stranger: generating summary...
+(3/7) male_client_stranger: done (36 words)
+(4/7) male_detective_holmes: generating summary...
+(4/7) male_detective_holmes: done (40 words)
+(5/7) male_doctor_watson: generating summary...
+(5/7) male_doctor_watson: done (39 words)
+(6/7) male_villain_scarred: generating summary...
+(6/7) male_villain_scarred: done (32 words)
+(7/7) male_villain_shorter: generating summary...
+(7/7) male_villain_shorter: done (42 words)
+Wrote 7 character summaries to: D:\.comfyui\gen.image\input\3.character.txt
+Wrote 100 dialogue lines to: D:\.comfyui\gen.audio\input\1.story.txt
+Wrote 100 scene entries to: D:\.comfyui\gen.image\input\3.scene.txt
+
+===== END D:\.comfyui\gen.image\scripts\1.story.py @ 2025-09-26 18:18:07 (exit=0, took=434.17s) =====
+Stopping LM Studio backend via lms CLI...
+Command: lms server stop
+Unloading all models from LM Studio...
+Command: lms unload --all
+Unloading "qwen/qwen3-14b"...
+Unloaded 1 model.
+Stopped the server on port 1234.
+LM Studio appears stopped (after 1 checks).
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
 [START] Security scan
 [DONE] Security scan
 ## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2025-09-26 15:34:15.661
+** ComfyUI startup time: 2025-09-26 18:18:10.149
 ** Platform: Windows
 ** Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
 ** Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
@@ -74,13 +116,13 @@ ComfyUI-GGUF: Allowing full torch compile
 
 [32mInitializing ControlAltAI Nodes[0m
 
-[92m[rgthree-comfy] Loaded 48 exciting nodes. 🎉[0m
+[92m[rgthree-comfy] Loaded 48 epic nodes. 🎉[0m
 
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
 ✅ ChatterboxTTS loaded from bundled package
 ✅ ChatterboxVC loaded from bundled package
 JAX version 0.7.1 available.
@@ -115,15 +157,15 @@ Universal multi-engine TTS extension for ComfyUI
 
 Import times for custom nodes:
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\rgthree-comfy
    0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
    0.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-impact-pack
-   0.7 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-   2.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
-   4.3 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
+   0.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   2.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
+   3.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
 
 Context impl SQLiteImpl.
 Will assume non-transactional DDL.
@@ -134,7 +176,7 @@ To see the GUI go to: http://127.0.0.1:8188
 FETCH ComfyRegistry Data: 5/98
 ComfyUI is ready after 17.1s (attempt 2).
 
-===== START D:\.comfyui\gen.image\scripts\2.character.py @ 2025-09-26 15:34:31 =====
+===== START D:\.comfyui\gen.image\scripts\2.character.py @ 2025-09-26 18:18:25 =====
 Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
 handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
 Traceback (most recent call last):
@@ -151,36 +193,40 @@ Generating image for: female_clara_whitfield
 Loaded flux workflow from: ../workflow/character.flux.json
 LoRA enabled in character workflow
 Sampling steps set to: 8
-Negative prompt disabled - using ConditioningZeroOut
+Negative prompt enabled: blur, distorted, un-focused, text, words, letters, writing, caption, subtitle, title, label, inscriptions, symbols, watermark, duplicate same characters, duplicate same actors, full white background, full black background, extra limbs, extra fingers, extra arms, extra legs, extra hands, extra feet, bad anatomy, poorly drawn face, asymmetrical features, malformed hands, malformed face, distorted face, deformed face, mutated hands, missing fingers, missing limbs, disfigured, ugly, bad proportions, disproportionate, unrealistic proportions, plastic texture, uncanny valley, artificial looking, poorly drawn eyes, cross-eyed, wall-eyed, mismatched eyes, asymmetrical eyes, bad eye anatomy, poorly drawn nose, malformed nose, distorted nose, bad mouth anatomy, poorly drawn lips, malformed lips, distorted lips, bad teeth, missing teeth, extra teeth, bad jaw anatomy, poorly drawn jaw, malformed jaw, distorted jaw, bad chin anatomy, poorly drawn chin, malformed chin, distorted chin, bad neck anatomy, poorly drawn neck, malformed neck, distorted neck, bad shoulder anatomy, poorly drawn shoulders, malformed shoulders, distorted shoulders, bad chest anatomy, poorly drawn chest, malformed chest, distorted chest, bad torso anatomy, poorly drawn torso, malformed torso, distorted torso, bad waist anatomy, poorly drawn waist, malformed waist, distorted waist, bad hip anatomy, poorly drawn hips, malformed hips, distorted hips, bad leg anatomy, poorly drawn legs, malformed legs, distorted legs, bad knee anatomy, poorly drawn knees, malformed knees, distorted knees, bad ankle anatomy, poorly drawn ankles, malformed ankles, distorted ankles, bad foot anatomy, poorly drawn feet, malformed feet, distorted feet
 Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
 Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
 got prompt
-Waiting for generation to complete (prompt_id: b8d93b63-1cb6-402b-9178-01cb1cbe42d7)...
+Waiting for generation to complete (prompt_id: eab323dc-b41f-4aa8-93db-4fc3505e3cb9)...
 Using pytorch attention in VAE
 Using pytorch attention in VAE
 VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
 CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
 FETCH ComfyRegistry Data: 10/98
 clip missing: ['text_projection.weight']
+Requested to load FluxClipModel_
+FETCH ComfyRegistry Data: 15/98
+loaded completely 9520.8 9319.23095703125 True
 gguf qtypes: F32 (466), Q8_0 (304), BF16 (10)
 model weight dtype torch.bfloat16, manual cast: None
 model_type FLUX
 Requested to load FluxClipModel_
-FETCH ComfyRegistry Data: 15/98
-loaded completely 9520.8 9319.23095703125 True
-Requested to load Flux
 FETCH ComfyRegistry Data: 20/98
+loaded completely 9422.675 9319.23095703125 True
+Requested to load Flux
+FETCH ComfyRegistry Data: 25/98
+FETCH ComfyRegistry Data: 30/98
 loaded partially 9462.674965667724 9462.435546875 0
 Attempting to release mmap (126)
-FETCH ComfyRegistry Data: 25/98
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:02<00:18,  2.66s/it] 25%|██▌       | 2/8 [00:04<00:13,  2.28s/it]FETCH ComfyRegistry Data: 30/98
- 38%|███▊      | 3/8 [00:06<00:11,  2.26s/it] 50%|█████     | 4/8 [00:09<00:09,  2.35s/it]FETCH ComfyRegistry Data: 35/98
- 62%|██████▎   | 5/8 [00:11<00:07,  2.41s/it] 75%|███████▌  | 6/8 [00:14<00:04,  2.39s/it]FETCH ComfyRegistry Data: 40/98
- 88%|████████▊ | 7/8 [00:16<00:02,  2.24s/it]100%|██████████| 8/8 [00:18<00:00,  2.14s/it]100%|██████████| 8/8 [00:18<00:00,  2.26s/it]
+FETCH ComfyRegistry Data: 35/98
+  0%|          | 0/8 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 40/98
+ 12%|█▎        | 1/8 [00:04<00:28,  4.06s/it] 25%|██▌       | 2/8 [00:05<00:16,  2.73s/it] 38%|███▊      | 3/8 [00:07<00:11,  2.32s/it]FETCH ComfyRegistry Data: 45/98
+ 50%|█████     | 4/8 [00:09<00:08,  2.13s/it] 62%|██████▎   | 5/8 [00:11<00:06,  2.02s/it]FETCH ComfyRegistry Data: 50/98
+ 75%|███████▌  | 6/8 [00:13<00:03,  1.96s/it] 88%|████████▊ | 7/8 [00:15<00:01,  1.92s/it]100%|██████████| 8/8 [00:16<00:00,  1.89s/it]100%|██████████| 8/8 [00:16<00:00,  2.11s/it]
 Requested to load AutoencodingEngine
 loaded completely 187.6484375 159.87335777282715 True
-Prompt executed in 38.29 seconds
-FETCH ComfyRegistry Data: 45/98
+Prompt executed in 51.42 seconds
+FETCH ComfyRegistry Data: 55/98
 Saved: ../output/characters\female_clara_whitfield.png
 [OK] Generated: female_clara_whitfield
 
@@ -189,24 +235,28 @@ Generating image for: female_landlady_mrs_hudmore
 Loaded flux workflow from: ../workflow/character.flux.json
 LoRA enabled in character workflow
 Sampling steps set to: 8
-Negative prompt disabled - using ConditioningZeroOut
+Negative prompt enabled: blur, distorted, un-focused, text, words, letters, writing, caption, subtitle, title, label, inscriptions, symbols, watermark, duplicate same characters, duplicate same actors, full white background, full black background, extra limbs, extra fingers, extra arms, extra legs, extra hands, extra feet, bad anatomy, poorly drawn face, asymmetrical features, malformed hands, malformed face, distorted face, deformed face, mutated hands, missing fingers, missing limbs, disfigured, ugly, bad proportions, disproportionate, unrealistic proportions, plastic texture, uncanny valley, artificial looking, poorly drawn eyes, cross-eyed, wall-eyed, mismatched eyes, asymmetrical eyes, bad eye anatomy, poorly drawn nose, malformed nose, distorted nose, bad mouth anatomy, poorly drawn lips, malformed lips, distorted lips, bad teeth, missing teeth, extra teeth, bad jaw anatomy, poorly drawn jaw, malformed jaw, distorted jaw, bad chin anatomy, poorly drawn chin, malformed chin, distorted chin, bad neck anatomy, poorly drawn neck, malformed neck, distorted neck, bad shoulder anatomy, poorly drawn shoulders, malformed shoulders, distorted shoulders, bad chest anatomy, poorly drawn chest, malformed chest, distorted chest, bad torso anatomy, poorly drawn torso, malformed torso, distorted torso, bad waist anatomy, poorly drawn waist, malformed waist, distorted waist, bad hip anatomy, poorly drawn hips, malformed hips, distorted hips, bad leg anatomy, poorly drawn legs, malformed legs, distorted legs, bad knee anatomy, poorly drawn knees, malformed knees, distorted knees, bad ankle anatomy, poorly drawn ankles, malformed ankles, distorted ankles, bad foot anatomy, poorly drawn feet, malformed feet, distorted feet
 Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
 Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
 got prompt
-Waiting for generation to complete (prompt_id: b976b253-8d50-489f-afb3-88c3d098fde7)...
+Waiting for generation to complete (prompt_id: dbb6bc89-76e4-4486-822c-1590347bb9b4)...
 Requested to load FluxClipModel_
-FETCH ComfyRegistry Data: 50/98
-loaded completely 9460.675 9319.23095703125 True
+FETCH ComfyRegistry Data: 60/98
+loaded completely 9458.675 9319.23095703125 True
+Requested to load FluxClipModel_
+FETCH ComfyRegistry Data: 65/98
+loaded completely 9418.675 9319.23095703125 True
 Requested to load Flux
-FETCH ComfyRegistry Data: 55/98
+FETCH ComfyRegistry Data: 70/98
 loaded partially 9458.674965667724 9458.6748046875 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:02<00:16,  2.35s/it] 25%|██▌       | 2/8 [00:04<00:13,  2.21s/it]FETCH ComfyRegistry Data: 60/98
- 38%|███▊      | 3/8 [00:06<00:11,  2.32s/it] 50%|█████     | 4/8 [00:09<00:09,  2.36s/it] 62%|██████▎   | 5/8 [00:11<00:07,  2.36s/it] 75%|███████▌  | 6/8 [00:13<00:04,  2.24s/it]FETCH ComfyRegistry Data: 65/98
- 88%|████████▊ | 7/8 [00:15<00:02,  2.14s/it]100%|██████████| 8/8 [00:17<00:00,  2.05s/it]100%|██████████| 8/8 [00:17<00:00,  2.19s/it]
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:01<00:13,  1.97s/it]FETCH ComfyRegistry Data: 75/98
+ 25%|██▌       | 2/8 [00:03<00:11,  1.98s/it] 38%|███▊      | 3/8 [00:05<00:09,  1.92s/it] 50%|█████     | 4/8 [00:07<00:07,  1.88s/it]FETCH ComfyRegistry Data: 80/98
+ 62%|██████▎   | 5/8 [00:09<00:05,  1.86s/it] 75%|███████▌  | 6/8 [00:11<00:03,  1.86s/it] 88%|████████▊ | 7/8 [00:13<00:01,  1.85s/it]FETCH ComfyRegistry Data: 85/98
+100%|██████████| 8/8 [00:14<00:00,  1.84s/it]100%|██████████| 8/8 [00:14<00:00,  1.87s/it]
 Requested to load AutoencodingEngine
 loaded completely 185.6484375 159.87335777282715 True
-Prompt executed in 27.60 seconds
-FETCH ComfyRegistry Data: 70/98
+Prompt executed in 32.45 seconds
+FETCH ComfyRegistry Data: 90/98
 Saved: ../output/characters\female_landlady_mrs_hudmore.png
 [OK] Generated: female_landlady_mrs_hudmore
 
@@ -215,24 +265,26 @@ Generating image for: male_client_stranger
 Loaded flux workflow from: ../workflow/character.flux.json
 LoRA enabled in character workflow
 Sampling steps set to: 8
-Negative prompt disabled - using ConditioningZeroOut
+Negative prompt enabled: blur, distorted, un-focused, text, words, letters, writing, caption, subtitle, title, label, inscriptions, symbols, watermark, duplicate same characters, duplicate same actors, full white background, full black background, extra limbs, extra fingers, extra arms, extra legs, extra hands, extra feet, bad anatomy, poorly drawn face, asymmetrical features, malformed hands, malformed face, distorted face, deformed face, mutated hands, missing fingers, missing limbs, disfigured, ugly, bad proportions, disproportionate, unrealistic proportions, plastic texture, uncanny valley, artificial looking, poorly drawn eyes, cross-eyed, wall-eyed, mismatched eyes, asymmetrical eyes, bad eye anatomy, poorly drawn nose, malformed nose, distorted nose, bad mouth anatomy, poorly drawn lips, malformed lips, distorted lips, bad teeth, missing teeth, extra teeth, bad jaw anatomy, poorly drawn jaw, malformed jaw, distorted jaw, bad chin anatomy, poorly drawn chin, malformed chin, distorted chin, bad neck anatomy, poorly drawn neck, malformed neck, distorted neck, bad shoulder anatomy, poorly drawn shoulders, malformed shoulders, distorted shoulders, bad chest anatomy, poorly drawn chest, malformed chest, distorted chest, bad torso anatomy, poorly drawn torso, malformed torso, distorted torso, bad waist anatomy, poorly drawn waist, malformed waist, distorted waist, bad hip anatomy, poorly drawn hips, malformed hips, distorted hips, bad leg anatomy, poorly drawn legs, malformed legs, distorted legs, bad knee anatomy, poorly drawn knees, malformed knees, distorted knees, bad ankle anatomy, poorly drawn ankles, malformed ankles, distorted ankles, bad foot anatomy, poorly drawn feet, malformed feet, distorted feet
 Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
 Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
 got prompt
-Waiting for generation to complete (prompt_id: 9004ff96-6275-41f9-b522-6ee081350d93)...
+Waiting for generation to complete (prompt_id: 6ba4fc01-978a-4788-95d7-84b75b50528a)...
 Requested to load FluxClipModel_
-FETCH ComfyRegistry Data: 75/98
 loaded completely 9458.675 9319.23095703125 True
+Requested to load FluxClipModel_
+FETCH ComfyRegistry Data: 95/98
+loaded completely 9418.675 9319.23095703125 True
 Requested to load Flux
+FETCH ComfyRegistry Data [DONE]
+[ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
+FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
+[ComfyUI-Manager] All startup tasks have been completed.
 loaded partially 9458.674965667724 9458.6748046875 0
-  0%|          | 0/8 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 80/98
- 12%|█▎        | 1/8 [00:02<00:14,  2.01s/it] 25%|██▌       | 2/8 [00:03<00:11,  1.97s/it] 38%|███▊      | 3/8 [00:06<00:10,  2.04s/it]FETCH ComfyRegistry Data: 85/98
- 50%|█████     | 4/8 [00:08<00:08,  2.18s/it] 62%|██████▎   | 5/8 [00:10<00:06,  2.28s/it]FETCH ComfyRegistry Data: 90/98
- 75%|███████▌  | 6/8 [00:13<00:04,  2.23s/it] 88%|████████▊ | 7/8 [00:14<00:02,  2.12s/it]100%|██████████| 8/8 [00:16<00:00,  2.07s/it]100%|██████████| 8/8 [00:16<00:00,  2.12s/it]
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:02<00:14,  2.08s/it] 25%|██▌       | 2/8 [00:03<00:11,  1.93s/it] 38%|███▊      | 3/8 [00:05<00:09,  1.86s/it] 50%|█████     | 4/8 [00:07<00:07,  1.84s/it] 62%|██████▎   | 5/8 [00:09<00:05,  1.84s/it] 75%|███████▌  | 6/8 [00:11<00:03,  1.85s/it] 88%|████████▊ | 7/8 [00:13<00:01,  1.84s/it]100%|██████████| 8/8 [00:14<00:00,  1.83s/it]100%|██████████| 8/8 [00:14<00:00,  1.85s/it]
 Requested to load AutoencodingEngine
 loaded completely 185.6484375 159.87335777282715 True
-Prompt executed in 25.86 seconds
-FETCH ComfyRegistry Data: 95/98
+Prompt executed in 30.08 seconds
 Saved: ../output/characters\male_client_stranger.png
 [OK] Generated: male_client_stranger
 
@@ -241,23 +293,21 @@ Generating image for: male_detective_holmes
 Loaded flux workflow from: ../workflow/character.flux.json
 LoRA enabled in character workflow
 Sampling steps set to: 8
-Negative prompt disabled - using ConditioningZeroOut
+Negative prompt enabled: blur, distorted, un-focused, text, words, letters, writing, caption, subtitle, title, label, inscriptions, symbols, watermark, duplicate same characters, duplicate same actors, full white background, full black background, extra limbs, extra fingers, extra arms, extra legs, extra hands, extra feet, bad anatomy, poorly drawn face, asymmetrical features, malformed hands, malformed face, distorted face, deformed face, mutated hands, missing fingers, missing limbs, disfigured, ugly, bad proportions, disproportionate, unrealistic proportions, plastic texture, uncanny valley, artificial looking, poorly drawn eyes, cross-eyed, wall-eyed, mismatched eyes, asymmetrical eyes, bad eye anatomy, poorly drawn nose, malformed nose, distorted nose, bad mouth anatomy, poorly drawn lips, malformed lips, distorted lips, bad teeth, missing teeth, extra teeth, bad jaw anatomy, poorly drawn jaw, malformed jaw, distorted jaw, bad chin anatomy, poorly drawn chin, malformed chin, distorted chin, bad neck anatomy, poorly drawn neck, malformed neck, distorted neck, bad shoulder anatomy, poorly drawn shoulders, malformed shoulders, distorted shoulders, bad chest anatomy, poorly drawn chest, malformed chest, distorted chest, bad torso anatomy, poorly drawn torso, malformed torso, distorted torso, bad waist anatomy, poorly drawn waist, malformed waist, distorted waist, bad hip anatomy, poorly drawn hips, malformed hips, distorted hips, bad leg anatomy, poorly drawn legs, malformed legs, distorted legs, bad knee anatomy, poorly drawn knees, malformed knees, distorted knees, bad ankle anatomy, poorly drawn ankles, malformed ankles, distorted ankles, bad foot anatomy, poorly drawn feet, malformed feet, distorted feet
 Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
 Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
 got prompt
-Waiting for generation to complete (prompt_id: 6e7f23ff-3762-4b36-b9be-c2ded844171e)...
+Waiting for generation to complete (prompt_id: eb6b84c3-de58-4536-b241-95f8ee86d751)...
 Requested to load FluxClipModel_
-FETCH ComfyRegistry Data [DONE]
-[ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
-FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
-[ComfyUI-Manager] All startup tasks have been completed.
 loaded completely 9458.675 9319.23095703125 True
+Requested to load FluxClipModel_
+loaded completely 9418.675 9319.23095703125 True
 Requested to load Flux
 loaded partially 9458.674965667724 9458.6748046875 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:02<00:15,  2.19s/it] 25%|██▌       | 2/8 [00:04<00:12,  2.01s/it] 38%|███▊      | 3/8 [00:05<00:09,  1.96s/it] 50%|█████     | 4/8 [00:07<00:07,  1.97s/it] 62%|██████▎   | 5/8 [00:10<00:06,  2.03s/it] 75%|███████▌  | 6/8 [00:12<00:04,  2.03s/it] 88%|████████▊ | 7/8 [00:14<00:02,  2.03s/it]100%|██████████| 8/8 [00:16<00:00,  1.99s/it]100%|██████████| 8/8 [00:16<00:00,  2.01s/it]
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:02<00:14,  2.03s/it] 25%|██▌       | 2/8 [00:03<00:11,  1.90s/it] 38%|███▊      | 3/8 [00:05<00:09,  1.87s/it] 50%|█████     | 4/8 [00:07<00:07,  1.85s/it] 62%|██████▎   | 5/8 [00:09<00:05,  1.84s/it] 75%|███████▌  | 6/8 [00:11<00:03,  1.83s/it] 88%|████████▊ | 7/8 [00:12<00:01,  1.83s/it]100%|██████████| 8/8 [00:14<00:00,  1.81s/it]100%|██████████| 8/8 [00:14<00:00,  1.84s/it]
 Requested to load AutoencodingEngine
 loaded completely 185.6484375 159.87335777282715 True
-Prompt executed in 25.70 seconds
+Prompt executed in 29.86 seconds
 Saved: ../output/characters\male_detective_holmes.png
 [OK] Generated: male_detective_holmes
 
@@ -266,19 +316,21 @@ Generating image for: male_doctor_watson
 Loaded flux workflow from: ../workflow/character.flux.json
 LoRA enabled in character workflow
 Sampling steps set to: 8
-Negative prompt disabled - using ConditioningZeroOut
+Negative prompt enabled: blur, distorted, un-focused, text, words, letters, writing, caption, subtitle, title, label, inscriptions, symbols, watermark, duplicate same characters, duplicate same actors, full white background, full black background, extra limbs, extra fingers, extra arms, extra legs, extra hands, extra feet, bad anatomy, poorly drawn face, asymmetrical features, malformed hands, malformed face, distorted face, deformed face, mutated hands, missing fingers, missing limbs, disfigured, ugly, bad proportions, disproportionate, unrealistic proportions, plastic texture, uncanny valley, artificial looking, poorly drawn eyes, cross-eyed, wall-eyed, mismatched eyes, asymmetrical eyes, bad eye anatomy, poorly drawn nose, malformed nose, distorted nose, bad mouth anatomy, poorly drawn lips, malformed lips, distorted lips, bad teeth, missing teeth, extra teeth, bad jaw anatomy, poorly drawn jaw, malformed jaw, distorted jaw, bad chin anatomy, poorly drawn chin, malformed chin, distorted chin, bad neck anatomy, poorly drawn neck, malformed neck, distorted neck, bad shoulder anatomy, poorly drawn shoulders, malformed shoulders, distorted shoulders, bad chest anatomy, poorly drawn chest, malformed chest, distorted chest, bad torso anatomy, poorly drawn torso, malformed torso, distorted torso, bad waist anatomy, poorly drawn waist, malformed waist, distorted waist, bad hip anatomy, poorly drawn hips, malformed hips, distorted hips, bad leg anatomy, poorly drawn legs, malformed legs, distorted legs, bad knee anatomy, poorly drawn knees, malformed knees, distorted knees, bad ankle anatomy, poorly drawn ankles, malformed ankles, distorted ankles, bad foot anatomy, poorly drawn feet, malformed feet, distorted feet
 Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
 Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
 got prompt
-Waiting for generation to complete (prompt_id: 024e6c21-4d94-4176-9445-d3f9aab6127f)...
+Waiting for generation to complete (prompt_id: 4ea53bc5-907a-42c3-8fc9-1c556dbc8655)...
 Requested to load FluxClipModel_
 loaded completely 9458.675 9319.23095703125 True
+Requested to load FluxClipModel_
+loaded completely 9418.675 9319.23095703125 True
 Requested to load Flux
 loaded partially 9458.674965667724 9458.6748046875 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:01<00:13,  1.91s/it] 25%|██▌       | 2/8 [00:03<00:11,  1.87s/it] 38%|███▊      | 3/8 [00:05<00:09,  1.88s/it] 50%|█████     | 4/8 [00:07<00:07,  1.87s/it] 62%|██████▎   | 5/8 [00:09<00:05,  1.87s/it] 75%|███████▌  | 6/8 [00:11<00:03,  1.91s/it] 88%|████████▊ | 7/8 [00:13<00:01,  1.97s/it]100%|██████████| 8/8 [00:15<00:00,  2.01s/it]100%|██████████| 8/8 [00:15<00:00,  1.94s/it]
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:02<00:14,  2.03s/it] 25%|██▌       | 2/8 [00:03<00:11,  1.90s/it] 38%|███▊      | 3/8 [00:05<00:09,  1.86s/it] 50%|█████     | 4/8 [00:07<00:07,  1.84s/it] 62%|██████▎   | 5/8 [00:09<00:05,  1.85s/it] 75%|███████▌  | 6/8 [00:11<00:03,  1.83s/it] 88%|████████▊ | 7/8 [00:12<00:01,  1.83s/it]100%|██████████| 8/8 [00:14<00:00,  1.85s/it]100%|██████████| 8/8 [00:14<00:00,  1.86s/it]
 Requested to load AutoencodingEngine
 loaded completely 185.6484375 159.87335777282715 True
-Prompt executed in 25.39 seconds
+Prompt executed in 30.04 seconds
 Saved: ../output/characters\male_doctor_watson.png
 [OK] Generated: male_doctor_watson
 
@@ -287,19 +339,21 @@ Generating image for: male_villain_scarred
 Loaded flux workflow from: ../workflow/character.flux.json
 LoRA enabled in character workflow
 Sampling steps set to: 8
-Negative prompt disabled - using ConditioningZeroOut
+Negative prompt enabled: blur, distorted, un-focused, text, words, letters, writing, caption, subtitle, title, label, inscriptions, symbols, watermark, duplicate same characters, duplicate same actors, full white background, full black background, extra limbs, extra fingers, extra arms, extra legs, extra hands, extra feet, bad anatomy, poorly drawn face, asymmetrical features, malformed hands, malformed face, distorted face, deformed face, mutated hands, missing fingers, missing limbs, disfigured, ugly, bad proportions, disproportionate, unrealistic proportions, plastic texture, uncanny valley, artificial looking, poorly drawn eyes, cross-eyed, wall-eyed, mismatched eyes, asymmetrical eyes, bad eye anatomy, poorly drawn nose, malformed nose, distorted nose, bad mouth anatomy, poorly drawn lips, malformed lips, distorted lips, bad teeth, missing teeth, extra teeth, bad jaw anatomy, poorly drawn jaw, malformed jaw, distorted jaw, bad chin anatomy, poorly drawn chin, malformed chin, distorted chin, bad neck anatomy, poorly drawn neck, malformed neck, distorted neck, bad shoulder anatomy, poorly drawn shoulders, malformed shoulders, distorted shoulders, bad chest anatomy, poorly drawn chest, malformed chest, distorted chest, bad torso anatomy, poorly drawn torso, malformed torso, distorted torso, bad waist anatomy, poorly drawn waist, malformed waist, distorted waist, bad hip anatomy, poorly drawn hips, malformed hips, distorted hips, bad leg anatomy, poorly drawn legs, malformed legs, distorted legs, bad knee anatomy, poorly drawn knees, malformed knees, distorted knees, bad ankle anatomy, poorly drawn ankles, malformed ankles, distorted ankles, bad foot anatomy, poorly drawn feet, malformed feet, distorted feet
 Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
 Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
 got prompt
-Waiting for generation to complete (prompt_id: 139e1757-4bed-4b7f-a766-574e6851feed)...
+Waiting for generation to complete (prompt_id: 74ba5cc2-3863-4d9d-a522-62903b73e511)...
 Requested to load FluxClipModel_
 loaded completely 9458.675 9319.23095703125 True
+Requested to load FluxClipModel_
+loaded completely 9418.675 9319.23095703125 True
 Requested to load Flux
 loaded partially 9458.674965667724 9458.6748046875 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:02<00:15,  2.15s/it] 25%|██▌       | 2/8 [00:04<00:12,  2.08s/it] 38%|███▊      | 3/8 [00:06<00:11,  2.29s/it] 50%|█████     | 4/8 [00:09<00:09,  2.38s/it] 62%|██████▎   | 5/8 [00:11<00:06,  2.31s/it] 75%|███████▌  | 6/8 [00:13<00:04,  2.23s/it] 88%|████████▊ | 7/8 [00:15<00:02,  2.16s/it]100%|██████████| 8/8 [00:17<00:00,  2.08s/it]100%|██████████| 8/8 [00:17<00:00,  2.18s/it]
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:01<00:13,  1.94s/it] 25%|██▌       | 2/8 [00:03<00:11,  1.87s/it] 38%|███▊      | 3/8 [00:05<00:09,  1.85s/it] 50%|█████     | 4/8 [00:07<00:07,  1.84s/it] 62%|██████▎   | 5/8 [00:09<00:05,  1.83s/it] 75%|███████▌  | 6/8 [00:11<00:03,  1.82s/it] 88%|████████▊ | 7/8 [00:12<00:01,  1.84s/it]100%|██████████| 8/8 [00:14<00:00,  1.85s/it]100%|██████████| 8/8 [00:14<00:00,  1.84s/it]
 Requested to load AutoencodingEngine
 loaded completely 185.6484375 159.87335777282715 True
-Prompt executed in 26.34 seconds
+Prompt executed in 29.31 seconds
 Saved: ../output/characters\male_villain_scarred.png
 [OK] Generated: male_villain_scarred
 
@@ -308,23 +362,25 @@ Generating image for: male_villain_shorter
 Loaded flux workflow from: ../workflow/character.flux.json
 LoRA enabled in character workflow
 Sampling steps set to: 8
-Negative prompt disabled - using ConditioningZeroOut
+Negative prompt enabled: blur, distorted, un-focused, text, words, letters, writing, caption, subtitle, title, label, inscriptions, symbols, watermark, duplicate same characters, duplicate same actors, full white background, full black background, extra limbs, extra fingers, extra arms, extra legs, extra hands, extra feet, bad anatomy, poorly drawn face, asymmetrical features, malformed hands, malformed face, distorted face, deformed face, mutated hands, missing fingers, missing limbs, disfigured, ugly, bad proportions, disproportionate, unrealistic proportions, plastic texture, uncanny valley, artificial looking, poorly drawn eyes, cross-eyed, wall-eyed, mismatched eyes, asymmetrical eyes, bad eye anatomy, poorly drawn nose, malformed nose, distorted nose, bad mouth anatomy, poorly drawn lips, malformed lips, distorted lips, bad teeth, missing teeth, extra teeth, bad jaw anatomy, poorly drawn jaw, malformed jaw, distorted jaw, bad chin anatomy, poorly drawn chin, malformed chin, distorted chin, bad neck anatomy, poorly drawn neck, malformed neck, distorted neck, bad shoulder anatomy, poorly drawn shoulders, malformed shoulders, distorted shoulders, bad chest anatomy, poorly drawn chest, malformed chest, distorted chest, bad torso anatomy, poorly drawn torso, malformed torso, distorted torso, bad waist anatomy, poorly drawn waist, malformed waist, distorted waist, bad hip anatomy, poorly drawn hips, malformed hips, distorted hips, bad leg anatomy, poorly drawn legs, malformed legs, distorted legs, bad knee anatomy, poorly drawn knees, malformed knees, distorted knees, bad ankle anatomy, poorly drawn ankles, malformed ankles, distorted ankles, bad foot anatomy, poorly drawn feet, malformed feet, distorted feet
 Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
 Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
 got prompt
-Waiting for generation to complete (prompt_id: 90cf6e04-d89a-4660-8fa8-e97937051585)...
+Waiting for generation to complete (prompt_id: a893672f-ed3b-46bd-91ec-bb90b2409cb7)...
 Requested to load FluxClipModel_
 loaded completely 9458.675 9319.23095703125 True
+Requested to load FluxClipModel_
+loaded completely 9418.675 9319.23095703125 True
 Requested to load Flux
 loaded partially 9458.674965667724 9458.6748046875 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:02<00:16,  2.41s/it] 25%|██▌       | 2/8 [00:04<00:12,  2.16s/it] 38%|███▊      | 3/8 [00:06<00:10,  2.03s/it] 50%|█████     | 4/8 [00:08<00:07,  1.98s/it] 62%|██████▎   | 5/8 [00:10<00:05,  1.94s/it] 75%|███████▌  | 6/8 [00:11<00:03,  1.93s/it] 88%|████████▊ | 7/8 [00:13<00:01,  1.91s/it]100%|██████████| 8/8 [00:15<00:00,  1.88s/it]100%|██████████| 8/8 [00:15<00:00,  1.95s/it]
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:02<00:14,  2.04s/it] 25%|██▌       | 2/8 [00:03<00:11,  1.92s/it] 38%|███▊      | 3/8 [00:05<00:09,  1.87s/it] 50%|█████     | 4/8 [00:07<00:07,  1.85s/it] 62%|██████▎   | 5/8 [00:09<00:05,  1.84s/it] 75%|███████▌  | 6/8 [00:11<00:03,  1.82s/it] 88%|████████▊ | 7/8 [00:12<00:01,  1.81s/it]100%|██████████| 8/8 [00:14<00:00,  1.80s/it]100%|██████████| 8/8 [00:14<00:00,  1.83s/it]
 Requested to load AutoencodingEngine
 loaded completely 185.6484375 159.87335777282715 True
-Prompt executed in 23.31 seconds
+Prompt executed in 28.88 seconds
 Saved: ../output/characters\male_villain_shorter.png
 [OK] Generated: male_villain_shorter
 
-Generated 7 character images in 212.60s using flux mode:
+Generated 7 character images in 252.84s using flux mode:
   female_clara_whitfield: ../output/characters\female_clara_whitfield.png
   female_landlady_mrs_hudmore: ../output/characters\female_landlady_mrs_hudmore.png
   male_client_stranger: ../output/characters\male_client_stranger.png
@@ -333,286 +389,10 @@ Generated 7 character images in 212.60s using flux mode:
   male_villain_scarred: ../output/characters\male_villain_scarred.png
   male_villain_shorter: ../output/characters\male_villain_shorter.png
 
-===== END D:\.comfyui\gen.image\scripts\2.character.py @ 2025-09-26 15:38:04 (exit=0, took=212.78s) =====
-
-===== START D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-09-26 15:38:04 =====
-Location info enabled: 4 locations loaded
-Processing 100 scenes, skipped 0
-============================================================
-
-[1/100] Processing scene_1.1...
-Generating scene: scene_1.1 with characters: male_doctor_watson
-LoRA enabled in workflow
-Sampling steps set to: 8
-Seed set to: 333555666
-Compressed male_doctor_watson image: 281.0KB → 18.8KB (93.3% reduction)
-Character mode: IMAGE_TEXT, Images: 1
-Image stitching: 1 images → 1 groups []
-Using single reference conditioning
-Negative prompt disabled - using ConditioningZeroOut
-Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
-Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
-Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
-All Non-Living Objects mentioned in Scene text-description must be present in illustration
-        
-SCENE TEXT-DESCRIPTION:
- Illustrate an exact scenery like {{A British Victorian living room in 221B Baker Street, steeped in the atmosphere of a detective’s quarters. The space is comfortably cluttered, with the scent of pipe smoke and strong black tea lingering in the air. A tall bookcase lines one wall, crammed with tomes on chemistry, law, and obscure monographs. Beneath it lies a large Persian rug, its once-vibrant colors faded and edges worn from years of use, covering the dark wooden floor. Near the center of the room stands a heavy, well-worn sofa with deep cushions, positioned to face a roaring coal grate that sits against the opposite wall, its iron frame blackened by soot and age. A side table holds Holmes’s violin beside a stack of case notes tied with string. The large bay window is framed by thick, heavy curtains that filter pale winter sunlight through the morning London fog outside. On a small side table rests a folded newspaper, its pages creased from frequent handling. A chemical apparatus on a stand near the mantelpiece releases faint bubbling sounds and subtle odors of experimentation. The room exudes an air of intellectual intensity, every object reflecting the restless mind of its occupant.}}, {Sunny Winter Morning};Place ((male_doctor_watson)), the Character in Image 1, {Neutral}, {Sitting on sofa}, {Reading newspaper};.
-
-CHARACTER TEXT-DESCRIPTION:
-(Character in Image 1) is ((male_doctor_watson)) who looks like {round head shape, fair skin tone, hazel eyes, straight slightly prominent nose, full pursed lips, dark brown neatly trimmed wavy hair, fine lines around eyes and forehead, Victorian gentleman's attire, fine wool cotton leather clothing, silver pocket watch chain, revolver holstered at hip, medical bag slung over shoulder, black polished high-top leather boots with brass buckles}.
-got prompt
-Waiting for completion (prompt_id: dcca645f-a15d-4f5e-b7ee-a6d3beff9f44)...
-Requested to load FluxClipModel_
-loaded completely 9458.675 9319.23095703125 True
-Requested to load AutoencodingEngine
-loaded completely 247.01171112060547 159.87335777282715 True
-Requested to load Flux
-loaded partially 8085.554965667725 8085.330078125 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:45,  6.46s/it] 25%|██▌       | 2/8 [00:13<00:40,  6.75s/it] 38%|███▊      | 3/8 [00:19<00:32,  6.54s/it] 50%|█████     | 4/8 [00:26<00:26,  6.51s/it] 62%|██████▎   | 5/8 [00:32<00:19,  6.61s/it] 75%|███████▌  | 6/8 [00:39<00:13,  6.53s/it] 88%|████████▊ | 7/8 [00:46<00:06,  6.60s/it]100%|██████████| 8/8 [00:52<00:00,  6.47s/it]100%|██████████| 8/8 [00:52<00:00,  6.53s/it]
-Requested to load AutoencodingEngine
-loaded completely 221.41796875 159.87335777282715 True
-Prompt executed in 62.07 seconds
-Saved: ../output/scene\scene_1.1.png
-[OK] Generated: scene_1.1
-
-[2/100] Processing scene_1.2...
-Generating scene: scene_1.2 with characters: male_detective_holmes
-LoRA enabled in workflow
-Sampling steps set to: 8
-Seed set to: 333555666
-Compressed male_detective_holmes image: 277.4KB → 18.3KB (93.4% reduction)
-Character mode: IMAGE_TEXT, Images: 1
-Image stitching: 1 images → 1 groups []
-Using single reference conditioning
-Negative prompt disabled - using ConditioningZeroOut
-Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
-Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
-Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
-All Non-Living Objects mentioned in Scene text-description must be present in illustration
-        
-SCENE TEXT-DESCRIPTION:
- Illustrate an exact scenery like {{A British Victorian living room in 221B Baker Street, steeped in the atmosphere of a detective’s quarters. The space is comfortably cluttered, with the scent of pipe smoke and strong black tea lingering in the air. A tall bookcase lines one wall, crammed with tomes on chemistry, law, and obscure monographs. Beneath it lies a large Persian rug, its once-vibrant colors faded and edges worn from years of use, covering the dark wooden floor. Near the center of the room stands a heavy, well-worn sofa with deep cushions, positioned to face a roaring coal grate that sits against the opposite wall, its iron frame blackened by soot and age. A side table holds Holmes’s violin beside a stack of case notes tied with string. The large bay window is framed by thick, heavy curtains that filter pale winter sunlight through the morning London fog outside. On a small side table rests a folded newspaper, its pages creased from frequent handling. A chemical apparatus on a stand near the mantelpiece releases faint bubbling sounds and subtle odors of experimentation. The room exudes an air of intellectual intensity, every object reflecting the restless mind of its occupant.}}, {Sunny Winter Morning};Place ((male_detective_holmes)), the Character in Image 1, {Surprise}, {Standing by window}, {Looking outside};.
-
-CHARACTER TEXT-DESCRIPTION:
-(Character in Image 1) is ((male_detective_holmes)) who looks like {square head shape,pale skin tone,sharp piercing dark brown eyes with gold flecks,straight slightly prominent nose,thin lips often in pensive frown or thoughtful smile,dark brown thick unkempt hair combed back,meticulously groomed,faint shadow of stubble,Victorian gentleman's attire,fine wool and linen,long coat with pockets,dark leather boots,deerstalker hat,magnifying glass,pocket watch with chain}.
-got prompt
-Waiting for completion (prompt_id: 40514468-0c04-4d4f-acae-c623a53c6a62)...
-Requested to load FluxClipModel_
-loaded completely 9458.675 9319.23095703125 True
-Requested to load AutoencodingEngine
-loaded completely 247.01171112060547 159.87335777282715 True
-Requested to load Flux
-loaded partially 8085.554965667725 8085.330078125 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:45,  6.44s/it] 25%|██▌       | 2/8 [00:12<00:38,  6.47s/it] 38%|███▊      | 3/8 [00:19<00:32,  6.42s/it] 50%|█████     | 4/8 [00:25<00:25,  6.30s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.32s/it] 75%|███████▌  | 6/8 [00:38<00:12,  6.38s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.49s/it]100%|██████████| 8/8 [00:51<00:00,  6.43s/it]100%|██████████| 8/8 [00:51<00:00,  6.41s/it]
-Requested to load AutoencodingEngine
-loaded completely 221.41796875 159.87335777282715 True
-Prompt executed in 60.73 seconds
-Saved: ../output/scene\scene_1.2.png
-[OK] Generated: scene_1.2
-
-[3/100] Processing scene_1.3...
-Generating scene: scene_1.3 with characters: male_doctor_watson
-LoRA enabled in workflow
-Sampling steps set to: 8
-Seed set to: 333555666
-Compressed male_doctor_watson image: 281.0KB → 18.8KB (93.3% reduction)
-Character mode: IMAGE_TEXT, Images: 1
-Image stitching: 1 images → 1 groups []
-Using single reference conditioning
-Negative prompt disabled - using ConditioningZeroOut
-Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
-Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
-Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
-All Non-Living Objects mentioned in Scene text-description must be present in illustration
-        
-SCENE TEXT-DESCRIPTION:
- Illustrate an exact scenery like {{A British Victorian living room in 221B Baker Street, steeped in the atmosphere of a detective’s quarters. The space is comfortably cluttered, with the scent of pipe smoke and strong black tea lingering in the air. A tall bookcase lines one wall, crammed with tomes on chemistry, law, and obscure monographs. Beneath it lies a large Persian rug, its once-vibrant colors faded and edges worn from years of use, covering the dark wooden floor. Near the center of the room stands a heavy, well-worn sofa with deep cushions, positioned to face a roaring coal grate that sits against the opposite wall, its iron frame blackened by soot and age. A side table holds Holmes’s violin beside a stack of case notes tied with string. The large bay window is framed by thick, heavy curtains that filter pale winter sunlight through the morning London fog outside. On a small side table rests a folded newspaper, its pages creased from frequent handling. A chemical apparatus on a stand near the mantelpiece releases faint bubbling sounds and subtle odors of experimentation. The room exudes an air of intellectual intensity, every object reflecting the restless mind of its occupant.}}, {Sunny Winter Morning};Place ((male_doctor_watson)), the Character in Image 1, {Slight Amusement}, {On sofa near fire}, {Turning page of newspaper};.
-
-CHARACTER TEXT-DESCRIPTION:
-(Character in Image 1) is ((male_doctor_watson)) who looks like {round head shape, fair skin tone, hazel eyes, straight slightly prominent nose, full pursed lips, dark brown neatly trimmed wavy hair, fine lines around eyes and forehead, Victorian gentleman's attire, fine wool cotton leather clothing, silver pocket watch chain, revolver holstered at hip, medical bag slung over shoulder, black polished high-top leather boots with brass buckles}.
-got prompt
-Waiting for completion (prompt_id: 994bd2e0-cb6a-4896-913b-e3dce5f49a97)...
-Requested to load FluxClipModel_
-loaded completely 9458.675 9319.23095703125 True
-Requested to load AutoencodingEngine
-loaded completely 247.01171112060547 159.87335777282715 True
-Requested to load Flux
-loaded partially 8085.554965667725 8085.330078125 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:45,  6.46s/it] 25%|██▌       | 2/8 [00:12<00:38,  6.42s/it] 38%|███▊      | 3/8 [00:19<00:32,  6.48s/it] 50%|█████     | 4/8 [00:25<00:25,  6.39s/it] 62%|██████▎   | 5/8 [00:32<00:19,  6.40s/it] 75%|███████▌  | 6/8 [00:38<00:12,  6.49s/it] 88%|████████▊ | 7/8 [00:45<00:06,  6.56s/it]100%|██████████| 8/8 [00:51<00:00,  6.53s/it]100%|██████████| 8/8 [00:51<00:00,  6.49s/it]
-Requested to load AutoencodingEngine
-loaded completely 221.41796875 159.87335777282715 True
-Prompt executed in 61.37 seconds
-Saved: ../output/scene\scene_1.3.png
-[OK] Generated: scene_1.3
-
-[4/100] Processing scene_1.4...
-Generating scene: scene_1.4 with characters: male_detective_holmes
-LoRA enabled in workflow
-Sampling steps set to: 8
-Seed set to: 333555666
-Compressed male_detective_holmes image: 277.4KB → 18.3KB (93.4% reduction)
-Character mode: IMAGE_TEXT, Images: 1
-Image stitching: 1 images → 1 groups []
-Using single reference conditioning
-Negative prompt disabled - using ConditioningZeroOut
-Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
-Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
-Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
-All Non-Living Objects mentioned in Scene text-description must be present in illustration
-        
-SCENE TEXT-DESCRIPTION:
- Illustrate an exact scenery like {{A British Victorian living room in 221B Baker Street, steeped in the atmosphere of a detective’s quarters. The space is comfortably cluttered, with the scent of pipe smoke and strong black tea lingering in the air. A tall bookcase lines one wall, crammed with tomes on chemistry, law, and obscure monographs. Beneath it lies a large Persian rug, its once-vibrant colors faded and edges worn from years of use, covering the dark wooden floor. Near the center of the room stands a heavy, well-worn sofa with deep cushions, positioned to face a roaring coal grate that sits against the opposite wall, its iron frame blackened by soot and age. A side table holds Holmes’s violin beside a stack of case notes tied with string. The large bay window is framed by thick, heavy curtains that filter pale winter sunlight through the morning London fog outside. On a small side table rests a folded newspaper, its pages creased from frequent handling. A chemical apparatus on a stand near the mantelpiece releases faint bubbling sounds and subtle odors of experimentation. The room exudes an air of intellectual intensity, every object reflecting the restless mind of its occupant.}}, {Sunny Winter Morning};Place ((male_detective_holmes)), the Character in Image 1, {Thoughtful}, {Leaning on window frame}, {Gesturing with pipe};.
-
-CHARACTER TEXT-DESCRIPTION:
-(Character in Image 1) is ((male_detective_holmes)) who looks like {square head shape,pale skin tone,sharp piercing dark brown eyes with gold flecks,straight slightly prominent nose,thin lips often in pensive frown or thoughtful smile,dark brown thick unkempt hair combed back,meticulously groomed,faint shadow of stubble,Victorian gentleman's attire,fine wool and linen,long coat with pockets,dark leather boots,deerstalker hat,magnifying glass,pocket watch with chain}.
-got prompt
-Waiting for completion (prompt_id: 5e73e9fa-b21c-4314-949f-74bec4db5512)...
-Requested to load FluxClipModel_
-loaded completely 9458.675 9319.23095703125 True
-Requested to load AutoencodingEngine
-loaded completely 247.01171112060547 159.87335777282715 True
-Requested to load Flux
-loaded partially 8085.554965667725 8085.330078125 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:46,  6.68s/it] 25%|██▌       | 2/8 [00:13<00:40,  6.73s/it] 38%|███▊      | 3/8 [00:20<00:33,  6.77s/it] 50%|█████     | 4/8 [00:26<00:26,  6.63s/it] 62%|██████▎   | 5/8 [00:33<00:19,  6.57s/it] 75%|███████▌  | 6/8 [00:39<00:12,  6.48s/it] 88%|████████▊ | 7/8 [00:45<00:06,  6.43s/it]100%|██████████| 8/8 [00:52<00:00,  6.40s/it]100%|██████████| 8/8 [00:52<00:00,  6.52s/it]
-Requested to load AutoencodingEngine
-loaded completely 219.41796875 159.87335777282715 True
-Prompt executed in 61.45 seconds
-Saved: ../output/scene\scene_1.4.png
-[OK] Generated: scene_1.4
-
-[5/100] Processing scene_1.5...
-Generating scene: scene_1.5 with characters: male_doctor_watson
-LoRA enabled in workflow
-Sampling steps set to: 8
-Seed set to: 333555666
-Compressed male_doctor_watson image: 281.0KB → 18.8KB (93.3% reduction)
-Character mode: IMAGE_TEXT, Images: 1
-Image stitching: 1 images → 1 groups []
-Using single reference conditioning
-Negative prompt disabled - using ConditioningZeroOut
-Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
-Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
-Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
-All Non-Living Objects mentioned in Scene text-description must be present in illustration
-        
-SCENE TEXT-DESCRIPTION:
- Illustrate an exact scenery like {{A British Victorian living room in 221B Baker Street, steeped in the atmosphere of a detective’s quarters. The space is comfortably cluttered, with the scent of pipe smoke and strong black tea lingering in the air. A tall bookcase lines one wall, crammed with tomes on chemistry, law, and obscure monographs. Beneath it lies a large Persian rug, its once-vibrant colors faded and edges worn from years of use, covering the dark wooden floor. Near the center of the room stands a heavy, well-worn sofa with deep cushions, positioned to face a roaring coal grate that sits against the opposite wall, its iron frame blackened by soot and age. A side table holds Holmes’s violin beside a stack of case notes tied with string. The large bay window is framed by thick, heavy curtains that filter pale winter sunlight through the morning London fog outside. On a small side table rests a folded newspaper, its pages creased from frequent handling. A chemical apparatus on a stand near the mantelpiece releases faint bubbling sounds and subtle odors of experimentation. The room exudes an air of intellectual intensity, every object reflecting the restless mind of its occupant.}}, {Sunny Winter Morning};Place ((male_doctor_watson)), the Character in Image 1, {Curious}, {Leaning forward on sofa}, {Resting newspaper on knee};.
-
-CHARACTER TEXT-DESCRIPTION:
-(Character in Image 1) is ((male_doctor_watson)) who looks like {round head shape, fair skin tone, hazel eyes, straight slightly prominent nose, full pursed lips, dark brown neatly trimmed wavy hair, fine lines around eyes and forehead, Victorian gentleman's attire, fine wool cotton leather clothing, silver pocket watch chain, revolver holstered at hip, medical bag slung over shoulder, black polished high-top leather boots with brass buckles}.
-got prompt
-Waiting for completion (prompt_id: ac41ab99-f3ab-49f6-a90c-5f38ac47bae1)...
-Requested to load FluxClipModel_
-loaded completely 9456.675 9319.23095703125 True
-Requested to load AutoencodingEngine
-loaded completely 245.01171112060547 159.87335777282715 True
-Requested to load Flux
-loaded partially 8083.554965667725 8083.455078125 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:44,  6.36s/it] 25%|██▌       | 2/8 [00:12<00:37,  6.33s/it] 38%|███▊      | 3/8 [00:18<00:31,  6.25s/it] 50%|█████     | 4/8 [00:25<00:25,  6.35s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.30s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.34s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.40s/it]100%|██████████| 8/8 [00:50<00:00,  6.39s/it]100%|██████████| 8/8 [00:50<00:00,  6.35s/it]
-Requested to load AutoencodingEngine
-loaded completely 219.41796875 159.87335777282715 True
-Prompt executed in 59.87 seconds
-Saved: ../output/scene\scene_1.5.png
-[OK] Generated: scene_1.5
-
-[6/100] Processing scene_1.6...
-Generating scene: scene_1.6 with characters: male_detective_holmes
-LoRA enabled in workflow
-Sampling steps set to: 8
-Seed set to: 333555666
-Compressed male_detective_holmes image: 277.4KB → 18.3KB (93.4% reduction)
-Character mode: IMAGE_TEXT, Images: 1
-Image stitching: 1 images → 1 groups []
-Using single reference conditioning
-Negative prompt disabled - using ConditioningZeroOut
-Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
-Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
-Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
-All Non-Living Objects mentioned in Scene text-description must be present in illustration
-        
-SCENE TEXT-DESCRIPTION:
- Illustrate an exact scenery like {{A British Victorian living room in 221B Baker Street, steeped in the atmosphere of a detective’s quarters. The space is comfortably cluttered, with the scent of pipe smoke and strong black tea lingering in the air. A tall bookcase lines one wall, crammed with tomes on chemistry, law, and obscure monographs. Beneath it lies a large Persian rug, its once-vibrant colors faded and edges worn from years of use, covering the dark wooden floor. Near the center of the room stands a heavy, well-worn sofa with deep cushions, positioned to face a roaring coal grate that sits against the opposite wall, its iron frame blackened by soot and age. A side table holds Holmes’s violin beside a stack of case notes tied with string. The large bay window is framed by thick, heavy curtains that filter pale winter sunlight through the morning London fog outside. On a small side table rests a folded newspaper, its pages creased from frequent handling. A chemical apparatus on a stand near the mantelpiece releases faint bubbling sounds and subtle odors of experimentation. The room exudes an air of intellectual intensity, every object reflecting the restless mind of its occupant.}}, {Sunny Winter Morning};Place ((male_detective_holmes)), the Character in Image 1, {Confident}, {By window turning towards door}, {Tapping ash from pipe};.
-
-CHARACTER TEXT-DESCRIPTION:
-(Character in Image 1) is ((male_detective_holmes)) who looks like {square head shape,pale skin tone,sharp piercing dark brown eyes with gold flecks,straight slightly prominent nose,thin lips often in pensive frown or thoughtful smile,dark brown thick unkempt hair combed back,meticulously groomed,faint shadow of stubble,Victorian gentleman's attire,fine wool and linen,long coat with pockets,dark leather boots,deerstalker hat,magnifying glass,pocket watch with chain}.
-got prompt
-Waiting for completion (prompt_id: 15420e70-5499-47fa-86ef-1ee2ba66258c)...
-Requested to load FluxClipModel_
-loaded completely 9456.675 9319.23095703125 True
-Requested to load AutoencodingEngine
-loaded completely 245.01171112060547 159.87335777282715 True
-Requested to load Flux
-loaded partially 8083.554965667725 8083.455078125 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:43,  6.21s/it] 25%|██▌       | 2/8 [00:12<00:36,  6.15s/it] 38%|███▊      | 3/8 [00:18<00:30,  6.13s/it] 50%|█████     | 4/8 [00:24<00:24,  6.14s/it] 62%|██████▎   | 5/8 [00:30<00:18,  6.14s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.30s/it] 88%|████████▊ | 7/8 [00:43<00:06,  6.33s/it]100%|██████████| 8/8 [00:50<00:00,  6.42s/it]100%|██████████| 8/8 [00:50<00:00,  6.29s/it]
-Requested to load AutoencodingEngine
-loaded completely 219.41796875 159.87335777282715 True
-Prompt executed in 59.83 seconds
-Saved: ../output/scene\scene_1.6.png
-[OK] Generated: scene_1.6
-
-[7/100] Processing scene_1.7...
-Generating scene: scene_1.7 with characters: male_client_stranger
-LoRA enabled in workflow
-Sampling steps set to: 8
-Seed set to: 333555666
-Compressed male_client_stranger image: 294.1KB → 19.7KB (93.3% reduction)
-Character mode: IMAGE_TEXT, Images: 1
-Image stitching: 1 images → 1 groups []
-Using single reference conditioning
-Negative prompt disabled - using ConditioningZeroOut
-Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
-Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
-Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
-All Non-Living Objects mentioned in Scene text-description must be present in illustration
-        
-SCENE TEXT-DESCRIPTION:
- Illustrate an exact scenery like {{A British Victorian living room in 221B Baker Street, steeped in the atmosphere of a detective’s quarters. The space is comfortably cluttered, with the scent of pipe smoke and strong black tea lingering in the air. A tall bookcase lines one wall, crammed with tomes on chemistry, law, and obscure monographs. Beneath it lies a large Persian rug, its once-vibrant colors faded and edges worn from years of use, covering the dark wooden floor. Near the center of the room stands a heavy, well-worn sofa with deep cushions, positioned to face a roaring coal grate that sits against the opposite wall, its iron frame blackened by soot and age. A side table holds Holmes’s violin beside a stack of case notes tied with string. The large bay window is framed by thick, heavy curtains that filter pale winter sunlight through the morning London fog outside. On a small side table rests a folded newspaper, its pages creased from frequent handling. A chemical apparatus on a stand near the mantelpiece releases faint bubbling sounds and subtle odors of experimentation. The room exudes an air of intellectual intensity, every object reflecting the restless mind of its occupant.}}, {Sunny Winter Morning};Place ((male_client_stranger)), the Character in Image 1, {Anxious}, {At doorway clutching hat}, {Nervously twisting gloves};.
-
-CHARACTER TEXT-DESCRIPTION:
-(Character in Image 1) is ((male_client_stranger)) who looks like {oval head shape,pale skin tone,dark brown eyes,thin nose,tightly drawn mouth,unkempt black hair with streaks of gray,worn wool clothing,frayed scarf,well-worn satchel,tarnished ring on left hand,tattered leather boots with salt stains}.
-got prompt
-Waiting for completion (prompt_id: b2948aaf-a5b8-4051-8842-6c49e4b8f25b)...
-Requested to load FluxClipModel_
-loaded completely 9456.675 9319.23095703125 True
-Requested to load AutoencodingEngine
-loaded completely 245.01171112060547 159.87335777282715 True
-Requested to load Flux
-loaded partially 8083.554965667725 8083.455078125 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:45,  6.55s/it] 25%|██▌       | 2/8 [00:13<00:39,  6.57s/it] 38%|███▊      | 3/8 [00:20<00:34,  6.93s/it] 50%|█████     | 4/8 [00:26<00:26,  6.63s/it] 62%|██████▎   | 5/8 [00:33<00:19,  6.64s/it] 75%|███████▌  | 6/8 [00:40<00:13,  6.94s/it] 88%|████████▊ | 7/8 [00:47<00:06,  6.70s/it]100%|██████████| 8/8 [00:53<00:00,  6.54s/it]100%|██████████| 8/8 [00:53<00:00,  6.65s/it]
-Requested to load AutoencodingEngine
-loaded completely 219.41796875 159.87335777282715 True
-Prompt executed in 62.90 seconds
-Saved: ../output/scene\scene_1.7.png
-[OK] Generated: scene_1.7
-
-[8/100] Processing scene_1.8...
-Generating scene: scene_1.8 with characters: male_doctor_watson
-LoRA enabled in workflow
-Sampling steps set to: 8
-Seed set to: 333555666
-Compressed male_doctor_watson image: 281.0KB → 18.8KB (93.3% reduction)
-Character mode: IMAGE_TEXT, Images: 1
-Image stitching: 1 images → 1 groups []
-Using single reference conditioning
-Negative prompt disabled - using ConditioningZeroOut
-Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
-Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
-Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
-All Non-Living Objects mentioned in Scene text-description must be present in illustration
-        
-SCENE TEXT-DESCRIPTION:
- Illustrate an exact scenery like {{A British Victorian living room in 221B Baker Street, steeped in the atmosphere of a detective’s quarters. The space is comfortably cluttered, with the scent of pipe smoke and strong black tea lingering in the air. A tall bookcase lines one wall, crammed with tomes on chemistry, law, and obscure monographs. Beneath it lies a large Persian rug, its once-vibrant colors faded and edges worn from years of use, covering the dark wooden floor. Near the center of the room stands a heavy, well-worn sofa with deep cushions, positioned to face a roaring coal grate that sits against the opposite wall, its iron frame blackened by soot and age. A side table holds Holmes’s violin beside a stack of case notes tied with string. The large bay window is framed by thick, heavy curtains that filter pale winter sunlight through the morning London fog outside. On a small side table rests a folded newspaper, its pages creased from frequent handling. A chemical apparatus on a stand near the mantelpiece releases faint bubbling sounds and subtle odors of experimentation. The room exudes an air of intellectual intensity, every object reflecting the restless mind of its occupant.}}, {Sunny Winter Morning};Place ((male_doctor_watson)), the Character in Image 1, {Polite}, {Rising from sofa}, {Gesturing toward fire};.
-
-CHARACTER TEXT-DESCRIPTION:
-(Character in Image 1) is ((male_doctor_watson)) who looks like {round head shape, fair skin tone, hazel eyes, straight slightly prominent nose, full pursed lips, dark brown neatly trimmed wavy hair, fine lines around eyes and forehead, Victorian gentleman's attire, fine wool cotton leather clothing, silver pocket watch chain, revolver holstered at hip, medical bag slung over shoulder, black polished high-top leather boots with brass buckles}.
-got prompt
-Waiting for completion (prompt_id: fe486ddf-bff5-4906-8089-1843d876e674)...
-Requested to load FluxClipModel_
-loaded completely 9456.675 9319.23095703125 True
-Requested to load AutoencodingEngine
-loaded completely 245.01171112060547 159.87335777282715 True
-Requested to load Flux
-loaded partially 8083.554965667725 8083.455078125 0
-  0%|          | 0/8 [00:00<?, ?it/s]
-===== END D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-09-26 15:45:47 (exit=3221225786, took=462.75s) =====
+===== END D:\.comfyui\gen.image\scripts\2.character.py @ 2025-09-26 18:22:38 (exit=0, took=253.00s) =====
 Stopping ComfyUI backend...
+ComfyUI appears stopped (after 1 checks).
+
+Log time stats: writes=0.000s, flushes=0.000s, total=0.000s (~0.00% of runtime)
+
+All scripts completed successfully.
