@@ -118,7 +118,7 @@ OUTPUT: JSON with sound_or_silence_description field only."""
                         "content": f"{prompt}\n/no_think"
                     }
                 ],
-                "temperature": 0.2,
+                "temperature": 1,
                 "max_tokens": 512,
                 "stream": False
             }

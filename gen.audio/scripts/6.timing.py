@@ -156,7 +156,7 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
                         "content": f"{prompt}\n/no_think"
                     }
                 ],
-                "temperature": 0.1,
+                "temperature": 1,
                 "max_tokens": 128,
                 "stream": False
             }

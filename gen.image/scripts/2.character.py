@@ -36,7 +36,7 @@ NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, p
 USE_RANDOM_SEED = True  # Set to True to use random seeds, False to use fixed seed
 FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 
-ART_STYLE = "Anime"
+ART_STYLE = "Realistic Anime"
 
 # Character image dimensions: 320x1024 (width x height)
 CHARACTER_IMAGE_WIDTH = 320
@@ -227,7 +227,8 @@ class CharacterGenerator:
             node_id = latent_image_node[0]
             try:
                 if ":" in IMAGE_ASPECT_RATIO:
-                    ratio_parts = IMAGE_ASPECT_RATIO.split(":")[0].split("(")[0].strip()
+                    # Extract just the ratio part before any parentheses
+                    ratio_parts = IMAGE_ASPECT_RATIO.split("(")[0].strip()
                     width_ratio, height_ratio = map(int, ratio_parts.split(":"))
                     total_pixels = float(IMAGE_MEGAPIXEL) * 1000000
                     aspect_ratio = width_ratio / height_ratio

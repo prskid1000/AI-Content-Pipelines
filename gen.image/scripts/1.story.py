@@ -7,9 +7,9 @@ from functools import partial
 import builtins as _builtins
 
 
-CHARACTER_SUMMARY_CHARACTER_COUNT = 500
-LOCATION_CHARACTER_COUNT = 1600
-STORY_DESCRIPTION_CHARACTER_COUNT = 3600
+CHARACTER_SUMMARY_CHARACTER_COUNT = 600
+LOCATION_CHARACTER_COUNT = 3600
+STORY_DESCRIPTION_CHARACTER_COUNT = 6000
 
 # Feature flags
 ENABLE_CHARACTER_REWRITE = True  # Set to False to skip character rewriting step
@@ -439,9 +439,68 @@ def _schema_character() -> dict[str, object]:
                             "presence": {"type": "string"}
                         },
                         "required": ["height", "build", "age_appearance", "distinctive_traits"]
+                    },
+                    "relationships": {
+                        "type": "object",
+                        "properties": {
+                            "profession": {"type": "string", "description": "Character's profession or role"},
+                            "organization": {"type": "string", "description": "Organization, company, or group they belong to"},
+                            "relationships": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "character_name": {"type": "string"},
+                                        "relationship_type": {"type": "string", "enum": ["family", "romantic", "professional", "friend", "colleague", "superior", "subordinate", "rival", "mentor", "student", "teammate", "partner"]},
+                                        "relationship_description": {"type": "string"}
+                                    },
+                                    "required": ["character_name", "relationship_type", "relationship_description"]
+                                }
+                            }
+                        },
+                        "required": ["profession", "relationships"]
+                    },
+                    "shared_elements": {
+                        "type": "object",
+                        "properties": {
+                            "uniform_requirements": {
+                                "type": "object",
+                                "properties": {
+                                    "has_uniform": {"type": "boolean"},
+                                    "uniform_type": {"type": "string"},
+                                    "uniform_details": {"type": "string"},
+                                    "shared_with_characters": {"type": "array", "items": {"type": "string"}}
+                                }
+                            },
+                            "matching_accessories": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "accessory_type": {"type": "string"},
+                                        "accessory_description": {"type": "string"},
+                                        "shared_with_characters": {"type": "array", "items": {"type": "string"}}
+                                    },
+                                    "required": ["accessory_type", "accessory_description", "shared_with_characters"]
+                                }
+                            },
+                            "professional_equipment": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "equipment_type": {"type": "string"},
+                                        "equipment_description": {"type": "string"},
+                                        "shared_with_characters": {"type": "array", "items": {"type": "string"}}
+                                    },
+                                    "required": ["equipment_type", "equipment_description", "shared_with_characters"]
+                                }
+                            }
+                        },
+                        "required": ["uniform_requirements", "matching_accessories", "professional_equipment"]
                     }
                 },
-                "required": ["head_face", "neck", "torso_upper_body", "arms_hands", "legs_feet", "clothing_accessories", "overall_impression"]
+                "required": ["head_face", "neck", "torso_upper_body", "arms_hands", "legs_feet", "clothing_accessories", "overall_impression", "relationships", "shared_elements"]
             },
             "strict": True
         }
@@ -515,7 +574,7 @@ def _schema_story_description() -> dict[str, object]:
 
 
 def _schema_character_rewrite() -> dict[str, object]:
-    """JSON schema for character description rewriting."""
+    """JSON schema for character description rewriting with structured data."""
     return {
         "type": "json_schema",
         "json_schema": {
@@ -524,57 +583,93 @@ def _schema_character_rewrite() -> dict[str, object]:
                 "type": "object",
                 "additionalProperties": False,
                 "properties": {
-                    "rewritten_descriptions": {
+                    "rewritten_characters": {
                         "type": "object",
-                        "description": "Dictionary mapping character names to their rewritten descriptions",
+                        "description": "Dictionary mapping character names to their rewritten structured character data",
                         "patternProperties": {
                             ".*": {
-                                "type": "string",
-                                "description": "Rewritten character description that looks completely different while preserving primary features"
+                                "type": "object",
+                                "description": "Complete structured character data with different physical appearance but preserved relationships and shared elements",
+                                "properties": {
+                                    "head_face": {"type": "object"},
+                                    "neck": {"type": "object"},
+                                    "torso_upper_body": {"type": "object"},
+                                    "arms_hands": {"type": "object"},
+                                    "legs_feet": {"type": "object"},
+                                    "body_hair": {"type": "object"},
+                                    "skin_details": {"type": "object"},
+                                    "clothing_accessories": {"type": "object"},
+                                    "overall_impression": {"type": "object"},
+                                    "relationships": {"type": "object"},
+                                    "shared_elements": {"type": "object"}
+                                },
+                                "required": ["head_face", "neck", "torso_upper_body", "arms_hands", "legs_feet", "clothing_accessories", "overall_impression", "relationships", "shared_elements"]
                             }
                         }
                     }
                 },
-                "required": ["rewritten_descriptions"]
+                "required": ["rewritten_characters"]
             },
             "strict": True
         }
     }
 
 
-def _build_character_system_prompt(story_desc: str, character_name: str) -> str:
+def _build_character_system_prompt(story_desc: str, character_name: str, all_characters: list[str]) -> str:
+    other_characters = [name for name in all_characters if name != character_name]
+    other_characters_text = ", ".join(other_characters) if other_characters else "none"
+    
     return (
         f"You are a visual director creating detailed character descriptions for visual AI generation. "
         "Analyze the story context and character name to create a comprehensive physical description. "
         "Be specific and detailed for each body part and clothing element. Ground all choices in the story context and character role. "
         "Consider the character's profession, social status, personality traits, and story setting when making choices. "
+        "Pay special attention to professional relationships and shared elements with other characters. "
+        "If the character has a profession that requires uniforms or specific equipment, include those details. "
+        "If the character is in relationships with other characters, consider matching elements like wedding rings or family jewelry. "
+        "When determining relationships, consider if this character shares a profession with other characters in the story. "
+        "If characters are colleagues (same profession), they should have matching uniforms/equipment but different physical appearances. "
+        "If characters are family members or romantic partners, they might share matching accessories like wedding rings. "
         "Provide rich, specific details that will help create a vivid and consistent visual representation.\n\n"
         f"STORY CONTEXT: {story_desc}\n\n"
-        f"CHARACTER TO DESCRIBE: {character_name}"
+        f"CHARACTER TO DESCRIBE: {character_name}\n"
+        f"OTHER CHARACTERS IN STORY: {other_characters_text}"
     )
 
 
 def _build_character_summary_prompt(character_name: str, detailed_description: str) -> str:
     return (
         f"You are a visual AI prompt specialist creating concise character summaries ({CHARACTER_SUMMARY_CHARACTER_COUNT} characters) for AI image generation. "
-        "Take the detailed character description and extract ONLY the head, face, and full clothing details into a comma-separated list. "
+        "Take the detailed character description and extract ONLY the head, face, and full clothing details into a paragraph. "
         "Focus specifically on: head shape, facial features (eyes, nose, mouth, hair, facial hair), skin tone/texture, and full clothing style/fit/material/colors. "
         "Ignore body proportions, posture, hands, legs, feet, and other body parts. "
         "Use clear, descriptive terms separated by commas. Avoid unnecessary words and focus on visual impact.\n\n"
         f"CHARACTER: {character_name}\n\n"
         f"DETAILED DESCRIPTION: {detailed_description}\n\n"
-        f"Create a summary ({CHARACTER_SUMMARY_CHARACTER_COUNT} characters) focusing ONLY on head, face, and clothing features."
+        f"Create a summary ({CHARACTER_SUMMARY_CHARACTER_COUNT} characters) focusing ONLY on head, face, and clothing features in a paragraph."
     )
 
 
 def _build_story_description_prompt(story_content: str) -> str:
     return (
-        f"You are a story analyst creating concise story descriptions for AI character and location generation. "
-        f"Analyze the given story content and create a brief summary ({STORY_DESCRIPTION_CHARACTER_COUNT} characters) that captures the setting, time period, tone, all events, all characters, all locations, and overall context. "
-        "Focus on the essential elements that would help generate appropriate character descriptions and location expansions. "
-        "Include details about the setting (time period, location type), atmosphere, and narrative tone.\n\n"
+        f"You are a story analyst creating a complete story summary for AI character and location generation. "
+        f"Analyze the given story content and create a comprehensive summary (exactly {STORY_DESCRIPTION_CHARACTER_COUNT} characters) that includes ALL details in proper chronological sequence.\n\n"
+        
+        "REQUIREMENTS:\n"
+        "1. Complete chronological sequence of ALL events from beginning to end\n"
+        "2. Every character mentioned in the story with their role and relationships\n"
+        "3. Every location visited or mentioned with their significance\n"
+        "4. Setting details: time period, place, atmosphere, tone\n"
+        "5. Character interactions and dialogue key points\n"
+        "6. Plot developments and story progression\n"
+        "7. Resolution and conclusion\n\n"
+        
+        "Write as a complete story narrative that flows chronologically, covering every detail while staying within the character limit. "
+        "This will be used to generate consistent character and location descriptions, so include all visual and contextual information.\n\n"
+        
         f"STORY CONTENT:\n{story_content}\n\n"
-        f"Create a concise story description ({STORY_DESCRIPTION_CHARACTER_COUNT} characters) focusing on setting, time period, tone, all events, all characters, all locations, and context."
+        
+        f"Create a complete story summary (exactly {STORY_DESCRIPTION_CHARACTER_COUNT} characters) covering all characters, events, and locations in proper chronological sequence."
     )
 
 
@@ -603,8 +698,8 @@ def _call_lm_studio(system_prompt: str, lm_studio_url: str, model: str, user_pay
     payload = {
         "model": model,
         "messages": messages,
-        "temperature": 0.7,
-        "max_tokens": 2048,
+        "temperature": 1,
+        "max_tokens": 8192,
         "stream": False,
     }
     
@@ -701,6 +796,57 @@ def _format_character_description(char_data: dict[str, object]) -> str:
     if details:
         lines.append("Details: " + ", ".join(details) + ".")
     
+    # Relationships and profession
+    relationships = char_data.get("relationships", {})
+    if relationships:
+        relationship_parts = []
+        if relationships.get("profession"):
+            relationship_parts.append(f"profession: {relationships['profession']}")
+        if relationships.get("organization"):
+            relationship_parts.append(f"organization: {relationships['organization']}")
+        if relationship_parts:
+            lines.append("Role: " + ", ".join(relationship_parts) + ".")
+        
+        # Character relationships
+        char_relationships = relationships.get("relationships", [])
+        if char_relationships:
+            rel_descriptions = []
+            for rel in char_relationships:
+                if isinstance(rel, dict) and rel.get("character_name") and rel.get("relationship_type"):
+                    rel_descriptions.append(f"{rel['character_name']} ({rel['relationship_type']})")
+            if rel_descriptions:
+                lines.append("Relationships: " + ", ".join(rel_descriptions) + ".")
+    
+    # Shared elements (uniforms, matching accessories, professional equipment)
+    shared_elements = char_data.get("shared_elements", {})
+    if shared_elements:
+        shared_parts = []
+        
+        # Uniform requirements
+        uniform_req = shared_elements.get("uniform_requirements", {})
+        if uniform_req.get("has_uniform") and uniform_req.get("uniform_type"):
+            uniform_desc = f"wears {uniform_req['uniform_type']}"
+            if uniform_req.get("uniform_details"):
+                uniform_desc += f" ({uniform_req['uniform_details']})"
+            shared_parts.append(uniform_desc)
+        
+        # Matching accessories
+        matching_acc = shared_elements.get("matching_accessories", [])
+        for acc in matching_acc:
+            if isinstance(acc, dict) and acc.get("accessory_type") and acc.get("accessory_description"):
+                acc_desc = f"{acc['accessory_type']}: {acc['accessory_description']}"
+                shared_parts.append(acc_desc)
+        
+        # Professional equipment
+        prof_equipment = shared_elements.get("professional_equipment", [])
+        for eq in prof_equipment:
+            if isinstance(eq, dict) and eq.get("equipment_type") and eq.get("equipment_description"):
+                eq_desc = f"{eq['equipment_type']}: {eq['equipment_description']}"
+                shared_parts.append(eq_desc)
+        
+        if shared_parts:
+            lines.append("Professional/Shared Elements: " + ", ".join(shared_parts) + ".")
+    
     return " ".join(lines)
 
 
@@ -711,13 +857,14 @@ def _generate_character_descriptions(story_desc: str, characters: list[str], lm_
     
     for idx, name in enumerate(characters, 1):
         print(f"({idx}/{total}) {name}: generating structured description...")
-        prompt = _build_character_system_prompt(story_desc, name)
+        prompt = _build_character_system_prompt(story_desc, name, characters)
         
         try:
             # Use structured output with JSON schema
             user_payload = json.dumps({
                 "character_name": name,
-                "story_context": story_desc
+                "story_context": story_desc,
+                "all_characters": characters
             }, ensure_ascii=False)
             
             raw = _call_lm_studio(prompt, lm_studio_url, MODEL_CHARACTER_GENERATION, user_payload, _schema_character())
@@ -743,29 +890,43 @@ def _generate_character_descriptions(story_desc: str, characters: list[str], lm_
 
 
 def _rewrite_all_character_descriptions(name_to_desc: dict[str, str], story_desc: str, lm_studio_url: str) -> dict[str, str]:
-    """Rewrite all character descriptions at once using Qwen model to make them look completely different while preserving primary features."""
+    """Rewrite all character descriptions at once using Qwen model to make them look completely different while preserving primary features and relationships."""
     print(f"Rewriting all character descriptions using Qwen model: {len(name_to_desc)} characters")
     
     # Build combined prompt with all character descriptions
     characters_text = ""
+    character_names = list(name_to_desc.keys())
     for name, desc in name_to_desc.items():
         characters_text += f"Character: {name}\nDescription: {desc}\n\n"
     
-    prompt = f"""You are a creative character designer. Your task is to rewrite character descriptions to make each character look completely different while preserving their primary/core features and personality traits.
+    prompt = f"""You are a creative character designer. Rewrite character descriptions to make each character visually distinct while preserving their relationships and shared elements.
 
 Story Context: {story_desc}
+
+All Characters in Story: {', '.join(character_names)}
 
 Current Character Descriptions:
 {characters_text}
 
-Instructions:
-1. Rewrite each character's physical appearance to be completely different from the original
-2. Keep all primary personality traits, motivations, and core characteristics
-3. Ensure each character looks visually distinct from all others
-4. Maintain the same level of detail and quality
-5. Make the descriptions engaging and vivid
+INSTRUCTIONS:
+1. **Preserve relationships**: Keep all profession, organization, and character relationship data exactly as they are
+2. **Preserve shared elements**: Keep all uniform requirements, matching accessories, and professional equipment exactly as they are  
+3. **Change physical appearance**: Modify facial features, body type, skin details, and personal style to make each character visually distinct
+4. **Maintain consistency**: Characters with shared professions/relationships must have identical professional elements but different physical features
 
-Return the rewritten descriptions in the same format as the input, with each character on a new line starting with "Character: [name]" followed by the new description."""
+PHYSICAL CHANGES TO MAKE:
+- Change facial features (eyes, nose, mouth, hair) to be completely different
+- Change body type, height, build to be distinct  
+- Change skin tone, texture, and personal style
+- Keep all professional elements (uniforms, equipment, badges) identical for colleagues
+
+QUALITY REQUIREMENTS:
+- Maintain the same level of detail and quality as original descriptions
+- Use vivid, specific descriptions for visual impact
+- Ensure each character looks completely different from all others
+- Preserve all relationship and shared element data exactly
+
+Return structured character data for each character with completely different physical appearances while preserving all relationships and shared elements."""
 
     try:
         # Use structured output with JSON schema for character rewriting
@@ -780,15 +941,23 @@ Return the rewritten descriptions in the same format as the input, with each cha
         if not structured_data:
             raise RuntimeError("Failed to parse structured character rewrite response")
         
-        rewritten_descriptions = structured_data.get("rewritten_descriptions", {})
-        if not rewritten_descriptions:
-            raise RuntimeError("No rewritten descriptions generated")
+        rewritten_characters = structured_data.get("rewritten_characters", {})
+        if not rewritten_characters:
+            raise RuntimeError("No rewritten character data generated")
             
         # Validate that all characters are present
-        if set(rewritten_descriptions.keys()) != set(name_to_desc.keys()):
-            missing = set(name_to_desc.keys()) - set(rewritten_descriptions.keys())
-            extra = set(rewritten_descriptions.keys()) - set(name_to_desc.keys())
+        if set(rewritten_characters.keys()) != set(name_to_desc.keys()):
+            missing = set(name_to_desc.keys()) - set(rewritten_characters.keys())
+            extra = set(rewritten_characters.keys()) - set(name_to_desc.keys())
             raise RuntimeError(f"Character mismatch - Missing: {missing}, Extra: {extra}")
+        
+        # Convert structured data to readable descriptions
+        rewritten_descriptions = {}
+        for char_name, char_data in rewritten_characters.items():
+            desc = _format_character_description(char_data)
+            if not desc:
+                raise RuntimeError(f"Failed to format description for {char_name}")
+            rewritten_descriptions[char_name] = desc
             
         print(f"Successfully rewrote {len(rewritten_descriptions)} character descriptions")
         return rewritten_descriptions

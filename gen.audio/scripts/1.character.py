@@ -399,7 +399,7 @@ class CharacterManager:
             "messages": [
                 {"role": "system", "content": system_prompt},
             ],
-            "temperature": 0.7,
+            "temperature": 1,
             "max_tokens": 2048,
             "stream": False,
         }
