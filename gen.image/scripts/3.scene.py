@@ -49,7 +49,7 @@ USE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to d
 NEGATIVE_PROMPT = "blur, distorted, un-focused, text, words, letters, writing, caption, subtitle, title, label, inscriptions, symbols, watermark, duplicate same characters, duplicate same actors, full white background, full black background, extra limbs, extra fingers, extra arms, extra legs, extra hands, extra feet, bad anatomy, poorly drawn face, asymmetrical features, malformed hands, malformed face, distorted face, deformed face, mutated hands, missing fingers, missing limbs, disfigured, ugly, bad proportions, disproportionate, unrealistic proportions, plastic texture, uncanny valley, artificial looking, poorly drawn eyes, cross-eyed, wall-eyed, mismatched eyes, asymmetrical eyes, bad eye anatomy, poorly drawn nose, malformed nose, distorted nose, bad mouth anatomy, poorly drawn lips, malformed lips, distorted lips, bad teeth, missing teeth, extra teeth, bad jaw anatomy, poorly drawn jaw, malformed jaw, distorted jaw, bad chin anatomy, poorly drawn chin, malformed chin, distorted chin, bad neck anatomy, poorly drawn neck, malformed neck, distorted neck, bad shoulder anatomy, poorly drawn shoulders, malformed shoulders, distorted shoulders, bad chest anatomy, poorly drawn chest, malformed chest, distorted chest, bad torso anatomy, poorly drawn torso, malformed torso, distorted torso, bad waist anatomy, poorly drawn waist, malformed waist, distorted waist, bad hip anatomy, poorly drawn hips, malformed hips, distorted hips, bad leg anatomy, poorly drawn legs, malformed legs, distorted legs, bad knee anatomy, poorly drawn knees, malformed knees, distorted knees, bad ankle anatomy, poorly drawn ankles, malformed ankles, distorted ankles, bad foot anatomy, poorly drawn feet, malformed feet, distorted feet"
 
 # Random Seed Configuration
-USE_RANDOM_SEED = True  # Set to True to use random seed, False to use fixed seed - > Use when correcting images by regenerating
+USE_RANDOM_SEED = False  # Set to True to use random seed, False to use fixed seed - > Use when correcting images by regenerating
 FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 
 # Location Information Configuration
@@ -264,7 +264,7 @@ class SceneGenerator:
     def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
         return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
-Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, entire clothing) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
+Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
 Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
 All Non-Living Objects mentioned in Scene text-description must be present in illustration
         """.format(ART_STYLE=ART_STYLE)
