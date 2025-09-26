@@ -20,7 +20,7 @@ IMAGE_CUSTOM_RATIO = False
 IMAGE_CUSTOM_ASPECT_RATIO = "1:1"
 
 # LoRA Configuration
-USE_LORA = False  # Set to False to disable LoRA usage in workflow
+USE_LORA = True  # Set to False to disable LoRA usage in workflow
 LORA_NAME = "FLUX.1-Turbo-Alpha.safetensors"  # LoRA file name
 LORA_STRENGTH_MODEL = 2.0  # LoRA strength for the model (0.0 - 2.0)
 LORA_STRENGTH_CLIP = 2.0   # LoRA strength for CLIP (0.0 - 2.0)

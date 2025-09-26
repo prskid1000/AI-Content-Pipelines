@@ -1,358 +1,8 @@
 Workflow runner started. Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
 Working directory: D:\.comfyui\gen.image
 Emptying ComfyUI input and output folders...
-Removed file: D:\.comfyui\ComfyUI\input\male_client_stranger.jpg
-Removed file: D:\.comfyui\ComfyUI\input\male_detective_holmes.jpg
 Removed file: D:\.comfyui\ComfyUI\input\male_doctor_watson.jpg
-Removed file: D:\.comfyui\ComfyUI\output\female_clara_whitfield_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\female_landlady_mrs_hudmore_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_client_stranger_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_detective_holmes_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_doctor_watson_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_villain_scarred_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_villain_shorter_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.10_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.11_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.12_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.13_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.14_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.15_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.16_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.3_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.4_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.5_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.6_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.7_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.8_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.9_00001_.png
 Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00002_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00003_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00004_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00005_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00006_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00007_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00008_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00009_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00010_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00011_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00012_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00013_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00014_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00015_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00016_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00017_.png
 Successfully emptied ComfyUI input and output folders.
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
-ComfyUI not ready yet (attempt 1). Retrying in 15s...
-[START] Security scan
-[DONE] Security scan
-## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2025-09-26 14:34:53.395
-** Platform: Windows
-** Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
-** Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
-** ComfyUI Path: D:\.comfyui\ComfyUI
-** ComfyUI Base Folder Path: D:\.comfyui\ComfyUI
-** User directory: D:\.comfyui\ComfyUI\user
-** ComfyUI-Manager config path: D:\.comfyui\ComfyUI\user\default\ComfyUI-Manager\config.ini
-** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
-
-Prestartup times for custom nodes:
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\rgthree-comfy
-   4.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-
-Checkpoint files will always be loaded safely.
-Total VRAM 12227 MB, total RAM 64957 MB
-pytorch version: 2.8.0+cu129
-Set vram state to: NORMAL_VRAM
-Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
-Using pytorch attention
-Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
-ComfyUI version: 0.3.60
-ComfyUI frontend version: 1.26.13
-[Prompt Server] web root: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\Lib\site-packages\comfyui_frontend_package\static
-ComfyUI-GGUF: Allowing full torch compile
-### Loading: ComfyUI-Impact-Pack (V8.22.2)
-[Impact Pack] Wildcards loading done.
-### Loading: ComfyUI-Manager (V3.36)
-[ComfyUI-Manager] network_mode: public
-### ComfyUI Version: v0.3.60-5-gce4cb238 | Released on '2025-09-25'
-
-[32mInitializing ControlAltAI Nodes[0m
-
-[92m[rgthree-comfy] Loaded 48 fantastic nodes. 🎉[0m
-
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
-✅ ChatterboxTTS loaded from bundled package
-✅ ChatterboxVC loaded from bundled package
-JAX version 0.7.1 available.
-✅ F5-TTS loaded from system package
-🎭 Character voices: Found 61 characters, 7 aliases
-✅ SRT modules loaded from system package
-🔧 Registering TTS Audio Suite nodes...
-======================================================================
-🚀 TTS Audio Suite v4.2.1
-Universal multi-engine TTS extension for ComfyUI
-⚠️ No local ChatterBox models found - will download from Hugging Face
-💡 Tip: First generation will download models (~1GB)
-   Models will be saved locally for future use
-✅ TTS Audio Suite v4.2.1 loaded with 16 nodes:
-   • ⚙️ ChatterBox TTS Engine
-   • ⚙️ F5 TTS Engine
-   • ⚙️ RVC Engine
-   • 🌊 Audio Wave Analyzer
-   • 🎙️ Voice Capture
-   • 🎤 TTS Text
-   • 🎭 Character Voices
-   • 🎭 Load RVC Character Model
-   • 👄 F5-TTS Speech Editor
-   • 📺 TTS SRT
-   • 🔄 Voice Changer
-   • 🔧 Audio Analyzer Options
-   • 🔧 F5-TTS Edit Options
-   • 🔧 RVC Pitch Extraction Options
-   • 🤐 Noise or Vocal Removal
-   • 🥪 Merge Audio
-======================================================================
-
-Import times for custom nodes:
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\rgthree-comfy
-   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
-   0.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-impact-pack
-   0.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-   2.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
-   3.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
-
-Context impl SQLiteImpl.
-Will assume non-transactional DDL.
-No target revision found.
-Starting server
-
-To see the GUI go to: http://127.0.0.1:8188
-ComfyUI is ready after 17.1s (attempt 2).
-
-===== START D:\.comfyui\gen.image\scripts\2.character.py @ 2025-09-26 14:35:07 =====
-Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
-handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
-Traceback (most recent call last):
-  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\Lib\asyncio\events.py", line 88, in _run
-    self._context.run(self._callback, *self._args)
-  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
-    self._sock.shutdown(socket.SHUT_RDWR)
-ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
-Found 7 characters to generate:
-  - female_clara_whitfield
-  - female_landlady_mrs_hudmore
-  - male_client_stranger
-  - male_detective_holmes
-  - male_doctor_watson
-  - male_villain_scarred
-  - male_villain_shorter
-Generating image for: female_clara_whitfield
-Loaded flux workflow from: ../workflow/character.flux.json
-LoRA disabled in character workflow
-Sampling steps set to: 25
-Negative prompt enabled: blur, distorted, un-focused, text, words, letters, writing, caption, subtitle, title, label, inscriptions, symbols, watermark, duplicate same characters, duplicate same actors, full white background, full black background, extra limbs, extra fingers, extra arms, extra legs, extra hands, extra feet, bad anatomy, poorly drawn face, asymmetrical features, malformed hands, malformed face, distorted face, deformed face, mutated hands, missing fingers, missing limbs, disfigured, ugly, bad proportions, disproportionate, unrealistic proportions, plastic texture, uncanny valley, artificial looking, poorly drawn eyes, cross-eyed, wall-eyed, mismatched eyes, asymmetrical eyes, bad eye anatomy, poorly drawn nose, malformed nose, distorted nose, bad mouth anatomy, poorly drawn lips, malformed lips, distorted lips, bad teeth, missing teeth, extra teeth, bad jaw anatomy, poorly drawn jaw, malformed jaw, distorted jaw, bad chin anatomy, poorly drawn chin, malformed chin, distorted chin, bad neck anatomy, poorly drawn neck, malformed neck, distorted neck, bad shoulder anatomy, poorly drawn shoulders, malformed shoulders, distorted shoulders, bad chest anatomy, poorly drawn chest, malformed chest, distorted chest, bad torso anatomy, poorly drawn torso, malformed torso, distorted torso, bad waist anatomy, poorly drawn waist, malformed waist, distorted waist, bad hip anatomy, poorly drawn hips, malformed hips, distorted hips, bad leg anatomy, poorly drawn legs, malformed legs, distorted legs, bad knee anatomy, poorly drawn knees, malformed knees, distorted knees, bad ankle anatomy, poorly drawn ankles, malformed ankles, distorted ankles, bad foot anatomy, poorly drawn feet, malformed feet, distorted feet
-Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
-Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
-got prompt
-Waiting for generation to complete (prompt_id: 015c1385-5282-47ef-8a2e-4c54a0169d37)...
-Using pytorch attention in VAE
-Using pytorch attention in VAE
-VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
-CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
-FETCH ComfyRegistry Data: 5/98
-FETCH ComfyRegistry Data: 10/98
-clip missing: ['text_projection.weight']
-Requested to load FluxClipModel_
-loaded completely 9520.8 9319.23095703125 True
-FETCH ComfyRegistry Data: 15/98
-gguf qtypes: F32 (466), Q8_0 (304), BF16 (10)
-model weight dtype torch.bfloat16, manual cast: None
-model_type FLUX
-Requested to load Flux
-FETCH ComfyRegistry Data: 20/98
-loaded partially 9462.67490081787 9462.435546875 0
-Attempting to release mmap (126)
-  0%|          | 0/25 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 25/98
-  4%|▍         | 1/25 [00:01<00:40,  1.70s/it]  8%|▊         | 2/25 [00:03<00:34,  1.49s/it] 12%|█▏        | 3/25 [00:04<00:30,  1.39s/it] 16%|█▌        | 4/25 [00:05<00:28,  1.35s/it]FETCH ComfyRegistry Data: 30/98
- 20%|██        | 5/25 [00:06<00:26,  1.35s/it] 24%|██▍       | 6/25 [00:08<00:25,  1.35s/it] 28%|██▊       | 7/25 [00:09<00:24,  1.34s/it] 32%|███▏      | 8/25 [00:10<00:22,  1.33s/it]FETCH ComfyRegistry Data: 35/98
- 36%|███▌      | 9/25 [00:12<00:20,  1.31s/it] 40%|████      | 10/25 [00:13<00:19,  1.29s/it] 44%|████▍     | 11/25 [00:14<00:17,  1.28s/it] 48%|████▊     | 12/25 [00:15<00:16,  1.27s/it] 52%|█████▏    | 13/25 [00:17<00:15,  1.27s/it]FETCH ComfyRegistry Data: 40/98
- 56%|█████▌    | 14/25 [00:18<00:13,  1.27s/it] 60%|██████    | 15/25 [00:19<00:12,  1.29s/it] 64%|██████▍   | 16/25 [00:21<00:11,  1.31s/it] 68%|██████▊   | 17/25 [00:22<00:10,  1.31s/it]FETCH ComfyRegistry Data: 45/98
- 72%|███████▏  | 18/25 [00:23<00:09,  1.34s/it] 76%|███████▌  | 19/25 [00:25<00:08,  1.35s/it] 80%|████████  | 20/25 [00:26<00:06,  1.33s/it]FETCH ComfyRegistry Data: 50/98
- 84%|████████▍ | 21/25 [00:27<00:05,  1.34s/it] 88%|████████▊ | 22/25 [00:29<00:04,  1.35s/it] 92%|█████████▏| 23/25 [00:30<00:02,  1.36s/it] 96%|█████████▌| 24/25 [00:32<00:01,  1.35s/it]100%|██████████| 25/25 [00:33<00:00,  1.34s/it]100%|██████████| 25/25 [00:33<00:00,  1.33s/it]
-Requested to load AutoencodingEngine
-loaded completely 187.6484375 159.87335777282715 True
-Prompt executed in 57.37 seconds
-FETCH ComfyRegistry Data: 55/98
-Saved: ../output/characters\female_clara_whitfield.png
-Generating image for: female_landlady_mrs_hudmore
-Loaded flux workflow from: ../workflow/character.flux.json
-LoRA disabled in character workflow
-Sampling steps set to: 25
-Negative prompt enabled: blur, distorted, un-focused, text, words, letters, writing, caption, subtitle, title, label, inscriptions, symbols, watermark, duplicate same characters, duplicate same actors, full white background, full black background, extra limbs, extra fingers, extra arms, extra legs, extra hands, extra feet, bad anatomy, poorly drawn face, asymmetrical features, malformed hands, malformed face, distorted face, deformed face, mutated hands, missing fingers, missing limbs, disfigured, ugly, bad proportions, disproportionate, unrealistic proportions, plastic texture, uncanny valley, artificial looking, poorly drawn eyes, cross-eyed, wall-eyed, mismatched eyes, asymmetrical eyes, bad eye anatomy, poorly drawn nose, malformed nose, distorted nose, bad mouth anatomy, poorly drawn lips, malformed lips, distorted lips, bad teeth, missing teeth, extra teeth, bad jaw anatomy, poorly drawn jaw, malformed jaw, distorted jaw, bad chin anatomy, poorly drawn chin, malformed chin, distorted chin, bad neck anatomy, poorly drawn neck, malformed neck, distorted neck, bad shoulder anatomy, poorly drawn shoulders, malformed shoulders, distorted shoulders, bad chest anatomy, poorly drawn chest, malformed chest, distorted chest, bad torso anatomy, poorly drawn torso, malformed torso, distorted torso, bad waist anatomy, poorly drawn waist, malformed waist, distorted waist, bad hip anatomy, poorly drawn hips, malformed hips, distorted hips, bad leg anatomy, poorly drawn legs, malformed legs, distorted legs, bad knee anatomy, poorly drawn knees, malformed knees, distorted knees, bad ankle anatomy, poorly drawn ankles, malformed ankles, distorted ankles, bad foot anatomy, poorly drawn feet, malformed feet, distorted feet
-Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
-Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
-got prompt
-Waiting for generation to complete (prompt_id: b129a0ba-ebd6-4d80-a849-561902acee08)...
-Requested to load FluxClipModel_
-FETCH ComfyRegistry Data: 60/98
-loaded completely 9460.675 9319.23095703125 True
-Requested to load Flux
-FETCH ComfyRegistry Data: 65/98
-loaded partially 9460.67490081787 9460.197509765625 0
-  0%|          | 0/25 [00:00<?, ?it/s]  4%|▍         | 1/25 [00:01<00:32,  1.34s/it]  8%|▊         | 2/25 [00:02<00:29,  1.30s/it] 12%|█▏        | 3/25 [00:03<00:29,  1.32s/it]FETCH ComfyRegistry Data: 70/98
- 16%|█▌        | 4/25 [00:05<00:28,  1.34s/it] 20%|██        | 5/25 [00:06<00:25,  1.29s/it] 24%|██▍       | 6/25 [00:07<00:24,  1.27s/it] 28%|██▊       | 7/25 [00:09<00:23,  1.28s/it] 32%|███▏      | 8/25 [00:10<00:22,  1.30s/it]FETCH ComfyRegistry Data: 75/98
- 36%|███▌      | 9/25 [00:11<00:20,  1.29s/it] 40%|████      | 10/25 [00:13<00:19,  1.31s/it] 44%|████▍     | 11/25 [00:14<00:18,  1.30s/it] 48%|████▊     | 12/25 [00:15<00:17,  1.31s/it] 52%|█████▏    | 13/25 [00:16<00:15,  1.28s/it] 56%|█████▌    | 14/25 [00:18<00:13,  1.26s/it] 60%|██████    | 15/25 [00:19<00:12,  1.28s/it] 64%|██████▍   | 16/25 [00:20<00:11,  1.30s/it] 68%|██████▊   | 17/25 [00:22<00:10,  1.34s/it] 72%|███████▏  | 18/25 [00:23<00:09,  1.33s/it] 76%|███████▌  | 19/25 [00:24<00:07,  1.33s/it] 80%|████████  | 20/25 [00:26<00:06,  1.30s/it] 84%|████████▍ | 21/25 [00:27<00:05,  1.30s/it] 88%|████████▊ | 22/25 [00:28<00:03,  1.27s/it] 92%|█████████▏| 23/25 [00:29<00:02,  1.25s/it] 96%|█████████▌| 24/25 [00:30<00:01,  1.22s/it]100%|██████████| 25/25 [00:32<00:00,  1.22s/it]100%|██████████| 25/25 [00:32<00:00,  1.28s/it]
-Requested to load AutoencodingEngine
-loaded completely 185.6484375 159.87335777282715 True
-Prompt executed in 44.03 seconds
-Saved: ../output/characters\female_landlady_mrs_hudmore.png
-Generating image for: male_client_stranger
-Loaded flux workflow from: ../workflow/character.flux.json
-LoRA disabled in character workflow
-Sampling steps set to: 25
-Negative prompt enabled: blur, distorted, un-focused, text, words, letters, writing, caption, subtitle, title, label, inscriptions, symbols, watermark, duplicate same characters, duplicate same actors, full white background, full black background, extra limbs, extra fingers, extra arms, extra legs, extra hands, extra feet, bad anatomy, poorly drawn face, asymmetrical features, malformed hands, malformed face, distorted face, deformed face, mutated hands, missing fingers, missing limbs, disfigured, ugly, bad proportions, disproportionate, unrealistic proportions, plastic texture, uncanny valley, artificial looking, poorly drawn eyes, cross-eyed, wall-eyed, mismatched eyes, asymmetrical eyes, bad eye anatomy, poorly drawn nose, malformed nose, distorted nose, bad mouth anatomy, poorly drawn lips, malformed lips, distorted lips, bad teeth, missing teeth, extra teeth, bad jaw anatomy, poorly drawn jaw, malformed jaw, distorted jaw, bad chin anatomy, poorly drawn chin, malformed chin, distorted chin, bad neck anatomy, poorly drawn neck, malformed neck, distorted neck, bad shoulder anatomy, poorly drawn shoulders, malformed shoulders, distorted shoulders, bad chest anatomy, poorly drawn chest, malformed chest, distorted chest, bad torso anatomy, poorly drawn torso, malformed torso, distorted torso, bad waist anatomy, poorly drawn waist, malformed waist, distorted waist, bad hip anatomy, poorly drawn hips, malformed hips, distorted hips, bad leg anatomy, poorly drawn legs, malformed legs, distorted legs, bad knee anatomy, poorly drawn knees, malformed knees, distorted knees, bad ankle anatomy, poorly drawn ankles, malformed ankles, distorted ankles, bad foot anatomy, poorly drawn feet, malformed feet, distorted feet
-Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
-Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
-got prompt
-Waiting for generation to complete (prompt_id: 32e55870-3d97-44d7-9626-fc84d3f88121)...
-Requested to load FluxClipModel_
-Cannot connect to comfyregistry.
-FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
-[ComfyUI-Manager] All startup tasks have been completed.
-loaded completely 9458.675 9319.23095703125 True
-Requested to load Flux
-loaded partially 9458.67490081787 9458.6748046875 0
-  0%|          | 0/25 [00:00<?, ?it/s]  4%|▍         | 1/25 [00:01<00:31,  1.32s/it]  8%|▊         | 2/25 [00:02<00:28,  1.23s/it] 12%|█▏        | 3/25 [00:03<00:26,  1.22s/it] 16%|█▌        | 4/25 [00:04<00:25,  1.20s/it] 20%|██        | 5/25 [00:06<00:24,  1.21s/it] 24%|██▍       | 6/25 [00:07<00:23,  1.22s/it] 28%|██▊       | 7/25 [00:08<00:21,  1.22s/it] 32%|███▏      | 8/25 [00:09<00:20,  1.20s/it] 36%|███▌      | 9/25 [00:10<00:19,  1.19s/it] 40%|████      | 10/25 [00:12<00:17,  1.17s/it] 44%|████▍     | 11/25 [00:13<00:16,  1.17s/it] 48%|████▊     | 12/25 [00:14<00:15,  1.17s/it] 52%|█████▏    | 13/25 [00:15<00:13,  1.16s/it] 56%|█████▌    | 14/25 [00:16<00:12,  1.15s/it] 60%|██████    | 15/25 [00:17<00:11,  1.15s/it] 64%|██████▍   | 16/25 [00:18<00:10,  1.15s/it] 68%|██████▊   | 17/25 [00:20<00:09,  1.17s/it] 72%|███████▏  | 18/25 [00:21<00:08,  1.17s/it] 76%|███████▌  | 19/25 [00:22<00:07,  1.18s/it] 80%|████████  | 20/25 [00:23<00:05,  1.18s/it] 84%|████████▍ | 21/25 [00:24<00:04,  1.18s/it] 88%|████████▊ | 22/25 [00:25<00:03,  1.17s/it] 92%|█████████▏| 23/25 [00:27<00:02,  1.16s/it] 96%|█████████▌| 24/25 [00:28<00:01,  1.16s/it]100%|██████████| 25/25 [00:29<00:00,  1.16s/it]100%|██████████| 25/25 [00:29<00:00,  1.18s/it]
-Requested to load AutoencodingEngine
-loaded completely 185.6484375 159.87335777282715 True
-Prompt executed in 39.89 seconds
-Saved: ../output/characters\male_client_stranger.png
-Generating image for: male_detective_holmes
-Loaded flux workflow from: ../workflow/character.flux.json
-LoRA disabled in character workflow
-Sampling steps set to: 25
-Negative prompt enabled: blur, distorted, un-focused, text, words, letters, writing, caption, subtitle, title, label, inscriptions, symbols, watermark, duplicate same characters, duplicate same actors, full white background, full black background, extra limbs, extra fingers, extra arms, extra legs, extra hands, extra feet, bad anatomy, poorly drawn face, asymmetrical features, malformed hands, malformed face, distorted face, deformed face, mutated hands, missing fingers, missing limbs, disfigured, ugly, bad proportions, disproportionate, unrealistic proportions, plastic texture, uncanny valley, artificial looking, poorly drawn eyes, cross-eyed, wall-eyed, mismatched eyes, asymmetrical eyes, bad eye anatomy, poorly drawn nose, malformed nose, distorted nose, bad mouth anatomy, poorly drawn lips, malformed lips, distorted lips, bad teeth, missing teeth, extra teeth, bad jaw anatomy, poorly drawn jaw, malformed jaw, distorted jaw, bad chin anatomy, poorly drawn chin, malformed chin, distorted chin, bad neck anatomy, poorly drawn neck, malformed neck, distorted neck, bad shoulder anatomy, poorly drawn shoulders, malformed shoulders, distorted shoulders, bad chest anatomy, poorly drawn chest, malformed chest, distorted chest, bad torso anatomy, poorly drawn torso, malformed torso, distorted torso, bad waist anatomy, poorly drawn waist, malformed waist, distorted waist, bad hip anatomy, poorly drawn hips, malformed hips, distorted hips, bad leg anatomy, poorly drawn legs, malformed legs, distorted legs, bad knee anatomy, poorly drawn knees, malformed knees, distorted knees, bad ankle anatomy, poorly drawn ankles, malformed ankles, distorted ankles, bad foot anatomy, poorly drawn feet, malformed feet, distorted feet
-Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
-Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
-got prompt
-Waiting for generation to complete (prompt_id: 7fe3495c-84b9-4fd6-9c01-dda0cdb96bcb)...
-Requested to load FluxClipModel_
-loaded completely 9458.675 9319.23095703125 True
-Requested to load Flux
-loaded partially 9458.67490081787 9458.6748046875 0
-  0%|          | 0/25 [00:00<?, ?it/s]  4%|▍         | 1/25 [00:01<00:33,  1.38s/it]  8%|▊         | 2/25 [00:02<00:29,  1.29s/it] 12%|█▏        | 3/25 [00:03<00:27,  1.23s/it] 16%|█▌        | 4/25 [00:04<00:25,  1.19s/it] 20%|██        | 5/25 [00:06<00:23,  1.17s/it] 24%|██▍       | 6/25 [00:07<00:21,  1.16s/it] 28%|██▊       | 7/25 [00:08<00:20,  1.15s/it] 32%|███▏      | 8/25 [00:09<00:19,  1.15s/it] 36%|███▌      | 9/25 [00:10<00:18,  1.15s/it] 40%|████      | 10/25 [00:11<00:17,  1.15s/it] 44%|████▍     | 11/25 [00:12<00:16,  1.16s/it] 48%|████▊     | 12/25 [00:14<00:15,  1.16s/it] 52%|█████▏    | 13/25 [00:15<00:13,  1.16s/it] 56%|█████▌    | 14/25 [00:16<00:12,  1.16s/it] 60%|██████    | 15/25 [00:17<00:11,  1.18s/it] 64%|██████▍   | 16/25 [00:18<00:10,  1.21s/it] 68%|██████▊   | 17/25 [00:20<00:09,  1.21s/it] 72%|███████▏  | 18/25 [00:21<00:08,  1.22s/it] 76%|███████▌  | 19/25 [00:22<00:07,  1.24s/it] 80%|████████  | 20/25 [00:24<00:06,  1.29s/it] 84%|████████▍ | 21/25 [00:25<00:05,  1.31s/it] 88%|████████▊ | 22/25 [00:26<00:04,  1.34s/it] 92%|█████████▏| 23/25 [00:28<00:02,  1.35s/it] 96%|█████████▌| 24/25 [00:29<00:01,  1.38s/it]100%|██████████| 25/25 [00:31<00:00,  1.38s/it]100%|██████████| 25/25 [00:31<00:00,  1.24s/it]
-Requested to load AutoencodingEngine
-loaded completely 185.6484375 159.87335777282715 True
-Prompt executed in 39.10 seconds
-Saved: ../output/characters\male_detective_holmes.png
-Generating image for: male_doctor_watson
-Loaded flux workflow from: ../workflow/character.flux.json
-LoRA disabled in character workflow
-Sampling steps set to: 25
-Negative prompt enabled: blur, distorted, un-focused, text, words, letters, writing, caption, subtitle, title, label, inscriptions, symbols, watermark, duplicate same characters, duplicate same actors, full white background, full black background, extra limbs, extra fingers, extra arms, extra legs, extra hands, extra feet, bad anatomy, poorly drawn face, asymmetrical features, malformed hands, malformed face, distorted face, deformed face, mutated hands, missing fingers, missing limbs, disfigured, ugly, bad proportions, disproportionate, unrealistic proportions, plastic texture, uncanny valley, artificial looking, poorly drawn eyes, cross-eyed, wall-eyed, mismatched eyes, asymmetrical eyes, bad eye anatomy, poorly drawn nose, malformed nose, distorted nose, bad mouth anatomy, poorly drawn lips, malformed lips, distorted lips, bad teeth, missing teeth, extra teeth, bad jaw anatomy, poorly drawn jaw, malformed jaw, distorted jaw, bad chin anatomy, poorly drawn chin, malformed chin, distorted chin, bad neck anatomy, poorly drawn neck, malformed neck, distorted neck, bad shoulder anatomy, poorly drawn shoulders, malformed shoulders, distorted shoulders, bad chest anatomy, poorly drawn chest, malformed chest, distorted chest, bad torso anatomy, poorly drawn torso, malformed torso, distorted torso, bad waist anatomy, poorly drawn waist, malformed waist, distorted waist, bad hip anatomy, poorly drawn hips, malformed hips, distorted hips, bad leg anatomy, poorly drawn legs, malformed legs, distorted legs, bad knee anatomy, poorly drawn knees, malformed knees, distorted knees, bad ankle anatomy, poorly drawn ankles, malformed ankles, distorted ankles, bad foot anatomy, poorly drawn feet, malformed feet, distorted feet
-Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
-Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
-got prompt
-Waiting for generation to complete (prompt_id: 3ce91bdb-a5da-42e0-b027-9679f3fca4d1)...
-Requested to load FluxClipModel_
-loaded completely 9458.675 9319.23095703125 True
-Requested to load Flux
-loaded partially 9458.67490081787 9458.6748046875 0
-  0%|          | 0/25 [00:00<?, ?it/s]  4%|▍         | 1/25 [00:01<00:29,  1.23s/it]  8%|▊         | 2/25 [00:02<00:27,  1.20s/it] 12%|█▏        | 3/25 [00:03<00:25,  1.17s/it] 16%|█▌        | 4/25 [00:04<00:24,  1.15s/it] 20%|██        | 5/25 [00:05<00:23,  1.15s/it] 24%|██▍       | 6/25 [00:07<00:22,  1.16s/it] 28%|██▊       | 7/25 [00:08<00:20,  1.17s/it] 32%|███▏      | 8/25 [00:09<00:19,  1.17s/it] 36%|███▌      | 9/25 [00:10<00:19,  1.22s/it] 40%|████      | 10/25 [00:11<00:18,  1.22s/it] 44%|████▍     | 11/25 [00:13<00:16,  1.21s/it] 48%|████▊     | 12/25 [00:14<00:15,  1.21s/it] 52%|█████▏    | 13/25 [00:15<00:14,  1.20s/it] 56%|█████▌    | 14/25 [00:16<00:13,  1.19s/it] 60%|██████    | 15/25 [00:17<00:11,  1.18s/it] 64%|██████▍   | 16/25 [00:19<00:10,  1.19s/it] 68%|██████▊   | 17/25 [00:20<00:09,  1.19s/it] 72%|███████▏  | 18/25 [00:21<00:08,  1.19s/it] 76%|███████▌  | 19/25 [00:22<00:07,  1.19s/it] 80%|████████  | 20/25 [00:23<00:05,  1.18s/it] 84%|████████▍ | 21/25 [00:24<00:04,  1.18s/it] 88%|████████▊ | 22/25 [00:26<00:03,  1.17s/it] 92%|█████████▏| 23/25 [00:27<00:02,  1.17s/it] 96%|█████████▌| 24/25 [00:28<00:01,  1.16s/it]100%|██████████| 25/25 [00:29<00:00,  1.15s/it]100%|██████████| 25/25 [00:29<00:00,  1.18s/it]
-Requested to load AutoencodingEngine
-loaded completely 185.6484375 159.87335777282715 True
-Prompt executed in 40.00 seconds
-Saved: ../output/characters\male_doctor_watson.png
-Generating image for: male_villain_scarred
-Loaded flux workflow from: ../workflow/character.flux.json
-LoRA disabled in character workflow
-Sampling steps set to: 25
-Negative prompt enabled: blur, distorted, un-focused, text, words, letters, writing, caption, subtitle, title, label, inscriptions, symbols, watermark, duplicate same characters, duplicate same actors, full white background, full black background, extra limbs, extra fingers, extra arms, extra legs, extra hands, extra feet, bad anatomy, poorly drawn face, asymmetrical features, malformed hands, malformed face, distorted face, deformed face, mutated hands, missing fingers, missing limbs, disfigured, ugly, bad proportions, disproportionate, unrealistic proportions, plastic texture, uncanny valley, artificial looking, poorly drawn eyes, cross-eyed, wall-eyed, mismatched eyes, asymmetrical eyes, bad eye anatomy, poorly drawn nose, malformed nose, distorted nose, bad mouth anatomy, poorly drawn lips, malformed lips, distorted lips, bad teeth, missing teeth, extra teeth, bad jaw anatomy, poorly drawn jaw, malformed jaw, distorted jaw, bad chin anatomy, poorly drawn chin, malformed chin, distorted chin, bad neck anatomy, poorly drawn neck, malformed neck, distorted neck, bad shoulder anatomy, poorly drawn shoulders, malformed shoulders, distorted shoulders, bad chest anatomy, poorly drawn chest, malformed chest, distorted chest, bad torso anatomy, poorly drawn torso, malformed torso, distorted torso, bad waist anatomy, poorly drawn waist, malformed waist, distorted waist, bad hip anatomy, poorly drawn hips, malformed hips, distorted hips, bad leg anatomy, poorly drawn legs, malformed legs, distorted legs, bad knee anatomy, poorly drawn knees, malformed knees, distorted knees, bad ankle anatomy, poorly drawn ankles, malformed ankles, distorted ankles, bad foot anatomy, poorly drawn feet, malformed feet, distorted feet
-Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
-Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
-got prompt
-Waiting for generation to complete (prompt_id: 8660066b-7003-4c20-bb2b-b27b609b01c8)...
-Requested to load FluxClipModel_
-loaded completely 9458.675 9319.23095703125 True
-Requested to load Flux
-loaded partially 9458.67490081787 9458.6748046875 0
-  0%|          | 0/25 [00:00<?, ?it/s]  4%|▍         | 1/25 [00:01<00:30,  1.26s/it]  8%|▊         | 2/25 [00:02<00:27,  1.20s/it] 12%|█▏        | 3/25 [00:03<00:26,  1.19s/it] 16%|█▌        | 4/25 [00:04<00:24,  1.17s/it] 20%|██        | 5/25 [00:05<00:23,  1.17s/it] 24%|██▍       | 6/25 [00:07<00:22,  1.17s/it] 28%|██▊       | 7/25 [00:08<00:21,  1.18s/it] 32%|███▏      | 8/25 [00:09<00:20,  1.20s/it] 36%|███▌      | 9/25 [00:10<00:19,  1.20s/it] 40%|████      | 10/25 [00:11<00:17,  1.20s/it] 44%|████▍     | 11/25 [00:13<00:16,  1.21s/it] 48%|████▊     | 12/25 [00:14<00:15,  1.20s/it] 52%|█████▏    | 13/25 [00:15<00:14,  1.18s/it] 56%|█████▌    | 14/25 [00:16<00:12,  1.18s/it] 60%|██████    | 15/25 [00:17<00:11,  1.18s/it] 64%|██████▍   | 16/25 [00:18<00:10,  1.17s/it] 68%|██████▊   | 17/25 [00:20<00:09,  1.17s/it] 72%|███████▏  | 18/25 [00:21<00:08,  1.16s/it] 76%|███████▌  | 19/25 [00:22<00:06,  1.16s/it] 80%|████████  | 20/25 [00:23<00:05,  1.20s/it] 84%|████████▍ | 21/25 [00:24<00:04,  1.20s/it] 88%|████████▊ | 22/25 [00:26<00:03,  1.20s/it] 92%|█████████▏| 23/25 [00:27<00:02,  1.22s/it] 96%|█████████▌| 24/25 [00:28<00:01,  1.22s/it]100%|██████████| 25/25 [00:29<00:00,  1.22s/it]100%|██████████| 25/25 [00:29<00:00,  1.19s/it]
-Requested to load AutoencodingEngine
-loaded completely 185.6484375 159.87335777282715 True
-Prompt executed in 40.14 seconds
-Saved: ../output/characters\male_villain_scarred.png
-Generating image for: male_villain_shorter
-Loaded flux workflow from: ../workflow/character.flux.json
-LoRA disabled in character workflow
-Sampling steps set to: 25
-Negative prompt enabled: blur, distorted, un-focused, text, words, letters, writing, caption, subtitle, title, label, inscriptions, symbols, watermark, duplicate same characters, duplicate same actors, full white background, full black background, extra limbs, extra fingers, extra arms, extra legs, extra hands, extra feet, bad anatomy, poorly drawn face, asymmetrical features, malformed hands, malformed face, distorted face, deformed face, mutated hands, missing fingers, missing limbs, disfigured, ugly, bad proportions, disproportionate, unrealistic proportions, plastic texture, uncanny valley, artificial looking, poorly drawn eyes, cross-eyed, wall-eyed, mismatched eyes, asymmetrical eyes, bad eye anatomy, poorly drawn nose, malformed nose, distorted nose, bad mouth anatomy, poorly drawn lips, malformed lips, distorted lips, bad teeth, missing teeth, extra teeth, bad jaw anatomy, poorly drawn jaw, malformed jaw, distorted jaw, bad chin anatomy, poorly drawn chin, malformed chin, distorted chin, bad neck anatomy, poorly drawn neck, malformed neck, distorted neck, bad shoulder anatomy, poorly drawn shoulders, malformed shoulders, distorted shoulders, bad chest anatomy, poorly drawn chest, malformed chest, distorted chest, bad torso anatomy, poorly drawn torso, malformed torso, distorted torso, bad waist anatomy, poorly drawn waist, malformed waist, distorted waist, bad hip anatomy, poorly drawn hips, malformed hips, distorted hips, bad leg anatomy, poorly drawn legs, malformed legs, distorted legs, bad knee anatomy, poorly drawn knees, malformed knees, distorted knees, bad ankle anatomy, poorly drawn ankles, malformed ankles, distorted ankles, bad foot anatomy, poorly drawn feet, malformed feet, distorted feet
-Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
-Warning: Could not parse aspect ratio 9:32 (Skyline): not enough values to unpack (expected 2, got 1)
-got prompt
-Waiting for generation to complete (prompt_id: ae359bb1-8e0a-457d-b0f9-dc20c97f0c0b)...
-Requested to load FluxClipModel_
-loaded completely 9458.675 9319.23095703125 True
-Requested to load Flux
-loaded partially 9458.67490081787 9458.6748046875 0
-  0%|          | 0/25 [00:00<?, ?it/s]  4%|▍         | 1/25 [00:01<00:28,  1.21s/it]  8%|▊         | 2/25 [00:02<00:27,  1.18s/it] 12%|█▏        | 3/25 [00:03<00:25,  1.16s/it] 16%|█▌        | 4/25 [00:04<00:24,  1.16s/it] 20%|██        | 5/25 [00:05<00:23,  1.15s/it] 24%|██▍       | 6/25 [00:07<00:22,  1.18s/it] 28%|██▊       | 7/25 [00:08<00:21,  1.20s/it] 32%|███▏      | 8/25 [00:09<00:20,  1.19s/it] 36%|███▌      | 9/25 [00:10<00:18,  1.18s/it] 40%|████      | 10/25 [00:11<00:17,  1.19s/it] 44%|████▍     | 11/25 [00:13<00:16,  1.19s/it] 48%|████▊     | 12/25 [00:14<00:15,  1.19s/it] 52%|█████▏    | 13/25 [00:15<00:14,  1.19s/it] 56%|█████▌    | 14/25 [00:16<00:13,  1.19s/it] 60%|██████    | 15/25 [00:17<00:11,  1.19s/it] 64%|██████▍   | 16/25 [00:18<00:10,  1.18s/it] 68%|██████▊   | 17/25 [00:20<00:09,  1.18s/it] 72%|███████▏  | 18/25 [00:21<00:08,  1.16s/it] 76%|███████▌  | 19/25 [00:22<00:06,  1.15s/it] 80%|████████  | 20/25 [00:23<00:05,  1.14s/it] 84%|████████▍ | 21/25 [00:24<00:04,  1.14s/it] 88%|████████▊ | 22/25 [00:25<00:03,  1.15s/it] 92%|█████████▏| 23/25 [00:26<00:02,  1.14s/it] 96%|█████████▌| 24/25 [00:28<00:01,  1.14s/it]100%|██████████| 25/25 [00:29<00:00,  1.13s/it]100%|██████████| 25/25 [00:29<00:00,  1.17s/it]
-Requested to load AutoencodingEngine
-loaded completely 179.2109375 159.87335777282715 True
-Prompt executed in 39.45 seconds
-ERROR: Failed to generate image for male_villain_shorter: [WinError 3] The system cannot find the path specified
-FAILED: Could not generate image for male_villain_shorter
-
-Successfully generated 6 character images in 319.12s using flux mode:
-  female_clara_whitfield: ../output/characters\female_clara_whitfield.png
-  female_landlady_mrs_hudmore: ../output/characters\female_landlady_mrs_hudmore.png
-  male_client_stranger: ../output/characters\male_client_stranger.png
-  male_detective_holmes: ../output/characters\male_detective_holmes.png
-  male_doctor_watson: ../output/characters\male_doctor_watson.png
-  male_villain_scarred: ../output/characters\male_villain_scarred.png
-
-===== END D:\.comfyui\gen.image\scripts\2.character.py @ 2025-09-26 14:40:26 (exit=0, took=319.28s) =====
-
-===== START D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-09-26 14:40:26 =====
-Location info enabled: 4 locations loaded
-Processing 100 scenes, skipped 0
-============================================================
-
-[1/100] Processing scene_1.1...
-Generating scene: scene_1.1 with characters: male_doctor_watson
-LoRA enabled in workflow
-Sampling steps set to: 8
-Seed set to: 1326773676
-WARNING: Character image not found for: male_doctor_watson
-Character mode: IMAGE_TEXT, Images: 0
-Using text conditioning only
-Negative prompt enabled: blur, distorted, un-focused, text, words, letters, writing, caption, subtitle, title, label, inscriptions, symbols, watermark, duplicate same characters, duplicate same actors, full white background, full black background, extra limbs, extra fingers, extra arms, extra legs, extra hands, extra feet, bad anatomy, poorly drawn face, asymmetrical features, malformed hands, malformed face, distorted face, deformed face, mutated hands, missing fingers, missing limbs, disfigured, ugly, bad proportions, disproportionate, unrealistic proportions, plastic texture, uncanny valley, artificial looking, poorly drawn eyes, cross-eyed, wall-eyed, mismatched eyes, asymmetrical eyes, bad eye anatomy, poorly drawn nose, malformed nose, distorted nose, bad mouth anatomy, poorly drawn lips, malformed lips, distorted lips, bad teeth, missing teeth, extra teeth, bad jaw anatomy, poorly drawn jaw, malformed jaw, distorted jaw, bad chin anatomy, poorly drawn chin, malformed chin, distorted chin, bad neck anatomy, poorly drawn neck, malformed neck, distorted neck, bad shoulder anatomy, poorly drawn shoulders, malformed shoulders, distorted shoulders, bad chest anatomy, poorly drawn chest, malformed chest, distorted chest, bad torso anatomy, poorly drawn torso, malformed torso, distorted torso, bad waist anatomy, poorly drawn waist, malformed waist, distorted waist, bad hip anatomy, poorly drawn hips, malformed hips, distorted hips, bad leg anatomy, poorly drawn legs, malformed legs, distorted legs, bad knee anatomy, poorly drawn knees, malformed knees, distorted knees, bad ankle anatomy, poorly drawn ankles, malformed ankles, distorted ankles, bad foot anatomy, poorly drawn feet, malformed feet, distorted feet
-Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
-Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, entire clothing) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
-Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
-All Non-Living Objects mentioned in Scene text-description must be present in illustration
-        
-SCENE TEXT-DESCRIPTION:
- Illustrate an exact scenery like {{A British Victorian Living Room, situated at 221B Baker Street. The room is comfortably cluttered, its atmosphere dense with smoke from Holmes’s pipe and the lingering aroma of strong black tea. Against the far wall stands a tall bookcase, filled with volumes on chemistry, law, and arcane monographs of every kind. A large Persian rug, slightly worn at the edges, spreads across the wooden floor, providing warmth against the chill of winter. Near the fire burns a coal grate, its iron frame blackened from years of use. Holmes’s violin rests upon a side table, beside a stack of case notes tied with string. A heavy sofa with well-worn arms sits in the center, facing the fire, where I am seated. The window, draped in thick curtains, allows pale shafts of morning sun to pierce through the London fog outside. A chemical apparatus on a stand near the mantelpiece bubbles faintly, releasing faint odors of experiment. On a small table rests the morning newspaper, folded and creased. Every object in the room seems to bear the mark of Holmes’s restless intellect.}}, {Sunny Winter Morning};Place ((male_doctor_watson)), the Character in Image 1, {Neutral}, {Sitting on sofa}, {Reading newspaper};.
-
-CHARACTER TEXT-DESCRIPTION:
-(Character in Image 1) is ((male_doctor_watson)) who looks like {round head, warm golden-brown complexion, kind brown eyes, strong jawline, neatly trimmed slight mustache, round face, faint scar on cheek, dark green wool suit, well-worn dignified fit, engraved pocket watch, waistcoat, medical bag over shoulder, round spectacles}.
-got prompt
-Waiting for completion (prompt_id: f4f09466-b973-4dae-9b10-03b0cc293556)...
-Requested to load FluxClipModel_
-loaded completely 9458.675 9319.23095703125 True
-
-===== END D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-09-26 14:40:32 (exit=3221225786, took=6.34s) =====
-Stopping ComfyUI backend...
