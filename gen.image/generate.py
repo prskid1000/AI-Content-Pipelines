@@ -168,6 +168,7 @@ def empty_comfyui_folders(base_dir: str, log_handle) -> bool:
     log_handle.flush()
     return success
 
+
 def start_comfyui(working_dir: str, log_handle) -> subprocess.Popen:
     comfy_dir = resolve_comfyui_dir(working_dir)
     main_py = os.path.join(comfy_dir, "main.py")
