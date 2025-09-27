@@ -55,11 +55,11 @@ LORA_STRENGTH_CLIP = 2.0   # LoRA strength for CLIP (0.0 - 2.0)
 SAMPLING_STEPS = 9 # Number of sampling steps (higher = better quality, slower)
 
 # Negative Prompt Configuration
-USE_NEGATIVE_PROMPT = False  # Set to True to enable negative prompts, False to disable
+USE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to disable
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
 # Random Seed Configuration
-USE_RANDOM_SEED = False  # Set to True to use random seed, False to use fixed seed - > Use when correcting images by regenerating
+USE_RANDOM_SEED = True  # Set to True to use random seed, False to use fixed seed - > Use when correcting images by regenerating
 FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 
 # Location Information Configuration
