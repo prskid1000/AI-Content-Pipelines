@@ -36,22 +36,14 @@ USE_LORA = True  # Set to False to disable LoRA usage in workflow
 # You can bypass model or CLIP parts individually per LoRA
 # You can disable entire LoRAs by setting "enabled": False
 LORAS = [
-    {
-        "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 1.0,    # Model strength (0.0 - 2.0)
-        "strength_clip": 1.0,     # CLIP strength (0.0 - 2.0)
-        "bypass_model": False,    # Set to True to bypass model part of this LoRA
-        "bypass_clip": True,     # Set to True to bypass CLIP part of this LoRA
-        "enabled": True           # Set to False to disable this LoRA entirely
-    },
     # Example: Add more LoRAs as needed:
     {
-        "name": "Ghibli_lora_weights.safetensors",
-        "strength_model": 2.0,
-        "strength_clip": 2.0,
-        "bypass_model": False,  # Use model part
-        "bypass_clip": True,    # Skip CLIP part (CLIP strength = 0.0)
-        "enabled": True
+        "name": "FLUX.1-Turbo-Alpha.safetensors",
+        "strength_model": 2.0,    # Model strength (0.0 - 2.0)
+        "strength_clip": 2.0,     # CLIP strength (0.0 - 2.0)
+        "bypass_model": False,    # Set to True to bypass model part of this LoRA
+        "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
+        "enabled": True           # Set to False to disable this LoRA entirely
     },
     # {
     #     "name": "style_lora.safetensors",
