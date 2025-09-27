@@ -5,20 +5,167 @@ import requests
 import argparse
 from functools import partial
 import builtins as _builtins
+import time
+from pathlib import Path
 
 
 CHARACTER_SUMMARY_CHARACTER_COUNT = 600
 LOCATION_CHARACTER_COUNT = 3600
-STORY_DESCRIPTION_CHARACTER_COUNT = 6000
+STORY_DESCRIPTION_CHARACTER_COUNT = 16000
 
 # Feature flags
 ENABLE_CHARACTER_REWRITE = True  # Set to False to skip character rewriting step
+ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 
 # Model constants for easy switching
-MODEL_STORY_DESCRIPTION = "qwen2.5-omni-7b"  # Model for generating story descriptions
+MODEL_STORY_DESCRIPTION = "qwen/qwen3-14b"  # Model for generating story descriptions
 MODEL_CHARACTER_GENERATION = "qwen/qwen3-14b"  # Model for character description generation
 MODEL_CHARACTER_SUMMARY = "qwen/qwen3-14b"  # Model for character summary generation
 MODEL_LOCATION_EXPANSION = "qwen/qwen3-14b"  # Model for location expansion
+
+# Resumable state management
+class ResumableState:
+    """Manages resumable state for expensive LLM operations."""
+    
+    def __init__(self, checkpoint_dir: str, script_name: str, force_start: bool = False):
+        self.checkpoint_dir = Path(checkpoint_dir)
+        self.checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        self.state_file = self.checkpoint_dir / f"{script_name}.state.json"
+        
+        # If force_start is True, remove existing checkpoint and start fresh
+        if force_start and self.state_file.exists():
+            try:
+                self.state_file.unlink()
+                print("Force start enabled - removed existing checkpoint")
+            except Exception as ex:
+                print(f"WARNING: Failed to remove checkpoint for force start: {ex}")
+        
+        self.state = self._load_state()
+    
+    def _load_state(self) -> dict:
+        """Load state from checkpoint file."""
+        if self.state_file.exists():
+            try:
+                with open(self.state_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as ex:
+                print(f"WARNING: Failed to load checkpoint state: {ex}")
+        return {
+            "story_description": {"completed": False, "result": None},
+            "locations": {"completed": [], "results": {}},
+            "characters": {"completed": [], "results": {}},
+            "character_rewrite": {"completed": False, "result": None},
+            "character_summaries": {"completed": [], "results": {}},
+            "metadata": {"start_time": time.time(), "last_update": time.time()}
+        }
+    
+    def _save_state(self):
+        """Save current state to checkpoint file."""
+        try:
+            self.state["metadata"]["last_update"] = time.time()
+            with open(self.state_file, 'w', encoding='utf-8') as f:
+                json.dump(self.state, f, indent=2, ensure_ascii=False)
+        except Exception as ex:
+            print(f"WARNING: Failed to save checkpoint state: {ex}")
+    
+    def is_story_description_complete(self) -> bool:
+        """Check if story description generation is complete."""
+        return self.state["story_description"]["completed"]
+    
+    def get_story_description(self) -> str | None:
+        """Get cached story description if available."""
+        return self.state["story_description"]["result"]
+    
+    def set_story_description(self, description: str):
+        """Set story description and mark as complete."""
+        self.state["story_description"]["completed"] = True
+        self.state["story_description"]["result"] = description
+        self._save_state()
+    
+    def is_location_complete(self, location_id: str) -> bool:
+        """Check if specific location expansion is complete."""
+        return location_id in self.state["locations"]["completed"]
+    
+    def get_location_description(self, location_id: str) -> str | None:
+        """Get cached location description if available."""
+        return self.state["locations"]["results"].get(location_id)
+    
+    def set_location_description(self, location_id: str, description: str):
+        """Set location description and mark as complete."""
+        if location_id not in self.state["locations"]["completed"]:
+            self.state["locations"]["completed"].append(location_id)
+        self.state["locations"]["results"][location_id] = description
+        self._save_state()
+    
+    def is_character_complete(self, character_name: str) -> bool:
+        """Check if specific character description is complete."""
+        return character_name in self.state["characters"]["completed"]
+    
+    def get_character_description(self, character_name: str) -> str | None:
+        """Get cached character description if available."""
+        return self.state["characters"]["results"].get(character_name)
+    
+    def set_character_description(self, character_name: str, description: str):
+        """Set character description and mark as complete."""
+        if character_name not in self.state["characters"]["completed"]:
+            self.state["characters"]["completed"].append(character_name)
+        self.state["characters"]["results"][character_name] = description
+        self._save_state()
+    
+    def is_character_rewrite_complete(self) -> bool:
+        """Check if character rewriting is complete."""
+        return self.state["character_rewrite"]["completed"]
+    
+    def get_character_rewrite(self) -> dict[str, str] | None:
+        """Get cached character rewrite results if available."""
+        return self.state["character_rewrite"]["result"]
+    
+    def set_character_rewrite(self, rewritten_descriptions: dict[str, str]):
+        """Set character rewrite results and mark as complete."""
+        self.state["character_rewrite"]["completed"] = True
+        self.state["character_rewrite"]["result"] = rewritten_descriptions
+        self._save_state()
+    
+    def is_character_summary_complete(self, character_name: str) -> bool:
+        """Check if specific character summary is complete."""
+        return character_name in self.state["character_summaries"]["completed"]
+    
+    def get_character_summary(self, character_name: str) -> str | None:
+        """Get cached character summary if available."""
+        return self.state["character_summaries"]["results"].get(character_name)
+    
+    def set_character_summary(self, character_name: str, summary: str):
+        """Set character summary and mark as complete."""
+        if character_name not in self.state["character_summaries"]["completed"]:
+            self.state["character_summaries"]["completed"].append(character_name)
+        self.state["character_summaries"]["results"][character_name] = summary
+        self._save_state()
+    
+    def cleanup(self):
+        """Clean up checkpoint files after successful completion."""
+        try:
+            if self.state_file.exists():
+                self.state_file.unlink()
+                print("Cleaned up checkpoint files")
+        except Exception as ex:
+            print(f"WARNING: Failed to cleanup checkpoint files: {ex}")
+    
+    def get_progress_summary(self) -> str:
+        """Get a summary of current progress."""
+        story_done = "✓" if self.is_story_description_complete() else "✗"
+        locations_done = len(self.state["locations"]["completed"])
+        locations_total = len(self.state["locations"]["results"]) + len([k for k in self.state["locations"]["results"].keys() if k not in self.state["locations"]["completed"]])
+        characters_done = len(self.state["characters"]["completed"])
+        characters_total = len(self.state["characters"]["results"]) + len([k for k in self.state["characters"]["results"].keys() if k not in self.state["characters"]["completed"]])
+        rewrite_done = "✓" if self.is_character_rewrite_complete() else "✗"
+        summaries_done = len(self.state["character_summaries"]["completed"])
+        summaries_total = len(self.state["character_summaries"]["results"]) + len([k for k in self.state["character_summaries"]["results"].keys() if k not in self.state["character_summaries"]["completed"]])
+        
+        return (
+            f"Progress: Story({story_done}) Locations({locations_done}/{locations_total}) "
+            f"Characters({characters_done}/{characters_total}) Rewrite({rewrite_done}) "
+            f"Summaries({summaries_done}/{summaries_total})"
+        )
 
 # Ensure immediate flush on print (consistent with other scripts)
 print = partial(_builtins.print, flush=True)
@@ -259,6 +406,29 @@ def _validate_scene_id_continuity(tokens) -> int:
                     print("  " + " and ".join(ctx_parts))
 
     return errors
+
+
+def _extract_dialogue_only_from_content(content: str) -> str:
+    """Extract only dialogue lines from story content, excluding scene descriptions."""
+    lines = content.split('\n')
+    dialogue_lines = []
+    
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+            
+        # Check if line is dialogue (starts with [character])
+        if line.startswith('[') and ']' in line:
+            # Extract character and dialogue content
+            m = _DIALOGUE_RE.match(line)
+            if m:
+                character = m.group(1).strip()
+                dialogue = m.group(2).strip()
+                if character and dialogue:
+                    dialogue_lines.append(f"[{character}] {dialogue}")
+    
+    return '\n'.join(dialogue_lines)
 
 
 def _extract_locations_from_content(content: str) -> dict[str, str]:
@@ -563,7 +733,7 @@ def _schema_story_description() -> dict[str, object]:
                 "properties": {
                     "description": {
                         "type": "string",
-                        "description": f"A concise summary ({STORY_DESCRIPTION_CHARACTER_COUNT} characters) of the story setting, tone, all events, all characters, all locations, and context for character and location generation"
+                        "description": f"a Short Version of the COMEPLTE STORY in ({STORY_DESCRIPTION_CHARACTER_COUNT} characters) mentioning the story setting, tone, all events, all characters, all locations, and context for character and location generation"
                     }
                 },
                 "required": ["description"]
@@ -591,19 +761,42 @@ def _schema_character_rewrite() -> dict[str, object]:
                                 "type": "object",
                                 "description": "Complete structured character data with different physical appearance but preserved relationships and shared elements",
                                 "properties": {
-                                    "head_face": {"type": "object"},
-                                    "neck": {"type": "object"},
-                                    "torso_upper_body": {"type": "object"},
-                                    "arms_hands": {"type": "object"},
-                                    "legs_feet": {"type": "object"},
-                                    "body_hair": {"type": "object"},
-                                    "skin_details": {"type": "object"},
-                                    "clothing_accessories": {"type": "object"},
-                                    "overall_impression": {"type": "object"},
-                                    "relationships": {"type": "object"},
-                                    "shared_elements": {"type": "object"}
+                                    "face": {
+                                        "type": "object",
+                                        "properties": {
+                                            "head_shape": {"type": "string"},
+                                            "skin_tone": {"type": "string"},
+                                            "eyes": {"type": "string"},
+                                            "nose": {"type": "string"},
+                                            "mouth": {"type": "string"},
+                                            "hair": {"type": "string"}
+                                        }
+                                    },
+                                    "build": {
+                                        "type": "object",
+                                        "properties": {
+                                            "height": {"type": "string"},
+                                            "body_type": {"type": "string"},
+                                            "posture": {"type": "string"}
+                                        }
+                                    },
+                                    "clothing": {
+                                        "type": "object",
+                                        "properties": {
+                                            "style": {"type": "string"},
+                                            "fabric": {"type": "string"},
+                                            "details": {"type": "string"}
+                                        }
+                                    },
+                                    "personal_style": {
+                                        "type": "object",
+                                        "properties": {
+                                            "accessories": {"type": "string"},
+                                            "additional_details": {"type": "string"}
+                                        }
+                                    }
                                 },
-                                "required": ["head_face", "neck", "torso_upper_body", "arms_hands", "legs_feet", "clothing_accessories", "overall_impression", "relationships", "shared_elements"]
+                                "required": ["face", "build", "clothing", "personal_style"]
                             }
                         }
                     }
@@ -643,17 +836,17 @@ def _build_character_summary_prompt(character_name: str, detailed_description: s
         "Take the detailed character description and extract ONLY the head, face, and full clothing details into a paragraph. "
         "Focus specifically on: head shape, facial features (eyes, nose, mouth, hair, facial hair), skin tone/texture, and full clothing style/fit/material/colors. "
         "Ignore body proportions, posture, hands, legs, feet, and other body parts. "
-        "Use clear, descriptive terms separated by commas. Avoid unnecessary words and focus on visual impact.\n\n"
+        "Use clear, descriptive terms separated by commas. Avoid unnecessary words and focus on visual impact. "
+        f"Create a summary ({CHARACTER_SUMMARY_CHARACTER_COUNT} characters) focusing ONLY on head, face, and clothing features in a paragraph.\n\n"
         f"CHARACTER: {character_name}\n\n"
         f"DETAILED DESCRIPTION: {detailed_description}\n\n"
-        f"Create a summary ({CHARACTER_SUMMARY_CHARACTER_COUNT} characters) focusing ONLY on head, face, and clothing features in a paragraph."
     )
 
 
 def _build_story_description_prompt(story_content: str) -> str:
     return (
-        f"You are a story analyst creating a complete story summary for AI character and location generation. "
-        f"Analyze the given story content and create a comprehensive summary (exactly {STORY_DESCRIPTION_CHARACTER_COUNT} characters) that includes ALL details in proper chronological sequence.\n\n"
+        f"You are a story analyst creating a Short Version of the COMPLETE STORY for AI character and location generation. "
+        f"Analyze the given story content and create a Short Version of the COMPLETE STORY (exactly {STORY_DESCRIPTION_CHARACTER_COUNT} characters) that includes ALL details in proper chronological sequence.\n\n"
         
         "REQUIREMENTS:\n"
         "1. Complete chronological sequence of ALL events from beginning to end\n"
@@ -664,12 +857,12 @@ def _build_story_description_prompt(story_content: str) -> str:
         "6. Plot developments and story progression\n"
         "7. Resolution and conclusion\n\n"
         
-        "Write as a complete story narrative that flows chronologically, covering every detail while staying within the character limit. "
-        "This will be used to generate consistent character and location descriptions, so include all visual and contextual information.\n\n"
+        "Write as a a Short Version of the COMPLETE STORY that flows chronologically, covering every detail while staying within the character limit. "
+        "This will be used to generate consistent character and location descriptions, so include all visual and contextual information."
         
-        f"STORY CONTENT:\n{story_content}\n\n"
-        
-        f"Create a complete story summary (exactly {STORY_DESCRIPTION_CHARACTER_COUNT} characters) covering all characters, events, and locations in proper chronological sequence."
+        f"Create a Short Version of the COMPLETE STORY (exactly {STORY_DESCRIPTION_CHARACTER_COUNT} characters) covering all characters, events, and locations in proper chronological sequence.\n\n"
+
+        f"STORY CONTENT: {story_content}\n\n"
     )
 
 
@@ -682,10 +875,11 @@ def _build_location_expansion_prompt(filtered_story_content: str, location_id: s
         "Consider the story context and setting to ensure the description fits the narrative tone and period. "
         "Include specific details about architecture, furniture, lighting conditions, colors, materials, objects, and any distinctive visual features of the place itself. "
         "Make the description vivid, immersive, and focused purely on the background/environment for AI image generation.\n\n"
-        f"FILTERED STORY CONTENT (only scenes using this location):\n{filtered_story_content}\n\n"
+        f"Create a comprehensive background location description (approximately {LOCATION_CHARACTER_COUNT} characters) that covers ONLY the environmental and architectural elements of location {location_id}, excluding all character references.\n\n"
+
+        f"FILTERED STORY CONTENT (only scenes using this location): {filtered_story_content}\n\n"
         f"LOCATION ID: {location_id}\n"
         f"ORIGINAL DESCRIPTION: {original_description}\n\n"
-        f"Create a comprehensive background location description (approximately {LOCATION_CHARACTER_COUNT} characters) that covers ONLY the environmental and architectural elements of location {location_id}, excluding all character references."
     )
 
 
@@ -728,134 +922,251 @@ def _parse_structured_response(content: str) -> dict[str, object] | None:
         return None
 
 
-def _format_character_description(char_data: dict[str, object]) -> str:
-    """Convert structured character data to readable description format."""
-    lines = []
+def _format_initial_character_description(char_data: dict[str, object]) -> str:
+    """Convert detailed structured character data to readable description format (for initial generation)."""
+    sentences = []
     
-    # Head/Face section
+    # Head/Face section - create descriptive sentences
     head_face = char_data.get("head_face", {})
     if head_face:
-        face_parts = []
-        if head_face.get("head_shape"): face_parts.append(f"{head_face['head_shape']} head shape")
-        if head_face.get("skin_tone"): face_parts.append(f"{head_face['skin_tone']} skin tone")
-        if head_face.get("eyes"): face_parts.append(str(head_face['eyes']))
-        if head_face.get("nose"): face_parts.append(str(head_face['nose']))
-        if head_face.get("mouth_lips"): face_parts.append(str(head_face['mouth_lips']))
-        if head_face.get("hair"): face_parts.append(str(head_face['hair']))
-        if face_parts:
-            lines.append("Face: " + ", ".join(face_parts) + ".")
+        face_sentences = []
+        
+        # Head shape and skin
+        if head_face.get("head_shape") and head_face.get("skin_tone"):
+            face_sentences.append(f"The character has a {head_face['head_shape']} head shape with {head_face['skin_tone']} skin tone.")
+        elif head_face.get("head_shape"):
+            face_sentences.append(f"The character has a {head_face['head_shape']} head shape.")
+        elif head_face.get("skin_tone"):
+            face_sentences.append(f"The character has {head_face['skin_tone']} skin tone.")
+        
+        # Facial features
+        if head_face.get("eyes"):
+            face_sentences.append(f"Their eyes are {head_face['eyes']}.")
+        if head_face.get("nose"):
+            face_sentences.append(f"They have {head_face['nose']}.")
+        if head_face.get("mouth_lips"):
+            face_sentences.append(f"Their mouth features {head_face['mouth_lips']}.")
+        if head_face.get("hair"):
+            face_sentences.append(f"They have {head_face['hair']}.")
+        
+        sentences.extend(face_sentences)
     
-    # Overall impression
+    # Overall impression - create descriptive sentences
     overall = char_data.get("overall_impression", {})
     if overall:
-        impression_parts = []
+        build_sentences = []
+        
         if overall.get("height") and overall.get("build"):
-            impression_parts.append(f"{overall['height']} height with {overall['build']} build")
-        if overall.get("age_appearance"): impression_parts.append(str(overall['age_appearance']))
-        if overall.get("distinctive_traits"): impression_parts.append(str(overall['distinctive_traits']))
-        if impression_parts:
-            lines.append("Build: " + ", ".join(impression_parts) + ".")
+            build_sentences.append(f"The character is of {overall['height']} height with a {overall['build']} build.")
+        elif overall.get("height"):
+            build_sentences.append(f"The character is of {overall['height']} height.")
+        elif overall.get("build"):
+            build_sentences.append(f"The character has a {overall['build']} build.")
+        
+        if overall.get("age_appearance"):
+            build_sentences.append(f"They appear {overall['age_appearance']}.")
+        if overall.get("distinctive_traits"):
+            build_sentences.append(f"Their distinctive traits include {overall['distinctive_traits']}.")
+        
+        sentences.extend(build_sentences)
     
-    # Clothing and accessories
+    # Clothing and accessories - create descriptive sentences
     clothing = char_data.get("clothing_accessories", {})
     if clothing:
-        clothing_parts = []
-        if clothing.get("clothing_style"): clothing_parts.append(str(clothing['clothing_style']))
-        if clothing.get("clothing_material"): clothing_parts.append(f"made of {clothing['clothing_material']}")
-        if clothing.get("clothing_colors"): clothing_parts.append(str(clothing['clothing_colors']))
-        if clothing.get("accessories"): clothing_parts.append(str(clothing['accessories']))
-        if clothing.get("footwear"): clothing_parts.append(str(clothing['footwear']))
-        if clothing_parts:
-            lines.append("Clothing: " + ", ".join(clothing_parts) + ".")
+        clothing_sentences = []
+        
+        if clothing.get("clothing_style"):
+            clothing_sentences.append(f"They wear {clothing['clothing_style']}.")
+        
+        if clothing.get("clothing_material") and clothing.get("clothing_colors"):
+            clothing_sentences.append(f"Their clothing is made of {clothing['clothing_material']} in {clothing['clothing_colors']} colors.")
+        elif clothing.get("clothing_material"):
+            clothing_sentences.append(f"Their clothing is made of {clothing['clothing_material']}.")
+        elif clothing.get("clothing_colors"):
+            clothing_sentences.append(f"Their clothing features {clothing['clothing_colors']} colors.")
+        
+        if clothing.get("accessories"):
+            clothing_sentences.append(f"They accessorize with {clothing['accessories']}.")
+        if clothing.get("footwear"):
+            clothing_sentences.append(f"They wear {clothing['footwear']}.")
+        
+        sentences.extend(clothing_sentences)
     
-    # Additional details from other sections
-    details = []
+    # Additional details - create descriptive sentences
+    details_sentences = []
     
     # Neck details
     neck = char_data.get("neck", {})
     if neck and neck.get("details"):
-        details.append(str(neck['details']))
+        details_sentences.append(f"Their neck {neck['details']}.")
     
     # Torso details
     torso = char_data.get("torso_upper_body", {})
     if torso:
-        if torso.get("posture"): details.append(f"posture: {torso['posture']}")
-        if torso.get("shoulders"): details.append(str(torso['shoulders']))
+        if torso.get("posture"):
+            details_sentences.append(f"They have {torso['posture']} posture.")
+        if torso.get("shoulders"):
+            details_sentences.append(f"Their shoulders are {torso['shoulders']}.")
     
     # Arms and hands
     arms = char_data.get("arms_hands", {})
     if arms and arms.get("hands"):
-        details.append(str(arms['hands']))
+        details_sentences.append(f"Their hands are {arms['hands']}.")
     
     # Skin details
     skin = char_data.get("skin_details", {})
     if skin:
-        if skin.get("texture_details"): details.append(str(skin['texture_details']))
-        if skin.get("markings"): details.append(str(skin['markings']))
+        if skin.get("texture_details"):
+            details_sentences.append(f"Their skin has {skin['texture_details']}.")
+        if skin.get("markings"):
+            details_sentences.append(f"They have {skin['markings']}.")
     
-    if details:
-        lines.append("Details: " + ", ".join(details) + ".")
+    sentences.extend(details_sentences)
     
-    # Relationships and profession
+    # Relationships and profession - create descriptive sentences
     relationships = char_data.get("relationships", {})
     if relationships:
-        relationship_parts = []
+        role_sentences = []
+        
         if relationships.get("profession"):
-            relationship_parts.append(f"profession: {relationships['profession']}")
+            role_sentences.append(f"They work as a {relationships['profession']}.")
         if relationships.get("organization"):
-            relationship_parts.append(f"organization: {relationships['organization']}")
-        if relationship_parts:
-            lines.append("Role: " + ", ".join(relationship_parts) + ".")
+            role_sentences.append(f"They are affiliated with {relationships['organization']}.")
+        
+        sentences.extend(role_sentences)
         
         # Character relationships
         char_relationships = relationships.get("relationships", [])
         if char_relationships:
-            rel_descriptions = []
+            rel_sentences = []
             for rel in char_relationships:
                 if isinstance(rel, dict) and rel.get("character_name") and rel.get("relationship_type"):
-                    rel_descriptions.append(f"{rel['character_name']} ({rel['relationship_type']})")
-            if rel_descriptions:
-                lines.append("Relationships: " + ", ".join(rel_descriptions) + ".")
+                    rel_sentences.append(f"They have a {rel['relationship_type']} relationship with {rel['character_name']}.")
+            sentences.extend(rel_sentences)
     
-    # Shared elements (uniforms, matching accessories, professional equipment)
+    # Shared elements - create descriptive sentences
     shared_elements = char_data.get("shared_elements", {})
     if shared_elements:
-        shared_parts = []
+        shared_sentences = []
         
         # Uniform requirements
         uniform_req = shared_elements.get("uniform_requirements", {})
         if uniform_req.get("has_uniform") and uniform_req.get("uniform_type"):
-            uniform_desc = f"wears {uniform_req['uniform_type']}"
+            uniform_desc = f"They wear {uniform_req['uniform_type']}"
             if uniform_req.get("uniform_details"):
-                uniform_desc += f" ({uniform_req['uniform_details']})"
-            shared_parts.append(uniform_desc)
+                uniform_desc += f" which {uniform_req['uniform_details']}"
+            uniform_desc += "."
+            shared_sentences.append(uniform_desc)
         
         # Matching accessories
         matching_acc = shared_elements.get("matching_accessories", [])
         for acc in matching_acc:
             if isinstance(acc, dict) and acc.get("accessory_type") and acc.get("accessory_description"):
-                acc_desc = f"{acc['accessory_type']}: {acc['accessory_description']}"
-                shared_parts.append(acc_desc)
+                shared_sentences.append(f"They wear {acc['accessory_type']}: {acc['accessory_description']}.")
         
         # Professional equipment
         prof_equipment = shared_elements.get("professional_equipment", [])
         for eq in prof_equipment:
             if isinstance(eq, dict) and eq.get("equipment_type") and eq.get("equipment_description"):
-                eq_desc = f"{eq['equipment_type']}: {eq['equipment_description']}"
-                shared_parts.append(eq_desc)
+                shared_sentences.append(f"They carry {eq['equipment_type']}: {eq['equipment_description']}.")
         
-        if shared_parts:
-            lines.append("Professional/Shared Elements: " + ", ".join(shared_parts) + ".")
+        sentences.extend(shared_sentences)
     
-    return " ".join(lines)
+    return " ".join(sentences)
 
 
-def _generate_character_descriptions(story_desc: str, characters: list[str], lm_studio_url: str) -> dict[str, str]:
+def _format_rewritten_character_description(char_data: dict[str, object]) -> str:
+    """Convert simplified structured character data to readable description format (for rewritten characters)."""
+    sentences = []
+    
+    # Face section - create descriptive sentences
+    face = char_data.get("face", {})
+    if face:
+        face_sentences = []
+        
+        # Head shape and skin
+        if face.get("head_shape") and face.get("skin_tone"):
+            face_sentences.append(f"The character has a {face['head_shape']} head shape with {face['skin_tone']} skin tone.")
+        elif face.get("head_shape"):
+            face_sentences.append(f"The character has a {face['head_shape']} head shape.")
+        elif face.get("skin_tone"):
+            face_sentences.append(f"The character has {face['skin_tone']} skin tone.")
+        
+        # Facial features
+        if face.get("eyes"):
+            face_sentences.append(f"Their eyes are {face['eyes']}.")
+        if face.get("nose"):
+            face_sentences.append(f"They have {face['nose']}.")
+        if face.get("mouth"):
+            face_sentences.append(f"Their mouth features {face['mouth']}.")
+        if face.get("hair"):
+            face_sentences.append(f"They have {face['hair']}.")
+        
+        sentences.extend(face_sentences)
+    
+    # Build section - create descriptive sentences
+    build = char_data.get("build", {})
+    if build:
+        build_sentences = []
+        
+        if build.get("height") and build.get("body_type"):
+            build_sentences.append(f"The character is of {build['height']} height with a {build['body_type']} build.")
+        elif build.get("height"):
+            build_sentences.append(f"The character is of {build['height']} height.")
+        elif build.get("body_type"):
+            build_sentences.append(f"The character has a {build['body_type']} build.")
+        
+        if build.get("posture"):
+            build_sentences.append(f"They have {build['posture']} posture.")
+        
+        sentences.extend(build_sentences)
+    
+    # Clothing section - create descriptive sentences
+    clothing = char_data.get("clothing", {})
+    if clothing:
+        clothing_sentences = []
+        
+        if clothing.get("style"):
+            clothing_sentences.append(f"They wear {clothing['style']}.")
+        
+        if clothing.get("fabric"):
+            clothing_sentences.append(f"Their clothing is made of {clothing['fabric']}.")
+        
+        if clothing.get("details"):
+            clothing_sentences.append(f"Their clothing features {clothing['details']}.")
+        
+        sentences.extend(clothing_sentences)
+    
+    # Personal style section - create descriptive sentences
+    personal_style = char_data.get("personal_style", {})
+    if personal_style:
+        style_sentences = []
+        
+        if personal_style.get("accessories"):
+            style_sentences.append(f"They accessorize with {personal_style['accessories']}.")
+        
+        if personal_style.get("additional_details"):
+            style_sentences.append(f"Their personal style includes {personal_style['additional_details']}.")
+        
+        sentences.extend(style_sentences)
+    
+    return " ".join(sentences)
+
+
+def _generate_character_descriptions(story_desc: str, characters: list[str], lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
     name_to_desc: dict[str, str] = {}
     total = len(characters)
     print(f"Generating structured character descriptions: {total} total")
     
     for idx, name in enumerate(characters, 1):
+        # Check if resumable and already complete
+        if resumable_state and resumable_state.is_character_complete(name):
+            cached_desc = resumable_state.get_character_description(name)
+            if cached_desc:
+                print(f"({idx}/{total}) {name}: using cached description from checkpoint")
+                name_to_desc[name] = cached_desc
+                continue
+        
         print(f"({idx}/{total}) {name}: generating structured description...")
         prompt = _build_character_system_prompt(story_desc, name, characters)
         
@@ -874,9 +1185,13 @@ def _generate_character_descriptions(story_desc: str, characters: list[str], lm_
                 raise RuntimeError("Failed to parse structured response")
             
             # Convert structured data to readable description
-            desc = _format_character_description(structured_data)
+            desc = _format_initial_character_description(structured_data)
             if not desc:
                 raise RuntimeError("Empty description generated")
+            
+            # Save to checkpoint if resumable mode enabled
+            if resumable_state:
+                resumable_state.set_character_description(name, desc)
                 
         except Exception as ex:
             print(f"({idx}/{total}) {name}: FAILED - {ex}")
@@ -889,8 +1204,15 @@ def _generate_character_descriptions(story_desc: str, characters: list[str], lm_
     return name_to_desc
 
 
-def _rewrite_all_character_descriptions(name_to_desc: dict[str, str], story_desc: str, lm_studio_url: str) -> dict[str, str]:
+def _rewrite_all_character_descriptions(name_to_desc: dict[str, str], story_desc: str, lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
     """Rewrite all character descriptions at once using Qwen model to make them look completely different while preserving primary features and relationships."""
+    # Check if resumable and already complete
+    if resumable_state and resumable_state.is_character_rewrite_complete():
+        cached_rewrite = resumable_state.get_character_rewrite()
+        if cached_rewrite:
+            print("Using cached character rewrite from checkpoint")
+            return cached_rewrite
+    
     print(f"Rewriting all character descriptions using Qwen model: {len(name_to_desc)} characters")
     
     # Build combined prompt with all character descriptions
@@ -954,10 +1276,15 @@ Return structured character data for each character with completely different ph
         # Convert structured data to readable descriptions
         rewritten_descriptions = {}
         for char_name, char_data in rewritten_characters.items():
-            desc = _format_character_description(char_data)
+            desc = _format_rewritten_character_description(char_data)
             if not desc:
                 raise RuntimeError(f"Failed to format description for {char_name}")
             rewritten_descriptions[char_name] = desc
+        
+        # Save to checkpoint if resumable mode enabled
+        if resumable_state:
+            resumable_state.set_character_rewrite(rewritten_descriptions)
+            print("Saved character rewrite to checkpoint")
             
         print(f"Successfully rewrote {len(rewritten_descriptions)} character descriptions")
         return rewritten_descriptions
@@ -967,12 +1294,20 @@ Return structured character data for each character with completely different ph
         raise
 
 
-def _generate_character_summaries(name_to_desc: dict[str, str], lm_studio_url: str) -> dict[str, str]:
+def _generate_character_summaries(name_to_desc: dict[str, str], lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
     name_to_summary: dict[str, str] = {}
     total = len(name_to_desc)
     print(f"Generating character summaries: {total} total")
     
     for idx, (name, detailed_desc) in enumerate(name_to_desc.items(), 1):
+        # Check if resumable and already complete
+        if resumable_state and resumable_state.is_character_summary_complete(name):
+            cached_summary = resumable_state.get_character_summary(name)
+            if cached_summary:
+                print(f"({idx}/{total}) {name}: using cached summary from checkpoint")
+                name_to_summary[name] = cached_summary
+                continue
+        
         print(f"({idx}/{total}) {name}: generating summary...")
         prompt = _build_character_summary_prompt(name, detailed_desc)
         
@@ -992,6 +1327,10 @@ def _generate_character_summaries(name_to_desc: dict[str, str], lm_studio_url: s
             summary = structured_data.get("summary", "").strip()
             if not summary:
                 raise RuntimeError("Empty summary generated")
+            
+            # Save to checkpoint if resumable mode enabled
+            if resumable_state:
+                resumable_state.set_character_summary(name, summary)
                 
         except Exception as ex:
             print(f"({idx}/{total}) {name}: FAILED - {ex}")
@@ -1004,10 +1343,19 @@ def _generate_character_summaries(name_to_desc: dict[str, str], lm_studio_url: s
     return name_to_summary
 
 
-def _generate_story_description(story_content: str, lm_studio_url: str) -> str:
+def _generate_story_description(story_content: str, lm_studio_url: str, resumable_state: ResumableState | None = None) -> str:
     """Generate story description from story content using LLM."""
-    print("Generating story description from story content...")
-    prompt = _build_story_description_prompt(story_content)
+    # Check if resumable and already complete
+    if resumable_state and resumable_state.is_story_description_complete():
+        cached_desc = resumable_state.get_story_description()
+        if cached_desc:
+            print("Using cached story description from checkpoint")
+            return cached_desc
+    
+    print("Generating story description from dialogue content...")
+    # Extract only dialogue lines from the story content
+    dialogue_content = _extract_dialogue_only_from_content(story_content)
+    prompt = _build_story_description_prompt(dialogue_content)
     
     try:
         # Use model constant for story description generation
@@ -1015,7 +1363,7 @@ def _generate_story_description(story_content: str, lm_studio_url: str) -> str:
         
         # Use structured output with JSON schema for story description
         user_payload = json.dumps({
-            "story_content": story_content  # Limit content to avoid token limits
+            "story_content": dialogue_content
         }, ensure_ascii=False)
         
         raw = _call_lm_studio(prompt, lm_studio_url, model, user_payload, _schema_story_description())
@@ -1027,6 +1375,11 @@ def _generate_story_description(story_content: str, lm_studio_url: str) -> str:
         story_desc = structured_data.get("description", "").strip()
         if not story_desc:
             raise RuntimeError("Empty story description generated")
+        
+        # Save to checkpoint if resumable mode enabled
+        if resumable_state:
+            resumable_state.set_story_description(story_desc)
+            print("Saved story description to checkpoint")
             
     except Exception as ex:
         print(f"ERROR: Failed to generate story description: {ex}")
@@ -1072,7 +1425,7 @@ def _filter_story_content_for_location(content: str, pairs: list, location_id: s
     return "\n".join(formatted_lines)
 
 
-def _expand_locations(locations: dict[str, str], pairs: list, content: str, lm_studio_url: str) -> dict[str, str]:
+def _expand_locations(locations: dict[str, str], pairs: list, content: str, lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
     """Expand location descriptions using LLM to generate 500-character descriptions."""
     expanded_locations: dict[str, str] = {}
     total = len(locations)
@@ -1082,6 +1435,14 @@ def _expand_locations(locations: dict[str, str], pairs: list, content: str, lm_s
     model = MODEL_LOCATION_EXPANSION
     
     for idx, (loc_id, original_desc) in enumerate(locations.items(), 1):
+        # Check if resumable and already complete
+        if resumable_state and resumable_state.is_location_complete(loc_id):
+            cached_desc = resumable_state.get_location_description(loc_id)
+            if cached_desc:
+                print(f"({idx}/{total}) {loc_id}: using cached description from checkpoint")
+                expanded_locations[loc_id] = cached_desc
+                continue
+        
         print(f"({idx}/{total}) {loc_id}: filtering story content and expanding description...")
         
         # Filter story content to include only pairs that use this location
@@ -1107,6 +1468,10 @@ def _expand_locations(locations: dict[str, str], pairs: list, content: str, lm_s
             expanded_desc = structured_data.get("expanded_description", "").strip()
             if not expanded_desc:
                 raise RuntimeError("Empty expanded description generated")
+            
+            # Save to checkpoint if resumable mode enabled
+            if resumable_state:
+                resumable_state.set_location_description(loc_id, expanded_desc)
                 
         except Exception as ex:
             print(f"({idx}/{total}) {loc_id}: FAILED - {ex}")
@@ -1274,6 +1639,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Parse story file and generate character descriptions")
     parser.add_argument("--bypass-validation", action="store_true", 
                        help="Skip character consistency and scene ID continuity validation")
+    parser.add_argument("--force-start", action="store_true",
+                       help="Force start from beginning, ignoring any existing checkpoint files")
     args = parser.parse_args()
 
     base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -1284,6 +1651,19 @@ def main() -> int:
     characters_out_path = os.path.normpath(os.path.join(base_dir, "../input/2.character.txt"))
     character_summary_out_path = os.path.normpath(os.path.join(base_dir, "../input/3.character.txt"))
     locations_out_path = os.path.normpath(os.path.join(base_dir, "../input/3.location.txt"))
+    
+    # Initialize resumable state if enabled
+    resumable_state = None
+    if ENABLE_RESUMABLE_MODE:
+        checkpoint_dir = os.path.normpath(os.path.join(base_dir, "../output/tracking"))
+        script_name = Path(__file__).stem  # Automatically get script name without .py extension
+        resumable_state = ResumableState(checkpoint_dir, script_name, args.force_start)
+        print(f"Resumable mode enabled - checkpoint directory: {checkpoint_dir}")
+        if resumable_state.state_file.exists():
+            print(f"Found existing checkpoint: {resumable_state.state_file}")
+            print(resumable_state.get_progress_summary())
+        else:
+            print("No existing checkpoint found - starting fresh")
 
     content = read_file_text(image_story_path)
     if content is None:
@@ -1339,10 +1719,10 @@ def main() -> int:
             lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v1")
             
             # Generate story description from content using qwen/qwen3-14b
-            story_desc = _generate_story_description(content, lm_studio_url)
+            story_desc = _generate_story_description(content, lm_studio_url, resumable_state)
             
             # Expand locations using the filtered story content and pairs
-            expanded_locations = _expand_locations(locations, pairs, content, lm_studio_url)
+            expanded_locations = _expand_locations(locations, pairs, content, lm_studio_url, resumable_state)
             
             # Write expanded locations file
             written_locations = write_locations_file(expanded_locations, locations_out_path)
@@ -1371,12 +1751,12 @@ def main() -> int:
                 lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v1")
                 
                 # Step 1: Generate initial character descriptions
-                name_to_desc = _generate_character_descriptions(story_desc, unique_names, lm_studio_url)
+                name_to_desc = _generate_character_descriptions(story_desc, unique_names, lm_studio_url, resumable_state)
                 
                 # Step 2: Optionally rewrite all character descriptions at once using Qwen model
                 if ENABLE_CHARACTER_REWRITE:
                     print("Rewriting character descriptions to make them look completely different...")
-                    final_descriptions = _rewrite_all_character_descriptions(name_to_desc, story_desc, lm_studio_url)
+                    final_descriptions = _rewrite_all_character_descriptions(name_to_desc, story_desc, lm_studio_url, resumable_state)
                 else:
                     print("Character rewriting disabled - using original descriptions")
                     final_descriptions = name_to_desc
@@ -1388,7 +1768,7 @@ def main() -> int:
                     return 1
                 
                 # Step 4: Generate character summaries from final descriptions
-                name_to_summary = _generate_character_summaries(final_descriptions, lm_studio_url)
+                name_to_summary = _generate_character_summaries(final_descriptions, lm_studio_url, resumable_state)
                 summary_errors = _validate_and_write_character_summary_file(name_to_summary, character_summary_out_path, set(unique_names))
                 if summary_errors:
                     print(f"Character summary output had {summary_errors} error(s).")
@@ -1414,6 +1794,12 @@ def main() -> int:
             print(f"PAIR {idx}: Missing [] line.")
         if not p.get("scene"):
             print(f"PAIR {idx}: Missing ()(()) line.")
+
+    # Clean up checkpoint files if resumable mode was used and everything completed successfully
+    if resumable_state:
+        print("All operations completed successfully")
+        print("Final progress:", resumable_state.get_progress_summary())
+        resumable_state.cleanup()
 
     return 0
 

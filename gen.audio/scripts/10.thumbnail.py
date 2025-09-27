@@ -597,6 +597,7 @@ def _get_master_prompt(self) -> str:
 Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
 Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
 All Non-Living Objects mentioned in Scene text-description must be present in illustration.
+Each Object/Character in the illustration must be visually distinct/unique from each other.
         """.format(ART_STYLE=ART_STYLE)
 
 def read_prompt_from_file(filename: str = "../input/10.thumbnail.txt") -> str | None:

@@ -6,10 +6,86 @@ import re
 from typing import List, Dict, Any
 from functools import partial
 import builtins as _builtins
+from pathlib import Path
 print = partial(_builtins.print, flush=True)
 
 # Model constants for easy switching
 MODEL_TIMELINE_GENERATION = "qwen/qwen3-14b"  # Model for timeline SFX generation
+
+# Feature flags
+ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
+
+# Resumable state management
+class ResumableState:
+    """Manages resumable state for expensive LLM operations."""
+    
+    def __init__(self, checkpoint_dir: str, script_name: str, force_start: bool = False):
+        self.checkpoint_dir = Path(checkpoint_dir)
+        self.checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        self.state_file = self.checkpoint_dir / f"{script_name}.state.json"
+        
+        # If force_start is True, remove existing checkpoint and start fresh
+        if force_start and self.state_file.exists():
+            try:
+                self.state_file.unlink()
+                print("Force start enabled - removed existing checkpoint")
+            except Exception as ex:
+                print(f"WARNING: Failed to remove checkpoint for force start: {ex}")
+        
+        self.state = self._load_state()
+    
+    def _load_state(self) -> dict:
+        """Load state from checkpoint file."""
+        if self.state_file.exists():
+            try:
+                with open(self.state_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as ex:
+                print(f"WARNING: Failed to load checkpoint state: {ex}")
+        return {
+            "sfx_entries": {"completed": [], "results": {}},
+            "metadata": {"start_time": time.time(), "last_update": time.time()}
+        }
+    
+    def _save_state(self):
+        """Save current state to checkpoint file."""
+        try:
+            self.state["metadata"]["last_update"] = time.time()
+            with open(self.state_file, 'w', encoding='utf-8') as f:
+                json.dump(self.state, f, indent=2, ensure_ascii=False)
+        except Exception as ex:
+            print(f"WARNING: Failed to save checkpoint state: {ex}")
+    
+    def is_sfx_entry_complete(self, entry_key: str) -> bool:
+        """Check if specific SFX entry is complete."""
+        return entry_key in self.state["sfx_entries"]["completed"]
+    
+    def get_sfx_entry(self, entry_key: str) -> str | None:
+        """Get cached SFX entry if available."""
+        return self.state["sfx_entries"]["results"].get(entry_key)
+    
+    def set_sfx_entry(self, entry_key: str, sfx_description: str):
+        """Set SFX entry and mark as complete."""
+        if entry_key not in self.state["sfx_entries"]["completed"]:
+            self.state["sfx_entries"]["completed"].append(entry_key)
+        self.state["sfx_entries"]["results"][entry_key] = sfx_description
+        self._save_state()
+    
+    def cleanup(self):
+        """Clean up checkpoint files after successful completion."""
+        try:
+            if self.state_file.exists():
+                self.state_file.unlink()
+                print("Cleaned up checkpoint files")
+        except Exception as ex:
+            print(f"WARNING: Failed to cleanup checkpoint files: {ex}")
+    
+    def get_progress_summary(self) -> str:
+        """Get a summary of current progress."""
+        sfx_done = len(self.state["sfx_entries"]["completed"])
+        sfx_total = len(self.state["sfx_entries"]["results"]) + len([k for k in self.state["sfx_entries"]["results"].keys() if k not in self.state["sfx_entries"]["completed"]])
+        
+        return f"Progress: SFX Entries({sfx_done}/{sfx_total})"
 
 class TimelineSFXGenerator:
     def __init__(self, lm_studio_url="http://localhost:1234/v1", model=MODEL_TIMELINE_GENERATION, use_json_schema=True):
@@ -204,9 +280,7 @@ OUTPUT: JSON with sound_or_silence_description field only."""
         except Exception as e:
             raise Exception(f"Failed to save SFX file: {str(e)}")
     
-    def process_timeline(self, timeline_filename="../input/2.timeline.txt") -> bool:
-        
-        
+    def process_timeline(self, timeline_filename="../input/2.timeline.txt", resumable_state: ResumableState | None = None) -> bool:
         """Main processing function - process each entry individually"""
         print("🚀 Starting Timeline SFX Generation...")
         print(f"📁 Reading timeline from: {timeline_filename}")
@@ -226,6 +300,21 @@ OUTPUT: JSON with sound_or_silence_description field only."""
         all_sfx_entries = []
         
         for i, entry in enumerate(entries):
+            # Create unique key for this entry
+            entry_key = f"{entry['seconds']}:{entry['description'][:50]}"
+            
+            # Check if resumable and already complete
+            if resumable_state and resumable_state.is_sfx_entry_complete(entry_key):
+                cached_sfx = resumable_state.get_sfx_entry(entry_key)
+                if cached_sfx:
+                    print(f"\n📝 Entry {i+1}/{len(entries)}: using cached SFX from checkpoint")
+                    sfx_entry = {
+                        'seconds': entry['seconds'],
+                        'sound_or_silence_description': cached_sfx
+                    }
+                    all_sfx_entries.append(sfx_entry)
+                    continue
+            
             entry_start_time = time.time()
             print(f"\n📝 Processing entry {i+1}/{len(entries)}: {entry['seconds']}s - {entry['description'][:50]}...")
             
@@ -240,6 +329,11 @@ OUTPUT: JSON with sound_or_silence_description field only."""
                 }
                 all_sfx_entries.append(sfx_entry)
                 print(f"🔕 Skipped LM Studio (rule matched: dot-only or ≤3 words) → {entry['seconds']}: Silence")
+                
+                # Save to checkpoint if resumable mode enabled
+                if resumable_state:
+                    resumable_state.set_sfx_entry(entry_key, 'Silence')
+                
                 entry_end_time = time.time()
                 entry_duration = entry_end_time - entry_start_time
                 print(f"✅ Entry {i+1} processed successfully in {entry_duration:.2f} seconds")
@@ -263,6 +357,10 @@ OUTPUT: JSON with sound_or_silence_description field only."""
                 # Add to all entries
                 all_sfx_entries.append(sfx_entry)
                 
+                # Save to checkpoint if resumable mode enabled
+                if resumable_state:
+                    resumable_state.set_sfx_entry(entry_key, sound_description)
+                
                 # Live preview for this entry
                 print(f"🎵 Output: {entry['seconds']}: {sound_description}")
 
@@ -279,6 +377,10 @@ OUTPUT: JSON with sound_or_silence_description field only."""
                     'seconds': entry['seconds'],
                     'sound_or_silence_description': 'Silence'
                 })
+                
+                # Save to checkpoint if resumable mode enabled
+                if resumable_state:
+                    resumable_state.set_sfx_entry(entry_key, 'Silence')
             
             # Small delay between API calls
             if i < len(entries) - 1:
@@ -298,27 +400,51 @@ OUTPUT: JSON with sound_or_silence_description field only."""
 def main():
     """Main function"""
     import sys
+    import argparse
     
-    # Check command line arguments
-    timeline_file = "../input/2.timeline.txt"
-    if len(sys.argv) > 1:
-        timeline_file = sys.argv[1]
+    parser = argparse.ArgumentParser(description="Generate SFX for timeline entries")
+    parser.add_argument("timeline_file", nargs="?", default="../input/2.timeline.txt",
+                       help="Path to timeline file (default: ../input/2.timeline.txt)")
+    parser.add_argument("--force-start", action="store_true",
+                       help="Force start from beginning, ignoring any existing checkpoint files")
+    args = parser.parse_args()
     
     # Check if timeline file exists
-    if not os.path.exists(timeline_file):
-        print(f"❌ Timeline file '{timeline_file}' not found")
-        print("Usage: python 5.timeline.py [timeline_file]")
+    if not os.path.exists(args.timeline_file):
+        print(f"❌ Timeline file '{args.timeline_file}' not found")
+        print("Usage: python 5.timeline.py [timeline_file] [--force-start]")
         return 1
+    
+    # Initialize resumable state if enabled
+    resumable_state = None
+    if ENABLE_RESUMABLE_MODE:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        checkpoint_dir = os.path.normpath(os.path.join(base_dir, "../output/tracking"))
+        script_name = Path(__file__).stem  # Automatically get script name without .py extension
+        resumable_state = ResumableState(checkpoint_dir, script_name, args.force_start)
+        print(f"Resumable mode enabled - checkpoint directory: {checkpoint_dir}")
+        if resumable_state.state_file.exists():
+            print(f"Found existing checkpoint: {resumable_state.state_file}")
+            print(resumable_state.get_progress_summary())
+        else:
+            print("No existing checkpoint found - starting fresh")
     
     # Create generator and process
     generator = TimelineSFXGenerator()
     
     start_time = time.time()
-    success = generator.process_timeline(timeline_file)
+    success = generator.process_timeline(args.timeline_file, resumable_state)
     end_time = time.time()
     
     if success:
         print(f"⏱️  Total processing time: {end_time - start_time:.2f} seconds")
+        
+        # Clean up checkpoint files if resumable mode was used and everything completed successfully
+        if resumable_state:
+            print("All operations completed successfully")
+            print("Final progress:", resumable_state.get_progress_summary())
+            resumable_state.cleanup()
+        
         return 0
     else:
         print("❌ Processing failed")

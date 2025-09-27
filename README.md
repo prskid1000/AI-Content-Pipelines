@@ -9,6 +9,7 @@ Transform text stories into rich multimedia content:
 - **🖼️ Visual Content** - Character portraits and scene images  
 - **🎬 Video Production** - Animated videos with thumbnails
 - **📺 YouTube Ready** - Automated upload with metadata
+- **🔄 Resumable Operations** - Fault-tolerant processing with checkpoint recovery
 
 ## 🔧 System Architecture Overview
 
@@ -26,6 +27,7 @@ Each pipeline (`gen.audio`, `gen.image`, `gen.video`) includes:
 - **Dependency Detection** - Smart service lifecycle management
 - **Error Handling** - Graceful cleanup on failures
 - **Logging** - Comprehensive execution tracking with performance metrics
+- **Resumable Processing** - Checkpoint-based recovery from interruptions
 
 ## 🏗️ System Architecture
 
@@ -38,9 +40,61 @@ Text Story → Audio Pipeline → Image Pipeline → Video Pipeline → YouTube
 ```
 
 ### Pipeline Overview
-- **Audio Pipeline** (`gen.audio/`) - 12 scripts for TTS, SFX, and video creation
+- **Audio Pipeline** (`gen.audio/`) - 13 scripts for TTS, SFX, and video creation
 - **Image Pipeline** (`gen.image/`) - 6 scripts for character/scene generation  
-- **Video Pipeline** (`gen.video/`) - 2 scripts for animation and compilation
+- **Video Pipeline** (`gen.video/`) - 3 scripts for animation and compilation
+
+## 🔄 Resumable Processing System
+
+The AI Content Studio features a robust resumable processing system that allows operations to be interrupted and resumed without losing progress. This is particularly valuable for expensive AI generation tasks that can take hours to complete.
+
+### Resumable Features
+
+#### Fault Tolerance
+- **Checkpoint Recovery**: All expensive operations save progress to JSON checkpoint files
+- **Interrupt Handling**: Scripts can be safely stopped (Ctrl+C) and resumed later
+- **File Validation**: Cached results are validated to ensure files still exist on disk
+- **Automatic Cleanup**: Checkpoint files are removed when operations complete successfully
+
+#### Supported Scripts
+All major generation scripts now support resumable processing:
+
+**Audio Pipeline:**
+- ✅ `5.timeline.py` - SFX timeline generation
+- ✅ `6.timing.py` - SFX timing refinement  
+- ✅ `7.sfx.py` - Sound effect generation
+
+**Image Pipeline:**
+- ✅ `1.story.py` - Character/location generation
+- ✅ `2.character.py` - Character image generation
+- ✅ `3.scene.py` - Scene image generation
+
+**Video Pipeline:**
+- ✅ `2.animate.py` - Video animation generation
+
+#### Usage Examples
+```bash
+# Normal resumable run
+python 1.story.py
+
+# Force start from beginning (ignores checkpoints)
+python 2.character.py --force-start
+
+# Combine with existing flags
+python 7.sfx.py --force-start --auto-confirm y
+```
+
+#### Checkpoint Management
+- **Location**: `../output/tracking/` directory in each pipeline
+- **Naming**: Script-specific files (e.g., `1.story.state.json`, `2.character.state.json`)
+- **Content**: JSON format with progress tracking and cached results
+- **Lifecycle**: Automatically created, updated, and cleaned up
+
+#### Progress Tracking
+- **Real-time Status**: Shows current progress on script startup
+- **Completion Summary**: Displays completed vs. total operations
+- **File Validation**: Ensures cached files still exist before skipping
+- **Force Restart**: `--force-start` flag bypasses existing checkpoints
 
 ## 📁 Project Structure
 
@@ -50,22 +104,27 @@ Text Story → Audio Pipeline → Image Pipeline → Video Pipeline → YouTube
 │   ├── models/                 # AI models (TTS, image, video)
 │   ├── custom_nodes/           # Extensions (TTS, GGUF, animation)
 │   └── output/                 # Generated content
-├── gen.audio/                  # Audio pipeline (12 scripts)
+├── gen.audio/                  # Audio pipeline (13 scripts)
 │   ├── generate.py             # Main orchestrator
 │   ├── input/                  # 1.story.txt, voices/
 │   ├── output/                 # final.wav, final.mp4, thumbnail.png
+│   │   ├── tracking/           # Resumable checkpoints (*.state.json)
+│   │   └── sfx/                # Generated SFX files
 │   ├── scripts/                # Processing scripts
 │   └── workflow/               # ComfyUI workflows
 ├── gen.image/                  # Image pipeline (6 scripts)
 │   ├── generate.py             # Main orchestrator
 │   ├── input/                  # Text descriptions
 │   ├── output/                 # characters/, scene/, video/
+│   │   └── tracking/           # Resumable checkpoints (*.state.json)
 │   ├── scripts/                # Processing scripts
 │   └── workflow/               # ComfyUI workflows
-└── gen.video/                  # Video pipeline (2 scripts)
+└── gen.video/                  # Video pipeline (3 scripts)
     ├── generate.py             # Main orchestrator
     ├── input/                  # Scene images
     ├── output/                 # animation/, final_sd.mp4
+    │   ├── tracking/           # Resumable checkpoints (*.state.json)
+    │   └── frames/             # Extracted frame files
     ├── scripts/                # Processing scripts
     └── workflow/               # Animation workflows
 ```
@@ -81,19 +140,32 @@ Text Story → Audio Pipeline → Image Pipeline → Video Pipeline → YouTube
 
 ### Running Pipelines
 ```bash
-# Audio Pipeline (12 scripts)
+# Audio Pipeline (13 scripts)
 cd gen.audio && python generate.py
 
 # Image Pipeline (6 scripts) 
 cd gen.image && python generate.py
 
-# Video Pipeline (2 scripts)
+# Video Pipeline (3 scripts)
 cd gen.video && python generate.py
+```
+
+### Resumable Operations
+```bash
+# Individual scripts with resumable processing
+cd gen.image/scripts && python 1.story.py
+cd gen.image/scripts && python 2.character.py --force-start
+cd gen.audio/scripts && python 7.sfx.py --auto-confirm y
+
+# Check progress and resume from interruptions
+# Scripts automatically detect and resume from checkpoints
 ```
 
 ## 🎵 Audio Pipeline (13 Scripts)
 
 **Purpose**: Generate narrated stories with sound effects and create YouTube-ready videos
+
+**Resumable Scripts**: `5.timeline.py`, `6.timing.py`, `7.sfx.py`
 
 ### Workflow Overview
 ```
@@ -200,6 +272,8 @@ graph TD
 ## 🖼️ Image Pipeline
 
 The image pipeline creates character portraits, scene visualizations, and processes audio timeline data for video generation.
+
+**Resumable Scripts**: `1.story.py`, `2.character.py`, `3.scene.py`
 
 ### Image Pipeline Flowchart
 
@@ -332,7 +406,9 @@ The image pipeline includes references to audio pipeline scripts:
 
 ## 🎬 Video Pipeline
 
-The video pipeline creates animated content from static scene images using AI animation models. **⚠️ Note: All scripts are currently commented out in the workflow.**
+The video pipeline creates animated content from static scene images using AI animation models.
+
+**Resumable Scripts**: `2.animate.py`
 
 ### Video Pipeline Flowchart (All Scripts Including Commented)
 
@@ -365,11 +441,11 @@ graph TD
 
 ### Complete Video Script Inventory
 
-| Script | Purpose | Input Files | Output Files | Dependencies | Status |
-|--------|---------|-------------|--------------|--------------|--------|
-| `1.story.py` | Parse story structure | `1.story.txt` | Story analysis | **LM Studio** | Active |
-| `2.animate.py` | Animate static scene images | `gen.image/output/scene/*.png`, `2.timeline.script.txt` | `animation/*.mp4` | **ComfyUI** | Commented |
-| `3.video.py` | Combine animated videos with audio | `animation/*.mp4`, `gen.audio/output/final.wav` | `final_sd.mp4` | FFmpeg | Commented |
+| Script | Purpose | Input Files | Output Files | Dependencies | Status | Resumable |
+|--------|---------|-------------|--------------|--------------|--------|-----------|
+| `1.story.py` | Parse story structure | `1.story.txt` | Story analysis | **LM Studio** | Active | ✅ |
+| `2.animate.py` | Animate static scene images | `gen.image/output/scene/*.png`, `2.timeline.script.txt` | `animation/*.mp4` | **ComfyUI** | Active | ✅ |
+| `3.video.py` | Combine animated videos with audio | `animation/*.mp4`, `gen.audio/output/final.wav` | `final_sd.mp4` | FFmpeg | Active | ❌ |
 
 ### Video Pipeline Features
 - **Story Analysis**: Parse and structure story content for animation
@@ -1133,16 +1209,19 @@ The orchestrator scripts automatically manage service dependencies with intellig
 - **NEEDS_COMFYUI**: `{"2.story.py", "7.sfx.py", "10.thumbnail.py"}`
 - **NEEDS_LMSTUDIO**: `{"1.character.py", "5.timeline.py", "6.timing.py", "9.description.py", "12.media.py"}`
 - **Scripts**: Currently all commented out (empty pipeline)
+- **Resumable Scripts**: `5.timeline.py`, `6.timing.py`, `7.sfx.py`
 
 #### Image Pipeline (`gen.image/generate.py`)  
 - **NEEDS_COMFYUI**: `{"2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py"}`
 - **NEEDS_LMSTUDIO**: `{"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py", "9.description.py", "12.media.py"}`
 - **Active Scripts**: `["3.scene.py"]` (only scene generation active)
+- **Resumable Scripts**: `1.story.py`, `2.character.py`, `3.scene.py`
 
 #### Video Pipeline (`gen.video/generate.py`)
 - **NEEDS_COMFYUI**: `{"2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py", "2.animate.py"}`
 - **NEEDS_LMSTUDIO**: `{"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py", "9.description.py", "12.media.py"}`
 - **Scripts**: Currently all commented out (empty pipeline)
+- **Resumable Scripts**: `2.animate.py`
 
 ### Service Lifecycle Management
 
@@ -1152,6 +1231,7 @@ The orchestrator scripts automatically manage service dependencies with intellig
 - **Error Handling**: Automatic cleanup on script failure or interruption (Ctrl+C)
 - **Health Monitoring**: Continuous polling to ensure services are ready before script execution
 - **Graceful Termination**: Proper shutdown sequences with timeout handling
+- **Resumable Integration**: Checkpoint-aware service management for interrupted operations
 
 ### Service Communication
 
@@ -1285,12 +1365,29 @@ The orchestrator scripts automatically manage service dependencies with intellig
 - `--force` - Force regeneration of existing outputs
 - `--auto-confirm` - Skip interactive confirmations
 - `--bypass-validation` - Skip validation checks
+- `--force-start` - Force start from beginning, ignoring checkpoint files
 
 #### Pipeline-Specific Arguments
 - `--mode` - Select generation modes (e.g., "flux" for image generation)
 - `--auto-gender` - Auto-assign character genders based on names
 - `--change-settings` - Allow setting changes during execution
 - `--bypass-validation` - Skip story validation checks
+
+#### Resumable System Configuration
+```python
+# Feature flag in each script
+ENABLE_RESUMABLE_MODE = True  # Enable/disable resumable processing
+
+# Checkpoint directory structure
+../output/tracking/           # Checkpoint files location
+├── 1.story.state.json       # Story parsing checkpoints
+├── 2.character.state.json   # Character generation checkpoints
+├── 3.scene.state.json       # Scene generation checkpoints
+├── 5.timeline.state.json    # Timeline generation checkpoints
+├── 6.timing.state.json      # Timing refinement checkpoints
+├── 7.sfx.state.json         # SFX generation checkpoints
+└── 2.animate.state.json     # Animation generation checkpoints
+```
 
 ### Service Timeouts
 - **ComfyUI Ready Check**: 15-second intervals
@@ -1310,6 +1407,7 @@ The orchestrator scripts automatically manage service dependencies with intellig
 - **Error Handling**: Detailed error messages, recovery attempts, cleanup operations
 - **Performance Metrics**: Timing statistics, memory usage, I/O operations
 - **Progress Tracking**: Real-time status updates, completion percentages
+- **Resumable Processing**: Checkpoint creation, progress recovery, file validation
 
 ### Log Format
 ```
@@ -1347,4 +1445,4 @@ This is a modular system designed for easy extension. Each script is self-contai
 
 ---
 
-**Note**: This system requires significant computational resources. For optimal performance, use a CUDA-compatible GPU with 8GB+ VRAM and ensure adequate cooling during extended generation sessions.
+**Note**: This system requires significant computational resources. For optimal performance, use a CUDA-compatible GPU with 8GB+ VRAM and ensure adequate cooling during extended generation sessions. The resumable processing system allows for safe interruption and recovery of long-running operations, making it suitable for extended generation sessions across multiple days.

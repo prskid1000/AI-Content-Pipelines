@@ -7,14 +7,93 @@ from pydub import AudioSegment
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from functools import partial
 import builtins as _builtins
+from pathlib import Path
+import shutil
 print = partial(_builtins.print, flush=True)
+
+# Feature flags
+ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
+
+# Resumable state management
+class ResumableState:
+    """Manages resumable state for expensive audio generation operations."""
+    
+    def __init__(self, checkpoint_dir: str, script_name: str, force_start: bool = False):
+        self.checkpoint_dir = Path(checkpoint_dir)
+        self.checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        self.state_file = self.checkpoint_dir / f"{script_name}.state.json"
+        
+        # If force_start is True, remove existing checkpoint and start fresh
+        if force_start and self.state_file.exists():
+            try:
+                self.state_file.unlink()
+                print("Force start enabled - removed existing checkpoint")
+            except Exception as ex:
+                print(f"WARNING: Failed to remove checkpoint for force start: {ex}")
+        
+        self.state = self._load_state()
+    
+    def _load_state(self) -> dict:
+        """Load state from checkpoint file."""
+        if self.state_file.exists():
+            try:
+                with open(self.state_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as ex:
+                print(f"WARNING: Failed to load checkpoint state: {ex}")
+        return {
+            "audio_files": {"completed": [], "results": {}},
+            "metadata": {"start_time": time.time(), "last_update": time.time()}
+        }
+    
+    def _save_state(self):
+        """Save current state to checkpoint file."""
+        try:
+            self.state["metadata"]["last_update"] = time.time()
+            with open(self.state_file, 'w', encoding='utf-8') as f:
+                json.dump(self.state, f, indent=2, ensure_ascii=False)
+        except Exception as ex:
+            print(f"WARNING: Failed to save checkpoint state: {ex}")
+    
+    def is_audio_file_complete(self, file_key: str) -> bool:
+        """Check if specific audio file generation is complete."""
+        return file_key in self.state["audio_files"]["completed"]
+    
+    def get_audio_file_info(self, file_key: str) -> dict | None:
+        """Get cached audio file info if available."""
+        return self.state["audio_files"]["results"].get(file_key)
+    
+    def set_audio_file_info(self, file_key: str, file_info: dict):
+        """Set audio file info and mark as complete."""
+        if file_key not in self.state["audio_files"]["completed"]:
+            self.state["audio_files"]["completed"].append(file_key)
+        self.state["audio_files"]["results"][file_key] = file_info
+        self._save_state()
+    
+    def cleanup(self):
+        """Clean up checkpoint files after successful completion."""
+        try:
+            if self.state_file.exists():
+                self.state_file.unlink()
+                print("Cleaned up checkpoint files")
+        except Exception as ex:
+            print(f"WARNING: Failed to cleanup checkpoint files: {ex}")
+    
+    def get_progress_summary(self) -> str:
+        """Get a summary of current progress."""
+        audio_done = len(self.state["audio_files"]["completed"])
+        audio_total = len(self.state["audio_files"]["results"]) + len([k for k in self.state["audio_files"]["results"].keys() if k not in self.state["audio_files"]["completed"]])
+        
+        return f"Progress: Audio Files({audio_done}/{audio_total})"
 
 class DirectTimelineProcessor:
     def __init__(self, comfyui_url="http://127.0.0.1:8188/", max_workers=3):
         self.comfyui_url = comfyui_url
         self.output_folder = "../../ComfyUI/output/audio/sfx"
+        self.final_output_folder = "../output/sfx"
         self.max_workers = max_workers
         os.makedirs(self.output_folder, exist_ok=True)
+        os.makedirs(self.final_output_folder, exist_ok=True)
         self.clear_output_folder()
         
     def parse_timeline(self, timeline_text):
@@ -113,8 +192,36 @@ class DirectTimelineProcessor:
                     print(f"Removed: {file}")
                 except Exception as e:
                     print(f"Warning: Could not remove {file}: {e}")
+        
+        # Clear final output folder
+        if os.path.exists(self.final_output_folder):
+            for file in os.listdir(self.final_output_folder):
+                try:
+                    os.remove(os.path.join(self.final_output_folder, file))
+                    print(f"Removed from output: {file}")
+                except Exception as e:
+                    print(f"Warning: Could not remove from output {file}: {e}")
                 
         print("✅ All SFX files cleared!")
+    
+    def copy_to_output_folder(self, source_file, filename):
+        """Copy generated SFX file to output/sfx folder"""
+        try:
+            if not os.path.exists(source_file):
+                print(f"Warning: Source file does not exist: {source_file}")
+                return None
+            
+            # Create destination path in output/sfx folder
+            dest_path = os.path.join(self.final_output_folder, filename)
+            
+            # Copy the file
+            shutil.copy2(source_file, dest_path)
+            print(f"📁 Copied to output: {filename}")
+            return dest_path
+            
+        except Exception as e:
+            print(f"Error copying {source_file} to output folder: {e}")
+            return None
     
     def __del__(self):
         """Cleanup when object is destroyed"""
@@ -183,7 +290,7 @@ class DirectTimelineProcessor:
             print(f"Error generating silence for {duration}s: {e}")
             return None
     
-    def generate_single_sfx(self, entry_data):
+    def generate_single_sfx(self, entry_data, resumable_state=None):
         """Generate single SFX audio file"""
         i, entry = entry_data
         duration = round(entry['seconds'], 5)
@@ -194,16 +301,39 @@ class DirectTimelineProcessor:
         entry_type = "silence" if self.is_silence_entry(entry['description']) else "sfx"
         filename = f"sfx_{i:03d}_{entry_type}_{round(entry['seconds'], 5)}"
         
+        # Create unique key for this entry
+        file_key = f"{i}_{entry['description']}_{duration}"
+        
+        # Check if resumable and already complete
+        if resumable_state and resumable_state.is_audio_file_complete(file_key):
+            cached_info = resumable_state.get_audio_file_info(file_key)
+            if cached_info and os.path.exists(cached_info.get('file', '')):
+                print(f"Using cached audio file: {entry['description']} ({duration}s)")
+                return cached_info
+            elif cached_info:
+                print(f"Cached file missing, regenerating: {entry['description']} ({duration}s)")
+        
         # Check if this is a silence entry
         if self.is_silence_entry(entry['description']):
             silence_path = self.generate_silence_audio(duration, filename)
             if silence_path:
-                return {
+                # Copy to output folder
+                output_filename = f"{filename}.flac"
+                copied_path = self.copy_to_output_folder(silence_path, output_filename)
+                
+                result = {
                     'file': silence_path,
+                    'output_file': copied_path,  # Track the copied file location
                     'order_index': i,  # Keep track of original order
                     'duration': duration,
                     'description': entry['description']
                 }
+                
+                # Save to checkpoint if resumable mode enabled
+                if resumable_state:
+                    resumable_state.set_audio_file_info(file_key, result)
+                
+                return result
             return None
         
         # For non-silence entries, use ComfyUI
@@ -237,12 +367,24 @@ class DirectTimelineProcessor:
                                     if matching_files:
                                         matching_files.sort(key=lambda x: os.path.getmtime(os.path.join(self.output_folder, x)), reverse=True)
                                         found_path = os.path.join(self.output_folder, matching_files[0])
-                                        return {
+                                        
+                                        # Copy to output folder
+                                        output_filename = matching_files[0]  # Use the actual generated filename
+                                        copied_path = self.copy_to_output_folder(found_path, output_filename)
+                                        
+                                        result = {
                                             'file': found_path,
+                                            'output_file': copied_path,  # Track the copied file location
                                             'order_index': i,  # Keep track of original order
                                             'duration': duration,
                                             'description': entry['description']
                                         }
+                                        
+                                        # Save to checkpoint if resumable mode enabled
+                                        if resumable_state:
+                                            resumable_state.set_audio_file_info(file_key, result)
+                                        
+                                        return result
                             break
                 time.sleep(5)
             
@@ -252,7 +394,7 @@ class DirectTimelineProcessor:
             print(f"Error generating audio for '{entry['description']}': {e}")
             return None
     
-    def generate_all_sfx_batch(self, timeline_entries):
+    def generate_all_sfx_batch(self, timeline_entries, resumable_state=None):
         """Generate all SFX audio files using batch processing"""
         generated_files = []
         batch_data = [(i, entry) for i, entry in enumerate(timeline_entries)]
@@ -264,7 +406,7 @@ class DirectTimelineProcessor:
         print(f"📊 Processing {len(batch_data)} entries: {silence_count} silence, {sfx_count} SFX")
         
         with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
-            future_to_entry = {executor.submit(self.generate_single_sfx, data): data for data in batch_data}
+            future_to_entry = {executor.submit(self.generate_single_sfx, data, resumable_state): data for data in batch_data}
             for future in as_completed(future_to_entry):
                 result = future.result()
                 if result:
@@ -358,7 +500,7 @@ class DirectTimelineProcessor:
                 print("\n❌ Processing cancelled by user")
                 return False
     
-    def process_timeline(self, timeline_text):
+    def process_timeline(self, timeline_text, resumable_state=None):
         """Main processing function"""
         if not timeline_text or not timeline_text.strip():
             raise Exception("Empty or invalid timeline text provided")
@@ -394,7 +536,7 @@ class DirectTimelineProcessor:
         
         print("🎵 Step 3: Generating audio files...")
         # Generate all SFX files using batch processing
-        generated_files = self.generate_all_sfx_batch(updated_entries)
+        generated_files = self.generate_all_sfx_batch(updated_entries, resumable_state)
         if not generated_files:
             raise Exception("No audio files were generated successfully")
         
@@ -420,14 +562,38 @@ def read_timeline_from_file(filename="../input/4.sfx.txt"):
 
 if __name__ == "__main__":
     import sys
-    # Hardcoded default for non-interactive auto-confirm
-    AUTO_SFX_CONFIRM = "y"
+    
+    parser = argparse.ArgumentParser(description="Generate SFX audio files from timeline")
+    parser.add_argument("--clear", action="store_true",
+                       help="Clear all SFX files and exit")
+    parser.add_argument("--force-start", action="store_true",
+                       help="Force start from beginning, ignoring any existing checkpoint files")
+    parser.add_argument("--auto-confirm", default="y", choices=["y", "yes", "n", "no"],
+                       help="Auto-confirm processing (default: y)")
+    args = parser.parse_args()
+    
+    # Set global auto-confirm variable
+    AUTO_SFX_CONFIRM = args.auto_confirm
 
     # Check if user wants to clear files
-    if len(sys.argv) > 1 and sys.argv[1] == "--clear":
+    if args.clear:
         processor = DirectTimelineProcessor(max_workers=3)
         processor.clear_all_sfx_files()
         exit(0)
+    
+    # Initialize resumable state if enabled
+    resumable_state = None
+    if ENABLE_RESUMABLE_MODE:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        checkpoint_dir = os.path.normpath(os.path.join(base_dir, "../output/tracking"))
+        script_name = Path(__file__).stem  # Automatically get script name without .py extension
+        resumable_state = ResumableState(checkpoint_dir, script_name, args.force_start)
+        print(f"Resumable mode enabled - checkpoint directory: {checkpoint_dir}")
+        if resumable_state.state_file.exists():
+            print(f"Found existing checkpoint: {resumable_state.state_file}")
+            print(resumable_state.get_progress_summary())
+        else:
+            print("No existing checkpoint found - starting fresh")
     
     start_time = time.time()
     
@@ -440,10 +606,16 @@ if __name__ == "__main__":
     processor = DirectTimelineProcessor(max_workers=3)
     
     try:
-        final_audio = processor.process_timeline(timeline_text)
+        final_audio = processor.process_timeline(timeline_text, resumable_state)
         if final_audio:
             print(f"✅ Final audio file: {final_audio}")
             print(f"⏱️  Total execution time: {time.time() - start_time:.3f} seconds")
+            
+            # Clean up checkpoint files if resumable mode was used and everything completed successfully
+            if resumable_state:
+                print("All operations completed successfully")
+                print("Final progress:", resumable_state.get_progress_summary())
+                resumable_state.cleanup()
         else:
             print("❌ Processing was cancelled by user")
     except Exception as e:
