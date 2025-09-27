@@ -38,16 +38,16 @@ OUTPUT_WIDTH = 1280
 OUTPUT_HEIGHT = 720
 
 # LoRA Configuration
-USE_LORA = True  # Set to False to disable LoRA usage in workflow
+USE_LORA = False  # Set to False to disable LoRA usage in workflow
 LORA_NAME = "FLUX.1-Turbo-Alpha.safetensors"  # LoRA file name
 LORA_STRENGTH_MODEL = 2.0  # LoRA strength for the model (0.0 - 2.0)
 LORA_STRENGTH_CLIP = 2.0   # LoRA strength for CLIP (0.0 - 2.0)
 
 # Sampling Configuration
-SAMPLING_STEPS = 8  # Number of sampling steps (higher = better quality, slower)
+SAMPLING_STEPS = 24  # Number of sampling steps (higher = better quality, slower)
 
 # Negative Prompt Configuration
-USE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to disable
+USE_NEGATIVE_PROMPT = False  # Set to True to enable negative prompts, False to disable
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
 ART_STYLE = "Realistic Anime"

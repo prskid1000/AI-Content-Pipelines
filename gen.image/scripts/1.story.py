@@ -16,6 +16,7 @@ STORY_DESCRIPTION_CHARACTER_COUNT = 16000
 # Feature flags
 ENABLE_CHARACTER_REWRITE = True  # Set to False to skip character rewriting step
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
+CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 
 # Model constants for easy switching
 MODEL_STORY_DESCRIPTION = "qwen/qwen3-14b"  # Model for generating story descriptions
@@ -142,13 +143,15 @@ class ResumableState:
         self._save_state()
     
     def cleanup(self):
-        """Clean up checkpoint files after successful completion."""
+        """Clean up tracking files based on configuration setting."""
         try:
-            if self.state_file.exists():
+            if CLEANUP_TRACKING_FILES and self.state_file.exists():
                 self.state_file.unlink()
-                print("Cleaned up checkpoint files")
+                print("All operations completed successfully - tracking files cleaned up")
+            else:
+                print("All operations completed successfully - tracking files preserved")
         except Exception as ex:
-            print(f"WARNING: Failed to cleanup checkpoint files: {ex}")
+            print(f"WARNING: Error in cleanup: {ex}")
     
     def get_progress_summary(self) -> str:
         """Get a summary of current progress."""

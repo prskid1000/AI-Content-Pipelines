@@ -9,8 +9,9 @@ import subprocess
 from pathlib import Path
 from typing import List, Dict, Optional, Tuple
 
-# Feature flag to enable/disable resumable mode
+# Feature flags
 ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 
 # Video configuration constants
 VIDEO_WIDTH = 1024
@@ -82,13 +83,15 @@ class ResumableState:
         self._save_state()
     
     def cleanup(self):
-        """Clean up checkpoint files when all operations are complete."""
+        """Clean up tracking files based on configuration setting."""
         try:
-            if self.state_file.exists():
+            if CLEANUP_TRACKING_FILES and self.state_file.exists():
                 self.state_file.unlink()
-                print("Checkpoint file cleaned up successfully")
+                print("All operations completed successfully - tracking files cleaned up")
+            else:
+                print("All operations completed successfully - tracking files preserved")
         except Exception as ex:
-            print(f"WARNING: Failed to cleanup checkpoint: {ex}")
+            print(f"WARNING: Error in cleanup: {ex}")
     
     def get_progress_summary(self) -> str:
         """Get a summary of current progress."""
