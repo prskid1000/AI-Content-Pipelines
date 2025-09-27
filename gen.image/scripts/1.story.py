@@ -24,6 +24,8 @@ MODEL_CHARACTER_GENERATION = "qwen/qwen3-14b"  # Model for character description
 MODEL_CHARACTER_SUMMARY = "qwen/qwen3-14b"  # Model for character summary generation
 MODEL_LOCATION_EXPANSION = "qwen/qwen3-14b"  # Model for location expansion
 
+ART_STYLE = "Realistic Anime"
+
 # Resumable state management
 class ResumableState:
     """Manages resumable state for expensive LLM operations."""
@@ -826,7 +828,8 @@ def _build_character_system_prompt(story_desc: str, character_name: str, all_cha
         "When determining relationships, consider if this character shares a profession with other characters in the story. "
         "If characters are colleagues (same profession), they should have matching uniforms/equipment but different physical appearances. "
         "If characters are family members or romantic partners, they might share matching accessories like wedding rings. "
-        "Provide rich, specific details that will help create a vivid and consistent visual representation.\n\n"
+        "Provide rich, specific details that will help create a vivid and consistent visual representation."
+        f"Describe the character in {ART_STYLE} style.\n\n"
         f"STORY CONTEXT: {story_desc}\n\n"
         f"CHARACTER TO DESCRIBE: {character_name}\n"
         f"OTHER CHARACTERS IN STORY: {other_characters_text}"
@@ -840,7 +843,8 @@ def _build_character_summary_prompt(character_name: str, detailed_description: s
         "Focus specifically on: head shape, facial features (eyes, nose, mouth, hair, facial hair), skin tone/texture, and full clothing style/fit/material/colors. "
         "Ignore body proportions, posture, hands, legs, feet, and other body parts. "
         "Use clear, descriptive terms separated by commas. Avoid unnecessary words and focus on visual impact. "
-        f"Create a summary ({CHARACTER_SUMMARY_CHARACTER_COUNT} characters) focusing ONLY on head, face, and clothing features in a paragraph.\n\n"
+        f"Create a summary ({CHARACTER_SUMMARY_CHARACTER_COUNT} characters) focusing ONLY on head, face, and clothing features in a paragraph. "
+        f"Describe the character in {ART_STYLE} style.\n\n"
         f"CHARACTER: {character_name}\n\n"
         f"DETAILED DESCRIPTION: {detailed_description}\n\n"
     )
@@ -863,7 +867,8 @@ def _build_story_description_prompt(story_content: str) -> str:
         "Write as a a Short Version of the COMPLETE STORY that flows chronologically, covering every detail while staying within the character limit. "
         "This will be used to generate consistent character and location descriptions, so include all visual and contextual information."
         
-        f"Create a Short Version of the COMPLETE STORY (exactly {STORY_DESCRIPTION_CHARACTER_COUNT} characters) covering all characters, events, and locations in proper chronological sequence.\n\n"
+        f"Create a Short Version of the COMPLETE STORY (exactly {STORY_DESCRIPTION_CHARACTER_COUNT} characters) covering all characters, events, and locations in proper chronological sequence. "
+        f"Describe the story in {ART_STYLE} style.\n\n"
 
         f"STORY CONTENT: {story_content}\n\n"
     )
@@ -878,7 +883,8 @@ def _build_location_expansion_prompt(filtered_story_content: str, location_id: s
         "Consider the story context and setting to ensure the description fits the narrative tone and period. "
         "Include specific details about architecture, furniture, lighting conditions, colors, materials, objects, and any distinctive visual features of the place itself. "
         "Make the description vivid, immersive, and focused purely on the background/environment for AI image generation.\n\n"
-        f"Create a comprehensive background location description (approximately {LOCATION_CHARACTER_COUNT} characters) that covers ONLY the environmental and architectural elements of location {location_id}, excluding all character references.\n\n"
+        f"Create a comprehensive background location description (approximately {LOCATION_CHARACTER_COUNT} characters) that covers ONLY the environmental and architectural elements of location {location_id}, excluding all character references. "
+        f"Describe the location in {ART_STYLE} style.\n\n"
 
         f"FILTERED STORY CONTENT (only scenes using this location): {filtered_story_content}\n\n"
         f"LOCATION ID: {location_id}\n"
