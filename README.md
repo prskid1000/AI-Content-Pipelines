@@ -54,7 +54,7 @@ The AI Content Studio features a robust resumable processing system that allows 
 - **Checkpoint Recovery**: All expensive operations save progress to JSON checkpoint files
 - **Interrupt Handling**: Scripts can be safely stopped (Ctrl+C) and resumed later
 - **File Validation**: Cached results are validated to ensure files still exist on disk
-- **Automatic Cleanup**: Checkpoint files are removed when operations complete successfully
+- **Optional Cleanup**: Checkpoint files are preserved by default but can be deleted via `CLEANUP_TRACKING_FILES = True`
 
 #### Supported Scripts
 All major generation scripts now support resumable processing:
@@ -88,7 +88,7 @@ python 7.sfx.py --force-start --auto-confirm y
 - **Location**: `../output/tracking/` directory in each pipeline
 - **Naming**: Script-specific files (e.g., `1.story.state.json`, `2.character.state.json`)
 - **Content**: JSON format with progress tracking and cached results
-- **Lifecycle**: Automatically created, updated, and cleaned up
+- **Lifecycle**: Automatically created, updated, and optionally cleaned up based on `CLEANUP_TRACKING_FILES` setting
 
 #### Progress Tracking
 - **Real-time Status**: Shows current progress on script startup
@@ -587,6 +587,8 @@ LOCATION_CHARACTER_COUNT = 1600
 
 # Feature Flags
 ENABLE_CHARACTER_REWRITE = True
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
 
 # Model Configuration
 MODEL_STORY_DESCRIPTION = "qwen/qwen3-14b"
@@ -1375,8 +1377,9 @@ The orchestrator scripts automatically manage service dependencies with intellig
 
 #### Resumable System Configuration
 ```python
-# Feature flag in each script
+# Feature flags in each script
 ENABLE_RESUMABLE_MODE = True  # Enable/disable resumable processing
+CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 
 # Checkpoint directory structure
 ../output/tracking/           # Checkpoint files location

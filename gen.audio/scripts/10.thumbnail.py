@@ -14,7 +14,7 @@ import random
 
 # Random seed configuration
 USE_FIXED_SEED = True  # Set to False to use random seeds for each generation
-RANDOM_SEED = 42
+RANDOM_SEED = 333555666
 
 # Controls text generation method:
 # - True: use text overlay after image generation (generates 1 image: thumbnail.png)
@@ -37,6 +37,11 @@ TITLE_LAYOUT = "overlay"
 OUTPUT_WIDTH = 1280
 OUTPUT_HEIGHT = 720
 
+# Image Output Dimension Constants
+USE_FIXED_DIMENSIONS = False  # Set to True to use fixed width/height, False to use aspect ratio calculation
+IMAGE_OUTPUT_WIDTH = 1280
+IMAGE_OUTPUT_HEIGHT = 720
+
 # LoRA Configuration
 USE_LORA = True  # Set to False to disable LoRA usage in workflow
 LORA_NAME = "FLUX.1-Turbo-Alpha.safetensors"  # LoRA file name
@@ -44,13 +49,13 @@ LORA_STRENGTH_MODEL = 2.0  # LoRA strength for the model (0.0 - 2.0)
 LORA_STRENGTH_CLIP = 2.0   # LoRA strength for CLIP (0.0 - 2.0)
 
 # Sampling Configuration
-SAMPLING_STEPS = 8  # Number of sampling steps (higher = better quality, slower)
+SAMPLING_STEPS = 9  # Number of sampling steps (higher = better quality, slower)
 
 # Negative Prompt Configuration
 USE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to disable
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
-ART_STYLE = "Realistic Anime"
+ART_STYLE = "Anime"
 
 class ThumbnailProcessor:
     def __init__(self, comfyui_url: str = "http://127.0.0.1:8188/", mode: str = "diffusion"):
@@ -175,6 +180,16 @@ class ThumbnailProcessor:
 
     def _update_workflow_resolution(self, workflow: dict, width: int, height: int) -> dict:
         """Update the workflow with specified resolution."""
+        # Use fixed dimensions if specified, otherwise use the provided width/height
+        if USE_FIXED_DIMENSIONS:
+            final_width = IMAGE_OUTPUT_WIDTH
+            final_height = IMAGE_OUTPUT_HEIGHT
+            print(f"Using fixed dimensions: {final_width}x{final_height} (bypassing aspect ratio calculation)")
+        else:
+            final_width = width
+            final_height = height
+            print(f"Using calculated dimensions: {final_width}x{final_height}")
+        
         # Find EmptySD3LatentImage node and update its dimensions
         latent_image_node = self._find_node_by_class(workflow, "EmptySD3LatentImage")
         if latent_image_node:
@@ -185,9 +200,9 @@ class ThumbnailProcessor:
             h_in = node["inputs"].get("height")
             # Only override if inputs are not wired from another node
             if not isinstance(w_in, (list, tuple)) and not isinstance(h_in, (list, tuple)):
-                node["inputs"]["width"] = int(width)
-                node["inputs"]["height"] = int(height)
-                print(f"Updated width/height to {width}/{height} for node {node_id}")
+                node["inputs"]["width"] = int(final_width)
+                node["inputs"]["height"] = int(final_height)
+                print(f"Updated width/height to {final_width}/{final_height} for node {node_id}")
         else:
             print("No EmptySD3LatentImage node found in workflow")
         

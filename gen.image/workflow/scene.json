@@ -123,7 +123,7 @@
   },
   "32": {
     "inputs": {
-      "guidance": 4,
+      "guidance": 3,
       "conditioning": [
         "30",
         0

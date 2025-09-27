@@ -12,8 +12,9 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import argparse
 print = partial(_builtins.print, flush=True)
 
-# Feature flag to enable/disable resumable mode
+# Feature flags
 ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 
 # Image Resolution Constants
 IMAGE_MEGAPIXEL = "0.3"
@@ -22,6 +23,11 @@ IMAGE_DIVISIBLE_BY = "64"
 IMAGE_CUSTOM_RATIO = False
 IMAGE_CUSTOM_ASPECT_RATIO = "1:1"
 
+# Image Output Dimension Constants
+USE_FIXED_DIMENSIONS = False  # Set to True to use fixed width/height, False to use aspect ratio calculation
+IMAGE_OUTPUT_WIDTH = 256
+IMAGE_OUTPUT_HEIGHT = 1024
+
 # LoRA Configuration
 USE_LORA = True  # Set to False to disable LoRA usage in workflow
 LORA_NAME = "FLUX.1-Turbo-Alpha.safetensors"  # LoRA file name
@@ -29,7 +35,7 @@ LORA_STRENGTH_MODEL = 2.0  # LoRA strength for the model (0.0 - 2.0)
 LORA_STRENGTH_CLIP = 2.0   # LoRA strength for CLIP (0.0 - 2.0)
 
 # Sampling Configuration
-SAMPLING_STEPS = 8  # Number of sampling steps (higher = better quality, slower)
+SAMPLING_STEPS = 9  # Number of sampling steps (higher = better quality, slower)
 
 # Negative Prompt Configuration
 USE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to disable
@@ -39,11 +45,7 @@ NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, p
 USE_RANDOM_SEED = True  # Set to True to use random seeds, False to use fixed seed
 FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 
-ART_STYLE = "Realistic Anime"
-
-# Character image dimensions: 320x1024 (width x height)
-CHARACTER_IMAGE_WIDTH = 320
-CHARACTER_IMAGE_HEIGHT = 1024
+ART_STYLE = "Anime"
 
 # Text overlay settings for character names
 USE_CHARACTER_NAME_OVERLAY = False  # Set to False to disable name overlay
@@ -109,13 +111,15 @@ class ResumableState:
         self._save_state()
     
     def cleanup(self):
-        """Clean up checkpoint files when all operations are complete."""
+        """Clean up tracking files based on configuration setting."""
         try:
-            if self.state_file.exists():
+            if CLEANUP_TRACKING_FILES and self.state_file.exists():
                 self.state_file.unlink()
-                print("Checkpoint file cleaned up successfully")
+                print("All operations completed successfully - tracking files cleaned up")
+            else:
+                print("All operations completed successfully - tracking files preserved")
         except Exception as ex:
-            print(f"WARNING: Failed to cleanup checkpoint: {ex}")
+            print(f"WARNING: Error in cleanup: {ex}")
     
     def get_progress_summary(self) -> str:
         """Get a summary of current progress."""
@@ -302,23 +306,32 @@ class CharacterGenerator:
         latent_image_node = self._find_node_by_class(workflow, "EmptySD3LatentImage")
         if latent_image_node:
             node_id = latent_image_node[0]
-            try:
-                if ":" in IMAGE_ASPECT_RATIO:
-                    # Extract just the ratio part before any parentheses
-                    ratio_parts = IMAGE_ASPECT_RATIO.split("(")[0].strip()
-                    width_ratio, height_ratio = map(int, ratio_parts.split(":"))
-                    total_pixels = float(IMAGE_MEGAPIXEL) * 1000000
-                    aspect_ratio = width_ratio / height_ratio
-                    height = int((total_pixels / aspect_ratio) ** 0.5)
-                    width = int(height * aspect_ratio)
-                    divisible_by = int(IMAGE_DIVISIBLE_BY)
-                    width = (width // divisible_by) * divisible_by
-                    height = (height // divisible_by) * divisible_by
-                    workflow[node_id]["inputs"]["width"] = width
-                    workflow[node_id]["inputs"]["height"] = height
-                    print(f"Updated Diffusion resolution settings: {width}x{height}")
-            except Exception as e:
-                print(f"Warning: Could not parse aspect ratio {IMAGE_ASPECT_RATIO}: {e}")
+            
+            # Use fixed dimensions if specified
+            if USE_FIXED_DIMENSIONS:
+                # Bypass aspect ratio calculation and set fixed dimensions directly
+                workflow[node_id]["inputs"]["width"] = IMAGE_OUTPUT_WIDTH
+                workflow[node_id]["inputs"]["height"] = IMAGE_OUTPUT_HEIGHT
+                print(f"Using fixed dimensions: {IMAGE_OUTPUT_WIDTH}x{IMAGE_OUTPUT_HEIGHT} (bypassing aspect ratio calculation)")
+            else:
+                # Calculate dimensions based on aspect ratio and megapixels
+                try:
+                    if ":" in IMAGE_ASPECT_RATIO:
+                        # Extract just the ratio part before any parentheses
+                        ratio_parts = IMAGE_ASPECT_RATIO.split("(")[0].strip()
+                        width_ratio, height_ratio = map(int, ratio_parts.split(":"))
+                        total_pixels = float(IMAGE_MEGAPIXEL) * 1000000
+                        aspect_ratio = width_ratio / height_ratio
+                        height = int((total_pixels / aspect_ratio) ** 0.5)
+                        width = int(height * aspect_ratio)
+                        divisible_by = int(IMAGE_DIVISIBLE_BY)
+                        width = (width // divisible_by) * divisible_by
+                        height = (height // divisible_by) * divisible_by
+                        workflow[node_id]["inputs"]["width"] = width
+                        workflow[node_id]["inputs"]["height"] = height
+                        print(f"Using calculated dimensions: {width}x{height}")
+                except Exception as e:
+                    print(f"Warning: Could not parse aspect ratio {IMAGE_ASPECT_RATIO}: {e}")
         
         return workflow
 
