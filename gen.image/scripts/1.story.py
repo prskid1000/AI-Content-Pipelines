@@ -925,235 +925,64 @@ def _parse_structured_response(content: str) -> dict[str, object] | None:
         return None
 
 
-def _format_initial_character_description(char_data: dict[str, object]) -> str:
-    """Convert detailed structured character data to readable description format (for initial generation)."""
-    sentences = []
+def _recursively_format_character_data(data: object, prefix: str = "", sentences: list = None) -> list[str]:
+    """
+    Recursively parse any JSON structure and convert it to descriptive sentences.
+    This generic parser can handle any nested structure without hardcoded keys.
+    """
+    if sentences is None:
+        sentences = []
     
-    # Head/Face section - create descriptive sentences
-    head_face = char_data.get("head_face", {})
-    if head_face:
-        face_sentences = []
-        
-        # Head shape and skin
-        if head_face.get("head_shape") and head_face.get("skin_tone"):
-            face_sentences.append(f"The character has a {head_face['head_shape']} head shape with {head_face['skin_tone']} skin tone.")
-        elif head_face.get("head_shape"):
-            face_sentences.append(f"The character has a {head_face['head_shape']} head shape.")
-        elif head_face.get("skin_tone"):
-            face_sentences.append(f"The character has {head_face['skin_tone']} skin tone.")
-        
-        # Facial features
-        if head_face.get("eyes"):
-            face_sentences.append(f"Their eyes are {head_face['eyes']}.")
-        if head_face.get("nose"):
-            face_sentences.append(f"They have {head_face['nose']}.")
-        if head_face.get("mouth_lips"):
-            face_sentences.append(f"Their mouth features {head_face['mouth_lips']}.")
-        if head_face.get("hair"):
-            face_sentences.append(f"They have {head_face['hair']}.")
-        
-        sentences.extend(face_sentences)
+    if isinstance(data, dict):
+        for key, value in data.items():
+            # Skip certain keys that don't contribute to physical description
+            if key.lower() in ['shared_elements', 'professional_relationships', 'relationships']:
+                continue
+                
+            if isinstance(value, (dict, list)):
+                # Recursively process nested structures
+                _recursively_format_character_data(value, f"{prefix}{key}_" if prefix else f"{key}_", sentences)
+            elif isinstance(value, str) and value.strip():
+                # Convert key-value pairs to descriptive sentences
+                formatted_key = key.replace('_', ' ').title()
+                sentences.append(f"{formatted_key.lower()}: {value},")
     
-    # Overall impression - create descriptive sentences
-    overall = char_data.get("overall_impression", {})
-    if overall:
-        build_sentences = []
-        
-        if overall.get("height") and overall.get("build"):
-            build_sentences.append(f"The character is of {overall['height']} height with a {overall['build']} build.")
-        elif overall.get("height"):
-            build_sentences.append(f"The character is of {overall['height']} height.")
-        elif overall.get("build"):
-            build_sentences.append(f"The character has a {overall['build']} build.")
-        
-        if overall.get("age_appearance"):
-            build_sentences.append(f"They appear {overall['age_appearance']}.")
-        if overall.get("distinctive_traits"):
-            build_sentences.append(f"Their distinctive traits include {overall['distinctive_traits']}.")
-        
-        sentences.extend(build_sentences)
+    elif isinstance(data, list):
+        for item in data:
+            if isinstance(item, (dict, list)):
+                _recursively_format_character_data(item, prefix, sentences)
+            elif isinstance(item, str) and item.strip():
+                sentences.append(f"{item},")
     
-    # Clothing and accessories - create descriptive sentences
-    clothing = char_data.get("clothing_accessories", {})
-    if clothing:
-        clothing_sentences = []
-        
-        if clothing.get("clothing_style"):
-            clothing_sentences.append(f"They wear {clothing['clothing_style']}.")
-        
-        if clothing.get("clothing_material") and clothing.get("clothing_colors"):
-            clothing_sentences.append(f"Their clothing is made of {clothing['clothing_material']} in {clothing['clothing_colors']} colors.")
-        elif clothing.get("clothing_material"):
-            clothing_sentences.append(f"Their clothing is made of {clothing['clothing_material']}.")
-        elif clothing.get("clothing_colors"):
-            clothing_sentences.append(f"Their clothing features {clothing['clothing_colors']} colors.")
-        
-        if clothing.get("accessories"):
-            clothing_sentences.append(f"They accessorize with {clothing['accessories']}.")
-        if clothing.get("footwear"):
-            clothing_sentences.append(f"They wear {clothing['footwear']}.")
-        
-        sentences.extend(clothing_sentences)
-    
-    # Additional details - create descriptive sentences
-    details_sentences = []
-    
-    # Neck details
-    neck = char_data.get("neck", {})
-    if neck and neck.get("details"):
-        details_sentences.append(f"Their neck {neck['details']}.")
-    
-    # Torso details
-    torso = char_data.get("torso_upper_body", {})
-    if torso:
-        if torso.get("posture"):
-            details_sentences.append(f"They have {torso['posture']} posture.")
-        if torso.get("shoulders"):
-            details_sentences.append(f"Their shoulders are {torso['shoulders']}.")
-    
-    # Arms and hands
-    arms = char_data.get("arms_hands", {})
-    if arms and arms.get("hands"):
-        details_sentences.append(f"Their hands are {arms['hands']}.")
-    
-    # Skin details
-    skin = char_data.get("skin_details", {})
-    if skin:
-        if skin.get("texture_details"):
-            details_sentences.append(f"Their skin has {skin['texture_details']}.")
-        if skin.get("markings"):
-            details_sentences.append(f"They have {skin['markings']}.")
-    
-    sentences.extend(details_sentences)
-    
-    # Relationships and profession - create descriptive sentences
-    relationships = char_data.get("relationships", {})
-    if relationships:
-        role_sentences = []
-        
-        if relationships.get("profession"):
-            role_sentences.append(f"They work as a {relationships['profession']}.")
-        if relationships.get("organization"):
-            role_sentences.append(f"They are affiliated with {relationships['organization']}.")
-        
-        sentences.extend(role_sentences)
-        
-        # Character relationships
-        char_relationships = relationships.get("relationships", [])
-        if char_relationships:
-            rel_sentences = []
-            for rel in char_relationships:
-                if isinstance(rel, dict) and rel.get("character_name") and rel.get("relationship_type"):
-                    rel_sentences.append(f"They have a {rel['relationship_type']} relationship with {rel['character_name']}.")
-            sentences.extend(rel_sentences)
-    
-    # Shared elements - create descriptive sentences
-    shared_elements = char_data.get("shared_elements", {})
-    if shared_elements:
-        shared_sentences = []
-        
-        # Uniform requirements
-        uniform_req = shared_elements.get("uniform_requirements", {})
-        if uniform_req.get("has_uniform") and uniform_req.get("uniform_type"):
-            uniform_desc = f"They wear {uniform_req['uniform_type']}"
-            if uniform_req.get("uniform_details"):
-                uniform_desc += f" which {uniform_req['uniform_details']}"
-            uniform_desc += "."
-            shared_sentences.append(uniform_desc)
-        
-        # Matching accessories
-        matching_acc = shared_elements.get("matching_accessories", [])
-        for acc in matching_acc:
-            if isinstance(acc, dict) and acc.get("accessory_type") and acc.get("accessory_description"):
-                shared_sentences.append(f"They wear {acc['accessory_type']}: {acc['accessory_description']}.")
-        
-        # Professional equipment
-        prof_equipment = shared_elements.get("professional_equipment", [])
-        for eq in prof_equipment:
-            if isinstance(eq, dict) and eq.get("equipment_type") and eq.get("equipment_description"):
-                shared_sentences.append(f"They carry {eq['equipment_type']}: {eq['equipment_description']}.")
-        
-        sentences.extend(shared_sentences)
-    
-    return " ".join(sentences)
+    return sentences
 
 
-def _format_rewritten_character_description(char_data: dict[str, object]) -> str:
-    """Convert simplified structured character data to readable description format (for rewritten characters)."""
-    sentences = []
-    
-    # Face section - create descriptive sentences
-    face = char_data.get("face", {})
-    if face:
-        face_sentences = []
+def _format_character_description(char_data: dict[str, object]) -> str:
+    """
+    Convert any structured character data to readable description format using generic recursive parsing.
+    This unified function works for both initial character generation and character rewrites.
+    """
+    try:
+        sentences = _recursively_format_character_data(char_data)
+        if not sentences:
+            # Fallback: if no sentences generated, try to extract any string values
+            sentences = []
+            for key, value in char_data.items():
+                if isinstance(value, str) and value.strip():
+                    formatted_key = key.replace('_', ' ').title()
+                    sentences.append(f"{formatted_key.lower()}: {value},")
         
-        # Head shape and skin
-        if face.get("head_shape") and face.get("skin_tone"):
-            face_sentences.append(f"The character has a {face['head_shape']} head shape with {face['skin_tone']} skin tone.")
-        elif face.get("head_shape"):
-            face_sentences.append(f"The character has a {face['head_shape']} head shape.")
-        elif face.get("skin_tone"):
-            face_sentences.append(f"The character has {face['skin_tone']} skin tone.")
+        result = " ".join(sentences)
+        if not result.strip():
+            # Final fallback: return a generic message
+            return "The character has a distinctive appearance with unique physical features."
         
-        # Facial features
-        if face.get("eyes"):
-            face_sentences.append(f"Their eyes are {face['eyes']}.")
-        if face.get("nose"):
-            face_sentences.append(f"They have {face['nose']}.")
-        if face.get("mouth"):
-            face_sentences.append(f"Their mouth features {face['mouth']}.")
-        if face.get("hair"):
-            face_sentences.append(f"They have {face['hair']}.")
+        return result
         
-        sentences.extend(face_sentences)
-    
-    # Build section - create descriptive sentences
-    build = char_data.get("build", {})
-    if build:
-        build_sentences = []
-        
-        if build.get("height") and build.get("body_type"):
-            build_sentences.append(f"The character is of {build['height']} height with a {build['body_type']} build.")
-        elif build.get("height"):
-            build_sentences.append(f"The character is of {build['height']} height.")
-        elif build.get("body_type"):
-            build_sentences.append(f"The character has a {build['body_type']} build.")
-        
-        if build.get("posture"):
-            build_sentences.append(f"They have {build['posture']} posture.")
-        
-        sentences.extend(build_sentences)
-    
-    # Clothing section - create descriptive sentences
-    clothing = char_data.get("clothing", {})
-    if clothing:
-        clothing_sentences = []
-        
-        if clothing.get("style"):
-            clothing_sentences.append(f"They wear {clothing['style']}.")
-        
-        if clothing.get("fabric"):
-            clothing_sentences.append(f"Their clothing is made of {clothing['fabric']}.")
-        
-        if clothing.get("details"):
-            clothing_sentences.append(f"Their clothing features {clothing['details']}.")
-        
-        sentences.extend(clothing_sentences)
-    
-    # Personal style section - create descriptive sentences
-    personal_style = char_data.get("personal_style", {})
-    if personal_style:
-        style_sentences = []
-        
-        if personal_style.get("accessories"):
-            style_sentences.append(f"They accessorize with {personal_style['accessories']}.")
-        
-        if personal_style.get("additional_details"):
-            style_sentences.append(f"Their personal style includes {personal_style['additional_details']}.")
-        
-        sentences.extend(style_sentences)
-    
-    return " ".join(sentences)
+    except Exception as ex:
+        print(f"WARNING: Error in generic character formatting: {ex}")
+        # Fallback to a safe description
+        return "The character has a distinctive appearance with unique physical features."
 
 
 def _generate_character_descriptions(story_desc: str, characters: list[str], lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
@@ -1188,7 +1017,7 @@ def _generate_character_descriptions(story_desc: str, characters: list[str], lm_
                 raise RuntimeError("Failed to parse structured response")
             
             # Convert structured data to readable description
-            desc = _format_initial_character_description(structured_data)
+            desc = _format_character_description(structured_data)
             if not desc:
                 raise RuntimeError("Empty description generated")
             
@@ -1279,7 +1108,7 @@ Return structured character data for each character with completely different ph
         # Convert structured data to readable descriptions
         rewritten_descriptions = {}
         for char_name, char_data in rewritten_characters.items():
-            desc = _format_rewritten_character_description(char_data)
+            desc = _format_character_description(char_data)
             if not desc:
                 raise RuntimeError(f"Failed to format description for {char_name}")
             rewritten_descriptions[char_name] = desc

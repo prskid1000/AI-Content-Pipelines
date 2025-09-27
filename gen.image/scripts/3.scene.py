@@ -65,7 +65,7 @@ FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 # Location Information Configuration
 USE_LOCATION_INFO = True  # Set to True to replace {{loc_1}} with location descriptions from 3.location.txt
 
-ART_STYLE = "3D Animation, often for computer-generated imagery, three-dimensional modeling, or virtual cinematography"
+ART_STYLE = "Realistic Anime"
 
 
 class ResumableState:
