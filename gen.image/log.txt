@@ -6,14 +6,31 @@ Starting LM Studio backend via lms CLI...
 Command: lms server start
 Success! Server is now running on port 1234
 Waiting for LM Studio to become ready (polling every 15s)...
-LM Studio is ready after 0.1s (attempt 1).
+LM Studio is ready after 0.0s (attempt 1).
 
-===== START D:\.comfyui\gen.image\scripts\1.story.py @ 2025-09-27 16:59:24 =====
+===== START D:\.comfyui\gen.image\scripts\1.story.py @ 2025-09-27 17:28:27 =====
 Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.image\output\tracking
-No existing checkpoint found - starting fresh
+Found existing checkpoint: D:\.comfyui\gen.image\output\tracking\1.story.state.json
+Progress: Story(✓) Locations(4/4) Characters(7/7) Rewrite(✗) Summaries(0/0)
 Extracted 4 unique locations: ['loc_1', 'loc_2', 'loc_3', 'loc_4']
 Detected order: [] first, then ()(())
 Running pre-validation checks...
 Characters match: 7 names ['female_clara_whitfield', 'female_landlady_mrs_hudmore', 'male_client_stranger', 'male_detective_holmes', 'male_doctor_watson', 'male_villain_scarred', 'male_villain_shorter']
 Pre-validation passed. Proceeding with generation...
-Generating story description from dialogue content...
+Using cached story description from checkpoint
+Expanding location descriptions: 4 total
+(1/4) loc_1: using cached description from checkpoint
+(2/4) loc_2: using cached description from checkpoint
+(3/4) loc_3: using cached description from checkpoint
+(4/4) loc_4: using cached description from checkpoint
+Wrote 4 expanded location entries to: D:\.comfyui\gen.image\input\3.location.txt
+Generating structured character descriptions: 7 total
+(1/7) female_clara_whitfield: using cached description from checkpoint
+(2/7) female_landlady_mrs_hudmore: using cached description from checkpoint
+(3/7) male_client_stranger: using cached description from checkpoint
+(4/7) male_detective_holmes: using cached description from checkpoint
+(5/7) male_doctor_watson: using cached description from checkpoint
+(6/7) male_villain_scarred: using cached description from checkpoint
+(7/7) male_villain_shorter: using cached description from checkpoint
+Rewriting character descriptions to make them look completely different...
+Rewriting all character descriptions using Qwen model: 7 characters

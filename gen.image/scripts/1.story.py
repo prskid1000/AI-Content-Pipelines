@@ -775,14 +775,14 @@ def _schema_character_rewrite() -> dict[str, object]:
                                             "hair": {"type": "string"}
                                         }
                                     },
-                                    # "build": {
-                                    #     "type": "object",
-                                    #     "properties": {
-                                    #         "height": {"type": "string"},
-                                    #         "body_type": {"type": "string"},
-                                    #         "posture": {"type": "string"}
-                                    #     }
-                                    # },
+                                    "build": {
+                                        "type": "object",
+                                        "properties": {
+                                            "height": {"type": "string"},
+                                            "body_type": {"type": "string"},
+                                            "posture": {"type": "string"}
+                                        }
+                                    },
                                     "clothing": {
                                         "type": "object",
                                         "properties": {

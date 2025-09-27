@@ -55,7 +55,7 @@ SAMPLING_STEPS = 9  # Number of sampling steps (higher = better quality, slower)
 USE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to disable
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
-ART_STYLE = "Realistic Anime"
+ART_STYLE = "3D Animation, often for computer-generated imagery, three-dimensional modeling, or virtual cinematography"
 
 class ThumbnailProcessor:
     def __init__(self, comfyui_url: str = "http://127.0.0.1:8188/", mode: str = "diffusion"):
