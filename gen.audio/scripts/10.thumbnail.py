@@ -13,7 +13,7 @@ import re
 import random
 
 # Random seed configuration
-USE_FIXED_SEED = True  # Set to False to use random seeds for each generation
+USE_RANDOM_SEED = False  # Set to True to use random seeds for each generation
 RANDOM_SEED = 333555666
 
 # Controls text generation method:
@@ -84,7 +84,7 @@ SAMPLING_STEPS = 9  # Number of sampling steps (higher = better quality, slower)
 USE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to disable
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
-ART_STYLE = "Anime"
+ART_STYLE = "Realistic Anime"
 
 class ThumbnailProcessor:
     def __init__(self, comfyui_url: str = "http://127.0.0.1:8188/", mode: str = "diffusion"):
@@ -358,7 +358,7 @@ class ThumbnailProcessor:
             workflow = self._update_saveimage_prefix(workflow, "thumbnail")
             
             # Set seed based on configuration
-            if USE_FIXED_SEED:
+            if not USE_RANDOM_SEED:
                 workflow = self._update_workflow_seed(workflow, RANDOM_SEED)
 
             # If not using overlay, generate multiple variants (like flux mode)
@@ -366,10 +366,10 @@ class ThumbnailProcessor:
                 saved_paths: list[str] = []
                 for idx in range(1, 6):
                     # Use fixed seed or random seed based on configuration
-                    if USE_FIXED_SEED:
-                        seed_value = RANDOM_SEED
-                    else:
+                    if USE_RANDOM_SEED:
                         seed_value = random.randint(1, 2**31 - 1)
+                    else:
+                        seed_value = RANDOM_SEED
                     workflow = self._update_workflow_seed(workflow, seed_value)
                     resp = requests.post(f"{self.comfyui_url}prompt", json={"prompt": workflow}, timeout=60)
                     if resp.status_code != 200:

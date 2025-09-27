@@ -88,13 +88,13 @@ USE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to d
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
 # Random Seed Configuration
-USE_RANDOM_SEED = True  # Set to True to use random seed, False to use fixed seed - > Use when correcting images by regenerating
+USE_RANDOM_SEED = False  # Set to True to use random seed, False to use fixed seed - > Use when correcting images by regenerating
 FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 
 # Location Information Configuration
 USE_LOCATION_INFO = True  # Set to True to replace {{loc_1}} with location descriptions from 3.location.txt
 
-ART_STYLE = "Anime"
+ART_STYLE = "Realistic Anime"
 
 
 class ResumableState:

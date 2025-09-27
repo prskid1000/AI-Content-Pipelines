@@ -29,7 +29,7 @@ IMAGE_OUTPUT_WIDTH = 256
 IMAGE_OUTPUT_HEIGHT = 1024
 
 # LoRA Configuration
-USE_LORA = True  # Set to False to disable LoRA usage in workflow
+USE_LORA = False  # Set to False to disable LoRA usage in workflow
 
 # Multiple LoRAs Configuration
 # Each LoRA will be applied in sequence (chained)
@@ -56,17 +56,17 @@ LORAS = [
 ]
 
 # Sampling Configuration
-SAMPLING_STEPS = 9  # Number of sampling steps (higher = better quality, slower)
+SAMPLING_STEPS = 25  # Number of sampling steps (higher = better quality, slower)
 
 # Negative Prompt Configuration
 USE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to disable
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
 # Random Seed Configuration
-USE_RANDOM_SEED = True  # Set to True to use random seeds, False to use fixed seed
+USE_RANDOM_SEED = False  # Set to True to use random seeds, False to use fixed seed
 FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 
-ART_STYLE = "Anime"
+ART_STYLE = "Realistic Anime"
 
 # Text overlay settings for character names
 USE_CHARACTER_NAME_OVERLAY = False  # Set to False to disable name overlay
