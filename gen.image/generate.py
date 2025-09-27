@@ -61,7 +61,7 @@ class TimedLogWriter:
 
 SCRIPTS = [
     #Speech
-    # "1.story.py",
+    "1.story.py",
     # "../gen.audio/scripts/1.character.py",
     # "../gen.audio/scripts/2.story.py",
     # "../gen.audio/scripts/3.transcribe.py",
