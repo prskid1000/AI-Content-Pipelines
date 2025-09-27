@@ -44,9 +44,38 @@ IMAGE_OUTPUT_HEIGHT = 720
 
 # LoRA Configuration
 USE_LORA = True  # Set to False to disable LoRA usage in workflow
-LORA_NAME = "FLUX.1-Turbo-Alpha.safetensors"  # LoRA file name
-LORA_STRENGTH_MODEL = 2.0  # LoRA strength for the model (0.0 - 2.0)
-LORA_STRENGTH_CLIP = 2.0   # LoRA strength for CLIP (0.0 - 2.0)
+
+# Multiple LoRAs Configuration
+# Each LoRA will be applied in sequence (chained)
+# You can bypass model or CLIP parts individually per LoRA
+# You can disable entire LoRAs by setting "enabled": False
+LORAS = [
+    {
+        "name": "FLUX.1-Turbo-Alpha.safetensors",
+        "strength_model": 2.0,    # Model strength (0.0 - 2.0)
+        "strength_clip": 2.0,     # CLIP strength (0.0 - 2.0)
+        "bypass_model": False,    # Set to True to bypass model part of this LoRA
+        "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
+        "enabled": True           # Set to False to disable this LoRA entirely
+    },
+    # Example: Add more LoRAs as needed:
+    # {
+    #     "name": "another_lora.safetensors",
+    #     "strength_model": 1.5,
+    #     "strength_clip": 1.0,
+    #     "bypass_model": False,  # Use model part
+    #     "bypass_clip": True,    # Skip CLIP part (CLIP strength = 0.0)
+    #     "enabled": True
+    # },
+    # {
+    #     "name": "style_lora.safetensors",
+    #     "strength_model": 0.0,  # Skip model part
+    #     "strength_clip": 1.2,   # Use CLIP part only
+    #     "bypass_model": True,   # Model strength = 0.0
+    #     "bypass_clip": False,   # Use CLIP strength
+    #     "enabled": True
+    # },
+]
 
 # Sampling Configuration
 SAMPLING_STEPS = 9  # Number of sampling steps (higher = better quality, slower)
@@ -55,7 +84,7 @@ SAMPLING_STEPS = 9  # Number of sampling steps (higher = better quality, slower)
 USE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to disable
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
-ART_STYLE = "Realistic Anime"
+ART_STYLE = "Anime"
 
 class ThumbnailProcessor:
     def __init__(self, comfyui_url: str = "http://127.0.0.1:8188/", mode: str = "diffusion"):
@@ -87,28 +116,12 @@ class ThumbnailProcessor:
         """Apply LoRA and sampling configuration to workflow."""
         # Apply LoRA settings
         if USE_LORA:
-            # Add LoRA loader node
-            workflow["43"] = {
-                "inputs": {
-                    "lora_name": LORA_NAME,
-                    "strength_model": LORA_STRENGTH_MODEL,
-                    "strength_clip": LORA_STRENGTH_CLIP,
-                    "model": self._find_node_by_class(workflow, "UnetLoaderGGUF") or ["1", 0],
-                    "clip": self._find_node_by_class(workflow, ["DualCLIPLoader", "TripleCLIPLoader"]) or ["2", 0]
-                },
-                "class_type": "LoraLoader",
-                "_meta": {"title": "Load LoRA"}
-            }
-            
-            # Update nodes to use LoRA outputs
-            self._update_node_connections(workflow, "KSampler", "model", ["43", 0])
-            self._update_node_connections(workflow, ["CLIPTextEncode", "CLIP Text Encode (Prompt)"], "clip", ["43", 1])
-            
+            # Handle multiple LoRAs in series
+            self._apply_loras(workflow)
             print("LoRA enabled in thumbnail workflow")
         else:
-            # Remove LoRA node if it exists
-            if "43" in workflow:
-                del workflow["43"]
+            # Remove all LoRA nodes if they exist
+            self._remove_all_lora_nodes(workflow)
             print("LoRA disabled in thumbnail workflow")
         
         # Apply sampling steps
@@ -119,10 +132,18 @@ class ThumbnailProcessor:
         if USE_NEGATIVE_PROMPT:
             # Create a new CLIPTextEncode node for negative prompt
             negative_node_id = "35"
+            
+            # Find the final CLIP output from LoRAs or use base CLIP
+            final_clip_output = self._find_node_by_class(workflow, ["DualCLIPLoader", "TripleCLIPLoader"]) or ["10", 0]
+            if USE_LORA:
+                enabled_loras = [lora for lora in LORAS if lora.get("enabled", True)]
+                if enabled_loras:
+                    final_clip_output = [f"lora_{len(enabled_loras)}", 1]
+            
             workflow[negative_node_id] = {
                 "inputs": {
                     "text": NEGATIVE_PROMPT,
-                    "clip": self._find_node_by_class(workflow, ["DualCLIPLoader", "TripleCLIPLoader"]) or ["10", 0]
+                    "clip": final_clip_output
                 },
                 "class_type": "CLIPTextEncode",
                 "_meta": {
@@ -141,6 +162,77 @@ class ThumbnailProcessor:
             print("Negative prompt disabled - using ConditioningZeroOut")
         
         return workflow
+    
+    def _apply_loras(self, workflow: dict) -> None:
+        """Apply LoRAs in series with individual bypass options."""
+        enabled_loras = [lora for lora in LORAS if lora.get("enabled", True)]
+        
+        if not enabled_loras:
+            print("No enabled LoRAs found in LORAS configuration")
+            return
+        
+        print(f"Applying {len(enabled_loras)} LoRAs in series...")
+        
+        # Get initial model and clip connections
+        model_input = self._find_node_by_class(workflow, "UnetLoaderGGUF") or ["1", 0]
+        clip_input = self._find_node_by_class(workflow, ["DualCLIPLoader", "TripleCLIPLoader"]) or ["2", 0]
+        
+        last_model_output = model_input
+        last_clip_output = clip_input
+        
+        # Apply each LoRA in series
+        for i, lora_config in enumerate(enabled_loras):
+            lora_node_id = f"lora_{i + 1}"
+            
+            # Create LoRA node inputs
+            lora_inputs = {
+                "lora_name": lora_config["name"],
+                "model": last_model_output,
+                "clip": last_clip_output
+            }
+            
+            # Apply strength settings with bypass options
+            if lora_config.get("bypass_model", False):
+                lora_inputs["strength_model"] = 0.0
+                print(f"  LoRA {i + 1} ({lora_config['name']}): Model bypassed")
+            else:
+                lora_inputs["strength_model"] = lora_config.get("strength_model", 1.0)
+                print(f"  LoRA {i + 1} ({lora_config['name']}): Model strength {lora_inputs['strength_model']}")
+            
+            if lora_config.get("bypass_clip", False):
+                lora_inputs["strength_clip"] = 0.0
+                print(f"  LoRA {i + 1} ({lora_config['name']}): CLIP bypassed")
+            else:
+                lora_inputs["strength_clip"] = lora_config.get("strength_clip", 1.0)
+                print(f"  LoRA {i + 1} ({lora_config['name']}): CLIP strength {lora_inputs['strength_clip']}")
+            
+            # Create LoRA node
+            workflow[lora_node_id] = {
+                "inputs": lora_inputs,
+                "class_type": "LoraLoader",
+                "_meta": {"title": f"Load LoRA {i + 1}: {lora_config['name']}"}
+            }
+            
+            # Update connections for next LoRA in chain
+            last_model_output = [lora_node_id, 0]
+            last_clip_output = [lora_node_id, 1]
+        
+        # Connect final LoRA outputs to workflow nodes
+        self._update_node_connections(workflow, "KSampler", "model", last_model_output)
+        self._update_node_connections(workflow, ["CLIPTextEncode", "CLIP Text Encode (Prompt)"], "clip", last_clip_output)
+        
+        print(f"LoRAs chain completed with {len(enabled_loras)} LoRAs")
+    
+    def _remove_all_lora_nodes(self, workflow: dict) -> None:
+        """Remove all LoRA nodes from workflow."""
+        # Remove LoRA nodes (lora_1, lora_2, etc.)
+        nodes_to_remove = []
+        for node_id in workflow.keys():
+            if node_id.startswith("lora_"):
+                nodes_to_remove.append(node_id)
+        
+        for node_id in nodes_to_remove:
+            del workflow[node_id]
     
     def _find_node_by_class(self, workflow: dict, class_types: str | list[str]) -> list | None:
         """Find a node by its class type and return its connection."""
