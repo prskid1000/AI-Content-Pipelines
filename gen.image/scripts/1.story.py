@@ -883,7 +883,7 @@ def _build_location_expansion_prompt(filtered_story_content: str, location_id: s
     )
 
 
-def _call_lm_studio(system_prompt: str, lm_studio_url: str, model: str, user_payload: str = "", response_format: dict[str, object] | None = None) -> str:
+def _call_lm_studio(system_prompt: str, lm_studio_url: str, model: str, user_payload: str = "", response_format: dict[str, object] | None = None, temperature: float = 1.0) -> str:
     headers = {"Content-Type": "application/json"}
     messages = [{"role": "system", "content": system_prompt}]
     if user_payload:
@@ -892,7 +892,7 @@ def _call_lm_studio(system_prompt: str, lm_studio_url: str, model: str, user_pay
     payload = {
         "model": model,
         "messages": messages,
-        "temperature": 1,
+        "temperature": temperature,
         "max_tokens": 8192,
         "stream": False,
     }
@@ -1318,7 +1318,7 @@ def _generate_character_summaries(name_to_desc: dict[str, str], lm_studio_url: s
                 "detailed_description": detailed_desc
             }, ensure_ascii=False)
             
-            raw = _call_lm_studio(prompt, lm_studio_url, MODEL_CHARACTER_SUMMARY, user_payload, _schema_character_summary())
+            raw = _call_lm_studio(prompt, lm_studio_url, MODEL_CHARACTER_SUMMARY, user_payload, _schema_character_summary(), temperature=0.1)
             structured_data = _parse_structured_response(raw)
             
             if not structured_data:
