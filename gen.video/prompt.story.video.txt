@@ -18,16 +18,16 @@ CONSTRAINTS:
 DIALOGUE-SCENE FORMAT:
 
 [male_doctor_watson] It was calm morning....
-(scene_1.1) {{loc_1, A British, Victorian, Living Room, it has a large sofa...}}, {Sunny Winter Morning};((male_doctor_watson)){Neutral} {Sitting on sofa}{Reading newspaper};
-(motion_1.1) ((male_doctor_watson)) {moving eyes, and hands with newspaper};
+(scene_1.1) {{loc_1, A British, Victorian, Living Room, it has a large sofa...}}, {Sunny Winter Morning};((male_doctor_watson)){Neutral} {Sitting on sofa}{Reading newspaper};((male_detective_holmes)){Neutral} {Sitting on sofa}{Reading books};
+(motion_1.1) ((male_doctor_watson)) {moving eyes, and hands with newspaper};((male_detective_holmes)) {moving eyes, and hands with books};
 
 [male_detective_holmes] Look Watson.... 
-(scene_1.2) {{loc_1}}, {Sunny Winter Morning}; ((male_detective_holmes)) {Surprise} {Standing by window}, {Looking outside};
-(motion_1.1) ((male_detective_holmes)) {pointing finger towards window};
+(scene_1.2) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)){Neutral} {Sitting on sofa}{Reading newspaper};((male_detective_holmes)){Neutral} {Standing near dinning table}{Drinking water};
+(motion_1.1) ((male_doctor_watson)) {moving eyes, and hands with newspaper}; ((male_detective_holmes)) {pointing finger towards window};
 
 ....
 
 [gender_profession_actor_name] ....dialogue_i.j; start in same line as of [].
-(scene_i.j) {{loc_k, Description of aleast 190 words, including details of all visible objects only like furniture, wall, windows, building, crowd, animals, birds, tree, etc, in the scene}}, {Weather/Season/Time};((gender_profession_actor_name - Dialogue Speaker[]))     
+(scene_i.j) {{loc_k, Description of aleast 190 words, including details of all visible objects only like furniture, wall, windows, building, crowd, animals, birds, tree, etc, in the scene}}, {Weather/Season/Time};((gender_profession_actor_name))     
 {Facial Expression}, {Relative Location}, {Primary Motion-Less Action};start in same line as of ().
 (motion_i.j) ((gender_profession_actor_name)) {Precise Movments} or {Precise Movements of Objects};start in same line as of ()

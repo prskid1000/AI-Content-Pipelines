@@ -7,6 +7,10 @@ import argparse
 import requests
 import random
 from PIL import Image
+from pathlib import Path
+
+# Feature flag to enable/disable resumable mode
+ENABLE_RESUMABLE_MODE = True
 
 # Image resizing configuration (characters only)
 # Character image dimensions: 512x768 (width x height) - Better aspect ratio for stitching
@@ -56,6 +60,80 @@ FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 USE_LOCATION_INFO = True  # Set to True to replace {{loc_1}} with location descriptions from 3.location.txt
 
 ART_STYLE = "Realistic Anime"
+
+
+class ResumableState:
+    """Manages resumable state for expensive scene generation operations."""
+    
+    def __init__(self, checkpoint_dir: str, script_name: str, force_start: bool = False):
+        self.checkpoint_dir = Path(checkpoint_dir)
+        self.checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        self.state_file = self.checkpoint_dir / f"{script_name}.state.json"
+        
+        # If force_start is True, remove existing checkpoint and start fresh
+        if force_start and self.state_file.exists():
+            try:
+                self.state_file.unlink()
+                print("Force start enabled - removed existing checkpoint")
+            except Exception as ex:
+                print(f"WARNING: Failed to remove checkpoint for force start: {ex}")
+        
+        self.state = self._load_state()
+    
+    def _load_state(self) -> dict:
+        """Load state from checkpoint file."""
+        if self.state_file.exists():
+            try:
+                with open(self.state_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as ex:
+                print(f"WARNING: Failed to load checkpoint file: {ex}")
+        
+        return {
+            "scenes": {
+                "completed": [],
+                "results": {}
+            }
+        }
+    
+    def _save_state(self):
+        """Save current state to checkpoint file."""
+        try:
+            with open(self.state_file, 'w', encoding='utf-8') as f:
+                json.dump(self.state, f, indent=2, ensure_ascii=False)
+        except Exception as ex:
+            print(f"WARNING: Failed to save checkpoint: {ex}")
+    
+    def is_scene_complete(self, scene_id: str) -> bool:
+        """Check if scene generation is complete."""
+        return scene_id in self.state["scenes"]["completed"]
+    
+    def get_scene_result(self, scene_id: str) -> dict:
+        """Get scene generation result."""
+        return self.state["scenes"]["results"].get(scene_id, {})
+    
+    def set_scene_result(self, scene_id: str, result: dict):
+        """Set scene generation result and mark as complete."""
+        self.state["scenes"]["results"][scene_id] = result
+        if scene_id not in self.state["scenes"]["completed"]:
+            self.state["scenes"]["completed"].append(scene_id)
+        self._save_state()
+    
+    def cleanup(self):
+        """Clean up checkpoint files when all operations are complete."""
+        try:
+            if self.state_file.exists():
+                self.state_file.unlink()
+                print("Checkpoint file cleaned up successfully")
+        except Exception as ex:
+            print(f"WARNING: Failed to cleanup checkpoint: {ex}")
+    
+    def get_progress_summary(self) -> str:
+        """Get a summary of current progress."""
+        completed = len(self.state["scenes"]["completed"])
+        total = len(self.state["scenes"]["results"]) + len([k for k in self.state["scenes"]["results"].keys() if k not in self.state["scenes"]["completed"]])
+        
+        return f"Progress: Scenes({completed}/{total})"
 
 
 class SceneGenerator:
@@ -632,9 +710,18 @@ All Non-Living Objects mentioned in Scene text-description must be present in il
         print(f"Text prompt: {text_prompt}")
         return workflow
 
-    def _generate_scene_image(self, scene_id: str, scene_description: str, character_names: list[str], master_prompt: str, characters_data: dict[str, str], locations_data: dict[str, str] = None) -> str | None:
+    def _generate_scene_image(self, scene_id: str, scene_description: str, character_names: list[str], master_prompt: str, characters_data: dict[str, str], locations_data: dict[str, str] = None, resumable_state=None) -> str | None:
         """Generate a single scene image using ComfyUI."""
         try:
+            # Check if resumable and already complete
+            if resumable_state and resumable_state.is_scene_complete(scene_id):
+                cached_result = resumable_state.get_scene_result(scene_id)
+                if cached_result and os.path.exists(cached_result.get('path', '')):
+                    print(f"Using cached scene image: {scene_id}")
+                    return cached_result['path']
+                elif cached_result:
+                    print(f"Cached file missing, regenerating: {scene_id}")
+            
             print(f"Generating scene: {scene_id} with characters: {', '.join(character_names)}")
             workflow = self._build_dynamic_workflow(scene_id, scene_description, character_names, master_prompt, characters_data, locations_data)
             if not workflow:
@@ -671,6 +758,17 @@ All Non-Living Objects mentioned in Scene text-description must be present in il
             final_path = os.path.join(self.final_output_dir, f"{scene_id}.png")
             shutil.copy2(generated_image, final_path)
             print(f"Saved: {final_path}")
+            
+            # Save to checkpoint if resumable mode enabled
+            if resumable_state:
+                result = {
+                    'path': final_path,
+                    'scene_id': scene_id,
+                    'scene_description': scene_description,
+                    'character_names': character_names
+                }
+                resumable_state.set_scene_result(scene_id, result)
+            
             return final_path
 
         except Exception as e:
@@ -701,7 +799,7 @@ All Non-Living Objects mentioned in Scene text-description must be present in il
             return set()
         return {f[:-4] for f in os.listdir(self.final_output_dir) if f.endswith('.png')}
 
-    def generate_all_scenes(self, force_regenerate: bool = False) -> dict[str, str]:
+    def generate_all_scenes(self, force_regenerate: bool = False, resumable_state=None) -> dict[str, str]:
         """Generate images for all scenes."""
         scenes = self._read_scene_data()
         characters = self._read_character_data()
@@ -717,7 +815,15 @@ All Non-Living Objects mentioned in Scene text-description must be present in il
         elif USE_LOCATION_INFO:
             print("WARNING: Location info enabled but no location data found")
 
-        completed_scenes = self._get_completed_scenes()
+        # Use resumable state if available, otherwise fall back to file-based checking
+        if resumable_state:
+            completed_scenes = set()
+            for scene_id in scenes.keys():
+                if resumable_state.is_scene_complete(scene_id):
+                    completed_scenes.add(scene_id)
+        else:
+            completed_scenes = self._get_completed_scenes()
+        
         if not force_regenerate and completed_scenes:
             print(f"Found {len(completed_scenes)} completed scenes: {sorted(completed_scenes)}")
 
@@ -742,7 +848,7 @@ All Non-Living Objects mentioned in Scene text-description must be present in il
                 print(f"WARNING: No valid characters found in {scene_id}, skipping...")
                 continue
                 
-            output_path = self._generate_scene_image(scene_id, scene_description, valid_characters, master_prompt, characters, locations)
+            output_path = self._generate_scene_image(scene_id, scene_description, valid_characters, master_prompt, characters, locations, resumable_state)
             if output_path:
                 results[scene_id] = output_path
                 print(f"[OK] Generated: {scene_id}")
@@ -756,6 +862,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Generate scene images using ComfyUI")
     parser.add_argument("--force", "-f", action="store_true", help="Force regeneration of all scenes")
     parser.add_argument("--list-completed", "-l", action="store_true", help="List completed scenes")
+    parser.add_argument("--force-start", action="store_true",
+                       help="Force start from beginning, ignoring any existing checkpoint files")
     args = parser.parse_args()
     
     generator = SceneGenerator()
@@ -765,14 +873,34 @@ def main() -> int:
         print(f"Completed scenes ({len(completed)}): {sorted(completed)}" if completed else "No completed scenes")
         return 0
     
+    # Initialize resumable state if enabled
+    resumable_state = None
+    if ENABLE_RESUMABLE_MODE:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        checkpoint_dir = os.path.normpath(os.path.join(base_dir, "../output/tracking"))
+        script_name = Path(__file__).stem  # Automatically get script name without .py extension
+        resumable_state = ResumableState(checkpoint_dir, script_name, args.force_start)
+        print(f"Resumable mode enabled - checkpoint directory: {checkpoint_dir}")
+        if resumable_state.state_file.exists():
+            print(f"Found existing checkpoint: {resumable_state.state_file}")
+            print(resumable_state.get_progress_summary())
+        else:
+            print("No existing checkpoint found - starting fresh")
+    
     start_time = time.time()
-    results = generator.generate_all_scenes(force_regenerate=args.force)
+    results = generator.generate_all_scenes(force_regenerate=args.force, resumable_state=resumable_state)
     elapsed = time.time() - start_time
     
     if results:
         print(f"\nGenerated {len(results)} scenes in {elapsed:.2f}s:")
         for scene_id, path in results.items():
             print(f"  {scene_id}: {path}")
+        
+        # Clean up checkpoint files if resumable mode was used and everything completed successfully
+        if resumable_state:
+            print("All operations completed successfully")
+            print("Final progress:", resumable_state.get_progress_summary())
+            resumable_state.cleanup()
     else:
         print("No new scenes generated")
     return 0

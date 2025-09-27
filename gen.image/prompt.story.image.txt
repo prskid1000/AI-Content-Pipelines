@@ -17,13 +17,13 @@ CONSTRAINTS:
 DIALOGUE-SCENE FORMAT:
 
 [male_doctor_watson] It was calm morning....
-(scene_1.1) {{loc_1, A British, Victorian, Living Room, it has a large sofa...}}, {Sunny Winter Morning};((male_doctor_watson)){Neutral} {Sitting on sofa}{Reading newspaper};
+(scene_1.1) {{loc_1, A British, Victorian, Living Room, it has a large sofa...}}, {Sunny Winter Morning};((male_doctor_watson)){Neutral} {Sitting on sofa}{Reading newspaper};((male_detective_holmes)){Neutral} {Sitting on sofa}{Reading booking};
 
 [male_detective_holmes] Look Watson.... 
-(scene_1.2) {{loc_1}}, {Sunny Winter Morning};((male_detective_holmes)) {Surprise} {Standing by window}, {Looking outside};
+(scene_1.2) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)){Neutral} {Sitting on sofa}{Reading newspaper};((male_detective_holmes)){Neutral} {Standing near dinning table}{Drinking water};
 
 ....
 
 [gender_profession_actor_name] ....dialogue_i.j; start in same line as of [].
-(scene_i.j) {{loc_k, Description of aleast 190 words, including details of all visible objects only like furniture, wall, windows, building, crowd, animals, birds, tree, etc, in the scene}}, {Weather/Season/Time};((gender_profession_actor_name - Dialogue Speaker[]))     
+(scene_i.j) {{loc_k, Description of aleast 190 words, including details of all visible objects only like furniture, wall, windows, building, crowd, animals, birds, tree, etc, in the scene}}, {Weather/Season/Time};((gender_profession_actor_name))     
 {Facial Expression}, {Relative Location}, {Primary Motion-Less Action};start in same line as of ().

@@ -6,10 +6,86 @@ import re
 from typing import List, Dict, Any
 from functools import partial
 import builtins as _builtins
+from pathlib import Path
 print = partial(_builtins.print, flush=True)
 
 # Model constants for easy switching
 MODEL_TIMING_GENERATION = "qwen/qwen3-14b"  # Model for timing SFX generation
+
+# Feature flags
+ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
+
+# Resumable state management
+class ResumableState:
+    """Manages resumable state for expensive LLM operations."""
+    
+    def __init__(self, checkpoint_dir: str, script_name: str, force_start: bool = False):
+        self.checkpoint_dir = Path(checkpoint_dir)
+        self.checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        self.state_file = self.checkpoint_dir / f"{script_name}.state.json"
+        
+        # If force_start is True, remove existing checkpoint and start fresh
+        if force_start and self.state_file.exists():
+            try:
+                self.state_file.unlink()
+                print("Force start enabled - removed existing checkpoint")
+            except Exception as ex:
+                print(f"WARNING: Failed to remove checkpoint for force start: {ex}")
+        
+        self.state = self._load_state()
+    
+    def _load_state(self) -> dict:
+        """Load state from checkpoint file."""
+        if self.state_file.exists():
+            try:
+                with open(self.state_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as ex:
+                print(f"WARNING: Failed to load checkpoint state: {ex}")
+        return {
+            "timing_entries": {"completed": [], "results": {}},
+            "metadata": {"start_time": time.time(), "last_update": time.time()}
+        }
+    
+    def _save_state(self):
+        """Save current state to checkpoint file."""
+        try:
+            self.state["metadata"]["last_update"] = time.time()
+            with open(self.state_file, 'w', encoding='utf-8') as f:
+                json.dump(self.state, f, indent=2, ensure_ascii=False)
+        except Exception as ex:
+            print(f"WARNING: Failed to save checkpoint state: {ex}")
+    
+    def is_timing_entry_complete(self, entry_key: str) -> bool:
+        """Check if specific timing entry is complete."""
+        return entry_key in self.state["timing_entries"]["completed"]
+    
+    def get_timing_entry(self, entry_key: str) -> Dict[str, Any] | None:
+        """Get cached timing entry if available."""
+        return self.state["timing_entries"]["results"].get(entry_key)
+    
+    def set_timing_entry(self, entry_key: str, timing_info: Dict[str, Any]):
+        """Set timing entry and mark as complete."""
+        if entry_key not in self.state["timing_entries"]["completed"]:
+            self.state["timing_entries"]["completed"].append(entry_key)
+        self.state["timing_entries"]["results"][entry_key] = timing_info
+        self._save_state()
+    
+    def cleanup(self):
+        """Clean up checkpoint files after successful completion."""
+        try:
+            if self.state_file.exists():
+                self.state_file.unlink()
+                print("Cleaned up checkpoint files")
+        except Exception as ex:
+            print(f"WARNING: Failed to cleanup checkpoint files: {ex}")
+    
+    def get_progress_summary(self) -> str:
+        """Get a summary of current progress."""
+        timing_done = len(self.state["timing_entries"]["completed"])
+        timing_total = len(self.state["timing_entries"]["results"]) + len([k for k in self.state["timing_entries"]["results"].keys() if k not in self.state["timing_entries"]["completed"]])
+        
+        return f"Progress: Timing Entries({timing_done}/{timing_total})"
 
 class TimingSFXGenerator:
     def __init__(self, lm_studio_url="http://localhost:1234/v1", model=MODEL_TIMING_GENERATION, use_json_schema=True):
@@ -445,7 +521,7 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
         except Exception as e:
             raise Exception(f"Failed to save SFX file: {str(e)}")
     
-    def process_timing(self, timing_filename="../input/3.timing.txt") -> bool:
+    def process_timing(self, timing_filename="../input/3.timing.txt", resumable_state: ResumableState | None = None) -> bool:
         """Main processing function - process timing and timeline together"""
         print("🚀 Starting Timing SFX Generation...")
         print(f"📁 Reading timing from: {timing_filename}")
@@ -485,6 +561,29 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
             timing_entry = timing_entries[i]
             timeline_entry = timeline_entries[i]
             
+            # Create unique key for this entry pair
+            entry_key = f"{timing_entry['seconds']}:{timing_entry['description']}:{timeline_entry['description'][:50]}"
+            
+            # Check if resumable and already complete
+            if resumable_state and resumable_state.is_timing_entry_complete(entry_key):
+                cached_timing_info = resumable_state.get_timing_entry(entry_key)
+                if cached_timing_info:
+                    print(f"\n📝 Sound effect {i+1}/{len(timing_entries)}: using cached timing from checkpoint")
+                    print(f"   🎬 Transcript: {timeline_entry['description'][:60]}...")
+                    print(f"   🎵 SFX: {timing_entry['description']} ({timing_entry['seconds']}s)")
+                    print(f"🎯 Original: {timing_entry['seconds']}s, Realistic: {cached_timing_info['duration']:.2f}s, Position: {cached_timing_info['position']:.2f}")
+                    
+                    # Split entry into silence + sound + silence based on cached position
+                    split_entries = self.split_entry_into_sound_and_silence(timing_entry, cached_timing_info)
+                    
+                    # Add to all entries and track original entry for each split
+                    for split_entry in split_entries:
+                        all_sfx_entries.append(split_entry)
+                        original_entries.append(timing_entry)  # Track original entry for each split
+                        print(f"🎵 {split_entry['seconds']:.3f}s - {split_entry['description']}")
+                    
+                    continue
+            
             # Skip silence entries - only process actual sound effects
             if timing_entry['description'].lower().strip() == 'silence':
                 print(f"⏭️  Skipping silence entry {i+1}: {timing_entry['seconds']}s")
@@ -518,6 +617,10 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
                     }
                 
                 print(f"🎯 Original: {timing_entry['seconds']}s, Realistic: {timing_info['duration']:.2f}s, Position: {timing_info['position']:.2f}")
+                
+                # Save to checkpoint if resumable mode enabled
+                if resumable_state:
+                    resumable_state.set_timing_entry(entry_key, timing_info)
                 
                 # Split entry into silence + sound + silence based on position
                 split_entries = self.split_entry_into_sound_and_silence(timing_entry, timing_info)
@@ -561,16 +664,19 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
 def main():
     """Main function"""
     import sys
+    import argparse
     
-    # Check command line arguments
-    timing_file = "../input/3.timing.txt"
-    if len(sys.argv) > 1:
-        timing_file = sys.argv[1]
+    parser = argparse.ArgumentParser(description="Generate timing SFX for sound effects")
+    parser.add_argument("timing_file", nargs="?", default="../input/3.timing.txt",
+                       help="Path to timing file (default: ../input/3.timing.txt)")
+    parser.add_argument("--force-start", action="store_true",
+                       help="Force start from beginning, ignoring any existing checkpoint files")
+    args = parser.parse_args()
     
     # Check if timing file exists
-    if not os.path.exists(timing_file):
-        print(f"❌ Timing file '{timing_file}' not found")
-        print("Usage: python 6.timing.py [timing_file]")
+    if not os.path.exists(args.timing_file):
+        print(f"❌ Timing file '{args.timing_file}' not found")
+        print("Usage: python 6.timing.py [timing_file] [--force-start]")
         return 1
     
     # Check if timeline file exists
@@ -579,15 +685,36 @@ def main():
         print("Both ../input/3.timing.txt and ../input/2.timeline.txt are required")
         return 1
     
+    # Initialize resumable state if enabled
+    resumable_state = None
+    if ENABLE_RESUMABLE_MODE:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        checkpoint_dir = os.path.normpath(os.path.join(base_dir, "../output/tracking"))
+        script_name = Path(__file__).stem  # Automatically get script name without .py extension
+        resumable_state = ResumableState(checkpoint_dir, script_name, args.force_start)
+        print(f"Resumable mode enabled - checkpoint directory: {checkpoint_dir}")
+        if resumable_state.state_file.exists():
+            print(f"Found existing checkpoint: {resumable_state.state_file}")
+            print(resumable_state.get_progress_summary())
+        else:
+            print("No existing checkpoint found - starting fresh")
+    
     # Create generator and process
     generator = TimingSFXGenerator()
     
     start_time = time.time()
-    success = generator.process_timing(timing_file)
+    success = generator.process_timing(args.timing_file, resumable_state)
     end_time = time.time()
     
     if success:
         print(f"⏱️  Total processing time: {end_time - start_time:.2f} seconds")
+        
+        # Clean up checkpoint files if resumable mode was used and everything completed successfully
+        if resumable_state:
+            print("All operations completed successfully")
+            print("Final progress:", resumable_state.get_progress_summary())
+            resumable_state.cleanup()
+        
         return 0
     else:
         print("❌ Processing failed")

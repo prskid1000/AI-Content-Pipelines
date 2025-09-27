@@ -9,6 +9,9 @@ import subprocess
 from pathlib import Path
 from typing import List, Dict, Optional, Tuple
 
+# Feature flag to enable/disable resumable mode
+ENABLE_RESUMABLE_MODE = True
+
 # Video configuration constants
 VIDEO_WIDTH = 1024
 VIDEO_HEIGHT = 576
@@ -19,6 +22,80 @@ ENABLE_SCENE = True
 ENABLE_LOCATION = True  # Set to True to replace {{loc_1}} with location descriptions from 3.location.txt
 
 ART_STYLE = "Anime"
+
+
+class ResumableState:
+    """Manages resumable state for expensive video animation operations."""
+    
+    def __init__(self, checkpoint_dir: str, script_name: str, force_start: bool = False):
+        self.checkpoint_dir = Path(checkpoint_dir)
+        self.checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        self.state_file = self.checkpoint_dir / f"{script_name}.state.json"
+        
+        # If force_start is True, remove existing checkpoint and start fresh
+        if force_start and self.state_file.exists():
+            try:
+                self.state_file.unlink()
+                print("Force start enabled - removed existing checkpoint")
+            except Exception as ex:
+                print(f"WARNING: Failed to remove checkpoint for force start: {ex}")
+        
+        self.state = self._load_state()
+    
+    def _load_state(self) -> dict:
+        """Load state from checkpoint file."""
+        if self.state_file.exists():
+            try:
+                with open(self.state_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as ex:
+                print(f"WARNING: Failed to load checkpoint file: {ex}")
+        
+        return {
+            "videos": {
+                "completed": [],
+                "results": {}
+            }
+        }
+    
+    def _save_state(self):
+        """Save current state to checkpoint file."""
+        try:
+            with open(self.state_file, 'w', encoding='utf-8') as f:
+                json.dump(self.state, f, indent=2, ensure_ascii=False)
+        except Exception as ex:
+            print(f"WARNING: Failed to save checkpoint: {ex}")
+    
+    def is_video_complete(self, scene_name: str) -> bool:
+        """Check if video animation is complete."""
+        return scene_name in self.state["videos"]["completed"]
+    
+    def get_video_result(self, scene_name: str) -> dict:
+        """Get video animation result."""
+        return self.state["videos"]["results"].get(scene_name, {})
+    
+    def set_video_result(self, scene_name: str, result: dict):
+        """Set video animation result and mark as complete."""
+        self.state["videos"]["results"][scene_name] = result
+        if scene_name not in self.state["videos"]["completed"]:
+            self.state["videos"]["completed"].append(scene_name)
+        self._save_state()
+    
+    def cleanup(self):
+        """Clean up checkpoint files when all operations are complete."""
+        try:
+            if self.state_file.exists():
+                self.state_file.unlink()
+                print("Checkpoint file cleaned up successfully")
+        except Exception as ex:
+            print(f"WARNING: Failed to cleanup checkpoint: {ex}")
+    
+    def get_progress_summary(self) -> str:
+        """Get a summary of current progress."""
+        completed = len(self.state["videos"]["completed"])
+        total = len(self.state["videos"]["results"]) + len([k for k in self.state["videos"]["results"].keys() if k not in self.state["videos"]["completed"]])
+        
+        return f"Progress: Videos({completed}/{total})"
 
 
 def print_flush(*args, **kwargs):
@@ -1015,13 +1092,27 @@ class VideoAnimator:
         
         return workflow
 
-    def _generate_video(self, scene_id: str, scene_description: str, image_path: str, duration: float = None, characters_data: dict[str, str] = None, motion_data: dict[str, str] = None, locations_data: dict[str, str] = None) -> List[str] | None:
+    def _generate_video(self, scene_id: str, scene_description: str, image_path: str, duration: float = None, characters_data: dict[str, str] = None, motion_data: dict[str, str] = None, locations_data: dict[str, str] = None, resumable_state=None) -> List[str] | None:
         """Generate video(s) from a scene image using ComfyUI with frame continuity between chunks.
         
         Returns:
             List of generated video file paths, or None if failed
         """
         try:
+            # Check if resumable and already complete
+            if resumable_state and resumable_state.is_video_complete(scene_id):
+                cached_result = resumable_state.get_video_result(scene_id)
+                if cached_result and cached_result.get('paths'):
+                    # Check if all cached video files still exist
+                    all_exist = all(os.path.exists(path) for path in cached_result['paths'])
+                    if all_exist:
+                        print(f"Using cached video: {scene_id}")
+                        return cached_result['paths']
+                    else:
+                        print(f"Cached video files missing, regenerating: {scene_id}")
+                elif cached_result:
+                    print(f"Cached result missing, regenerating: {scene_id}")
+            
             print(f"Generating video for scene: {scene_id}")
             if duration is not None:
                 frame_count = self._calculate_frame_count(duration)
@@ -1123,10 +1214,45 @@ class VideoAnimator:
                             print(f"🗑️ Cleaned up chunk: {os.path.basename(chunk_path)}")
                         except OSError as e:
                             print(f"⚠️ Could not remove chunk {os.path.basename(chunk_path)}: {e}")
+                    
+                    # Save to checkpoint if resumable mode enabled
+                    if resumable_state:
+                        result = {
+                            'paths': [merged_path],
+                            'scene_id': scene_id,
+                            'scene_description': scene_description,
+                            'duration': duration,
+                            'frame_count': frame_count
+                        }
+                        resumable_state.set_video_result(scene_id, result)
+                    
                     return [merged_path]  # Return the merged file
                 else:
                     print(f"⚠️ Failed to merge chunks for {scene_id}, keeping individual chunks")
+                    
+                    # Save to checkpoint if resumable mode enabled
+                    if resumable_state:
+                        result = {
+                            'paths': generated_videos,
+                            'scene_id': scene_id,
+                            'scene_description': scene_description,
+                            'duration': duration,
+                            'frame_count': frame_count
+                        }
+                        resumable_state.set_video_result(scene_id, result)
+                    
                     return generated_videos  # Return individual chunks if merge failed
+            
+            # Save to checkpoint if resumable mode enabled (single video case)
+            if resumable_state and generated_videos:
+                result = {
+                    'paths': generated_videos,
+                    'scene_id': scene_id,
+                    'scene_description': scene_description,
+                    'duration': duration,
+                    'frame_count': frame_count
+                }
+                resumable_state.set_video_result(scene_id, result)
             
             return generated_videos if generated_videos else None
 
@@ -1207,7 +1333,7 @@ class VideoAnimator:
         print_flush("✅ Scene contiguity validation passed")
         return True
 
-    def animate_all_scenes(self, force_regenerate: bool = False) -> dict[str, str]:
+    def animate_all_scenes(self, force_regenerate: bool = False, resumable_state=None) -> dict[str, str]:
         """Convert unique scenes to videos using timeline script as single source of truth."""
         print_flush("🎬 Starting scene animation process...")
         print_flush(f"📁 Timeline:  {self.timeline_file}")
@@ -1281,8 +1407,15 @@ class VideoAnimator:
             print_flush("❌ No scenes have both descriptions and images")
             return {}
 
-        # Check completed videos
-        completed_videos = self._get_completed_videos()
+        # Use resumable state if available, otherwise fall back to file-based checking
+        if resumable_state:
+            completed_videos = set()
+            for scene_name in available_scenes.keys():
+                if resumable_state.is_video_complete(scene_name):
+                    completed_videos.add(scene_name)
+        else:
+            completed_videos = self._get_completed_videos()
+        
         if not force_regenerate and completed_videos:
             print_flush(f"Found {len(completed_videos)} completed videos: {sorted(completed_videos)}")
 
@@ -1309,7 +1442,7 @@ class VideoAnimator:
             
             print_flush(f"Duration: {duration:.2f}s, Frames: {frame_count}")
             
-            output_paths = self._generate_video(scene_name, description, image_path, duration, characters_data, motion_data, locations_data)
+            output_paths = self._generate_video(scene_name, description, image_path, duration, characters_data, motion_data, locations_data, resumable_state)
             if output_paths:
                 if len(output_paths) == 1:
                     results[scene_name] = output_paths[0]
@@ -1342,11 +1475,28 @@ class VideoAnimator:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Convert scene images to animated videos using ComfyUI and timeline script")
     parser.add_argument("--force", "-f", action="store_true", help="Force regeneration of all videos")
+    parser.add_argument("--force-start", action="store_true",
+                       help="Force start from beginning, ignoring any existing checkpoint files")
     args = parser.parse_args()
     
     animator = VideoAnimator()
+    
+    # Initialize resumable state if enabled
+    resumable_state = None
+    if ENABLE_RESUMABLE_MODE:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        checkpoint_dir = os.path.normpath(os.path.join(base_dir, "../output/tracking"))
+        script_name = Path(__file__).stem  # Automatically get script name without .py extension
+        resumable_state = ResumableState(checkpoint_dir, script_name, args.force_start)
+        print_flush(f"Resumable mode enabled - checkpoint directory: {checkpoint_dir}")
+        if resumable_state.state_file.exists():
+            print_flush(f"Found existing checkpoint: {resumable_state.state_file}")
+            print_flush(resumable_state.get_progress_summary())
+        else:
+            print_flush("No existing checkpoint found - starting fresh")
+    
     # Process all unique scenes from timeline
-    results = animator.animate_all_scenes(force_regenerate=args.force)
+    results = animator.animate_all_scenes(force_regenerate=args.force, resumable_state=resumable_state)
     
     if results:
         total_videos = sum(len(v) if isinstance(v, list) else 1 for v in results.values())
@@ -1358,6 +1508,13 @@ def main() -> int:
                     print_flush(f"    Chunk {i}: {path}")
             else:
                 print_flush(f"  {scene_name}: {paths}")
+        
+        # Clean up checkpoint files if resumable mode was used and everything completed successfully
+        if resumable_state:
+            print_flush("All operations completed successfully")
+            print_flush("Final progress:", resumable_state.get_progress_summary())
+            resumable_state.cleanup()
+        
         return 0
     else:
         print_flush("\n⚠️ No new videos generated")

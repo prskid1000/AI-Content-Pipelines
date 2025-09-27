@@ -12,6 +12,9 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import argparse
 print = partial(_builtins.print, flush=True)
 
+# Feature flag to enable/disable resumable mode
+ENABLE_RESUMABLE_MODE = True
+
 # Image Resolution Constants
 IMAGE_MEGAPIXEL = "0.3"
 IMAGE_ASPECT_RATIO = "9:32 (Skyline)"
@@ -46,6 +49,80 @@ CHARACTER_IMAGE_HEIGHT = 1024
 USE_CHARACTER_NAME_OVERLAY = False  # Set to False to disable name overlay
 CHARACTER_NAME_FONT_SCALE = 1
 CHARACTER_NAME_BAND_HEIGHT_RATIO = 0.30  # 15% of image height for name band
+
+
+class ResumableState:
+    """Manages resumable state for expensive character generation operations."""
+    
+    def __init__(self, checkpoint_dir: str, script_name: str, force_start: bool = False):
+        self.checkpoint_dir = Path(checkpoint_dir)
+        self.checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        self.state_file = self.checkpoint_dir / f"{script_name}.state.json"
+        
+        # If force_start is True, remove existing checkpoint and start fresh
+        if force_start and self.state_file.exists():
+            try:
+                self.state_file.unlink()
+                print("Force start enabled - removed existing checkpoint")
+            except Exception as ex:
+                print(f"WARNING: Failed to remove checkpoint for force start: {ex}")
+        
+        self.state = self._load_state()
+    
+    def _load_state(self) -> dict:
+        """Load state from checkpoint file."""
+        if self.state_file.exists():
+            try:
+                with open(self.state_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as ex:
+                print(f"WARNING: Failed to load checkpoint file: {ex}")
+        
+        return {
+            "characters": {
+                "completed": [],
+                "results": {}
+            }
+        }
+    
+    def _save_state(self):
+        """Save current state to checkpoint file."""
+        try:
+            with open(self.state_file, 'w', encoding='utf-8') as f:
+                json.dump(self.state, f, indent=2, ensure_ascii=False)
+        except Exception as ex:
+            print(f"WARNING: Failed to save checkpoint: {ex}")
+    
+    def is_character_complete(self, character_name: str) -> bool:
+        """Check if character generation is complete."""
+        return character_name in self.state["characters"]["completed"]
+    
+    def get_character_result(self, character_name: str) -> dict:
+        """Get character generation result."""
+        return self.state["characters"]["results"].get(character_name, {})
+    
+    def set_character_result(self, character_name: str, result: dict):
+        """Set character generation result and mark as complete."""
+        self.state["characters"]["results"][character_name] = result
+        if character_name not in self.state["characters"]["completed"]:
+            self.state["characters"]["completed"].append(character_name)
+        self._save_state()
+    
+    def cleanup(self):
+        """Clean up checkpoint files when all operations are complete."""
+        try:
+            if self.state_file.exists():
+                self.state_file.unlink()
+                print("Checkpoint file cleaned up successfully")
+        except Exception as ex:
+            print(f"WARNING: Failed to cleanup checkpoint: {ex}")
+    
+    def get_progress_summary(self) -> str:
+        """Get a summary of current progress."""
+        completed = len(self.state["characters"]["completed"])
+        total = len(self.state["characters"]["results"]) + len([k for k in self.state["characters"]["results"].keys() if k not in self.state["characters"]["completed"]])
+        
+        return f"Progress: Characters({completed}/{total})"
 
 
 class CharacterGenerator:
@@ -245,9 +322,18 @@ class CharacterGenerator:
         
         return workflow
 
-    def _generate_character_image(self, character_name: str, description: str) -> str | None:
+    def _generate_character_image(self, character_name: str, description: str, resumable_state=None) -> str | None:
         """Generate a single character image using ComfyUI."""
         try:
+            # Check if resumable and already complete
+            if resumable_state and resumable_state.is_character_complete(character_name):
+                cached_result = resumable_state.get_character_result(character_name)
+                if cached_result and os.path.exists(cached_result.get('path', '')):
+                    print(f"Using cached character image: {character_name}")
+                    return cached_result['path']
+                elif cached_result:
+                    print(f"Cached file missing, regenerating: {character_name}")
+            
             print(f"Generating image for: {character_name}")
             
             # Load and update workflow
@@ -304,6 +390,15 @@ class CharacterGenerator:
                     print(f"Saved (overlay failed): {final_path}")
             else:
                 print(f"Saved: {final_path}")
+            
+            # Save to checkpoint if resumable mode enabled
+            if resumable_state:
+                result = {
+                    'path': final_path,
+                    'character_name': character_name,
+                    'description': description
+                }
+                resumable_state.set_character_result(character_name, result)
             
             return final_path
 
@@ -489,7 +584,7 @@ class CharacterGenerator:
             return set()
         return {f[:-4] for f in os.listdir(self.final_output_dir) if f.endswith('.png')}
 
-    def generate_all_characters(self, force_regenerate: bool = False) -> dict[str, str]:
+    def generate_all_characters(self, force_regenerate: bool = False, resumable_state=None) -> dict[str, str]:
         """Generate images for all characters.
         
         Returns:
@@ -500,7 +595,15 @@ class CharacterGenerator:
             print("ERROR: No character data found")
             return {}
 
-        completed_characters = self._get_completed_characters()
+        # Use resumable state if available, otherwise fall back to file-based checking
+        if resumable_state:
+            completed_characters = set()
+            for char_name in characters.keys():
+                if resumable_state.is_character_complete(char_name):
+                    completed_characters.add(char_name)
+        else:
+            completed_characters = self._get_completed_characters()
+        
         if not force_regenerate and completed_characters:
             print(f"Found {len(completed_characters)} completed characters: {sorted(completed_characters)}")
 
@@ -517,7 +620,7 @@ class CharacterGenerator:
         results = {}
         for i, (character_name, description) in enumerate(characters_to_process.items(), 1):
             print(f"\n[{i}/{len(characters_to_process)}] Processing {character_name}...")
-            output_path = self._generate_character_image(character_name, description)
+            output_path = self._generate_character_image(character_name, description, resumable_state)
             if output_path:
                 results[character_name] = output_path
                 print(f"[OK] Generated: {character_name}")
@@ -532,6 +635,8 @@ def main() -> int:
     parser.add_argument("--mode", "-m", choices=["flux", "diffusion"], default="flux", help="Select workflow: flux (default) or diffusion")
     parser.add_argument("--force", "-f", action="store_true", help="Force regeneration of all characters")
     parser.add_argument("--list-completed", "-l", action="store_true", help="List completed characters")
+    parser.add_argument("--force-start", action="store_true",
+                       help="Force start from beginning, ignoring any existing checkpoint files")
     args = parser.parse_args()
     
     generator = CharacterGenerator(mode=args.mode)
@@ -541,14 +646,35 @@ def main() -> int:
         print(f"Completed characters ({len(completed)}): {sorted(completed)}" if completed else "No completed characters")
         return 0
     
+    # Initialize resumable state if enabled
+    resumable_state = None
+    if ENABLE_RESUMABLE_MODE:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        checkpoint_dir = os.path.normpath(os.path.join(base_dir, "../output/tracking"))
+        script_name = Path(__file__).stem  # Automatically get script name without .py extension
+        resumable_state = ResumableState(checkpoint_dir, script_name, args.force_start)
+        print(f"Resumable mode enabled - checkpoint directory: {checkpoint_dir}")
+        if resumable_state.state_file.exists():
+            print(f"Found existing checkpoint: {resumable_state.state_file}")
+            print(resumable_state.get_progress_summary())
+        else:
+            print("No existing checkpoint found - starting fresh")
+    
     start_time = time.time()
-    results = generator.generate_all_characters(force_regenerate=args.force)
+    results = generator.generate_all_characters(force_regenerate=args.force, resumable_state=resumable_state)
     elapsed = time.time() - start_time
     
     if results:
         print(f"\nGenerated {len(results)} character images in {elapsed:.2f}s using {args.mode} mode:")
         for name, path in results.items():
             print(f"  {name}: {path}")
+        
+        # Clean up checkpoint files if resumable mode was used and everything completed successfully
+        if resumable_state:
+            print("All operations completed successfully")
+            print("Final progress:", resumable_state.get_progress_summary())
+            resumable_state.cleanup()
+        
         return 0
     else:
         print("No new character images generated")

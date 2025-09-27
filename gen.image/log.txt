@@ -1,86 +1,6 @@
 Workflow runner started. Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
 Working directory: D:\.comfyui\gen.image
 Emptying ComfyUI input and output folders...
-Removed directory: D:\.comfyui\ComfyUI\input\3d
-Removed file: D:\.comfyui\ComfyUI\input\a-mannequin-in-a-white-body-suit-standing-on-a-transparent-background-free-png.png
-Removed file: D:\.comfyui\ComfyUI\input\male_detective_holmes.jpg
-Removed file: D:\.comfyui\ComfyUI\input\male_doctor_watson.jpg
-Removed file: D:\.comfyui\ComfyUI\input\png-clipart-human-body-human-anatomy-human-skeleton-graphy-others-miscellaneous-hand-thumbnail.png
-Removed file: D:\.comfyui\ComfyUI\input\png-transparent-art-model-drawing-mannequin-model-celebrities-hand-human.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00002_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00003_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00004_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00005_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00006_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00007_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00008_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00009_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00010_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00011_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00012_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00013_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00014_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00015_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00016_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00017_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00018_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00019_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00020_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00021_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00022_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00023_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00024_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00025_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00026_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00027_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00028_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00029_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00030_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00031_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00032_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00033_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00034_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00035_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00036_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00037_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00038_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00039_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00040_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00041_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00042_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00043_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00044_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00045_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00046_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00047_.png
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00048_.png
-Removed file: D:\.comfyui\ComfyUI\output\female_clara_whitfield_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\female_clara_whitfield_00002_.png
-Removed file: D:\.comfyui\ComfyUI\output\female_clara_whitfield_00003_.png
-Removed file: D:\.comfyui\ComfyUI\output\female_landlady_mrs_hudmore_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\female_landlady_mrs_hudmore_00002_.png
-Removed file: D:\.comfyui\ComfyUI\output\female_landlady_mrs_hudmore_00003_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_client_stranger_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_client_stranger_00002_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_client_stranger_00003_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_detective_holmes_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_detective_holmes_00002_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_detective_holmes_00003_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_doctor_watson_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_doctor_watson_00002_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_doctor_watson_00003_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_villain_scarred_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_villain_scarred_00002_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_villain_scarred_00003_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_villain_shorter_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_villain_shorter_00002_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_villain_shorter_00003_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_00002_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00002_.png
 Successfully emptied ComfyUI input and output folders.
 Starting LM Studio backend via lms CLI...
 Command: lms server start
@@ -88,39 +8,55 @@ Success! Server is now running on port 1234
 Waiting for LM Studio to become ready (polling every 15s)...
 LM Studio is ready after 0.0s (attempt 1).
 
-===== START D:\.comfyui\gen.image\scripts\1.story.py @ 2025-09-26 21:01:14 =====
+===== START D:\.comfyui\gen.image\scripts\1.story.py @ 2025-09-27 08:11:34 =====
 Extracted 4 unique locations: ['loc_1', 'loc_2', 'loc_3', 'loc_4']
 Detected order: [] first, then ()(())
 Running pre-validation checks...
 Characters match: 7 names ['female_clara_whitfield', 'female_landlady_mrs_hudmore', 'male_client_stranger', 'male_detective_holmes', 'male_doctor_watson', 'male_villain_scarred', 'male_villain_shorter']
 Pre-validation passed. Proceeding with generation...
 Generating story description from story content...
-Generated story description: In the heart of London, amidst a fog-laden Victorian cityscape, lies the story of Sherlock Holmes and Dr. John Watson as they embark on an intense and suspenseful adventure to rescue Clara Whitfield from a dangerous captivity. The narrative unfolds in the dimly lit rooms of Baker Street, the grim corridors of Casper Bridge warehouses, and the shadowy alleys of the northern districts of London.
+Generated story description: It was a calm morning when I found myself once again in the company of my friend Sherlock Holmes, that extraordinary consulting detective whose life and work had often overshadowed my own profession as a medical man. As usual, he was restless, while I attempted to enjoy the tranquility afforded by our sitting-room in Baker Street.
 Expanding location descriptions: 4 total
 (1/4) loc_1: filtering story content and expanding description...
 (1/4) loc_1: filtered content length: 6284 characters
-(1/4) loc_1: done (1174 characters)
+(1/4) loc_1: done (1838 characters)
 (2/4) loc_2: filtering story content and expanding description...
 (2/4) loc_2: filtered content length: 1974 characters
-(2/4) loc_2: done (1468 characters)
+(2/4) loc_2: done (1629 characters)
 (3/4) loc_3: filtering story content and expanding description...
 (3/4) loc_3: filtered content length: 7759 characters
-(3/4) loc_3: done (1073 characters)
+(3/4) loc_3: done (1903 characters)
 (4/4) loc_4: filtering story content and expanding description...
 (4/4) loc_4: filtered content length: 8664 characters
-(4/4) loc_4: done (1300 characters)
+(4/4) loc_4: done (2059 characters)
 Wrote 4 expanded location entries to: D:\.comfyui\gen.image\input\3.location.txt
 Generating structured character descriptions: 7 total
 (1/7) female_clara_whitfield: generating structured description...
-(1/7) female_clara_whitfield: done (219 words)
+(1/7) female_clara_whitfield: done (267 words)
 (2/7) female_landlady_mrs_hudmore: generating structured description...
-(2/7) female_landlady_mrs_hudmore: done (251 words)
+(2/7) female_landlady_mrs_hudmore: done (245 words)
 (3/7) male_client_stranger: generating structured description...
-(3/7) male_client_stranger: done (197 words)
+(3/7) male_client_stranger: done (189 words)
 (4/7) male_detective_holmes: generating structured description...
-(4/7) male_detective_holmes: done (216 words)
+(4/7) male_detective_holmes: done (308 words)
 (5/7) male_doctor_watson: generating structured description...
-(5/7) male_doctor_watson: done (248 words)
+(5/7) male_doctor_watson: done (261 words)
 (6/7) male_villain_scarred: generating structured description...
-(6/7) male_villain_scarred: done (215 words)
+(6/7) male_villain_scarred: done (286 words)
 (7/7) male_villain_shorter: generating structured description...
+(7/7) male_villain_shorter: done (216 words)
+Rewriting character descriptions to make them look completely different...
+Rewriting all character descriptions using Qwen model: 7 characters
+ERROR: Failed to rewrite character descriptions: Failed to format description for female_clara_whitfield
+ERROR: Character description generation failed: Failed to format description for female_clara_whitfield
+
+===== END D:\.comfyui\gen.image\scripts\1.story.py @ 2025-09-27 08:27:47 (exit=1, took=972.68s) =====
+Stopping LM Studio backend via lms CLI...
+Command: lms server stop
+Unloading all models from LM Studio...
+Command: lms unload --all
+Unloading "qwen/qwen3-14b"...
+Unloaded 1 model.
+Stopped the server on port 1234.
+LM Studio appears stopped (after 1 checks).
+ABORTING: 1.story.py exited with code 1.

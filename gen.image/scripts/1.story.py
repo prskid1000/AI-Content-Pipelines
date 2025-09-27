@@ -5,6 +5,8 @@ import requests
 import argparse
 from functools import partial
 import builtins as _builtins
+import time
+from pathlib import Path
 
 
 CHARACTER_SUMMARY_CHARACTER_COUNT = 600
@@ -13,12 +15,157 @@ STORY_DESCRIPTION_CHARACTER_COUNT = 6000
 
 # Feature flags
 ENABLE_CHARACTER_REWRITE = True  # Set to False to skip character rewriting step
+ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 
 # Model constants for easy switching
 MODEL_STORY_DESCRIPTION = "qwen2.5-omni-7b"  # Model for generating story descriptions
 MODEL_CHARACTER_GENERATION = "qwen/qwen3-14b"  # Model for character description generation
 MODEL_CHARACTER_SUMMARY = "qwen/qwen3-14b"  # Model for character summary generation
 MODEL_LOCATION_EXPANSION = "qwen/qwen3-14b"  # Model for location expansion
+
+# Resumable state management
+class ResumableState:
+    """Manages resumable state for expensive LLM operations."""
+    
+    def __init__(self, checkpoint_dir: str, script_name: str, force_start: bool = False):
+        self.checkpoint_dir = Path(checkpoint_dir)
+        self.checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        self.state_file = self.checkpoint_dir / f"{script_name}.state.json"
+        
+        # If force_start is True, remove existing checkpoint and start fresh
+        if force_start and self.state_file.exists():
+            try:
+                self.state_file.unlink()
+                print("Force start enabled - removed existing checkpoint")
+            except Exception as ex:
+                print(f"WARNING: Failed to remove checkpoint for force start: {ex}")
+        
+        self.state = self._load_state()
+    
+    def _load_state(self) -> dict:
+        """Load state from checkpoint file."""
+        if self.state_file.exists():
+            try:
+                with open(self.state_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as ex:
+                print(f"WARNING: Failed to load checkpoint state: {ex}")
+        return {
+            "story_description": {"completed": False, "result": None},
+            "locations": {"completed": [], "results": {}},
+            "characters": {"completed": [], "results": {}},
+            "character_rewrite": {"completed": False, "result": None},
+            "character_summaries": {"completed": [], "results": {}},
+            "metadata": {"start_time": time.time(), "last_update": time.time()}
+        }
+    
+    def _save_state(self):
+        """Save current state to checkpoint file."""
+        try:
+            self.state["metadata"]["last_update"] = time.time()
+            with open(self.state_file, 'w', encoding='utf-8') as f:
+                json.dump(self.state, f, indent=2, ensure_ascii=False)
+        except Exception as ex:
+            print(f"WARNING: Failed to save checkpoint state: {ex}")
+    
+    def is_story_description_complete(self) -> bool:
+        """Check if story description generation is complete."""
+        return self.state["story_description"]["completed"]
+    
+    def get_story_description(self) -> str | None:
+        """Get cached story description if available."""
+        return self.state["story_description"]["result"]
+    
+    def set_story_description(self, description: str):
+        """Set story description and mark as complete."""
+        self.state["story_description"]["completed"] = True
+        self.state["story_description"]["result"] = description
+        self._save_state()
+    
+    def is_location_complete(self, location_id: str) -> bool:
+        """Check if specific location expansion is complete."""
+        return location_id in self.state["locations"]["completed"]
+    
+    def get_location_description(self, location_id: str) -> str | None:
+        """Get cached location description if available."""
+        return self.state["locations"]["results"].get(location_id)
+    
+    def set_location_description(self, location_id: str, description: str):
+        """Set location description and mark as complete."""
+        if location_id not in self.state["locations"]["completed"]:
+            self.state["locations"]["completed"].append(location_id)
+        self.state["locations"]["results"][location_id] = description
+        self._save_state()
+    
+    def is_character_complete(self, character_name: str) -> bool:
+        """Check if specific character description is complete."""
+        return character_name in self.state["characters"]["completed"]
+    
+    def get_character_description(self, character_name: str) -> str | None:
+        """Get cached character description if available."""
+        return self.state["characters"]["results"].get(character_name)
+    
+    def set_character_description(self, character_name: str, description: str):
+        """Set character description and mark as complete."""
+        if character_name not in self.state["characters"]["completed"]:
+            self.state["characters"]["completed"].append(character_name)
+        self.state["characters"]["results"][character_name] = description
+        self._save_state()
+    
+    def is_character_rewrite_complete(self) -> bool:
+        """Check if character rewriting is complete."""
+        return self.state["character_rewrite"]["completed"]
+    
+    def get_character_rewrite(self) -> dict[str, str] | None:
+        """Get cached character rewrite results if available."""
+        return self.state["character_rewrite"]["result"]
+    
+    def set_character_rewrite(self, rewritten_descriptions: dict[str, str]):
+        """Set character rewrite results and mark as complete."""
+        self.state["character_rewrite"]["completed"] = True
+        self.state["character_rewrite"]["result"] = rewritten_descriptions
+        self._save_state()
+    
+    def is_character_summary_complete(self, character_name: str) -> bool:
+        """Check if specific character summary is complete."""
+        return character_name in self.state["character_summaries"]["completed"]
+    
+    def get_character_summary(self, character_name: str) -> str | None:
+        """Get cached character summary if available."""
+        return self.state["character_summaries"]["results"].get(character_name)
+    
+    def set_character_summary(self, character_name: str, summary: str):
+        """Set character summary and mark as complete."""
+        if character_name not in self.state["character_summaries"]["completed"]:
+            self.state["character_summaries"]["completed"].append(character_name)
+        self.state["character_summaries"]["results"][character_name] = summary
+        self._save_state()
+    
+    def cleanup(self):
+        """Clean up checkpoint files after successful completion."""
+        try:
+            if self.state_file.exists():
+                self.state_file.unlink()
+                print("Cleaned up checkpoint files")
+        except Exception as ex:
+            print(f"WARNING: Failed to cleanup checkpoint files: {ex}")
+    
+    def get_progress_summary(self) -> str:
+        """Get a summary of current progress."""
+        story_done = "✓" if self.is_story_description_complete() else "✗"
+        locations_done = len(self.state["locations"]["completed"])
+        locations_total = len(self.state["locations"]["results"]) + len([k for k in self.state["locations"]["results"].keys() if k not in self.state["locations"]["completed"]])
+        characters_done = len(self.state["characters"]["completed"])
+        characters_total = len(self.state["characters"]["results"]) + len([k for k in self.state["characters"]["results"].keys() if k not in self.state["characters"]["completed"]])
+        rewrite_done = "✓" if self.is_character_rewrite_complete() else "✗"
+        summaries_done = len(self.state["character_summaries"]["completed"])
+        summaries_total = len(self.state["character_summaries"]["results"]) + len([k for k in self.state["character_summaries"]["results"].keys() if k not in self.state["character_summaries"]["completed"]])
+        
+        return (
+            f"Progress: Story({story_done}) Locations({locations_done}/{locations_total}) "
+            f"Characters({characters_done}/{characters_total}) Rewrite({rewrite_done}) "
+            f"Summaries({summaries_done}/{summaries_total})"
+        )
 
 # Ensure immediate flush on print (consistent with other scripts)
 print = partial(_builtins.print, flush=True)
@@ -850,12 +997,20 @@ def _format_character_description(char_data: dict[str, object]) -> str:
     return " ".join(lines)
 
 
-def _generate_character_descriptions(story_desc: str, characters: list[str], lm_studio_url: str) -> dict[str, str]:
+def _generate_character_descriptions(story_desc: str, characters: list[str], lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
     name_to_desc: dict[str, str] = {}
     total = len(characters)
     print(f"Generating structured character descriptions: {total} total")
     
     for idx, name in enumerate(characters, 1):
+        # Check if resumable and already complete
+        if resumable_state and resumable_state.is_character_complete(name):
+            cached_desc = resumable_state.get_character_description(name)
+            if cached_desc:
+                print(f"({idx}/{total}) {name}: using cached description from checkpoint")
+                name_to_desc[name] = cached_desc
+                continue
+        
         print(f"({idx}/{total}) {name}: generating structured description...")
         prompt = _build_character_system_prompt(story_desc, name, characters)
         
@@ -877,6 +1032,10 @@ def _generate_character_descriptions(story_desc: str, characters: list[str], lm_
             desc = _format_character_description(structured_data)
             if not desc:
                 raise RuntimeError("Empty description generated")
+            
+            # Save to checkpoint if resumable mode enabled
+            if resumable_state:
+                resumable_state.set_character_description(name, desc)
                 
         except Exception as ex:
             print(f"({idx}/{total}) {name}: FAILED - {ex}")
@@ -889,8 +1048,15 @@ def _generate_character_descriptions(story_desc: str, characters: list[str], lm_
     return name_to_desc
 
 
-def _rewrite_all_character_descriptions(name_to_desc: dict[str, str], story_desc: str, lm_studio_url: str) -> dict[str, str]:
+def _rewrite_all_character_descriptions(name_to_desc: dict[str, str], story_desc: str, lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
     """Rewrite all character descriptions at once using Qwen model to make them look completely different while preserving primary features and relationships."""
+    # Check if resumable and already complete
+    if resumable_state and resumable_state.is_character_rewrite_complete():
+        cached_rewrite = resumable_state.get_character_rewrite()
+        if cached_rewrite:
+            print("Using cached character rewrite from checkpoint")
+            return cached_rewrite
+    
     print(f"Rewriting all character descriptions using Qwen model: {len(name_to_desc)} characters")
     
     # Build combined prompt with all character descriptions
@@ -958,6 +1124,11 @@ Return structured character data for each character with completely different ph
             if not desc:
                 raise RuntimeError(f"Failed to format description for {char_name}")
             rewritten_descriptions[char_name] = desc
+        
+        # Save to checkpoint if resumable mode enabled
+        if resumable_state:
+            resumable_state.set_character_rewrite(rewritten_descriptions)
+            print("Saved character rewrite to checkpoint")
             
         print(f"Successfully rewrote {len(rewritten_descriptions)} character descriptions")
         return rewritten_descriptions
@@ -967,12 +1138,20 @@ Return structured character data for each character with completely different ph
         raise
 
 
-def _generate_character_summaries(name_to_desc: dict[str, str], lm_studio_url: str) -> dict[str, str]:
+def _generate_character_summaries(name_to_desc: dict[str, str], lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
     name_to_summary: dict[str, str] = {}
     total = len(name_to_desc)
     print(f"Generating character summaries: {total} total")
     
     for idx, (name, detailed_desc) in enumerate(name_to_desc.items(), 1):
+        # Check if resumable and already complete
+        if resumable_state and resumable_state.is_character_summary_complete(name):
+            cached_summary = resumable_state.get_character_summary(name)
+            if cached_summary:
+                print(f"({idx}/{total}) {name}: using cached summary from checkpoint")
+                name_to_summary[name] = cached_summary
+                continue
+        
         print(f"({idx}/{total}) {name}: generating summary...")
         prompt = _build_character_summary_prompt(name, detailed_desc)
         
@@ -992,6 +1171,10 @@ def _generate_character_summaries(name_to_desc: dict[str, str], lm_studio_url: s
             summary = structured_data.get("summary", "").strip()
             if not summary:
                 raise RuntimeError("Empty summary generated")
+            
+            # Save to checkpoint if resumable mode enabled
+            if resumable_state:
+                resumable_state.set_character_summary(name, summary)
                 
         except Exception as ex:
             print(f"({idx}/{total}) {name}: FAILED - {ex}")
@@ -1004,8 +1187,15 @@ def _generate_character_summaries(name_to_desc: dict[str, str], lm_studio_url: s
     return name_to_summary
 
 
-def _generate_story_description(story_content: str, lm_studio_url: str) -> str:
+def _generate_story_description(story_content: str, lm_studio_url: str, resumable_state: ResumableState | None = None) -> str:
     """Generate story description from story content using LLM."""
+    # Check if resumable and already complete
+    if resumable_state and resumable_state.is_story_description_complete():
+        cached_desc = resumable_state.get_story_description()
+        if cached_desc:
+            print("Using cached story description from checkpoint")
+            return cached_desc
+    
     print("Generating story description from story content...")
     prompt = _build_story_description_prompt(story_content)
     
@@ -1027,6 +1217,11 @@ def _generate_story_description(story_content: str, lm_studio_url: str) -> str:
         story_desc = structured_data.get("description", "").strip()
         if not story_desc:
             raise RuntimeError("Empty story description generated")
+        
+        # Save to checkpoint if resumable mode enabled
+        if resumable_state:
+            resumable_state.set_story_description(story_desc)
+            print("Saved story description to checkpoint")
             
     except Exception as ex:
         print(f"ERROR: Failed to generate story description: {ex}")
@@ -1072,7 +1267,7 @@ def _filter_story_content_for_location(content: str, pairs: list, location_id: s
     return "\n".join(formatted_lines)
 
 
-def _expand_locations(locations: dict[str, str], pairs: list, content: str, lm_studio_url: str) -> dict[str, str]:
+def _expand_locations(locations: dict[str, str], pairs: list, content: str, lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
     """Expand location descriptions using LLM to generate 500-character descriptions."""
     expanded_locations: dict[str, str] = {}
     total = len(locations)
@@ -1082,6 +1277,14 @@ def _expand_locations(locations: dict[str, str], pairs: list, content: str, lm_s
     model = MODEL_LOCATION_EXPANSION
     
     for idx, (loc_id, original_desc) in enumerate(locations.items(), 1):
+        # Check if resumable and already complete
+        if resumable_state and resumable_state.is_location_complete(loc_id):
+            cached_desc = resumable_state.get_location_description(loc_id)
+            if cached_desc:
+                print(f"({idx}/{total}) {loc_id}: using cached description from checkpoint")
+                expanded_locations[loc_id] = cached_desc
+                continue
+        
         print(f"({idx}/{total}) {loc_id}: filtering story content and expanding description...")
         
         # Filter story content to include only pairs that use this location
@@ -1107,6 +1310,10 @@ def _expand_locations(locations: dict[str, str], pairs: list, content: str, lm_s
             expanded_desc = structured_data.get("expanded_description", "").strip()
             if not expanded_desc:
                 raise RuntimeError("Empty expanded description generated")
+            
+            # Save to checkpoint if resumable mode enabled
+            if resumable_state:
+                resumable_state.set_location_description(loc_id, expanded_desc)
                 
         except Exception as ex:
             print(f"({idx}/{total}) {loc_id}: FAILED - {ex}")
@@ -1274,6 +1481,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Parse story file and generate character descriptions")
     parser.add_argument("--bypass-validation", action="store_true", 
                        help="Skip character consistency and scene ID continuity validation")
+    parser.add_argument("--force-start", action="store_true",
+                       help="Force start from beginning, ignoring any existing checkpoint files")
     args = parser.parse_args()
 
     base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -1284,6 +1493,19 @@ def main() -> int:
     characters_out_path = os.path.normpath(os.path.join(base_dir, "../input/2.character.txt"))
     character_summary_out_path = os.path.normpath(os.path.join(base_dir, "../input/3.character.txt"))
     locations_out_path = os.path.normpath(os.path.join(base_dir, "../input/3.location.txt"))
+    
+    # Initialize resumable state if enabled
+    resumable_state = None
+    if ENABLE_RESUMABLE_MODE:
+        checkpoint_dir = os.path.normpath(os.path.join(base_dir, "../output/tracking"))
+        script_name = Path(__file__).stem  # Automatically get script name without .py extension
+        resumable_state = ResumableState(checkpoint_dir, script_name, args.force_start)
+        print(f"Resumable mode enabled - checkpoint directory: {checkpoint_dir}")
+        if resumable_state.state_file.exists():
+            print(f"Found existing checkpoint: {resumable_state.state_file}")
+            print(resumable_state.get_progress_summary())
+        else:
+            print("No existing checkpoint found - starting fresh")
 
     content = read_file_text(image_story_path)
     if content is None:
@@ -1339,10 +1561,10 @@ def main() -> int:
             lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v1")
             
             # Generate story description from content using qwen/qwen3-14b
-            story_desc = _generate_story_description(content, lm_studio_url)
+            story_desc = _generate_story_description(content, lm_studio_url, resumable_state)
             
             # Expand locations using the filtered story content and pairs
-            expanded_locations = _expand_locations(locations, pairs, content, lm_studio_url)
+            expanded_locations = _expand_locations(locations, pairs, content, lm_studio_url, resumable_state)
             
             # Write expanded locations file
             written_locations = write_locations_file(expanded_locations, locations_out_path)
@@ -1371,12 +1593,12 @@ def main() -> int:
                 lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v1")
                 
                 # Step 1: Generate initial character descriptions
-                name_to_desc = _generate_character_descriptions(story_desc, unique_names, lm_studio_url)
+                name_to_desc = _generate_character_descriptions(story_desc, unique_names, lm_studio_url, resumable_state)
                 
                 # Step 2: Optionally rewrite all character descriptions at once using Qwen model
                 if ENABLE_CHARACTER_REWRITE:
                     print("Rewriting character descriptions to make them look completely different...")
-                    final_descriptions = _rewrite_all_character_descriptions(name_to_desc, story_desc, lm_studio_url)
+                    final_descriptions = _rewrite_all_character_descriptions(name_to_desc, story_desc, lm_studio_url, resumable_state)
                 else:
                     print("Character rewriting disabled - using original descriptions")
                     final_descriptions = name_to_desc
@@ -1388,7 +1610,7 @@ def main() -> int:
                     return 1
                 
                 # Step 4: Generate character summaries from final descriptions
-                name_to_summary = _generate_character_summaries(final_descriptions, lm_studio_url)
+                name_to_summary = _generate_character_summaries(final_descriptions, lm_studio_url, resumable_state)
                 summary_errors = _validate_and_write_character_summary_file(name_to_summary, character_summary_out_path, set(unique_names))
                 if summary_errors:
                     print(f"Character summary output had {summary_errors} error(s).")
@@ -1414,6 +1636,12 @@ def main() -> int:
             print(f"PAIR {idx}: Missing [] line.")
         if not p.get("scene"):
             print(f"PAIR {idx}: Missing ()(()) line.")
+
+    # Clean up checkpoint files if resumable mode was used and everything completed successfully
+    if resumable_state:
+        print("All operations completed successfully")
+        print("Final progress:", resumable_state.get_progress_summary())
+        resumable_state.cleanup()
 
     return 0
 
