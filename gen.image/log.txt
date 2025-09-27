@@ -1,32 +1,14 @@
 Workflow runner started. Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
 Working directory: D:\.comfyui\gen.image
 Emptying ComfyUI input and output folders...
-Removed file: D:\.comfyui\ComfyUI\input\male_detective_holmes.jpg
-Removed file: D:\.comfyui\ComfyUI\input\male_doctor_watson.jpg
-Removed file: D:\.comfyui\ComfyUI\output\female_clara_whitfield_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\female_landlady_mrs_hudmore_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_client_stranger_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_detective_holmes_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_doctor_watson_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_villain_scarred_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_villain_shorter_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.3_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.4_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00002_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00003_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00004_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00005_.png
 Successfully emptied ComfyUI input and output folders.
 Starting LM Studio backend via lms CLI...
 Command: lms server start
 Success! Server is now running on port 1234
 Waiting for LM Studio to become ready (polling every 15s)...
-LM Studio is ready after 0.0s (attempt 1).
+LM Studio is ready after 0.1s (attempt 1).
 
-===== START D:\.comfyui\gen.image\scripts\1.story.py @ 2025-09-27 12:17:50 =====
+===== START D:\.comfyui\gen.image\scripts\1.story.py @ 2025-09-27 16:59:24 =====
 Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.image\output\tracking
 No existing checkpoint found - starting fresh
 Extracted 4 unique locations: ['loc_1', 'loc_2', 'loc_3', 'loc_4']
