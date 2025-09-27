@@ -38,7 +38,7 @@ OUTPUT_WIDTH = 1280
 OUTPUT_HEIGHT = 720
 
 # Image Output Dimension Constants
-USE_FIXED_DIMENSIONS = False  # Set to True to use fixed width/height, False to use aspect ratio calculation
+USE_FIXED_DIMENSIONS = True  # Set to True to use fixed width/height, False to use aspect ratio calculation
 IMAGE_OUTPUT_WIDTH = 1280
 IMAGE_OUTPUT_HEIGHT = 720
 
