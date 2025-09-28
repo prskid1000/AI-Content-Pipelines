@@ -413,7 +413,7 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
 
     def _get_character_image_path(self, character_name: str) -> str | None:
         """Get the path to a character's generated image."""
-        clean_name = re.sub(r'[^\w\s-]', '', character_name).strip()
+        clean_name = re.sub(r'[^\w\s.-]', '', character_name).strip()
         clean_name = re.sub(r'[-\s]+', '_', clean_name)
         image_path = os.path.join(self.character_images_dir, f"{clean_name}.png")
         return image_path if os.path.exists(image_path) else None
@@ -424,7 +424,7 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
         for char_name in character_names:
             source_path = self._get_character_image_path(char_name)
             if source_path:
-                clean_name = re.sub(r'[^\w\s-]', '', char_name).strip()
+                clean_name = re.sub(r'[^\w\s.-]', '', char_name).strip()
                 clean_name = re.sub(r'[-\s]+', '_', clean_name)
                 dest_path = os.path.join(self.comfyui_input_folder, f"{clean_name}.jpg")
                 
@@ -954,8 +954,8 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                 print("ERROR: No enabled LoRAs found for serial mode")
                 return None
             
-            # Clean scene ID for filenames
-            clean_scene_id = re.sub(r'[^\w\s-]', '', scene_id).strip()
+            # Clean scene ID for filenames (preserve dots for version numbers like 1.1)
+            clean_scene_id = re.sub(r'[^\w\s.-]', '', scene_id).strip()
             clean_scene_id = re.sub(r'[-\s]+', '_', clean_scene_id)
             
             # Check for existing LoRA progress

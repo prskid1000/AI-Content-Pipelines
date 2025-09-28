@@ -423,7 +423,7 @@ class CharacterGenerator:
 
     def _update_workflow_filename(self, workflow: dict, character_name: str) -> dict:
         """Update the workflow to save with character name as filename."""
-        clean_name = re.sub(r'[^\w\s-]', '', character_name).strip()
+        clean_name = re.sub(r'[^\w\s.-]', '', character_name).strip()
         clean_name = re.sub(r'[-\s]+', '_', clean_name)
         self._update_node_connections(workflow, "SaveImage", "filename_prefix", clean_name)
         return workflow
@@ -503,8 +503,8 @@ class CharacterGenerator:
                 print("ERROR: No enabled LoRAs found for serial mode")
                 return None
             
-            # Clean character name for filenames
-            clean_name = re.sub(r'[^\w\s-]', '', character_name).strip()
+            # Clean character name for filenames (preserve dots for version numbers like 1.1)
+            clean_name = re.sub(r'[^\w\s.-]', '', character_name).strip()
             clean_name = re.sub(r'[-\s]+', '_', clean_name)
             
             # Check for existing LoRA progress
