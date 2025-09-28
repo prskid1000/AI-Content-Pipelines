@@ -368,7 +368,12 @@ class ThumbnailProcessor:
                 
                 # Update workflow with thumbnail-specific settings
                 workflow = self._update_prompt_text(workflow, prompt_text)
-                workflow = self._update_saveimage_prefix(workflow, f"thumbnail_lora_{i + 1}")
+                
+                # Generate filename for this LoRA step
+                lora_clean_name = re.sub(r'[^\w\s-]', '', lora_config['name']).strip()
+                lora_clean_name = re.sub(r'[-\s]+', '_', lora_clean_name)
+                lora_filename = f"thumbnail.{lora_clean_name}"
+                workflow = self._update_saveimage_prefix(workflow, lora_filename)
                 workflow = self._update_workflow_resolution(workflow, OUTPUT_WIDTH, OUTPUT_HEIGHT)
                 
                 # Set LoRA-specific sampling steps and denoising
@@ -410,14 +415,12 @@ class ThumbnailProcessor:
                     time.sleep(2)
 
                 # Find the generated image
-                generated_image = self._find_newest_output_with_prefix(f"thumbnail_lora_{i + 1}")
+                generated_image = self._find_newest_output_with_prefix(lora_filename)
                 if not generated_image:
                     print(f"ERROR: Could not find generated image for LoRA {i + 1}")
                     continue
                 
                 # Save result to lora folder (save final result from each LoRA)
-                lora_clean_name = re.sub(r'[^\w\s-]', '', lora_config['name']).strip()
-                lora_clean_name = re.sub(r'[-\s]+', '_', lora_clean_name)
                 lora_final_path = os.path.join(self.intermediate_output_dir, f"thumbnail.{lora_clean_name}.png")
                 shutil.copy2(generated_image, lora_final_path)
                 print(f"  Saved LoRA result: {lora_final_path}")

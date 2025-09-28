@@ -65,7 +65,8 @@ LORAS = [
         # Serial mode specific settings (only used when LORA_MODE = "serial")
         "steps": 8,               # Sampling steps for this LoRA (serial mode only)
         "denoising_strength": 1, # Denoising strength (0.0 - 1.0) (serial mode only)
-        "save_intermediate": True # Save intermediate results for debugging (serial mode only)
+        "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
+        "use_only_intermediate": False # Set to True to disable character images and use only intermediate result
     },
     {
         "name": "Ghibli_lora_weights.safetensors",  # Example second LoRA
@@ -78,7 +79,8 @@ LORAS = [
         # Serial mode specific settings
         "steps": 8,
         "denoising_strength": 0.6,
-        "save_intermediate": True
+        "save_intermediate": True,
+        "use_only_intermediate": True  # This LoRA will only use intermediate result, no character images
     },
 ]
 
@@ -595,9 +597,8 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
         if not workflow:
             return {}
         
-        # Remove the original sampler since we'll create separate ones for each LoRA
-        if "16" in workflow:
-            del workflow["16"]
+        # Don't remove the original sampler - we'll modify it instead
+        # Keep the original workflow structure intact
         
         # Process images if available
         all_images = {}
@@ -644,136 +645,29 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
             workflow["19"]["inputs"]["height"] = IMAGE_OUTPUT_HEIGHT
             print(f"Using fixed dimensions: {IMAGE_OUTPUT_WIDTH}x{IMAGE_OUTPUT_HEIGHT}")
         
-        # Create serial LoRA workflow
-        next_node_id = 200
-        current_latent = None
-        current_conditioning = None
-        
-        for i, lora_config in enumerate(enabled_loras):
+        # For serial mode, we'll use a simpler approach - just apply the first LoRA
+        # and let the serial execution handle the rest
+        if enabled_loras:
+            lora_config = enabled_loras[0]  # Use first LoRA for the workflow
             lora_name = lora_config["name"]
-            steps = lora_config.get("steps", 8)
-            denoising_strength = lora_config.get("denoising_strength", 0.7)
             
-            print(f"Creating LoRA {i + 1}: {lora_name} (steps: {steps}, denoising: {denoising_strength})")
+            print(f"Setting up workflow for LoRA: {lora_name}")
             
-            # Create LoRA loader node
-            lora_node_id = str(next_node_id)
-            workflow[lora_node_id] = {
-                "inputs": {
-                    "lora_name": lora_name,
-                    "model": ["41", 0],
-                    "clip": ["10", 0],
-                    "strength_model": lora_config.get("strength_model", 1.0),
-                    "strength_clip": lora_config.get("strength_clip", 1.0)
-                },
-                "class_type": "LoraLoader",
-                "_meta": {"title": f"Load LoRA {i + 1}: {lora_name}"}
-            }
-            next_node_id += 1
+            # Apply the LoRA to the existing workflow
+            self._apply_single_lora(workflow, lora_config, 1)
             
-            # Create CLIP text encode node
-            clip_node_id = str(next_node_id)
-            workflow[clip_node_id] = {
-                "inputs": {
-                    "text": text_prompt,
-                    "clip": [lora_node_id, 1]
-                },
-                "class_type": "CLIPTextEncode",
-                "_meta": {"title": f"CLIP Text Encode LoRA {i + 1}"}
-            }
-            next_node_id += 1
+            # Update the existing sampler with LoRA-specific settings
+            workflow["16"]["inputs"]["steps"] = lora_config.get("steps", 8)
+            workflow["16"]["inputs"]["denoise"] = lora_config.get("denoising_strength", 1.0)
+            workflow["16"]["inputs"]["seed"] = self._get_seed()
             
-            # Create negative prompt node if enabled
-            negative_node_id = None
-            if USE_NEGATIVE_PROMPT:
-                negative_node_id = str(next_node_id)
-                workflow[negative_node_id] = {
-                    "inputs": {
-                        "text": NEGATIVE_PROMPT,
-                        "clip": [lora_node_id, 1]
-                    },
-                    "class_type": "CLIPTextEncode",
-                    "_meta": {"title": f"CLIP Text Encode Negative LoRA {i + 1}"}
-                }
-                next_node_id += 1
+            # Set up reference conditioning if available
+            if ref_latent_nodes:
+                workflow["32"]["inputs"]["conditioning"] = [ref_latent_nodes[-1], 0]
+                print(f"Using reference conditioning for LoRA")
             
-            # Create sampler node
-            sampler_node_id = str(next_node_id)
-            sampler_inputs = {
-                "seed": self._get_seed(),
-                "steps": steps,
-                "cfg": 1.0,
-                "sampler_name": "euler",
-                "scheduler": "normal",
-                "denoise": denoising_strength,
-                "model": [lora_node_id, 0],
-                "positive": [clip_node_id, 0],
-                "negative": [negative_node_id, 0] if negative_node_id else ["34", 0],
-                "latent_image": current_latent if current_latent else ["19", 0]
-            }
-            
-            # Add reference conditioning if available
-            if ref_latent_nodes and i == 0:  # Only apply reference conditioning to first LoRA
-                sampler_inputs["positive"] = [ref_latent_nodes[-1], 0]
-                print(f"Using reference conditioning for first LoRA")
-            
-            workflow[sampler_node_id] = {
-                "inputs": sampler_inputs,
-                "class_type": "KSampler",
-                "_meta": {"title": f"KSampler LoRA {i + 1}"}
-            }
-            next_node_id += 1
-            
-            # Create VAE decode node
-            vae_decode_id = str(next_node_id)
-            workflow[vae_decode_id] = {
-                "inputs": {
-                    "samples": [sampler_node_id, 0],
-                    "vae": ["11", 0]
-                },
-                "class_type": "VAEDecode",
-                "_meta": {"title": f"VAE Decode LoRA {i + 1}"}
-            }
-            next_node_id += 1
-            
-            # Create save image node for intermediate results
-            if lora_config.get("save_intermediate", True):
-                save_node_id = str(next_node_id)
-                workflow[save_node_id] = {
-                    "inputs": {
-                        "filename_prefix": f"{scene_id}_lora_{i + 1}",
-                        "images": [vae_decode_id, 0]
-                    },
-                    "class_type": "SaveImage",
-                    "_meta": {"title": f"Save LoRA {i + 1} Result"}
-                }
-                next_node_id += 1
-            
-            # For next iteration, use current output as input
-            if i < len(enabled_loras) - 1:  # Not the last LoRA
-                # Create VAE encode node to convert back to latent for next iteration
-                vae_encode_id = str(next_node_id)
-                workflow[vae_encode_id] = {
-                    "inputs": {
-                        "pixels": [vae_decode_id, 0],
-                        "vae": ["11", 0]
-                    },
-                    "class_type": "VAEEncode",
-                    "_meta": {"title": f"VAE Encode for LoRA {i + 2} Input"}
-                }
-                current_latent = [vae_encode_id, 0]
-                next_node_id += 1
-        
-        # Create final save node
-        final_save_id = str(next_node_id)
-        workflow[final_save_id] = {
-            "inputs": {
-                "filename_prefix": scene_id,
-                "images": [vae_decode_id, 0]  # Use the last VAE decode
-            },
-            "class_type": "SaveImage",
-            "_meta": {"title": "Save Final Result"}
-        }
+            # Update the save node to include LoRA name
+            workflow["21"]["inputs"]["filename_prefix"] = f"{scene_id}_lora_1"
         
         print(f"Serial LoRA workflow created with {len(enabled_loras)} LoRAs")
         return workflow
@@ -1075,6 +969,7 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                 completed_loras = lora_progress.get("completed_loras", [])
                 current_image_path = lora_progress.get("current_image_path")
                 intermediate_paths = lora_progress.get("intermediate_paths", [])
+                saved_lora_configs = lora_progress.get("lora_configs", {})
                 
                 if completed_loras:
                     print(f"Resuming from LoRA {len(completed_loras) + 1}/{len(enabled_loras)}")
@@ -1093,7 +988,7 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                 lora_clean_name = re.sub(r'[-\s]+', '_', lora_clean_name)
                 
                 # Skip if this LoRA was already completed
-                if i < len(completed_loras):
+                if lora_name in completed_loras:
                     print(f"Skipping completed LoRA {i + 1}/{len(enabled_loras)}: {lora_name}")
                     continue
                 
@@ -1108,8 +1003,25 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                 # Apply only this LoRA to the workflow
                 self._apply_single_lora(workflow, lora_config, i + 1)
                 
-                # Update workflow with scene-specific settings
-                workflow = self._build_dynamic_workflow(scene_id, scene_description, character_names, master_prompt, characters_data, locations_data)
+                # Check if this LoRA should use only intermediate result (no character images)
+                # Use saved config if resuming, otherwise use current config
+                if saved_lora_configs and lora_name in saved_lora_configs:
+                    saved_config = saved_lora_configs[lora_name]
+                    use_only_intermediate = saved_config.get("use_only_intermediate", False)
+                    print(f"  Using saved LoRA configuration for {lora_name}")
+                else:
+                    use_only_intermediate = lora_config.get("use_only_intermediate", False)
+                    print(f"  Using current LoRA configuration for {lora_name}")
+                
+                if use_only_intermediate and i > 0:
+                    # This LoRA should only use intermediate result, disable character images
+                    print(f"  LoRA {i + 1} configured to use only intermediate result (no character images)")
+                    # Build workflow without character images
+                    workflow = self._build_dynamic_workflow(scene_id, scene_description, [], master_prompt, characters_data, locations_data)
+                else:
+                    # Normal workflow with character images
+                    workflow = self._build_dynamic_workflow(scene_id, scene_description, character_names, master_prompt, characters_data, locations_data)
+                
                 if not workflow:
                     print(f"ERROR: Failed to build workflow for LoRA {i + 1}")
                     continue
@@ -1122,9 +1034,14 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                 
                 # If this is not the first LoRA, use previous output as input
                 if i > 0 and current_image_path:
-                    # Load previous image as input for this LoRA
-                    self._set_image_input(workflow, current_image_path)
-                    print(f"  Using previous LoRA output as input")
+                    # Add previous LoRA result as input image group
+                    self._add_intermediate_result_as_input(workflow, current_image_path, character_names)
+                    print(f"  Using previous LoRA output as input image group")
+                    
+                    # If this LoRA uses only intermediate result, ensure no character images are processed
+                    if use_only_intermediate:
+                        print(f"  Disabled character image processing for LoRA {i + 1}")
+                        # The workflow was already built without character images above
                 
                 # Generate filename for this LoRA step
                 lora_clean_name = re.sub(r'[^\w\s-]', '', lora_config['name']).strip()
@@ -1162,6 +1079,14 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                 generated_image = self._find_newest_output_with_prefix(lora_filename)
                 if not generated_image:
                     print(f"ERROR: Could not find generated image for LoRA {i + 1}")
+                    print(f"  Looking for files with prefix: {lora_filename}")
+                    # List files in output directory for debugging
+                    if os.path.exists(self.comfyui_output_folder):
+                        print(f"  Available files in {self.comfyui_output_folder}:")
+                        for root, dirs, files in os.walk(self.comfyui_output_folder):
+                            for file in files:
+                                if file.endswith(('.png', '.jpg', '.jpeg', '.webp')):
+                                    print(f"    {file}")
                     continue
                 
                 # Save result to lora folder (save final result from each LoRA)
@@ -1180,7 +1105,8 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                     lora_progress = {
                         "completed_loras": completed_loras,
                         "current_image_path": current_image_path,
-                        "intermediate_paths": intermediate_paths
+                        "intermediate_paths": intermediate_paths,
+                        "lora_configs": {lora["name"]: lora for lora in enabled_loras}  # Save LoRA configs for resuming
                     }
                     resumable_state.state.setdefault("lora_progress", {})[lora_progress_key] = lora_progress
                     resumable_state._save_state()
@@ -1258,6 +1184,101 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
         # Connect LoRA outputs to workflow nodes
         self._update_node_connections(workflow, "KSampler", "model", [lora_node_id, 0])
         self._update_node_connections(workflow, ["CLIPTextEncode", "CLIP Text Encode (Prompt)"], "clip", [lora_node_id, 1])
+
+    def _add_intermediate_result_as_input(self, workflow: dict, image_path: str, character_names: list[str]) -> None:
+        """Add intermediate LoRA result as input image group for the next LoRA."""
+        try:
+            # Copy the intermediate result to ComfyUI input folder
+            image_filename = os.path.basename(image_path)
+            comfyui_input_path = os.path.join("../../ComfyUI/input", image_filename)
+            shutil.copy2(image_path, comfyui_input_path)
+            
+            # Create a new input image group with the intermediate result
+            # This will be added to the existing character images
+            intermediate_image_name = f"intermediate_result"
+            
+            # Find the next available node ID for the new LoadImage node
+            max_id = max(int(k) for k in workflow.keys() if k.isdigit())
+            load_image_node_id = str(max_id + 1)
+            
+            # Create LoadImage node for intermediate result
+            workflow[load_image_node_id] = {
+                "inputs": {"image": image_filename},
+                "class_type": "LoadImage",
+                "_meta": {"title": f"Load Intermediate Result"}
+            }
+            
+            # Create Scale node for the intermediate result
+            scale_node_id = str(max_id + 2)
+            workflow[scale_node_id] = {
+                "inputs": {"image": [load_image_node_id, 0]},
+                "class_type": "FluxKontextImageScale",
+                "_meta": {"title": f"Scale Intermediate Result"}
+            }
+            
+            # Add this to the existing image processing nodes
+            # We need to find the existing image processing nodes and add this as another group
+            self._add_intermediate_to_image_processing(workflow, scale_node_id, intermediate_image_name)
+            
+            print(f"  Added intermediate result as input image group: {intermediate_image_name}")
+            
+        except Exception as e:
+            print(f"WARNING: Failed to add intermediate result as input: {e}")
+
+    def _add_intermediate_to_image_processing(self, workflow: dict, scale_node_id: str, image_name: str) -> None:
+        """Add intermediate result to the existing image processing pipeline."""
+        try:
+            # Find the next available node ID
+            max_id = max(int(k) for k in workflow.keys() if k.isdigit())
+            
+            # Create VAE encode for the intermediate result (no stitching needed for single image)
+            encode_node_id = str(max_id + 1)
+            workflow[encode_node_id] = {
+                "inputs": {"pixels": [scale_node_id, 0], "vae": ["11", 0]},
+                "class_type": "VAEEncode",
+                "_meta": {"title": f"Encode Intermediate Result"}
+            }
+            
+            # Find existing reference latent nodes and add intermediate result as another group
+            # Look for existing ReferenceLatent nodes to understand the current conditioning chain
+            existing_ref_nodes = []
+            for node_id, node in workflow.items():
+                if isinstance(node, dict) and node.get("class_type") == "ReferenceLatent":
+                    existing_ref_nodes.append(node_id)
+            
+            if existing_ref_nodes:
+                # Add intermediate result as another reference latent in the chain
+                ref_latent_node_id = str(max_id + 2)
+                workflow[ref_latent_node_id] = {
+                    "inputs": {
+                        "conditioning": [existing_ref_nodes[-1], 0],  # Connect to last existing reference
+                        "latent": [encode_node_id, 0]
+                    },
+                    "class_type": "ReferenceLatent",
+                    "_meta": {"title": f"Reference Intermediate Result"}
+                }
+                
+                # Update the main conditioning to use the new intermediate reference
+                workflow["32"]["inputs"]["conditioning"] = [ref_latent_node_id, 0]
+                print(f"  Added intermediate result as additional reference group")
+            else:
+                # No existing reference nodes (character images disabled), create as first reference
+                ref_latent_node_id = str(max_id + 2)
+                workflow[ref_latent_node_id] = {
+                    "inputs": {
+                        "conditioning": ["33", 0],  # Use base conditioning
+                        "latent": [encode_node_id, 0]
+                    },
+                    "class_type": "ReferenceLatent",
+                    "_meta": {"title": f"Reference Intermediate Result"}
+                }
+                
+                # Update the conditioning to use the intermediate result
+                workflow["32"]["inputs"]["conditioning"] = [ref_latent_node_id, 0]
+                print(f"  Created intermediate result as first reference group (no character images)")
+            
+        except Exception as e:
+            print(f"WARNING: Failed to add intermediate to image processing: {e}")
 
     def _set_image_input(self, workflow: dict, image_path: str) -> None:
         """Set an image as input for the workflow (for chaining LoRA outputs)."""
@@ -1413,7 +1434,7 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
         
         for root, _, files in os.walk(self.comfyui_output_folder):
             for name in files:
-                if name.startswith(f"{scene_id}_lora_") and any(name.lower().endswith(ext) for ext in exts):
+                if name.startswith(f"{scene_id}.") and any(name.lower().endswith(ext) for ext in exts):
                     full_path = os.path.join(root, name)
                     intermediate_files.append(full_path)
         

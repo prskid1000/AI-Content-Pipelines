@@ -56,7 +56,7 @@ LORAS = [
         "strength_clip": 2.0,
         "bypass_model": False,
         "bypass_clip": False,
-        "enabled": True,  # Disabled by default
+        "enabled": False,  # Disabled by default
         
         # Serial mode specific settings
         "steps": 25,
@@ -518,6 +518,7 @@ class CharacterGenerator:
                 completed_loras = lora_progress.get("completed_loras", [])
                 current_image_path = lora_progress.get("current_image_path")
                 intermediate_paths = lora_progress.get("intermediate_paths", [])
+                saved_lora_configs = lora_progress.get("lora_configs", {})
                 
                 if completed_loras:
                     print(f"Resuming from LoRA {len(completed_loras) + 1}/{len(enabled_loras)}")
@@ -536,7 +537,7 @@ class CharacterGenerator:
                 lora_clean_name = re.sub(r'[-\s]+', '_', lora_clean_name)
                 
                 # Skip if this LoRA was already completed
-                if i < len(completed_loras):
+                if lora_name in completed_loras:
                     print(f"Skipping completed LoRA {i + 1}/{len(enabled_loras)}: {lora_name}")
                     continue
                 
@@ -622,7 +623,8 @@ class CharacterGenerator:
                     lora_progress = {
                         "completed_loras": completed_loras,
                         "current_image_path": current_image_path,
-                        "intermediate_paths": intermediate_paths
+                        "intermediate_paths": intermediate_paths,
+                        "lora_configs": {lora["name"]: lora for lora in enabled_loras}  # Save LoRA configs for resuming
                     }
                     resumable_state.state.setdefault("lora_progress", {})[lora_progress_key] = lora_progress
                     resumable_state._save_state()

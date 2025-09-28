@@ -6,6 +6,519 @@ Removed file: D:\.comfyui\ComfyUI\input\female_landlady_mrs_hudmore.FLUX1_Turbo_
 Removed file: D:\.comfyui\ComfyUI\output\female_clara_whitfield.FLUX1_Turbo_Alphasafetensors_00001_.png
 Removed file: D:\.comfyui\ComfyUI\output\female_clara_whitfield.Ghibli_lora_weightssafetensors_00001_.png
 Removed file: D:\.comfyui\ComfyUI\output\female_landlady_mrs_hudmore.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\female_landlady_mrs_hudmore.Ghibli_lora_weightssafetensors_00001_.png
 Successfully emptied ComfyUI input and output folders.
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
+[START] Security scan
+[DONE] Security scan
+## ComfyUI-Manager: installing dependencies done.
+** ComfyUI startup time: 2025-09-28 13:41:38.797
+** Platform: Windows
+** Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+** Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
+** ComfyUI Path: D:\.comfyui\ComfyUI
+** ComfyUI Base Folder Path: D:\.comfyui\ComfyUI
+** User directory: D:\.comfyui\ComfyUI\user
+** ComfyUI-Manager config path: D:\.comfyui\ComfyUI\user\default\ComfyUI-Manager\config.ini
+** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
+ComfyUI not ready yet (attempt 1). Retrying in 15s...
+
+Prestartup times for custom nodes:
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\rgthree-comfy
+   2.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+
+Checkpoint files will always be loaded safely.
+Total VRAM 12227 MB, total RAM 64957 MB
+pytorch version: 2.8.0+cu129
+Set vram state to: NORMAL_VRAM
+Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
+Using pytorch attention
+Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+ComfyUI version: 0.3.60
+ComfyUI frontend version: 1.26.13
+[Prompt Server] web root: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\Lib\site-packages\comfyui_frontend_package\static
+ComfyUI-GGUF: Allowing full torch compile
+### Loading: ComfyUI-Impact-Pack (V8.22.2)
+[Impact Pack] Wildcards loading done.
+### Loading: ComfyUI-Manager (V3.36)
+[ComfyUI-Manager] network_mode: public
+### ComfyUI Version: v0.3.60-34-g39fd106d | Released on '2025-09-28'
+
+[32mInitializing ControlAltAI Nodes[0m
+
+[92m[rgthree-comfy] Loaded 48 magnificent nodes. 🎉[0m
+
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
+✅ ChatterboxTTS loaded from bundled package
+✅ ChatterboxVC loaded from bundled package
+JAX version 0.7.1 available.
+✅ F5-TTS loaded from system package
+🎭 Character voices: Found 61 characters, 7 aliases
+✅ SRT modules loaded from system package
+🔧 Registering TTS Audio Suite nodes...
+======================================================================
+🚀 TTS Audio Suite v4.2.1
+Universal multi-engine TTS extension for ComfyUI
+⚠️ No local ChatterBox models found - will download from Hugging Face
+💡 Tip: First generation will download models (~1GB)
+   Models will be saved locally for future use
+✅ TTS Audio Suite v4.2.1 loaded with 16 nodes:
+   • ⚙️ ChatterBox TTS Engine
+   • ⚙️ F5 TTS Engine
+   • ⚙️ RVC Engine
+   • 🌊 Audio Wave Analyzer
+   • 🎙️ Voice Capture
+   • 🎤 TTS Text
+   • 🎭 Character Voices
+   • 🎭 Load RVC Character Model
+   • 👄 F5-TTS Speech Editor
+   • 📺 TTS SRT
+   • 🔄 Voice Changer
+   • 🔧 Audio Analyzer Options
+   • 🔧 F5-TTS Edit Options
+   • 🔧 RVC Pitch Extraction Options
+   • 🤐 Noise or Vocal Removal
+   • 🥪 Merge Audio
+======================================================================
+
+Import times for custom nodes:
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\rgthree-comfy
+   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
+   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-impact-pack
+   0.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   1.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
+   3.4 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
+
+Context impl SQLiteImpl.
+Will assume non-transactional DDL.
+No target revision found.
+Starting server
+
+To see the GUI go to: http://127.0.0.1:8188
+FETCH ComfyRegistry Data: 5/98
+ComfyUI is ready after 17.1s (attempt 2).
+
+===== START D:\.comfyui\gen.image\scripts\2.character.py @ 2025-09-28 13:41:54 =====
+Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.image\output\tracking
+No existing checkpoint found - starting fresh
+Processing 7 characters, skipped 0
+============================================================
+
+[1/7] Processing female_clara_whitfield...
+Generating image for: female_clara_whitfield (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Loaded flux workflow from: ../workflow/character.flux.json
+LoRAs configuration: 1/2 LoRAs enabled
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in character workflow
+Sampling steps set to: 9
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 2.0
+  CLIP strength: 2.0
+Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
+Using calculated dimensions: 256x1024
+  Steps: 8, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Using pytorch attention in VAE
+Using pytorch attention in VAE
+VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
+CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
+clip missing: ['text_projection.weight']
+gguf qtypes: F32 (466), Q8_0 (304), BF16 (10)
+model weight dtype torch.bfloat16, manual cast: None
+model_type FLUX
+Requested to load FluxClipModel_
+FETCH ComfyRegistry Data: 10/98
+loaded completely 9520.8 9319.23095703125 True
+Requested to load Flux
+FETCH ComfyRegistry Data: 15/98
+FETCH ComfyRegistry Data: 20/98
+loaded partially 9462.674965667724 9462.435546875 0
+Attempting to release mmap (126)
+FETCH ComfyRegistry Data: 25/98
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:03<00:27,  3.94s/it]FETCH ComfyRegistry Data: 30/98
+ 25%|██▌       | 2/8 [00:07<00:20,  3.49s/it] 38%|███▊      | 3/8 [00:10<00:16,  3.33s/it]FETCH ComfyRegistry Data: 35/98
+ 50%|█████     | 4/8 [00:13<00:13,  3.25s/it] 62%|██████▎   | 5/8 [00:16<00:09,  3.21s/it]FETCH ComfyRegistry Data: 40/98
+ 75%|███████▌  | 6/8 [00:19<00:06,  3.18s/it]FETCH ComfyRegistry Data: 45/98
+ 88%|████████▊ | 7/8 [00:22<00:03,  3.16s/it]100%|██████████| 8/8 [00:25<00:00,  3.14s/it]100%|██████████| 8/8 [00:25<00:00,  3.23s/it]
+Requested to load AutoencodingEngine
+loaded completely 193.8046875 159.87335777282715 True
+Prompt executed in 46.64 seconds
+FETCH ComfyRegistry Data: 50/98
+  Saved LoRA result: ../output/lora\female_clara_whitfield.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/characters\female_clara_whitfield.png
+  Cleared LoRA progress for completed character
+[OK] Generated: female_clara_whitfield
+
+[2/7] Processing female_landlady_mrs_hudmore...
+Generating image for: female_landlady_mrs_hudmore (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Loaded flux workflow from: ../workflow/character.flux.json
+LoRAs configuration: 1/2 LoRAs enabled
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in character workflow
+Sampling steps set to: 9
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 2.0
+  CLIP strength: 2.0
+Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
+Using calculated dimensions: 256x1024
+  Steps: 8, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+FETCH ComfyRegistry Data: 55/98
+loaded completely 9458.675 9319.23095703125 True
+Requested to load Flux
+FETCH ComfyRegistry Data: 60/98
+FETCH ComfyRegistry Data: 65/98
+loaded partially 9458.674965667724 9458.6748046875 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:03<00:24,  3.44s/it]FETCH ComfyRegistry Data: 70/98
+ 25%|██▌       | 2/8 [00:06<00:19,  3.20s/it] 38%|███▊      | 3/8 [00:09<00:15,  3.12s/it]FETCH ComfyRegistry Data: 75/98
+ 50%|█████     | 4/8 [00:12<00:12,  3.08s/it] 62%|██████▎   | 5/8 [00:15<00:09,  3.07s/it]FETCH ComfyRegistry Data: 80/98
+ 75%|███████▌  | 6/8 [00:18<00:06,  3.06s/it] 88%|████████▊ | 7/8 [00:21<00:03,  3.08s/it]FETCH ComfyRegistry Data: 85/98
+100%|██████████| 8/8 [00:24<00:00,  3.08s/it]100%|██████████| 8/8 [00:24<00:00,  3.10s/it]
+Requested to load AutoencodingEngine
+loaded completely 191.8046875 159.87335777282715 True
+Prompt executed in 39.96 seconds
+  Saved LoRA result: ../output/lora\female_landlady_mrs_hudmore.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/characters\female_landlady_mrs_hudmore.png
+  Cleared LoRA progress for completed character
+[OK] Generated: female_landlady_mrs_hudmore
+
+[3/7] Processing male_client_stranger...
+Generating image for: male_client_stranger (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Loaded flux workflow from: ../workflow/character.flux.json
+LoRAs configuration: 1/2 LoRAs enabled
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in character workflow
+Sampling steps set to: 9
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 2.0
+  CLIP strength: 2.0
+Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
+Using calculated dimensions: 256x1024
+  Steps: 8, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+FETCH ComfyRegistry Data: 90/98
+loaded completely 9458.675 9319.23095703125 True
+FETCH ComfyRegistry Data: 95/98
+Requested to load Flux
+FETCH ComfyRegistry Data [DONE]
+[ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
+FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
+[ComfyUI-Manager] All startup tasks have been completed.
+loaded partially 9458.674965667724 9458.6748046875 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:03<00:22,  3.16s/it] 25%|██▌       | 2/8 [00:06<00:18,  3.11s/it] 38%|███▊      | 3/8 [00:09<00:15,  3.07s/it] 50%|█████     | 4/8 [00:12<00:12,  3.06s/it] 62%|██████▎   | 5/8 [00:15<00:09,  3.07s/it] 75%|███████▌  | 6/8 [00:18<00:06,  3.06s/it] 88%|████████▊ | 7/8 [00:21<00:03,  3.07s/it]100%|██████████| 8/8 [00:24<00:00,  3.07s/it]100%|██████████| 8/8 [00:24<00:00,  3.08s/it]
+Requested to load AutoencodingEngine
+loaded completely 191.8046875 159.87335777282715 True
+Prompt executed in 35.48 seconds
+  Saved LoRA result: ../output/lora\male_client_stranger.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/characters\male_client_stranger.png
+  Cleared LoRA progress for completed character
+[OK] Generated: male_client_stranger
+
+[4/7] Processing male_detective_holmes...
+Generating image for: male_detective_holmes (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Loaded flux workflow from: ../workflow/character.flux.json
+LoRAs configuration: 1/2 LoRAs enabled
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in character workflow
+Sampling steps set to: 9
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 2.0
+  CLIP strength: 2.0
+Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
+Using calculated dimensions: 256x1024
+  Steps: 8, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely 9458.675 9319.23095703125 True
+Requested to load Flux
+loaded partially 9458.674965667724 9458.6748046875 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:03<00:21,  3.09s/it] 25%|██▌       | 2/8 [00:06<00:18,  3.06s/it] 38%|███▊      | 3/8 [00:09<00:15,  3.06s/it] 50%|█████     | 4/8 [00:12<00:12,  3.06s/it] 62%|██████▎   | 5/8 [00:15<00:09,  3.05s/it] 75%|███████▌  | 6/8 [00:18<00:06,  3.06s/it] 88%|████████▊ | 7/8 [00:21<00:03,  3.06s/it]100%|██████████| 8/8 [00:24<00:00,  3.07s/it]100%|██████████| 8/8 [00:24<00:00,  3.06s/it]
+Requested to load AutoencodingEngine
+loaded completely 191.8046875 159.87335777282715 True
+Prompt executed in 35.36 seconds
+  Saved LoRA result: ../output/lora\male_detective_holmes.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/characters\male_detective_holmes.png
+  Cleared LoRA progress for completed character
+[OK] Generated: male_detective_holmes
+
+[5/7] Processing male_doctor_watson...
+Generating image for: male_doctor_watson (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Loaded flux workflow from: ../workflow/character.flux.json
+LoRAs configuration: 1/2 LoRAs enabled
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in character workflow
+Sampling steps set to: 9
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 2.0
+  CLIP strength: 2.0
+Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
+Using calculated dimensions: 256x1024
+  Steps: 8, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely 9458.675 9319.23095703125 True
+Requested to load Flux
+loaded partially 9458.674965667724 9458.6748046875 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:03<00:22,  3.20s/it] 25%|██▌       | 2/8 [00:06<00:18,  3.16s/it] 38%|███▊      | 3/8 [00:09<00:15,  3.14s/it] 50%|█████     | 4/8 [00:12<00:12,  3.14s/it] 62%|██████▎   | 5/8 [00:15<00:09,  3.12s/it] 75%|███████▌  | 6/8 [00:18<00:06,  3.13s/it] 88%|████████▊ | 7/8 [00:21<00:03,  3.13s/it]100%|██████████| 8/8 [00:25<00:00,  3.15s/it]100%|██████████| 8/8 [00:25<00:00,  3.14s/it]
+Requested to load AutoencodingEngine
+loaded completely 191.8046875 159.87335777282715 True
+Prompt executed in 36.37 seconds
+  Saved LoRA result: ../output/lora\male_doctor_watson.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/characters\male_doctor_watson.png
+  Cleared LoRA progress for completed character
+[OK] Generated: male_doctor_watson
+
+[6/7] Processing male_villain_scarred...
+Generating image for: male_villain_scarred (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Loaded flux workflow from: ../workflow/character.flux.json
+LoRAs configuration: 1/2 LoRAs enabled
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in character workflow
+Sampling steps set to: 9
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 2.0
+  CLIP strength: 2.0
+Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
+Using calculated dimensions: 256x1024
+  Steps: 8, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely 9458.675 9319.23095703125 True
+Requested to load Flux
+loaded partially 9458.674965667724 9458.6748046875 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:03<00:22,  3.28s/it] 25%|██▌       | 2/8 [00:06<00:19,  3.19s/it] 38%|███▊      | 3/8 [00:09<00:15,  3.14s/it] 50%|█████     | 4/8 [00:12<00:12,  3.15s/it] 62%|██████▎   | 5/8 [00:15<00:09,  3.15s/it] 75%|███████▌  | 6/8 [00:18<00:06,  3.13s/it] 88%|████████▊ | 7/8 [00:22<00:03,  3.13s/it]100%|██████████| 8/8 [00:25<00:00,  3.13s/it]100%|██████████| 8/8 [00:25<00:00,  3.14s/it]
+Requested to load AutoencodingEngine
+loaded completely 191.8046875 159.87335777282715 True
+Prompt executed in 35.65 seconds
+  Saved LoRA result: ../output/lora\male_villain_scarred.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/characters\male_villain_scarred.png
+  Cleared LoRA progress for completed character
+[OK] Generated: male_villain_scarred
+
+[7/7] Processing male_villain_shorter...
+Generating image for: male_villain_shorter (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Loaded flux workflow from: ../workflow/character.flux.json
+LoRAs configuration: 1/2 LoRAs enabled
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in character workflow
+Sampling steps set to: 9
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 2.0
+  CLIP strength: 2.0
+Updated Flux resolution settings: 0.3MP, 9:32 (Skyline)
+Using calculated dimensions: 256x1024
+  Steps: 8, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely 9458.675 9319.23095703125 True
+Requested to load Flux
+loaded partially 9458.674965667724 9458.6748046875 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:03<00:23,  3.33s/it] 25%|██▌       | 2/8 [00:06<00:19,  3.21s/it] 38%|███▊      | 3/8 [00:09<00:15,  3.19s/it] 50%|█████     | 4/8 [00:12<00:12,  3.16s/it] 62%|██████▎   | 5/8 [00:15<00:09,  3.15s/it] 75%|███████▌  | 6/8 [00:18<00:06,  3.14s/it] 88%|████████▊ | 7/8 [00:22<00:03,  3.14s/it]100%|██████████| 8/8 [00:25<00:00,  3.13s/it]100%|██████████| 8/8 [00:25<00:00,  3.15s/it]
+Requested to load AutoencodingEngine
+loaded completely 191.8046875 159.87335777282715 True
+Prompt executed in 35.56 seconds
+  Saved LoRA result: ../output/lora\male_villain_shorter.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/characters\male_villain_shorter.png
+  Cleared LoRA progress for completed character
+[OK] Generated: male_villain_shorter
+
+Generated 7 character images in 285.07s using flux mode:
+  female_clara_whitfield: ../output/characters\female_clara_whitfield.png
+  female_landlady_mrs_hudmore: ../output/characters\female_landlady_mrs_hudmore.png
+  male_client_stranger: ../output/characters\male_client_stranger.png
+  male_detective_holmes: ../output/characters\male_detective_holmes.png
+  male_doctor_watson: ../output/characters\male_doctor_watson.png
+  male_villain_scarred: ../output/characters\male_villain_scarred.png
+  male_villain_shorter: ../output/characters\male_villain_shorter.png
+All operations completed successfully
+Final progress: Progress: Characters(7/7)
+All operations completed successfully - tracking files preserved
+
+===== END D:\.comfyui\gen.image\scripts\2.character.py @ 2025-09-28 13:46:39 (exit=0, took=285.28s) =====
+
+===== START D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-09-28 13:46:39 =====
+Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.image\output\tracking
+No existing checkpoint found - starting fresh
+Location info enabled: 4 locations loaded
+Processing 100 scenes, skipped 0
+============================================================
+
+[1/100] Processing scene_1.1...
+Generating scene: scene_1.1 with characters: male_doctor_watson (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+  Model strength: 2.0
+  CLIP strength: 2.0
+Creating serial LoRA workflow with 1 LoRAs...
+Serial LoRA mode enabled - will create separate workflow
+Compressed male_doctor_watson image: 263.4KB → 3.5KB (98.7% reduction)
+Using fixed dimensions: 1280x720
+Creating LoRA 1: FLUX.1-Turbo-Alpha.safetensors (steps: 8, denoising: 1)
+Using reference conditioning for first LoRA
+Serial LoRA workflow created with 1 LoRAs
+Serial LoRA workflow complete for scene_1.1
+  Steps: 8, Denoising: 1
+got prompt
+Failed to validate prompt for output 21:
+* VAEDecode 20:
+  - Exception when validating inner node: '16'
+Output will be ignored
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely 9458.675 9319.23095703125 True
+Requested to load AutoencodingEngine
+loaded completely 195.24413299560547 159.87335777282715 True
+Requested to load FluxClipModel_
+loaded completely 9458.675 9319.23095703125 True
+Requested to load Flux
+loaded partially 8364.306965667725 8364.283203125 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:09<01:05,  9.36s/it] 25%|██▌       | 2/8 [00:18<00:56,  9.34s/it] 38%|███▊      | 3/8 [00:27<00:46,  9.32s/it] 50%|█████     | 4/8 [00:37<00:37,  9.29s/it] 62%|██████▎   | 5/8 [00:46<00:27,  9.29s/it] 75%|███████▌  | 6/8 [00:55<00:18,  9.27s/it] 88%|████████▊ | 7/8 [01:04<00:09,  9.26s/it]100%|██████████| 8/8 [01:14<00:00,  9.26s/it]100%|██████████| 8/8 [01:14<00:00,  9.28s/it]
+Requested to load AutoencodingEngine
+loaded completely 189.3203125 159.87335777282715 True
+Prompt executed in 89.47 seconds
+ERROR: Could not find generated image for LoRA 1
+ERROR: No successful LoRA generations for scene_1.1
+[FAILED] scene_1.1
+
+[2/100] Processing scene_1.2...
+Generating scene: scene_1.2 with characters: male_detective_holmes (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+  Model strength: 2.0
+  CLIP strength: 2.0
+Creating serial LoRA workflow with 1 LoRAs...
+Serial LoRA mode enabled - will create separate workflow
+Compressed male_detective_holmes image: 267.9KB → 3.7KB (98.6% reduction)
+Using fixed dimensions: 1280x720
+Creating LoRA 1: FLUX.1-Turbo-Alpha.safetensors (steps: 8, denoising: 1)
+Using reference conditioning for first LoRA
+Serial LoRA workflow created with 1 LoRAs
+Serial LoRA workflow complete for scene_1.2
+  Steps: 8, Denoising: 1
+got prompt
+Failed to validate prompt for output 21:
+* VAEDecode 20:
+  - Exception when validating inner node: '16'
+Output will be ignored
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8490.306965667725 8490.154296875 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:09<01:04,  9.27s/it] 25%|██▌       | 2/8 [00:18<00:55,  9.25s/it] 38%|███▊      | 3/8 [00:27<00:46,  9.24s/it] 50%|█████     | 4/8 [00:36<00:36,  9.25s/it] 62%|██████▎   | 5/8 [00:46<00:27,  9.27s/it] 75%|███████▌  | 6/8 [00:55<00:18,  9.28s/it] 88%|████████▊ | 7/8 [01:04<00:09,  9.29s/it]100%|██████████| 8/8 [01:14<00:00,  9.28s/it]100%|██████████| 8/8 [01:14<00:00,  9.27s/it]
+Requested to load AutoencodingEngine
+loaded completely 189.3203125 159.87335777282715 True
+Prompt executed in 76.75 seconds
+ERROR: Could not find generated image for LoRA 1
+ERROR: No successful LoRA generations for scene_1.2
+[FAILED] scene_1.2
+
+[3/100] Processing scene_1.3...
+Generating scene: scene_1.3 with characters: male_doctor_watson (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+  Model strength: 2.0
+  CLIP strength: 2.0
+Creating serial LoRA workflow with 1 LoRAs...
+Serial LoRA mode enabled - will create separate workflow
+Compressed male_doctor_watson image: 263.4KB → 3.5KB (98.7% reduction)
+Using fixed dimensions: 1280x720
+Creating LoRA 1: FLUX.1-Turbo-Alpha.safetensors (steps: 8, denoising: 1)
+Using reference conditioning for first LoRA
+Serial LoRA workflow created with 1 LoRAs
+Serial LoRA workflow complete for scene_1.3
+  Steps: 8, Denoising: 1
+got prompt
+Failed to validate prompt for output 21:
+* VAEDecode 20:
+  - Exception when validating inner node: '16'
+Output will be ignored
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8490.306965667725 8490.154296875 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:09<01:05,  9.35s/it] 25%|██▌       | 2/8 [00:18<00:56,  9.35s/it] 38%|███▊      | 3/8 [00:28<00:46,  9.33s/it] 50%|█████     | 4/8 [00:37<00:37,  9.31s/it] 62%|██████▎   | 5/8 [00:46<00:27,  9.28s/it] 75%|███████▌  | 6/8 [00:55<00:18,  9.26s/it] 88%|████████▊ | 7/8 [01:05<00:09,  9.27s/it]100%|██████████| 8/8 [01:14<00:00,  9.26s/it]100%|██████████| 8/8 [01:14<00:00,  9.28s/it]
+Requested to load AutoencodingEngine
+loaded completely 189.3203125 159.87335777282715 True
+Prompt executed in 76.69 seconds
+ERROR: Could not find generated image for LoRA 1
+ERROR: No successful LoRA generations for scene_1.3
+[FAILED] scene_1.3
+
+[4/100] Processing scene_1.4...
+Generating scene: scene_1.4 with characters: male_detective_holmes (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+  Model strength: 2.0
+  CLIP strength: 2.0
+Creating serial LoRA workflow with 1 LoRAs...
+Serial LoRA mode enabled - will create separate workflow
+Compressed male_detective_holmes image: 267.9KB → 3.7KB (98.6% reduction)
+Using fixed dimensions: 1280x720
+Creating LoRA 1: FLUX.1-Turbo-Alpha.safetensors (steps: 8, denoising: 1)
+Using reference conditioning for first LoRA
+Serial LoRA workflow created with 1 LoRAs
+Serial LoRA workflow complete for scene_1.4
+  Steps: 8, Denoising: 1
+got prompt
+Failed to validate prompt for output 21:
+* VAEDecode 20:
+  - Exception when validating inner node: '16'
+Output will be ignored
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8490.306965667725 8490.154296875 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:09<01:05,  9.30s/it] 25%|██▌       | 2/8 [00:18<00:55,  9.28s/it] 38%|███▊      | 3/8 [00:27<00:46,  9.25s/it] 50%|█████     | 4/8 [00:37<00:36,  9.24s/it] 62%|██████▎   | 5/8 [00:46<00:27,  9.24s/it] 75%|███████▌  | 6/8 [00:55<00:18,  9.25s/it]
+===== END D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-09-28 13:51:49 (exit=3221225786, took=310.20s) =====
+Stopping ComfyUI backend...
