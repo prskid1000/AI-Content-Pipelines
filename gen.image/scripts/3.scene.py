@@ -15,12 +15,12 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 
 # Image resizing configuration (characters only)
 # Character image dimensions: 256x1024 (width x height) - Better aspect ratio for stitching
-CHARACTER_RESIZE_WIDTH = 256
-CHARACTER_RESIZE_HEIGHT = 1024
+CHARACTER_RESIZE_WIDTH = 64
+CHARACTER_RESIZE_HEIGHT = 256
 
 # Image compression configuration
 # JPEG quality: 1-100 (100 = best quality, larger file; 1 = worst quality, smaller file)
-IMAGE_COMPRESSION_QUALITY = 100
+IMAGE_COMPRESSION_QUALITY = 60
 
 # Character prompt handling modes
 # "IMAGE_TEXT" Send character images + character details appended from characters.txt
@@ -47,11 +47,12 @@ IMAGE_STITCH_COUNT = 1  # Number of images to stitch together in each group
 
 # LoRA Configuration
 USE_LORA = True  # Set to False to disable LoRA usage in workflow
+LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
 
-# Multiple LoRAs Configuration
-# Each LoRA will be applied in sequence (chained)
-# You can bypass model or CLIP parts individually per LoRA
-# You can disable entire LoRAs by setting "enabled": False
+# LoRA Configuration
+# Each LoRA can be configured for both serial and chained modes
+# For serial mode: each LoRA runs independently with its own steps and denoising
+# For chained mode: LoRAs are applied in sequence to the same generation
 LORAS = [
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
@@ -59,7 +60,25 @@ LORAS = [
         "strength_clip": 2.0,     # CLIP strength (0.0 - 2.0)
         "bypass_model": False,    # Set to True to bypass model part of this LoRA
         "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
-        "enabled": True           # Set to False to disable this LoRA entirely
+        "enabled": True,          # Set to False to disable this LoRA entirely
+        
+        # Serial mode specific settings (only used when LORA_MODE = "serial")
+        "steps": 8,               # Sampling steps for this LoRA (serial mode only)
+        "denoising_strength": 1, # Denoising strength (0.0 - 1.0) (serial mode only)
+        "save_intermediate": True # Save intermediate results for debugging (serial mode only)
+    },
+    {
+        "name": "Ghibli_lora_weights.safetensors",  # Example second LoRA
+        "strength_model": 2.0,
+        "strength_clip": 2.0,
+        "bypass_model": False,
+        "bypass_clip": False,
+        "enabled": False,  # Disabled by default
+        
+        # Serial mode specific settings
+        "steps": 8,
+        "denoising_strength": 0.6,
+        "save_intermediate": True
     },
 ]
 
@@ -362,7 +381,7 @@ class SceneGenerator:
     def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
         return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
-Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
+Must Always Precisely & Accurately Preserve each Character's identity(all physical features - face, body, height, weight, clothings, appearance) from respective specified reference image, though "posture", "expression", "movement", "placement" and "action-performed" is adaptable according to Scene/Character text-description.
 Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
 All Non-Living Objects mentioned in Scene text-description must be present in illustration.
 Each Object/Character in the illustration must be visually distinct/unique from each other.
@@ -473,20 +492,26 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
             
             # Modify workflow based on USE_LORA setting
             if USE_LORA:
-                # Handle multiple LoRAs in series
-                self._apply_loras(workflow)
-                print("LoRA enabled in workflow")
+                if LORA_MODE == "serial":
+                    print("Serial LoRA mode enabled - will create separate workflow")
+                    # For serial mode, we don't modify the base workflow here
+                    # The serial workflow will be created separately
+                else:
+                    # Handle multiple LoRAs in series (chained mode)
+                    self._apply_loras(workflow)
+                    print("Chained LoRA mode enabled in workflow")
             else:
                 # Remove all LoRA nodes if they exist
                 self._remove_all_lora_nodes(workflow)
                 print("LoRA disabled in workflow")
             
-            # Set sampling steps and seed
-            workflow["16"]["inputs"]["steps"] = SAMPLING_STEPS
-            seed = self._get_seed()
-            workflow["16"]["inputs"]["seed"] = seed
-            print(f"Sampling steps set to: {SAMPLING_STEPS}")
-            print(f"Seed set to: {seed}")
+            # Set sampling steps and seed (only for chained mode)
+            if USE_LORA and LORA_MODE == "chained":
+                workflow["16"]["inputs"]["steps"] = SAMPLING_STEPS
+                seed = self._get_seed()
+                workflow["16"]["inputs"]["seed"] = seed
+                print(f"Sampling steps set to: {SAMPLING_STEPS}")
+                print(f"Seed set to: {seed}")
             
             return workflow
         except Exception as e:
@@ -552,6 +577,204 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
         workflow["33"]["inputs"]["clip"] = last_clip_output
         
         print(f"LoRAs chain completed with {len(enabled_loras)} LoRAs")
+    
+    def _create_serial_lora_workflow(self, scene_id: str, scene_description: str, character_names: list[str], master_prompt: str, characters_data: dict[str, str], locations_data: dict[str, str] = None) -> dict:
+        """Create a workflow for serial LoRA application with separate generation steps."""
+        enabled_loras = [lora for lora in LORAS if lora.get("enabled", True)]
+        
+        if not enabled_loras:
+            print("No enabled serial LoRAs found")
+            return {}
+        
+        print(f"Creating serial LoRA workflow with {len(enabled_loras)} LoRAs...")
+        
+        # Start with base workflow
+        workflow = self._load_base_workflow()
+        if not workflow:
+            return {}
+        
+        # Remove the original sampler since we'll create separate ones for each LoRA
+        if "16" in workflow:
+            del workflow["16"]
+        
+        # Process images if available
+        all_images = {}
+        if self.character_mode in ["IMAGE", "IMAGE_TEXT"]:
+            all_images = self._copy_character_images_to_comfyui(character_names)
+            if not all_images and self.character_mode == "IMAGE":
+                print("ERROR: No images copied to ComfyUI!")
+                return {}
+        
+        # Create image processing nodes if needed
+        ref_latent_nodes = []
+        if all_images:
+            ref_latent_nodes = self._create_image_processing_nodes(workflow, all_images, 100)
+        
+        # Build text prompt
+        text_prompt = f"{master_prompt}"
+        
+        # Replace location references if location data is available
+        processed_scene_description = scene_description
+        if locations_data:
+            processed_scene_description = self._replace_location_references(scene_description, locations_data)
+        
+        # Replace character references with position format (only in IMAGE and IMAGE_TEXT modes)
+        if self.character_mode in ["IMAGE", "IMAGE_TEXT"]:
+            processed_scene_description = self._replace_character_references(processed_scene_description, character_names)
+        
+        text_prompt += f"\nSCENE TEXT-DESCRIPTION:\n Illustrate an exact scenery like {processed_scene_description}.\n"
+        
+        if self.character_mode in ["TEXT", "IMAGE_TEXT"]:
+            character_details = self._get_character_details(character_names, characters_data)
+            if character_details:
+                text_prompt += f"\nCHARACTER TEXT-DESCRIPTION:\n{character_details}"
+        
+        # Set resolution parameters
+        workflow["23"]["inputs"]["megapixel"] = IMAGE_MEGAPIXEL
+        workflow["23"]["inputs"]["aspect_ratio"] = IMAGE_ASPECT_RATIO
+        workflow["23"]["inputs"]["divisible_by"] = IMAGE_DIVISIBLE_BY
+        workflow["23"]["inputs"]["custom_ratio"] = IMAGE_CUSTOM_RATIO
+        workflow["23"]["inputs"]["custom_aspect_ratio"] = IMAGE_CUSTOM_ASPECT_RATIO
+        
+        # Override with fixed dimensions if specified
+        if USE_FIXED_DIMENSIONS:
+            workflow["19"]["inputs"]["width"] = IMAGE_OUTPUT_WIDTH
+            workflow["19"]["inputs"]["height"] = IMAGE_OUTPUT_HEIGHT
+            print(f"Using fixed dimensions: {IMAGE_OUTPUT_WIDTH}x{IMAGE_OUTPUT_HEIGHT}")
+        
+        # Create serial LoRA workflow
+        next_node_id = 200
+        current_latent = None
+        current_conditioning = None
+        
+        for i, lora_config in enumerate(enabled_loras):
+            lora_name = lora_config["name"]
+            steps = lora_config.get("steps", 8)
+            denoising_strength = lora_config.get("denoising_strength", 0.7)
+            
+            print(f"Creating LoRA {i + 1}: {lora_name} (steps: {steps}, denoising: {denoising_strength})")
+            
+            # Create LoRA loader node
+            lora_node_id = str(next_node_id)
+            workflow[lora_node_id] = {
+                "inputs": {
+                    "lora_name": lora_name,
+                    "model": ["41", 0],
+                    "clip": ["10", 0],
+                    "strength_model": lora_config.get("strength_model", 1.0),
+                    "strength_clip": lora_config.get("strength_clip", 1.0)
+                },
+                "class_type": "LoraLoader",
+                "_meta": {"title": f"Load LoRA {i + 1}: {lora_name}"}
+            }
+            next_node_id += 1
+            
+            # Create CLIP text encode node
+            clip_node_id = str(next_node_id)
+            workflow[clip_node_id] = {
+                "inputs": {
+                    "text": text_prompt,
+                    "clip": [lora_node_id, 1]
+                },
+                "class_type": "CLIPTextEncode",
+                "_meta": {"title": f"CLIP Text Encode LoRA {i + 1}"}
+            }
+            next_node_id += 1
+            
+            # Create negative prompt node if enabled
+            negative_node_id = None
+            if USE_NEGATIVE_PROMPT:
+                negative_node_id = str(next_node_id)
+                workflow[negative_node_id] = {
+                    "inputs": {
+                        "text": NEGATIVE_PROMPT,
+                        "clip": [lora_node_id, 1]
+                    },
+                    "class_type": "CLIPTextEncode",
+                    "_meta": {"title": f"CLIP Text Encode Negative LoRA {i + 1}"}
+                }
+                next_node_id += 1
+            
+            # Create sampler node
+            sampler_node_id = str(next_node_id)
+            sampler_inputs = {
+                "seed": self._get_seed(),
+                "steps": steps,
+                "cfg": 1.0,
+                "sampler_name": "euler",
+                "scheduler": "normal",
+                "denoise": denoising_strength,
+                "model": [lora_node_id, 0],
+                "positive": [clip_node_id, 0],
+                "negative": [negative_node_id, 0] if negative_node_id else ["34", 0],
+                "latent_image": current_latent if current_latent else ["19", 0]
+            }
+            
+            # Add reference conditioning if available
+            if ref_latent_nodes and i == 0:  # Only apply reference conditioning to first LoRA
+                sampler_inputs["positive"] = [ref_latent_nodes[-1], 0]
+                print(f"Using reference conditioning for first LoRA")
+            
+            workflow[sampler_node_id] = {
+                "inputs": sampler_inputs,
+                "class_type": "KSampler",
+                "_meta": {"title": f"KSampler LoRA {i + 1}"}
+            }
+            next_node_id += 1
+            
+            # Create VAE decode node
+            vae_decode_id = str(next_node_id)
+            workflow[vae_decode_id] = {
+                "inputs": {
+                    "samples": [sampler_node_id, 0],
+                    "vae": ["11", 0]
+                },
+                "class_type": "VAEDecode",
+                "_meta": {"title": f"VAE Decode LoRA {i + 1}"}
+            }
+            next_node_id += 1
+            
+            # Create save image node for intermediate results
+            if lora_config.get("save_intermediate", True):
+                save_node_id = str(next_node_id)
+                workflow[save_node_id] = {
+                    "inputs": {
+                        "filename_prefix": f"{scene_id}_lora_{i + 1}",
+                        "images": [vae_decode_id, 0]
+                    },
+                    "class_type": "SaveImage",
+                    "_meta": {"title": f"Save LoRA {i + 1} Result"}
+                }
+                next_node_id += 1
+            
+            # For next iteration, use current output as input
+            if i < len(enabled_loras) - 1:  # Not the last LoRA
+                # Create VAE encode node to convert back to latent for next iteration
+                vae_encode_id = str(next_node_id)
+                workflow[vae_encode_id] = {
+                    "inputs": {
+                        "pixels": [vae_decode_id, 0],
+                        "vae": ["11", 0]
+                    },
+                    "class_type": "VAEEncode",
+                    "_meta": {"title": f"VAE Encode for LoRA {i + 2} Input"}
+                }
+                current_latent = [vae_encode_id, 0]
+                next_node_id += 1
+        
+        # Create final save node
+        final_save_id = str(next_node_id)
+        workflow[final_save_id] = {
+            "inputs": {
+                "filename_prefix": scene_id,
+                "images": [vae_decode_id, 0]  # Use the last VAE decode
+            },
+            "class_type": "SaveImage",
+            "_meta": {"title": "Save Final Result"}
+        }
+        
+        print(f"Serial LoRA workflow created with {len(enabled_loras)} LoRAs")
+        return workflow
     
     def _remove_all_lora_nodes(self, workflow: dict) -> None:
         """Remove all LoRA nodes from workflow."""
@@ -693,10 +916,21 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
 
     def _build_dynamic_workflow(self, scene_id: str, scene_description: str, character_names: list[str], master_prompt: str, characters_data: dict[str, str], locations_data: dict[str, str] = None) -> dict:
         """Build a dynamic workflow with N character images."""
-        workflow = self._load_base_workflow()
+        # Choose workflow type based on LoRA mode
+        if USE_LORA and LORA_MODE == "serial":
+            workflow = self._create_serial_lora_workflow(scene_id, scene_description, character_names, master_prompt, characters_data, locations_data)
+        else:
+            workflow = self._load_base_workflow()
+        
         if not workflow:
             return {}
 
+        # For serial mode, the workflow is already complete
+        if USE_LORA and LORA_MODE == "serial":
+            print(f"Serial LoRA workflow complete for {scene_id}")
+            return workflow
+        
+        # Handle chained mode workflow setup
         # Handle different character modes
         all_images = {}
         if self.character_mode in ["IMAGE", "IMAGE_TEXT"]:
@@ -776,7 +1010,7 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
             
             # Find the final CLIP output from LoRAs or use base CLIP
             final_clip_output = ["10", 0]  # Base clip
-            if USE_LORA:
+            if USE_LORA and LORA_MODE == "chained":
                 enabled_loras = [lora for lora in LORAS if lora.get("enabled", True)]
                 if enabled_loras:
                     final_clip_output = [f"lora_{len(enabled_loras)}", 1]
@@ -854,6 +1088,10 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
             shutil.copy2(generated_image, final_path)
             print(f"Saved: {final_path}")
             
+            # Handle intermediate files for serial LoRA mode
+            if USE_LORA and LORA_MODE == "serial":
+                self._handle_serial_lora_intermediate_files(scene_id)
+            
             # Save to checkpoint if resumable mode enabled
             if resumable_state:
                 result = {
@@ -869,6 +1107,34 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
         except Exception as e:
             print(f"ERROR: Failed to generate image for {scene_id}: {e}")
             return None
+    
+    def _handle_serial_lora_intermediate_files(self, scene_id: str) -> None:
+        """Handle intermediate files from serial LoRA processing."""
+        if not os.path.isdir(self.comfyui_output_folder):
+            return
+        
+        # Find all intermediate LoRA files
+        intermediate_files = []
+        exts = {".png", ".jpg", ".jpeg", ".webp"}
+        
+        for root, _, files in os.walk(self.comfyui_output_folder):
+            for name in files:
+                if name.startswith(f"{scene_id}_lora_") and any(name.lower().endswith(ext) for ext in exts):
+                    full_path = os.path.join(root, name)
+                    intermediate_files.append(full_path)
+        
+        if intermediate_files:
+            print(f"Found {len(intermediate_files)} intermediate LoRA files:")
+            for file_path in intermediate_files:
+                # Copy to final output directory for reference
+                filename = os.path.basename(file_path)
+                dest_path = os.path.join(self.final_output_dir, filename)
+                shutil.copy2(file_path, dest_path)
+                print(f"  Copied intermediate: {filename}")
+                
+                # Optionally clean up intermediate files from ComfyUI output
+                # Uncomment the next line if you want to clean up intermediate files
+                # os.remove(file_path)
 
     def _find_newest_output_with_prefix(self, prefix: str) -> str | None:
         """Find the newest generated image with the given prefix."""

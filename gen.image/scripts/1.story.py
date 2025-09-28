@@ -17,6 +17,7 @@ STORY_DESCRIPTION_CHARACTER_COUNT = 16000
 ENABLE_CHARACTER_REWRITE = True  # Set to False to skip character rewriting step
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
+ENABLE_THINKING = False  # Set to True to enable thinking in LM Studio responses
 
 # Model constants for easy switching
 MODEL_STORY_DESCRIPTION = "qwen/qwen3-14b"  # Model for generating story descriptions
@@ -859,7 +860,9 @@ def _call_lm_studio(system_prompt: str, lm_studio_url: str, model: str, user_pay
     headers = {"Content-Type": "application/json"}
     messages = [{"role": "system", "content": system_prompt}]
     if user_payload:
-        messages.append({"role": "user", "content": user_payload})
+        # Add thinking control to user payload
+        thinking_suffix = "" if ENABLE_THINKING else "\n/no_think"
+        messages.append({"role": "user", "content": f"{user_payload}{thinking_suffix}"})
     
     payload = {
         "model": model,
@@ -1446,7 +1449,16 @@ def main() -> int:
                        help="Skip character consistency and scene ID continuity validation")
     parser.add_argument("--force-start", action="store_true",
                        help="Force start from beginning, ignoring any existing checkpoint files")
+    parser.add_argument("--enable-thinking", action="store_true",
+                       help="Enable thinking in LM Studio responses (default: disabled)")
     args = parser.parse_args()
+
+    # Update ENABLE_THINKING based on CLI argument
+    if args.enable_thinking:
+        ENABLE_THINKING = True
+        print("🧠 Thinking enabled in LM Studio responses")
+    else:
+        print("🚫 Thinking disabled in LM Studio responses (using /no_think)")
 
     base_dir = os.path.dirname(os.path.abspath(__file__))
 

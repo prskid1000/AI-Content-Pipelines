@@ -15,6 +15,7 @@ MODEL_TIMING_GENERATION = "qwen/qwen3-14b"  # Model for timing SFX generation
 # Feature flags
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
+ENABLE_THINKING = False  # Set to True to enable thinking in LM Studio responses
 
 # Resumable state management
 class ResumableState:
@@ -232,7 +233,7 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
                     },
                     {
                         "role": "user",
-                        "content": f"{prompt}\n/no_think"
+                        "content": f"{prompt}{'' if ENABLE_THINKING else '\n/no_think'}"
                     }
                 ],
                 "temperature": 1,
@@ -674,12 +675,21 @@ def main():
                        help="Path to timing file (default: ../input/3.timing.txt)")
     parser.add_argument("--force-start", action="store_true",
                        help="Force start from beginning, ignoring any existing checkpoint files")
+    parser.add_argument("--enable-thinking", action="store_true",
+                       help="Enable thinking in LM Studio responses (default: disabled)")
     args = parser.parse_args()
+    
+    # Update ENABLE_THINKING based on CLI argument
+    if args.enable_thinking:
+        ENABLE_THINKING = True
+        print("🧠 Thinking enabled in LM Studio responses")
+    else:
+        print("🚫 Thinking disabled in LM Studio responses (using /no_think)")
     
     # Check if timing file exists
     if not os.path.exists(args.timing_file):
         print(f"❌ Timing file '{args.timing_file}' not found")
-        print("Usage: python 6.timing.py [timing_file] [--force-start]")
+        print("Usage: python 6.timing.py [timing_file] [--force-start] [--enable-thinking]")
         return 1
     
     # Check if timeline file exists

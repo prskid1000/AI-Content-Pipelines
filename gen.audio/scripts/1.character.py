@@ -21,6 +21,7 @@ MODEL_CHARACTER_META_SUMMARY = "qwen/qwen3-14b"  # Model for meta-summary genera
 # Story processing configuration
 CHUNK_SIZE = 50  # Number of lines per chapter chunk for summarization
 GENERATE_TITLE = True  # Set to False to disable automatic title generation
+ENABLE_THINKING = False  # Set to True to enable thinking in LM Studio responses
 
 # Non-interactive defaults (can be overridden by CLI flags in __main__)
 AUTO_GENDER = "m"
@@ -493,6 +494,7 @@ class CharacterManager:
 
     def _build_chapter_summary_prompt(self, chunk_text: str, part_number: int, total_parts: int, percentage: float) -> str:
         """Build system prompt for chapter title and summary generation with structured JSON output"""
+        thinking_suffix = "" if ENABLE_THINKING else " /no_think"
         return f"""You are a literary analyst creating chapter titles and summaries. This is Part {part_number} of {total_parts} ({percentage:.1f}% of the total story).
 
 Analyze the story section and generate:
@@ -512,11 +514,12 @@ REQUIREMENTS:
 STORY PART {part_number}/{total_parts} ({percentage:.1f}%):
 {chunk_text}
 
-Generate a JSON response with "title", "summary", and "short_summary" fields. Both summaries should be single continuous paragraphs. /no_think"""
+Generate a JSON response with "title", "summary", and "short_summary" fields. Both summaries should be single continuous paragraphs.{thinking_suffix}"""
 
     def _build_meta_summary_prompt(self, summary_parts: list) -> str:
         """Build system prompt for meta-summarization of all parts"""
         combined_summaries = "\n\n".join([f"PART {i+1}: {summary}" for i, summary in enumerate(summary_parts)])
+        thinking_suffix = "" if ENABLE_THINKING else " /no_think"
         
         return f"""You are a master literary summarizer creating a comprehensive story overview. You have been given {len(summary_parts)} individual part summaries of a complete story. Your task is to synthesize these into one cohesive, comprehensive summary.
 
@@ -534,7 +537,7 @@ REQUIREMENTS:
 INDIVIDUAL PART SUMMARIES:
 {combined_summaries}
 
-Create a masterful synthesis that reads as a single, comprehensive story summary rather than separate parts stitched together. Focus on narrative flow and character arcs across the entire story. Generate a JSON response with a "summary" field containing your comprehensive synthesis. /no_think"""
+Create a masterful synthesis that reads as a single, comprehensive story summary rather than separate parts stitched together. Focus on narrative flow and character arcs across the entire story. Generate a JSON response with a "summary" field containing your comprehensive synthesis.{thinking_suffix}"""
 
     def _generate_meta_summary(self, summary_parts: list) -> str:
         """Generate a meta-summary by re-summarizing all part summaries through LM Studio"""
@@ -570,6 +573,7 @@ Create a masterful synthesis that reads as a single, comprehensive story summary
 
     def _build_story_title_prompt(self, story_summary: str) -> str:
         """Build system prompt for story title generation"""
+        thinking_suffix = "" if ENABLE_THINKING else " /no_think"
         return f"""You are a creative title generator specializing in compelling story titles. Based on the comprehensive story summary provided, generate a captivating and memorable title that captures the essence, theme, and intrigue of the story.
 
 REQUIREMENTS:
@@ -592,7 +596,7 @@ EXAMPLES OF GOOD TITLES:
 STORY SUMMARY:
 {story_summary}
 
-Generate a JSON response with a "title" field containing your suggested story title. Focus on creating something that would intrigue potential listeners and capture the story's essence without giving away the plot. /no_think"""
+Generate a JSON response with a "title" field containing your suggested story title. Focus on creating something that would intrigue potential listeners and capture the story's essence without giving away the plot.{thinking_suffix}"""
 
     def generate_story_title(self, story_summary: str, output_dir: str = "../input") -> str:
         """Generate a story title based on the comprehensive summary and save to 10.title.txt"""
@@ -1131,6 +1135,7 @@ if __name__ == "__main__":
     parser.add_argument("--change-settings", choices=["y", "n", "yes", "no"], help="Whether to change region/language")
     parser.add_argument("--region", help="Region code to use when changing settings")
     parser.add_argument("--language", help="Language code to use when changing settings")
+    parser.add_argument("--enable-thinking", action="store_true", help="Enable thinking in LM Studio responses (default: disabled)")
     args = parser.parse_args()
 
     # Expose as module-level vars for use inside functions
@@ -1139,6 +1144,13 @@ if __name__ == "__main__":
     AUTO_CHANGE_SETTINGS = (args.change_settings or None)
     AUTO_REGION = (args.region or None)
     AUTO_LANGUAGE = (args.language or None)
+    
+    # Update ENABLE_THINKING based on CLI argument
+    if args.enable_thinking:
+        ENABLE_THINKING = True
+        print("🧠 Thinking enabled in LM Studio responses")
+    else:
+        print("🚫 Thinking disabled in LM Studio responses (using /no_think)")
 
     start_time = time.time()
     
