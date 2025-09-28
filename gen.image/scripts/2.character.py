@@ -659,11 +659,8 @@ class CharacterGenerator:
                 }
                 resumable_state.set_character_result(character_name, result)
                 
-                # Clean up LoRA progress since character is complete
-                if lora_progress_key in resumable_state.state.get("lora_progress", {}):
-                    del resumable_state.state["lora_progress"][lora_progress_key]
-                    resumable_state._save_state()
-                    print(f"  Cleared LoRA progress for completed character")
+                # Keep LoRA progress for completed character (not cleaning up)
+                print(f"  Preserved LoRA progress for completed character")
             
             return final_path
 

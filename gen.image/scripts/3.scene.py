@@ -1132,11 +1132,8 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                 }
                 resumable_state.set_scene_result(scene_id, result)
                 
-                # Clean up LoRA progress since scene is complete
-                if lora_progress_key in resumable_state.state.get("lora_progress", {}):
-                    del resumable_state.state["lora_progress"][lora_progress_key]
-                    resumable_state._save_state()
-                    print(f"  Cleared LoRA progress for completed scene")
+                # Keep LoRA progress for completed scene (not cleaning up)
+                print(f"  Preserved LoRA progress for completed scene")
             
             return final_path
 
