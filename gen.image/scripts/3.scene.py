@@ -15,12 +15,12 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 
 # Image resizing configuration (characters only)
 # Character image dimensions: 256x1024 (width x height) - Better aspect ratio for stitching
-CHARACTER_RESIZE_WIDTH = 64
-CHARACTER_RESIZE_HEIGHT = 256
+CHARACTER_RESIZE_WIDTH = 96
+CHARACTER_RESIZE_HEIGHT = 200
 
 # Image compression configuration
 # JPEG quality: 1-100 (100 = best quality, larger file; 1 = worst quality, smaller file)
-IMAGE_COMPRESSION_QUALITY = 60
+IMAGE_COMPRESSION_QUALITY = 90
 
 # Character prompt handling modes
 # "IMAGE_TEXT" Send character images + character details appended from characters.txt
@@ -38,7 +38,7 @@ IMAGE_CUSTOM_RATIO = False
 IMAGE_CUSTOM_ASPECT_RATIO = "1:1"
 
 # Image Output Dimension Constants
-USE_FIXED_DIMENSIONS = True  # Set to True to use fixed width/height, False to use aspect ratio calculation
+USE_FIXED_DIMENSIONS = False  # Set to True to use fixed width/height, False to use aspect ratio calculation
 IMAGE_OUTPUT_WIDTH = 1280
 IMAGE_OUTPUT_HEIGHT = 720
 

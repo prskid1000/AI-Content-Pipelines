@@ -17,16 +17,16 @@ ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 
 # Image Resolution Constants
-IMAGE_MEGAPIXEL = "0.3"
-IMAGE_ASPECT_RATIO = "9:32 (Skyline)"
+IMAGE_MEGAPIXEL = "1.2"
+IMAGE_ASPECT_RATIO = "9:19 (Tall Slim)"
 IMAGE_DIVISIBLE_BY = "64"
 IMAGE_CUSTOM_RATIO = False
 IMAGE_CUSTOM_ASPECT_RATIO = "1:1"
 
 # Image Output Dimension Constants
 USE_FIXED_DIMENSIONS = False  # Set to True to use fixed width/height, False to use aspect ratio calculation
-IMAGE_OUTPUT_WIDTH = 256
-IMAGE_OUTPUT_HEIGHT = 1024
+IMAGE_OUTPUT_WIDTH = 768
+IMAGE_OUTPUT_HEIGHT = 1600
 
 # LoRA Configuration
 USE_LORA = True  # Set to False to disable LoRA usage in workflow
