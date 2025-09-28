@@ -13,7 +13,7 @@ import re
 import random
 
 # Random seed configuration
-USE_RANDOM_SEED = False  # Set to True to use random seeds for each generation
+USE_RANDOM_SEED = True  # Set to True to use random seeds for each generation
 RANDOM_SEED = 333555666
 
 # Controls text generation method:
@@ -57,24 +57,7 @@ LORAS = [
         "bypass_model": False,    # Set to True to bypass model part of this LoRA
         "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
         "enabled": True           # Set to False to disable this LoRA entirely
-    },
-    # Example: Add more LoRAs as needed:
-    # {
-    #     "name": "another_lora.safetensors",
-    #     "strength_model": 1.5,
-    #     "strength_clip": 1.0,
-    #     "bypass_model": False,  # Use model part
-    #     "bypass_clip": True,    # Skip CLIP part (CLIP strength = 0.0)
-    #     "enabled": True
-    # },
-    # {
-    #     "name": "style_lora.safetensors",
-    #     "strength_model": 0.0,  # Skip model part
-    #     "strength_clip": 1.2,   # Use CLIP part only
-    #     "bypass_model": True,   # Model strength = 0.0
-    #     "bypass_clip": False,   # Use CLIP strength
-    #     "enabled": True
-    # },
+    }
 ]
 
 # Sampling Configuration
@@ -705,6 +688,7 @@ Must Always Precisely & Accurately Preserve each Character's identity(all physic
 Must Always Precisely & Accurately Represent entire Scene and all Non-Living Objects according to scene text-description.
 All Non-Living Objects mentioned in Scene text-description must be present in illustration.
 Each Object/Character in the illustration must be visually distinct/unique from each other.
+Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
         """.format(ART_STYLE=ART_STYLE)
 
 def read_prompt_from_file(filename: str = "../input/10.thumbnail.txt") -> str | None:

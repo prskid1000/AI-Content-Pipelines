@@ -29,7 +29,7 @@ IMAGE_OUTPUT_WIDTH = 256
 IMAGE_OUTPUT_HEIGHT = 1024
 
 # LoRA Configuration
-USE_LORA = False  # Set to False to disable LoRA usage in workflow
+USE_LORA = True  # Set to False to disable LoRA usage in workflow
 
 # Multiple LoRAs Configuration
 # Each LoRA will be applied in sequence (chained)
@@ -45,25 +45,17 @@ LORAS = [
         "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
         "enabled": True           # Set to False to disable this LoRA entirely
     },
-    # {
-    #     "name": "style_lora.safetensors",
-    #     "strength_model": 0.0,  # Skip model part
-    #     "strength_clip": 1.2,   # Use CLIP part only
-    #     "bypass_model": True,   # Model strength = 0.0
-    #     "bypass_clip": False,   # Use CLIP strength
-    #     "enabled": True
-    # },
 ]
 
 # Sampling Configuration
-SAMPLING_STEPS = 25  # Number of sampling steps (higher = better quality, slower)
+SAMPLING_STEPS = 9  # Number of sampling steps (higher = better quality, slower)
 
 # Negative Prompt Configuration
 USE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to disable
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
 # Random Seed Configuration
-USE_RANDOM_SEED = False  # Set to True to use random seeds, False to use fixed seed
+USE_RANDOM_SEED = True  # Set to True to use random seeds, False to use fixed seed
 FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 
 ART_STYLE = "Realistic Anime"
@@ -387,7 +379,7 @@ class CharacterGenerator:
 
     def _update_workflow_prompt(self, workflow: dict, character_name: str, description: str) -> dict:
         """Update the workflow with character-specific prompt."""
-        prompt = f"Create a 16K ultra-high-resolution, Full Body Visible, Illustration in the style of {ART_STYLE} in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description, fine-level detailing and vibrant colors, and any part not cropped or hidden.Must use White Background.\n\n Character Name = {character_name}. \n\n Character Description = {description}."
+        prompt = f"Create a 16K ultra-high-resolution, Full Body Visible, Illustration in the style of {ART_STYLE} in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description, fine-level detailing and vibrant colors, and any part not cropped or hidden.Must use White Background.\n\n Character Name = {character_name}. \n\n Character Description = {description}. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style."
         self._update_node_connections(workflow, ["CLIPTextEncode", "CLIP Text Encode (Prompt)"], "text", prompt)
         return workflow
 
