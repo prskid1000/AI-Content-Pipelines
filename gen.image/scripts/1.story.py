@@ -769,26 +769,11 @@ def _schema_character_rewrite() -> dict[str, object]:
                 "properties": {
                     "rewritten_characters": {
                         "type": "object",
-                        "description": "Dictionary mapping character names to their rewritten character data with preserved age information",
+                        "description": "Dictionary mapping character names to their rewritten character descriptions",
                         "patternProperties": {
                             ".*": {
-                                "type": "object",
-                                "properties": {
-                                    "description": {
-                                        "type": "string",
-                                        "description": "Complete character description written as a flowing paragraph with different physical appearance but preserved relationships and shared elements"
-                                    },
-                                    "age_appearance": {
-                                        "type": "object",
-                                        "properties": {
-                                            "age_category": {"type": "string", "enum": ["child", "teenager", "young_adult", "adult", "middle_aged", "elderly", "old"]},
-                                            "specific_age": {"type": "string", "description": "Specific age number (e.g., '24', '45', '12')"},
-                                            "age_description": {"type": "string", "description": "Detailed age appearance description"}
-                                        },
-                                        "required": ["age_category", "specific_age", "age_description"]
-                                    }
-                                },
-                                "required": ["description", "age_appearance"]
+                                "type": "string",
+                                "description": "Complete character description written as a flowing paragraph with different physical appearance but preserved relationships and shared elements"
                             }
                         }
                     }
@@ -1054,7 +1039,7 @@ VISUAL FOCUS INSTRUCTIONS:
 - **PRIMARY FOCUS**: Create visually distinct facial features, skin tone, hair, and body characteristics
 - **VISUAL CHANGES**: Modify eyes, nose, mouth, hair color/style, skin tone, facial structure, body build, and clothing style
 - **PRESERVE**: Keep age information, professions, and essential story relationships
-- **FORMAT**: Write each description as a flowing visual paragraph with structured age data
+- **FORMAT**: Write each description as a flowing visual paragraph
 
 VISUAL DISTINCTIVENESS REQUIREMENTS:
 - Make facial features completely different between characters (eye shape, nose type, mouth, jawline)
@@ -1062,7 +1047,7 @@ VISUAL DISTINCTIVENESS REQUIREMENTS:
 - Create distinct hair colors, styles, and textures
 - Vary body builds, heights, and physical proportions
 - Modify clothing styles, colors, and personal accessories
-- **CRITICAL**: Preserve exact age category, specific age number, and age description for each character
+- **CRITICAL**: Preserve age information and essential story elements
 
 VISUAL QUALITY STANDARDS:
 - Focus on vivid, specific visual descriptions that AI can render
@@ -1072,7 +1057,7 @@ VISUAL QUALITY STANDARDS:
 - Write descriptions optimized for AI image generation
 - Avoid non-visual elements like personality traits or backstory details
 
-Return structured character data with highly visual, distinct physical appearances formatted as paragraphs while preserving age and essential story elements."""
+Return a JSON object with "rewritten_characters" containing character names as keys and their rewritten descriptions as string values."""
 
 
 def _rewrite_all_character_descriptions(name_to_desc: dict[str, str], story_desc: str, lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
@@ -1112,30 +1097,17 @@ def _rewrite_all_character_descriptions(name_to_desc: dict[str, str], story_desc
             extra = set(rewritten_characters.keys()) - set(name_to_desc.keys())
             raise RuntimeError(f"Character mismatch - Missing: {missing}, Extra: {extra}")
         
-        # The model now returns structured character data with descriptions and age information
+        # The model now returns character descriptions as strings
         rewritten_descriptions = {}
-        for char_name, char_data in rewritten_characters.items():
-            if not isinstance(char_data, dict):
+        for char_name, description in rewritten_characters.items():
+            if not isinstance(description, str):
                 raise RuntimeError(f"Invalid character data format for {char_name}")
             
-            description = char_data.get("description", "").strip()
-            age_appearance = char_data.get("age_appearance", {})
-            
-            if not description:
+            if not description.strip():
                 raise RuntimeError(f"Missing description for {char_name}")
             
-            # Validate age information is preserved
-            if not age_appearance or not all(key in age_appearance for key in ["age_category", "specific_age", "age_description"]):
-                raise RuntimeError(f"Missing or incomplete age information for {char_name}")
-            
-            # Format the final description with age information
-            age_category = age_appearance.get("age_category", "")
-            specific_age = age_appearance.get("specific_age", "")
-            age_desc = age_appearance.get("age_description", "")
-            
-            # Combine description with age information
-            full_description = f"{description} Age: {age_category} ({specific_age} years old) - {age_desc}"
-            rewritten_descriptions[char_name] = full_description.strip()
+            # Use the description directly
+            rewritten_descriptions[char_name] = description.strip()
         
         # Save to checkpoint if resumable mode enabled
         if resumable_state:
