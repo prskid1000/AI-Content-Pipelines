@@ -24,7 +24,7 @@ IMAGE_CUSTOM_RATIO = False
 IMAGE_CUSTOM_ASPECT_RATIO = "1:1"
 
 # LoRA Configuration
-USE_LORA = True  # Set to False to disable LoRA usage in workflow
+USE_LORA = False  # Set to False to disable LoRA usage in workflow
 LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
 
 # LoRA Configuration
@@ -146,6 +146,40 @@ class ResumableState:
                 print("All operations completed successfully - tracking files preserved")
         except Exception as ex:
             print(f"WARNING: Error in cleanup: {ex}")
+    
+    def validate_and_cleanup_results(self) -> int:
+        """Validate that all completed character files actually exist and clean up missing entries.
+        
+        Returns:
+            int: Number of entries cleaned up (removed from completed list)
+        """
+        cleaned_count = 0
+        characters_to_remove = []
+        
+        # Check each completed character
+        for character_name in self.state["characters"]["completed"]:
+            result = self.state["characters"]["results"].get(character_name, {})
+            file_path = result.get('path', '')
+            
+            # Check if file actually exists
+            if not file_path or not os.path.exists(file_path):
+                print(f"Precheck: File missing for {character_name} - marking as not completed")
+                characters_to_remove.append(character_name)
+                cleaned_count += 1
+        
+        # Remove invalid entries
+        for character_name in characters_to_remove:
+            if character_name in self.state["characters"]["completed"]:
+                self.state["characters"]["completed"].remove(character_name)
+            if character_name in self.state["characters"]["results"]:
+                del self.state["characters"]["results"][character_name]
+        
+        # Save cleaned state if any changes were made
+        if cleaned_count > 0:
+            self._save_state()
+            print(f"Precheck: Cleaned up {cleaned_count} invalid entries from checkpoint")
+        
+        return cleaned_count
     
     def get_progress_summary(self) -> str:
         """Get a summary of current progress."""
@@ -1047,6 +1081,11 @@ class CharacterGenerator:
 
         # Use resumable state if available, otherwise fall back to file-based checking
         if resumable_state:
+            # Run precheck to validate file existence and clean up invalid entries
+            cleaned_count = resumable_state.validate_and_cleanup_results()
+            if cleaned_count > 0:
+                print(f"Precheck completed: {cleaned_count} invalid entries removed from checkpoint")
+            
             completed_characters = set()
             for char_name in characters.keys():
                 if resumable_state.is_character_complete(char_name):

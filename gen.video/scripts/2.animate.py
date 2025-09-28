@@ -93,6 +93,49 @@ class ResumableState:
         except Exception as ex:
             print(f"WARNING: Error in cleanup: {ex}")
     
+    def validate_and_cleanup_results(self) -> int:
+        """Validate that all completed video files actually exist and clean up missing entries.
+        
+        Returns:
+            int: Number of entries cleaned up (removed from completed list)
+        """
+        cleaned_count = 0
+        videos_to_remove = []
+        
+        # Check each completed video
+        for scene_name in self.state["videos"]["completed"]:
+            result = self.state["videos"]["results"].get(scene_name, {})
+            file_paths = result.get('paths', [])
+            
+            # Check if all video files actually exist
+            all_exist = True
+            if not file_paths:
+                all_exist = False
+            else:
+                for file_path in file_paths:
+                    if not file_path or not os.path.exists(file_path):
+                        all_exist = False
+                        break
+            
+            if not all_exist:
+                print(f"Precheck: File missing for {scene_name} - marking as not completed")
+                videos_to_remove.append(scene_name)
+                cleaned_count += 1
+        
+        # Remove invalid entries
+        for scene_name in videos_to_remove:
+            if scene_name in self.state["videos"]["completed"]:
+                self.state["videos"]["completed"].remove(scene_name)
+            if scene_name in self.state["videos"]["results"]:
+                del self.state["videos"]["results"][scene_name]
+        
+        # Save cleaned state if any changes were made
+        if cleaned_count > 0:
+            self._save_state()
+            print(f"Precheck: Cleaned up {cleaned_count} invalid entries from checkpoint")
+        
+        return cleaned_count
+    
     def get_progress_summary(self) -> str:
         """Get a summary of current progress."""
         completed = len(self.state["videos"]["completed"])
@@ -1412,6 +1455,11 @@ class VideoAnimator:
 
         # Use resumable state if available, otherwise fall back to file-based checking
         if resumable_state:
+            # Run precheck to validate file existence and clean up invalid entries
+            cleaned_count = resumable_state.validate_and_cleanup_results()
+            if cleaned_count > 0:
+                print(f"Precheck completed: {cleaned_count} invalid entries removed from checkpoint")
+            
             completed_videos = set()
             for scene_name in available_scenes.keys():
                 if resumable_state.is_video_complete(scene_name):

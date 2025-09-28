@@ -82,6 +82,46 @@ class ResumableState:
         except Exception as ex:
             print(f"WARNING: Error in cleanup: {ex}")
     
+    def validate_and_cleanup_results(self) -> int:
+        """Validate that all completed audio files actually exist and clean up missing entries.
+        
+        Returns:
+            int: Number of entries cleaned up (removed from completed list)
+        """
+        cleaned_count = 0
+        audio_files_to_remove = []
+        
+        # Check each completed audio file
+        for file_key in self.state["audio_files"]["completed"]:
+            result = self.state["audio_files"]["results"].get(file_key, {})
+            file_path = result.get('file', '')
+            output_file_path = result.get('output_file', '')
+            
+            # Check if both the main file and output file actually exist
+            main_exists = file_path and os.path.exists(file_path)
+            output_exists = output_file_path and os.path.exists(output_file_path)
+            
+            if not main_exists or not output_exists:
+                print(f"Precheck: File missing for {file_key} - marking as not completed")
+                print(f"  Main file exists: {main_exists} ({file_path})")
+                print(f"  Output file exists: {output_exists} ({output_file_path})")
+                audio_files_to_remove.append(file_key)
+                cleaned_count += 1
+        
+        # Remove invalid entries
+        for file_key in audio_files_to_remove:
+            if file_key in self.state["audio_files"]["completed"]:
+                self.state["audio_files"]["completed"].remove(file_key)
+            if file_key in self.state["audio_files"]["results"]:
+                del self.state["audio_files"]["results"][file_key]
+        
+        # Save cleaned state if any changes were made
+        if cleaned_count > 0:
+            self._save_state()
+            print(f"Precheck: Cleaned up {cleaned_count} invalid entries from checkpoint")
+        
+        return cleaned_count
+    
     def get_progress_summary(self) -> str:
         """Get a summary of current progress."""
         audio_done = len(self.state["audio_files"]["completed"])
@@ -507,6 +547,12 @@ class DirectTimelineProcessor:
         """Main processing function"""
         if not timeline_text or not timeline_text.strip():
             raise Exception("Empty or invalid timeline text provided")
+        
+        # Run precheck to validate file existence and clean up invalid entries
+        if resumable_state:
+            cleaned_count = resumable_state.validate_and_cleanup_results()
+            if cleaned_count > 0:
+                print(f"Precheck completed: {cleaned_count} invalid entries removed from checkpoint")
         
         print("🔄 Step 1: Merging consecutive silences and updating sfx.txt...")
         

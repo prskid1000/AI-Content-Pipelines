@@ -14,9 +14,9 @@ ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 
 # Image resizing configuration (characters only)
-# Character image dimensions: 256x1024 (width x height) - Better aspect ratio for stitching
-CHARACTER_RESIZE_WIDTH = 96
-CHARACTER_RESIZE_HEIGHT = 200
+# Character image dimensions: 512x1024 (width x height) - Better aspect ratio for stitching
+CHARACTER_RESIZE_WIDTH = 128
+CHARACTER_RESIZE_HEIGHT = 256
 
 # Image compression configuration
 # JPEG quality: 1-100 (100 = best quality, larger file; 1 = worst quality, smaller file)
@@ -28,7 +28,7 @@ IMAGE_COMPRESSION_QUALITY = 90
 # "IMAGE" Only images
 
 # HARDCODED CHARACTER MODE - Change this to switch modes
-ACTIVE_CHARACTER_MODE = "IMAGE_TEXT"
+ACTIVE_CHARACTER_MODE = "IMAGE"
 
 # Image Resolution Constants
 IMAGE_MEGAPIXEL = "1.2"
@@ -163,6 +163,40 @@ class ResumableState:
                 print("All operations completed successfully - tracking files preserved")
         except Exception as ex:
             print(f"WARNING: Error in cleanup: {ex}")
+    
+    def validate_and_cleanup_results(self) -> int:
+        """Validate that all completed scene files actually exist and clean up missing entries.
+        
+        Returns:
+            int: Number of entries cleaned up (removed from completed list)
+        """
+        cleaned_count = 0
+        scenes_to_remove = []
+        
+        # Check each completed scene
+        for scene_id in self.state["scenes"]["completed"]:
+            result = self.state["scenes"]["results"].get(scene_id, {})
+            file_path = result.get('path', '')
+            
+            # Check if file actually exists
+            if not file_path or not os.path.exists(file_path):
+                print(f"Precheck: File missing for {scene_id} - marking as not completed")
+                scenes_to_remove.append(scene_id)
+                cleaned_count += 1
+        
+        # Remove invalid entries
+        for scene_id in scenes_to_remove:
+            if scene_id in self.state["scenes"]["completed"]:
+                self.state["scenes"]["completed"].remove(scene_id)
+            if scene_id in self.state["scenes"]["results"]:
+                del self.state["scenes"]["results"][scene_id]
+        
+        # Save cleaned state if any changes were made
+        if cleaned_count > 0:
+            self._save_state()
+            print(f"Precheck: Cleaned up {cleaned_count} invalid entries from checkpoint")
+        
+        return cleaned_count
     
     def get_progress_summary(self) -> str:
         """Get a summary of current progress."""
@@ -1402,6 +1436,11 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
 
         # Use resumable state if available, otherwise fall back to file-based checking
         if resumable_state:
+            # Run precheck to validate file existence and clean up invalid entries
+            cleaned_count = resumable_state.validate_and_cleanup_results()
+            if cleaned_count > 0:
+                print(f"Precheck completed: {cleaned_count} invalid entries removed from checkpoint")
+            
             completed_scenes = set()
             for scene_id in scenes.keys():
                 if resumable_state.is_scene_complete(scene_id):
