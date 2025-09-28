@@ -812,6 +812,8 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
         workflow["23"]["inputs"]["megapixel"] = IMAGE_MEGAPIXEL
         workflow["23"]["inputs"]["aspect_ratio"] = IMAGE_ASPECT_RATIO
         workflow["23"]["inputs"]["divisible_by"] = IMAGE_DIVISIBLE_BY
+        workflow["23"]["inputs"]["custom_ratio"] = IMAGE_CUSTOM_RATIO
+        workflow["23"]["inputs"]["custom_aspect_ratio"] = IMAGE_CUSTOM_ASPECT_RATIO
         print(f"Updated Flux resolution settings: {IMAGE_MEGAPIXEL}MP, {IMAGE_ASPECT_RATIO}")
         
         # Handle negative prompt

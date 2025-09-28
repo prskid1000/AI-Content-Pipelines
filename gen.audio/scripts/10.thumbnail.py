@@ -41,8 +41,8 @@ OUTPUT_HEIGHT = 720
 IMAGE_MEGAPIXEL = "1.2"
 IMAGE_ASPECT_RATIO = "16:9 (Panorama)"
 IMAGE_DIVISIBLE_BY = "64"
-IMAGE_CUSTOM_RATIO = False
-IMAGE_CUSTOM_ASPECT_RATIO = "1:1"
+IMAGE_CUSTOM_RATIO = True
+IMAGE_CUSTOM_ASPECT_RATIO = "16:9"
 
 # LoRA Configuration
 USE_LORA = True  # Set to False to disable LoRA usage in workflow
@@ -303,6 +303,8 @@ class ThumbnailProcessor:
             workflow[node_id]["inputs"]["megapixel"] = IMAGE_MEGAPIXEL
             workflow[node_id]["inputs"]["aspect_ratio"] = IMAGE_ASPECT_RATIO
             workflow[node_id]["inputs"]["divisible_by"] = IMAGE_DIVISIBLE_BY
+            workflow[node_id]["inputs"]["custom_ratio"] = IMAGE_CUSTOM_RATIO
+            workflow[node_id]["inputs"]["custom_aspect_ratio"] = IMAGE_CUSTOM_ASPECT_RATIO
             print(f"Updated Flux resolution settings: {IMAGE_MEGAPIXEL}MP, {IMAGE_ASPECT_RATIO}")
             return workflow
         
