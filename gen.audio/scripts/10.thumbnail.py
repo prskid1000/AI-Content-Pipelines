@@ -953,15 +953,15 @@ class ThumbnailProcessor:
         except Exception:
             return False
 
-def _get_master_prompt(self) -> str:
+    def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
         return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
-All Non-Living Objects mentioned in Scene text-description must be present in illustration.
-Must Always Precisely & Accurately Represent entire Scene including all Non-Living Objects according to scene text-description.
-Must Always Precisely & Accurately Preserve each Character's identity(Appearance and Physical Features - Face(hair, eyes, ear, nose, mouth,chick, chin), Body(torso, limbs), Clothings) from respective specified reference image, though all other aspects like "posture", "expression", "movement", "placement", "size/scale w.r.t Scene) is adaptable according to Scene/Character text-description.
-Each Non-Living Objects/Character in the illustration must be visually distinct/unique from each other.Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
+All Non-Living Objects mentioned in Scene text-description must be present in illustration.Must Always Precisely & Accurately Represent entire Scene including all Non-Living Objects according to scene text-description.
+Must Always Precisely & Accurately Preserve each Character's identity(Appearance and Physical Features - Face(hair, eyes, ear, nose, mouth,chick, chin), Body(torso, limbs), Clothings) from respective specified reference image/image-section.
+All other aspects of Characters like "Posture", "Expression", "Movement", "Placement/Location", "Size is proportional to the scene", is adaptable according to Scene/Character text-description.
+Each Non-Living Objects/Character in the illustration must be visually distinct/unique from each other.Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
         """.format(ART_STYLE=ART_STYLE)
-
+        
 def read_prompt_from_file(filename: str = "../input/10.thumbnail.txt") -> str | None:
     try:
         with open(filename, "r", encoding="utf-8") as f:
