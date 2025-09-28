@@ -88,7 +88,7 @@ SAMPLING_STEPS = 25  # Number of sampling steps (higher = better quality, slower
 USE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to disable
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
-ART_STYLE = "Realistic Anime"
+ART_STYLE = "Realistic Digital 3D Animation"
 
 class ThumbnailProcessor:
     def __init__(self, comfyui_url: str = "http://127.0.0.1:8188/", mode: str = "diffusion"):
@@ -955,7 +955,7 @@ class ThumbnailProcessor:
         except Exception:
             return False
 
-    def _get_master_prompt(self) -> str:
+def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
         return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
 All Non-Living Objects mentioned in Scene text-description must be present in illustration.Must Always Precisely & Accurately Represent entire Scene including all Non-Living Objects according to scene text-description.

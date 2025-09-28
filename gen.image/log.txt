@@ -1,15 +1,72 @@
 Workflow runner started. Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
 Working directory: D:\.comfyui\gen.image
 Emptying ComfyUI input and output folders...
-Removed file: D:\.comfyui\ComfyUI\output\female_clara_whitfield.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\female_landlady_mrs_hudmore.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\female_clara_whitfield_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\female_landlady_mrs_hudmore_00001_.png
 Successfully emptied ComfyUI input and output folders.
+Starting LM Studio backend via lms CLI...
+Command: lms server start
+Success! Server is now running on port 1234
+Waiting for LM Studio to become ready (polling every 15s)...
+LM Studio is ready after 0.0s (attempt 1).
+
+===== START D:\.comfyui\gen.image\scripts\1.story.py @ 2025-09-28 22:16:29 =====
+🚫 Thinking disabled in LM Studio responses (using /no_think)
+Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.image\output\tracking
+Found existing checkpoint: D:\.comfyui\gen.image\output\tracking\1.story.state.json
+Progress: Story(✓) Locations(4/4) Characters(7/7) Rewrite(✓) Summaries(7/7)
+Extracted 4 unique locations: ['loc_1', 'loc_2', 'loc_3', 'loc_4']
+Detected order: [] first, then ()(())
+Running pre-validation checks...
+Characters match: 7 names ['female_clara_whitfield', 'female_landlady_mrs_hudmore', 'male_client_stranger', 'male_detective_holmes', 'male_doctor_watson', 'male_villain_scarred', 'male_villain_shorter']
+Pre-validation passed. Proceeding with generation...
+Using cached story description from checkpoint
+Expanding location descriptions: 4 total
+(1/4) loc_1: using cached description from checkpoint
+(2/4) loc_2: using cached description from checkpoint
+(3/4) loc_3: using cached description from checkpoint
+(4/4) loc_4: using cached description from checkpoint
+Wrote 4 expanded location entries to: D:\.comfyui\gen.image\input\3.location.txt
+Generating structured character descriptions: 7 total
+(1/7) female_clara_whitfield: using cached description from checkpoint
+(2/7) female_landlady_mrs_hudmore: using cached description from checkpoint
+(3/7) male_client_stranger: using cached description from checkpoint
+(4/7) male_detective_holmes: using cached description from checkpoint
+(5/7) male_doctor_watson: using cached description from checkpoint
+(6/7) male_villain_scarred: using cached description from checkpoint
+(7/7) male_villain_shorter: using cached description from checkpoint
+Rewriting character descriptions to make them look completely different...
+Using cached character rewrite from checkpoint
+Wrote 7 character descriptions to: D:\.comfyui\gen.image\input\2.character.txt
+Generating character summaries: 7 total
+(1/7) female_clara_whitfield: using cached summary from checkpoint
+(2/7) female_landlady_mrs_hudmore: using cached summary from checkpoint
+(3/7) male_client_stranger: using cached summary from checkpoint
+(4/7) male_detective_holmes: using cached summary from checkpoint
+(5/7) male_doctor_watson: using cached summary from checkpoint
+(6/7) male_villain_scarred: using cached summary from checkpoint
+(7/7) male_villain_shorter: using cached summary from checkpoint
+Wrote 7 character summaries to: D:\.comfyui\gen.image\input\3.character.txt
+Wrote 100 dialogue lines to: D:\.comfyui\gen.audio\input\1.story.txt
+Wrote 100 scene entries to: D:\.comfyui\gen.image\input\3.scene.txt
+All operations completed successfully
+Final progress: Progress: Story(✓) Locations(4/4) Characters(7/7) Rewrite(✓) Summaries(7/7)
+All operations completed successfully - tracking files preserved
+
+===== END D:\.comfyui\gen.image\scripts\1.story.py @ 2025-09-28 22:16:29 (exit=0, took=0.23s) =====
+Stopping LM Studio backend via lms CLI...
+Command: lms server stop
+Unloading all models from LM Studio...
+Command: lms unload --all
+No models to unload.
+Stopped the server on port 1234.
+LM Studio appears stopped (after 1 checks).
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
 [START] Security scan
 [DONE] Security scan
 ## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2025-09-28 21:25:25.003
+** ComfyUI startup time: 2025-09-28 22:16:32.971
 ** Platform: Windows
 ** Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
 ** Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
@@ -22,7 +79,7 @@ ComfyUI not ready yet (attempt 1). Retrying in 15s...
 
 Prestartup times for custom nodes:
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\rgthree-comfy
-   2.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   2.9 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
 
 Checkpoint files will always be loaded safely.
 Total VRAM 12227 MB, total RAM 64957 MB
@@ -43,13 +100,13 @@ ComfyUI-GGUF: Allowing full torch compile
 
 [32mInitializing ControlAltAI Nodes[0m
 
-[92m[rgthree-comfy] Loaded 48 exciting nodes. 🎉[0m
+[92m[rgthree-comfy] Loaded 48 magnificent nodes. 🎉[0m
 
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
 ✅ ChatterboxTTS loaded from bundled package
 ✅ ChatterboxVC loaded from bundled package
 JAX version 0.7.1 available.
@@ -86,13 +143,13 @@ Import times for custom nodes:
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\rgthree-comfy
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
    0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
-   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-impact-pack
-   0.7 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-   2.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
-   3.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
+   0.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-impact-pack
+   0.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   1.9 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
+   3.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
 
 Context impl SQLiteImpl.
 Will assume non-transactional DDL.
@@ -103,7 +160,7 @@ To see the GUI go to: http://127.0.0.1:8188
 FETCH ComfyRegistry Data: 5/98
 ComfyUI is ready after 17.1s (attempt 2).
 
-===== START D:\.comfyui\gen.image\scripts\2.character.py @ 2025-09-28 21:25:40 =====
+===== START D:\.comfyui\gen.image\scripts\2.character.py @ 2025-09-28 22:16:48 =====
 Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.image\output\tracking
 Found existing checkpoint: D:\.comfyui\gen.image\output\tracking\2.character.state.json
 Progress: Characters(2/2)
@@ -135,11 +192,11 @@ Updated Flux resolution settings: 0.3MP, 9:19 (Tall Slim)
   Steps: 9, Denoising: 1
 
 === PROMPT FOR LoRA 1: FLUX.1-Turbo-Alpha.safetensors ===
-Text prompt: Create a 16K ultra-high-resolution, Full Body Visible, Illustration in the style of Realistic Anime in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description, fine-level detailing and vibrant colors, and any part not cropped or hidden.Must use White Background.
+Text prompt: Create a 16K ultra-high-resolution, Full Body Visible, Illustration in the style of Realistic Digital 3D Animation in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description, fine-level detailing and vibrant colors, and any part not cropped or hidden.Must use White Background.
 
  Character Name = female_clara_whitfield. 
 
- Character Description = Clara Whitfield has a heart-shaped face with an olive-toned complexion that glows softly under the dim light, her skin smooth but tinged with faint freckles across her nose and cheeks. Her eyes are almond-shaped, deep brown in color, framed by thick lashes that flutter nervously when she is anxious; they appear almost luminous, catching the light in a way that suggests hidden strength behind the gentleness of her gaze. Her nose is straight but slightly upturned at the tip, giving her a delicate yet determined look. She has full lips, naturally rosy and often parted in thought or fear, with a small scar on the left cheek from an old childhood accident that still lingers as a faint line across her skin. Her hair is long, dark auburn waves cascading down past her shoulders, slightly frayed at the ends from frequent handling; it is tied loosely behind her head with a blue ribbon that matches the trim of her dress. Her posture is hunched slightly, as if carrying an invisible burden, and though she appears slender, there’s a quiet strength in her stance. She wears a dark blue wool dress, modest but well-fitted to her figure, with white lace cuffs and collar; the fabric has softened over time from long hours of work. Her boots are worn on the left side, where she bears most of her weight, and her hands, small and pale, often tremble slightly when nervous. A silver locket hangs around her neck, containing a faded portrait of a young girl, and she always carries with her a simple handkerchief embroidered with initials C.W. Her presence is one of quiet resilience and inner fire that belies the calmness of her exterior.. Strictly, Accurately, Precisely, always must Follow Realistic Anime Style.
+ Character Description = Clara Whitfield has an almond-shaped face with a pale, almost translucent complexion that reflects light like frosted glass. Her dark brown eyes are wide and luminous, framed by long lashes. Her nose is straight but slightly upturned at the tip, giving her face a delicate, almost ethereal quality. Her lips are thin and often slightly parted, hinting at a quiet anxiety. Her hair is medium-length light chestnut with subtle natural highlights that shimmer under candlelight. Her shoulders are slender, and her torso has an hourglass shape, but her posture is slightly hunched, as if burdened by unseen weight. Her arms are long and delicate, with fingers that are unusually long for a woman of her age. She wears low-heeled leather boots with worn soles, which leave faint marks on the floor. The clothing is a blend of wool and cotton in muted tones, designed to be modest yet elegant. Her attire is slightly disheveled at the edges, hinting at a recent struggle. A faint scar is visible on her inner elbow, which seems to be from an old injury. Her overall presence exudes a mix of youth and weariness, with pale skin showing signs of stress and exhaustion.. Strictly, Accurately, Precisely, always must Follow Realistic Digital 3D Animation Style.
 Workflow nodes: 12 nodes
 ==================================================
 got prompt
@@ -148,384 +205,3 @@ Using pytorch attention in VAE
 Using pytorch attention in VAE
 VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
 CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
-clip missing: ['text_projection.weight']
-gguf qtypes: F32 (466), Q8_0 (304), BF16 (10)
-model weight dtype torch.bfloat16, manual cast: None
-model_type FLUX
-Requested to load FluxClipModel_
-FETCH ComfyRegistry Data: 10/98
-loaded completely 9520.8 9319.23095703125 True
-Requested to load Flux
-FETCH ComfyRegistry Data: 15/98
-loaded partially 9462.674961853027 9462.435546875 0
-Attempting to release mmap (126)
-FETCH ComfyRegistry Data: 20/98
-  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 25/98
- 11%|█         | 1/9 [00:03<00:29,  3.67s/it] 22%|██▏       | 2/9 [00:06<00:23,  3.34s/it]FETCH ComfyRegistry Data: 30/98
- 33%|███▎      | 3/9 [00:09<00:19,  3.26s/it] 44%|████▍     | 4/9 [00:13<00:15,  3.19s/it]FETCH ComfyRegistry Data: 35/98
- 56%|█████▌    | 5/9 [00:16<00:12,  3.16s/it] 67%|██████▋   | 6/9 [00:19<00:09,  3.15s/it]FETCH ComfyRegistry Data: 40/98
- 78%|███████▊  | 7/9 [00:22<00:06,  3.14s/it]FETCH ComfyRegistry Data: 45/98
- 89%|████████▉ | 8/9 [00:25<00:03,  3.15s/it]100%|██████████| 9/9 [00:28<00:00,  3.14s/it]100%|██████████| 9/9 [00:28<00:00,  3.19s/it]
-Requested to load AutoencodingEngine
-loaded completely 198.03515625 159.87335777282715 True
-Prompt executed in 47.28 seconds
-FETCH ComfyRegistry Data: 50/98
-  Saved LoRA result: ../output/lora\female_clara_whitfield.FLUX1_Turbo_Alphasafetensors.png
-  LoRA 1 completed successfully
-  Saved LoRA progress: 1/1 completed
-Saved: ../output/characters\female_clara_whitfield.png
-  Preserved LoRA progress for completed character
-[OK] Generated: female_clara_whitfield
-
-[2/7] Processing female_landlady_mrs_hudmore...
-Generating image for: female_landlady_mrs_hudmore (Serial LoRA mode)
-Resuming from LoRA 2/1
-Previous LoRA output missing, restarting from LoRA 1
-
-Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
-Loaded flux workflow from: ../workflow/character.flux.json
-LoRAs configuration: 1/2 LoRAs enabled
-WARNING: LoRA 1 (FLUX.1-Turbo-Alpha.safetensors) model strength 3.0 outside recommended range (0.0-2.0)
-WARNING: LoRA 1 (FLUX.1-Turbo-Alpha.safetensors) CLIP strength 3.0 outside recommended range (0.0-2.0)
-Serial LoRA mode: 1 LoRAs will run independently
-Note: Serial mode requires separate workflow execution for each LoRA
-LoRA enabled in character workflow
-Sampling steps set to: 25
-Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
-  Model strength: 3.0
-  CLIP strength: 3.0
-Updated Flux resolution settings: 0.3MP, 9:19 (Tall Slim)
-  Steps: 9, Denoising: 1
-
-=== PROMPT FOR LoRA 1: FLUX.1-Turbo-Alpha.safetensors ===
-Text prompt: Create a 16K ultra-high-resolution, Full Body Visible, Illustration in the style of Realistic Anime in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description, fine-level detailing and vibrant colors, and any part not cropped or hidden.Must use White Background.
-
- Character Name = female_landlady_mrs_hudmore. 
-
- Character Description = Mrs. Hudmore has an elongated face with high cheekbones, and skin as pale as parchment, rough in texture from years of hard living. Her eyes are deep-set, dark brown and narrow, often darting with quick suspicion; they seem to miss nothing but reflect little kindness. Her nose is hooked at the tip, giving her a slightly menacing appearance that is only partially softened by the gentle folds of her face. She has thin lips, always pursed as if in disapproval or discomfort, and a sparse amount of gray hair swept back into a short, unkempt bun. She wears a long shawl draped over her shoulders, its edges frayed from frequent use; it’s made of dark wool and bears the faint scent of mothballs. Her posture is hunched forward slightly, as if burdened by years of worry, and she carries herself with a rigidness that suggests an unyielding will. She wears a worn-out black dress, its fabric thinning at the seams, and a pair of scuffed leather boots that clack on the floor as she walks. A silver locket hangs from her neck, containing a faded photograph of a young girl, but unlike Clara's, this one seems to be hidden away with some shame or regret. Her hands are pale and thin, with short nails and cracked skin, and she often grips a small key in her left hand as though it were the only thing anchoring her to reality.. Strictly, Accurately, Precisely, always must Follow Realistic Anime Style.
-Workflow nodes: 12 nodes
-==================================================
-got prompt
-  Waiting for LoRA 1 generation to complete...
-Requested to load FluxClipModel_
-FETCH ComfyRegistry Data: 55/98
-loaded completely 9458.675 9319.23095703125 True
-Requested to load Flux
-FETCH ComfyRegistry Data: 60/98
-loaded partially 9458.674961853027 9458.6748046875 0
-  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:03<00:26,  3.30s/it]FETCH ComfyRegistry Data: 65/98
- 22%|██▏       | 2/9 [00:06<00:22,  3.21s/it]FETCH ComfyRegistry Data: 70/98
- 33%|███▎      | 3/9 [00:09<00:19,  3.18s/it] 44%|████▍     | 4/9 [00:12<00:15,  3.18s/it]FETCH ComfyRegistry Data: 75/98
- 56%|█████▌    | 5/9 [00:15<00:12,  3.16s/it] 67%|██████▋   | 6/9 [00:18<00:09,  3.13s/it]FETCH ComfyRegistry Data: 80/98
- 78%|███████▊  | 7/9 [00:22<00:06,  3.12s/it] 89%|████████▉ | 8/9 [00:25<00:03,  3.13s/it]FETCH ComfyRegistry Data: 85/98
-100%|██████████| 9/9 [00:28<00:00,  3.11s/it]100%|██████████| 9/9 [00:28<00:00,  3.14s/it]
-Requested to load AutoencodingEngine
-loaded completely 196.03515625 159.87335777282715 True
-Prompt executed in 39.60 seconds
-  Saved LoRA result: ../output/lora\female_landlady_mrs_hudmore.FLUX1_Turbo_Alphasafetensors.png
-  LoRA 1 completed successfully
-  Saved LoRA progress: 1/1 completed
-Saved: ../output/characters\female_landlady_mrs_hudmore.png
-  Preserved LoRA progress for completed character
-[OK] Generated: female_landlady_mrs_hudmore
-
-[3/7] Processing male_client_stranger...
-Generating image for: male_client_stranger (Serial LoRA mode)
-
-Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
-Loaded flux workflow from: ../workflow/character.flux.json
-LoRAs configuration: 1/2 LoRAs enabled
-WARNING: LoRA 1 (FLUX.1-Turbo-Alpha.safetensors) model strength 3.0 outside recommended range (0.0-2.0)
-WARNING: LoRA 1 (FLUX.1-Turbo-Alpha.safetensors) CLIP strength 3.0 outside recommended range (0.0-2.0)
-Serial LoRA mode: 1 LoRAs will run independently
-Note: Serial mode requires separate workflow execution for each LoRA
-LoRA enabled in character workflow
-Sampling steps set to: 25
-Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
-  Model strength: 3.0
-  CLIP strength: 3.0
-Updated Flux resolution settings: 0.3MP, 9:19 (Tall Slim)
-  Steps: 9, Denoising: 1
-
-=== PROMPT FOR LoRA 1: FLUX.1-Turbo-Alpha.safetensors ===
-Text prompt: Create a 16K ultra-high-resolution, Full Body Visible, Illustration in the style of Realistic Anime in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description, fine-level detailing and vibrant colors, and any part not cropped or hidden.Must use White Background.
-
- Character Name = male_client_stranger. 
-
- Character Description = Edward Mason has an angular face with high cheekbones and a slightly sunken jawline that gives him an air of quiet intensity. His skin is pale, almost translucent in places under the dim light, but smooth and unblemished save for a faint scar along his jawline that suggests a past injury or fight. His eyes are heterochromatic—one a deep hazel, the other a golden-brown—both dark and bloodshot from lack of sleep or anxiety, and they seem to flicker with urgency as he speaks. His nose is slender and aquiline, with a slight hump on the bridge that gives him an almost noble appearance. He has thin lips that are often tense with worry, and his forehead bears a faint vertical line between the eyebrows when he is agitated. His dark brown hair is neatly combed back but slightly disheveled at the temples, where a few strands escape to frame his face. He wears a tailored men’s suit in muted tones of gray and charcoal, its fabric slightly frayed from constant wear; the right sleeve has a missing button, and the cuff shows signs of being twisted anxiously. His hands are long-fingered with a slight tremor on the right when he is nervous, and his fingers bear faint calluses from years of handling books or documents. He wears damp leather boots, their edges slightly scuffed from walking across Casper Bridge’s stones, and on his belt hangs a small leather case containing the torn scarf that led them to seek Holmes’ counsel.. Strictly, Accurately, Precisely, always must Follow Realistic Anime Style.
-Workflow nodes: 12 nodes
-==================================================
-got prompt
-  Waiting for LoRA 1 generation to complete...
-Requested to load FluxClipModel_
-FETCH ComfyRegistry Data: 90/98
-FETCH ComfyRegistry Data: 95/98
-loaded completely 9458.675 9319.23095703125 True
-Requested to load Flux
-FETCH ComfyRegistry Data [DONE]
-[ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
-FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
-[ComfyUI-Manager] All startup tasks have been completed.
-loaded partially 9458.674961853027 9458.6748046875 0
-  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:03<00:26,  3.28s/it] 22%|██▏       | 2/9 [00:06<00:22,  3.19s/it] 33%|███▎      | 3/9 [00:09<00:19,  3.17s/it] 44%|████▍     | 4/9 [00:12<00:15,  3.13s/it] 56%|█████▌    | 5/9 [00:15<00:12,  3.12s/it] 67%|██████▋   | 6/9 [00:18<00:09,  3.12s/it] 78%|███████▊  | 7/9 [00:21<00:06,  3.11s/it] 89%|████████▉ | 8/9 [00:25<00:03,  3.11s/it]100%|██████████| 9/9 [00:28<00:00,  3.11s/it]100%|██████████| 9/9 [00:28<00:00,  3.13s/it]
-Requested to load AutoencodingEngine
-loaded completely 196.03515625 159.87335777282715 True
-Prompt executed in 43.06 seconds
-  Saved LoRA result: ../output/lora\male_client_stranger.FLUX1_Turbo_Alphasafetensors.png
-  LoRA 1 completed successfully
-  Saved LoRA progress: 1/1 completed
-Saved: ../output/characters\male_client_stranger.png
-  Preserved LoRA progress for completed character
-[OK] Generated: male_client_stranger
-
-[4/7] Processing male_detective_holmes...
-Generating image for: male_detective_holmes (Serial LoRA mode)
-
-Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
-Loaded flux workflow from: ../workflow/character.flux.json
-LoRAs configuration: 1/2 LoRAs enabled
-WARNING: LoRA 1 (FLUX.1-Turbo-Alpha.safetensors) model strength 3.0 outside recommended range (0.0-2.0)
-WARNING: LoRA 1 (FLUX.1-Turbo-Alpha.safetensors) CLIP strength 3.0 outside recommended range (0.0-2.0)
-Serial LoRA mode: 1 LoRAs will run independently
-Note: Serial mode requires separate workflow execution for each LoRA
-LoRA enabled in character workflow
-Sampling steps set to: 25
-Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
-  Model strength: 3.0
-  CLIP strength: 3.0
-Updated Flux resolution settings: 0.3MP, 9:19 (Tall Slim)
-  Steps: 9, Denoising: 1
-
-=== PROMPT FOR LoRA 1: FLUX.1-Turbo-Alpha.safetensors ===
-Text prompt: Create a 16K ultra-high-resolution, Full Body Visible, Illustration in the style of Realistic Anime in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description, fine-level detailing and vibrant colors, and any part not cropped or hidden.Must use White Background.
-
- Character Name = male_detective_holmes. 
-
- Character Description = Sherlock Holmes has an angular face with high cheekbones and a strong jawline that gives him an air of quiet intensity. His skin is fair, almost porcelain-like in texture, though slightly rough from years of exposure to the elements. His eyes are piercing blue, sharp and unblinking as they scan for clues; their gaze seems to see through facades and into the very soul of those he observes. He has a straight nose with a slight prominence on the bridge, and his lips are thin, often set in an expressionless line or slightly upturned at the corners when deep in thought. His dark brown hair is short, neatly trimmed, though slightly tousled as if he’s always on the move; it frames his face in a way that makes him seem both composed and dangerous. He wears a finely tailored navy blue suit with subtle silver thread trimming along the seams, a long coat worn over it to protect against the cold. His boots are polished to a near-miraculous sheen, though their soles bear signs of frequent walking—especially near Casper Bridge. A magnifying lens hangs from a chain around his neck, and he often carries with him a small notebook and a silver pocket watch that never seems to tick in time with the rest of the world. His hands are long-fingered, slightly calloused from years of using magnifying lenses and writing notes; one palm bears a faint scar from an old case. The sharpness in his gaze and the quiet intensity of his presence make it clear why he is feared and respected by all who cross his path.. Strictly, Accurately, Precisely, always must Follow Realistic Anime Style.
-Workflow nodes: 12 nodes
-==================================================
-got prompt
-  Waiting for LoRA 1 generation to complete...
-Requested to load FluxClipModel_
-loaded completely 9458.675 9319.23095703125 True
-Requested to load Flux
-loaded partially 9458.674961853027 9458.6748046875 0
-  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:03<00:26,  3.25s/it] 22%|██▏       | 2/9 [00:06<00:22,  3.20s/it] 33%|███▎      | 3/9 [00:09<00:19,  3.19s/it] 44%|████▍     | 4/9 [00:12<00:15,  3.16s/it] 56%|█████▌    | 5/9 [00:15<00:12,  3.15s/it] 67%|██████▋   | 6/9 [00:18<00:09,  3.13s/it] 78%|███████▊  | 7/9 [00:22<00:06,  3.14s/it] 89%|████████▉ | 8/9 [00:25<00:03,  3.13s/it]100%|██████████| 9/9 [00:28<00:00,  3.11s/it]100%|██████████| 9/9 [00:28<00:00,  3.14s/it]
-Requested to load AutoencodingEngine
-loaded completely 196.03515625 159.87335777282715 True
-Prompt executed in 41.85 seconds
-  Saved LoRA result: ../output/lora\male_detective_holmes.FLUX1_Turbo_Alphasafetensors.png
-  LoRA 1 completed successfully
-  Saved LoRA progress: 1/1 completed
-Saved: ../output/characters\male_detective_holmes.png
-  Preserved LoRA progress for completed character
-[OK] Generated: male_detective_holmes
-
-[5/7] Processing male_doctor_watson...
-Generating image for: male_doctor_watson (Serial LoRA mode)
-
-Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
-Loaded flux workflow from: ../workflow/character.flux.json
-LoRAs configuration: 1/2 LoRAs enabled
-WARNING: LoRA 1 (FLUX.1-Turbo-Alpha.safetensors) model strength 3.0 outside recommended range (0.0-2.0)
-WARNING: LoRA 1 (FLUX.1-Turbo-Alpha.safetensors) CLIP strength 3.0 outside recommended range (0.0-2.0)
-Serial LoRA mode: 1 LoRAs will run independently
-Note: Serial mode requires separate workflow execution for each LoRA
-LoRA enabled in character workflow
-Sampling steps set to: 25
-Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
-  Model strength: 3.0
-  CLIP strength: 3.0
-Updated Flux resolution settings: 0.3MP, 9:19 (Tall Slim)
-  Steps: 9, Denoising: 1
-
-=== PROMPT FOR LoRA 1: FLUX.1-Turbo-Alpha.safetensors ===
-Text prompt: Create a 16K ultra-high-resolution, Full Body Visible, Illustration in the style of Realistic Anime in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description, fine-level detailing and vibrant colors, and any part not cropped or hidden.Must use White Background.
-
- Character Name = male_doctor_watson. 
-
- Character Description = Dr. John Watson has a round face with a soft, almost boyish look that belies his years of experience. His skin is pale but smooth, with faint lines around the eyes from long nights spent in hospitals or at the scene of crimes. His eyes are a striking hazel, often reflecting deep contemplation even when he’s standing still; they seem to see beyond the immediate and into something more profound than most can fathom. He has a straight nose that is slightly aquiline, giving him an air of quiet dignity. His full lips are firm yet kind, always bearing the subtle look of someone who understands suffering but also seeks to alleviate it. His dark brown hair is short at the sides with longer strands on top, neatly combed in the style typical of a man of his time, though often slightly tousled from late nights spent working or thinking. He has thick eyebrows that seem almost comically expressive and always seem to lift when he’s intrigued or surprised. A small mustache adorns his upper lip, and faint stubble lines his jawline, suggesting a man who hasn’t had the luxury of time for grooming. His shoulders are moderately broad but lean, with a slightly hunched posture when deep in thought; his chest is slightly defined, though not overly so, and his waist narrow. He wears a wool coat that has seen better days, its fabric slightly worn at the seams, and a pair of black leather shoes that show signs of past injuries or long hours on the road. His hands are large and steady, with calluses from years of working in the field; one foot bears faint scars, and his socks are slightly frayed at the toe. A silver pocket watch chain is visible at his waist, and he always carries a medical bag over one shoulder as well as a satchel filled with notes and tools for his work.. Strictly, Accurately, Precisely, always must Follow Realistic Anime Style.
-Workflow nodes: 12 nodes
-==================================================
-got prompt
-  Waiting for LoRA 1 generation to complete...
-Requested to load FluxClipModel_
-loaded completely 9458.675 9319.23095703125 True
-Requested to load Flux
-loaded partially 9458.674961853027 9458.6748046875 0
-  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:03<00:25,  3.23s/it] 22%|██▏       | 2/9 [00:06<00:22,  3.22s/it] 33%|███▎      | 3/9 [00:09<00:19,  3.21s/it] 44%|████▍     | 4/9 [00:12<00:15,  3.20s/it] 56%|█████▌    | 5/9 [00:15<00:12,  3.18s/it] 67%|██████▋   | 6/9 [00:19<00:09,  3.16s/it] 78%|███████▊  | 7/9 [00:22<00:06,  3.15s/it] 89%|████████▉ | 8/9 [00:25<00:03,  3.15s/it]100%|██████████| 9/9 [00:28<00:00,  3.14s/it]100%|██████████| 9/9 [00:28<00:00,  3.17s/it]
-Requested to load AutoencodingEngine
-loaded completely 196.03515625 159.87335777282715 True
-Prompt executed in 43.24 seconds
-  Saved LoRA result: ../output/lora\male_doctor_watson.FLUX1_Turbo_Alphasafetensors.png
-  LoRA 1 completed successfully
-  Saved LoRA progress: 1/1 completed
-Saved: ../output/characters\male_doctor_watson.png
-  Preserved LoRA progress for completed character
-[OK] Generated: male_doctor_watson
-
-[6/7] Processing male_villain_scarred...
-Generating image for: male_villain_scarred (Serial LoRA mode)
-
-Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
-Loaded flux workflow from: ../workflow/character.flux.json
-LoRAs configuration: 1/2 LoRAs enabled
-WARNING: LoRA 1 (FLUX.1-Turbo-Alpha.safetensors) model strength 3.0 outside recommended range (0.0-2.0)
-WARNING: LoRA 1 (FLUX.1-Turbo-Alpha.safetensors) CLIP strength 3.0 outside recommended range (0.0-2.0)
-Serial LoRA mode: 1 LoRAs will run independently
-Note: Serial mode requires separate workflow execution for each LoRA
-LoRA enabled in character workflow
-Sampling steps set to: 25
-Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
-  Model strength: 3.0
-  CLIP strength: 3.0
-Updated Flux resolution settings: 0.3MP, 9:19 (Tall Slim)
-  Steps: 9, Denoising: 1
-
-=== PROMPT FOR LoRA 1: FLUX.1-Turbo-Alpha.safetensors ===
-Text prompt: Create a 16K ultra-high-resolution, Full Body Visible, Illustration in the style of Realistic Anime in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description, fine-level detailing and vibrant colors, and any part not cropped or hidden.Must use White Background.
-
- Character Name = male_villain_scarred. 
-
- Character Description = The scarred villain has a square face that appears almost skeletal under the dim light, his skin pale and rough like cracked porcelain. His eyes are dark brown, deep-set and piercing; one is marred by a jagged scar across the eyelid, giving him an appearance of constant menace even when he is not speaking. His nose is sharp and broken on the bridge, with a long diagonal scar running from the tip down his left cheek to his throat—this latter mark is especially visible as it crosses over his collar in a jagged line that seems to ripple as he moves. He has thick lips downturned slightly in a permanent sneer, though they part when he speaks in a way that suggests an almost feral intensity. His hair is black and coarse, growing in uneven tufts around the scalp with streaks of gray at his temples; it is unkempt but deliberate, as if he chooses to look this way to intimidate others. He wears a tattered waistcoat over a dark threadbare shirt, the fabric showing signs of deliberate tearing or damage; his trousers are frayed and dirt-stained along the knees and seat. His boots are worn leather, scuffed and cracked on one side with broken laces that dangle loosely from the right boot. He wears a thick belt made of braided rope across his torso, with a small dagger sheathed on one side and a rusted locket hanging from the other. The scarred skin of his body bears numerous marks—some from past wounds, others from years of hardship and regret. His posture is hunched slightly as if burdened by invisible guilt, and when he moves, it seems as though pain follows him wherever he goes.. Strictly, Accurately, Precisely, always must Follow Realistic Anime Style.
-Workflow nodes: 12 nodes
-==================================================
-got prompt
-  Waiting for LoRA 1 generation to complete...
-Requested to load FluxClipModel_
-loaded completely 9458.675 9319.23095703125 True
-Requested to load Flux
-loaded partially 9458.674961853027 9458.6748046875 0
-  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:03<00:26,  3.32s/it] 22%|██▏       | 2/9 [00:06<00:22,  3.19s/it] 33%|███▎      | 3/9 [00:09<00:18,  3.16s/it] 44%|████▍     | 4/9 [00:12<00:15,  3.14s/it] 56%|█████▌    | 5/9 [00:15<00:12,  3.12s/it] 67%|██████▋   | 6/9 [00:18<00:09,  3.13s/it] 78%|███████▊  | 7/9 [00:22<00:06,  3.14s/it] 89%|████████▉ | 8/9 [00:25<00:03,  3.12s/it]100%|██████████| 9/9 [00:28<00:00,  3.14s/it]100%|██████████| 9/9 [00:28<00:00,  3.15s/it]
-Requested to load AutoencodingEngine
-loaded completely 196.03515625 159.87335777282715 True
-Prompt executed in 42.87 seconds
-  Saved LoRA result: ../output/lora\male_villain_scarred.FLUX1_Turbo_Alphasafetensors.png
-  LoRA 1 completed successfully
-  Saved LoRA progress: 1/1 completed
-Saved: ../output/characters\male_villain_scarred.png
-  Preserved LoRA progress for completed character
-[OK] Generated: male_villain_scarred
-
-[7/7] Processing male_villain_shorter...
-Generating image for: male_villain_shorter (Serial LoRA mode)
-
-Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
-Loaded flux workflow from: ../workflow/character.flux.json
-LoRAs configuration: 1/2 LoRAs enabled
-WARNING: LoRA 1 (FLUX.1-Turbo-Alpha.safetensors) model strength 3.0 outside recommended range (0.0-2.0)
-WARNING: LoRA 1 (FLUX.1-Turbo-Alpha.safetensors) CLIP strength 3.0 outside recommended range (0.0-2.0)
-Serial LoRA mode: 1 LoRAs will run independently
-Note: Serial mode requires separate workflow execution for each LoRA
-LoRA enabled in character workflow
-Sampling steps set to: 25
-Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
-  Model strength: 3.0
-  CLIP strength: 3.0
-Updated Flux resolution settings: 0.3MP, 9:19 (Tall Slim)
-  Steps: 9, Denoising: 1
-
-=== PROMPT FOR LoRA 1: FLUX.1-Turbo-Alpha.safetensors ===
-Text prompt: Create a 16K ultra-high-resolution, Full Body Visible, Illustration in the style of Realistic Anime in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description, fine-level detailing and vibrant colors, and any part not cropped or hidden.Must use White Background.
-
- Character Name = male_villain_shorter. 
-
- Character Description = The shorter villain has a square face with a sharp jawline that suggests an air of quiet menace beneath his calm exterior. His skin is pale but smooth, with no visible imperfections save for a faint scar on the left side of his throat that hints at a past injury or betrayal. His eyes are dark brown and calculating, with a gleam of intelligence that is often accompanied by a thin-lipped smile that suggests hidden intentions. He has a slender, slightly hooked nose, and his lips are thin, often curled into a tight line when he is thinking or showing disapproval. His short black hair is neatly combed back but with slight dishevelment that suggests agitation; it is dark and neat, with a faint sheen to it as if cared for more than most would expect of such a man. He wears a tailored suit in dark tones, though there are signs of wear on the fabric—buttons loosened or mismatched, suggesting a man who values control over formality. His hands are long-fingered with calloused palms that bear signs of past work or combat; one finger bears a small ring made of dark stone that glints slightly in the dim light. He wears a pair of well-maintained black leather boots, their laces tied tightly, and on his belt is a pocket watch on a gold chain that seems to be broken or unused. A brass compass tucked into his coat pocket suggests an interest in direction or hidden purpose, but its use remains unclear. A folded newspaper clings to his arm despite the dampness of the ink, and though he appears young for his years, there is something in the way he stands—confident yet burdened by secrets—that marks him as someone with a past that is far from clean.. Strictly, Accurately, Precisely, always must Follow Realistic Anime Style.
-Workflow nodes: 12 nodes
-==================================================
-got prompt
-  Waiting for LoRA 1 generation to complete...
-Requested to load FluxClipModel_
-loaded completely 9458.675 9319.23095703125 True
-Requested to load Flux
-loaded partially 9458.674961853027 9458.6748046875 0
-  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:03<00:27,  3.38s/it] 22%|██▏       | 2/9 [00:06<00:22,  3.25s/it] 33%|███▎      | 3/9 [00:09<00:19,  3.20s/it] 44%|████▍     | 4/9 [00:12<00:15,  3.17s/it] 56%|█████▌    | 5/9 [00:15<00:12,  3.15s/it] 67%|██████▋   | 6/9 [00:19<00:09,  3.15s/it] 78%|███████▊  | 7/9 [00:22<00:06,  3.16s/it] 89%|████████▉ | 8/9 [00:25<00:03,  3.15s/it]100%|██████████| 9/9 [00:28<00:00,  3.16s/it]100%|██████████| 9/9 [00:28<00:00,  3.17s/it]
-Requested to load AutoencodingEngine
-loaded completely 196.03515625 159.87335777282715 True
-Prompt executed in 42.22 seconds
-  Saved LoRA result: ../output/lora\male_villain_shorter.FLUX1_Turbo_Alphasafetensors.png
-  LoRA 1 completed successfully
-  Saved LoRA progress: 1/1 completed
-Saved: ../output/characters\male_villain_shorter.png
-  Preserved LoRA progress for completed character
-[OK] Generated: male_villain_shorter
-
-Generated 7 character images in 320.73s using flux mode:
-  female_clara_whitfield: ../output/characters\female_clara_whitfield.png
-  female_landlady_mrs_hudmore: ../output/characters\female_landlady_mrs_hudmore.png
-  male_client_stranger: ../output/characters\male_client_stranger.png
-  male_detective_holmes: ../output/characters\male_detective_holmes.png
-  male_doctor_watson: ../output/characters\male_doctor_watson.png
-  male_villain_scarred: ../output/characters\male_villain_scarred.png
-  male_villain_shorter: ../output/characters\male_villain_shorter.png
-All operations completed successfully
-Final progress: Progress: Characters(7/7)
-All operations completed successfully - tracking files preserved
-
-===== END D:\.comfyui\gen.image\scripts\2.character.py @ 2025-09-28 21:31:01 (exit=0, took=320.95s) =====
-
-===== START D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-09-28 21:31:01 =====
-Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.image\output\tracking
-Found existing checkpoint: D:\.comfyui\gen.image\output\tracking\3.scene.state.json
-Progress: Scenes(0/0)
-Location info enabled: 4 locations loaded
-Processing 100 scenes, skipped 0
-============================================================
-
-[1/100] Processing scene_1.1...
-Generating scene: scene_1.1 with characters: male_doctor_watson (Serial LoRA mode)
-Resuming from LoRA 2/1
-Previous LoRA output missing, restarting from LoRA 1
-
-Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
-  Using saved LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
-Serial LoRA mode enabled - will create separate workflow
-Building workflow for serial LoRA mode: scene_1.1
-Compressed male_doctor_watson image: 278.9KB → 3.7KB (98.7% reduction)
-Character mode: IMAGE, Images: 1
-Image stitching: 1 images → 1 groups []
-Using single reference conditioning
-Updated Flux resolution settings: 1.2MP, 16:9 (Panorama)
-Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
-
-
-
-
-Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Realistic Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
-All Non-Living Objects mentioned in Scene text-description must be present in illustration.Must Always Precisely & Accurately Represent entire Scene including all Non-Living Objects according to scene text-description.
-Must Always Precisely & Accurately Preserve each Character's identity(Appearance and Physical Features - Face(hair, eyes, ear, nose, mouth,chick, chin), Body(torso, limbs), Clothings) from respective specified reference image/image-section.
-All other aspects of Characters like "Posture", "Expression", "Movement", "Placement/Location", "Size is proportional to the scene", is adaptable according to Scene/Character text-description.
-Each Non-Living Objects/Character in the illustration must be visually distinct/unique from each other.Strictly, Accurately, Precisely, always must Follow Realistic Anime Style.
-        
-SCENE TEXT-DESCRIPTION:
- Illustrate an exact scenery like {{A British Victorian living room, nestled within the iconic 221B Baker Street, is bathed in the soft glow of a sunny winter morning. The atmosphere is thick with the scent of burning coal and the faint aroma of strong black tea, mingling subtly with the acrid tang of tobacco from Holmes’s ever-present pipe. The room is comfortably cluttered, filled with the signs of an active mind—stacks of case notes tied with string lie beside a Persian rug that stretches across the polished wooden floor, its edges slightly frayed but still vibrant in deep crimson and gold hues. A tall bookcase lines one wall, brimming with tomes on chemistry, law, and obscure monographs, their spines worn from years of use. Near the fireplace, a large iron coal grate radiates warmth, its blackened frame marked by soot and time. Holmes’s violin rests elegantly on a side table, where it is often left after an impromptu performance or deep contemplation. A heavy sofa with well-worn arms sits centered in the room, facing the fireplace, its fabric slightly faded but still sturdy and inviting. At one end of the room, thick drapes catch the pale winter light filtering through the window, casting long shadows across the floor as it pierces the lingering London fog outside. A small chemical apparatus on a stand near the mantelpiece bubbles faintly, releasing the faintest of odors from ongoing experiments. On a nearby table lies the morning newspaper, folded and creased at the edges, its pages slightly yellowed with age. The lighting is soft yet bright, emphasizing every detail in the room—dust motes catching the sun’s rays as they drift lazily through the air. Every object seems to carry the mark of an intellectual mind, from the careful arrangement of books and notes to the faint traces of ink on the side table. The window, framed by richly embroidered curtains, reveals a frosty landscape beyond, where rooftops gleam like lace under the winter sun.}}, {Sunny Winter Morning};Place ((male_doctor_watson)), the Character in Image 1, {Neutral}, {Sitting on sofa}, {Reading newspaper};.
-
-  Model strength: 3.0
-  CLIP strength: 3.0
-  Steps: 9, Denoising: 1
-
-=== PROMPT FOR LoRA 1: FLUX.1-Turbo-Alpha.safetensors ===
-Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Realistic Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
-All Non-Living Objects mentioned in Scene text-description must be present in illustration.Must Always Precisely & Accurately Represent entire Scene including all Non-Living Objects according to scene text-description.
-Must Always Precisely & Accurately Preserve each Character's identity(Appearance and Physical Features - Face(hair, eyes, ear, nose, mouth,chick, chin), Body(torso, limbs), Clothings) from respective specified reference image/image-section.
-All other aspects of Characters like "Posture", "Expression", "Movement", "Placement/Location", "Size is proportional to the scene", is adaptable according to Scene/Character text-description.
-Each Non-Living Objects/Character in the illustration must be visually distinct/unique from each other.Strictly, Accurately, Precisely, always must Follow Realistic Anime Style.
-        
-SCENE TEXT-DESCRIPTION:
- Illustrate an exact scenery like {{A British Victorian living room, nestled within the iconic 221B Baker Street, is bathed in the soft glow of a sunny winter morning. The atmosphere is thick with the scent of burning coal and the faint aroma of strong black tea, mingling subtly with the acrid tang of tobacco from Holmes’s ever-present pipe. The room is comfortably cluttered, filled with the signs of an active mind—stacks of case notes tied with string lie beside a Persian rug that stretches across the polished wooden floor, its edges slightly frayed but still vibrant in deep crimson and gold hues. A tall bookcase lines one wall, brimming with tomes on chemistry, law, and obscure monographs, their spines worn from years of use. Near the fireplace, a large iron coal grate radiates warmth, its blackened frame marked by soot and time. Holmes’s violin rests elegantly on a side table, where it is often left after an impromptu performance or deep contemplation. A heavy sofa with well-worn arms sits centered in the room, facing the fireplace, its fabric slightly faded but still sturdy and inviting. At one end of the room, thick drapes catch the pale winter light filtering through the window, casting long shadows across the floor as it pierces the lingering London fog outside. A small chemical apparatus on a stand near the mantelpiece bubbles faintly, releasing the faintest of odors from ongoing experiments. On a nearby table lies the morning newspaper, folded and creased at the edges, its pages slightly yellowed with age. The lighting is soft yet bright, emphasizing every detail in the room—dust motes catching the sun’s rays as they drift lazily through the air. Every object seems to carry the mark of an intellectual mind, from the careful arrangement of books and notes to the faint traces of ink on the side table. The window, framed by richly embroidered curtains, reveals a frosty landscape beyond, where rooftops gleam like lace under the winter sun.}}, {Sunny Winter Morning};Place ((male_doctor_watson)), the Character in Image 1, {Neutral}, {Sitting on sofa}, {Reading newspaper};.
-
-Workflow nodes: 18 nodes
-==================================================
-got prompt
-  Waiting for LoRA 1 generation to complete...
-Requested to load FluxClipModel_
-loaded completely 9458.675 9319.23095703125 True
-Requested to load AutoencodingEngine
-loaded completely 186.53954315185547 159.87335777282715 True
-Token indices sequence length is longer than the specified maximum sequence length for this model (629 > 512). Running this sequence through the model will result in indexing errors
-loaded completely 9458.675 9319.23095703125 True
-Requested to load Flux
-loaded partially 8077.3709618530265 8077.232421875 0
-  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:11<01:31, 11.38s/it] 22%|██▏       | 2/9 [00:22<01:19, 11.34s/it] 33%|███▎      | 3/9 [00:33<01:07, 11.31s/it] 44%|████▍     | 4/9 [00:45<00:56, 11.29s/it] 56%|█████▌    | 5/9 [00:56<00:45, 11.28s/it] 67%|██████▋   | 6/9 [01:07<00:33, 11.27s/it] 78%|███████▊  | 7/9 [01:19<00:22, 11.27s/it] 89%|████████▉ | 8/9 [01:30<00:11, 11.28s/it]
-===== END D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-09-28 21:32:54 (exit=3221225786, took=112.66s) =====
-Stopping ComfyUI backend...

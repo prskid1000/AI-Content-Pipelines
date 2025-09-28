@@ -71,7 +71,7 @@ NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, p
 USE_RANDOM_SEED = True  # Set to True to use random seeds, False to use fixed seed
 FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 
-ART_STYLE = "Realistic Anime"
+ART_STYLE = "Realistic Digital 3D Animation"
 
 # Text overlay settings for character names
 USE_CHARACTER_NAME_OVERLAY = False  # Set to False to disable name overlay
