@@ -44,7 +44,7 @@ IMAGE_OUTPUT_HEIGHT = 720
 
 # LoRA Configuration
 USE_LORA = True  # Set to False to disable LoRA usage in workflow
-LORA_MODE = "chained"  # "serial" for independent LoRA application, "chained" for traditional chaining
+LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
 
 # LoRA Configuration
 # Each LoRA can be configured for both serial and chained modes
@@ -96,9 +96,11 @@ class ThumbnailProcessor:
         self.comfyui_output_folder = "../../ComfyUI/output"
         # Final destination inside this repo
         self.final_output_dir = "../output"
+        self.intermediate_output_dir = "../output/lora"
         self.final_output_path = os.path.join(self.final_output_dir, "thumbnail.png")
 
         os.makedirs(self.final_output_dir, exist_ok=True)
+        os.makedirs(self.intermediate_output_dir, exist_ok=True)
         if os.path.exists(self.final_output_path):
             os.remove(self.final_output_path)
 
@@ -166,14 +168,21 @@ class ThumbnailProcessor:
         return workflow
     
     def _apply_loras(self, workflow: dict) -> None:
-        """Apply LoRAs in series with individual bypass options."""
+        """Apply LoRAs based on mode (serial or chained)."""
+        if LORA_MODE == "serial":
+            self._apply_loras_serial(workflow)
+        else:
+            self._apply_loras_chained(workflow)
+    
+    def _apply_loras_chained(self, workflow: dict) -> None:
+        """Apply LoRAs in series with individual bypass options (chained mode)."""
         enabled_loras = [lora for lora in LORAS if lora.get("enabled", True)]
         
         if not enabled_loras:
             print("No enabled LoRAs found in LORAS configuration")
             return
         
-        print(f"Applying {len(enabled_loras)} LoRAs in series...")
+        print(f"Applying {len(enabled_loras)} LoRAs in chained mode...")
         
         # Get initial model and clip connections
         model_input = self._find_node_by_class(workflow, "UnetLoaderGGUF") or ["1", 0]
@@ -224,6 +233,17 @@ class ThumbnailProcessor:
         self._update_node_connections(workflow, ["CLIPTextEncode", "CLIP Text Encode (Prompt)"], "clip", last_clip_output)
         
         print(f"LoRAs chain completed with {len(enabled_loras)} LoRAs")
+    
+    def _apply_loras_serial(self, workflow: dict) -> None:
+        """Apply LoRAs in serial mode - each LoRA runs independently."""
+        enabled_loras = [lora for lora in LORAS if lora.get("enabled", True)]
+        
+        if not enabled_loras:
+            print("No enabled LoRAs found in LORAS configuration")
+            return
+        
+        print(f"Serial LoRA mode: {len(enabled_loras)} LoRAs will run independently")
+        print("Note: Serial mode requires separate workflow execution for each LoRA")
     
     def _remove_all_lora_nodes(self, workflow: dict) -> None:
         """Remove all LoRA nodes from workflow."""
@@ -321,8 +341,217 @@ class ThumbnailProcessor:
         
         return workflow
 
+    def _generate_thumbnail_serial(self, prompt_text: str) -> str | None:
+        """Generate thumbnail using serial LoRA mode with intermediate storage."""
+        try:
+            print(f"Generating thumbnail (Serial LoRA mode)")
+            
+            enabled_loras = [lora for lora in LORAS if lora.get("enabled", True)]
+            if not enabled_loras:
+                print("ERROR: No enabled LoRAs found for serial mode")
+                return None
+            
+            current_image_path = None
+            
+            # Process each LoRA in sequence, using previous output as input
+            for i, lora_config in enumerate(enabled_loras):
+                print(f"\nProcessing LoRA {i + 1}/{len(enabled_loras)}: {lora_config['name']}")
+                
+                # Load base workflow for this LoRA
+                workflow = self._load_thumbnail_workflow()
+                if not workflow:
+                    print(f"ERROR: Failed to load workflow for LoRA {i + 1}")
+                    continue
+                
+                # Apply only this LoRA to the workflow
+                self._apply_single_lora(workflow, lora_config, i + 1)
+                
+                # Update workflow with thumbnail-specific settings
+                workflow = self._update_prompt_text(workflow, prompt_text)
+                workflow = self._update_saveimage_prefix(workflow, f"thumbnail_lora_{i + 1}")
+                workflow = self._update_workflow_resolution(workflow, OUTPUT_WIDTH, OUTPUT_HEIGHT)
+                
+                # Set LoRA-specific sampling steps and denoising
+                steps = lora_config.get("steps", SAMPLING_STEPS)
+                denoising_strength = lora_config.get("denoising_strength", 1.0)
+                self._update_node_connections(workflow, "KSampler", "steps", steps)
+                self._update_node_connections(workflow, "KSampler", "denoise", denoising_strength)
+                
+                # If this is not the first LoRA, use previous output as input
+                if i > 0 and current_image_path:
+                    # Load previous image as input for this LoRA
+                    self._set_image_input(workflow, current_image_path)
+                    print(f"  Using previous LoRA output as input")
+                
+                print(f"  Steps: {steps}, Denoising: {denoising_strength}")
+                
+                # Submit workflow to ComfyUI
+                resp = requests.post(f"{self.comfyui_url}prompt", json={"prompt": workflow}, timeout=60)
+                if resp.status_code != 200:
+                    print(f"ERROR: ComfyUI API error for LoRA {i + 1}: {resp.status_code} {resp.text}")
+                    continue
+                    
+                prompt_id = resp.json().get("prompt_id")
+                if not prompt_id:
+                    print(f"ERROR: No prompt ID returned for LoRA {i + 1}")
+                    continue
+
+                # Wait for completion
+                print(f"  Waiting for LoRA {i + 1} generation to complete...")
+                while True:
+                    h = requests.get(f"{self.comfyui_url}history/{prompt_id}")
+                    if h.status_code == 200:
+                        data = h.json()
+                        if prompt_id in data:
+                            status = data[prompt_id].get("status", {})
+                            if status.get("exec_info", {}).get("queue_remaining", 0) == 0:
+                                time.sleep(2)  # Give it a moment to finish
+                                break
+                    time.sleep(2)
+
+                # Find the generated image
+                generated_image = self._find_newest_output_with_prefix(f"thumbnail_lora_{i + 1}")
+                if not generated_image:
+                    print(f"ERROR: Could not find generated image for LoRA {i + 1}")
+                    continue
+                
+                # Save result to lora folder (save final result from each LoRA)
+                lora_clean_name = re.sub(r'[^\w\s-]', '', lora_config['name']).strip()
+                lora_clean_name = re.sub(r'[-\s]+', '_', lora_clean_name)
+                lora_final_path = os.path.join(self.intermediate_output_dir, f"thumbnail.{lora_clean_name}.png")
+                shutil.copy2(generated_image, lora_final_path)
+                print(f"  Saved LoRA result: {lora_final_path}")
+                
+                # Use this output as input for next LoRA
+                current_image_path = generated_image
+                print(f"  LoRA {i + 1} completed successfully")
+            
+            if not current_image_path:
+                print(f"ERROR: No successful LoRA generations for thumbnail")
+                return None
+            
+            # Copy final result to output directory
+            shutil.copy2(current_image_path, self.final_output_path)
+            
+            # Apply text overlay if enabled
+            title = self._read_title_from_file()
+            if title and USE_TITLE_TEXT:
+                self._overlay_title(self.final_output_path, title)
+            
+            print(f"Saved: {self.final_output_path}")
+            return self.final_output_path
+
+        except Exception as e:
+            print(f"ERROR: Failed to generate thumbnail: {e}")
+            return None
+
+    def _apply_single_lora(self, workflow: dict, lora_config: dict, lora_index: int) -> None:
+        """Apply a single LoRA to the workflow."""
+        lora_node_id = f"lora_{lora_index}"
+        
+        # Get initial model and clip connections
+        model_input = self._find_node_by_class(workflow, "UnetLoaderGGUF") or ["1", 0]
+        clip_input = self._find_node_by_class(workflow, ["DualCLIPLoader", "TripleCLIPLoader"]) or ["2", 0]
+        
+        # Create LoRA node inputs
+        lora_inputs = {
+            "lora_name": lora_config["name"],
+            "model": model_input,
+            "clip": clip_input
+        }
+        
+        # Apply strength settings with bypass options
+        if lora_config.get("bypass_model", False):
+            lora_inputs["strength_model"] = 0.0
+            print(f"  Model bypassed")
+        else:
+            lora_inputs["strength_model"] = lora_config.get("strength_model", 1.0)
+            print(f"  Model strength: {lora_inputs['strength_model']}")
+        
+        if lora_config.get("bypass_clip", False):
+            lora_inputs["strength_clip"] = 0.0
+            print(f"  CLIP bypassed")
+        else:
+            lora_inputs["strength_clip"] = lora_config.get("strength_clip", 1.0)
+            print(f"  CLIP strength: {lora_inputs['strength_clip']}")
+        
+        # Create LoRA node
+        workflow[lora_node_id] = {
+            "inputs": lora_inputs,
+            "class_type": "LoraLoader",
+            "_meta": {"title": f"Load LoRA {lora_index}: {lora_config['name']}"}
+        }
+        
+        # Connect LoRA outputs to workflow nodes
+        self._update_node_connections(workflow, "KSampler", "model", [lora_node_id, 0])
+        self._update_node_connections(workflow, ["CLIPTextEncode", "CLIP Text Encode (Prompt)"], "clip", [lora_node_id, 1])
+
+    def _set_image_input(self, workflow: dict, image_path: str) -> None:
+        """Set an image as input for the workflow (for chaining LoRA outputs)."""
+        try:
+            # Copy the image to ComfyUI input folder
+            image_filename = os.path.basename(image_path)
+            comfyui_input_path = os.path.join("../../ComfyUI/input", image_filename)
+            shutil.copy2(image_path, comfyui_input_path)
+            
+            # Find existing LoadImage node or create one
+            load_image_node_id = None
+            for node_id, node in workflow.items():
+                if isinstance(node, dict) and node.get("class_type") == "LoadImage":
+                    load_image_node_id = node_id
+                    break
+            
+            # If no LoadImage node exists, create one
+            if not load_image_node_id:
+                # Find the next available node ID
+                max_id = max(int(k) for k in workflow.keys() if k.isdigit())
+                load_image_node_id = str(max_id + 1)
+                
+                # Create LoadImage node
+                workflow[load_image_node_id] = {
+                    "inputs": {"image": image_filename},
+                    "class_type": "LoadImage",
+                    "_meta": {"title": "Load Image (LoRA Chain Input)"}
+                }
+                print(f"  Created LoadImage node: {load_image_node_id}")
+            else:
+                # Update existing LoadImage node
+                workflow[load_image_node_id]["inputs"]["image"] = image_filename
+                print(f"  Updated LoadImage node: {load_image_node_id}")
+            
+            # Find and replace EmptySD3LatentImage with LoadImage
+            for node_id, node in workflow.items():
+                if isinstance(node, dict) and node.get("class_type") == "EmptySD3LatentImage":
+                    # Replace the latent_image input in KSampler
+                    for sampler_id, sampler_node in workflow.items():
+                        if isinstance(sampler_node, dict) and sampler_node.get("class_type") == "KSampler":
+                            if "latent_image" in sampler_node.get("inputs", {}):
+                                # Create VAEEncode node to convert image to latent
+                                encode_node_id = str(int(load_image_node_id) + 1)
+                                workflow[encode_node_id] = {
+                                    "inputs": {
+                                        "pixels": [load_image_node_id, 0],
+                                        "vae": ["11", 0]  # Use existing VAE
+                                    },
+                                    "class_type": "VAEEncode",
+                                    "_meta": {"title": "VAE Encode (LoRA Chain Input)"}
+                                }
+                                
+                                # Update KSampler to use encoded latent
+                                sampler_node["inputs"]["latent_image"] = [encode_node_id, 0]
+                                print(f"  Connected LoadImage → VAEEncode → KSampler")
+                                break
+                    break
+                    
+        except Exception as e:
+            print(f"WARNING: Failed to set image input: {e}")
+
     def generate_thumbnail(self, prompt_text: str) -> str | list[str] | None:
         try:
+            # Use serial LoRA mode if enabled
+            if USE_LORA and LORA_MODE == "serial":
+                return self._generate_thumbnail_serial(prompt_text)
+            
             # Determine if we should use text overlay or let the model generate text
             use_overlay = USE_TITLE_TEXT
             title = None

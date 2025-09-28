@@ -185,14 +185,16 @@ class SceneGenerator:
         self.comfyui_input_folder = "../../ComfyUI/input"
         # Final destination inside this repo
         self.final_output_dir = "../output/scene"
+        self.intermediate_output_dir = "../output/lora"
         self.scene_file = "../input/3.scene.txt"
         self.character_file = "../input/3.character.txt"
         self.location_file = "../input/3.location.txt"
         self.workflow_file = "../workflow/scene.json"
         self.character_images_dir = "../output/characters"
 
-        # Create output directory
+        # Create output directories
         os.makedirs(self.final_output_dir, exist_ok=True)
+        os.makedirs(self.intermediate_output_dir, exist_ok=True)
         # Ensure ComfyUI input directory exists
         os.makedirs(self.comfyui_input_folder, exist_ok=True)
 
@@ -1039,9 +1041,301 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
         print(f"Text prompt: {text_prompt}")
         return workflow
 
+    def _generate_scene_image_serial(self, scene_id: str, scene_description: str, character_names: list[str], master_prompt: str, characters_data: dict[str, str], locations_data: dict[str, str] = None, resumable_state=None) -> str | None:
+        """Generate scene image using serial LoRA mode with intermediate storage."""
+        try:
+            # Check if resumable and already complete
+            if resumable_state and resumable_state.is_scene_complete(scene_id):
+                cached_result = resumable_state.get_scene_result(scene_id)
+                if cached_result and os.path.exists(cached_result.get('path', '')):
+                    print(f"Using cached scene image: {scene_id}")
+                    return cached_result['path']
+                elif cached_result:
+                    print(f"Cached file missing, regenerating: {scene_id}")
+            
+            print(f"Generating scene: {scene_id} with characters: {', '.join(character_names)} (Serial LoRA mode)")
+            
+            enabled_loras = [lora for lora in LORAS if lora.get("enabled", True)]
+            if not enabled_loras:
+                print("ERROR: No enabled LoRAs found for serial mode")
+                return None
+            
+            # Clean scene ID for filenames
+            clean_scene_id = re.sub(r'[^\w\s-]', '', scene_id).strip()
+            clean_scene_id = re.sub(r'[-\s]+', '_', clean_scene_id)
+            
+            # Check for existing LoRA progress
+            lora_progress_key = f"{scene_id}_lora_progress"
+            completed_loras = []
+            current_image_path = None
+            intermediate_paths = []
+            
+            if resumable_state:
+                lora_progress = resumable_state.state.get("lora_progress", {}).get(lora_progress_key, {})
+                completed_loras = lora_progress.get("completed_loras", [])
+                current_image_path = lora_progress.get("current_image_path")
+                intermediate_paths = lora_progress.get("intermediate_paths", [])
+                
+                if completed_loras:
+                    print(f"Resuming from LoRA {len(completed_loras) + 1}/{len(enabled_loras)}")
+                    if current_image_path and os.path.exists(current_image_path):
+                        print(f"Using previous LoRA output: {current_image_path}")
+                    else:
+                        print("Previous LoRA output missing, restarting from LoRA 1")
+                        completed_loras = []
+                        current_image_path = None
+                        intermediate_paths = []
+            
+            # Process each LoRA in sequence, using previous output as input
+            for i, lora_config in enumerate(enabled_loras):
+                lora_name = lora_config['name']
+                lora_clean_name = re.sub(r'[^\w\s-]', '', lora_name).strip()
+                lora_clean_name = re.sub(r'[-\s]+', '_', lora_clean_name)
+                
+                # Skip if this LoRA was already completed
+                if i < len(completed_loras):
+                    print(f"Skipping completed LoRA {i + 1}/{len(enabled_loras)}: {lora_name}")
+                    continue
+                
+                print(f"\nProcessing LoRA {i + 1}/{len(enabled_loras)}: {lora_name}")
+                
+                # Load base workflow for this LoRA
+                workflow = self._load_base_workflow()
+                if not workflow:
+                    print(f"ERROR: Failed to load workflow for LoRA {i + 1}")
+                    continue
+                
+                # Apply only this LoRA to the workflow
+                self._apply_single_lora(workflow, lora_config, i + 1)
+                
+                # Update workflow with scene-specific settings
+                workflow = self._build_dynamic_workflow(scene_id, scene_description, character_names, master_prompt, characters_data, locations_data)
+                if not workflow:
+                    print(f"ERROR: Failed to build workflow for LoRA {i + 1}")
+                    continue
+                
+                # Set LoRA-specific sampling steps and denoising
+                steps = lora_config.get("steps", SAMPLING_STEPS)
+                denoising_strength = lora_config.get("denoising_strength", 1.0)
+                self._update_node_connections(workflow, "KSampler", "steps", steps)
+                self._update_node_connections(workflow, "KSampler", "denoise", denoising_strength)
+                
+                # If this is not the first LoRA, use previous output as input
+                if i > 0 and current_image_path:
+                    # Load previous image as input for this LoRA
+                    self._set_image_input(workflow, current_image_path)
+                    print(f"  Using previous LoRA output as input")
+                
+                # Generate filename for this LoRA step
+                lora_clean_name = re.sub(r'[^\w\s-]', '', lora_config['name']).strip()
+                lora_clean_name = re.sub(r'[-\s]+', '_', lora_clean_name)
+                lora_filename = f"{clean_scene_id}.{lora_clean_name}"
+                workflow["21"]["inputs"]["filename_prefix"] = lora_filename
+                
+                print(f"  Steps: {steps}, Denoising: {denoising_strength}")
+                
+                # Submit workflow to ComfyUI
+                resp = requests.post(f"{self.comfyui_url}prompt", json={"prompt": workflow}, timeout=120)
+                if resp.status_code != 200:
+                    print(f"ERROR: ComfyUI API error for LoRA {i + 1}: {resp.status_code} {resp.text}")
+                    continue
+                    
+                prompt_id = resp.json().get("prompt_id")
+                if not prompt_id:
+                    print(f"ERROR: No prompt ID returned for LoRA {i + 1}")
+                    continue
+
+                # Wait for completion
+                print(f"  Waiting for LoRA {i + 1} generation to complete...")
+                while True:
+                    h = requests.get(f"{self.comfyui_url}history/{prompt_id}")
+                    if h.status_code == 200:
+                        data = h.json()
+                        if prompt_id in data:
+                            status = data[prompt_id].get("status", {})
+                            if status.get("exec_info", {}).get("queue_remaining", 0) == 0:
+                                time.sleep(2)  # Give it a moment to finish
+                                break
+                    time.sleep(2)
+
+                # Find the generated image
+                generated_image = self._find_newest_output_with_prefix(lora_filename)
+                if not generated_image:
+                    print(f"ERROR: Could not find generated image for LoRA {i + 1}")
+                    continue
+                
+                # Save result to lora folder (save final result from each LoRA)
+                lora_final_path = os.path.join(self.intermediate_output_dir, f"{clean_scene_id}.{lora_clean_name}.png")
+                shutil.copy2(generated_image, lora_final_path)
+                intermediate_paths.append(lora_final_path)
+                print(f"  Saved LoRA result: {lora_final_path}")
+                
+                # Use this output as input for next LoRA
+                current_image_path = generated_image
+                print(f"  LoRA {i + 1} completed successfully")
+                
+                # Save progress after each LoRA completion
+                if resumable_state:
+                    completed_loras.append(lora_name)
+                    lora_progress = {
+                        "completed_loras": completed_loras,
+                        "current_image_path": current_image_path,
+                        "intermediate_paths": intermediate_paths
+                    }
+                    resumable_state.state.setdefault("lora_progress", {})[lora_progress_key] = lora_progress
+                    resumable_state._save_state()
+                    print(f"  Saved LoRA progress: {len(completed_loras)}/{len(enabled_loras)} completed")
+            
+            if not current_image_path:
+                print(f"ERROR: No successful LoRA generations for {scene_id}")
+                return None
+            
+            # Copy final result to output directory
+            final_path = os.path.join(self.final_output_dir, f"{scene_id}.png")
+            shutil.copy2(current_image_path, final_path)
+            print(f"Saved: {final_path}")
+            
+            # Save to checkpoint if resumable mode enabled
+            if resumable_state:
+                result = {
+                    'path': final_path,
+                    'scene_id': scene_id,
+                    'scene_description': scene_description,
+                    'character_names': character_names,
+                    'intermediate_paths': intermediate_paths
+                }
+                resumable_state.set_scene_result(scene_id, result)
+                
+                # Clean up LoRA progress since scene is complete
+                if lora_progress_key in resumable_state.state.get("lora_progress", {}):
+                    del resumable_state.state["lora_progress"][lora_progress_key]
+                    resumable_state._save_state()
+                    print(f"  Cleared LoRA progress for completed scene")
+            
+            return final_path
+
+        except Exception as e:
+            print(f"ERROR: Failed to generate image for {scene_id}: {e}")
+            return None
+
+    def _apply_single_lora(self, workflow: dict, lora_config: dict, lora_index: int) -> None:
+        """Apply a single LoRA to the workflow."""
+        lora_node_id = f"lora_{lora_index}"
+        
+        # Get initial model and clip connections
+        model_input = ["41", 0]  # Base model node
+        clip_input = ["10", 0]   # Base clip node
+        
+        # Create LoRA node inputs
+        lora_inputs = {
+            "lora_name": lora_config["name"],
+            "model": model_input,
+            "clip": clip_input
+        }
+        
+        # Apply strength settings with bypass options
+        if lora_config.get("bypass_model", False):
+            lora_inputs["strength_model"] = 0.0
+            print(f"  Model bypassed")
+        else:
+            lora_inputs["strength_model"] = lora_config.get("strength_model", 1.0)
+            print(f"  Model strength: {lora_inputs['strength_model']}")
+        
+        if lora_config.get("bypass_clip", False):
+            lora_inputs["strength_clip"] = 0.0
+            print(f"  CLIP bypassed")
+        else:
+            lora_inputs["strength_clip"] = lora_config.get("strength_clip", 1.0)
+            print(f"  CLIP strength: {lora_inputs['strength_clip']}")
+        
+        # Create LoRA node
+        workflow[lora_node_id] = {
+            "inputs": lora_inputs,
+            "class_type": "LoraLoader",
+            "_meta": {"title": f"Load LoRA {lora_index}: {lora_config['name']}"}
+        }
+        
+        # Connect LoRA outputs to workflow nodes
+        self._update_node_connections(workflow, "KSampler", "model", [lora_node_id, 0])
+        self._update_node_connections(workflow, ["CLIPTextEncode", "CLIP Text Encode (Prompt)"], "clip", [lora_node_id, 1])
+
+    def _set_image_input(self, workflow: dict, image_path: str) -> None:
+        """Set an image as input for the workflow (for chaining LoRA outputs)."""
+        try:
+            # Copy the image to ComfyUI input folder
+            image_filename = os.path.basename(image_path)
+            comfyui_input_path = os.path.join("../../ComfyUI/input", image_filename)
+            shutil.copy2(image_path, comfyui_input_path)
+            
+            # Find existing LoadImage node or create one
+            load_image_node_id = None
+            for node_id, node in workflow.items():
+                if isinstance(node, dict) and node.get("class_type") == "LoadImage":
+                    load_image_node_id = node_id
+                    break
+            
+            # If no LoadImage node exists, create one
+            if not load_image_node_id:
+                # Find the next available node ID
+                max_id = max(int(k) for k in workflow.keys() if k.isdigit())
+                load_image_node_id = str(max_id + 1)
+                
+                # Create LoadImage node
+                workflow[load_image_node_id] = {
+                    "inputs": {"image": image_filename},
+                    "class_type": "LoadImage",
+                    "_meta": {"title": "Load Image (LoRA Chain Input)"}
+                }
+                print(f"  Created LoadImage node: {load_image_node_id}")
+            else:
+                # Update existing LoadImage node
+                workflow[load_image_node_id]["inputs"]["image"] = image_filename
+                print(f"  Updated LoadImage node: {load_image_node_id}")
+            
+            # Find and replace EmptySD3LatentImage with LoadImage
+            for node_id, node in workflow.items():
+                if isinstance(node, dict) and node.get("class_type") == "EmptySD3LatentImage":
+                    # Replace the latent_image input in KSampler
+                    for sampler_id, sampler_node in workflow.items():
+                        if isinstance(sampler_node, dict) and sampler_node.get("class_type") == "KSampler":
+                            if "latent_image" in sampler_node.get("inputs", {}):
+                                # Create VAEEncode node to convert image to latent
+                                encode_node_id = str(int(load_image_node_id) + 1)
+                                workflow[encode_node_id] = {
+                                    "inputs": {
+                                        "pixels": [load_image_node_id, 0],
+                                        "vae": ["11", 0]  # Use existing VAE
+                                    },
+                                    "class_type": "VAEEncode",
+                                    "_meta": {"title": "VAE Encode (LoRA Chain Input)"}
+                                }
+                                
+                                # Update KSampler to use encoded latent
+                                sampler_node["inputs"]["latent_image"] = [encode_node_id, 0]
+                                print(f"  Connected LoadImage → VAEEncode → KSampler")
+                                break
+                    break
+                    
+        except Exception as e:
+            print(f"WARNING: Failed to set image input: {e}")
+
+    def _update_node_connections(self, workflow: dict, class_types: str | list[str], input_key: str, value) -> None:
+        """Update specific input connections for nodes matching class types."""
+        if isinstance(class_types, str):
+            class_types = [class_types]
+        
+        for node_id, node in workflow.items():
+            if isinstance(node, dict) and isinstance(node.get("inputs"), dict):
+                if node.get("class_type") in class_types and input_key in node["inputs"]:
+                    node["inputs"][input_key] = value
+
     def _generate_scene_image(self, scene_id: str, scene_description: str, character_names: list[str], master_prompt: str, characters_data: dict[str, str], locations_data: dict[str, str] = None, resumable_state=None) -> str | None:
         """Generate a single scene image using ComfyUI."""
         try:
+            # Use serial LoRA mode if enabled
+            if USE_LORA and LORA_MODE == "serial":
+                return self._generate_scene_image_serial(scene_id, scene_description, character_names, master_prompt, characters_data, locations_data, resumable_state)
+            
             # Check if resumable and already complete
             if resumable_state and resumable_state.is_scene_complete(scene_id):
                 cached_result = resumable_state.get_scene_result(scene_id)
