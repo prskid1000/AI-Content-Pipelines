@@ -17,14 +17,14 @@ ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 
 # Image Resolution Constants
-IMAGE_MEGAPIXEL = "0.1"
+IMAGE_MEGAPIXEL = "0.3"
 IMAGE_ASPECT_RATIO = "9:19 (Tall Slim)"
 IMAGE_DIVISIBLE_BY = "64"
 IMAGE_CUSTOM_RATIO = True
-IMAGE_CUSTOM_ASPECT_RATIO = "16:9"
+IMAGE_CUSTOM_ASPECT_RATIO = "9:16"
 
 # LoRA Configuration
-USE_LORA = False  # Set to False to disable LoRA usage in workflow
+USE_LORA = True  # Set to False to disable LoRA usage in workflow
 LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
 
 # LoRA Configuration
@@ -34,8 +34,8 @@ LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for
 LORAS = [
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 2.0,    # Model strength (0.0 - 2.0)
-        "strength_clip": 2.0,     # CLIP strength (0.0 - 2.0)
+        "strength_model": 3.0,    # Model strength (0.0 - 2.0)
+        "strength_clip": 3.0,     # CLIP strength (0.0 - 2.0)
         "bypass_model": False,    # Set to True to bypass model part of this LoRA
         "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
         "enabled": True,          # Set to False to disable this LoRA entirely

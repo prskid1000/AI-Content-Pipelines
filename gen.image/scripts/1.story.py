@@ -608,9 +608,17 @@ def _schema_character() -> dict[str, object]:
                     "overall_impression": {
                         "type": "object",
                         "properties": {
-                            "height": {"type": "string", "enum": ["short", "medium", "tall", "very tall"]},
+                            "height": {"type": "string", "enum": ["medium", "tall"]},
                             "build": {"type": "string", "enum": ["petite", "slim", "average", "stocky", "robust", "imposing"]},
-                            "age_appearance": {"type": "string"},
+                            "age_appearance": {
+                                "type": "object",
+                                "properties": {
+                                    "age_category": {"type": "string", "enum": ["child", "teenager", "young_adult", "adult", "middle_aged", "elderly", "old"]},
+                                    "specific_age": {"type": "string", "description": "Specific age number (e.g., '24', '45', '12')"},
+                                    "age_description": {"type": "string", "description": "Detailed age appearance description (e.g., 'appears to be in early twenties', 'looks like a teenager')"}
+                                },
+                                "required": ["age_category", "specific_age", "age_description"]
+                            },
                             "distinctive_traits": {"type": "string"},
                             "presence": {"type": "string"}
                         },
@@ -761,11 +769,26 @@ def _schema_character_rewrite() -> dict[str, object]:
                 "properties": {
                     "rewritten_characters": {
                         "type": "object",
-                        "description": "Dictionary mapping character names to their rewritten paragraph descriptions",
+                        "description": "Dictionary mapping character names to their rewritten character data with preserved age information",
                         "patternProperties": {
                             ".*": {
-                                "type": "string",
-                                "description": "Complete character description written as a flowing paragraph with different physical appearance but preserved relationships and shared elements"
+                                "type": "object",
+                                "properties": {
+                                    "description": {
+                                        "type": "string",
+                                        "description": "Complete character description written as a flowing paragraph with different physical appearance but preserved relationships and shared elements"
+                                    },
+                                    "age_appearance": {
+                                        "type": "object",
+                                        "properties": {
+                                            "age_category": {"type": "string", "enum": ["child", "teenager", "young_adult", "adult", "middle_aged", "elderly", "old"]},
+                                            "specific_age": {"type": "string", "description": "Specific age number (e.g., '24', '45', '12')"},
+                                            "age_description": {"type": "string", "description": "Detailed age appearance description"}
+                                        },
+                                        "required": ["age_category", "specific_age", "age_description"]
+                                    }
+                                },
+                                "required": ["description", "age_appearance"]
                             }
                         }
                     }
@@ -793,6 +816,7 @@ def _build_character_system_prompt(story_desc: str, character_name: str, all_cha
         "If characters are colleagues (same profession), they should have matching uniforms/equipment but different physical appearances. "
         "If characters are family members or romantic partners, they might share matching accessories like wedding rings. "
         "Provide rich, specific details that will help create a vivid and consistent visual representation."
+        "Don't use any keyword/adjective unless needed, like scar from **childhood** accident can make model understand it as chracter is a **child** though actually an adult, instead use scar from old accident"
         f"Describe the character in {ART_STYLE} style. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.\n\n"
         f"STORY CONTEXT: {story_desc}\n\n"
         f"CHARACTER TO DESCRIBE: {character_name}\n"
@@ -803,11 +827,12 @@ def _build_character_system_prompt(story_desc: str, character_name: str, all_cha
 def _build_character_summary_prompt(character_name: str, detailed_description: str) -> str:
     return (
         f"You are a visual AI prompt specialist creating concise character summaries ({CHARACTER_SUMMARY_CHARACTER_COUNT} characters) for AI image generation. "
-        "Take the detailed character description and extract ONLY the head, face, and full clothing details into a paragraph. "
-        "Focus specifically on: head shape, facial features (eyes, nose, mouth, hair, facial hair), skin tone/texture, and full clothing style/fit/material/colors. "
+        "Take the detailed character description and extract the head, face, age information, and full clothing details into a paragraph. "
+        "Focus specifically on: age appearance, head shape, facial features (eyes, nose, mouth, hair, facial hair), skin tone/texture, and full clothing style/fit/material/colors. "
+        "Include age category (child/teenager/adult/elderly) and specific age number in the summary. "
         "Ignore body proportions, posture, hands, legs, feet, and other body parts. "
         "Use clear, descriptive terms separated by commas. Avoid unnecessary words and focus on visual impact. "
-        f"Create a summary ({CHARACTER_SUMMARY_CHARACTER_COUNT} characters) focusing ONLY on head, face, and clothing features in a paragraph. "
+        f"Create a summary ({CHARACTER_SUMMARY_CHARACTER_COUNT} characters) focusing on age, head, face, and clothing features in a paragraph. "
         f"Describe the character in {ART_STYLE} style.Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.\n\n"
         f"CHARACTER: {character_name}\n\n"
         f"DETAILED DESCRIPTION: {detailed_description}\n\n"
@@ -1026,14 +1051,15 @@ Current Character Descriptions:
 {characters_text}
 
 INSTRUCTIONS:
-- **Preserve**: Keep all professions, relationships, uniforms, equipment, and shared elements exactly as they are
+- **Preserve**: Keep all professions, relationships, uniforms, equipment, shared elements, AND AGE INFORMATION exactly as they are
 - **Change**: Modify facial features, skin tone, hair, and personal style to make each character distinct
-- **Format**: Write each description as a flowing paragraph
+- **Format**: Write each description as a flowing paragraph AND include structured age data
 
 PHYSICAL CHANGES TO MAKE:
 - Change facial features (eyes, nose, mouth, hair) to be distinct from each other
 - Change skin tone, texture, and personal style
 - Keep all professional elements (uniforms, equipment, badges) identical for colleagues
+- **CRITICAL**: Preserve exact age category, specific age number, and age description for each character
 
 QUALITY REQUIREMENTS:
 - Maintain the same level of detail and quality as original descriptions
@@ -1041,6 +1067,7 @@ QUALITY REQUIREMENTS:
 - Ensure each character looks distinct from all others
 - Preserve all relationship and shared element data exactly
 - Write each description as a coherent paragraph, not as separate parts
+- Don't use any keyword/adjective unless needed, like scar from **childhood** accident can make model understand it as chracter is a **child** though actually an adult, instead use scar from old accident.
 
 Return structured character data for each character with distinct physical appearances formatted as paragraphs while preserving all relationships and shared elements."""
 
@@ -1082,12 +1109,30 @@ def _rewrite_all_character_descriptions(name_to_desc: dict[str, str], story_desc
             extra = set(rewritten_characters.keys()) - set(name_to_desc.keys())
             raise RuntimeError(f"Character mismatch - Missing: {missing}, Extra: {extra}")
         
-        # The model now returns paragraph descriptions directly
+        # The model now returns structured character data with descriptions and age information
         rewritten_descriptions = {}
-        for char_name, char_description in rewritten_characters.items():
-            if not isinstance(char_description, str) or not char_description.strip():
-                raise RuntimeError(f"Invalid description format for {char_name}")
-            rewritten_descriptions[char_name] = char_description.strip()
+        for char_name, char_data in rewritten_characters.items():
+            if not isinstance(char_data, dict):
+                raise RuntimeError(f"Invalid character data format for {char_name}")
+            
+            description = char_data.get("description", "").strip()
+            age_appearance = char_data.get("age_appearance", {})
+            
+            if not description:
+                raise RuntimeError(f"Missing description for {char_name}")
+            
+            # Validate age information is preserved
+            if not age_appearance or not all(key in age_appearance for key in ["age_category", "specific_age", "age_description"]):
+                raise RuntimeError(f"Missing or incomplete age information for {char_name}")
+            
+            # Format the final description with age information
+            age_category = age_appearance.get("age_category", "")
+            specific_age = age_appearance.get("specific_age", "")
+            age_desc = age_appearance.get("age_description", "")
+            
+            # Combine description with age information
+            full_description = f"{description} Age: {age_category} ({specific_age} years old) - {age_desc}"
+            rewritten_descriptions[char_name] = full_description.strip()
         
         # Save to checkpoint if resumable mode enabled
         if resumable_state:
