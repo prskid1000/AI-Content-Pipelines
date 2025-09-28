@@ -14,9 +14,8 @@ ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 
 # Image resizing configuration (characters only)
-# Character image dimensions: 512x1024 (width x height) - Better aspect ratio for stitching
-CHARACTER_RESIZE_WIDTH = 64
-CHARACTER_RESIZE_HEIGHT = 128
+# Character image resize factor: 0.125 (12.5% of original size) - Better aspect ratio for stitching
+CHARACTER_RESIZE_FACTOR = 0.25
 
 # Image compression configuration
 # JPEG quality: 1-100 (100 = best quality, larger file; 1 = worst quality, smaller file)
@@ -471,29 +470,12 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
                         elif img.mode != 'RGB':
                             img = img.convert('RGB')
                         
-                        # Resize the image before saving - maintain aspect ratio with padding
-                        # Calculate the scaling factor to fit within target dimensions
-                        scale_w = CHARACTER_RESIZE_WIDTH / img.width
-                        scale_h = CHARACTER_RESIZE_HEIGHT / img.height
-                        scale = min(scale_w, scale_h)
-                        
-                        # Calculate new size
-                        new_width = int(img.width * scale)
-                        new_height = int(img.height * scale)
+                        # Resize the image using the resize factor
+                        new_width = int(img.width * CHARACTER_RESIZE_FACTOR)
+                        new_height = int(img.height * CHARACTER_RESIZE_FACTOR)
                         
                         # Resize with aspect ratio preserved
                         img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
-                        
-                        # Create a new image with target dimensions and white background
-                        padded_img = Image.new('RGB', (CHARACTER_RESIZE_WIDTH, CHARACTER_RESIZE_HEIGHT), (255, 255, 255))
-                        
-                        # Calculate position to center the resized image
-                        paste_x = (CHARACTER_RESIZE_WIDTH - new_width) // 2
-                        paste_y = (CHARACTER_RESIZE_HEIGHT - new_height) // 2
-                        
-                        # Paste the resized image onto the padded background
-                        padded_img.paste(img, (paste_x, paste_y))
-                        img = padded_img
                         
                         # Save with compression
                         img.save(dest_path, 'JPEG', quality=IMAGE_COMPRESSION_QUALITY, optimize=True)
