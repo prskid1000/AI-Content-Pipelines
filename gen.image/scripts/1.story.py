@@ -749,7 +749,7 @@ def _schema_story_description() -> dict[str, object]:
 
 
 def _schema_character_rewrite() -> dict[str, object]:
-    """JSON schema for character description rewriting with structured data."""
+    """JSON schema for character description rewriting with paragraph descriptions."""
     return {
         "type": "json_schema",
         "json_schema": {
@@ -760,48 +760,11 @@ def _schema_character_rewrite() -> dict[str, object]:
                 "properties": {
                     "rewritten_characters": {
                         "type": "object",
-                        "description": "Dictionary mapping character names to their rewritten structured character data",
+                        "description": "Dictionary mapping character names to their rewritten paragraph descriptions",
                         "patternProperties": {
                             ".*": {
-                                "type": "object",
-                                "description": "Complete structured character data with different physical appearance but preserved relationships and shared elements",
-                                "properties": {
-                                    "face": {
-                                        "type": "object",
-                                        "properties": {
-                                            "head_shape": {"type": "string"},
-                                            "skin_tone": {"type": "string"},
-                                            "eyes": {"type": "string"},
-                                            "nose": {"type": "string"},
-                                            "mouth": {"type": "string"},
-                                            "hair": {"type": "string"}
-                                        }
-                                    },
-                                    "build": {
-                                        "type": "object",
-                                        "properties": {
-                                            "height": {"type": "string"},
-                                            "body_type": {"type": "string"},
-                                            "posture": {"type": "string"}
-                                        }
-                                    },
-                                    "clothing": {
-                                        "type": "object",
-                                        "properties": {
-                                            "style": {"type": "string"},
-                                            "fabric": {"type": "string"},
-                                            "details": {"type": "string"}
-                                        }
-                                    },
-                                    "personal_style": {
-                                        "type": "object",
-                                        "properties": {
-                                            "accessories": {"type": "string"},
-                                            "additional_details": {"type": "string"}
-                                        }
-                                    }
-                                },
-                                "required": ["face", "build", "clothing", "personal_style"]
+                                "type": "string",
+                                "description": "Complete character description written as a flowing paragraph with different physical appearance but preserved relationships and shared elements"
                             }
                         }
                     }
@@ -1042,24 +1005,15 @@ def _generate_character_descriptions(story_desc: str, characters: list[str], lm_
     return name_to_desc
 
 
-def _rewrite_all_character_descriptions(name_to_desc: dict[str, str], story_desc: str, lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
-    """Rewrite all character descriptions at once using Qwen model to make them look completely different while preserving primary features and relationships."""
-    # Check if resumable and already complete
-    if resumable_state and resumable_state.is_character_rewrite_complete():
-        cached_rewrite = resumable_state.get_character_rewrite()
-        if cached_rewrite:
-            print("Using cached character rewrite from checkpoint")
-            return cached_rewrite
-    
-    print(f"Rewriting all character descriptions using Qwen model: {len(name_to_desc)} characters")
-    
+def _build_character_rewrite_prompt(name_to_desc: dict[str, str], story_desc: str) -> str:
+    """Build the prompt for rewriting all character descriptions."""
     # Build combined prompt with all character descriptions
     characters_text = ""
     character_names = list(name_to_desc.keys())
     for name, desc in name_to_desc.items():
         characters_text += f"Character: {name}\nDescription: {desc}\n\n"
     
-    prompt = f"""You are a creative character designer. Rewrite character descriptions to make each character visually distinct while preserving their relationships and shared elements.
+    return f"""You are a creative character designer. Rewrite character descriptions to make each character visually distinct while preserving their relationships and professions.
 
 Story Context: {story_desc}
 
@@ -1069,24 +1023,38 @@ Current Character Descriptions:
 {characters_text}
 
 INSTRUCTIONS:
-1. **Preserve relationships**: Keep all profession, organization, and character relationship data exactly as they are
-2. **Preserve shared elements**: Keep all uniform requirements, matching accessories, and professional equipment exactly as they are  
-3. **Change physical appearance**: Modify facial features, body type, skin details, and personal style to make each character visually distinct
-4. **Maintain consistency**: Characters with shared professions/relationships must have identical professional elements but different physical features
+- **Preserve**: Keep all professions, relationships, uniforms, equipment, and shared elements exactly as they are
+- **Change**: Modify facial features, skin tone, hair, and personal style to make each character distinct
+- **Format**: Write each description as a flowing paragraph
 
 PHYSICAL CHANGES TO MAKE:
-- Change facial features (eyes, nose, mouth, hair) to be completely different
-- Change body type, height, build to be distinct  
+- Change facial features (eyes, nose, mouth, hair) to be distinct from each other
 - Change skin tone, texture, and personal style
 - Keep all professional elements (uniforms, equipment, badges) identical for colleagues
 
 QUALITY REQUIREMENTS:
 - Maintain the same level of detail and quality as original descriptions
 - Use vivid, specific descriptions for visual impact
-- Ensure each character looks completely different from all others
+- Ensure each character looks distinct from all others
 - Preserve all relationship and shared element data exactly
+- Write each description as a coherent paragraph, not as separate parts
 
-Return structured character data for each character with completely different physical appearances while preserving all relationships and shared elements."""
+Return structured character data for each character with distinct physical appearances formatted as paragraphs while preserving all relationships and shared elements."""
+
+
+def _rewrite_all_character_descriptions(name_to_desc: dict[str, str], story_desc: str, lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
+    """Rewrite all character descriptions at once using Qwen model to make them look distinct from each other while preserving primary features and relationships."""
+    # Check if resumable and already complete
+    if resumable_state and resumable_state.is_character_rewrite_complete():
+        cached_rewrite = resumable_state.get_character_rewrite()
+        if cached_rewrite:
+            print("Using cached character rewrite from checkpoint")
+            return cached_rewrite
+    
+    print(f"Rewriting all character descriptions using Qwen model: {len(name_to_desc)} characters")
+    
+    # Build prompt using the separate function
+    prompt = _build_character_rewrite_prompt(name_to_desc, story_desc)
 
     try:
         # Use structured output with JSON schema for character rewriting
@@ -1111,13 +1079,12 @@ Return structured character data for each character with completely different ph
             extra = set(rewritten_characters.keys()) - set(name_to_desc.keys())
             raise RuntimeError(f"Character mismatch - Missing: {missing}, Extra: {extra}")
         
-        # Convert structured data to readable descriptions
+        # The model now returns paragraph descriptions directly
         rewritten_descriptions = {}
-        for char_name, char_data in rewritten_characters.items():
-            desc = _format_character_description(char_data)
-            if not desc:
-                raise RuntimeError(f"Failed to format description for {char_name}")
-            rewritten_descriptions[char_name] = desc
+        for char_name, char_description in rewritten_characters.items():
+            if not isinstance(char_description, str) or not char_description.strip():
+                raise RuntimeError(f"Invalid description format for {char_name}")
+            rewritten_descriptions[char_name] = char_description.strip()
         
         # Save to checkpoint if resumable mode enabled
         if resumable_state:
