@@ -44,11 +44,12 @@ IMAGE_OUTPUT_HEIGHT = 720
 
 # LoRA Configuration
 USE_LORA = True  # Set to False to disable LoRA usage in workflow
+LORA_MODE = "chained"  # "serial" for independent LoRA application, "chained" for traditional chaining
 
-# Multiple LoRAs Configuration
-# Each LoRA will be applied in sequence (chained)
-# You can bypass model or CLIP parts individually per LoRA
-# You can disable entire LoRAs by setting "enabled": False
+# LoRA Configuration
+# Each LoRA can be configured for both serial and chained modes
+# For serial mode: each LoRA runs independently with its own steps and denoising
+# For chained mode: LoRAs are applied in sequence to the same generation
 LORAS = [
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
@@ -56,8 +57,26 @@ LORAS = [
         "strength_clip": 2.0,     # CLIP strength (0.0 - 2.0)
         "bypass_model": False,    # Set to True to bypass model part of this LoRA
         "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
-        "enabled": True           # Set to False to disable this LoRA entirely
-    }
+        "enabled": True,          # Set to False to disable this LoRA entirely
+        
+        # Serial mode specific settings (only used when LORA_MODE = "serial")
+        "steps": 8,               # Sampling steps for this LoRA (serial mode only)
+        "denoising_strength": 1,  # Denoising strength (0.0 - 1.0) (serial mode only)
+        "save_intermediate": True # Save intermediate results for debugging (serial mode only)
+    },
+    {
+        "name": "Ghibli_lora_weights.safetensors",  # Example second LoRA
+        "strength_model": 2.0,
+        "strength_clip": 2.0,
+        "bypass_model": False,
+        "bypass_clip": False,
+        "enabled": False,  # Disabled by default
+        
+        # Serial mode specific settings
+        "steps": 8,
+        "denoising_strength": 0.6,
+        "save_intermediate": True
+    },
 ]
 
 # Sampling Configuration
