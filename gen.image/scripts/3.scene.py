@@ -33,8 +33,8 @@ ACTIVE_CHARACTER_MODE = "IMAGE"
 IMAGE_MEGAPIXEL = "1.2"
 IMAGE_ASPECT_RATIO = "16:9 (Panorama)"
 IMAGE_DIVISIBLE_BY = "64"
-IMAGE_CUSTOM_RATIO = False
-IMAGE_CUSTOM_ASPECT_RATIO = "1:1"
+IMAGE_CUSTOM_RATIO = True
+IMAGE_CUSTOM_ASPECT_RATIO = "16:9"
 
 # Image Stitching Configuration (1-5)
 IMAGE_STITCH_COUNT = 1  # Number of images to stitch together in each group

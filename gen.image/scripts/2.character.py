@@ -20,8 +20,8 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 IMAGE_MEGAPIXEL = "0.1"
 IMAGE_ASPECT_RATIO = "9:19 (Tall Slim)"
 IMAGE_DIVISIBLE_BY = "64"
-IMAGE_CUSTOM_RATIO = False
-IMAGE_CUSTOM_ASPECT_RATIO = "1:1"
+IMAGE_CUSTOM_RATIO = True
+IMAGE_CUSTOM_ASPECT_RATIO = "16:9"
 
 # LoRA Configuration
 USE_LORA = False  # Set to False to disable LoRA usage in workflow
