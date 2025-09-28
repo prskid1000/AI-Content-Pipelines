@@ -370,7 +370,7 @@ class ThumbnailProcessor:
                 workflow = self._update_prompt_text(workflow, prompt_text)
                 
                 # Generate filename for this LoRA step
-                lora_clean_name = re.sub(r'[^\w\s-]', '', lora_config['name']).strip()
+                lora_clean_name = re.sub(r'[^\w\s.-]', '', lora_config['name']).strip()
                 lora_clean_name = re.sub(r'[-\s]+', '_', lora_clean_name)
                 lora_filename = f"thumbnail.{lora_clean_name}"
                 workflow = self._update_saveimage_prefix(workflow, lora_filename)
@@ -389,6 +389,14 @@ class ThumbnailProcessor:
                     print(f"  Using previous LoRA output as input")
                 
                 print(f"  Steps: {steps}, Denoising: {denoising_strength}")
+                
+                # Print prompt before sending
+                print(f"\n=== PROMPT FOR LoRA {i + 1}: {lora_config['name']} ===")
+                # Get the text prompt from the workflow
+                text_prompt = workflow.get("33", {}).get("inputs", {}).get("text", "No text prompt found")
+                print(f"Text prompt: {text_prompt}")
+                print(f"Workflow nodes: {len(workflow)} nodes")
+                print("=" * 50)
                 
                 # Submit workflow to ComfyUI
                 resp = requests.post(f"{self.comfyui_url}prompt", json={"prompt": workflow}, timeout=60)
@@ -594,6 +602,14 @@ class ThumbnailProcessor:
             # Set seed based on configuration
             if not USE_RANDOM_SEED:
                 workflow = self._update_workflow_seed(workflow, RANDOM_SEED)
+
+            # Print prompt before sending
+            print(f"\n=== PROMPT FOR THUMBNAIL ===")
+            # Get the text prompt from the workflow
+            text_prompt = workflow.get("33", {}).get("inputs", {}).get("text", "No text prompt found")
+            print(f"Text prompt: {text_prompt}")
+            print(f"Workflow nodes: {len(workflow)} nodes")
+            print("=" * 50)
 
             # If not using overlay, generate multiple variants (like flux mode)
             if not use_overlay:

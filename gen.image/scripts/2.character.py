@@ -577,6 +577,14 @@ class CharacterGenerator:
                 
                 print(f"  Steps: {steps}, Denoising: {denoising_strength}")
                 
+                # Print prompt before sending
+                print(f"\n=== PROMPT FOR LoRA {i + 1}: {lora_name} ===")
+                # Get the text prompt from the workflow
+                text_prompt = workflow.get("33", {}).get("inputs", {}).get("text", "No text prompt found")
+                print(f"Text prompt: {text_prompt}")
+                print(f"Workflow nodes: {len(workflow)} nodes")
+                print("=" * 50)
+                
                 # Submit workflow to ComfyUI
                 resp = requests.post(f"{self.comfyui_url}prompt", json={"prompt": workflow}, timeout=60)
                 if resp.status_code != 200:
@@ -796,6 +804,14 @@ class CharacterGenerator:
             workflow = self._update_workflow_filename(workflow, character_name)
             workflow = self._update_workflow_seed(workflow)
             workflow = self._update_workflow_resolution(workflow)
+
+            # Print prompt before sending
+            print(f"\n=== PROMPT FOR CHARACTER: {character_name} ===")
+            # Get the text prompt from the workflow
+            text_prompt = workflow.get("33", {}).get("inputs", {}).get("text", "No text prompt found")
+            print(f"Text prompt: {text_prompt}")
+            print(f"Workflow nodes: {len(workflow)} nodes")
+            print("=" * 50)
 
             # Submit workflow to ComfyUI
             resp = requests.post(f"{self.comfyui_url}prompt", json={"prompt": workflow}, timeout=60)

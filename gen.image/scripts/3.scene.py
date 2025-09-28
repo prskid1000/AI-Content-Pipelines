@@ -582,95 +582,6 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
         
         print(f"LoRAs chain completed with {len(enabled_loras)} LoRAs")
     
-    def _create_serial_lora_workflow(self, scene_id: str, scene_description: str, character_names: list[str], master_prompt: str, characters_data: dict[str, str], locations_data: dict[str, str] = None) -> dict:
-        """Create a workflow for serial LoRA application with separate generation steps."""
-        enabled_loras = [lora for lora in LORAS if lora.get("enabled", True)]
-        
-        if not enabled_loras:
-            print("No enabled serial LoRAs found")
-            return {}
-        
-        print(f"Creating serial LoRA workflow with {len(enabled_loras)} LoRAs...")
-        
-        # Start with base workflow
-        workflow = self._load_base_workflow()
-        if not workflow:
-            return {}
-        
-        # Don't remove the original sampler - we'll modify it instead
-        # Keep the original workflow structure intact
-        
-        # Process images if available
-        all_images = {}
-        if self.character_mode in ["IMAGE", "IMAGE_TEXT"]:
-            all_images = self._copy_character_images_to_comfyui(character_names)
-            if not all_images and self.character_mode == "IMAGE":
-                print("ERROR: No images copied to ComfyUI!")
-                return {}
-        
-        # Create image processing nodes if needed
-        ref_latent_nodes = []
-        if all_images:
-            ref_latent_nodes = self._create_image_processing_nodes(workflow, all_images, 100)
-        
-        # Build text prompt
-        text_prompt = f"{master_prompt}"
-        
-        # Replace location references if location data is available
-        processed_scene_description = scene_description
-        if locations_data:
-            processed_scene_description = self._replace_location_references(scene_description, locations_data)
-        
-        # Replace character references with position format (only in IMAGE and IMAGE_TEXT modes)
-        if self.character_mode in ["IMAGE", "IMAGE_TEXT"]:
-            processed_scene_description = self._replace_character_references(processed_scene_description, character_names)
-        
-        text_prompt += f"\nSCENE TEXT-DESCRIPTION:\n Illustrate an exact scenery like {processed_scene_description}.\n"
-        
-        if self.character_mode in ["TEXT", "IMAGE_TEXT"]:
-            character_details = self._get_character_details(character_names, characters_data)
-            if character_details:
-                text_prompt += f"\nCHARACTER TEXT-DESCRIPTION:\n{character_details}"
-        
-        # Set resolution parameters
-        workflow["23"]["inputs"]["megapixel"] = IMAGE_MEGAPIXEL
-        workflow["23"]["inputs"]["aspect_ratio"] = IMAGE_ASPECT_RATIO
-        workflow["23"]["inputs"]["divisible_by"] = IMAGE_DIVISIBLE_BY
-        workflow["23"]["inputs"]["custom_ratio"] = IMAGE_CUSTOM_RATIO
-        workflow["23"]["inputs"]["custom_aspect_ratio"] = IMAGE_CUSTOM_ASPECT_RATIO
-        
-        # Override with fixed dimensions if specified
-        if USE_FIXED_DIMENSIONS:
-            workflow["19"]["inputs"]["width"] = IMAGE_OUTPUT_WIDTH
-            workflow["19"]["inputs"]["height"] = IMAGE_OUTPUT_HEIGHT
-            print(f"Using fixed dimensions: {IMAGE_OUTPUT_WIDTH}x{IMAGE_OUTPUT_HEIGHT}")
-        
-        # For serial mode, we'll use a simpler approach - just apply the first LoRA
-        # and let the serial execution handle the rest
-        if enabled_loras:
-            lora_config = enabled_loras[0]  # Use first LoRA for the workflow
-            lora_name = lora_config["name"]
-            
-            print(f"Setting up workflow for LoRA: {lora_name}")
-            
-            # Apply the LoRA to the existing workflow
-            self._apply_single_lora(workflow, lora_config, 1)
-            
-            # Update the existing sampler with LoRA-specific settings
-            workflow["16"]["inputs"]["steps"] = lora_config.get("steps", 8)
-            workflow["16"]["inputs"]["denoise"] = lora_config.get("denoising_strength", 1.0)
-            workflow["16"]["inputs"]["seed"] = self._get_seed()
-            
-            # Set up reference conditioning if available
-            if ref_latent_nodes:
-                workflow["32"]["inputs"]["conditioning"] = [ref_latent_nodes[-1], 0]
-                print(f"Using reference conditioning for LoRA")
-            
-            # Update the save node to include LoRA name
-            workflow["21"]["inputs"]["filename_prefix"] = f"{scene_id}_lora_1"
-        
-        print(f"Serial LoRA workflow created with {len(enabled_loras)} LoRAs")
-        return workflow
     
     def _remove_all_lora_nodes(self, workflow: dict) -> None:
         """Remove all LoRA nodes from workflow."""
@@ -812,19 +723,24 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
 
     def _build_dynamic_workflow(self, scene_id: str, scene_description: str, character_names: list[str], master_prompt: str, characters_data: dict[str, str], locations_data: dict[str, str] = None) -> dict:
         """Build a dynamic workflow with N character images."""
-        # Choose workflow type based on LoRA mode
-        if USE_LORA and LORA_MODE == "serial":
-            workflow = self._create_serial_lora_workflow(scene_id, scene_description, character_names, master_prompt, characters_data, locations_data)
-        else:
-            workflow = self._load_base_workflow()
+        # Start with base workflow
+        workflow = self._load_base_workflow()
         
         if not workflow:
             return {}
 
-        # For serial mode, the workflow is already complete
+        # For serial mode, don't apply LoRAs here - they'll be applied later
         if USE_LORA and LORA_MODE == "serial":
-            print(f"Serial LoRA workflow complete for {scene_id}")
-            return workflow
+            print(f"Building workflow for serial LoRA mode: {scene_id}")
+        else:
+            # Apply LoRAs for chained mode
+            if USE_LORA:
+                self._apply_loras(workflow)
+                print("Chained LoRA mode enabled in workflow")
+            else:
+                # Remove all LoRA nodes if they exist
+                self._remove_all_lora_nodes(workflow)
+                print("LoRA disabled in workflow")
         
         # Handle chained mode workflow setup
         # Handle different character modes
@@ -994,15 +910,6 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                 
                 print(f"\nProcessing LoRA {i + 1}/{len(enabled_loras)}: {lora_name}")
                 
-                # Load base workflow for this LoRA
-                workflow = self._load_base_workflow()
-                if not workflow:
-                    print(f"ERROR: Failed to load workflow for LoRA {i + 1}")
-                    continue
-                
-                # Apply only this LoRA to the workflow
-                self._apply_single_lora(workflow, lora_config, i + 1)
-                
                 # Check if this LoRA should use only intermediate result (no character images)
                 # Use saved config if resuming, otherwise use current config
                 if saved_lora_configs and lora_name in saved_lora_configs:
@@ -1013,18 +920,24 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                     use_only_intermediate = lora_config.get("use_only_intermediate", False)
                     print(f"  Using current LoRA configuration for {lora_name}")
                 
+                # Determine character list for this LoRA
                 if use_only_intermediate and i > 0:
                     # This LoRA should only use intermediate result, disable character images
                     print(f"  LoRA {i + 1} configured to use only intermediate result (no character images)")
-                    # Build workflow without character images
-                    workflow = self._build_dynamic_workflow(scene_id, scene_description, [], master_prompt, characters_data, locations_data)
+                    lora_character_names = []
                 else:
                     # Normal workflow with character images
-                    workflow = self._build_dynamic_workflow(scene_id, scene_description, character_names, master_prompt, characters_data, locations_data)
+                    lora_character_names = character_names
+                
+                # Build the complete workflow with all prompting logic
+                workflow = self._build_dynamic_workflow(scene_id, scene_description, lora_character_names, master_prompt, characters_data, locations_data)
                 
                 if not workflow:
                     print(f"ERROR: Failed to build workflow for LoRA {i + 1}")
                     continue
+                
+                # Apply only this LoRA to the workflow (after building the complete workflow)
+                self._apply_single_lora(workflow, lora_config, i + 1)
                 
                 # Set LoRA-specific sampling steps and denoising
                 steps = lora_config.get("steps", SAMPLING_STEPS)
@@ -1050,6 +963,14 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                 workflow["21"]["inputs"]["filename_prefix"] = lora_filename
                 
                 print(f"  Steps: {steps}, Denoising: {denoising_strength}")
+                
+                # Print prompt before sending
+                print(f"\n=== PROMPT FOR LoRA {i + 1}: {lora_name} ===")
+                # Get the text prompt from the workflow
+                text_prompt = workflow.get("33", {}).get("inputs", {}).get("text", "No text prompt found")
+                print(f"Text prompt: {text_prompt}")
+                print(f"Workflow nodes: {len(workflow)} nodes")
+                print("=" * 50)
                 
                 # Submit workflow to ComfyUI
                 resp = requests.post(f"{self.comfyui_url}prompt", json={"prompt": workflow}, timeout=120)
@@ -1367,6 +1288,14 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
             workflow = self._build_dynamic_workflow(scene_id, scene_description, character_names, master_prompt, characters_data, locations_data)
             if not workflow:
                 return None
+
+            # Print prompt before sending
+            print(f"\n=== PROMPT FOR SCENE: {scene_id} ===")
+            # Get the text prompt from the workflow
+            text_prompt = workflow.get("33", {}).get("inputs", {}).get("text", "No text prompt found")
+            print(f"Text prompt: {text_prompt}")
+            print(f"Workflow nodes: {len(workflow)} nodes")
+            print("=" * 50)
 
             # Submit to ComfyUI
             resp = requests.post(f"{self.comfyui_url}prompt", json={"prompt": workflow}, timeout=120)
