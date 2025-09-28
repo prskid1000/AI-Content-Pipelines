@@ -37,10 +37,12 @@ TITLE_LAYOUT = "overlay"
 OUTPUT_WIDTH = 1280
 OUTPUT_HEIGHT = 720
 
-# Image Output Dimension Constants
-USE_FIXED_DIMENSIONS = True  # Set to True to use fixed width/height, False to use aspect ratio calculation
-IMAGE_OUTPUT_WIDTH = 1280
-IMAGE_OUTPUT_HEIGHT = 720
+# Image Resolution Constants
+IMAGE_MEGAPIXEL = "1.2"
+IMAGE_ASPECT_RATIO = "16:9 (Panorama)"
+IMAGE_DIVISIBLE_BY = "64"
+IMAGE_CUSTOM_RATIO = False
+IMAGE_CUSTOM_ASPECT_RATIO = "1:1"
 
 # LoRA Configuration
 USE_LORA = True  # Set to False to disable LoRA usage in workflow
@@ -293,32 +295,35 @@ class ThumbnailProcessor:
         return workflow
 
     def _update_workflow_resolution(self, workflow: dict, width: int, height: int) -> dict:
-        """Update the workflow with specified resolution."""
-        # Use fixed dimensions if specified, otherwise use the provided width/height
-        if USE_FIXED_DIMENSIONS:
-            final_width = IMAGE_OUTPUT_WIDTH
-            final_height = IMAGE_OUTPUT_HEIGHT
-            print(f"Using fixed dimensions: {final_width}x{final_height} (bypassing aspect ratio calculation)")
-        else:
-            final_width = width
-            final_height = height
-            print(f"Using calculated dimensions: {final_width}x{final_height}")
+        """Update the workflow with dynamic resolution settings."""
+        # Handle Flux workflow with FluxResolutionNode
+        flux_resolution_node = self._find_node_by_class(workflow, "FluxResolutionNode")
+        if flux_resolution_node:
+            node_id = flux_resolution_node[0]
+            workflow[node_id]["inputs"]["megapixel"] = IMAGE_MEGAPIXEL
+            workflow[node_id]["inputs"]["aspect_ratio"] = IMAGE_ASPECT_RATIO
+            workflow[node_id]["inputs"]["divisible_by"] = IMAGE_DIVISIBLE_BY
+            print(f"Updated Flux resolution settings: {IMAGE_MEGAPIXEL}MP, {IMAGE_ASPECT_RATIO}")
+            return workflow
         
-        # Find EmptySD3LatentImage node and update its dimensions
+        # Handle Diffusion workflow with EmptySD3LatentImage
         latent_image_node = self._find_node_by_class(workflow, "EmptySD3LatentImage")
         if latent_image_node:
             node_id = latent_image_node[0]
-            node = workflow[node_id]
-            node.setdefault("inputs", {})
-            w_in = node["inputs"].get("width")
-            h_in = node["inputs"].get("height")
-            # Only override if inputs are not wired from another node
-            if not isinstance(w_in, (list, tuple)) and not isinstance(h_in, (list, tuple)):
-                node["inputs"]["width"] = int(final_width)
-                node["inputs"]["height"] = int(final_height)
-                print(f"Updated width/height to {final_width}/{final_height} for node {node_id}")
-        else:
-            print("No EmptySD3LatentImage node found in workflow")
+
+            ratio_parts = IMAGE_ASPECT_RATIO.split("(")[0].strip()
+            width_ratio, height_ratio = map(int, ratio_parts.split(":"))
+            total_pixels = float(IMAGE_MEGAPIXEL) * 1000000
+            aspect_ratio = width_ratio / height_ratio
+            height = int((total_pixels / aspect_ratio) ** 0.5)
+            width = int(height * aspect_ratio)
+            divisible_by = int(IMAGE_DIVISIBLE_BY)
+            width = (width // divisible_by) * divisible_by
+            height = (height // divisible_by) * divisible_by
+
+            workflow[node_id]["inputs"]["width"] = width
+            workflow[node_id]["inputs"]["height"] = height
+            print(f"Using calculated dimensions: {width}x{height}")
         
         return workflow
 

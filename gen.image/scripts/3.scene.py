@@ -37,11 +37,6 @@ IMAGE_DIVISIBLE_BY = "64"
 IMAGE_CUSTOM_RATIO = False
 IMAGE_CUSTOM_ASPECT_RATIO = "1:1"
 
-# Image Output Dimension Constants
-USE_FIXED_DIMENSIONS = False  # Set to True to use fixed width/height, False to use aspect ratio calculation
-IMAGE_OUTPUT_WIDTH = 1280
-IMAGE_OUTPUT_HEIGHT = 720
-
 # Image Stitching Configuration (1-5)
 IMAGE_STITCH_COUNT = 1  # Number of images to stitch together in each group
 
@@ -801,18 +796,7 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
         workflow["23"]["inputs"]["megapixel"] = IMAGE_MEGAPIXEL
         workflow["23"]["inputs"]["aspect_ratio"] = IMAGE_ASPECT_RATIO
         workflow["23"]["inputs"]["divisible_by"] = IMAGE_DIVISIBLE_BY
-        workflow["23"]["inputs"]["custom_ratio"] = IMAGE_CUSTOM_RATIO
-        workflow["23"]["inputs"]["custom_aspect_ratio"] = IMAGE_CUSTOM_ASPECT_RATIO
-        
-        # Override with fixed dimensions if specified
-        if USE_FIXED_DIMENSIONS:
-            # For fixed dimensions, bypass the FluxResolutionNode and set dimensions directly
-            # Disconnect from FluxResolutionNode and set fixed values
-            workflow["19"]["inputs"]["width"] = IMAGE_OUTPUT_WIDTH
-            workflow["19"]["inputs"]["height"] = IMAGE_OUTPUT_HEIGHT
-            print(f"Using fixed dimensions: {IMAGE_OUTPUT_WIDTH}x{IMAGE_OUTPUT_HEIGHT} (bypassing aspect ratio calculation)")
-        else:
-            print(f"Using aspect ratio calculation: {IMAGE_ASPECT_RATIO} with {IMAGE_MEGAPIXEL} megapixels")
+        print(f"Updated Flux resolution settings: {IMAGE_MEGAPIXEL}MP, {IMAGE_ASPECT_RATIO}")
         
         # Handle negative prompt
         if USE_NEGATIVE_PROMPT:

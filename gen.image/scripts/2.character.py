@@ -17,16 +17,11 @@ ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 
 # Image Resolution Constants
-IMAGE_MEGAPIXEL = "1.2"
+IMAGE_MEGAPIXEL = "0.5"
 IMAGE_ASPECT_RATIO = "9:19 (Tall Slim)"
 IMAGE_DIVISIBLE_BY = "64"
 IMAGE_CUSTOM_RATIO = False
 IMAGE_CUSTOM_ASPECT_RATIO = "1:1"
-
-# Image Output Dimension Constants
-USE_FIXED_DIMENSIONS = False  # Set to True to use fixed width/height, False to use aspect ratio calculation
-IMAGE_OUTPUT_WIDTH = 768
-IMAGE_OUTPUT_HEIGHT = 1600
 
 # LoRA Configuration
 USE_LORA = True  # Set to False to disable LoRA usage in workflow
@@ -443,44 +438,32 @@ class CharacterGenerator:
         # Handle Flux workflow with FluxResolutionNode
         flux_resolution_node = self._find_node_by_class(workflow, "FluxResolutionNode")
         if flux_resolution_node:
+            
             node_id = flux_resolution_node[0]
             workflow[node_id]["inputs"]["megapixel"] = IMAGE_MEGAPIXEL
             workflow[node_id]["inputs"]["aspect_ratio"] = IMAGE_ASPECT_RATIO
             workflow[node_id]["inputs"]["divisible_by"] = IMAGE_DIVISIBLE_BY
-            workflow[node_id]["inputs"]["custom_ratio"] = IMAGE_CUSTOM_RATIO
-            workflow[node_id]["inputs"]["custom_aspect_ratio"] = IMAGE_CUSTOM_ASPECT_RATIO
             print(f"Updated Flux resolution settings: {IMAGE_MEGAPIXEL}MP, {IMAGE_ASPECT_RATIO}")
+            return workflow
         
         # Handle Diffusion workflow with EmptySD3LatentImage
         latent_image_node = self._find_node_by_class(workflow, "EmptySD3LatentImage")
         if latent_image_node:
             node_id = latent_image_node[0]
-            
-            # Use fixed dimensions if specified
-            if USE_FIXED_DIMENSIONS:
-                # Bypass aspect ratio calculation and set fixed dimensions directly
-                workflow[node_id]["inputs"]["width"] = IMAGE_OUTPUT_WIDTH
-                workflow[node_id]["inputs"]["height"] = IMAGE_OUTPUT_HEIGHT
-                print(f"Using fixed dimensions: {IMAGE_OUTPUT_WIDTH}x{IMAGE_OUTPUT_HEIGHT} (bypassing aspect ratio calculation)")
-            else:
-                # Calculate dimensions based on aspect ratio and megapixels
-                try:
-                    if ":" in IMAGE_ASPECT_RATIO:
-                        # Extract just the ratio part before any parentheses
-                        ratio_parts = IMAGE_ASPECT_RATIO.split("(")[0].strip()
-                        width_ratio, height_ratio = map(int, ratio_parts.split(":"))
-                        total_pixels = float(IMAGE_MEGAPIXEL) * 1000000
-                        aspect_ratio = width_ratio / height_ratio
-                        height = int((total_pixels / aspect_ratio) ** 0.5)
-                        width = int(height * aspect_ratio)
-                        divisible_by = int(IMAGE_DIVISIBLE_BY)
-                        width = (width // divisible_by) * divisible_by
-                        height = (height // divisible_by) * divisible_by
-                        workflow[node_id]["inputs"]["width"] = width
-                        workflow[node_id]["inputs"]["height"] = height
-                        print(f"Using calculated dimensions: {width}x{height}")
-                except Exception as e:
-                    print(f"Warning: Could not parse aspect ratio {IMAGE_ASPECT_RATIO}: {e}")
+
+            ratio_parts = IMAGE_ASPECT_RATIO.split("(")[0].strip()
+            width_ratio, height_ratio = map(int, ratio_parts.split(":"))
+            total_pixels = float(IMAGE_MEGAPIXEL) * 1000000
+            aspect_ratio = width_ratio / height_ratio
+            height = int((total_pixels / aspect_ratio) ** 0.5)
+            width = int(height * aspect_ratio)
+            divisible_by = int(IMAGE_DIVISIBLE_BY)
+            width = (width // divisible_by) * divisible_by
+            height = (height // divisible_by) * divisible_by
+
+            workflow[node_id]["inputs"]["width"] = width
+            workflow[node_id]["inputs"]["height"] = height
+            print(f"Using calculated dimensions: {width}x{height}")
         
         return workflow
 
