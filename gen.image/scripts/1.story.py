@@ -827,13 +827,13 @@ def _build_character_system_prompt(story_desc: str, character_name: str, all_cha
 def _build_character_summary_prompt(character_name: str, detailed_description: str) -> str:
     return (
         f"You are a visual AI prompt specialist creating concise character summaries ({CHARACTER_SUMMARY_CHARACTER_COUNT} characters) for AI image generation. "
-        "Take the detailed character description and extract the head, face, age information, and full clothing details into a paragraph. "
-        "Focus specifically on: age appearance, head shape, facial features (eyes, nose, mouth, hair, facial hair), skin tone/texture, and full clothing style/fit/material/colors. "
-        "Include age category (child/teenager/adult/elderly) and specific age number in the summary. "
-        "Ignore body proportions, posture, hands, legs, feet, and other body parts. "
-        "Use clear, descriptive terms separated by commas. Avoid unnecessary words and focus on visual impact. "
-        f"Create a summary ({CHARACTER_SUMMARY_CHARACTER_COUNT} characters) focusing on age, head, face, and clothing features in a paragraph. "
-        f"Describe the character in {ART_STYLE} style.Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.\n\n"
+        "Extract ONLY the most important visual details from the character description for AI image generation. "
+        "FOCUS EXCLUSIVELY ON VISUAL ELEMENTS: facial features (eyes, nose, mouth, eyebrows), hair (color, style, texture), skin tone/texture/complexion, age appearance, and clothing (style, colors, materials, fit). "
+        "Include age category and specific age number for proper character rendering. "
+        "IGNORE: personality traits, backstory, relationships, body proportions, posture, hands, legs, feet, and non-visual elements. "
+        "Use precise visual terms separated by commas. Focus on colors, shapes, textures, and materials that AI can render. "
+        f"Create a highly visual summary ({CHARACTER_SUMMARY_CHARACTER_COUNT} characters) optimized for AI image generation focusing on facial features, hair, skin, age, and clothing. "
+        f"Describe the character in {ART_STYLE} style. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.\n\n"
         f"CHARACTER: {character_name}\n\n"
         f"DETAILED DESCRIPTION: {detailed_description}\n\n"
     )
@@ -1041,7 +1041,7 @@ def _build_character_rewrite_prompt(name_to_desc: dict[str, str], story_desc: st
     for name, desc in name_to_desc.items():
         characters_text += f"Character: {name}\nDescription: {desc}\n\n"
     
-    return f"""You are a creative character designer. Rewrite character descriptions to make each character visually distinct while preserving their relationships and professions.
+    return f"""You are a visual character designer specializing in creating distinct visual appearances for AI image generation. Rewrite character descriptions to make each character visually unique while preserving essential story elements.
 
 Story Context: {story_desc}
 
@@ -1050,26 +1050,29 @@ All Characters in Story: {', '.join(character_names)}
 Current Character Descriptions:
 {characters_text}
 
-INSTRUCTIONS:
-- **Preserve**: Keep all professions, relationships, uniforms, equipment, shared elements, AND AGE INFORMATION exactly as they are
-- **Change**: Modify facial features, skin tone, hair, and personal style to make each character distinct
-- **Format**: Write each description as a flowing paragraph AND include structured age data
+VISUAL FOCUS INSTRUCTIONS:
+- **PRIMARY FOCUS**: Create visually distinct facial features, skin tone, hair, and body characteristics
+- **VISUAL CHANGES**: Modify eyes, nose, mouth, hair color/style, skin tone, facial structure, body build, and clothing style
+- **PRESERVE**: Keep age information, professions, and essential story relationships
+- **FORMAT**: Write each description as a flowing visual paragraph with structured age data
 
-PHYSICAL CHANGES TO MAKE:
-- Change facial features (eyes, nose, mouth, hair) to be distinct from each other
-- Change skin tone, texture, and personal style
-- Keep all professional elements (uniforms, equipment, badges) identical for colleagues
+VISUAL DISTINCTIVENESS REQUIREMENTS:
+- Make facial features completely different between characters (eye shape, nose type, mouth, jawline)
+- Vary skin tones, textures, and complexions significantly
+- Create distinct hair colors, styles, and textures
+- Vary body builds, heights, and physical proportions
+- Modify clothing styles, colors, and personal accessories
 - **CRITICAL**: Preserve exact age category, specific age number, and age description for each character
 
-QUALITY REQUIREMENTS:
-- Maintain the same level of detail and quality as original descriptions
-- Use vivid, specific descriptions for visual impact
-- Ensure each character looks distinct from all others
-- Preserve all relationship and shared element data exactly
-- Write each description as a coherent paragraph, not as separate parts
-- Don't use any keyword/adjective unless needed, like scar from **childhood** accident can make model understand it as chracter is a **child** though actually an adult, instead use scar from old accident.
+VISUAL QUALITY STANDARDS:
+- Focus on vivid, specific visual descriptions that AI can render
+- Emphasize physical appearance over personality or background details
+- Use descriptive visual terms (colors, shapes, textures, materials)
+- Ensure each character has a completely unique visual identity
+- Write descriptions optimized for AI image generation
+- Avoid non-visual elements like personality traits or backstory details
 
-Return structured character data for each character with distinct physical appearances formatted as paragraphs while preserving all relationships and shared elements."""
+Return structured character data with highly visual, distinct physical appearances formatted as paragraphs while preserving age and essential story elements."""
 
 
 def _rewrite_all_character_descriptions(name_to_desc: dict[str, str], story_desc: str, lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
