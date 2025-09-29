@@ -1,25 +1,20 @@
 Workflow runner started. Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
 Working directory: D:\.comfyui\gen.image
 Emptying ComfyUI input and output folders...
-Removed file: D:\.comfyui\ComfyUI\input\male_detective_holmes.jpg
-Removed file: D:\.comfyui\ComfyUI\input\male_doctor_watson.jpg
+Removed file: D:\.comfyui\ComfyUI\input\2.latent.png
 Removed file: D:\.comfyui\ComfyUI\output\female_clara_whitfield.FLUX1_Turbo_Alphasafetensors_00001_.png
 Removed file: D:\.comfyui\ComfyUI\output\female_landlady_mrs_hudmore.FLUX1_Turbo_Alphasafetensors_00001_.png
 Removed file: D:\.comfyui\ComfyUI\output\male_client_stranger.FLUX1_Turbo_Alphasafetensors_00001_.png
 Removed file: D:\.comfyui\ComfyUI\output\male_detective_holmes.FLUX1_Turbo_Alphasafetensors_00001_.png
 Removed file: D:\.comfyui\ComfyUI\output\male_doctor_watson.FLUX1_Turbo_Alphasafetensors_00001_.png
 Removed file: D:\.comfyui\ComfyUI\output\male_villain_scarred.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\male_villain_shorter.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.1.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00002_.png
 Successfully emptied ComfyUI input and output folders.
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
 [START] Security scan
 [DONE] Security scan
 ## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2025-09-29 08:01:40.303
+** ComfyUI startup time: 2025-09-29 11:07:13.587
 ** Platform: Windows
 ** Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
 ** Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
@@ -28,14 +23,437 @@ Waiting for ComfyUI to become ready (polling every 15s)...
 ** User directory: D:\.comfyui\ComfyUI\user
 ** ComfyUI-Manager config path: D:\.comfyui\ComfyUI\user\default\ComfyUI-Manager\config.ini
 ** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
+ComfyUI not ready yet (attempt 1). Retrying in 15s...
 
 Prestartup times for custom nodes:
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\rgthree-comfy
-   1.9 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   2.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
 
-ComfyUI not ready yet (attempt 1). Retrying in 15s...
 Checkpoint files will always be loaded safely.
 Total VRAM 12227 MB, total RAM 64957 MB
 pytorch version: 2.8.0+cu129
 Set vram state to: NORMAL_VRAM
 Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
+Using pytorch attention
+Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+ComfyUI version: 0.3.60
+ComfyUI frontend version: 1.26.13
+[Prompt Server] web root: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\Lib\site-packages\comfyui_frontend_package\static
+ComfyUI-GGUF: Allowing full torch compile
+### Loading: ComfyUI-Impact-Pack (V8.22.2)
+[Impact Pack] Wildcards loading done.
+### Loading: ComfyUI-Manager (V3.36)
+[ComfyUI-Manager] network_mode: public
+### ComfyUI Version: v0.3.60-34-g39fd106d | Released on '2025-09-28'
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
+
+[32mInitializing ControlAltAI Nodes[0m
+
+[92m[rgthree-comfy] Loaded 48 fantastic nodes. 🎉[0m
+
+✅ ChatterboxTTS loaded from bundled package
+✅ ChatterboxVC loaded from bundled package
+JAX version 0.7.1 available.
+✅ F5-TTS loaded from system package
+🎭 Character voices: Found 61 characters, 7 aliases
+✅ SRT modules loaded from system package
+🔧 Registering TTS Audio Suite nodes...
+======================================================================
+🚀 TTS Audio Suite v4.2.1
+Universal multi-engine TTS extension for ComfyUI
+⚠️ No local ChatterBox models found - will download from Hugging Face
+💡 Tip: First generation will download models (~1GB)
+   Models will be saved locally for future use
+✅ TTS Audio Suite v4.2.1 loaded with 16 nodes:
+   • ⚙️ ChatterBox TTS Engine
+   • ⚙️ F5 TTS Engine
+   • ⚙️ RVC Engine
+   • 🌊 Audio Wave Analyzer
+   • 🎙️ Voice Capture
+   • 🎤 TTS Text
+   • 🎭 Character Voices
+   • 🎭 Load RVC Character Model
+   • 👄 F5-TTS Speech Editor
+   • 📺 TTS SRT
+   • 🔄 Voice Changer
+   • 🔧 Audio Analyzer Options
+   • 🔧 F5-TTS Edit Options
+   • 🔧 RVC Pitch Extraction Options
+   • 🤐 Noise or Vocal Removal
+   • 🥪 Merge Audio
+======================================================================
+
+Import times for custom nodes:
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\rgthree-comfy
+   0.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-impact-pack
+   0.7 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
+   0.8 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   1.9 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
+   3.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
+
+Context impl SQLiteImpl.
+Will assume non-transactional DDL.
+No target revision found.
+Starting server
+
+To see the GUI go to: http://127.0.0.1:8188
+ComfyUI is ready after 17.1s (attempt 2).
+
+===== START D:\.comfyui\gen.image\scripts\2.character.py @ 2025-09-29 11:07:29 =====
+Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.image\output\tracking
+Found existing checkpoint: D:\.comfyui\gen.image\output\tracking\2.character.state.json
+Progress: Characters(6/6)
+Precheck: File missing for male_villain_scarred - marking as not completed
+Precheck: Cleaned up 1 invalid entries from checkpoint
+Precheck completed: 1 invalid entries removed from checkpoint
+Found 5 completed characters: ['female_clara_whitfield', 'female_landlady_mrs_hudmore', 'male_client_stranger', 'male_detective_holmes', 'male_doctor_watson']
+Processing 2 characters, skipped 5
+============================================================
+
+[1/2] Processing male_villain_scarred...
+Generating image for: male_villain_scarred (Serial LoRA mode)
+Resuming from LoRA 2/1
+Previous LoRA output missing, restarting from LoRA 1
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Loaded flux workflow from: ../workflow/character.flux.json
+LoRAs configuration: 1/2 LoRAs enabled
+WARNING: LoRA 1 (FLUX.1-Turbo-Alpha.safetensors) model strength 3.0 outside recommended range (0.0-2.0)
+WARNING: LoRA 1 (FLUX.1-Turbo-Alpha.safetensors) CLIP strength 3.0 outside recommended range (0.0-2.0)
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in character workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Copied image to ComfyUI input: 2.latent.png
+  Replaced EmptySD3LatentImage with LoadImage + VAEEncode
+  LoadImage node: 42, VAEEncode node: 43
+  Denoising strength set to: 0.8
+Using image input mode with file: ../input/2.latent.png
+  Copied image to ComfyUI input: 2.latent.png
+WARNING: Failed to replace latent with image input: '19'
+  Using image input mode for first LoRA with file: ../input/2.latent.png
+  Steps: 9, Denoising: 1
+
+=== PROMPT FOR LoRA 1: FLUX.1-Turbo-Alpha.safetensors ===
+Text prompt: Create a 16K ultra-high-resolution, Full Body Visible, Illustration in the style of Realistic Anime in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description and fine-level detailing, Vibrant Rich Warm Color Palette, and any part not cropped or hidden.Must use White Background.
+
+ Character Description = The scarred villain has an angular square face with pale skin that is rough and cracked like old parchment. His eyes are small slits of narrow, dark brown pupils set deep in his skull. He has a hooked nose bent slightly to the right at the bridge, giving him a sinister look. His lips are thin and often curl into a sneer. His hair is long and dark, tied in a loose braid that hangs down his back with occasional strands escaping from the braid. He has thick, dark eyebrows that frame his face like two shadows. His shoulders are broad and slightly hunched, revealing a muscular chest that bears a deep scar running from the left temple down to his jawline, another along his cheekbone. His arms are medium in length but thick with calloused hands, showing signs of past violence. He has long legs with toned muscles, ending in broad feet encased in thick-soled boots worn from years of hard labor. He wears coarse fabric clothing that is frayed and stained with mud.. Strictly, Accurately, Precisely, always must Follow Realistic Anime Style.
+Workflow nodes: 13 nodes
+==================================================
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Using pytorch attention in VAE
+Using pytorch attention in VAE
+VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
+Requested to load AutoencodingEngine
+loaded completely 5039.0 159.87335777282715 True
+FETCH ComfyRegistry Data: 5/98
+CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
+FETCH ComfyRegistry Data: 10/98
+clip missing: ['text_projection.weight']
+gguf qtypes: F32 (466), Q8_0 (304), BF16 (10)
+model weight dtype torch.bfloat16, manual cast: None
+model_type FLUX
+Requested to load FluxClipModel_
+FETCH ComfyRegistry Data: 15/98
+loaded completely 9478.8 9319.23095703125 True
+Requested to load Flux
+FETCH ComfyRegistry Data: 20/98
+loaded partially 8756.162954223633 8756.087890625 0
+Attempting to release mmap (143)
+  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 25/98
+FETCH ComfyRegistry Data: 30/98
+ 11%|█         | 1/9 [00:06<00:53,  6.71s/it]FETCH ComfyRegistry Data: 35/98
+ 22%|██▏       | 2/9 [00:12<00:41,  5.91s/it]FETCH ComfyRegistry Data: 40/98
+ 33%|███▎      | 3/9 [00:17<00:33,  5.61s/it]FETCH ComfyRegistry Data: 45/98
+ 44%|████▍     | 4/9 [00:22<00:27,  5.50s/it]FETCH ComfyRegistry Data: 50/98
+ 56%|█████▌    | 5/9 [00:28<00:21,  5.46s/it]FETCH ComfyRegistry Data: 55/98
+ 67%|██████▋   | 6/9 [00:33<00:16,  5.44s/it] 78%|███████▊  | 7/9 [00:38<00:10,  5.39s/it]FETCH ComfyRegistry Data: 60/98
+ 89%|████████▉ | 8/9 [00:44<00:05,  5.39s/it]FETCH ComfyRegistry Data: 65/98
+100%|██████████| 9/9 [00:49<00:00,  5.36s/it]100%|██████████| 9/9 [00:49<00:00,  5.49s/it]
+Requested to load AutoencodingEngine
+loaded completely 222.5625 159.87335777282715 True
+Prompt executed in 74.77 seconds
+FETCH ComfyRegistry Data: 70/98
+  Saved LoRA result: ../output/lora\male_villain_scarred.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/characters\male_villain_scarred.png
+  Preserved LoRA progress for completed character
+[OK] Generated: male_villain_scarred
+
+[2/2] Processing male_villain_shorter...
+Generating image for: male_villain_shorter (Serial LoRA mode)
+Resuming from LoRA 2/1
+Previous LoRA output missing, restarting from LoRA 1
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Loaded flux workflow from: ../workflow/character.flux.json
+LoRAs configuration: 1/2 LoRAs enabled
+WARNING: LoRA 1 (FLUX.1-Turbo-Alpha.safetensors) model strength 3.0 outside recommended range (0.0-2.0)
+WARNING: LoRA 1 (FLUX.1-Turbo-Alpha.safetensors) CLIP strength 3.0 outside recommended range (0.0-2.0)
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in character workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Copied image to ComfyUI input: 2.latent.png
+  Replaced EmptySD3LatentImage with LoadImage + VAEEncode
+  LoadImage node: 42, VAEEncode node: 43
+  Denoising strength set to: 0.8
+Using image input mode with file: ../input/2.latent.png
+  Copied image to ComfyUI input: 2.latent.png
+WARNING: Failed to replace latent with image input: '19'
+  Using image input mode for first LoRA with file: ../input/2.latent.png
+  Steps: 9, Denoising: 1
+
+=== PROMPT FOR LoRA 1: FLUX.1-Turbo-Alpha.safetensors ===
+Text prompt: Create a 16K ultra-high-resolution, Full Body Visible, Illustration in the style of Realistic Anime in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description and fine-level detailing, Vibrant Rich Warm Color Palette, and any part not cropped or hidden.Must use White Background.
+
+ Character Description = The shorter villain is a man with a round face, pale skin that is smooth but sallow in tone. His eyes are dark brown, sharp and intelligent with a flickering look that betrays his nervous disposition. He has a sharply tapered nose and thin lips that often quiver when he's anxious. His hair is jet black, slicked back in an unnatural way that shows the product used to keep it in place. He has thick eyebrows shaped in a natural arch, giving him a slightly hawkish look. He stands medium height but has a slender build with narrow shoulders and a lean torso. His arms are short in length, ending in delicate hands with a missing button on the right glove, which he often fidgets with when nervous. The right palm of his hand bears a small scar from an old injury that seems to be a constant source of discomfort for him. He wears tight clothing made of fine wool, dapper but slightly frayed, with footwear of brogues still damp with river mist and marked by clay from the banks near Casper Bridge.. Strictly, Accurately, Precisely, always must Follow Realistic Anime Style.
+Workflow nodes: 13 nodes
+==================================================
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely 9458.675 9319.23095703125 True
+FETCH ComfyRegistry Data: 75/98
+Requested to load Flux
+loaded partially 8754.162954223633 8753.849853515625 0
+  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 80/98
+ 11%|█         | 1/9 [00:05<00:41,  5.22s/it]FETCH ComfyRegistry Data: 85/98
+ 22%|██▏       | 2/9 [00:09<00:32,  4.68s/it]FETCH ComfyRegistry Data: 90/98
+ 33%|███▎      | 3/9 [00:13<00:27,  4.54s/it] 44%|████▍     | 4/9 [00:18<00:22,  4.47s/it]FETCH ComfyRegistry Data: 95/98
+ 56%|█████▌    | 5/9 [00:22<00:17,  4.43s/it]FETCH ComfyRegistry Data [DONE]
+[ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
+FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
+[ComfyUI-Manager] All startup tasks have been completed.
+ 67%|██████▋   | 6/9 [00:27<00:14,  4.68s/it] 78%|███████▊  | 7/9 [00:33<00:09,  4.92s/it] 89%|████████▉ | 8/9 [00:38<00:05,  5.05s/it]100%|██████████| 9/9 [00:43<00:00,  5.07s/it]100%|██████████| 9/9 [00:43<00:00,  4.85s/it]
+Requested to load AutoencodingEngine
+loaded completely 220.5625 159.87335777282715 True
+Prompt executed in 53.64 seconds
+  Saved LoRA result: ../output/lora\male_villain_shorter.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/characters\male_villain_shorter.png
+  Preserved LoRA progress for completed character
+[OK] Generated: male_villain_shorter
+
+Generated 2 character images in 134.22s using flux mode:
+  male_villain_scarred: ../output/characters\male_villain_scarred.png
+  male_villain_shorter: ../output/characters\male_villain_shorter.png
+All operations completed successfully
+Final progress: Progress: Characters(7/7)
+All operations completed successfully - tracking files preserved
+
+===== END D:\.comfyui\gen.image\scripts\2.character.py @ 2025-09-29 11:09:43 (exit=0, took=134.40s) =====
+
+===== START D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-09-29 11:09:43 =====
+Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.image\output\tracking
+Found existing checkpoint: D:\.comfyui\gen.image\output\tracking\3.scene.state.json
+Progress: Scenes(1/1)
+Location info enabled: 4 locations loaded
+Found 1 completed scenes: ['scene_1.1']
+Processing 99 scenes, skipped 1
+============================================================
+
+[1/99] Processing scene_1.2...
+Generating scene: scene_1.2 with characters: male_detective_holmes (Serial LoRA mode)
+Resuming from LoRA 2/1
+Previous LoRA output missing, restarting from LoRA 1
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using saved LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_1.2
+Compressed male_detective_holmes image: 1506.1KB → 7.5KB (99.5% reduction)
+Character mode: IMAGE, Images: 1
+Image stitching: 1 images → 1 groups []
+Using single reference conditioning
+Using latent mode with dimensions: 1920x1080
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Realistic Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
+All Non-Living Objects mentioned in Scene text-description must be present in illustration.Must Always Precisely & Accurately Represent entire Scene including all Non-Living Objects according to scene text-description.
+Must Always Precisely & Accurately Preserve each Character's identity(Appearance and Physical Features - Face(hair, eyes, ear, nose, mouth,chick, chin), Body(torso, limbs), Clothings) from respective specified reference image/image-section.
+All other aspects of Characters like "Posture", "Expression", "Movement", "Placement/Location", "Size is proportional to the scene", is adaptable according to Scene/Character text-description.
+Each Non-Living Objects/Character in the illustration must be visually distinct/unique from each other.Strictly, Accurately, Precisely, always must Follow Realistic Anime Style.
+        
+SCENE TEXT-DESCRIPTION:
+ Illustrate an exact scenery like {{A British Victorian living room, nestled within the iconic 221B Baker Street, is bathed in the soft glow of a sunny winter morning. The atmosphere is thick with the scent of burning coal and the faint aroma of strong black tea, mingling subtly with the acrid tang of tobacco from Holmes’s ever-present pipe. The room is comfortably cluttered, filled with the signs of an active mind—stacks of case notes tied with string lie beside a Persian rug that stretches across the polished wooden floor, its edges slightly frayed but still vibrant in deep crimson and gold hues. A tall bookcase lines one wall, brimming with tomes on chemistry, law, and obscure monographs, their spines worn from years of use. Near the fireplace, a large iron coal grate radiates warmth, its blackened frame marked by soot and time. Holmes’s violin rests elegantly on a side table, where it is often left after an impromptu performance or deep contemplation. A heavy sofa with well-worn arms sits centered in the room, facing the fireplace, its fabric slightly faded but still sturdy and inviting. At one end of the room, thick drapes catch the pale winter light filtering through the window, casting long shadows across the floor as it pierces the lingering London fog outside. A small chemical apparatus on a stand near the mantelpiece bubbles faintly, releasing the faintest of odors from ongoing experiments. On a nearby table lies the morning newspaper, folded and creased at the edges, its pages slightly yellowed with age. The lighting is soft yet bright, emphasizing every detail in the room—dust motes catching the sun’s rays as they drift lazily through the air. Every object seems to carry the mark of an intellectual mind, from the careful arrangement of books and notes to the faint traces of ink on the side table. The window, framed by richly embroidered curtains, reveals a frosty landscape beyond, where rooftops gleam like lace under the winter sun.}}, {Sunny Winter Morning};Place ((male_detective_holmes)), the Character in Image 1, {Surprise}, {Standing by window}, {Looking outside};.
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Steps: 9, Denoising: 1
+
+=== PROMPT FOR LoRA 1: FLUX.1-Turbo-Alpha.safetensors ===
+Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Realistic Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
+All Non-Living Objects mentioned in Scene text-description must be present in illustration.Must Always Precisely & Accurately Represent entire Scene including all Non-Living Objects according to scene text-description.
+Must Always Precisely & Accurately Preserve each Character's identity(Appearance and Physical Features - Face(hair, eyes, ear, nose, mouth,chick, chin), Body(torso, limbs), Clothings) from respective specified reference image/image-section.
+All other aspects of Characters like "Posture", "Expression", "Movement", "Placement/Location", "Size is proportional to the scene", is adaptable according to Scene/Character text-description.
+Each Non-Living Objects/Character in the illustration must be visually distinct/unique from each other.Strictly, Accurately, Precisely, always must Follow Realistic Anime Style.
+        
+SCENE TEXT-DESCRIPTION:
+ Illustrate an exact scenery like {{A British Victorian living room, nestled within the iconic 221B Baker Street, is bathed in the soft glow of a sunny winter morning. The atmosphere is thick with the scent of burning coal and the faint aroma of strong black tea, mingling subtly with the acrid tang of tobacco from Holmes’s ever-present pipe. The room is comfortably cluttered, filled with the signs of an active mind—stacks of case notes tied with string lie beside a Persian rug that stretches across the polished wooden floor, its edges slightly frayed but still vibrant in deep crimson and gold hues. A tall bookcase lines one wall, brimming with tomes on chemistry, law, and obscure monographs, their spines worn from years of use. Near the fireplace, a large iron coal grate radiates warmth, its blackened frame marked by soot and time. Holmes’s violin rests elegantly on a side table, where it is often left after an impromptu performance or deep contemplation. A heavy sofa with well-worn arms sits centered in the room, facing the fireplace, its fabric slightly faded but still sturdy and inviting. At one end of the room, thick drapes catch the pale winter light filtering through the window, casting long shadows across the floor as it pierces the lingering London fog outside. A small chemical apparatus on a stand near the mantelpiece bubbles faintly, releasing the faintest of odors from ongoing experiments. On a nearby table lies the morning newspaper, folded and creased at the edges, its pages slightly yellowed with age. The lighting is soft yet bright, emphasizing every detail in the room—dust motes catching the sun’s rays as they drift lazily through the air. Every object seems to carry the mark of an intellectual mind, from the careful arrangement of books and notes to the faint traces of ink on the side table. The window, framed by richly embroidered curtains, reveals a frosty landscape beyond, where rooftops gleam like lace under the winter sun.}}, {Sunny Winter Morning};Place ((male_detective_holmes)), the Character in Image 1, {Surprise}, {Standing by window}, {Looking outside};.
+
+Workflow nodes: 16 nodes
+==================================================
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely 9458.675 9319.23095703125 True
+Requested to load AutoencodingEngine
+loaded completely 183.01171112060547 159.87335777282715 True
+Token indices sequence length is longer than the specified maximum sequence length for this model (629 > 512). Running this sequence through the model will result in indexing errors
+loaded completely 9458.675 9319.23095703125 True
+Requested to load Flux
+loaded partially 7263.186961853027 7263.072265625 0
+  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:10<01:23, 10.43s/it] 22%|██▏       | 2/9 [00:19<01:08,  9.72s/it] 33%|███▎      | 3/9 [00:29<00:59,  9.99s/it] 44%|████▍     | 4/9 [00:39<00:49,  9.92s/it] 56%|█████▌    | 5/9 [00:48<00:37,  9.47s/it] 67%|██████▋   | 6/9 [00:57<00:27,  9.20s/it] 78%|███████▊  | 7/9 [01:06<00:18,  9.36s/it] 89%|████████▉ | 8/9 [01:16<00:09,  9.61s/it]100%|██████████| 9/9 [01:27<00:00,  9.99s/it]100%|██████████| 9/9 [01:27<00:00,  9.75s/it]
+Requested to load AutoencodingEngine
+loaded completely 189.28515625 159.87335777282715 True
+Prompt executed in 101.02 seconds
+  Saved LoRA result: ../output/lora\scene_1.2.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/scene\scene_1.2.png
+  Preserved LoRA progress for completed scene
+[OK] Generated: scene_1.2
+
+[2/99] Processing scene_1.3...
+Generating scene: scene_1.3 with characters: male_doctor_watson (Serial LoRA mode)
+Resuming from LoRA 2/1
+Previous LoRA output missing, restarting from LoRA 1
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using saved LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_1.3
+Compressed male_doctor_watson image: 1521.5KB → 7.6KB (99.5% reduction)
+Character mode: IMAGE, Images: 1
+Image stitching: 1 images → 1 groups []
+Using single reference conditioning
+Using latent mode with dimensions: 1920x1080
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Realistic Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
+All Non-Living Objects mentioned in Scene text-description must be present in illustration.Must Always Precisely & Accurately Represent entire Scene including all Non-Living Objects according to scene text-description.
+Must Always Precisely & Accurately Preserve each Character's identity(Appearance and Physical Features - Face(hair, eyes, ear, nose, mouth,chick, chin), Body(torso, limbs), Clothings) from respective specified reference image/image-section.
+All other aspects of Characters like "Posture", "Expression", "Movement", "Placement/Location", "Size is proportional to the scene", is adaptable according to Scene/Character text-description.
+Each Non-Living Objects/Character in the illustration must be visually distinct/unique from each other.Strictly, Accurately, Precisely, always must Follow Realistic Anime Style.
+        
+SCENE TEXT-DESCRIPTION:
+ Illustrate an exact scenery like {{A British Victorian living room, nestled within the iconic 221B Baker Street, is bathed in the soft glow of a sunny winter morning. The atmosphere is thick with the scent of burning coal and the faint aroma of strong black tea, mingling subtly with the acrid tang of tobacco from Holmes’s ever-present pipe. The room is comfortably cluttered, filled with the signs of an active mind—stacks of case notes tied with string lie beside a Persian rug that stretches across the polished wooden floor, its edges slightly frayed but still vibrant in deep crimson and gold hues. A tall bookcase lines one wall, brimming with tomes on chemistry, law, and obscure monographs, their spines worn from years of use. Near the fireplace, a large iron coal grate radiates warmth, its blackened frame marked by soot and time. Holmes’s violin rests elegantly on a side table, where it is often left after an impromptu performance or deep contemplation. A heavy sofa with well-worn arms sits centered in the room, facing the fireplace, its fabric slightly faded but still sturdy and inviting. At one end of the room, thick drapes catch the pale winter light filtering through the window, casting long shadows across the floor as it pierces the lingering London fog outside. A small chemical apparatus on a stand near the mantelpiece bubbles faintly, releasing the faintest of odors from ongoing experiments. On a nearby table lies the morning newspaper, folded and creased at the edges, its pages slightly yellowed with age. The lighting is soft yet bright, emphasizing every detail in the room—dust motes catching the sun’s rays as they drift lazily through the air. Every object seems to carry the mark of an intellectual mind, from the careful arrangement of books and notes to the faint traces of ink on the side table. The window, framed by richly embroidered curtains, reveals a frosty landscape beyond, where rooftops gleam like lace under the winter sun.}}, {Sunny Winter Morning};Place ((male_doctor_watson)), the Character in Image 1, {Slight Amusement}, {On sofa near fire}, {Turning page of newspaper};.
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Steps: 9, Denoising: 1
+
+=== PROMPT FOR LoRA 1: FLUX.1-Turbo-Alpha.safetensors ===
+Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Realistic Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
+All Non-Living Objects mentioned in Scene text-description must be present in illustration.Must Always Precisely & Accurately Represent entire Scene including all Non-Living Objects according to scene text-description.
+Must Always Precisely & Accurately Preserve each Character's identity(Appearance and Physical Features - Face(hair, eyes, ear, nose, mouth,chick, chin), Body(torso, limbs), Clothings) from respective specified reference image/image-section.
+All other aspects of Characters like "Posture", "Expression", "Movement", "Placement/Location", "Size is proportional to the scene", is adaptable according to Scene/Character text-description.
+Each Non-Living Objects/Character in the illustration must be visually distinct/unique from each other.Strictly, Accurately, Precisely, always must Follow Realistic Anime Style.
+        
+SCENE TEXT-DESCRIPTION:
+ Illustrate an exact scenery like {{A British Victorian living room, nestled within the iconic 221B Baker Street, is bathed in the soft glow of a sunny winter morning. The atmosphere is thick with the scent of burning coal and the faint aroma of strong black tea, mingling subtly with the acrid tang of tobacco from Holmes’s ever-present pipe. The room is comfortably cluttered, filled with the signs of an active mind—stacks of case notes tied with string lie beside a Persian rug that stretches across the polished wooden floor, its edges slightly frayed but still vibrant in deep crimson and gold hues. A tall bookcase lines one wall, brimming with tomes on chemistry, law, and obscure monographs, their spines worn from years of use. Near the fireplace, a large iron coal grate radiates warmth, its blackened frame marked by soot and time. Holmes’s violin rests elegantly on a side table, where it is often left after an impromptu performance or deep contemplation. A heavy sofa with well-worn arms sits centered in the room, facing the fireplace, its fabric slightly faded but still sturdy and inviting. At one end of the room, thick drapes catch the pale winter light filtering through the window, casting long shadows across the floor as it pierces the lingering London fog outside. A small chemical apparatus on a stand near the mantelpiece bubbles faintly, releasing the faintest of odors from ongoing experiments. On a nearby table lies the morning newspaper, folded and creased at the edges, its pages slightly yellowed with age. The lighting is soft yet bright, emphasizing every detail in the room—dust motes catching the sun’s rays as they drift lazily through the air. Every object seems to carry the mark of an intellectual mind, from the careful arrangement of books and notes to the faint traces of ink on the side table. The window, framed by richly embroidered curtains, reveals a frosty landscape beyond, where rooftops gleam like lace under the winter sun.}}, {Sunny Winter Morning};Place ((male_doctor_watson)), the Character in Image 1, {Slight Amusement}, {On sofa near fire}, {Turning page of newspaper};.
+
+Workflow nodes: 16 nodes
+==================================================
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely 9458.675 9319.23095703125 True
+Requested to load Flux
+loaded partially 7263.186961853027 7263.072265625 0
+  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:10<01:25, 10.64s/it] 22%|██▏       | 2/9 [00:21<01:14, 10.59s/it] 33%|███▎      | 3/9 [00:31<01:01, 10.33s/it] 44%|████▍     | 4/9 [00:40<00:49,  9.81s/it] 56%|█████▌    | 5/9 [00:49<00:38,  9.52s/it] 67%|██████▋   | 6/9 [00:58<00:28,  9.51s/it] 78%|███████▊  | 7/9 [01:08<00:19,  9.72s/it] 89%|████████▉ | 8/9 [01:19<00:10, 10.01s/it]100%|██████████| 9/9 [01:30<00:00, 10.22s/it]100%|██████████| 9/9 [01:30<00:00, 10.02s/it]
+Requested to load AutoencodingEngine
+loaded completely 189.28515625 159.87335777282715 True
+Prompt executed in 102.76 seconds
+  Saved LoRA result: ../output/lora\scene_1.3.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/scene\scene_1.3.png
+  Preserved LoRA progress for completed scene
+[OK] Generated: scene_1.3
+
+[3/99] Processing scene_1.4...
+Generating scene: scene_1.4 with characters: male_detective_holmes (Serial LoRA mode)
+Resuming from LoRA 2/1
+Previous LoRA output missing, restarting from LoRA 1
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using saved LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_1.4
+Compressed male_detective_holmes image: 1506.1KB → 7.5KB (99.5% reduction)
+Character mode: IMAGE, Images: 1
+Image stitching: 1 images → 1 groups []
+Using single reference conditioning
+Using latent mode with dimensions: 1920x1080
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Realistic Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
+All Non-Living Objects mentioned in Scene text-description must be present in illustration.Must Always Precisely & Accurately Represent entire Scene including all Non-Living Objects according to scene text-description.
+Must Always Precisely & Accurately Preserve each Character's identity(Appearance and Physical Features - Face(hair, eyes, ear, nose, mouth,chick, chin), Body(torso, limbs), Clothings) from respective specified reference image/image-section.
+All other aspects of Characters like "Posture", "Expression", "Movement", "Placement/Location", "Size is proportional to the scene", is adaptable according to Scene/Character text-description.
+Each Non-Living Objects/Character in the illustration must be visually distinct/unique from each other.Strictly, Accurately, Precisely, always must Follow Realistic Anime Style.
+        
+SCENE TEXT-DESCRIPTION:
+ Illustrate an exact scenery like {{A British Victorian living room, nestled within the iconic 221B Baker Street, is bathed in the soft glow of a sunny winter morning. The atmosphere is thick with the scent of burning coal and the faint aroma of strong black tea, mingling subtly with the acrid tang of tobacco from Holmes’s ever-present pipe. The room is comfortably cluttered, filled with the signs of an active mind—stacks of case notes tied with string lie beside a Persian rug that stretches across the polished wooden floor, its edges slightly frayed but still vibrant in deep crimson and gold hues. A tall bookcase lines one wall, brimming with tomes on chemistry, law, and obscure monographs, their spines worn from years of use. Near the fireplace, a large iron coal grate radiates warmth, its blackened frame marked by soot and time. Holmes’s violin rests elegantly on a side table, where it is often left after an impromptu performance or deep contemplation. A heavy sofa with well-worn arms sits centered in the room, facing the fireplace, its fabric slightly faded but still sturdy and inviting. At one end of the room, thick drapes catch the pale winter light filtering through the window, casting long shadows across the floor as it pierces the lingering London fog outside. A small chemical apparatus on a stand near the mantelpiece bubbles faintly, releasing the faintest of odors from ongoing experiments. On a nearby table lies the morning newspaper, folded and creased at the edges, its pages slightly yellowed with age. The lighting is soft yet bright, emphasizing every detail in the room—dust motes catching the sun’s rays as they drift lazily through the air. Every object seems to carry the mark of an intellectual mind, from the careful arrangement of books and notes to the faint traces of ink on the side table. The window, framed by richly embroidered curtains, reveals a frosty landscape beyond, where rooftops gleam like lace under the winter sun.}}, {Sunny Winter Morning};Place ((male_detective_holmes)), the Character in Image 1, {Thoughtful}, {Leaning on window frame}, {Gesturing with pipe};.
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Steps: 9, Denoising: 1
+
+=== PROMPT FOR LoRA 1: FLUX.1-Turbo-Alpha.safetensors ===
+Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Realistic Anime. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
+All Non-Living Objects mentioned in Scene text-description must be present in illustration.Must Always Precisely & Accurately Represent entire Scene including all Non-Living Objects according to scene text-description.
+Must Always Precisely & Accurately Preserve each Character's identity(Appearance and Physical Features - Face(hair, eyes, ear, nose, mouth,chick, chin), Body(torso, limbs), Clothings) from respective specified reference image/image-section.
+All other aspects of Characters like "Posture", "Expression", "Movement", "Placement/Location", "Size is proportional to the scene", is adaptable according to Scene/Character text-description.
+Each Non-Living Objects/Character in the illustration must be visually distinct/unique from each other.Strictly, Accurately, Precisely, always must Follow Realistic Anime Style.
+        
+SCENE TEXT-DESCRIPTION:
+ Illustrate an exact scenery like {{A British Victorian living room, nestled within the iconic 221B Baker Street, is bathed in the soft glow of a sunny winter morning. The atmosphere is thick with the scent of burning coal and the faint aroma of strong black tea, mingling subtly with the acrid tang of tobacco from Holmes’s ever-present pipe. The room is comfortably cluttered, filled with the signs of an active mind—stacks of case notes tied with string lie beside a Persian rug that stretches across the polished wooden floor, its edges slightly frayed but still vibrant in deep crimson and gold hues. A tall bookcase lines one wall, brimming with tomes on chemistry, law, and obscure monographs, their spines worn from years of use. Near the fireplace, a large iron coal grate radiates warmth, its blackened frame marked by soot and time. Holmes’s violin rests elegantly on a side table, where it is often left after an impromptu performance or deep contemplation. A heavy sofa with well-worn arms sits centered in the room, facing the fireplace, its fabric slightly faded but still sturdy and inviting. At one end of the room, thick drapes catch the pale winter light filtering through the window, casting long shadows across the floor as it pierces the lingering London fog outside. A small chemical apparatus on a stand near the mantelpiece bubbles faintly, releasing the faintest of odors from ongoing experiments. On a nearby table lies the morning newspaper, folded and creased at the edges, its pages slightly yellowed with age. The lighting is soft yet bright, emphasizing every detail in the room—dust motes catching the sun’s rays as they drift lazily through the air. Every object seems to carry the mark of an intellectual mind, from the careful arrangement of books and notes to the faint traces of ink on the side table. The window, framed by richly embroidered curtains, reveals a frosty landscape beyond, where rooftops gleam like lace under the winter sun.}}, {Sunny Winter Morning};Place ((male_detective_holmes)), the Character in Image 1, {Thoughtful}, {Leaning on window frame}, {Gesturing with pipe};.
+
+Workflow nodes: 16 nodes
+==================================================
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely 9458.675 9319.23095703125 True
+Requested to load Flux
+loaded partially 7263.186961853027 7263.072265625 0
+  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:09<01:18,  9.77s/it] 22%|██▏       | 2/9 [00:19<01:08,  9.86s/it] 33%|███▎      | 3/9 [00:28<00:57,  9.58s/it]
+===== END D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-09-29 11:13:56 (exit=3221225786, took=252.67s) =====
+Stopping ComfyUI backend...

@@ -15,7 +15,7 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 
 # Image resizing configuration (characters only)
 # Character image resize factor: 0.125 (12.5% of original size) - Better aspect ratio for stitching
-CHARACTER_RESIZE_FACTOR = 0.25
+CHARACTER_RESIZE_FACTOR = 0.50
 
 # Image compression configuration
 # JPEG quality: 1-100 (100 = best quality, larger file; 1 = worst quality, smaller file)
