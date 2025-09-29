@@ -15,7 +15,7 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 
 # Image resizing configuration (characters only)
 # Character image resize factor: 0.125 (12.5% of original size) - Better aspect ratio for stitching
-CHARACTER_RESIZE_FACTOR = 0.25
+CHARACTER_RESIZE_FACTOR = 0.50
 
 # Image compression configuration
 # JPEG quality: 1-100 (100 = best quality, larger file; 1 = worst quality, smaller file)
@@ -30,12 +30,12 @@ IMAGE_COMPRESSION_QUALITY = 60
 ACTIVE_CHARACTER_MODE = "IMAGE"
 
 # Image Resolution Constants
-IMAGE_WIDTH = 1920
-IMAGE_HEIGHT = 1080
+IMAGE_WIDTH = 1280
+IMAGE_HEIGHT = 720
 
 # Latent Input Mode Configuration
 LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
-LATENT_DENOISING_STRENGTH = 0.8  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
+LATENT_DENOISING_STRENGTH = 0.82  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # Image Stitching Configuration (1-5)
 IMAGE_STITCH_COUNT = 1  # Number of images to stitch together in each group
