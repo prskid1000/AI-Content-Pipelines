@@ -25,7 +25,7 @@ LATENT_MODE = "IMAGE"  # "LATENT" for normal noise generation, "IMAGE" for load 
 LATENT_DENOISING_STRENGTH = 0.82  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # LoRA Configuration
-USE_LORA = False  # Set to False to disable LoRA usage in workflow
+USE_LORA = True  # Set to False to disable LoRA usage in workflow
 LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
 
 # LoRA Configuration
@@ -64,7 +64,7 @@ LORAS = [
 ]
 
 # Sampling Configuration
-SAMPLING_STEPS = 8  # Number of sampling steps (higher = better quality, slower)
+SAMPLING_STEPS = 12  # Number of sampling steps (higher = better quality, slower)
 
 # Negative Prompt Configuration
 USE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to disable
@@ -203,7 +203,7 @@ class CharacterGenerator:
         self.intermediate_output_dir = "../output/lora"
         self.input_file = "../input/2.character.txt"
         # Latent image input file path
-        self.latent_image_path = "../input/2.latent.png"
+        self.latent_image_path = "../input/2.latent.small.png"
         # Dynamic workflow file selection based on mode
         self.workflow_file = "../workflow/character.flux.json" if self.mode == "flux" else "../workflow/character.json"
 
@@ -451,7 +451,7 @@ class CharacterGenerator:
 
     def _update_workflow_prompt(self, workflow: dict, character_name: str, description: str) -> dict:
         """Update the workflow with character-specific prompt."""
-        prompt = f"Create a 16K ultra-high-resolution, Dressed Full Body Visible, Illustration in the style of {ART_STYLE} in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description and fine-level detailing, Vibrant Rich Multi-Temperature Color Palette, and any part not cropped or hidden.Must use White Background.\n\n Character Name = {character_name}. Character Description = {description}. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style."
+        prompt = f"Create a 16K ultra-high-resolution, Dressed Full Body Visible, Illustration in the style of {ART_STYLE} in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description and fine-level detailing, Vibrant Rich Bright Color Palette, and any part not cropped or hidden.Must use Black Background.\n\n Character Name = {character_name}. Character Description = {description}. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style."
         self._update_node_connections(workflow, ["CLIPTextEncode", "CLIP Text Encode (Prompt)"], "text", prompt)
         return workflow
 
