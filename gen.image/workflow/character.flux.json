@@ -52,14 +52,8 @@
   },
   "19": {
     "inputs": {
-      "width": [
-        "23",
-        0
-      ],
-      "height": [
-        "23",
-        1
-      ],
+      "width": 1280,
+      "height": 720,
       "batch_size": 1
     },
     "class_type": "EmptySD3LatentImage",
@@ -94,31 +88,6 @@
     "class_type": "SaveImage",
     "_meta": {
       "title": "Output"
-    }
-  },
-  "23": {
-    "inputs": {
-      "megapixel": "1.0",
-      "aspect_ratio": "9:32 (Skyline)",
-      "divisible_by": "64",
-      "custom_ratio": false,
-      "custom_aspect_ratio": "1:1"
-    },
-    "class_type": "FluxResolutionNode",
-    "_meta": {
-      "title": "Flux Resolution Calc"
-    }
-  },
-  "24": {
-    "inputs": {
-      "images": [
-        "23",
-        3
-      ]
-    },
-    "class_type": "PreviewImage",
-    "_meta": {
-      "title": "Preview Image"
     }
   },
   "33": {

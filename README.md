@@ -44,6 +44,73 @@ Text Story → Audio Pipeline → Image Pipeline → Video Pipeline → YouTube
 - **Image Pipeline** (`gen.image/`) - 6 scripts for character/scene generation  
 - **Video Pipeline** (`gen.video/`) - 3 scripts for animation and compilation
 
+## 🎨 Advanced Image Generation Features
+
+### Latent Input Mode
+The image generation scripts now support two distinct modes for controlling the generation process:
+
+#### LATENT Mode (Default)
+- **Purpose**: Standard noise-based generation from scratch
+- **Use Case**: Creating new images without reference
+- **Configuration**: `LATENT_MODE = "LATENT"`
+- **Workflow**: Uses `EmptySD3LatentImage` node with specified dimensions
+
+#### IMAGE Mode
+- **Purpose**: Image-to-image generation using existing images as starting point
+- **Use Case**: Refining, editing, or enhancing existing images
+- **Configuration**: `LATENT_MODE = "IMAGE"`
+- **Workflow**: Replaces `EmptySD3LatentImage` with `LoadImage` + `VAEEncode` nodes
+- **Denoising Control**: `LATENT_DENOISING_STRENGTH` (0.0-1.0) controls how much the input image is modified
+- **Serial LoRA Support**: First LoRA in serial mode can also use IMAGE mode for enhanced control
+
+#### Implementation Details
+```python
+# Configuration in each script
+LATENT_MODE = "LATENT"  # or "IMAGE"
+LATENT_DENOISING_STRENGTH = 0.8  # Only used in IMAGE mode
+
+# File paths for IMAGE mode
+self.latent_image_path = "../input/2.latent.png"  # Character script
+self.latent_image_path = "../input/3.latent.png"  # Scene script  
+self.latent_image_path = "../input/10.latent.png" # Thumbnail script
+```
+
+### Serial LoRA Processing
+Advanced LoRA handling with independent processing and intermediate storage:
+
+#### Serial Mode Features
+- **Independent Processing**: Each LoRA runs separately with its own parameters
+- **Intermediate Storage**: Results saved between LoRA steps for debugging
+- **Resumable Operations**: Can resume from any LoRA step if interrupted
+- **Flexible Configuration**: Per-LoRA steps, denoising strength, and bypass options
+
+#### LoRA Configuration
+```python
+LORAS = [
+    {
+        "name": "FLUX.1-Turbo-Alpha.safetensors",
+        "strength_model": 3.0,    # Model strength (0.0 - 2.0)
+        "strength_clip": 3.0,     # CLIP strength (0.0 - 2.0)
+        "bypass_model": False,    # Set to True to bypass model part
+        "bypass_clip": False,     # Set to True to bypass CLIP part
+        "enabled": True,          # Set to False to disable entirely
+        
+        # Serial mode specific settings
+        "steps": 9,               # Sampling steps for this LoRA
+        "denoising_strength": 1,  # Denoising strength (0.0 - 1.0)
+        "save_intermediate": True, # Save intermediate results
+        "use_only_intermediate": False # Use only intermediate result, no character images
+    }
+]
+```
+
+#### Workflow Chain
+```
+LoRA 1: EmptySD3LatentImage → LoRA1 → Generated Image 1
+LoRA 2: LoadImage(Image 1) → VAEEncode → LoRA2 → Generated Image 2
+LoRA 3: LoadImage(Image 2) → VAEEncode → LoRA3 → Final Image
+```
+
 ## 🔄 Resumable Processing System
 
 The AI Content Studio features a robust resumable processing system that allows operations to be interrupted and resumed without losing progress. This is particularly valuable for expensive AI generation tasks that can take hours to complete.
@@ -337,6 +404,8 @@ graph TD
 - **Image Stitching**: Automatic combination of multiple character images
 - **Timeline Processing**: Audio-visual synchronization for video generation
 - **Video Compilation**: Per-scene video creation with FFmpeg integration
+- **Latent Input Mode**: Switch between noise generation and image input for enhanced control
+- **Serial LoRA Processing**: Independent LoRA application with intermediate storage and resumable operations
 
 ### Image Pipeline Detailed Flowchart
 
@@ -557,23 +626,49 @@ final_output_path = "../output/final.wav"
 
 #### `10.thumbnail.py` - Thumbnail Generation
 ```python
-# Image Settings
-IMAGE_MEGAPIXEL = "0.3"
-IMAGE_ASPECT_RATIO = "9:32 (Skyline)"
-IMAGE_DIVISIBLE_BY = "64"
-IMAGE_CUSTOM_RATIO = False
-IMAGE_CUSTOM_ASPECT_RATIO = "1:1"
+# Image Resolution Constants
+IMAGE_WIDTH = 1280
+IMAGE_HEIGHT = 720
+
+# Latent Input Mode Configuration
+LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
+LATENT_DENOISING_STRENGTH = 0.8  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
+
+# Title Text Configuration
+USE_TITLE_TEXT = True  # True: use text overlay, False: let Flux generate text
+TITLE_POSITION = "middle"  # "top", "middle", or "bottom"
+TITLE_FONT_SCALE = 1.5  # Text scaling: 1 = default, 2 = 2x, 3 = 3x
+TITLE_LAYOUT = "overlay"  # "overlay", "expand", or "fit"
+
+# Target output canvas size
+OUTPUT_WIDTH = 1280
+OUTPUT_HEIGHT = 720
 
 # LoRA Configuration
-USE_LORA = False
-LORA_NAME = "FLUX.1-Turbo-Alpha.safetensors"
-LORA_STRENGTH_MODEL = 1.0
-LORA_STRENGTH_CLIP = 1.0
+USE_LORA = True
+LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
+LORAS = [
+    {
+        "name": "FLUX.1-Turbo-Alpha.safetensors",
+        "strength_model": 3.0,    # Model strength (0.0 - 2.0)
+        "strength_clip": 3.0,     # CLIP strength (0.0 - 2.0)
+        "bypass_model": False,    # Set to True to bypass model part of this LoRA
+        "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
+        "enabled": True,          # Set to False to disable this LoRA entirely
+        
+        # Serial mode specific settings (only used when LORA_MODE = "serial")
+        "steps": 9,               # Sampling steps for this LoRA (serial mode only)
+        "denoising_strength": 1,  # Denoising strength (0.0 - 1.0) (serial mode only)
+        "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
+        "use_only_intermediate": False # Set to True to disable character images and use only intermediate result
+    }
+]
 
-# Sampling
+# Sampling Configuration
 SAMPLING_STEPS = 25
-USE_NEGATIVE_PROMPT = False
-NEGATIVE_PROMPT = "blurry, low quality, distorted..."
+USE_NEGATIVE_PROMPT = True
+NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
+
 ART_STYLE = "Anime"
 ```
 
@@ -599,60 +694,91 @@ MODEL_LOCATION_EXPANSION = "qwen/qwen3-14b"
 
 #### `2.character.py` - Character Generation
 ```python
-# Image Resolution
-IMAGE_MEGAPIXEL = "0.3"
-IMAGE_ASPECT_RATIO = "9:32 (Skyline)"
-IMAGE_DIVISIBLE_BY = "64"
-IMAGE_CUSTOM_RATIO = False
-IMAGE_CUSTOM_ASPECT_RATIO = "1:1"
+# Image Resolution Constants
+IMAGE_WIDTH = 1280
+IMAGE_HEIGHT = 720
+
+# Latent Input Mode Configuration
+LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
+LATENT_DENOISING_STRENGTH = 0.8  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
+
+# LoRA Configuration
+USE_LORA = True
+LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
+LORAS = [
+    {
+        "name": "FLUX.1-Turbo-Alpha.safetensors",
+        "strength_model": 3.0,    # Model strength (0.0 - 2.0)
+        "strength_clip": 3.0,     # CLIP strength (0.0 - 2.0)
+        "bypass_model": False,    # Set to True to bypass model part of this LoRA
+        "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
+        "enabled": True,          # Set to False to disable this LoRA entirely
+        
+        # Serial mode specific settings (only used when LORA_MODE = "serial")
+        "steps": 9,               # Sampling steps for this LoRA (serial mode only)
+        "denoising_strength": 1,  # Denoising strength (0.0 - 1.0) (serial mode only)
+        "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
+        "use_only_intermediate": False # Set to True to disable character images and use only intermediate result
+    }
+]
+
+# Sampling Configuration
+SAMPLING_STEPS = 25
+USE_NEGATIVE_PROMPT = True
+NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
 # Character Settings
-CHARACTER_IMAGE_WIDTH = 320
-CHARACTER_IMAGE_HEIGHT = 1024
 USE_CHARACTER_NAME_OVERLAY = False
 CHARACTER_NAME_FONT_SCALE = 1
 CHARACTER_NAME_BAND_HEIGHT_RATIO = 0.30
 
-# LoRA Configuration
-USE_LORA = False
-LORA_NAME = "FLUX.1-Turbo-Alpha.safetensors"
-LORA_STRENGTH_MODEL = 1.0
-LORA_STRENGTH_CLIP = 1.0
-
-# Sampling
-SAMPLING_STEPS = 25
-USE_NEGATIVE_PROMPT = False
-ART_STYLE = "Anime"
+ART_STYLE = "Realistic Anime"
 ```
 
 #### `3.scene.py` - Scene Generation
 ```python
-# Image Processing
-CHARACTER_RESIZE_WIDTH = 512
-CHARACTER_RESIZE_HEIGHT = 768
-IMAGE_COMPRESSION_QUALITY = 60
-ACTIVE_CHARACTER_MODE = "IMAGE_TEXT"  # IMAGE_TEXT, TEXT, IMAGE
+# Image Resolution Constants
+IMAGE_WIDTH = 1920
+IMAGE_HEIGHT = 1080
 
-# Image Resolution
-IMAGE_MEGAPIXEL = "1.2"
-IMAGE_ASPECT_RATIO = "16:9 (Panorama)"
-IMAGE_DIVISIBLE_BY = "64"
-IMAGE_CUSTOM_RATIO = False
-IMAGE_CUSTOM_ASPECT_RATIO = "1:1"
+# Latent Input Mode Configuration
+LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
+LATENT_DENOISING_STRENGTH = 0.8  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
-# Image Stitching
-IMAGE_STITCH_COUNT = 6  # Images per group
+# Image Processing Configuration
+CHARACTER_RESIZE_FACTOR = 0.25  # Character image resize factor for stitching
+IMAGE_COMPRESSION_QUALITY = 60  # JPEG quality: 1-100 (100 = best quality, larger file)
+ACTIVE_CHARACTER_MODE = "IMAGE"  # "IMAGE_TEXT", "TEXT", "IMAGE"
+
+# Image Stitching Configuration (1-5)
+IMAGE_STITCH_COUNT = 1  # Number of images to stitch together in each group
 
 # LoRA Configuration
 USE_LORA = True
-LORA_NAME = "FLUX.1-Turbo-Alpha.safetensors"
-LORA_STRENGTH_MODEL = 2.0
-LORA_STRENGTH_CLIP = 2.0
+LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
+LORAS = [
+    {
+        "name": "FLUX.1-Turbo-Alpha.safetensors",
+        "strength_model": 3.0,    # Model strength (0.0 - 2.0)
+        "strength_clip": 3.0,     # CLIP strength (0.0 - 2.0)
+        "bypass_model": False,    # Set to True to bypass model part of this LoRA
+        "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
+        "enabled": True,          # Set to False to disable this LoRA entirely
+        
+        # Serial mode specific settings (only used when LORA_MODE = "serial")
+        "steps": 9,               # Sampling steps for this LoRA (serial mode only)
+        "denoising_strength": 1,  # Denoising strength (0.0 - 1.0) (serial mode only)
+        "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
+        "use_only_intermediate": False # Set to True to disable character images and use only intermediate result
+    }
+]
 
-# Sampling
-SAMPLING_STEPS = 8
+# Sampling Configuration
+SAMPLING_STEPS = 25
 USE_NEGATIVE_PROMPT = True
-NEGATIVE_PROMPT = "worst quality, low quality, blurry..."
+NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
+
+ART_STYLE = "Realistic Anime"
 ```
 
 ### Video Pipeline Scripts
@@ -1302,9 +1428,44 @@ The orchestrator scripts automatically manage service dependencies with intellig
 - `1.story.txt` - Main story text with dialogue `[character]` and scene `(scene_id)` descriptions
 - `voices/` - Character voice samples for TTS (organized by gender prefixes: `m_*` for male, `f_*` for female)
 
+#### Input File Structure
+**Audio Pipeline Inputs:**
+- `1.story.txt` - Source story text
+- `voices/` - Character voice samples
+- `2.character.txt` - Character assignments (generated by `1.character.py`)
+- `2.story.srt` - Audio transcription (generated by `3.transcribe.py`)
+- `2.story.str.txt` - Plain text transcription
+- `2.timeline.txt` - SFX timeline (generated by `5.timeline.py`)
+- `3.timing.txt` - Refined SFX timing (generated by `6.timing.py`)
+- `10.thumbnail.txt` - Thumbnail description (generated by `9.description.py`)
+
+**Image Pipeline Inputs:**
+- `1.story.txt` - Source story text
+- `2.character.txt` - Character descriptions (generated by `1.story.py`)
+- `3.scene.txt` - Scene descriptions (generated by `1.story.py`)
+- `3.location.txt` - Location descriptions (generated by `1.story.py`)
+- `characters/*.png` - Character images (generated by `2.character.py`)
+
+**Video Pipeline Inputs:**
+- `scene/*.png` - Scene images from image pipeline
+- `2.timeline.script.txt` - Audio timeline for synchronization
+
 #### Configuration Files
 - `workflow/*.json` - ComfyUI workflow definitions for different generation tasks
 - `prompt.story.audio.md` - Audio generation prompts and templates
+
+### ComfyUI Workflow Structure
+The current workflow files use direct resolution settings instead of dynamic `FluxResolutionNode` calculations:
+
+#### Standard Workflow Nodes
+- **EmptySD3LatentImage**: Direct width/height input (1280x720 for characters, 1920x1080 for scenes)
+- **LoadImage + VAEEncode**: Used in IMAGE mode for latent input replacement
+- **KSampler**: Configurable sampling with denoising strength control
+- **LoRA Nodes**: Dynamic LoRA application with serial or chained modes
+
+#### Removed Components
+- **FluxResolutionNode**: Replaced with direct resolution constants
+- **PreviewImage**: Removed from all workflows for cleaner processing
 
 ### Key Output Files
 
@@ -1318,8 +1479,8 @@ The orchestrator scripts automatically manage service dependencies with intellig
 - `tags.txt` - YouTube video tags
 
 #### Image Pipeline
-- `characters/*.png` - Character portrait images
-- `scene/*.png` - Scene visualization images
+- `characters/*.png` - Character portrait images (1280x720)
+- `scene/*.png` - Scene visualization images (1920x1080)
 - `video/*.mp4` - Per-scene video clips
 - `merged.mp4` - Combined scene videos
 - `final_sd.mp4` - Final video with audio
@@ -1327,6 +1488,11 @@ The orchestrator scripts automatically manage service dependencies with intellig
 #### Video Pipeline
 - `animation/*.mp4` - Animated video clips
 - `final_sd.mp4` - Final animated video with audio
+
+#### Latent Input Files (for IMAGE mode)
+- `2.latent.png` - Input image for character generation
+- `3.latent.png` - Input image for scene generation
+- `10.latent.png` - Input image for thumbnail generation
 
 ### Intermediate Files
 
@@ -1445,6 +1611,48 @@ This is a modular system designed for easy extension. Each script is self-contai
 - New image generation workflows
 - Enhanced video animation techniques
 - Additional output formats and platforms
+
+## 🆕 Recent Updates & Improvements
+
+### Major Enhancements (Latest Version)
+
+#### 🎨 Advanced Image Generation
+- **Latent Input Mode**: Switch between noise generation (`LATENT`) and image input (`IMAGE`) modes
+- **Denoising Control**: Configurable denoising strength (0.0-1.0) for image-to-image generation
+- **Direct Resolution**: Simplified workflow structure with fixed resolution constants
+- **Serial LoRA Processing**: Independent LoRA application with intermediate storage
+
+#### 🔧 Workflow Optimization
+- **Removed FluxResolutionNode**: Simplified workflows with direct width/height settings
+- **Standardized Configurations**: Consistent settings across all image generation scripts
+- **Enhanced LoRA Support**: Serial and chained modes with per-LoRA configuration
+- **Improved Error Handling**: Better fault tolerance and recovery mechanisms
+
+#### 📁 File Structure Improvements
+- **Cleaner Codebase**: Removed 153 lines of unused code from scene generation
+- **Consistent Naming**: Standardized file paths and configuration variables
+- **Better Organization**: Clear separation of input files and generated outputs
+
+#### ⚡ Performance Enhancements
+- **Simplified Processing**: Direct latent replacement instead of complex image stitching
+- **Faster LoRA Chaining**: Streamlined workflow for serial LoRA processing
+- **Memory Optimization**: Reduced memory usage through cleaner node structures
+
+### Configuration Standardization
+All image generation scripts now use consistent settings:
+
+| Setting | Characters | Scenes | Thumbnails |
+|---------|------------|--------|------------|
+| **Resolution** | 1280x720 | 1920x1080 | 1280x720 |
+| **LoRA Strength** | 3.0/3.0 | 3.0/3.0 | 3.0/3.0 |
+| **ART_STYLE** | "Realistic Anime" | "Realistic Anime" | "Anime" |
+| **Negative Prompt** | ✅ Enabled | ✅ Enabled | ✅ Enabled |
+| **Serial LoRA** | ✅ Supported | ✅ Supported | ✅ Supported |
+
+### Breaking Changes
+- **Resolution Constants**: Replaced `IMAGE_MEGAPIXEL` with direct `IMAGE_WIDTH`/`IMAGE_HEIGHT`
+- **Workflow Structure**: Removed `FluxResolutionNode` and `PreviewImage` nodes
+- **LoRA Configuration**: Updated to array format with serial mode support
 
 ---
 

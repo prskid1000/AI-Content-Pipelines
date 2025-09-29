@@ -30,11 +30,12 @@ IMAGE_COMPRESSION_QUALITY = 60
 ACTIVE_CHARACTER_MODE = "IMAGE"
 
 # Image Resolution Constants
-IMAGE_MEGAPIXEL = "1.2"
-IMAGE_ASPECT_RATIO = "16:9 (Panorama)"
-IMAGE_DIVISIBLE_BY = "64"
-IMAGE_CUSTOM_RATIO = True
-IMAGE_CUSTOM_ASPECT_RATIO = "16:9"
+IMAGE_WIDTH = 1920
+IMAGE_HEIGHT = 1080
+
+# Latent Input Mode Configuration
+LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
+LATENT_DENOISING_STRENGTH = 0.8  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # Image Stitching Configuration (1-5)
 IMAGE_STITCH_COUNT = 1  # Number of images to stitch together in each group
@@ -92,7 +93,7 @@ FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 # Location Information Configuration
 USE_LOCATION_INFO = True  # Set to True to replace {{loc_1}} with location descriptions from 3.location.txt
 
-ART_STYLE = "Realistic Digital 3D Animation"
+ART_STYLE = "Realistic Anime"
 
 
 class ResumableState:
@@ -221,6 +222,8 @@ class SceneGenerator:
         self.location_file = "../input/3.location.txt"
         self.workflow_file = "../workflow/scene.json"
         self.character_images_dir = "../output/characters"
+        # Latent image input file path
+        self.latent_image_path = "../input/3.latent.png"
 
         # Create output directories
         os.makedirs(self.final_output_dir, exist_ok=True)
@@ -808,13 +811,16 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
         workflow["33"]["inputs"]["text"] = text_prompt
         workflow["21"]["inputs"]["filename_prefix"] = scene_id
         
-        # Set resolution parameters
-        workflow["23"]["inputs"]["megapixel"] = IMAGE_MEGAPIXEL
-        workflow["23"]["inputs"]["aspect_ratio"] = IMAGE_ASPECT_RATIO
-        workflow["23"]["inputs"]["divisible_by"] = IMAGE_DIVISIBLE_BY
-        workflow["23"]["inputs"]["custom_ratio"] = IMAGE_CUSTOM_RATIO
-        workflow["23"]["inputs"]["custom_aspect_ratio"] = IMAGE_CUSTOM_ASPECT_RATIO
-        print(f"Updated Flux resolution settings: {IMAGE_MEGAPIXEL}MP, {IMAGE_ASPECT_RATIO}")
+        # Set resolution parameters and handle latent input mode
+        if LATENT_MODE == "IMAGE":
+            # Replace EmptySD3LatentImage with LoadImage + VAEEncode for image input
+            self._replace_latent_with_image_input(workflow, "19", self.latent_image_path)
+            print(f"Using image input mode with file: {self.latent_image_path}")
+        else:
+            # Normal latent mode - set dimensions
+            workflow["19"]["inputs"]["width"] = IMAGE_WIDTH
+            workflow["19"]["inputs"]["height"] = IMAGE_HEIGHT
+            print(f"Using latent mode with dimensions: {IMAGE_WIDTH}x{IMAGE_HEIGHT}")
         
         # Handle negative prompt
         if USE_NEGATIVE_PROMPT:
@@ -851,6 +857,110 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
         print("\n\n\n")
         print(f"Text prompt: {text_prompt}")
         return workflow
+
+    def _replace_latent_with_image_input(self, workflow: dict, latent_node_id: str, image_path: str) -> None:
+        """Replace EmptySD3LatentImage with LoadImage + VAEEncode for image input."""
+        try:
+            # Copy the image to ComfyUI input folder
+            image_filename = os.path.basename(image_path)
+            comfyui_input_path = os.path.join("../../ComfyUI/input", image_filename)
+            if os.path.exists(image_path):
+                shutil.copy2(image_path, comfyui_input_path)
+                print(f"  Copied image to ComfyUI input: {image_filename}")
+            else:
+                print(f"WARNING: Image file not found: {image_path}")
+            
+            # Find the next available node ID
+            max_id = max(int(k) for k in workflow.keys() if k.isdigit())
+            load_image_node_id = str(max_id + 1)
+            encode_node_id = str(max_id + 2)
+            
+            # Create LoadImage node
+            workflow[load_image_node_id] = {
+                "inputs": {"image": image_filename},
+                "class_type": "LoadImage",
+                "_meta": {"title": "Load Latent Image"}
+            }
+            
+            # Create VAEEncode node to convert image to latent
+            workflow[encode_node_id] = {
+                "inputs": {
+                    "pixels": [load_image_node_id, 0],
+                    "vae": ["11", 0]  # Use existing VAE
+                },
+                "class_type": "VAEEncode",
+                "_meta": {"title": "VAE Encode (Latent Image)"}
+            }
+            
+            # Find KSampler and update its latent_image input and denoising strength
+            for sampler_id, sampler_node in workflow.items():
+                if isinstance(sampler_node, dict) and sampler_node.get("class_type") == "KSampler":
+                    if "latent_image" in sampler_node.get("inputs", {}):
+                        sampler_node["inputs"]["latent_image"] = [encode_node_id, 0]
+                        sampler_node["inputs"]["denoise"] = LATENT_DENOISING_STRENGTH
+                        break
+            
+            # Remove the original EmptySD3LatentImage node
+            del workflow[latent_node_id]
+            
+            print(f"  Replaced EmptySD3LatentImage with LoadImage + VAEEncode")
+            print(f"  LoadImage node: {load_image_node_id}, VAEEncode node: {encode_node_id}")
+            print(f"  Denoising strength set to: {LATENT_DENOISING_STRENGTH}")
+            
+        except Exception as e:
+            print(f"WARNING: Failed to replace latent with image input: {e}")
+
+    def _replace_latent_with_previous_output(self, workflow: dict, image_path: str) -> None:
+        """Replace EmptySD3LatentImage with LoadImage + VAEEncode for previous LoRA output."""
+        try:
+            # Copy the previous LoRA output to ComfyUI input folder
+            image_filename = os.path.basename(image_path)
+            comfyui_input_path = os.path.join("../../ComfyUI/input", image_filename)
+            if os.path.exists(image_path):
+                shutil.copy2(image_path, comfyui_input_path)
+                print(f"  Copied previous LoRA output to ComfyUI input: {image_filename}")
+            else:
+                print(f"WARNING: Previous LoRA output not found: {image_path}")
+            
+            # Find the next available node ID
+            max_id = max(int(k) for k in workflow.keys() if k.isdigit())
+            load_image_node_id = str(max_id + 1)
+            encode_node_id = str(max_id + 2)
+            
+            # Create LoadImage node
+            workflow[load_image_node_id] = {
+                "inputs": {"image": image_filename},
+                "class_type": "LoadImage",
+                "_meta": {"title": "Load Previous LoRA Output"}
+            }
+            
+            # Create VAEEncode node to convert image to latent
+            workflow[encode_node_id] = {
+                "inputs": {
+                    "pixels": [load_image_node_id, 0],
+                    "vae": ["11", 0]  # Use existing VAE
+                },
+                "class_type": "VAEEncode",
+                "_meta": {"title": "VAE Encode (Previous LoRA Output)"}
+            }
+            
+            # Find KSampler and update its latent_image input and denoising strength
+            for sampler_id, sampler_node in workflow.items():
+                if isinstance(sampler_node, dict) and sampler_node.get("class_type") == "KSampler":
+                    if "latent_image" in sampler_node.get("inputs", {}):
+                        sampler_node["inputs"]["latent_image"] = [encode_node_id, 0]
+                        # Keep the existing denoising strength from LoRA config
+                        break
+            
+            # Remove the original EmptySD3LatentImage node
+            if "19" in workflow:
+                del workflow["19"]
+            
+            print(f"  Replaced EmptySD3LatentImage with LoadImage + VAEEncode")
+            print(f"  LoadImage node: {load_image_node_id}, VAEEncode node: {encode_node_id}")
+            
+        except Exception as e:
+            print(f"WARNING: Failed to replace latent with previous output: {e}")
 
     def _generate_scene_image_serial(self, scene_id: str, scene_description: str, character_names: list[str], master_prompt: str, characters_data: dict[str, str], locations_data: dict[str, str] = None, resumable_state=None) -> str | None:
         """Generate scene image using serial LoRA mode with intermediate storage."""
@@ -946,11 +1056,15 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
                 self._update_node_connections(workflow, "KSampler", "steps", steps)
                 self._update_node_connections(workflow, "KSampler", "denoise", denoising_strength)
                 
-                # If this is not the first LoRA, use previous output as input
+                # Handle input for this LoRA (first LoRA can use latent/image mode, subsequent LoRAs use previous output)
                 if i > 0 and current_image_path:
-                    # Add previous LoRA result as input image group
-                    self._add_intermediate_result_as_input(workflow, current_image_path, character_names)
-                    print(f"  Using previous LoRA output as input image group")
+                    # For subsequent LoRAs, use previous output as input
+                    self._replace_latent_with_previous_output(workflow, current_image_path)
+                    print(f"  Using previous LoRA output as latent input")
+                elif i == 0 and LATENT_MODE == "IMAGE":
+                    # For first LoRA, use image input mode if configured
+                    self._replace_latent_with_image_input(workflow, "19", self.latent_image_path)
+                    print(f"  Using image input mode for first LoRA with file: {self.latent_image_path}")
                     
                     # If this LoRA uses only intermediate result, ensure no character images are processed
                     if use_only_intermediate:
@@ -1104,160 +1218,6 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
         self._update_node_connections(workflow, "KSampler", "model", [lora_node_id, 0])
         self._update_node_connections(workflow, ["CLIPTextEncode", "CLIP Text Encode (Prompt)"], "clip", [lora_node_id, 1])
 
-    def _add_intermediate_result_as_input(self, workflow: dict, image_path: str, character_names: list[str]) -> None:
-        """Add intermediate LoRA result as input image group for the next LoRA."""
-        try:
-            # Copy the intermediate result to ComfyUI input folder
-            image_filename = os.path.basename(image_path)
-            comfyui_input_path = os.path.join("../../ComfyUI/input", image_filename)
-            shutil.copy2(image_path, comfyui_input_path)
-            
-            # Create a new input image group with the intermediate result
-            # This will be added to the existing character images
-            intermediate_image_name = f"intermediate_result"
-            
-            # Find the next available node ID for the new LoadImage node
-            max_id = max(int(k) for k in workflow.keys() if k.isdigit())
-            load_image_node_id = str(max_id + 1)
-            
-            # Create LoadImage node for intermediate result
-            workflow[load_image_node_id] = {
-                "inputs": {"image": image_filename},
-                "class_type": "LoadImage",
-                "_meta": {"title": f"Load Intermediate Result"}
-            }
-            
-            # Create Scale node for the intermediate result
-            scale_node_id = str(max_id + 2)
-            workflow[scale_node_id] = {
-                "inputs": {"image": [load_image_node_id, 0]},
-                "class_type": "FluxKontextImageScale",
-                "_meta": {"title": f"Scale Intermediate Result"}
-            }
-            
-            # Add this to the existing image processing nodes
-            # We need to find the existing image processing nodes and add this as another group
-            self._add_intermediate_to_image_processing(workflow, scale_node_id, intermediate_image_name)
-            
-            print(f"  Added intermediate result as input image group: {intermediate_image_name}")
-            
-        except Exception as e:
-            print(f"WARNING: Failed to add intermediate result as input: {e}")
-
-    def _add_intermediate_to_image_processing(self, workflow: dict, scale_node_id: str, image_name: str) -> None:
-        """Add intermediate result to the existing image processing pipeline."""
-        try:
-            # Find the next available node ID
-            max_id = max(int(k) for k in workflow.keys() if k.isdigit())
-            
-            # Create VAE encode for the intermediate result (no stitching needed for single image)
-            encode_node_id = str(max_id + 1)
-            workflow[encode_node_id] = {
-                "inputs": {"pixels": [scale_node_id, 0], "vae": ["11", 0]},
-                "class_type": "VAEEncode",
-                "_meta": {"title": f"Encode Intermediate Result"}
-            }
-            
-            # Find existing reference latent nodes and add intermediate result as another group
-            # Look for existing ReferenceLatent nodes to understand the current conditioning chain
-            existing_ref_nodes = []
-            for node_id, node in workflow.items():
-                if isinstance(node, dict) and node.get("class_type") == "ReferenceLatent":
-                    existing_ref_nodes.append(node_id)
-            
-            if existing_ref_nodes:
-                # Add intermediate result as another reference latent in the chain
-                ref_latent_node_id = str(max_id + 2)
-                workflow[ref_latent_node_id] = {
-                    "inputs": {
-                        "conditioning": [existing_ref_nodes[-1], 0],  # Connect to last existing reference
-                        "latent": [encode_node_id, 0]
-                    },
-                    "class_type": "ReferenceLatent",
-                    "_meta": {"title": f"Reference Intermediate Result"}
-                }
-                
-                # Update the main conditioning to use the new intermediate reference
-                workflow["32"]["inputs"]["conditioning"] = [ref_latent_node_id, 0]
-                print(f"  Added intermediate result as additional reference group")
-            else:
-                # No existing reference nodes (character images disabled), create as first reference
-                ref_latent_node_id = str(max_id + 2)
-                workflow[ref_latent_node_id] = {
-                    "inputs": {
-                        "conditioning": ["33", 0],  # Use base conditioning
-                        "latent": [encode_node_id, 0]
-                    },
-                    "class_type": "ReferenceLatent",
-                    "_meta": {"title": f"Reference Intermediate Result"}
-                }
-                
-                # Update the conditioning to use the intermediate result
-                workflow["32"]["inputs"]["conditioning"] = [ref_latent_node_id, 0]
-                print(f"  Created intermediate result as first reference group (no character images)")
-            
-        except Exception as e:
-            print(f"WARNING: Failed to add intermediate to image processing: {e}")
-
-    def _set_image_input(self, workflow: dict, image_path: str) -> None:
-        """Set an image as input for the workflow (for chaining LoRA outputs)."""
-        try:
-            # Copy the image to ComfyUI input folder
-            image_filename = os.path.basename(image_path)
-            comfyui_input_path = os.path.join("../../ComfyUI/input", image_filename)
-            shutil.copy2(image_path, comfyui_input_path)
-            
-            # Find existing LoadImage node or create one
-            load_image_node_id = None
-            for node_id, node in workflow.items():
-                if isinstance(node, dict) and node.get("class_type") == "LoadImage":
-                    load_image_node_id = node_id
-                    break
-            
-            # If no LoadImage node exists, create one
-            if not load_image_node_id:
-                # Find the next available node ID
-                max_id = max(int(k) for k in workflow.keys() if k.isdigit())
-                load_image_node_id = str(max_id + 1)
-                
-                # Create LoadImage node
-                workflow[load_image_node_id] = {
-                    "inputs": {"image": image_filename},
-                    "class_type": "LoadImage",
-                    "_meta": {"title": "Load Image (LoRA Chain Input)"}
-                }
-                print(f"  Created LoadImage node: {load_image_node_id}")
-            else:
-                # Update existing LoadImage node
-                workflow[load_image_node_id]["inputs"]["image"] = image_filename
-                print(f"  Updated LoadImage node: {load_image_node_id}")
-            
-            # Find and replace EmptySD3LatentImage with LoadImage
-            for node_id, node in workflow.items():
-                if isinstance(node, dict) and node.get("class_type") == "EmptySD3LatentImage":
-                    # Replace the latent_image input in KSampler
-                    for sampler_id, sampler_node in workflow.items():
-                        if isinstance(sampler_node, dict) and sampler_node.get("class_type") == "KSampler":
-                            if "latent_image" in sampler_node.get("inputs", {}):
-                                # Create VAEEncode node to convert image to latent
-                                encode_node_id = str(int(load_image_node_id) + 1)
-                                workflow[encode_node_id] = {
-                                    "inputs": {
-                                        "pixels": [load_image_node_id, 0],
-                                        "vae": ["11", 0]  # Use existing VAE
-                                    },
-                                    "class_type": "VAEEncode",
-                                    "_meta": {"title": "VAE Encode (LoRA Chain Input)"}
-                                }
-                                
-                                # Update KSampler to use encoded latent
-                                sampler_node["inputs"]["latent_image"] = [encode_node_id, 0]
-                                print(f"  Connected LoadImage → VAEEncode → KSampler")
-                                break
-                    break
-                    
-        except Exception as e:
-            print(f"WARNING: Failed to set image input: {e}")
 
     def _update_node_connections(self, workflow: dict, class_types: str | list[str], input_key: str, value) -> None:
         """Update specific input connections for nodes matching class types."""

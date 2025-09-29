@@ -38,11 +38,12 @@ OUTPUT_WIDTH = 1280
 OUTPUT_HEIGHT = 720
 
 # Image Resolution Constants
-IMAGE_MEGAPIXEL = "1.2"
-IMAGE_ASPECT_RATIO = "16:9 (Panorama)"
-IMAGE_DIVISIBLE_BY = "64"
-IMAGE_CUSTOM_RATIO = True
-IMAGE_CUSTOM_ASPECT_RATIO = "16:9"
+IMAGE_WIDTH = 1280
+IMAGE_HEIGHT = 720
+
+# Latent Input Mode Configuration
+LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
+LATENT_DENOISING_STRENGTH = 0.8  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # LoRA Configuration
 USE_LORA = True  # Set to False to disable LoRA usage in workflow
@@ -55,8 +56,8 @@ LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for
 LORAS = [
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 2.0,    # Model strength (0.0 - 2.0)
-        "strength_clip": 2.0,     # CLIP strength (0.0 - 2.0)
+        "strength_model": 3.0,    # Model strength (0.0 - 2.0)
+        "strength_clip": 3.0,     # CLIP strength (0.0 - 2.0)
         "bypass_model": False,    # Set to True to bypass model part of this LoRA
         "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
         "enabled": True,          # Set to False to disable this LoRA entirely
@@ -64,7 +65,8 @@ LORAS = [
         # Serial mode specific settings (only used when LORA_MODE = "serial")
         "steps": 9,               # Sampling steps for this LoRA (serial mode only)
         "denoising_strength": 1,  # Denoising strength (0.0 - 1.0) (serial mode only)
-        "save_intermediate": True # Save intermediate results for debugging (serial mode only)
+        "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
+        "use_only_intermediate": False # Set to True to disable character images and use only intermediate result
     },
     {
         "name": "Ghibli_lora_weights.safetensors",  # Example second LoRA
@@ -77,7 +79,8 @@ LORAS = [
         # Serial mode specific settings
         "steps": 45,
         "denoising_strength": 0.6,
-        "save_intermediate": True
+        "save_intermediate": True,
+        "use_only_intermediate": True  # This LoRA will only use intermediate result, no character images
     },
 ]
 
@@ -88,7 +91,7 @@ SAMPLING_STEPS = 25  # Number of sampling steps (higher = better quality, slower
 USE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to disable
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
-ART_STYLE = "Realistic Digital 3D Animation"
+ART_STYLE = "Anime"
 
 class ThumbnailProcessor:
     def __init__(self, comfyui_url: str = "http://127.0.0.1:8188/", mode: str = "diffusion"):
@@ -100,6 +103,8 @@ class ThumbnailProcessor:
         self.final_output_dir = "../output"
         self.intermediate_output_dir = "../output/lora"
         self.final_output_path = os.path.join(self.final_output_dir, "thumbnail.png")
+        # Latent image input file path
+        self.latent_image_path = "../input/10.latent.png"
 
         os.makedirs(self.final_output_dir, exist_ok=True)
         os.makedirs(self.intermediate_output_dir, exist_ok=True)
@@ -295,37 +300,21 @@ class ThumbnailProcessor:
         return workflow
 
     def _update_workflow_resolution(self, workflow: dict, width: int, height: int) -> dict:
-        """Update the workflow with dynamic resolution settings."""
-        # Handle Flux workflow with FluxResolutionNode
-        flux_resolution_node = self._find_node_by_class(workflow, "FluxResolutionNode")
-        if flux_resolution_node:
-            node_id = flux_resolution_node[0]
-            workflow[node_id]["inputs"]["megapixel"] = IMAGE_MEGAPIXEL
-            workflow[node_id]["inputs"]["aspect_ratio"] = IMAGE_ASPECT_RATIO
-            workflow[node_id]["inputs"]["divisible_by"] = IMAGE_DIVISIBLE_BY
-            workflow[node_id]["inputs"]["custom_ratio"] = IMAGE_CUSTOM_RATIO
-            workflow[node_id]["inputs"]["custom_aspect_ratio"] = IMAGE_CUSTOM_ASPECT_RATIO
-            print(f"Updated Flux resolution settings: {IMAGE_MEGAPIXEL}MP, {IMAGE_ASPECT_RATIO}")
-            return workflow
-        
-        # Handle Diffusion workflow with EmptySD3LatentImage
+        """Update the workflow with resolution settings and handle latent input mode."""
+        # Handle EmptySD3LatentImage node
         latent_image_node = self._find_node_by_class(workflow, "EmptySD3LatentImage")
         if latent_image_node:
             node_id = latent_image_node[0]
-
-            ratio_parts = IMAGE_ASPECT_RATIO.split("(")[0].strip()
-            width_ratio, height_ratio = map(int, ratio_parts.split(":"))
-            total_pixels = float(IMAGE_MEGAPIXEL) * 1000000
-            aspect_ratio = width_ratio / height_ratio
-            height = int((total_pixels / aspect_ratio) ** 0.5)
-            width = int(height * aspect_ratio)
-            divisible_by = int(IMAGE_DIVISIBLE_BY)
-            width = (width // divisible_by) * divisible_by
-            height = (height // divisible_by) * divisible_by
-
-            workflow[node_id]["inputs"]["width"] = width
-            workflow[node_id]["inputs"]["height"] = height
-            print(f"Using calculated dimensions: {width}x{height}")
+            
+            if LATENT_MODE == "IMAGE":
+                # Replace EmptySD3LatentImage with LoadImage + VAEEncode for image input
+                self._replace_latent_with_image_input(workflow, node_id, self.latent_image_path)
+                print(f"Using image input mode with file: {self.latent_image_path}")
+            else:
+                # Normal latent mode - set dimensions
+                workflow[node_id]["inputs"]["width"] = width
+                workflow[node_id]["inputs"]["height"] = height
+                print(f"Using latent mode with dimensions: {width}x{height}")
         
         return workflow
 
@@ -347,6 +336,110 @@ class ThumbnailProcessor:
             pass  # Best-effort; ignore if structure unexpected
         
         return workflow
+
+    def _replace_latent_with_image_input(self, workflow: dict, latent_node_id: str, image_path: str) -> None:
+        """Replace EmptySD3LatentImage with LoadImage + VAEEncode for image input."""
+        try:
+            # Copy the image to ComfyUI input folder
+            image_filename = os.path.basename(image_path)
+            comfyui_input_path = os.path.join("../../ComfyUI/input", image_filename)
+            if os.path.exists(image_path):
+                shutil.copy2(image_path, comfyui_input_path)
+                print(f"  Copied image to ComfyUI input: {image_filename}")
+            else:
+                print(f"WARNING: Image file not found: {image_path}")
+            
+            # Find the next available node ID
+            max_id = max(int(k) for k in workflow.keys() if k.isdigit())
+            load_image_node_id = str(max_id + 1)
+            encode_node_id = str(max_id + 2)
+            
+            # Create LoadImage node
+            workflow[load_image_node_id] = {
+                "inputs": {"image": image_filename},
+                "class_type": "LoadImage",
+                "_meta": {"title": "Load Latent Image"}
+            }
+            
+            # Create VAEEncode node to convert image to latent
+            workflow[encode_node_id] = {
+                "inputs": {
+                    "pixels": [load_image_node_id, 0],
+                    "vae": ["11", 0]  # Use existing VAE
+                },
+                "class_type": "VAEEncode",
+                "_meta": {"title": "VAE Encode (Latent Image)"}
+            }
+            
+            # Find KSampler and update its latent_image input and denoising strength
+            for sampler_id, sampler_node in workflow.items():
+                if isinstance(sampler_node, dict) and sampler_node.get("class_type") == "KSampler":
+                    if "latent_image" in sampler_node.get("inputs", {}):
+                        sampler_node["inputs"]["latent_image"] = [encode_node_id, 0]
+                        sampler_node["inputs"]["denoise"] = LATENT_DENOISING_STRENGTH
+                        break
+            
+            # Remove the original EmptySD3LatentImage node
+            del workflow[latent_node_id]
+            
+            print(f"  Replaced EmptySD3LatentImage with LoadImage + VAEEncode")
+            print(f"  LoadImage node: {load_image_node_id}, VAEEncode node: {encode_node_id}")
+            print(f"  Denoising strength set to: {LATENT_DENOISING_STRENGTH}")
+            
+        except Exception as e:
+            print(f"WARNING: Failed to replace latent with image input: {e}")
+
+    def _replace_latent_with_previous_output(self, workflow: dict, image_path: str) -> None:
+        """Replace EmptySD3LatentImage with LoadImage + VAEEncode for previous LoRA output."""
+        try:
+            # Copy the previous LoRA output to ComfyUI input folder
+            image_filename = os.path.basename(image_path)
+            comfyui_input_path = os.path.join("../../ComfyUI/input", image_filename)
+            if os.path.exists(image_path):
+                shutil.copy2(image_path, comfyui_input_path)
+                print(f"  Copied previous LoRA output to ComfyUI input: {image_filename}")
+            else:
+                print(f"WARNING: Previous LoRA output not found: {image_path}")
+            
+            # Find the next available node ID
+            max_id = max(int(k) for k in workflow.keys() if k.isdigit())
+            load_image_node_id = str(max_id + 1)
+            encode_node_id = str(max_id + 2)
+            
+            # Create LoadImage node
+            workflow[load_image_node_id] = {
+                "inputs": {"image": image_filename},
+                "class_type": "LoadImage",
+                "_meta": {"title": "Load Previous LoRA Output"}
+            }
+            
+            # Create VAEEncode node to convert image to latent
+            workflow[encode_node_id] = {
+                "inputs": {
+                    "pixels": [load_image_node_id, 0],
+                    "vae": ["11", 0]  # Use existing VAE
+                },
+                "class_type": "VAEEncode",
+                "_meta": {"title": "VAE Encode (Previous LoRA Output)"}
+            }
+            
+            # Find KSampler and update its latent_image input and denoising strength
+            for sampler_id, sampler_node in workflow.items():
+                if isinstance(sampler_node, dict) and sampler_node.get("class_type") == "KSampler":
+                    if "latent_image" in sampler_node.get("inputs", {}):
+                        sampler_node["inputs"]["latent_image"] = [encode_node_id, 0]
+                        # Keep the existing denoising strength from LoRA config
+                        break
+            
+            # Remove the original EmptySD3LatentImage node
+            if "19" in workflow:
+                del workflow["19"]
+            
+            print(f"  Replaced EmptySD3LatentImage with LoadImage + VAEEncode")
+            print(f"  LoadImage node: {load_image_node_id}, VAEEncode node: {encode_node_id}")
+            
+        except Exception as e:
+            print(f"WARNING: Failed to replace latent with previous output: {e}")
 
     def _generate_thumbnail_serial(self, prompt_text: str) -> str | None:
         """Generate thumbnail using serial LoRA mode with intermediate storage."""
@@ -389,11 +482,15 @@ class ThumbnailProcessor:
                 self._update_node_connections(workflow, "KSampler", "steps", steps)
                 self._update_node_connections(workflow, "KSampler", "denoise", denoising_strength)
                 
-                # If this is not the first LoRA, use previous output as input
+                # Handle input for this LoRA (first LoRA can use latent/image mode, subsequent LoRAs use previous output)
                 if i > 0 and current_image_path:
-                    # Load previous image as input for this LoRA
-                    self._set_image_input(workflow, current_image_path)
-                    print(f"  Using previous LoRA output as input")
+                    # For subsequent LoRAs, use previous output as input
+                    self._replace_latent_with_previous_output(workflow, current_image_path)
+                    print(f"  Using previous LoRA output as latent input")
+                elif i == 0 and LATENT_MODE == "IMAGE":
+                    # For first LoRA, use image input mode if configured
+                    self._replace_latent_with_image_input(workflow, "19", self.latent_image_path)
+                    print(f"  Using image input mode for first LoRA with file: {self.latent_image_path}")
                 
                 print(f"  Steps: {steps}, Denoising: {denoising_strength}")
                 
