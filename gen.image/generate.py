@@ -75,8 +75,8 @@ SCRIPTS = [
     # "../gen.audio/scripts/8.combine.py"
 
     #Video
-    # "2.character.py",
-    # "3.scene.py",
+    "2.character.py",
+    "3.scene.py",
     # "5.video.py",
     # "6.combine.py",
 
