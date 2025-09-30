@@ -83,14 +83,19 @@ class ResumableState:
         except Exception as ex:
             print(f"WARNING: Error in cleanup: {ex}")
     
-    def validate_and_cleanup_results(self) -> int:
+    def validate_and_cleanup_results(self, output_sfx_dir: str = None) -> int:
         """Validate that all completed audio files actually exist and clean up missing entries.
+        
+        Args:
+            output_sfx_dir: Path to the output/sfx directory to check for actual files
         
         Returns:
             int: Number of entries cleaned up (removed from completed list)
         """
         cleaned_count = 0
         audio_files_to_remove = []
+        
+        print(f"Validating {len(self.state['audio_files']['completed'])} completed audio files against output/sfx directory...")
         
         # Check each completed audio file
         for file_key in self.state["audio_files"]["completed"]:
@@ -108,6 +113,16 @@ class ResumableState:
                 print(f"  Output file exists: {output_exists} ({output_file_path})")
                 audio_files_to_remove.append(file_key)
                 cleaned_count += 1
+            elif output_sfx_dir:
+                # Additional check: verify file exists in output/sfx directory
+                expected_sfx_file = os.path.join(output_sfx_dir, os.path.basename(output_file_path))
+                if not os.path.exists(expected_sfx_file):
+                    print(f"Precheck: SFX file missing in output/sfx directory for {file_key} - marking as not completed")
+                    print(f"  Expected: {expected_sfx_file}")
+                    audio_files_to_remove.append(file_key)
+                    cleaned_count += 1
+                else:
+                    print(f"Precheck: ✓ {file_key} validated in output/sfx directory")
         
         # Remove invalid entries
         for file_key in audio_files_to_remove:
@@ -122,6 +137,57 @@ class ResumableState:
             print(f"Precheck: Cleaned up {cleaned_count} invalid entries from checkpoint")
         
         return cleaned_count
+    
+    def sync_with_output_directory(self, output_sfx_dir: str) -> int:
+        """Sync resumable state with actual files in output directory.
+        
+        This method finds files that exist in the output directory but aren't tracked
+        in the resumable state, and adds them to the completed list.
+        
+        Args:
+            output_sfx_dir: Path to the output/sfx directory to check for actual files
+        
+        Returns:
+            int: Number of files found and added to completed list
+        """
+        if not os.path.exists(output_sfx_dir):
+            print(f"Output/sfx directory does not exist: {output_sfx_dir}")
+            return 0
+            
+        added_count = 0
+        tracked_files = set(self.state["audio_files"]["completed"])
+        
+        print(f"Scanning output/sfx directory for untracked files: {output_sfx_dir}")
+        
+        # Find all audio files in the output directory
+        for filename in os.listdir(output_sfx_dir):
+            if filename.endswith(('.flac', '.wav', '.mp3')):
+                # Create a file key based on filename
+                file_key = f"auto_detected_{filename}"
+                
+                # If this file isn't tracked, add it to completed
+                if file_key not in tracked_files:
+                    file_path = os.path.join(output_sfx_dir, filename)
+                    result = {
+                        'file': file_path,
+                        'output_file': file_path,
+                        'auto_detected': True
+                    }
+                    self.state["audio_files"]["results"][file_key] = result
+                    self.state["audio_files"]["completed"].append(file_key)
+                    added_count += 1
+                    print(f"Auto-detected completed SFX file: {file_key} -> {file_path}")
+                else:
+                    print(f"SFX file already tracked: {file_key}")
+        
+        # Save state if any files were added
+        if added_count > 0:
+            self._save_state()
+            print(f"Auto-detection: Added {added_count} files from output/sfx directory")
+        else:
+            print("No untracked SFX files found in output/sfx directory")
+        
+        return added_count
     
     def get_progress_summary(self) -> str:
         """Get a summary of current progress."""

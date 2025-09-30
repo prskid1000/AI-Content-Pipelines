@@ -151,8 +151,11 @@ class ResumableState:
         except Exception as ex:
             print(f"WARNING: Error in cleanup: {ex}")
     
-    def validate_and_cleanup_results(self) -> int:
+    def validate_and_cleanup_results(self, output_characters_dir: str = None) -> int:
         """Validate that all completed character files actually exist and clean up missing entries.
+        
+        Args:
+            output_characters_dir: Path to the output/characters directory to check for actual files
         
         Returns:
             int: Number of entries cleaned up (removed from completed list)
@@ -160,16 +163,31 @@ class ResumableState:
         cleaned_count = 0
         characters_to_remove = []
         
+        print(f"Validating {len(self.state['characters']['completed'])} completed characters against output/characters directory...")
+        
         # Check each completed character
         for character_name in self.state["characters"]["completed"]:
             result = self.state["characters"]["results"].get(character_name, {})
             file_path = result.get('path', '')
             
             # Check if file actually exists
-            if not file_path or not os.path.exists(file_path):
+            main_exists = file_path and os.path.exists(file_path)
+            
+            if not main_exists:
                 print(f"Precheck: File missing for {character_name} - marking as not completed")
+                print(f"  Main file exists: {main_exists} ({file_path})")
                 characters_to_remove.append(character_name)
                 cleaned_count += 1
+            elif output_characters_dir:
+                # Additional check: verify file exists in output/characters directory
+                expected_character_file = os.path.join(output_characters_dir, f"{character_name}.png")
+                if not os.path.exists(expected_character_file):
+                    print(f"Precheck: Character file missing in output/characters directory for {character_name} - marking as not completed")
+                    print(f"  Expected: {expected_character_file}")
+                    characters_to_remove.append(character_name)
+                    cleaned_count += 1
+                else:
+                    print(f"Precheck: ✓ {character_name} validated in output/characters directory")
         
         # Remove invalid entries
         for character_name in characters_to_remove:
@@ -184,6 +202,57 @@ class ResumableState:
             print(f"Precheck: Cleaned up {cleaned_count} invalid entries from checkpoint")
         
         return cleaned_count
+    
+    def sync_with_output_directory(self, output_characters_dir: str) -> int:
+        """Sync resumable state with actual files in output directory.
+        
+        This method finds files that exist in the output directory but aren't tracked
+        in the resumable state, and adds them to the completed list.
+        
+        Args:
+            output_characters_dir: Path to the output/characters directory to check for actual files
+        
+        Returns:
+            int: Number of files found and added to completed list
+        """
+        if not os.path.exists(output_characters_dir):
+            print(f"Output/characters directory does not exist: {output_characters_dir}")
+            return 0
+            
+        added_count = 0
+        tracked_characters = set(self.state["characters"]["completed"])
+        
+        print(f"Scanning output/characters directory for untracked files: {output_characters_dir}")
+        
+        # Find all .png files in the output directory
+        for filename in os.listdir(output_characters_dir):
+            if filename.endswith('.png'):
+                # Extract character name from filename (remove .png extension)
+                character_name = filename[:-4]
+                
+                # If this character isn't tracked, add it to completed
+                if character_name not in tracked_characters:
+                    file_path = os.path.join(output_characters_dir, filename)
+                    result = {
+                        'path': file_path,
+                        'character_name': character_name,
+                        'auto_detected': True
+                    }
+                    self.state["characters"]["results"][character_name] = result
+                    self.state["characters"]["completed"].append(character_name)
+                    added_count += 1
+                    print(f"Auto-detected completed character: {character_name} -> {file_path}")
+                else:
+                    print(f"Character already tracked: {character_name}")
+        
+        # Save state if any files were added
+        if added_count > 0:
+            self._save_state()
+            print(f"Auto-detection: Added {added_count} characters from output/characters directory")
+        else:
+            print("No untracked character files found in output/characters directory")
+        
+        return added_count
     
     def get_progress_summary(self) -> str:
         """Get a summary of current progress."""
@@ -1705,8 +1774,15 @@ class CharacterGenerator:
 
         # Use resumable state if available, otherwise fall back to file-based checking
         if resumable_state:
-            # Run precheck to validate file existence and clean up invalid entries
-            cleaned_count = resumable_state.validate_and_cleanup_results()
+            print(f"Validating and syncing with output/characters directory: {self.final_output_dir}")
+            
+            # First, sync with output/characters directory to detect any manually added files
+            synced_count = resumable_state.sync_with_output_directory(self.final_output_dir)
+            if synced_count > 0:
+                print(f"Sync completed: {synced_count} characters auto-detected from output/characters directory")
+            
+            # Then run precheck to validate file existence and clean up invalid entries
+            cleaned_count = resumable_state.validate_and_cleanup_results(self.final_output_dir)
             if cleaned_count > 0:
                 print(f"Precheck completed: {cleaned_count} invalid entries removed from checkpoint")
             

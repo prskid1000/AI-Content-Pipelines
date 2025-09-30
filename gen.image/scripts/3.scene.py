@@ -165,14 +165,19 @@ class ResumableState:
         except Exception as ex:
             print(f"WARNING: Error in cleanup: {ex}")
     
-    def validate_and_cleanup_results(self) -> int:
+    def validate_and_cleanup_results(self, output_scene_dir: str = None) -> int:
         """Validate that all completed scene files actually exist and clean up missing entries.
+        
+        Args:
+            output_scene_dir: Path to the output/scene directory to check for actual files
         
         Returns:
             int: Number of entries cleaned up (removed from completed list)
         """
         cleaned_count = 0
         scenes_to_remove = []
+        
+        print(f"Validating {len(self.state['scenes']['completed'])} completed scenes against output/scene directory...")
         
         # Check each completed scene
         for scene_id in self.state["scenes"]["completed"]:
@@ -184,6 +189,16 @@ class ResumableState:
                 print(f"Precheck: File missing for {scene_id} - marking as not completed")
                 scenes_to_remove.append(scene_id)
                 cleaned_count += 1
+            elif output_scene_dir:
+                # Additional check: verify file exists in output/scene directory
+                expected_scene_file = os.path.join(output_scene_dir, f"{scene_id}.png")
+                if not os.path.exists(expected_scene_file):
+                    print(f"Precheck: Scene file missing in output/scene directory for {scene_id} - marking as not completed")
+                    print(f"  Expected: {expected_scene_file}")
+                    scenes_to_remove.append(scene_id)
+                    cleaned_count += 1
+                else:
+                    print(f"Precheck: ✓ {scene_id} validated in output/scene directory")
         
         # Remove invalid entries
         for scene_id in scenes_to_remove:
@@ -198,6 +213,58 @@ class ResumableState:
             print(f"Precheck: Cleaned up {cleaned_count} invalid entries from checkpoint")
         
         return cleaned_count
+    
+    def sync_with_output_directory(self, output_scene_dir: str) -> int:
+        """Sync resumable state with actual files in output directory.
+        
+        This method finds files that exist in the output directory but aren't tracked
+        in the resumable state, and adds them to the completed list.
+        
+        Args:
+            output_scene_dir: Path to the output/scene directory to check for actual files
+        
+        Returns:
+            int: Number of files found and added to completed list
+        """
+        if not os.path.exists(output_scene_dir):
+            print(f"Output/scene directory does not exist: {output_scene_dir}")
+            return 0
+            
+        added_count = 0
+        tracked_scenes = set(self.state["scenes"]["completed"])
+        
+        print(f"Scanning output/scene directory for untracked files: {output_scene_dir}")
+        
+        # Find all .png files in the output directory
+        for filename in os.listdir(output_scene_dir):
+            if filename.endswith('.png'):
+                scene_id = filename[:-4]  # Remove .png extension
+                
+                # If this scene isn't tracked, add it to completed
+                if scene_id not in tracked_scenes:
+                    file_path = os.path.join(output_scene_dir, filename)
+                    result = {
+                        'path': file_path,
+                        'scene_id': scene_id,
+                        'scene_description': f"Auto-detected from output/scene directory",
+                        'character_names': [],
+                        'auto_detected': True
+                    }
+                    self.state["scenes"]["results"][scene_id] = result
+                    self.state["scenes"]["completed"].append(scene_id)
+                    added_count += 1
+                    print(f"Auto-detected completed scene: {scene_id} -> {file_path}")
+                else:
+                    print(f"Scene already tracked: {scene_id}")
+        
+        # Save state if any files were added
+        if added_count > 0:
+            self._save_state()
+            print(f"Auto-detection: Added {added_count} scenes from output/scene directory")
+        else:
+            print("No untracked scenes found in output/scene directory")
+        
+        return added_count
     
     def get_progress_summary(self) -> str:
         """Get a summary of current progress."""
@@ -2014,8 +2081,15 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
 
         # Use resumable state if available, otherwise fall back to file-based checking
         if resumable_state:
-            # Run precheck to validate file existence and clean up invalid entries
-            cleaned_count = resumable_state.validate_and_cleanup_results()
+            print(f"Validating cache against output/scene directory: {self.final_output_dir}")
+            
+            # First, sync with output/scene directory to detect any manually added files
+            synced_count = resumable_state.sync_with_output_directory(self.final_output_dir)
+            if synced_count > 0:
+                print(f"Sync completed: {synced_count} scenes auto-detected from output/scene directory")
+            
+            # Then run precheck to validate file existence and clean up invalid entries
+            cleaned_count = resumable_state.validate_and_cleanup_results(self.final_output_dir)
             if cleaned_count > 0:
                 print(f"Precheck completed: {cleaned_count} invalid entries removed from checkpoint")
             
