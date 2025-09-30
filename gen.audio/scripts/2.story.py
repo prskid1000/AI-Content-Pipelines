@@ -322,8 +322,8 @@ class StoryProcessor:
         failed_chunks = 0
         skipped_chunks = 0
         
-        # Calculate total lines for percentage calculation
-        total_lines = len(story_text.strip().split('\n'))
+        # Calculate total characters for percentage calculation
+        total_characters = len(story_text.strip())
         
         print(f"\n📊 STORY PROCESSING PROGRESS")
         print("=" * 80)
@@ -336,9 +336,9 @@ class StoryProcessor:
             end_line = chunk['end_line']
             chunk_text = chunk['text']
             
-            # Calculate progress percentage
-            lines_processed = end_line
-            progress_percent = (lines_processed / total_lines) * 100
+            # Calculate progress percentage based on characters processed
+            characters_processed = sum(len(c['text']) for c in chunks[:chunk_number])
+            progress_percent = (characters_processed / total_characters) * 100
             
             # Check if resumable and chunk already complete
             if resumable_state and resumable_state.is_chunk_complete(chunk_number):
