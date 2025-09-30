@@ -1585,8 +1585,8 @@ class ThumbnailProcessor:
         """Get the master prompt content."""
         return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
 All Non-Living Objects mentioned in Scene text-description must be present in illustration.Must Always Precisely & Accurately Represent entire Scene including all Non-Living Objects according to scene text-description.
-Must Always Precisely & Accurately Preserve each Character's identity (Appearance(property like Color, Texture, Shape,Details, Style, Type) of Facial and Body Features as well as entire Clothing) from respective specified reference image and image-section.
-All other aspects of Characters like "Posture", "Expression", "Movement", "Placement and Location", "Size is proportional to the scene", is adaptable according to Scene and Character text-description.
+Must Always Precisely & Accurately Preserve each Character's identity (Appearance(properties like Color, Texture, Shape,Details, Style, Type) of Facial and Body Features as well as entire Clothing) from respective specified reference image and image-section.
+All other aspects of Characters is adaptable/must change according to Scene and Character text-description.
 Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
         """.format(ART_STYLE=ART_STYLE)
         
