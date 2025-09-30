@@ -1052,7 +1052,7 @@ class ThumbnailProcessor:
         except Exception:
             return False
 
-def _get_master_prompt(self) -> str:
+    def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
         return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
 All Non-Living Objects mentioned in Scene text-description must be present in illustration.Must Always Precisely & Accurately Represent entire Scene including all Non-Living Objects according to scene text-description.
@@ -1087,7 +1087,7 @@ if __name__ == "__main__":
         # Only include title in prompt when not using overlay (let model generate text)
         prompt = "TITLE DESCRIPTION: ADD A very large semi-transparent floating newspaper at top-center with arial bold font & grammatically correct english-only legible engraving as \"" + processor._normalize_title(title) + "\"\n\n" + prompt
 
-    result = processor.generate_thumbnail(_get_master_prompt() + "\n\n " + prompt)
+    result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt)
     if result:
         if isinstance(result, list):
             for p in result:
