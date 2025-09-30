@@ -10,6 +10,7 @@ from pathlib import Path
 
 
 CHARACTER_SUMMARY_CHARACTER_COUNT = 600
+CHARACTER_REWRITE_CHARACTER_COUNT = 800
 LOCATION_CHARACTER_COUNT = 3600
 STORY_DESCRIPTION_CHARACTER_COUNT = 16000
 
@@ -17,7 +18,7 @@ STORY_DESCRIPTION_CHARACTER_COUNT = 16000
 ENABLE_CHARACTER_REWRITE = True  # Set to False to skip character rewriting step
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
-ENABLE_THINKING = False  # Set to True to enable thinking in LM Studio responses
+ENABLE_THINKING = True  # Set to True to enable thinking in LM Studio responses
 
 # Model constants for easy switching
 MODEL_STORY_DESCRIPTION = "qwen/qwen3-14b"  # Model for generating story descriptions
@@ -1045,17 +1046,16 @@ VISUAL DISTINCTIVENESS REQUIREMENTS:
 - Make facial features completely different between characters (eye shape, nose type, mouth, jawline)
 - Vary skin tones, textures, and complexions significantly
 - Create distinct hair colors, styles, and textures
-- Vary body builds, heights, and physical proportions
 - Modify clothing styles, colors, and personal accessories
-- **CRITICAL**: Preserve age information and essential story elements
+- **CRITICAL**: Preserve age information,professions, and essential story elements
 
 VISUAL QUALITY STANDARDS:
 - Focus on vivid, specific visual descriptions that AI can render
 - Emphasize physical appearance over personality or background details
 - Use descriptive visual terms (colors, shapes, textures, materials)
-- Ensure each character has a completely unique visual identity
-- Write descriptions optimized for AI image generation
-- Avoid non-visual elements like personality traits or backstory details
+- Ensure each character has a completely unique visual identity.
+- Write descriptions optimized for AI image generation.
+- Avoid non-visual elements like personality traits or backstory details.
 
 Return a JSON object with "rewritten_characters" containing character names as keys and their rewritten descriptions as string values."""
 
