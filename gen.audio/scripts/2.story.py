@@ -221,6 +221,166 @@ class StoryProcessor:
             node['inputs']['value'] = story_text
         return workflow
     
+    def _print_workflow_summary(self, workflow: dict, title: str) -> None:
+        """Print a comprehensive workflow summary showing the flow to sampler inputs."""
+        print(f"\n🔗 WORKFLOW SUMMARY: {title}")
+        
+        # Find the main TTS node (UnifiedTTSTextNode)
+        tts_node = None
+        tts_id = None
+        for node_id, node in workflow.items():
+            if node.get("class_type") == "UnifiedTTSTextNode":
+                tts_node = node
+                tts_id = node_id
+                break
+        
+        if tts_node:
+            inputs = tts_node.get("inputs", {})
+            print(f"   📊 UnifiedTTSTextNode({tts_id}) - Core Parameters:")
+            print(f"      🎤 Voice: {inputs.get('narrator_voice', 'N/A')}")
+            print(f"      🌱 Seed: {inputs.get('seed', 'N/A')}")
+            print(f"      📝 Chunking: {inputs.get('enable_chunking', 'N/A')}")
+            print(f"      📏 Max Chars: {inputs.get('max_chars_per_chunk', 'N/A')}")
+            print(f"      🔄 Combination: {inputs.get('chunk_combination_method', 'N/A')}")
+            print(f"      ⏱️ Silence: {inputs.get('silence_between_chunks_ms', 'N/A')}ms")
+            print(f"      💾 Cache: {inputs.get('enable_audio_cache', 'N/A')}")
+            
+            # Trace input flows
+            self._trace_input_flow(workflow, "text", inputs.get("text", [None, 0])[0], inputs.get("text", [None, 0])[1], tts_id)
+            self._trace_input_flow(workflow, "TTS_engine", inputs.get("TTS_engine", [None, 0])[0], inputs.get("TTS_engine", [None, 0])[1], tts_id)
+        
+        # Also check for SaveAudioMP3 node
+        save_node = None
+        save_id = None
+        for node_id, node in workflow.items():
+            if node.get("class_type") == "SaveAudioMP3":
+                save_node = node
+                save_id = node_id
+                break
+        
+        if save_node:
+            inputs = save_node.get("inputs", {})
+            print(f"\n   💾 SaveAudioMP3({save_id}) - Output Settings:")
+            print(f"      📁 Prefix: {inputs.get('filename_prefix', 'N/A')}")
+            print(f"      🎵 Quality: {inputs.get('quality', 'N/A')}")
+            
+            # Trace input flows
+            self._trace_input_flow(workflow, "audio", inputs.get("audio", [None, 0])[0], inputs.get("audio", [None, 0])[1], save_id)
+        
+        print("   " + "="*50)
+    
+    def _trace_input_flow(self, workflow: dict, input_name: str, source_node_id: str, source_output: int, target_id: str) -> None:
+        """Dynamically trace the flow from source to target input using backward tracing."""
+        if source_node_id not in workflow:
+            print(f"   ❌ {input_name}: Source node {source_node_id} not found")
+            return
+            
+        print(f"\n   🔗 {input_name.upper()} FLOW:")
+        # Use backward tracing to build the complete path
+        path_data = []
+        self._trace_node_backwards_with_storage(workflow, source_node_id, target_id, 0, path_data, input_name)
+        # Print the path in reverse order (source to target)
+        self._print_reverse_path(workflow, path_data, target_id)
+    
+    def _trace_node_backwards_with_storage(self, workflow: dict, node_id: str, target_id: str, depth: int, path_data: list, specific_input: str = None) -> None:
+        """Recursively trace backwards through the workflow graph and store path data."""
+        if node_id not in workflow:
+            return
+            
+        node = workflow[node_id]
+        node_type = node.get("class_type", "Unknown")
+        node_inputs = node.get("inputs", {})
+        
+        # Store current node data
+        node_data = {
+            "node_id": node_id,
+            "node_type": node_type,
+            "node_inputs": node_inputs,
+            "depth": depth
+        }
+        path_data.append(node_data)
+        
+        # Continue tracing backwards for specific input or all inputs
+        if specific_input and specific_input in node_inputs:
+            # Trace only the specific input
+            input_value = node_inputs[specific_input]
+            if isinstance(input_value, list) and len(input_value) >= 2:
+                upstream_node_id = input_value[0]
+                if upstream_node_id in workflow and upstream_node_id != node_id:  # Avoid infinite loops
+                    self._trace_node_backwards_with_storage(workflow, upstream_node_id, target_id, depth + 1, path_data)
+        else:
+            # Trace all inputs (original behavior)
+            for input_name, input_value in node_inputs.items():
+                if isinstance(input_value, list) and len(input_value) >= 2:
+                    upstream_node_id = input_value[0]
+                    if upstream_node_id in workflow and upstream_node_id != node_id:  # Avoid infinite loops
+                        self._trace_node_backwards_with_storage(workflow, upstream_node_id, target_id, depth + 1, path_data)
+    
+    def _print_reverse_path(self, workflow: dict, path_data: list, target_id: str) -> None:
+        """Print the stored path data in reverse order (source to target)."""
+        if not path_data:
+            print("      ❌ No path found")
+            return
+        
+        # Reverse the path data to show source → target
+        reversed_path = list(reversed(path_data))
+        
+        for i, node_data in enumerate(reversed_path):
+            node_id = node_data["node_id"]
+            node_type = node_data["node_type"]
+            node_inputs = node_data["node_inputs"]
+            depth = node_data["depth"]
+            
+            # Indent based on position in reversed path
+            indent = "      " + "   " * i
+            
+            if i == 0:
+                # First node (source)
+                print(f"{indent}📤 {node_type}({node_id})")
+            elif i == len(reversed_path) - 1:
+                # Last node (target)
+                print(f"{indent}📥 {node_type}({node_id})")
+            else:
+                # Middle nodes
+                print(f"{indent}⬇️  {node_type}({node_id})")
+            
+            # Show node parameters
+            self._show_node_parameters(node_type, node_inputs, indent + "   ")
+    
+    def _show_node_parameters(self, node_type: str, node_inputs: dict, indent: str) -> None:
+        """Show relevant parameters for a node type."""
+        if node_type == "PrimitiveStringMultiline":
+            value = node_inputs.get("value", "")
+            if len(value) > 80:
+                value = value[:80] + "..."
+            print(f"{indent}📝 Value: {value}")
+            
+        elif node_type == "UnifiedTTSTextNode":
+            print(f"{indent}🎤 Voice: {node_inputs.get('narrator_voice', 'N/A')}")
+            print(f"{indent}🌱 Seed: {node_inputs.get('seed', 'N/A')}")
+            print(f"{indent}📝 Chunking: {node_inputs.get('enable_chunking', 'N/A')}")
+            print(f"{indent}📏 Max Chars: {node_inputs.get('max_chars_per_chunk', 'N/A')}")
+            print(f"{indent}🔄 Combination: {node_inputs.get('chunk_combination_method', 'N/A')}")
+            print(f"{indent}⏱️ Silence: {node_inputs.get('silence_between_chunks_ms', 'N/A')}ms")
+            print(f"{indent}💾 Cache: {node_inputs.get('enable_audio_cache', 'N/A')}")
+            
+        elif node_type == "ChatterBoxEngineNode":
+            print(f"{indent}🌍 Language: {node_inputs.get('language', 'N/A')}")
+            print(f"{indent}📱 Device: {node_inputs.get('device', 'N/A')}")
+            print(f"{indent}🎭 Exaggeration: {node_inputs.get('exaggeration', 'N/A')}")
+            print(f"{indent}🌡️ Temperature: {node_inputs.get('temperature', 'N/A')}")
+            print(f"{indent}🎯 CFG Weight: {node_inputs.get('cfg_weight', 'N/A')}")
+            
+        elif node_type == "SaveAudioMP3":
+            print(f"{indent}💾 Prefix: {node_inputs.get('filename_prefix', 'N/A')}")
+            print(f"{indent}🎵 Quality: {node_inputs.get('quality', 'N/A')}")
+            
+        # Show any other relevant parameters
+        for key, value in node_inputs.items():
+            if key not in ['value', 'narrator_voice', 'seed', 'enable_chunking', 'max_chars_per_chunk', 'chunk_combination_method', 'silence_between_chunks_ms', 'enable_audio_cache', 'language', 'device', 'exaggeration', 'temperature', 'cfg_weight', 'filename_prefix', 'quality']:
+                if isinstance(value, (str, int, float, bool)) and len(str(value)) < 50:
+                    print(f"{indent}⚙️ {key}: {value}")
+    
     def update_workflow_filename(self, workflow, filename):
         """Update the filename in the SaveAudioMP3 node"""
         # Find the SaveAudioMP3 node and update its filename
@@ -239,6 +399,9 @@ class StoryProcessor:
             workflow = self.load_story_workflow()
             workflow = self.update_workflow_text(workflow, chunk_text)
             workflow = self.update_workflow_filename(workflow, f"chunk_{chunk_number}")
+            
+            # Print workflow summary
+            self._print_workflow_summary(workflow, f"Story Chunk {chunk_number}")
             
             # Send workflow to ComfyUI
             print(f"Sending workflow to ComfyUI...")

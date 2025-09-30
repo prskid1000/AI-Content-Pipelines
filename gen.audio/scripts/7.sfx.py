@@ -381,6 +381,160 @@ class DirectTimelineProcessor:
         
         return workflow
     
+    def _print_workflow_summary(self, workflow: dict, title: str) -> None:
+        """Print a comprehensive workflow summary showing the flow to sampler inputs."""
+        print(f"\n🔗 WORKFLOW SUMMARY: {title}")
+        print("   📊 KSampler(3) - Core Parameters:")
+        
+        # Find KSampler node
+        sampler_node = None
+        for node_id, node in workflow.items():
+            if node.get("class_type") == "KSampler":
+                sampler_node = node
+                break
+        
+        if sampler_node:
+            inputs = sampler_node.get("inputs", {})
+            print(f"      🎲 Seed: {inputs.get('seed', 'N/A')}")
+            print(f"      📈 Steps: {inputs.get('steps', 'N/A')}")
+            print(f"      🎯 CFG: {inputs.get('cfg', 'N/A')}")
+            print(f"      🎲 Sampler: {inputs.get('sampler_name', 'N/A')}")
+            print(f"      📊 Scheduler: {inputs.get('scheduler', 'N/A')}")
+            print(f"      🔄 Denoise: {inputs.get('denoise', 'N/A')}")
+            
+            # Trace input flows
+            self._trace_input_flow(workflow, "model", inputs.get("model", [None, 0])[0], inputs.get("model", [None, 0])[1], "3")
+            self._trace_input_flow(workflow, "positive", inputs.get("positive", [None, 0])[0], inputs.get("positive", [None, 0])[1], "3")
+            self._trace_input_flow(workflow, "negative", inputs.get("negative", [None, 0])[0], inputs.get("negative", [None, 0])[1], "3")
+            self._trace_input_flow(workflow, "latent_image", inputs.get("latent_image", [None, 0])[0], inputs.get("latent_image", [None, 0])[1], "3")
+        
+        print("   " + "="*50)
+    
+    def _trace_input_flow(self, workflow: dict, input_name: str, source_node_id: str, source_output: int, sampler_id: str) -> None:
+        """Dynamically trace the flow from source to sampler input using backward tracing."""
+        if source_node_id not in workflow:
+            print(f"   ❌ {input_name}: Source node {source_node_id} not found")
+            return
+            
+        print(f"\n   🔗 {input_name.upper()} FLOW:")
+        # Use backward tracing to build the complete path
+        path_data = []
+        self._trace_node_backwards_with_storage(workflow, source_node_id, sampler_id, 0, path_data, input_name)
+        # Print the path in reverse order (source to target)
+        self._print_reverse_path(workflow, path_data, sampler_id)
+    
+    def _trace_node_backwards_with_storage(self, workflow: dict, node_id: str, target_id: str, depth: int, path_data: list, specific_input: str = None) -> None:
+        """Recursively trace backwards through the workflow graph and store path data."""
+        if node_id not in workflow:
+            return
+            
+        node = workflow[node_id]
+        node_type = node.get("class_type", "Unknown")
+        node_inputs = node.get("inputs", {})
+        
+        # Store current node data
+        node_data = {
+            "node_id": node_id,
+            "node_type": node_type,
+            "node_inputs": node_inputs,
+            "depth": depth
+        }
+        path_data.append(node_data)
+        
+        # Continue tracing backwards for specific input or all inputs
+        if specific_input and specific_input in node_inputs:
+            # Trace only the specific input
+            input_value = node_inputs[specific_input]
+            if isinstance(input_value, list) and len(input_value) >= 2:
+                upstream_node_id = input_value[0]
+                if upstream_node_id in workflow and upstream_node_id != node_id:  # Avoid infinite loops
+                    self._trace_node_backwards_with_storage(workflow, upstream_node_id, target_id, depth + 1, path_data)
+        else:
+            # Trace all inputs (original behavior)
+            for input_name, input_value in node_inputs.items():
+                if isinstance(input_value, list) and len(input_value) >= 2:
+                    upstream_node_id = input_value[0]
+                    if upstream_node_id in workflow and upstream_node_id != node_id:  # Avoid infinite loops
+                        self._trace_node_backwards_with_storage(workflow, upstream_node_id, target_id, depth + 1, path_data)
+    
+    def _print_reverse_path(self, workflow: dict, path_data: list, sampler_id: str) -> None:
+        """Print the stored path data in reverse order (source to target)."""
+        if not path_data:
+            print("      ❌ No path found")
+            return
+        
+        # Reverse the path data to show source → target
+        reversed_path = list(reversed(path_data))
+        
+        for i, node_data in enumerate(reversed_path):
+            node_id = node_data["node_id"]
+            node_type = node_data["node_type"]
+            node_inputs = node_data["node_inputs"]
+            depth = node_data["depth"]
+            
+            # Indent based on position in reversed path
+            indent = "      " + "   " * i
+            
+            if i == 0:
+                # First node (source)
+                print(f"{indent}📤 {node_type}({node_id})")
+            elif i == len(reversed_path) - 1:
+                # Last node (target/sampler)
+                print(f"{indent}📥 {node_type}({node_id})")
+            else:
+                # Middle nodes
+                print(f"{indent}⬇️  {node_type}({node_id})")
+            
+            # Show node parameters
+            self._show_node_parameters(node_type, node_inputs, indent + "   ")
+    
+    def _show_node_parameters(self, node_type: str, node_inputs: dict, indent: str) -> None:
+        """Show relevant parameters for a node type."""
+        if node_type == "UnetLoaderGGUF":
+            print(f"{indent}🤖 Model: {node_inputs.get('unet_name', 'N/A')}")
+            print(f"{indent}📱 Device: {node_inputs.get('device', 'cuda')}")
+            
+        elif node_type == "LoraLoader":
+            print(f"{indent}🎨 LoRA: {node_inputs.get('lora_name', 'N/A')}")
+            print(f"{indent}💪 Model Strength: {node_inputs.get('strength_model', 'N/A')}")
+            print(f"{indent}📝 CLIP Strength: {node_inputs.get('strength_clip', 'N/A')}")
+            
+        elif node_type == "CLIPTextEncode":
+            text = node_inputs.get("text", "")
+            if len(text) > 80:
+                text = text[:80] + "..."
+            print(f"{indent}📝 Text: {text}")
+            
+        elif node_type == "EmptyLatentAudio":
+            print(f"{indent}🎵 Seconds: {node_inputs.get('seconds', 'N/A')}")
+            print(f"{indent}📦 Batch: {node_inputs.get('batch_size', 'N/A')}")
+            
+        elif node_type == "CheckpointLoaderSimple":
+            print(f"{indent}📦 Checkpoint: {node_inputs.get('ckpt_name', 'N/A')}")
+            
+        elif node_type == "CLIPLoader":
+            print(f"{indent}📖 Type: CLIPLoader")
+            print(f"{indent}📁 Clip: {node_inputs.get('clip_name', 'N/A')}")
+            print(f"{indent}⚙️ type: {node_inputs.get('type', 'N/A')}")
+            print(f"{indent}⚙️ device: {node_inputs.get('device', 'N/A')}")
+            
+        elif node_type == "VAEDecodeAudio":
+            print(f"{indent}🔄 VAE: {node_inputs.get('vae', 'N/A')}")
+            print(f"{indent}📦 Samples: {node_inputs.get('samples', 'N/A')}")
+            
+        elif node_type == "SaveAudio":
+            print(f"{indent}💾 Prefix: {node_inputs.get('filename_prefix', 'N/A')}")
+            
+        elif node_type == "SaveAudioMP3":
+            print(f"{indent}💾 Prefix: {node_inputs.get('filename_prefix', 'N/A')}")
+            print(f"{indent}🎵 Quality: {node_inputs.get('quality', 'N/A')}")
+            
+        # Show any other relevant parameters
+        for key, value in node_inputs.items():
+            if key not in ['model', 'clip', 'vae', 'pixels', 'samples', 'image', 'text', 'lora_name', 'strength_model', 'strength_clip', 'model_name', 'device', 'seconds', 'batch_size', 'filename_prefix', 'quality', 'clip_name', 'type', 'ckpt_name']:
+                if isinstance(value, (str, int, float, bool)) and len(str(value)) < 50:
+                    print(f"{indent}⚙️ {key}: {value}")
+    
     def is_silence_entry(self, description):
         """Check if an entry is a silence entry"""
         description_lower = description.lower().strip()
@@ -465,6 +619,9 @@ class DirectTimelineProcessor:
             
             workflow = self.load_sfx_workflow()
             workflow = self.update_workflow(workflow, entry['description'], duration, filename)
+            
+            # Print workflow summary
+            self._print_workflow_summary(workflow, f"SFX: {entry['description']}")
             
             response = requests.post(f"{self.comfyui_url}prompt", json={"prompt": workflow}, timeout=30)
             if response.status_code != 200:
