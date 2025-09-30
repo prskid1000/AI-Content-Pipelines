@@ -316,60 +316,103 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
         return None
     
     def estimate_remaining_time(self, current_entry: int, total_entries: int, entry_processing_time: float = None, transcript_text: str = None, sfx_description: str = None) -> str:
-        """Estimate remaining time based on processing history and content characteristics"""
-        if not self.processing_times:
-            return "No data available"
+        """Estimate remaining time based on words per minute - simple and accurate approach"""
         
-        # Calculate base average processing time per entry using ALL previous entries
-        avg_time_per_entry = sum(self.processing_times) / len(self.processing_times)
+        # Calculate total words in all entries if we have timeline data
+        total_processing_words = getattr(self, 'total_processing_words', 0)
         
-        # If we have current entry processing time, include it in the calculation
+        # For first entry with no data, provide a reasonable initial estimate
+        if not self.processing_times and entry_processing_time is None:
+            if total_processing_words > 0:
+                # Initial estimate: assume 800 words per minute for timing processing (LLM analysis)
+                words_per_minute = 800
+                remaining_words = total_processing_words - (current_entry - 1) * (total_processing_words // total_entries)
+                estimated_remaining_minutes = remaining_words / words_per_minute
+                estimated_remaining_seconds = estimated_remaining_minutes * 60
+            else:
+                # Fallback: assume 15 seconds per entry
+                remaining_entries = total_entries - current_entry
+                estimated_remaining_seconds = remaining_entries * 15.0
+            
+            return self._format_time_with_confidence(estimated_remaining_seconds, confidence="low")
+        
+        # Calculate actual words per minute from completed entries
+        if entry_processing_time and transcript_text and sfx_description:
+            # Combine transcript and SFX words for total processing words
+            entry_words = len(transcript_text.split()) + len(sfx_description.split())
+            entry_minutes = entry_processing_time / 60
+            if entry_minutes > 0:
+                current_wpm = entry_words / entry_minutes
+                # Store word processing data for better estimation
+                if not hasattr(self, 'word_processing_data'):
+                    self.word_processing_data = []
+                self.word_processing_data.append({'words': entry_words, 'time': entry_processing_time, 'wpm': current_wpm})
+        
+        # Use word-based estimation if we have word processing data
+        if hasattr(self, 'word_processing_data') and self.word_processing_data:
+            # Calculate average words per minute from actual data
+            total_words_processed = sum(data['words'] for data in self.word_processing_data)
+            total_time_processed = sum(data['time'] for data in self.word_processing_data)
+            
+            if total_time_processed > 0:
+                actual_wpm = total_words_processed / (total_time_processed / 60)
+                
+                # Estimate remaining words
+                words_processed_so_far = sum(data['words'] for data in self.word_processing_data)
+                remaining_words = total_processing_words - words_processed_so_far
+                
+                # Calculate remaining time based on actual WPM
+                estimated_remaining_minutes = remaining_words / actual_wpm
+                estimated_remaining_seconds = estimated_remaining_minutes * 60
+                
+                # Determine confidence based on data points
+                confidence = "low"
+                if len(self.word_processing_data) >= 5:
+                    confidence = "high"
+                elif len(self.word_processing_data) >= 3:
+                    confidence = "medium"
+                
+                return self._format_time_with_confidence(estimated_remaining_seconds, confidence)
+        
+        # Fallback to entry-based estimation if no word data available
         if entry_processing_time:
-            # Use all previous entries plus current entry for more accurate estimation
             all_times = self.processing_times + [entry_processing_time]
-            estimated_time_per_entry = sum(all_times) / len(all_times)
         else:
-            estimated_time_per_entry = avg_time_per_entry
+            all_times = self.processing_times
         
-        # Apply content-based adjustments if we have transcript and SFX data
-        if transcript_text and sfx_description:
-            transcript_word_count = len(transcript_text.split())
-            transcript_char_count = len(transcript_text)
-            sfx_word_count = len(sfx_description.split())
-            
-            # Calculate complexity factors
-            # Longer transcripts take more time to analyze
-            transcript_factor = 1.0 + (transcript_word_count - 20) * 0.015  # Base 20 words, +1.5% per word over/under
-            transcript_char_factor = 1.0 + (transcript_char_count - 100) * 0.001  # Base 100 chars, +0.1% per char over/under
-            
-            # SFX complexity based on description length and content type
-            sfx_factor = 1.0 + (sfx_word_count - 3) * 0.05  # Base 3 words, +5% per word over/under
-            
-            # Check for SFX complexity indicators
-            sfx_complexity = 1.0
-            if any(word in sfx_description.lower() for word in ['complex', 'layered', 'multiple', 'ambient', 'atmospheric']):
-                sfx_complexity = 1.3  # 30% longer for complex SFX
-            elif any(word in sfx_description.lower() for word in ['simple', 'single', 'basic', 'short']):
-                sfx_complexity = 0.8  # 20% shorter for simple SFX
-            elif sfx_description.lower().strip() == 'silence':
-                sfx_complexity = 0.5  # 50% shorter for silence
-            
-            # Combine factors (cap at reasonable bounds)
-            complexity_factor = min(2.5, max(0.3, (transcript_factor + transcript_char_factor + sfx_factor) / 3 * sfx_complexity))
-            estimated_time_per_entry *= complexity_factor
-        
+        # Simple average of recent processing times
+        estimated_time_per_entry = sum(all_times) / len(all_times)
         remaining_entries = total_entries - current_entry
         estimated_remaining_seconds = remaining_entries * estimated_time_per_entry
         
-        # Convert to human readable format
-        if estimated_remaining_seconds < 60:
-            return f"~{estimated_remaining_seconds:.0f}s"
-        elif estimated_remaining_seconds < 3600:
-            minutes = estimated_remaining_seconds / 60
-            return f"~{minutes:.1f}m"
+        # Determine confidence level
+        confidence = "low"
+        if len(all_times) >= 5:
+            confidence = "high"
+        elif len(all_times) >= 3:
+            confidence = "medium"
+        
+        return self._format_time_with_confidence(estimated_remaining_seconds, confidence)
+    
+    def _format_time_with_confidence(self, seconds: float, confidence: str = "medium") -> str:
+        """Format time with confidence indicator"""
+        # Format the time part
+        if seconds < 60:
+            time_str = f"~{seconds:.0f}s"
+        elif seconds < 3600:
+            minutes = seconds / 60
+            time_str = f"~{minutes:.1f}m"
         else:
-            hours = estimated_remaining_seconds / 3600
-            return f"~{hours:.1f}h"
+            hours = seconds / 3600
+            time_str = f"~{hours:.1f}h"
+        
+        # Add confidence indicator
+        if confidence == "high":
+            return f"{time_str} (✓)"
+        elif confidence == "medium":
+            return f"{time_str} (~)"
+        else:  # low
+            return f"{time_str} (?)"
     
     def format_processing_time(self, processing_time: float) -> str:
         """Format processing time in human readable format"""
@@ -628,6 +671,13 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
         
         print(f"📋 Processing {len(timing_entries)} line pairs")
         
+        # Calculate total words for ETA calculations
+        self.total_processing_words = sum(
+            len(timing_entry['description'].split()) + len(timeline_entry['description'].split()) 
+            for timing_entry, timeline_entry in zip(timing_entries, timeline_entries)
+        )
+        print(f"📊 Total processing words: {self.total_processing_words:,}")
+        
         # Initialize start time for time estimation
         self.start_time = time.time()
         
@@ -637,8 +687,6 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
         
         print(f"\n📊 TIMING SFX GENERATION PROGRESS")
         print("=" * 120)
-        print(f"{'Entry':<6} {'SFX':<30} {'Transcript':<50} {'Status':<15} {'Time':<10} {'ETA':<10}")
-        print("-" * 120)
         
         for i in range(len(timing_entries)):
             timing_entry = timing_entries[i]
@@ -652,7 +700,8 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
                 cached_timing_info = resumable_state.get_timing_entry(entry_key)
                 if cached_timing_info:
                     eta = self.estimate_remaining_time(i+1, len(timing_entries), transcript_text=timeline_entry['description'], sfx_description=timing_entry['description'])
-                    print(f"{i+1:<6} {timing_entry['description'][:30]:<30} {timeline_entry['description'][:50]:<50} {'CACHED':<15} {'--':<10} {eta:<10}")
+                    print(f"💾 Entry {i+1}/{len(timing_entries)} - SFX: {timing_entry['description'][:30]} - Transcript: {timeline_entry['description'][:50]} - Cached")
+                    print(f"📊 Estimated time remaining: {eta}")
                     print(f"   🎬 Transcript: {timeline_entry['description'][:60]}...")
                     print(f"   🎵 SFX: {timing_entry['description']} ({timing_entry['seconds']}s)")
                     print(f"🎯 Original: {timing_entry['seconds']}s, Realistic: {cached_timing_info['duration']:.2f}s, Position: {cached_timing_info['position']:.2f}")
@@ -671,7 +720,8 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
             # Skip silence entries - only process actual sound effects
             if timing_entry['description'].lower().strip() == 'silence':
                 eta = self.estimate_remaining_time(i+1, len(timing_entries), transcript_text=timeline_entry['description'], sfx_description=timing_entry['description'])
-                print(f"{i+1:<6} {timing_entry['description'][:30]:<30} {timeline_entry['description'][:50]:<50} {'SKIPPED':<15} {'--':<10} {eta:<10}")
+                print(f"⏭️ Entry {i+1}/{len(timing_entries)} - SFX: {timing_entry['description'][:30]} - Transcript: {timeline_entry['description'][:50]} - Skipped")
+                print(f"📊 Estimated time remaining: {eta}")
                 print(f"⏭️  Skipping silence entry {i+1}: {timing_entry['seconds']}s")
                 all_sfx_entries.append({
                     'seconds': timing_entry['seconds'],
@@ -682,7 +732,8 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
             
             entry_start_time = time.time()
             eta = self.estimate_remaining_time(i+1, len(timing_entries), transcript_text=timeline_entry['description'], sfx_description=timing_entry['description'])
-            print(f"{i+1:<6} {timing_entry['description'][:30]:<30} {timeline_entry['description'][:50]:<50} {'PROCESSING':<15} {'--':<10} {eta:<10}")
+            print(f"🔄 Entry {i+1}/{len(timing_entries)} - SFX: {timing_entry['description'][:30]} - Transcript: {timeline_entry['description'][:50]} - Processing...")
+            print(f"📊 Estimated time remaining: {eta}")
             print(f"   🎬 Transcript: {timeline_entry['description'][:60]}...")
             print(f"   🎵 SFX: {timing_entry['description']} ({timing_entry['seconds']}s)")
             
@@ -721,14 +772,16 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
                 entry_processing_time = time.time() - entry_start_time
                 self.processing_times.append(entry_processing_time)
                 eta = self.estimate_remaining_time(i+1, len(timing_entries), entry_processing_time, timeline_entry['description'], timing_entry['description'])
-                print(f"{i+1:<6} {timing_entry['description'][:30]:<30} {timeline_entry['description'][:50]:<50} {'COMPLETED':<15} {self.format_processing_time(entry_processing_time):<10} {eta:<10}")
+                print(f"✅ Entry {i+1}/{len(timing_entries)} - SFX: {timing_entry['description'][:30]} - Transcript: {timeline_entry['description'][:50]} - Completed in {self.format_processing_time(entry_processing_time)}")
+                print(f"📊 Estimated time remaining: {eta}")
                 print(f"✅ Sound effect {i+1} processed successfully in {entry_processing_time:.2f} seconds")
                 
             except Exception as e:
                 entry_processing_time = time.time() - entry_start_time
                 self.processing_times.append(entry_processing_time)
                 eta = self.estimate_remaining_time(i+1, len(timing_entries), entry_processing_time, timeline_entry['description'], timing_entry['description'])
-                print(f"{i+1:<6} {timing_entry['description'][:30]:<30} {timeline_entry['description'][:50]:<50} {'ERROR':<15} {self.format_processing_time(entry_processing_time):<10} {eta:<10}")
+                print(f"❌ Entry {i+1}/{len(timing_entries)} - SFX: {timing_entry['description'][:30]} - Transcript: {timeline_entry['description'][:50]} - Error after {self.format_processing_time(entry_processing_time)}")
+                print(f"📊 Estimated time remaining: {eta}")
                 print(f"❌ Error processing sound effect {i+1}: {str(e)}")
                 # Continue with next entry instead of failing completely
                 all_sfx_entries.append({

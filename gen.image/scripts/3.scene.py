@@ -304,54 +304,102 @@ class SceneGenerator:
         os.makedirs(self.comfyui_input_folder, exist_ok=True)
 
     def estimate_remaining_time(self, current_scene: int, total_scenes: int, scene_processing_time: float = None, scene_description: str = None) -> str:
-        """Estimate remaining time based on processing history and content characteristics"""
-        if not self.processing_times:
-            return "No data available"
+        """Estimate remaining time based on words per minute - simple and accurate approach"""
         
-        # Calculate base average processing time per scene using ALL previous entries
-        avg_time_per_scene = sum(self.processing_times) / len(self.processing_times)
+        # Calculate total words in all scene descriptions
+        total_scene_words = getattr(self, 'total_scene_words', 0)
         
-        # If we have current scene processing time, include it in the calculation
+        # For first scene with no data, provide a reasonable initial estimate
+        if not self.processing_times and scene_processing_time is None:
+            if total_scene_words > 0:
+                # Initial estimate: assume 200 words per minute for scene generation (image generation)
+                words_per_minute = 200
+                remaining_words = total_scene_words - (current_scene - 1) * (total_scene_words // total_scenes)
+                estimated_remaining_minutes = remaining_words / words_per_minute
+                estimated_remaining_seconds = estimated_remaining_minutes * 60
+            else:
+                # Fallback: assume 120 seconds per scene (2 minutes for image generation)
+                remaining_scenes = total_scenes - current_scene
+                estimated_remaining_seconds = remaining_scenes * 120.0
+            
+            return self._format_time_with_confidence(estimated_remaining_seconds, confidence="low")
+        
+        # Calculate actual words per minute from completed scenes
+        if scene_processing_time and scene_description:
+            scene_words = len(scene_description.split())
+            scene_minutes = scene_processing_time / 60
+            if scene_minutes > 0:
+                current_wpm = scene_words / scene_minutes
+                # Store word processing data for better estimation
+                if not hasattr(self, 'word_processing_data'):
+                    self.word_processing_data = []
+                self.word_processing_data.append({'words': scene_words, 'time': scene_processing_time, 'wpm': current_wpm})
+        
+        # Use word-based estimation if we have word processing data
+        if hasattr(self, 'word_processing_data') and self.word_processing_data:
+            # Calculate average words per minute from actual data
+            total_words_processed = sum(data['words'] for data in self.word_processing_data)
+            total_time_processed = sum(data['time'] for data in self.word_processing_data)
+            
+            if total_time_processed > 0:
+                actual_wpm = total_words_processed / (total_time_processed / 60)
+                
+                # Estimate remaining words
+                words_processed_so_far = sum(data['words'] for data in self.word_processing_data)
+                remaining_words = total_scene_words - words_processed_so_far
+                
+                # Calculate remaining time based on actual WPM
+                estimated_remaining_minutes = remaining_words / actual_wpm
+                estimated_remaining_seconds = estimated_remaining_minutes * 60
+                
+                # Determine confidence based on data points
+                confidence = "low"
+                if len(self.word_processing_data) >= 5:
+                    confidence = "high"
+                elif len(self.word_processing_data) >= 3:
+                    confidence = "medium"
+                
+                return self._format_time_with_confidence(estimated_remaining_seconds, confidence)
+        
+        # Fallback to scene-based estimation if no word data available
         if scene_processing_time:
-            # Use all previous entries plus current entry for more accurate estimation
             all_times = self.processing_times + [scene_processing_time]
-            estimated_time_per_scene = sum(all_times) / len(all_times)
         else:
-            estimated_time_per_scene = avg_time_per_scene
+            all_times = self.processing_times
         
-        # Apply content-based adjustments if we have scene description
-        if scene_description:
-            word_count = len(scene_description.split())
-            char_count = len(scene_description)
-            
-            # Calculate complexity factor based on content characteristics
-            # More complex scenes with more characters and descriptions take longer
-            word_factor = 1.0 + (word_count - 20) * 0.02  # Base 20 words, +2% per word over/under
-            char_factor = 1.0 + (char_count - 100) * 0.001  # Base 100 chars, +0.1% per char over/under
-            
-            # Check for complexity indicators
-            complexity_factor = 1.0
-            if any(word in scene_description.lower() for word in ['complex', 'detailed', 'multiple', 'many', 'crowd', 'action']):
-                complexity_factor = 1.3  # 30% longer for complex scenes
-            elif any(word in scene_description.lower() for word in ['simple', 'basic', 'single', 'minimal']):
-                complexity_factor = 0.8  # 20% shorter for simple scenes
-            
-            # Combine factors (cap at reasonable bounds)
-            complexity_factor = min(2.0, max(0.5, (word_factor + char_factor) / 2 * complexity_factor))
-            estimated_time_per_scene *= complexity_factor
-        
+        # Simple average of recent processing times
+        estimated_time_per_scene = sum(all_times) / len(all_times)
         remaining_scenes = total_scenes - current_scene
         estimated_remaining_seconds = remaining_scenes * estimated_time_per_scene
         
-        # Convert to human readable format
-        if estimated_remaining_seconds < 60:
-            return f"~{estimated_remaining_seconds:.0f}s"
-        elif estimated_remaining_seconds < 3600:
-            minutes = estimated_remaining_seconds / 60
-            return f"~{minutes:.1f}m"
+        # Determine confidence level
+        confidence = "low"
+        if len(all_times) >= 5:
+            confidence = "high"
+        elif len(all_times) >= 3:
+            confidence = "medium"
+        
+        return self._format_time_with_confidence(estimated_remaining_seconds, confidence)
+    
+    def _format_time_with_confidence(self, seconds: float, confidence: str = "medium") -> str:
+        """Format time with confidence indicator"""
+        # Format the time part
+        if seconds < 60:
+            time_str = f"~{seconds:.0f}s"
+        elif seconds < 3600:
+            minutes = seconds / 60
+            time_str = f"~{minutes:.1f}m"
         else:
-            hours = estimated_remaining_seconds / 3600
-            return f"~{hours:.1f}h"
+            hours = seconds / 3600
+            time_str = f"~{hours:.1f}h"
+        
+        # Add confidence indicator
+        if confidence == "high":
+            return f"{time_str} (✓)"
+        elif confidence == "medium":
+            return f"{time_str} (~)"
+        else:  # low
+            return f"{time_str} (?)"
     
     def format_processing_time(self, processing_time: float) -> str:
         """Format processing time in human readable format"""
@@ -2111,6 +2159,11 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
             return {}
 
         print(f"Processing {len(scenes_to_process)} scenes, skipped {len(completed_scenes)}")
+        
+        # Calculate total words for ETA calculations
+        self.total_scene_words = sum(len(description.split()) for description in scenes_to_process.values())
+        print(f"📊 Total scene words: {self.total_scene_words:,}")
+        
         print("=" * 60)
 
         results = {}
@@ -2119,13 +2172,12 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
         
         print(f"\n📊 SCENE GENERATION PROGRESS")
         print("=" * 100)
-        print(f"{'Scene':<6} {'Description':<50} {'Status':<15} {'Time':<10} {'ETA':<10}")
-        print("-" * 100)
         
         for i, (scene_id, scene_description) in enumerate(scenes_to_process.items(), 1):
             scene_start_time = time.time()
             eta = self.estimate_remaining_time(i, len(scenes_to_process), scene_description=scene_description)
-            print(f"{i:<6} {scene_description[:50]:<50} {'PROCESSING':<15} {'--':<10} {eta:<10}")
+            print(f"🔄 Scene {i}/{len(scenes_to_process)} - {scene_description[:50]} - Processing...")
+            print(f"📊 Estimated time remaining: {eta}")
             
             character_names = self._extract_characters_from_scene(scene_description)
             valid_characters = [char for char in character_names if char in characters]
@@ -2141,12 +2193,14 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
             
             if output_path:
                 eta = self.estimate_remaining_time(i, len(scenes_to_process), scene_processing_time, scene_description)
-                print(f"{i:<6} {scene_description[:50]:<50} {'✅ COMPLETED':<15} {self.format_processing_time(scene_processing_time):<10} {eta:<10}")
+                print(f"✅ Scene {i}/{len(scenes_to_process)} - {scene_description[:50]} - Completed in {self.format_processing_time(scene_processing_time)}")
+                print(f"📊 Estimated time remaining: {eta}")
                 results[scene_id] = output_path
                 print(f"[OK] Generated: {scene_id}")
             else:
                 eta = self.estimate_remaining_time(i, len(scenes_to_process), scene_processing_time, scene_description)
-                print(f"{i:<6} {scene_description[:50]:<50} {'❌ FAILED':<15} {self.format_processing_time(scene_processing_time):<10} {eta:<10}")
+                print(f"❌ Scene {i}/{len(scenes_to_process)} - {scene_description[:50]} - Failed after {self.format_processing_time(scene_processing_time)}")
+                print(f"📊 Estimated time remaining: {eta}")
                 print(f"[FAILED] {scene_id}")
 
         return results

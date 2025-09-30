@@ -339,63 +339,99 @@ class DirectTimelineProcessor:
             return None
     
     def estimate_remaining_time(self, current_file: int, total_files: int, file_processing_time: float = None, audio_duration: float = None, is_silence: bool = None, description: str = None) -> str:
-        """Estimate remaining time based on processing history and content characteristics"""
-        if not self.processing_times:
-            return "No data available"
+        """Estimate remaining time based on audio duration - simple and accurate approach"""
         
-        # Calculate base average processing time per file using ALL previous entries
-        avg_time_per_file = sum(self.processing_times) / len(self.processing_times)
+        # Calculate total audio duration if we have timeline data
+        total_audio_duration = getattr(self, 'total_audio_duration', 0)
         
-        # If we have current file processing time, include it in the calculation
+        # For first file with no data, provide a reasonable initial estimate
+        if not self.processing_times and file_processing_time is None:
+            if total_audio_duration > 0:
+                # Initial estimate: assume 10x realtime for SFX generation (10 seconds of audio takes 100 seconds to generate)
+                estimated_remaining_seconds = total_audio_duration * 10
+            else:
+                # Fallback: assume 20 seconds per file
+                remaining_files = total_files - current_file
+                estimated_remaining_seconds = remaining_files * 20.0
+            
+            return self._format_time_with_confidence(estimated_remaining_seconds, confidence="low")
+        
+        # Calculate actual generation speed from completed files
+        if file_processing_time and audio_duration is not None:
+            # Store audio processing data for better estimation
+            if not hasattr(self, 'audio_processing_data'):
+                self.audio_processing_data = []
+            self.audio_processing_data.append({
+                'audio_duration': audio_duration, 
+                'processing_time': file_processing_time, 
+                'is_silence': is_silence,
+                'speed_ratio': file_processing_time / audio_duration if audio_duration > 0 else 1.0
+            })
+        
+        # Use duration-based estimation if we have audio processing data
+        if hasattr(self, 'audio_processing_data') and self.audio_processing_data:
+            # Calculate average generation speed ratio (processing_time / audio_duration)
+            total_audio_duration_processed = sum(data['audio_duration'] for data in self.audio_processing_data)
+            total_processing_time = sum(data['processing_time'] for data in self.audio_processing_data)
+            
+            if total_audio_duration_processed > 0:
+                actual_speed_ratio = total_processing_time / total_audio_duration_processed
+                
+                # Estimate remaining audio duration
+                audio_duration_processed_so_far = sum(data['audio_duration'] for data in self.audio_processing_data)
+                remaining_audio_duration = total_audio_duration - audio_duration_processed_so_far
+                
+                # Calculate remaining time based on actual speed ratio
+                estimated_remaining_seconds = remaining_audio_duration * actual_speed_ratio
+                
+                # Determine confidence based on data points
+                confidence = "low"
+                if len(self.audio_processing_data) >= 5:
+                    confidence = "high"
+                elif len(self.audio_processing_data) >= 3:
+                    confidence = "medium"
+                
+                return self._format_time_with_confidence(estimated_remaining_seconds, confidence)
+        
+        # Fallback to file-based estimation if no audio duration data available
         if file_processing_time:
-            # Use all previous entries plus current entry for more accurate estimation
             all_times = self.processing_times + [file_processing_time]
-            estimated_time_per_file = sum(all_times) / len(all_times)
         else:
-            estimated_time_per_file = avg_time_per_file
+            all_times = self.processing_times
         
-        # Apply content-based adjustments if we have audio characteristics
-        if audio_duration is not None and is_silence is not None:
-            # Duration factor - longer audio generally takes more time to generate
-            duration_factor = 1.0 + (audio_duration - 5.0) * 0.1  # Base 5 seconds, +10% per second over/under
-            
-            # Generation method factor
-            method_factor = 0.2 if is_silence else 1.0  # Silence is much faster (20% of normal time)
-            
-            # Description complexity factor
-            complexity_factor = 1.0
-            if description:
-                word_count = len(description.split())
-                char_count = len(description)
-                
-                # More complex descriptions take longer
-                word_factor = 1.0 + (word_count - 3) * 0.1  # Base 3 words, +10% per word over/under
-                char_factor = 1.0 + (char_count - 20) * 0.01  # Base 20 chars, +1% per char over/under
-                
-                # Check for complexity indicators
-                if any(word in description.lower() for word in ['complex', 'layered', 'ambient', 'atmospheric', 'multiple']):
-                    complexity_factor = 1.5  # 50% longer for complex descriptions
-                elif any(word in description.lower() for word in ['simple', 'basic', 'single', 'short']):
-                    complexity_factor = 0.8  # 20% shorter for simple descriptions
-                
-                complexity_factor = min(2.0, max(0.5, (word_factor + char_factor) / 2 * complexity_factor))
-            
-            # Combine factors (cap at reasonable bounds)
-            total_factor = min(3.0, max(0.1, duration_factor * method_factor * complexity_factor))
-            estimated_time_per_file *= total_factor
-        
+        # Simple average of recent processing times
+        estimated_time_per_file = sum(all_times) / len(all_times)
         remaining_files = total_files - current_file
         estimated_remaining_seconds = remaining_files * estimated_time_per_file
         
-        # Convert to human readable format
-        if estimated_remaining_seconds < 60:
-            return f"~{estimated_remaining_seconds:.0f}s"
-        elif estimated_remaining_seconds < 3600:
-            minutes = estimated_remaining_seconds / 60
-            return f"~{minutes:.1f}m"
+        # Determine confidence level
+        confidence = "low"
+        if len(all_times) >= 5:
+            confidence = "high"
+        elif len(all_times) >= 3:
+            confidence = "medium"
+        
+        return self._format_time_with_confidence(estimated_remaining_seconds, confidence)
+    
+    def _format_time_with_confidence(self, seconds: float, confidence: str = "medium") -> str:
+        """Format time with confidence indicator"""
+        # Format the time part
+        if seconds < 60:
+            time_str = f"~{seconds:.0f}s"
+        elif seconds < 3600:
+            minutes = seconds / 60
+            time_str = f"~{minutes:.1f}m"
         else:
-            hours = estimated_remaining_seconds / 3600
-            return f"~{hours:.1f}h"
+            hours = seconds / 3600
+            time_str = f"~{hours:.1f}h"
+        
+        # Add confidence indicator
+        if confidence == "high":
+            return f"{time_str} (✓)"
+        elif confidence == "medium":
+            return f"{time_str} (~)"
+        else:  # low
+            return f"{time_str} (?)"
     
     def format_processing_time(self, processing_time: float) -> str:
         """Format processing time in human readable format"""
@@ -753,19 +789,21 @@ class DirectTimelineProcessor:
         generated_files = []
         batch_data = [(i, entry) for i, entry in enumerate(timeline_entries)]
         
+        # Calculate total audio duration for ETA calculations
+        self.total_audio_duration = sum(entry['seconds'] for entry in timeline_entries)
+        
         # Count silence vs non-silence entries
         silence_count = sum(1 for _, entry in batch_data if self.is_silence_entry(entry['description']))
         sfx_count = len(batch_data) - silence_count
         
         print(f"📊 Processing {len(batch_data)} entries: {silence_count} silence, {sfx_count} SFX")
+        print(f"📊 Total audio duration: {self.total_audio_duration:.1f} seconds ({self.total_audio_duration/60:.1f} minutes)")
         
         # Initialize start time for time estimation
         self.start_time = time.time()
         
         print(f"\n📊 SFX GENERATION PROGRESS")
         print("=" * 100)
-        print(f"{'File':<6} {'Type':<10} {'Duration':<10} {'Description':<40} {'Status':<15} {'Time':<10} {'ETA':<10}")
-        print("-" * 100)
         
         with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
             future_to_entry = {executor.submit(self.generate_single_sfx, data, resumable_state): data for data in batch_data}
@@ -778,13 +816,15 @@ class DirectTimelineProcessor:
                     entry_type = "Silence" if self.is_silence_entry(result['description']) else "SFX"
                     is_silence = self.is_silence_entry(result['description'])
                     eta = self.estimate_remaining_time(completed_count, len(batch_data), audio_duration=result['duration'], is_silence=is_silence, description=result['description'])
-                    print(f"{completed_count:<6} {entry_type:<10} {result['duration']:<10.3f} {result['description'][:40]:<40} {'COMPLETED':<15} {'--':<10} {eta:<10}")
+                    print(f"✅ File {completed_count}/{len(batch_data)} - {entry_type} ({result['duration']:.3f}s) - {result['description'][:40]} - Completed")
+                    print(f"📊 Estimated time remaining: {eta}")
                 else:
                     entry_data = future_to_entry[future]
                     entry_type = "Silence" if self.is_silence_entry(entry_data[1]['description']) else "SFX"
                     is_silence = self.is_silence_entry(entry_data[1]['description'])
                     eta = self.estimate_remaining_time(completed_count, len(batch_data), audio_duration=entry_data[1]['seconds'], is_silence=is_silence, description=entry_data[1]['description'])
-                    print(f"{completed_count:<6} {entry_type:<10} {entry_data[1]['seconds']:<10.3f} {entry_data[1]['description'][:40]:<40} {'FAILED':<15} {'--':<10} {eta:<10}")
+                    print(f"❌ File {completed_count}/{len(batch_data)} - {entry_type} ({entry_data[1]['seconds']:.3f}s) - {entry_data[1]['description'][:40]} - Failed")
+                    print(f"📊 Estimated time remaining: {eta}")
         
         return generated_files
     

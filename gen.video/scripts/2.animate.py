@@ -186,57 +186,124 @@ class VideoAnimator:
         self._current_silence_position = 0
 
     def estimate_remaining_time(self, current_scene: int, total_scenes: int, scene_processing_time: float = None, scene_description: str = None, duration: float = None) -> str:
-        """Estimate remaining time based on processing history and content characteristics"""
-        if not self.processing_times:
-            return "No data available"
+        """Estimate remaining time based on duration and words - hybrid approach for video generation"""
         
-        # Calculate base average processing time per scene using ALL previous entries
-        avg_time_per_scene = sum(self.processing_times) / len(self.processing_times)
+        # Calculate total video duration and words if we have scene data
+        total_video_duration = getattr(self, 'total_video_duration', 0)
+        total_video_words = getattr(self, 'total_video_words', 0)
         
-        # If we have current scene processing time, include it in the calculation
+        # For first scene with no data, provide a reasonable initial estimate
+        if not self.processing_times and scene_processing_time is None:
+            if total_video_duration > 0 and total_video_words > 0:
+                # Initial estimate: assume 30x realtime for video generation (30 seconds of video takes 900 seconds to generate)
+                duration_estimate = total_video_duration * 30
+                # Also consider text complexity: assume 50 words per minute for video processing
+                words_estimate = (total_video_words / 50) * 60
+                # Use the higher of the two estimates
+                estimated_remaining_seconds = max(duration_estimate, words_estimate)
+            elif total_video_duration > 0:
+                # Duration-based estimate only
+                estimated_remaining_seconds = total_video_duration * 30
+            elif total_video_words > 0:
+                # Words-based estimate only
+                estimated_remaining_seconds = (total_video_words / 50) * 60
+            else:
+                # Fallback: assume 300 seconds per scene (5 minutes for video generation)
+                remaining_scenes = total_scenes - current_scene
+                estimated_remaining_seconds = remaining_scenes * 300.0
+            
+            return self._format_time_with_confidence(estimated_remaining_seconds, confidence="low")
+        
+        # Calculate actual generation speed from completed scenes
+        if scene_processing_time and scene_description and duration is not None:
+            # Store video processing data for better estimation
+            if not hasattr(self, 'video_processing_data'):
+                self.video_processing_data = []
+            self.video_processing_data.append({
+                'duration': duration,
+                'words': len(scene_description.split()),
+                'processing_time': scene_processing_time,
+                'duration_ratio': scene_processing_time / duration if duration > 0 else 1.0,
+                'words_per_minute': (len(scene_description.split()) / scene_processing_time * 60) if scene_processing_time > 0 else 50
+            })
+        
+        # Use hybrid estimation if we have video processing data
+        if hasattr(self, 'video_processing_data') and self.video_processing_data:
+            # Calculate average duration ratio (processing_time / video_duration)
+            total_duration_processed = sum(data['duration'] for data in self.video_processing_data)
+            total_processing_time = sum(data['processing_time'] for data in self.video_processing_data)
+            
+            if total_duration_processed > 0:
+                actual_duration_ratio = total_processing_time / total_duration_processed
+                
+                # Estimate remaining video duration
+                duration_processed_so_far = sum(data['duration'] for data in self.video_processing_data)
+                remaining_duration = total_video_duration - duration_processed_so_far
+                
+                # Calculate remaining time based on actual duration ratio
+                duration_based_estimate = remaining_duration * actual_duration_ratio
+                
+                # Also calculate words-based estimate
+                total_words_processed = sum(data['words'] for data in self.video_processing_data)
+                if total_processing_time > 0:
+                    actual_wpm = total_words_processed / (total_processing_time / 60)
+                    words_processed_so_far = sum(data['words'] for data in self.video_processing_data)
+                    remaining_words = total_video_words - words_processed_so_far
+                    words_based_estimate = (remaining_words / actual_wpm) * 60 if actual_wpm > 0 else duration_based_estimate
+                    
+                    # Use the higher of the two estimates
+                    estimated_remaining_seconds = max(duration_based_estimate, words_based_estimate)
+                else:
+                    estimated_remaining_seconds = duration_based_estimate
+                
+                # Determine confidence based on data points
+                confidence = "low"
+                if len(self.video_processing_data) >= 5:
+                    confidence = "high"
+                elif len(self.video_processing_data) >= 3:
+                    confidence = "medium"
+                
+                return self._format_time_with_confidence(estimated_remaining_seconds, confidence)
+        
+        # Fallback to scene-based estimation if no video data available
         if scene_processing_time:
-            # Use all previous entries plus current entry for more accurate estimation
             all_times = self.processing_times + [scene_processing_time]
-            estimated_time_per_scene = sum(all_times) / len(all_times)
         else:
-            estimated_time_per_scene = avg_time_per_scene
+            all_times = self.processing_times
         
-        # Apply content-based adjustments if we have scene description and duration
-        if scene_description and duration is not None:
-            word_count = len(scene_description.split())
-            char_count = len(scene_description)
-            
-            # Calculate complexity factor based on content characteristics
-            # More complex scenes with more characters and longer durations take longer
-            word_factor = 1.0 + (word_count - 20) * 0.02  # Base 20 words, +2% per word over/under
-            char_factor = 1.0 + (char_count - 100) * 0.001  # Base 100 chars, +0.1% per char over/under
-            
-            # Duration factor - longer videos take more time to generate
-            duration_factor = 1.0 + (duration - 5.0) * 0.1  # Base 5 seconds, +10% per second over/under
-            
-            # Check for complexity indicators
-            complexity_factor = 1.0
-            if any(word in scene_description.lower() for word in ['complex', 'detailed', 'multiple', 'many', 'crowd', 'action', 'motion']):
-                complexity_factor = 1.4  # 40% longer for complex scenes
-            elif any(word in scene_description.lower() for word in ['simple', 'basic', 'single', 'minimal', 'static']):
-                complexity_factor = 0.8  # 20% shorter for simple scenes
-            
-            # Combine factors (cap at reasonable bounds)
-            complexity_factor = min(2.5, max(0.5, (word_factor + char_factor + duration_factor) / 3 * complexity_factor))
-            estimated_time_per_scene *= complexity_factor
-        
+        # Simple average of recent processing times
+        estimated_time_per_scene = sum(all_times) / len(all_times)
         remaining_scenes = total_scenes - current_scene
         estimated_remaining_seconds = remaining_scenes * estimated_time_per_scene
         
-        # Convert to human readable format
-        if estimated_remaining_seconds < 60:
-            return f"~{estimated_remaining_seconds:.0f}s"
-        elif estimated_remaining_seconds < 3600:
-            minutes = estimated_remaining_seconds / 60
-            return f"~{minutes:.1f}m"
+        # Determine confidence level
+        confidence = "low"
+        if len(all_times) >= 5:
+            confidence = "high"
+        elif len(all_times) >= 3:
+            confidence = "medium"
+        
+        return self._format_time_with_confidence(estimated_remaining_seconds, confidence)
+    
+    def _format_time_with_confidence(self, seconds: float, confidence: str = "medium") -> str:
+        """Format time with confidence indicator"""
+        # Format the time part
+        if seconds < 60:
+            time_str = f"~{seconds:.0f}s"
+        elif seconds < 3600:
+            minutes = seconds / 60
+            time_str = f"~{minutes:.1f}m"
         else:
-            hours = estimated_remaining_seconds / 3600
-            return f"~{hours:.1f}h"
+            hours = seconds / 3600
+            time_str = f"~{hours:.1f}h"
+        
+        # Add confidence indicator
+        if confidence == "high":
+            return f"{time_str} (✓)"
+        elif confidence == "medium":
+            return f"{time_str} (~)"
+        else:  # low
+            return f"{time_str} (?)"
     
     def format_processing_time(self, processing_time: float) -> str:
         """Format processing time in human readable format"""
@@ -1549,6 +1616,13 @@ class VideoAnimator:
             return {}
 
         print_flush(f"Processing {len(scenes_to_process)} unique scenes, skipped {len(completed_videos)}")
+        
+        # Calculate total words and duration for ETA calculations
+        self.total_video_words = sum(len(scene_info["description"].split()) for scene_info in scenes_to_process.values())
+        self.total_video_duration = sum(scene_info["total_duration"] for scene_info in scenes_to_process.values())
+        print_flush(f"📊 Total video words: {self.total_video_words:,}")
+        print_flush(f"📊 Total video duration: {self.total_video_duration:.1f} seconds ({self.total_video_duration/60:.1f} minutes)")
+        
         print_flush("=" * 60)
 
         results = {}
@@ -1557,8 +1631,6 @@ class VideoAnimator:
         
         print_flush(f"\n📊 VIDEO ANIMATION PROGRESS")
         print_flush("=" * 120)
-        print_flush(f"{'Scene':<6} {'Description':<50} {'Duration':<10} {'Status':<15} {'Time':<10} {'ETA':<10}")
-        print_flush("-" * 120)
         
         for i, (scene_name, scene_info) in enumerate(scenes_to_process.items(), 1):
             scene_start_time = time.time()
@@ -1568,7 +1640,8 @@ class VideoAnimator:
             frame_count = self._calculate_frame_count(duration)
             
             eta = self.estimate_remaining_time(i, len(scenes_to_process), scene_description=description, duration=duration)
-            print_flush(f"{i:<6} {description[:50]:<50} {duration:<10.2f} {'PROCESSING':<15} {'--':<10} {eta:<10}")
+            print_flush(f"🔄 Scene {i}/{len(scenes_to_process)} - {description[:50]} ({duration:.2f}s) - Processing...")
+            print_flush(f"📊 Estimated time remaining: {eta}")
             
             output_paths = self._generate_video(scene_name, description, image_path, duration, characters_data, motion_data, locations_data, resumable_state)
             
@@ -1579,18 +1652,21 @@ class VideoAnimator:
                 eta = self.estimate_remaining_time(i, len(scenes_to_process), scene_processing_time, description, duration)
                 if len(output_paths) == 1:
                     results[scene_name] = output_paths[0]
-                    print_flush(f"{i:<6} {description[:50]:<50} {duration:<10.2f} {'✅ COMPLETED':<15} {self.format_processing_time(scene_processing_time):<10} {eta:<10}")
+                    print_flush(f"✅ Scene {i}/{len(scenes_to_process)} - {description[:50]} ({duration:.2f}s) - Completed in {self.format_processing_time(scene_processing_time)}")
+                    print_flush(f"📊 Estimated time remaining: {eta}")
                     print_flush(f"✅ Generated video: {scene_name}")
                 else:
                     # Multiple chunks generated
                     results[scene_name] = output_paths
-                    print_flush(f"{i:<6} {description[:50]:<50} {duration:<10.2f} {'✅ COMPLETED':<15} {self.format_processing_time(scene_processing_time):<10} {eta:<10}")
+                    print_flush(f"✅ Scene {i}/{len(scenes_to_process)} - {description[:50]} ({duration:.2f}s) - Completed in {self.format_processing_time(scene_processing_time)}")
+                    print_flush(f"📊 Estimated time remaining: {eta}")
                     print_flush(f"✅ Generated {len(output_paths)} video chunks: {scene_name}")
                     for j, path in enumerate(output_paths, 1):
                         print_flush(f"   Chunk {j}: {os.path.basename(path)}")
             else:
                 eta = self.estimate_remaining_time(i, len(scenes_to_process), scene_processing_time, description, duration)
-                print_flush(f"{i:<6} {description[:50]:<50} {duration:<10.2f} {'❌ FAILED':<15} {self.format_processing_time(scene_processing_time):<10} {eta:<10}")
+                print_flush(f"❌ Scene {i}/{len(scenes_to_process)} - {description[:50]} ({duration:.2f}s) - Failed after {self.format_processing_time(scene_processing_time)}")
+                print_flush(f"📊 Estimated time remaining: {eta}")
                 print_flush(f"❌ Failed: {scene_name}")
         
         elapsed = time.time() - self.start_time

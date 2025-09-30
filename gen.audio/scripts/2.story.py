@@ -148,47 +148,98 @@ class StoryProcessor:
         return chunks
     
     def estimate_remaining_time(self, current_chunk: int, total_chunks: int, chunk_processing_time: float = None, chunk_text: str = None) -> str:
-        """Estimate remaining time based on processing history and content characteristics"""
-        if not self.processing_times:
-            return "No data available"
+        """Estimate remaining time based on words per minute - simple and accurate approach"""
         
-        # Calculate base average processing time per chunk using ALL previous entries
-        avg_time_per_chunk = sum(self.processing_times) / len(self.processing_times)
+        # Calculate total words in the story
+        total_story_words = len(self.story_text.split()) if hasattr(self, 'story_text') and self.story_text else 0
         
-        # If we have current chunk processing time, include it in the calculation
+        # For first chunk with no data, provide a reasonable initial estimate
+        if not self.processing_times and chunk_processing_time is None:
+            # Initial estimate: assume 200 words per minute (typical TTS speed)
+            words_per_minute = 200
+            remaining_words = total_story_words - (current_chunk - 1) * (total_story_words // total_chunks)
+            estimated_remaining_minutes = remaining_words / words_per_minute
+            estimated_remaining_seconds = estimated_remaining_minutes * 60
+            
+            # Convert to human readable format with confidence indicator
+            return self._format_time_with_confidence(estimated_remaining_seconds, confidence="low")
+        
+        # Calculate actual words per minute from completed chunks
+        if chunk_processing_time and chunk_text:
+            chunk_words = len(chunk_text.split())
+            chunk_minutes = chunk_processing_time / 60
+            if chunk_minutes > 0:
+                current_wpm = chunk_words / chunk_minutes
+                # Store word processing data for better estimation
+                if not hasattr(self, 'word_processing_data'):
+                    self.word_processing_data = []
+                self.word_processing_data.append({'words': chunk_words, 'time': chunk_processing_time, 'wpm': current_wpm})
+        
+        # Use word-based estimation if we have word processing data
+        if hasattr(self, 'word_processing_data') and self.word_processing_data:
+            # Calculate average words per minute from actual data
+            total_words_processed = sum(data['words'] for data in self.word_processing_data)
+            total_time_processed = sum(data['time'] for data in self.word_processing_data)
+            
+            if total_time_processed > 0:
+                actual_wpm = total_words_processed / (total_time_processed / 60)
+                
+                # Estimate remaining words
+                words_processed_so_far = sum(data['words'] for data in self.word_processing_data)
+                remaining_words = total_story_words - words_processed_so_far
+                
+                # Calculate remaining time based on actual WPM
+                estimated_remaining_minutes = remaining_words / actual_wpm
+                estimated_remaining_seconds = estimated_remaining_minutes * 60
+                
+                # Determine confidence based on data points
+                confidence = "low"
+                if len(self.word_processing_data) >= 5:
+                    confidence = "high"
+                elif len(self.word_processing_data) >= 3:
+                    confidence = "medium"
+                
+                return self._format_time_with_confidence(estimated_remaining_seconds, confidence)
+        
+        # Fallback to chunk-based estimation if no word data available
         if chunk_processing_time:
-            # Use all previous entries plus current entry for more accurate estimation
             all_times = self.processing_times + [chunk_processing_time]
-            estimated_time_per_chunk = sum(all_times) / len(all_times)
         else:
-            estimated_time_per_chunk = avg_time_per_chunk
+            all_times = self.processing_times
         
-        # Apply content-based adjustments if we have chunk text
-        if chunk_text:
-            word_count = len(chunk_text.split())
-            char_count = len(chunk_text)
-            
-            # Calculate complexity factor based on content characteristics
-            # More words and characters generally take longer to process
-            word_factor = 1.0 + (word_count - 50) * 0.01  # Base 50 words, +1% per word over/under
-            char_factor = 1.0 + (char_count - 200) * 0.001  # Base 200 chars, +0.1% per char over/under
-            
-            # Combine factors (cap at reasonable bounds)
-            complexity_factor = min(2.0, max(0.5, (word_factor + char_factor) / 2))
-            estimated_time_per_chunk *= complexity_factor
-        
+        # Simple average of recent processing times
+        estimated_time_per_chunk = sum(all_times) / len(all_times)
         remaining_chunks = total_chunks - current_chunk
         estimated_remaining_seconds = remaining_chunks * estimated_time_per_chunk
         
-        # Convert to human readable format
-        if estimated_remaining_seconds < 60:
-            return f"~{estimated_remaining_seconds:.0f}s"
-        elif estimated_remaining_seconds < 3600:
-            minutes = estimated_remaining_seconds / 60
-            return f"~{minutes:.1f}m"
+        # Determine confidence level
+        confidence = "low"
+        if len(all_times) >= 5:
+            confidence = "high"
+        elif len(all_times) >= 3:
+            confidence = "medium"
+        
+        return self._format_time_with_confidence(estimated_remaining_seconds, confidence)
+    
+    def _format_time_with_confidence(self, seconds: float, confidence: str = "medium") -> str:
+        """Format time with confidence indicator"""
+        # Format the time part
+        if seconds < 60:
+            time_str = f"~{seconds:.0f}s"
+        elif seconds < 3600:
+            minutes = seconds / 60
+            time_str = f"~{minutes:.1f}m"
         else:
-            hours = estimated_remaining_seconds / 3600
-            return f"~{hours:.1f}h"
+            hours = seconds / 3600
+            time_str = f"~{hours:.1f}h"
+        
+        # Add confidence indicator
+        if confidence == "high":
+            return f"{time_str} (✓)"
+        elif confidence == "medium":
+            return f"{time_str} (~)"
+        else:  # low
+            return f"{time_str} (?)" 
     
     def format_processing_time(self, processing_time: float) -> str:
         """Format processing time in human readable format"""
@@ -535,6 +586,11 @@ class StoryProcessor:
             print("Error: Story text is empty")
             return None
         
+        # Store story text for word-based ETA calculations
+        self.story_text = story_text
+        total_story_words = len(story_text.split())
+        print(f"📊 Story contains {total_story_words:,} words")
+        
         # Split story into chunks
         chunks = self.split_story_into_chunks(story_text)
         total_chunks = len(chunks)
@@ -554,8 +610,6 @@ class StoryProcessor:
         
         print(f"\n📊 STORY PROCESSING PROGRESS")
         print("=" * 100)
-        print(f"{'Chunk':<6} {'Lines':<10} {'Progress':<12} {'Status':<15} {'Time':<10} {'ETA':<10} {'Output':<30}")
-        print("-" * 100)
         
         for chunk in chunks:
             chunk_number = chunk['chunk_number']
@@ -580,7 +634,8 @@ class StoryProcessor:
             
             # Show progress before starting
             eta = self.estimate_remaining_time(chunk_number, total_chunks, chunk_text=chunk_text)
-            print(f"{chunk_number:<6} {start_line}-{end_line:<8} {progress_percent:6.1f}%     {'PROCESSING':<15} {'--':<10} {eta:<10} {'Generating audio...':<30}")
+            print(f"🎵 Chunk {chunk_number} ({start_line}-{end_line}) - {progress_percent:.1f}% complete - Processing...")
+            print(f"📊 Estimated time remaining: {eta}")
             
             chunk_start_time = time.time()
             
@@ -595,7 +650,15 @@ class StoryProcessor:
                     chunk_files.append(chunk_output)
                     successful_chunks += 1
                     eta = self.estimate_remaining_time(chunk_number, total_chunks, chunk_processing_time, chunk_text)
-                    print(f"{chunk_number:<6} {start_line}-{end_line:<8} {progress_percent:6.1f}%     {'✅ COMPLETED':<15} {self.format_processing_time(chunk_processing_time):<10} {eta:<10} {os.path.basename(chunk_output):<30}")
+                    
+                    # Show WPM info if available
+                    wpm_info = ""
+                    if hasattr(self, 'word_processing_data') and self.word_processing_data:
+                        recent_wpm = self.word_processing_data[-1]['wpm']
+                        wpm_info = f" (WPM: {recent_wpm:.0f})"
+                    
+                    print(f"✅ Chunk {chunk_number} ({start_line}-{end_line}) - {progress_percent:.1f}% complete - Completed in {self.format_processing_time(chunk_processing_time)} - {os.path.basename(chunk_output)}{wpm_info}")
+                    print(f"📊 Estimated time remaining: {eta}")
                     
                     # Save to checkpoint if resumable mode enabled
                     if resumable_state:
