@@ -548,7 +548,7 @@ class CharacterManager:
                 payload["max_tokens"] = 1024  # Reduce tokens for structured output
 
         try:
-            resp = requests.post(f"{self.lm_studio_url}/chat/completions", headers=headers, json=payload, timeout=300)
+            resp = requests.post(f"{self.lm_studio_url}/chat/completions", headers=headers, json=payload)
             if resp.status_code != 200:
                 raise RuntimeError(f"LM Studio API error: {resp.status_code} {resp.text}")
             data = resp.json()
