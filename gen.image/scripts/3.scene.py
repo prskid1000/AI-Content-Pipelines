@@ -12,7 +12,7 @@ from pathlib import Path
 # Feature flags
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
-WORKFLOW_SUMMARY_ENABLED = True # Set to True to enable workflow summary printing
+WORKFLOW_SUMMARY_ENABLED = False # Set to True to enable workflow summary printing
 
 # Image resizing configuration (characters only)
 # Character image resize factor: 0.125 (12.5% of original size) - Better aspect ratio for stitching
@@ -1679,6 +1679,7 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                         self._replace_latent_with_image_input(workflow, "19", self.latent_image_path, LATENT_DENOISING_STRENGTH)
                         # Apply LATENT_DENOISING_STRENGTH to KSampler for first LoRA in IMAGE mode
                         self._update_node_connections(workflow, "KSampler", "denoise", LATENT_DENOISING_STRENGTH)
+                        self._update_node_connections(workflow, "KSampler", "seed", seed)
                         print(f"  Using image input mode for first LoRA with file: {self.latent_image_path}")
                         print(f"  Using LATENT_DENOISING_STRENGTH: {LATENT_DENOISING_STRENGTH}")
                     else:

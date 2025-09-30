@@ -1010,6 +1010,7 @@ class ThumbnailProcessor:
                         workflow["19"]["inputs"]["height"] = OUTPUT_HEIGHT
                         # Apply LoRA's denoising_strength to KSampler for first LoRA in LATENT mode
                         self._update_node_connections(workflow, "KSampler", "denoise", denoising_strength)
+                        denoising_strength = LATENT_DENOISING_STRENGTH 
                         print(f"  Using latent mode with dimensions: {OUTPUT_WIDTH}x{OUTPUT_HEIGHT}")
                         print(f"  Using LoRA denoising_strength: {denoising_strength}")
                 else:

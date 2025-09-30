@@ -1192,6 +1192,7 @@ class CharacterGenerator:
                         self._replace_latent_with_image_input(workflow, "19", self.latent_image_path, LATENT_DENOISING_STRENGTH)
                         # Apply LATENT_DENOISING_STRENGTH to KSampler for first LoRA in IMAGE mode
                         self._update_node_connections(workflow, "KSampler", "denoise", LATENT_DENOISING_STRENGTH)
+                        denoising_strength = LATENT_DENOISING_STRENGTH
                         print(f"  Using image input mode for first LoRA with file: {self.latent_image_path}")
                         print(f"  Using LATENT_DENOISING_STRENGTH: {LATENT_DENOISING_STRENGTH}")
                     else:
