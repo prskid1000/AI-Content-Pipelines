@@ -8,6 +8,7 @@ import requests
 import json
 from functools import partial
 import builtins as _builtins
+from pathlib import Path
 print = partial(_builtins.print, flush=True)
 
 LANGUAGE = "en"
@@ -23,12 +24,141 @@ CHUNK_SIZE = 50  # Number of lines per chapter chunk for summarization
 GENERATE_TITLE = True  # Set to False to disable automatic title generation
 ENABLE_THINKING = False  # Set to True to enable thinking in LM Studio responses
 
+# Feature flags for resumable mode
+ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
+CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
+
 # Non-interactive defaults (can be overridden by CLI flags in __main__)
 AUTO_GENDER = "m"
 AUTO_CONFIRM = "y"
 AUTO_CHANGE_SETTINGS = "n"
 AUTO_REGION = ""
 AUTO_LANGUAGE = ""
+
+# Resumable state management
+class ResumableState:
+    """Manages resumable state for expensive LLM operations."""
+    
+    def __init__(self, checkpoint_dir: str, script_name: str, force_start: bool = False):
+        self.checkpoint_dir = Path(checkpoint_dir)
+        self.checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        self.state_file = self.checkpoint_dir / f"{script_name}.state.json"
+        
+        # If force_start is True, remove existing checkpoint and start fresh
+        if force_start and self.state_file.exists():
+            try:
+                self.state_file.unlink()
+                print("Force start enabled - removed existing checkpoint")
+            except Exception as ex:
+                print(f"WARNING: Failed to remove checkpoint for force start: {ex}")
+        
+        self.state = self._load_state()
+    
+    def _load_state(self) -> dict:
+        """Load state from checkpoint file."""
+        if self.state_file.exists():
+            try:
+                with open(self.state_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as ex:
+                print(f"WARNING: Failed to load checkpoint state: {ex}")
+        return {
+            "character_voices": {"completed": False, "result": None},
+            "chapters": {"completed": [], "results": {}},
+            "meta_summary": {"completed": False, "result": None},
+            "story_title": {"completed": False, "result": None},
+            "metadata": {"start_time": time.time(), "last_update": time.time()}
+        }
+    
+    def _save_state(self):
+        """Save current state to checkpoint file."""
+        try:
+            self.state["metadata"]["last_update"] = time.time()
+            with open(self.state_file, 'w', encoding='utf-8') as f:
+                json.dump(self.state, f, indent=2, ensure_ascii=False)
+        except Exception as ex:
+            print(f"WARNING: Failed to save checkpoint state: {ex}")
+    
+    def is_character_voices_complete(self) -> bool:
+        """Check if character voice assignment is complete."""
+        return self.state["character_voices"]["completed"]
+    
+    def get_character_voices(self) -> dict | None:
+        """Get cached character voice assignments if available."""
+        return self.state["character_voices"]["result"]
+    
+    def set_character_voices(self, character_voices: dict):
+        """Set character voice assignments and mark as complete."""
+        self.state["character_voices"]["completed"] = True
+        self.state["character_voices"]["result"] = character_voices
+        self._save_state()
+    
+    def is_chapter_complete(self, chapter_number: int) -> bool:
+        """Check if specific chapter summary is complete."""
+        return chapter_number in self.state["chapters"]["completed"]
+    
+    def get_chapter_result(self, chapter_number: int) -> dict | None:
+        """Get cached chapter result if available."""
+        return self.state["chapters"]["results"].get(str(chapter_number))
+    
+    def set_chapter_result(self, chapter_number: int, chapter_data: dict):
+        """Set chapter result and mark as complete."""
+        if chapter_number not in self.state["chapters"]["completed"]:
+            self.state["chapters"]["completed"].append(chapter_number)
+        self.state["chapters"]["results"][str(chapter_number)] = chapter_data
+        self._save_state()
+    
+    def is_meta_summary_complete(self) -> bool:
+        """Check if meta-summary generation is complete."""
+        return self.state["meta_summary"]["completed"]
+    
+    def get_meta_summary(self) -> str | None:
+        """Get cached meta-summary if available."""
+        return self.state["meta_summary"]["result"]
+    
+    def set_meta_summary(self, meta_summary: str):
+        """Set meta-summary and mark as complete."""
+        self.state["meta_summary"]["completed"] = True
+        self.state["meta_summary"]["result"] = meta_summary
+        self._save_state()
+    
+    def is_story_title_complete(self) -> bool:
+        """Check if story title generation is complete."""
+        return self.state["story_title"]["completed"]
+    
+    def get_story_title(self) -> str | None:
+        """Get cached story title if available."""
+        return self.state["story_title"]["result"]
+    
+    def set_story_title(self, story_title: str):
+        """Set story title and mark as complete."""
+        self.state["story_title"]["completed"] = True
+        self.state["story_title"]["result"] = story_title
+        self._save_state()
+    
+    def cleanup(self):
+        """Clean up tracking files based on configuration setting."""
+        try:
+            if CLEANUP_TRACKING_FILES and self.state_file.exists():
+                self.state_file.unlink()
+                print("All operations completed successfully - tracking files cleaned up")
+            else:
+                print("All operations completed successfully - tracking files preserved")
+        except Exception as ex:
+            print(f"WARNING: Error in cleanup: {ex}")
+    
+    def get_progress_summary(self) -> str:
+        """Get a summary of current progress."""
+        voices_done = "✓" if self.is_character_voices_complete() else "✗"
+        chapters_done = len(self.state["chapters"]["completed"])
+        chapters_total = len(self.state["chapters"]["results"]) + len([k for k in self.state["chapters"]["results"].keys() if int(k) not in self.state["chapters"]["completed"]])
+        meta_done = "✓" if self.is_meta_summary_complete() else "✗"
+        title_done = "✓" if self.is_story_title_complete() else "✗"
+        
+        return (
+            f"Progress: Voices({voices_done}) Chapters({chapters_done}/{chapters_total}) "
+            f"Meta({meta_done}) Title({title_done})"
+        )
 
 def load_available_voices(language=LANGUAGE, region=REGION):
     """
@@ -418,7 +548,7 @@ class CharacterManager:
                 payload["max_tokens"] = 1024  # Reduce tokens for structured output
 
         try:
-            resp = requests.post(f"{self.lm_studio_url}/chat/completions", headers=headers, json=payload)
+            resp = requests.post(f"{self.lm_studio_url}/chat/completions", headers=headers, json=payload, timeout=300)
             if resp.status_code != 200:
                 raise RuntimeError(f"LM Studio API error: {resp.status_code} {resp.text}")
             data = resp.json()
@@ -426,6 +556,8 @@ class CharacterManager:
                 raise RuntimeError("LM Studio returned no choices")
             content = data["choices"][0]["message"]["content"]
             return content
+        except requests.exceptions.Timeout:
+            raise RuntimeError("LM Studio API request timed out after 5 minutes")
         except requests.exceptions.ConnectionError:
             raise RuntimeError("Could not connect to LM Studio API. Make sure LM Studio is running on localhost:1234")
         except Exception as e:
@@ -598,11 +730,20 @@ STORY SUMMARY:
 
 Generate a JSON response with a "title" field containing your suggested story title. Focus on creating something that would intrigue potential listeners and capture the story's essence without giving away the plot.{thinking_suffix}"""
 
-    def generate_story_title(self, story_summary: str, output_dir: str = "../input") -> str:
+    def generate_story_title(self, story_summary: str, output_dir: str = "../input", resumable_state: ResumableState | None = None) -> str:
         """Generate a story title based on the comprehensive summary and save to 10.title.txt"""
         if not GENERATE_TITLE:
             print("📝 Story title generation disabled (GENERATE_TITLE = False)")
             return None
+        
+        # Check if resumable and story title already complete
+        if resumable_state and resumable_state.is_story_title_complete():
+            cached_title = resumable_state.get_story_title()
+            if cached_title:
+                print("\n=== USING CACHED STORY TITLE ===")
+                print("Using cached story title from checkpoint")
+                print(f"   📖 Title: {cached_title}")
+                return cached_title
         
         print("\n=== GENERATING STORY TITLE ===")
         
@@ -624,6 +765,10 @@ Generate a JSON response with a "title" field containing your suggested story ti
             
             # Save title to 10.title.txt
             self._save_story_title(story_title, output_dir)
+            
+            # Save to checkpoint if resumable mode enabled
+            if resumable_state:
+                resumable_state.set_story_title(story_title)
             
             return story_title
             
@@ -749,7 +894,7 @@ Generate a JSON response with a "title" field containing your suggested story ti
         except Exception as e:
             print(f"❌ Error saving story title file: {e}")
 
-    def generate_chapter_summaries(self, story_text: str, output_dir: str = "../input") -> list:
+    def generate_chapter_summaries(self, story_text: str, output_dir: str = "../input", resumable_state: ResumableState | None = None) -> list:
         """Generate chapter titles and summaries for each chunk of the story (configurable via CHUNK_SIZE)"""
         print("\n=== CHAPTER ANALYSIS AND SUMMARIZATION ===")
         
@@ -770,7 +915,19 @@ Generate a JSON response with a "title" field containing your suggested story ti
         chapter_data = []
         
         for i, chunk in enumerate(chunks):
-            print(f"\nProcessing Chapter {chunk['part_number']}/{total_parts} ({chunk['percentage']:.1f}% of story)...")
+            chapter_number = chunk['part_number']
+            
+            # Check if resumable and already complete
+            if resumable_state and resumable_state.is_chapter_complete(chapter_number):
+                cached_chapter = resumable_state.get_chapter_result(chapter_number)
+                if cached_chapter:
+                    print(f"\nChapter {chapter_number}/{total_parts}: using cached result from checkpoint")
+                    chapters.append(cached_chapter)
+                    if cached_chapter.get('summary'):
+                        chapter_data.append(cached_chapter['summary'])  # For meta-summary
+                    continue
+            
+            print(f"\nProcessing Chapter {chapter_number}/{total_parts} ({chunk['percentage']:.1f}% of story)...")
             print(f"   Lines {chunk['start_line']}-{chunk['end_line']} ({chunk['character_count']:,} chars)")
             
             try:
@@ -795,7 +952,7 @@ Generate a JSON response with a "title" field containing your suggested story ti
                 char_count = len(chapter_summary) if chapter_summary else 0
                 short_word_count = len(short_summary.split()) if short_summary else 0
                 
-                print(f"✅ Chapter {chunk['part_number']} generated:")
+                print(f"✅ Chapter {chapter_number} generated:")
                 print(f"   📖 Title: {chapter_title}")
                 print(f"   📝 Summary words: {word_count} (target: 500)")
                 print(f"   📏 Summary characters: {char_count}")
@@ -820,14 +977,18 @@ Generate a JSON response with a "title" field containing your suggested story ti
                 chapters.append(chapter_info)
                 chapter_data.append(chapter_summary)  # For meta-summary
                 
+                # Save to checkpoint if resumable mode enabled
+                if resumable_state:
+                    resumable_state.set_chapter_result(chapter_number, chapter_info)
+                
                 # Small delay between API calls
                 if i < len(chunks) - 1:
                     time.sleep(1)
                     
             except Exception as e:
-                print(f"❌ Error generating chapter {chunk['part_number']}: {e}")
+                print(f"❌ Error generating chapter {chapter_number}: {e}")
                 # Continue with next part instead of failing completely
-                chapters.append({
+                error_chapter = {
                     'part_number': chunk['part_number'],
                     'start_line': chunk['start_line'],
                     'end_line': chunk['end_line'],
@@ -837,16 +998,21 @@ Generate a JSON response with a "title" field containing your suggested story ti
                     'title': None,
                     'summary': None,
                     'short_summary': None
-                })
+                }
+                chapters.append(error_chapter)
+                
+                # Save error state to checkpoint if resumable mode enabled
+                if resumable_state:
+                    resumable_state.set_chapter_result(chapter_number, error_chapter)
         
         # Save chapters to files
         self._save_chapters_file(chapters, output_dir)
-        meta_summary = self._save_merged_summary(chapter_data, output_dir, chapters)
+        meta_summary = self._save_merged_summary(chapter_data, output_dir, chapters, resumable_state)
         
         # Generate story title from meta-summary if enabled
         if meta_summary and GENERATE_TITLE:
             try:
-                self.generate_story_title(meta_summary, output_dir)
+                self.generate_story_title(meta_summary, output_dir, resumable_state)
             except Exception as e:
                 print(f"⚠️  Title generation failed: {e}")
         
@@ -993,7 +1159,7 @@ Generate a JSON response with a "title" field containing your suggested story ti
         print(f"{'TOT':<4} {f'{successful_chapters}/{len(chapters)} chapters generated':<30} {'-':<8} {'-':<8} {'DONE':<8}")
         print("=" * 90)
 
-    def _save_merged_summary(self, summary_parts: list, output_dir: str, summaries: list):
+    def _save_merged_summary(self, summary_parts: list, output_dir: str, summaries: list, resumable_state: ResumableState | None = None):
         """Save all summaries merged into 9.description.txt and display statistics table"""
         if not summary_parts:
             print("⚠️  No summaries to merge - skipping 9.description.txt creation")
@@ -1001,18 +1167,47 @@ Generate a JSON response with a "title" field containing your suggested story ti
         
         output_path = os.path.join(output_dir, "9.description.txt")
         
-        # Generate meta-summary through LM Studio
-        print("\n=== GENERATING META-SUMMARY ===")
-        try:
-            meta_summary = self._generate_meta_summary(summary_parts)
-            final_content = meta_summary
-            print("✅ Meta-summary generated successfully")
-        except Exception as e:
-            print(f"❌ Meta-summary generation failed: {e}")
-            print("📄 Falling back to concatenated summaries")
-            # Fallback to simple concatenation
-            merged_content = " ".join(summary_parts)
-            final_content = self._sanitize_single_paragraph(merged_content)
+        # Check if resumable and meta-summary already complete
+        if resumable_state and resumable_state.is_meta_summary_complete():
+            cached_meta = resumable_state.get_meta_summary()
+            if cached_meta:
+                print("\n=== USING CACHED META-SUMMARY ===")
+                print("Using cached meta-summary from checkpoint")
+                final_content = cached_meta
+            else:
+                # Generate meta-summary through LM Studio
+                print("\n=== GENERATING META-SUMMARY ===")
+                try:
+                    meta_summary = self._generate_meta_summary(summary_parts)
+                    final_content = meta_summary
+                    print("✅ Meta-summary generated successfully")
+                    
+                    # Save to checkpoint if resumable mode enabled
+                    if resumable_state:
+                        resumable_state.set_meta_summary(meta_summary)
+                except Exception as e:
+                    print(f"❌ Meta-summary generation failed: {e}")
+                    print("📄 Falling back to concatenated summaries")
+                    # Fallback to simple concatenation
+                    merged_content = " ".join(summary_parts)
+                    final_content = self._sanitize_single_paragraph(merged_content)
+        else:
+            # Generate meta-summary through LM Studio
+            print("\n=== GENERATING META-SUMMARY ===")
+            try:
+                meta_summary = self._generate_meta_summary(summary_parts)
+                final_content = meta_summary
+                print("✅ Meta-summary generated successfully")
+                
+                # Save to checkpoint if resumable mode enabled
+                if resumable_state:
+                    resumable_state.set_meta_summary(meta_summary)
+            except Exception as e:
+                print(f"❌ Meta-summary generation failed: {e}")
+                print("📄 Falling back to concatenated summaries")
+                # Fallback to simple concatenation
+                merged_content = " ".join(summary_parts)
+                final_content = self._sanitize_single_paragraph(merged_content)
         
         # Write to 9.description.txt
         with open(output_path, 'w', encoding='utf-8') as f:
@@ -1089,7 +1284,7 @@ Generate a JSON response with a "title" field containing your suggested story ti
         if total_output_words >= 1000:
             print(f"🔄 Meta-summary: {total_output_words} words (target: 1000-1200)")
 
-    def preprocess_story(self, story_text):
+    def preprocess_story(self, story_text, resumable_state: ResumableState | None = None):
         """Preprocess the story to identify and assign voices to characters"""
         print("=== STORY PREPROCESSING ===")
         
@@ -1101,12 +1296,29 @@ Generate a JSON response with a "title" field containing your suggested story ti
         print(f"\nAvailable male voices: {', '.join(self.male_voices)}")
         print(f"Available female voices: {', '.join(self.female_voices)}")
         
-        # Assign voices to characters
-        character_assignments = self.assign_voices_to_characters(characters)
+        # Check if resumable and character voices already complete
+        if resumable_state and resumable_state.is_character_voices_complete():
+            cached_voices = resumable_state.get_character_voices()
+            if cached_voices:
+                print("Using cached character voice assignments from checkpoint")
+                self.character_voices.update(cached_voices)
+                character_assignments = cached_voices
+            else:
+                # Assign voices to characters
+                character_assignments = self.assign_voices_to_characters(characters)
+                # Save to checkpoint if resumable mode enabled
+                if resumable_state:
+                    resumable_state.set_character_voices(character_assignments)
+        else:
+            # Assign voices to characters
+            character_assignments = self.assign_voices_to_characters(characters)
+            # Save to checkpoint if resumable mode enabled
+            if resumable_state:
+                resumable_state.set_character_voices(character_assignments)
         
         # Generate chapter summaries with titles
         try:
-            chapters = self.generate_chapter_summaries(story_text)
+            chapters = self.generate_chapter_summaries(story_text, "../input", resumable_state)
             print(f"\n📚 Generated {len([c for c in chapters if c.get('summary')])} chapter summaries")
         except Exception as e:
             print(f"⚠️  Chapter summarization failed: {e}")
@@ -1136,6 +1348,8 @@ if __name__ == "__main__":
     parser.add_argument("--region", help="Region code to use when changing settings")
     parser.add_argument("--language", help="Language code to use when changing settings")
     parser.add_argument("--enable-thinking", action="store_true", help="Enable thinking in LM Studio responses (default: disabled)")
+    parser.add_argument("--force-start", action="store_true", help="Force start from beginning, ignoring any existing checkpoint files")
+    parser.add_argument("--disable-resumable", action="store_true", help="Disable resumable mode (default: enabled)")
     args = parser.parse_args()
 
     # Expose as module-level vars for use inside functions
@@ -1151,8 +1365,29 @@ if __name__ == "__main__":
         print("🧠 Thinking enabled in LM Studio responses")
     else:
         print("🚫 Thinking disabled in LM Studio responses (using /no_think)")
+    
+    # Update ENABLE_RESUMABLE_MODE based on CLI argument
+    if args.disable_resumable:
+        ENABLE_RESUMABLE_MODE = False
+        print("🚫 Resumable mode disabled via --disable-resumable")
+    else:
+        print("✅ Resumable mode enabled (use --disable-resumable to disable)")
 
     start_time = time.time()
+    
+    # Initialize resumable state if enabled
+    resumable_state = None
+    if ENABLE_RESUMABLE_MODE:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        checkpoint_dir = os.path.normpath(os.path.join(base_dir, "../output/tracking"))
+        script_name = Path(__file__).stem  # Automatically get script name without .py extension
+        resumable_state = ResumableState(checkpoint_dir, script_name, args.force_start)
+        print(f"Resumable mode enabled - checkpoint directory: {checkpoint_dir}")
+        if resumable_state.state_file.exists():
+            print(f"Found existing checkpoint: {resumable_state.state_file}")
+            print(resumable_state.get_progress_summary())
+        else:
+            print("No existing checkpoint found - starting fresh")
     
     # Show available regions and languages
     setup_start = time.time()
@@ -1226,11 +1461,17 @@ if __name__ == "__main__":
     
     # Time the character preprocessing
     preprocessing_start = time.time()
-    character_manager.preprocess_story(story_text)
+    character_manager.preprocess_story(story_text, resumable_state)
     preprocessing_time = time.time() - preprocessing_start
     
     end_time = time.time()
     total_time = end_time - start_time
+    
+    # Clean up checkpoint files if resumable mode was used and everything completed successfully
+    if resumable_state:
+        print("All operations completed successfully")
+        print("Final progress:", resumable_state.get_progress_summary())
+        resumable_state.cleanup()
     
     # Print detailed timing information
     print("\n" + "=" * 50)
