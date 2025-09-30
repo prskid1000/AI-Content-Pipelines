@@ -36,8 +36,8 @@ LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for
 LORAS = [
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 3.0,    # Model strength (0.0 - 2.0)
-        "strength_clip": 3.0,     # CLIP strength (0.0 - 2.0)
+        "strength_model": 2.0,    # Model strength (0.0 - 2.0)
+        "strength_clip": 2.0,     # CLIP strength (0.0 - 2.0)
         "bypass_model": False,    # Set to True to bypass model part of this LoRA
         "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
         "enabled": True,          # Set to False to disable this LoRA entirely

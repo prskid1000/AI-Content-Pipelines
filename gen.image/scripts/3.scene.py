@@ -12,7 +12,7 @@ from pathlib import Path
 # Feature flags
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
-WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
+WORKFLOW_SUMMARY_ENABLED = True # Set to True to enable workflow summary printing
 
 # Image resizing configuration (characters only)
 # Character image resize factor: 0.125 (12.5% of original size) - Better aspect ratio for stitching
@@ -52,14 +52,14 @@ LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for
 LORAS = [
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 3.0,    # Model strength (0.0 - 2.0)
-        "strength_clip": 3.0,     # CLIP strength (0.0 - 2.0)
+        "strength_model": 2.0,    # Model strength (0.0 - 2.0)
+        "strength_clip": 2.0,     # CLIP strength (0.0 - 2.0)
         "bypass_model": False,    # Set to True to bypass model part of this LoRA
         "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
         "enabled": True,          # Set to False to disable this LoRA entirely
         
         # Serial mode specific settings (only used when LORA_MODE = "serial")
-        "steps": 9,               # Sampling steps for this LoRA (serial mode only)
+        "steps": 6,               # Sampling steps for this LoRA (serial mode only)
         "denoising_strength": 1, # Denoising strength (0.0 - 1.0) (serial mode only)
         "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
         "use_only_intermediate": False # Set to True to disable character images and use only intermediate result
@@ -483,9 +483,9 @@ class SceneGenerator:
         """Get the master prompt content."""
         return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
 All Non-Living Objects mentioned in Scene text-description must be present in illustration.Must Always Precisely & Accurately Represent entire Scene including all Non-Living Objects according to scene text-description.
-Must Always Precisely & Accurately Preserve each Character's identity(Appearance and Physical Features - Face(hair, eyes, ear, nose, mouth,chick, chin), Body(torso, limbs), Clothings) from respective specified reference image and image-section.
+Must Always Precisely & Accurately Preserve each Character's identity (Appearance(property like Color, Texture, Shape,Details, Style, Type) of Facial and Body Features as well as entire Clothing) from respective specified reference image and image-section.
 All other aspects of Characters like "Posture", "Expression", "Movement", "Placement and Location", "Size is proportional to the scene", is adaptable according to Scene and Character text-description.
-Each Non-Living Objects and Character in the illustration must be visually distinct and unique from each other.Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
+Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
         """.format(ART_STYLE=ART_STYLE)
 
     def _get_seed(self) -> int:
@@ -588,8 +588,15 @@ Each Non-Living Objects and Character in the illustration must be visually disti
                 self._remove_all_lora_nodes(workflow)
                 print("LoRA disabled in workflow")
             
-            # Set sampling steps and seed (only for chained mode)
+            # Set sampling steps and seed for all modes
             if USE_LORA and LORA_MODE == "chained":
+                workflow["16"]["inputs"]["steps"] = SAMPLING_STEPS
+                seed = self._get_seed()
+                workflow["16"]["inputs"]["seed"] = seed
+                print(f"Sampling steps set to: {SAMPLING_STEPS}")
+                print(f"Seed set to: {seed}")
+            elif not USE_LORA:
+                # Set seed for non-LoRA mode
                 workflow["16"]["inputs"]["steps"] = SAMPLING_STEPS
                 seed = self._get_seed()
                 workflow["16"]["inputs"]["seed"] = seed
@@ -1449,6 +1456,11 @@ Each Non-Living Objects and Character in the illustration must be visually disti
             # Keep ConditioningZeroOut for empty negative (it's already connected in base workflow)
             print("Negative prompt disabled - using ConditioningZeroOut")
         
+        # Set seed for all modes (serial, chained, and no-LoRA)
+        seed = self._get_seed()
+        self._update_node_connections(workflow, "KSampler", "seed", seed)
+        print(f"Seed set to: {seed}")
+        
         print("\n\n\n")
         print(f"Text prompt: {text_prompt}")
         return workflow
@@ -1651,10 +1663,13 @@ Each Non-Living Objects and Character in the illustration must be visually disti
                 # Apply only this LoRA to the workflow (after building the complete workflow)
                 self._apply_single_lora(workflow, lora_config, i + 1)
                 
-                # Set LoRA-specific sampling steps and denoising
+                # Set LoRA-specific sampling steps, seed, and denoising
                 steps = lora_config.get("steps", SAMPLING_STEPS)
                 denoising_strength = lora_config.get("denoising_strength", 1.0)
+                seed = self._get_seed()
                 self._update_node_connections(workflow, "KSampler", "steps", steps)
+                self._update_node_connections(workflow, "KSampler", "seed", seed)
+                print(f"  Seed set to: {seed}")
                 
                 # Handle input for this LoRA based on serial mode logic
                 if i == 0:

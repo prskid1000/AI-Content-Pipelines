@@ -59,8 +59,8 @@ LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for
 LORAS = [
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 3.0,    # Model strength (0.0 - 2.0)
-        "strength_clip": 3.0,     # CLIP strength (0.0 - 2.0)
+        "strength_model": 2.0,    # Model strength (0.0 - 2.0)
+        "strength_clip": 2.0,     # CLIP strength (0.0 - 2.0)
         "bypass_model": False,    # Set to True to bypass model part of this LoRA
         "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
         "enabled": True,          # Set to False to disable this LoRA entirely
@@ -815,6 +815,13 @@ class ThumbnailProcessor:
         
         return workflow
 
+    def _get_seed(self) -> int:
+        """Get seed value based on configuration."""
+        if USE_RANDOM_SEED:
+            return random.randint(0, 2**32 - 1)
+        else:
+            return RANDOM_SEED
+
     def _update_workflow_seed(self, workflow: dict, seed: int) -> dict:
         """Set seed inputs across nodes when available."""
         # Update KSampler seed
@@ -979,10 +986,13 @@ class ThumbnailProcessor:
                 workflow = self._update_saveimage_prefix(workflow, lora_filename)
                 workflow = self._update_workflow_resolution(workflow, OUTPUT_WIDTH, OUTPUT_HEIGHT)
                 
-                # Set LoRA-specific sampling steps and denoising
+                # Set LoRA-specific sampling steps, seed, and denoising
                 steps = lora_config.get("steps", SAMPLING_STEPS)
                 denoising_strength = lora_config.get("denoising_strength", 1.0)
+                seed = self._get_seed()
                 self._update_node_connections(workflow, "KSampler", "steps", steps)
+                self._update_node_connections(workflow, "KSampler", "seed", seed)
+                print(f"  Seed set to: {seed}")
                 
                 # Handle input for this LoRA based on serial mode logic
                 if i == 0:
@@ -1221,8 +1231,9 @@ class ThumbnailProcessor:
             workflow = self._update_saveimage_prefix(workflow, "thumbnail")
             
             # Set seed based on configuration
-            if not USE_RANDOM_SEED:
-                workflow = self._update_workflow_seed(workflow, RANDOM_SEED)
+            seed = self._get_seed()
+            workflow = self._update_workflow_seed(workflow, seed)
+            print(f"Seed set to: {seed}")
 
             # Print workflow summary
             self._print_workflow_summary(workflow, "Thumbnail")
@@ -1239,11 +1250,8 @@ class ThumbnailProcessor:
             if not use_overlay:
                 saved_paths: list[str] = []
                 for idx in range(1, 6):
-                    # Use fixed seed or random seed based on configuration
-                    if USE_RANDOM_SEED:
-                        seed_value = random.randint(1, 2**31 - 1)
-                    else:
-                        seed_value = RANDOM_SEED
+                    # Use seed based on configuration
+                    seed_value = self._get_seed()
                     workflow = self._update_workflow_seed(workflow, seed_value)
                     resp = requests.post(f"{self.comfyui_url}prompt", json={"prompt": workflow}, timeout=60)
                     if resp.status_code != 200:
@@ -1576,9 +1584,9 @@ class ThumbnailProcessor:
         """Get the master prompt content."""
         return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
 All Non-Living Objects mentioned in Scene text-description must be present in illustration.Must Always Precisely & Accurately Represent entire Scene including all Non-Living Objects according to scene text-description.
-Must Always Precisely & Accurately Preserve each Character's identity(Appearance and Physical Features - Face(hair, eyes, ear, nose, mouth,chick, chin), Body(torso, limbs), Clothings) from respective specified reference image/image-section.
-All other aspects of Characters like "Posture", "Expression", "Movement", "Placement/Location", "Size is proportional to the scene", is adaptable according to Scene/Character text-description.
-Each Non-Living Objects/Character in the illustration must be visually distinct/unique from each other.Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
+Must Always Precisely & Accurately Preserve each Character's identity (Appearance(property like Color, Texture, Shape,Details, Style, Type) of Facial and Body Features as well as entire Clothing) from respective specified reference image and image-section.
+All other aspects of Characters like "Posture", "Expression", "Movement", "Placement and Location", "Size is proportional to the scene", is adaptable according to Scene and Character text-description.
+Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
         """.format(ART_STYLE=ART_STYLE)
         
 def read_prompt_from_file(filename: str = "../input/10.thumbnail.txt") -> str | None:
