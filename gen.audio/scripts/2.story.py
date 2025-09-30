@@ -115,6 +115,10 @@ class StoryProcessor:
         self.final_output = "../output/story.wav"
         self.chunk_output_dir = "../output/story"
         
+        # Time estimation tracking
+        self.processing_times = []
+        self.start_time = None
+        
         # Create chunk output directory
         os.makedirs(self.chunk_output_dir, exist_ok=True)
         
@@ -141,6 +145,60 @@ class StoryProcessor:
             })
         
         return chunks
+    
+    def estimate_remaining_time(self, current_chunk: int, total_chunks: int, chunk_processing_time: float = None, chunk_text: str = None) -> str:
+        """Estimate remaining time based on processing history and content characteristics"""
+        if not self.processing_times:
+            return "No data available"
+        
+        # Calculate base average processing time per chunk
+        avg_time_per_chunk = sum(self.processing_times) / len(self.processing_times)
+        
+        # If we have current chunk processing time, use it for more accurate estimation
+        if chunk_processing_time:
+            # Weight recent processing time more heavily
+            recent_avg = (sum(self.processing_times[-3:]) + chunk_processing_time) / min(4, len(self.processing_times) + 1)
+            estimated_time_per_chunk = recent_avg
+        else:
+            estimated_time_per_chunk = avg_time_per_chunk
+        
+        # Apply content-based adjustments if we have chunk text
+        if chunk_text:
+            word_count = len(chunk_text.split())
+            char_count = len(chunk_text)
+            
+            # Calculate complexity factor based on content characteristics
+            # More words and characters generally take longer to process
+            word_factor = 1.0 + (word_count - 50) * 0.01  # Base 50 words, +1% per word over/under
+            char_factor = 1.0 + (char_count - 200) * 0.001  # Base 200 chars, +0.1% per char over/under
+            
+            # Combine factors (cap at reasonable bounds)
+            complexity_factor = min(2.0, max(0.5, (word_factor + char_factor) / 2))
+            estimated_time_per_chunk *= complexity_factor
+        
+        remaining_chunks = total_chunks - current_chunk
+        estimated_remaining_seconds = remaining_chunks * estimated_time_per_chunk
+        
+        # Convert to human readable format
+        if estimated_remaining_seconds < 60:
+            return f"~{estimated_remaining_seconds:.0f}s"
+        elif estimated_remaining_seconds < 3600:
+            minutes = estimated_remaining_seconds / 60
+            return f"~{minutes:.1f}m"
+        else:
+            hours = estimated_remaining_seconds / 3600
+            return f"~{hours:.1f}h"
+    
+    def format_processing_time(self, processing_time: float) -> str:
+        """Format processing time in human readable format"""
+        if processing_time < 60:
+            return f"{processing_time:.1f}s"
+        elif processing_time < 3600:
+            minutes = processing_time / 60
+            return f"{minutes:.1f}m"
+        else:
+            hours = processing_time / 3600
+            return f"{hours:.1f}h"
     
     def load_story_workflow(self):
         """Load the story workflow from JSON"""
@@ -325,10 +383,13 @@ class StoryProcessor:
         # Calculate total characters for percentage calculation
         total_characters = len(story_text.strip())
         
+        # Initialize start time for time estimation
+        self.start_time = time.time()
+        
         print(f"\n📊 STORY PROCESSING PROGRESS")
-        print("=" * 80)
-        print(f"{'Chunk':<6} {'Lines':<10} {'Progress':<12} {'Status':<15} {'Output':<30}")
-        print("-" * 80)
+        print("=" * 100)
+        print(f"{'Chunk':<6} {'Lines':<10} {'Progress':<12} {'Status':<15} {'Time':<10} {'ETA':<10} {'Output':<30}")
+        print("-" * 100)
         
         for chunk in chunks:
             chunk_number = chunk['chunk_number']
@@ -344,23 +405,31 @@ class StoryProcessor:
             if resumable_state and resumable_state.is_chunk_complete(chunk_number):
                 cached_chunk = resumable_state.get_chunk_result(chunk_number)
                 if cached_chunk and cached_chunk.get('output_file'):
-                    print(f"{chunk_number:<6} {start_line}-{end_line:<8} {progress_percent:6.1f}%     {'CACHED':<15} {os.path.basename(cached_chunk['output_file']):<30}")
+                    eta = self.estimate_remaining_time(chunk_number, total_chunks, chunk_text=chunk_text)
+                    print(f"{chunk_number:<6} {start_line}-{end_line:<8} {progress_percent:6.1f}%     {'CACHED':<15} {'--':<10} {eta:<10} {os.path.basename(cached_chunk['output_file']):<30}")
                     chunk_files.append(cached_chunk['output_file'])
                     successful_chunks += 1
                     skipped_chunks += 1
                     continue
             
             # Show progress before starting
-            print(f"{chunk_number:<6} {start_line}-{end_line:<8} {progress_percent:6.1f}%     {'PROCESSING':<15} {'Generating audio...':<30}")
+            eta = self.estimate_remaining_time(chunk_number, total_chunks, chunk_text=chunk_text)
+            print(f"{chunk_number:<6} {start_line}-{end_line:<8} {progress_percent:6.1f}%     {'PROCESSING':<15} {'--':<10} {eta:<10} {'Generating audio...':<30}")
+            
+            chunk_start_time = time.time()
             
             try:
                 # Generate audio for this chunk
                 chunk_output = self.generate_chunk_audio(chunk_text, chunk_number, start_line, end_line)
                 
+                chunk_processing_time = time.time() - chunk_start_time
+                self.processing_times.append(chunk_processing_time)
+                
                 if chunk_output:
                     chunk_files.append(chunk_output)
                     successful_chunks += 1
-                    print(f"{chunk_number:<6} {start_line}-{end_line:<8} {progress_percent:6.1f}%     {'✅ COMPLETED':<15} {os.path.basename(chunk_output):<30}")
+                    eta = self.estimate_remaining_time(chunk_number, total_chunks, chunk_processing_time, chunk_text)
+                    print(f"{chunk_number:<6} {start_line}-{end_line:<8} {progress_percent:6.1f}%     {'✅ COMPLETED':<15} {self.format_processing_time(chunk_processing_time):<10} {eta:<10} {os.path.basename(chunk_output):<30}")
                     
                     # Save to checkpoint if resumable mode enabled
                     if resumable_state:
@@ -374,7 +443,8 @@ class StoryProcessor:
                         resumable_state.set_chunk_result(chunk_number, chunk_data)
                 else:
                     failed_chunks += 1
-                    print(f"{chunk_number:<6} {start_line}-{end_line:<8} {progress_percent:6.1f}%     {'❌ FAILED':<15} {'Audio generation failed':<30}")
+                    eta = self.estimate_remaining_time(chunk_number, total_chunks, chunk_processing_time, chunk_text)
+                    print(f"{chunk_number:<6} {start_line}-{end_line:<8} {progress_percent:6.1f}%     {'❌ FAILED':<15} {self.format_processing_time(chunk_processing_time):<10} {eta:<10} {'Audio generation failed':<30}")
                     
                     # Save error state to checkpoint if resumable mode enabled
                     if resumable_state:
@@ -393,8 +463,11 @@ class StoryProcessor:
                     time.sleep(2)
                     
             except Exception as e:
+                chunk_processing_time = time.time() - chunk_start_time
+                self.processing_times.append(chunk_processing_time)
                 failed_chunks += 1
-                print(f"{chunk_number:<6} {start_line}-{end_line:<8} {progress_percent:6.1f}%     {'❌ ERROR':<15} {str(e)[:30]:<30}")
+                eta = self.estimate_remaining_time(chunk_number, total_chunks, chunk_processing_time, chunk_text)
+                print(f"{chunk_number:<6} {start_line}-{end_line:<8} {progress_percent:6.1f}%     {'❌ ERROR':<15} {self.format_processing_time(chunk_processing_time):<10} {eta:<10} {str(e)[:30]:<30}")
                 
                 # Save error state to checkpoint if resumable mode enabled
                 if resumable_state:

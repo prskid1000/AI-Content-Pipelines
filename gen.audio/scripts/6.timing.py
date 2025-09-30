@@ -99,6 +99,10 @@ class TimingSFXGenerator:
         self.use_json_schema = use_json_schema
         self.timeline_file = "../input/2.timeline.txt"
         
+        # Time estimation tracking
+        self.processing_times = []
+        self.start_time = None
+        
     def read_timing_content(self, filename="../input/3.timing.txt") -> str:
         """Read timing content from file"""
         try:
@@ -310,6 +314,73 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
         
         # Default fallback
         return None
+    
+    def estimate_remaining_time(self, current_entry: int, total_entries: int, entry_processing_time: float = None, transcript_text: str = None, sfx_description: str = None) -> str:
+        """Estimate remaining time based on processing history and content characteristics"""
+        if not self.processing_times:
+            return "No data available"
+        
+        # Calculate base average processing time per entry
+        avg_time_per_entry = sum(self.processing_times) / len(self.processing_times)
+        
+        # If we have current entry processing time, use it for more accurate estimation
+        if entry_processing_time:
+            # Weight recent processing time more heavily
+            recent_avg = (sum(self.processing_times[-3:]) + entry_processing_time) / min(4, len(self.processing_times) + 1)
+            estimated_time_per_entry = recent_avg
+        else:
+            estimated_time_per_entry = avg_time_per_entry
+        
+        # Apply content-based adjustments if we have transcript and SFX data
+        if transcript_text and sfx_description:
+            transcript_word_count = len(transcript_text.split())
+            transcript_char_count = len(transcript_text)
+            sfx_word_count = len(sfx_description.split())
+            
+            # Calculate complexity factors
+            # Longer transcripts take more time to analyze
+            transcript_factor = 1.0 + (transcript_word_count - 20) * 0.015  # Base 20 words, +1.5% per word over/under
+            transcript_char_factor = 1.0 + (transcript_char_count - 100) * 0.001  # Base 100 chars, +0.1% per char over/under
+            
+            # SFX complexity based on description length and content type
+            sfx_factor = 1.0 + (sfx_word_count - 3) * 0.05  # Base 3 words, +5% per word over/under
+            
+            # Check for SFX complexity indicators
+            sfx_complexity = 1.0
+            if any(word in sfx_description.lower() for word in ['complex', 'layered', 'multiple', 'ambient', 'atmospheric']):
+                sfx_complexity = 1.3  # 30% longer for complex SFX
+            elif any(word in sfx_description.lower() for word in ['simple', 'single', 'basic', 'short']):
+                sfx_complexity = 0.8  # 20% shorter for simple SFX
+            elif sfx_description.lower().strip() == 'silence':
+                sfx_complexity = 0.5  # 50% shorter for silence
+            
+            # Combine factors (cap at reasonable bounds)
+            complexity_factor = min(2.5, max(0.3, (transcript_factor + transcript_char_factor + sfx_factor) / 3 * sfx_complexity))
+            estimated_time_per_entry *= complexity_factor
+        
+        remaining_entries = total_entries - current_entry
+        estimated_remaining_seconds = remaining_entries * estimated_time_per_entry
+        
+        # Convert to human readable format
+        if estimated_remaining_seconds < 60:
+            return f"~{estimated_remaining_seconds:.0f}s"
+        elif estimated_remaining_seconds < 3600:
+            minutes = estimated_remaining_seconds / 60
+            return f"~{minutes:.1f}m"
+        else:
+            hours = estimated_remaining_seconds / 3600
+            return f"~{hours:.1f}h"
+    
+    def format_processing_time(self, processing_time: float) -> str:
+        """Format processing time in human readable format"""
+        if processing_time < 60:
+            return f"{processing_time:.1f}s"
+        elif processing_time < 3600:
+            minutes = processing_time / 60
+            return f"{minutes:.1f}m"
+        else:
+            hours = processing_time / 3600
+            return f"{hours:.1f}h"
     
     def split_entry_into_sound_and_silence(self, entry: Dict[str, Any], timing_info: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Split a timing entry into silence + sound + silence based on position"""
@@ -557,9 +628,17 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
         
         print(f"📋 Processing {len(timing_entries)} line pairs")
         
+        # Initialize start time for time estimation
+        self.start_time = time.time()
+        
         # Process each pair together
         all_sfx_entries = []
         original_entries = []  # Track original entries before splitting
+        
+        print(f"\n📊 TIMING SFX GENERATION PROGRESS")
+        print("=" * 120)
+        print(f"{'Entry':<6} {'SFX':<30} {'Transcript':<50} {'Status':<15} {'Time':<10} {'ETA':<10}")
+        print("-" * 120)
         
         for i in range(len(timing_entries)):
             timing_entry = timing_entries[i]
@@ -572,7 +651,8 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
             if resumable_state and resumable_state.is_timing_entry_complete(entry_key):
                 cached_timing_info = resumable_state.get_timing_entry(entry_key)
                 if cached_timing_info:
-                    print(f"\n📝 Sound effect {i+1}/{len(timing_entries)}: using cached timing from checkpoint")
+                    eta = self.estimate_remaining_time(i+1, len(timing_entries), transcript_text=timeline_entry['description'], sfx_description=timing_entry['description'])
+                    print(f"{i+1:<6} {timing_entry['description'][:30]:<30} {timeline_entry['description'][:50]:<50} {'CACHED':<15} {'--':<10} {eta:<10}")
                     print(f"   🎬 Transcript: {timeline_entry['description'][:60]}...")
                     print(f"   🎵 SFX: {timing_entry['description']} ({timing_entry['seconds']}s)")
                     print(f"🎯 Original: {timing_entry['seconds']}s, Realistic: {cached_timing_info['duration']:.2f}s, Position: {cached_timing_info['position']:.2f}")
@@ -590,6 +670,8 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
             
             # Skip silence entries - only process actual sound effects
             if timing_entry['description'].lower().strip() == 'silence':
+                eta = self.estimate_remaining_time(i+1, len(timing_entries), transcript_text=timeline_entry['description'], sfx_description=timing_entry['description'])
+                print(f"{i+1:<6} {timing_entry['description'][:30]:<30} {timeline_entry['description'][:50]:<50} {'SKIPPED':<15} {'--':<10} {eta:<10}")
                 print(f"⏭️  Skipping silence entry {i+1}: {timing_entry['seconds']}s")
                 all_sfx_entries.append({
                     'seconds': timing_entry['seconds'],
@@ -599,7 +681,8 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
                 continue
             
             entry_start_time = time.time()
-            print(f"\n📝 Processing sound effect {i+1}/{len(timing_entries)}:")
+            eta = self.estimate_remaining_time(i+1, len(timing_entries), transcript_text=timeline_entry['description'], sfx_description=timing_entry['description'])
+            print(f"{i+1:<6} {timing_entry['description'][:30]:<30} {timeline_entry['description'][:50]:<50} {'PROCESSING':<15} {'--':<10} {eta:<10}")
             print(f"   🎬 Transcript: {timeline_entry['description'][:60]}...")
             print(f"   🎵 SFX: {timing_entry['description']} ({timing_entry['seconds']}s)")
             
@@ -635,14 +718,18 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
                     original_entries.append(timing_entry)  # Track original entry for each split
                     print(f"🎵 {split_entry['seconds']:.3f}s - {split_entry['description']}")
 
-                entry_end_time = time.time()
-                entry_duration = entry_end_time - entry_start_time
-                print(f"✅ Sound effect {i+1} processed successfully in {entry_duration:.2f} seconds")
+                entry_processing_time = time.time() - entry_start_time
+                self.processing_times.append(entry_processing_time)
+                eta = self.estimate_remaining_time(i+1, len(timing_entries), entry_processing_time, timeline_entry['description'], timing_entry['description'])
+                print(f"{i+1:<6} {timing_entry['description'][:30]:<30} {timeline_entry['description'][:50]:<50} {'COMPLETED':<15} {self.format_processing_time(entry_processing_time):<10} {eta:<10}")
+                print(f"✅ Sound effect {i+1} processed successfully in {entry_processing_time:.2f} seconds")
                 
             except Exception as e:
-                entry_end_time = time.time()
-                entry_duration = entry_end_time - entry_start_time
-                print(f"❌ Error processing sound effect {i+1}: {str(e)} (took {entry_duration:.2f} seconds)")
+                entry_processing_time = time.time() - entry_start_time
+                self.processing_times.append(entry_processing_time)
+                eta = self.estimate_remaining_time(i+1, len(timing_entries), entry_processing_time, timeline_entry['description'], timing_entry['description'])
+                print(f"{i+1:<6} {timing_entry['description'][:30]:<30} {timeline_entry['description'][:50]:<50} {'ERROR':<15} {self.format_processing_time(entry_processing_time):<10} {eta:<10}")
+                print(f"❌ Error processing sound effect {i+1}: {str(e)}")
                 # Continue with next entry instead of failing completely
                 all_sfx_entries.append({
                     'seconds': timing_entry['seconds'],

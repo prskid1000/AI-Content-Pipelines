@@ -135,6 +135,11 @@ class DirectTimelineProcessor:
         self.output_folder = "../../ComfyUI/output/audio/sfx"
         self.final_output_folder = "../output/sfx"
         self.max_workers = max_workers
+        
+        # Time estimation tracking
+        self.processing_times = []
+        self.start_time = None
+        
         os.makedirs(self.output_folder, exist_ok=True)
         os.makedirs(self.final_output_folder, exist_ok=True)
         self.clear_output_folder()
@@ -266,6 +271,76 @@ class DirectTimelineProcessor:
             print(f"Error copying {source_file} to output folder: {e}")
             return None
     
+    def estimate_remaining_time(self, current_file: int, total_files: int, file_processing_time: float = None, audio_duration: float = None, is_silence: bool = None, description: str = None) -> str:
+        """Estimate remaining time based on processing history and content characteristics"""
+        if not self.processing_times:
+            return "No data available"
+        
+        # Calculate base average processing time per file
+        avg_time_per_file = sum(self.processing_times) / len(self.processing_times)
+        
+        # If we have current file processing time, use it for more accurate estimation
+        if file_processing_time:
+            # Weight recent processing time more heavily
+            recent_avg = (sum(self.processing_times[-3:]) + file_processing_time) / min(4, len(self.processing_times) + 1)
+            estimated_time_per_file = recent_avg
+        else:
+            estimated_time_per_file = avg_time_per_file
+        
+        # Apply content-based adjustments if we have audio characteristics
+        if audio_duration is not None and is_silence is not None:
+            # Duration factor - longer audio generally takes more time to generate
+            duration_factor = 1.0 + (audio_duration - 5.0) * 0.1  # Base 5 seconds, +10% per second over/under
+            
+            # Generation method factor
+            method_factor = 0.2 if is_silence else 1.0  # Silence is much faster (20% of normal time)
+            
+            # Description complexity factor
+            complexity_factor = 1.0
+            if description:
+                word_count = len(description.split())
+                char_count = len(description)
+                
+                # More complex descriptions take longer
+                word_factor = 1.0 + (word_count - 3) * 0.1  # Base 3 words, +10% per word over/under
+                char_factor = 1.0 + (char_count - 20) * 0.01  # Base 20 chars, +1% per char over/under
+                
+                # Check for complexity indicators
+                if any(word in description.lower() for word in ['complex', 'layered', 'ambient', 'atmospheric', 'multiple']):
+                    complexity_factor = 1.5  # 50% longer for complex descriptions
+                elif any(word in description.lower() for word in ['simple', 'basic', 'single', 'short']):
+                    complexity_factor = 0.8  # 20% shorter for simple descriptions
+                
+                complexity_factor = min(2.0, max(0.5, (word_factor + char_factor) / 2 * complexity_factor))
+            
+            # Combine factors (cap at reasonable bounds)
+            total_factor = min(3.0, max(0.1, duration_factor * method_factor * complexity_factor))
+            estimated_time_per_file *= total_factor
+        
+        remaining_files = total_files - current_file
+        estimated_remaining_seconds = remaining_files * estimated_time_per_file
+        
+        # Convert to human readable format
+        if estimated_remaining_seconds < 60:
+            return f"~{estimated_remaining_seconds:.0f}s"
+        elif estimated_remaining_seconds < 3600:
+            minutes = estimated_remaining_seconds / 60
+            return f"~{minutes:.1f}m"
+        else:
+            hours = estimated_remaining_seconds / 3600
+            return f"~{hours:.1f}h"
+    
+    def format_processing_time(self, processing_time: float) -> str:
+        """Format processing time in human readable format"""
+        if processing_time < 60:
+            return f"{processing_time:.1f}s"
+        elif processing_time < 3600:
+            minutes = processing_time / 60
+            return f"{minutes:.1f}m"
+        else:
+            hours = processing_time / 3600
+            return f"{hours:.1f}h"
+    
     def __del__(self):
         """Cleanup when object is destroyed"""
         try:
@@ -340,6 +415,8 @@ class DirectTimelineProcessor:
         if duration <= 0:
             return None
         
+        file_start_time = time.time()
+        
         # Create filename with order information for proper merging
         entry_type = "silence" if self.is_silence_entry(entry['description']) else "sfx"
         filename = f"sfx_{i:03d}_{entry_type}_{round(entry['seconds'], 5)}"
@@ -363,6 +440,9 @@ class DirectTimelineProcessor:
                 # Copy to output folder
                 output_filename = f"{filename}.flac"
                 copied_path = self.copy_to_output_folder(silence_path, output_filename)
+                
+                file_processing_time = time.time() - file_start_time
+                self.processing_times.append(file_processing_time)
                 
                 result = {
                     'file': silence_path,
@@ -415,6 +495,9 @@ class DirectTimelineProcessor:
                                         output_filename = matching_files[0]  # Use the actual generated filename
                                         copied_path = self.copy_to_output_folder(found_path, output_filename)
                                         
+                                        file_processing_time = time.time() - file_start_time
+                                        self.processing_times.append(file_processing_time)
+                                        
                                         result = {
                                             'file': found_path,
                                             'output_file': copied_path,  # Track the copied file location
@@ -434,6 +517,8 @@ class DirectTimelineProcessor:
             raise Exception(f"Failed to generate audio for: {entry['description']}")
                 
         except Exception as e:
+            file_processing_time = time.time() - file_start_time
+            self.processing_times.append(file_processing_time)
             print(f"Error generating audio for '{entry['description']}': {e}")
             return None
     
@@ -448,12 +533,32 @@ class DirectTimelineProcessor:
         
         print(f"📊 Processing {len(batch_data)} entries: {silence_count} silence, {sfx_count} SFX")
         
+        # Initialize start time for time estimation
+        self.start_time = time.time()
+        
+        print(f"\n📊 SFX GENERATION PROGRESS")
+        print("=" * 100)
+        print(f"{'File':<6} {'Type':<10} {'Duration':<10} {'Description':<40} {'Status':<15} {'Time':<10} {'ETA':<10}")
+        print("-" * 100)
+        
         with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
             future_to_entry = {executor.submit(self.generate_single_sfx, data, resumable_state): data for data in batch_data}
+            completed_count = 0
             for future in as_completed(future_to_entry):
                 result = future.result()
+                completed_count += 1
                 if result:
                     generated_files.append(result)
+                    entry_type = "Silence" if self.is_silence_entry(result['description']) else "SFX"
+                    is_silence = self.is_silence_entry(result['description'])
+                    eta = self.estimate_remaining_time(completed_count, len(batch_data), audio_duration=result['duration'], is_silence=is_silence, description=result['description'])
+                    print(f"{completed_count:<6} {entry_type:<10} {result['duration']:<10.3f} {result['description'][:40]:<40} {'COMPLETED':<15} {'--':<10} {eta:<10}")
+                else:
+                    entry_data = future_to_entry[future]
+                    entry_type = "Silence" if self.is_silence_entry(entry_data[1]['description']) else "SFX"
+                    is_silence = self.is_silence_entry(entry_data[1]['description'])
+                    eta = self.estimate_remaining_time(completed_count, len(batch_data), audio_duration=entry_data[1]['seconds'], is_silence=is_silence, description=entry_data[1]['description'])
+                    print(f"{completed_count:<6} {entry_type:<10} {entry_data[1]['seconds']:<10.3f} {entry_data[1]['description'][:40]:<40} {'FAILED':<15} {'--':<10} {eta:<10}")
         
         return generated_files
     

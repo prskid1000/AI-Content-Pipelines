@@ -98,6 +98,10 @@ class TimelineSFXGenerator:
         self.model = model
         self.use_json_schema = use_json_schema
         
+        # Time estimation tracking
+        self.processing_times = []
+        self.start_time = None
+        
     def read_timeline_content(self, filename="../input/2.timeline.txt") -> str:
         """Read timeline content from file"""
         try:
@@ -270,6 +274,67 @@ OUTPUT: JSON with sound_or_silence_description field only."""
         # Default fallback
         return "Silence"
     
+    def estimate_remaining_time(self, current_entry: int, total_entries: int, entry_processing_time: float = None, entry_description: str = None) -> str:
+        """Estimate remaining time based on processing history and content characteristics"""
+        if not self.processing_times:
+            return "No data available"
+        
+        # Calculate base average processing time per entry
+        avg_time_per_entry = sum(self.processing_times) / len(self.processing_times)
+        
+        # If we have current entry processing time, use it for more accurate estimation
+        if entry_processing_time:
+            # Weight recent processing time more heavily
+            recent_avg = (sum(self.processing_times[-3:]) + entry_processing_time) / min(4, len(self.processing_times) + 1)
+            estimated_time_per_entry = recent_avg
+        else:
+            estimated_time_per_entry = avg_time_per_entry
+        
+        # Apply content-based adjustments if we have entry description
+        if entry_description:
+            word_count = len(entry_description.split())
+            char_count = len(entry_description)
+            
+            # Calculate complexity factor based on content characteristics
+            # Longer descriptions with more complex content take longer to process
+            word_factor = 1.0 + (word_count - 10) * 0.02  # Base 10 words, +2% per word over/under
+            char_factor = 1.0 + (char_count - 50) * 0.002  # Base 50 chars, +0.2% per char over/under
+            
+            # Check for content type complexity
+            content_complexity = 1.0
+            if any(word in entry_description.lower() for word in ['action', 'sound', 'music', 'dialogue', 'speech']):
+                content_complexity = 1.2  # 20% longer for action/sound content
+            elif any(word in entry_description.lower() for word in ['silence', 'quiet', 'pause']):
+                content_complexity = 0.8  # 20% shorter for silence content
+            
+            # Combine factors (cap at reasonable bounds)
+            complexity_factor = min(2.0, max(0.5, (word_factor + char_factor) / 2 * content_complexity))
+            estimated_time_per_entry *= complexity_factor
+        
+        remaining_entries = total_entries - current_entry
+        estimated_remaining_seconds = remaining_entries * estimated_time_per_entry
+        
+        # Convert to human readable format
+        if estimated_remaining_seconds < 60:
+            return f"~{estimated_remaining_seconds:.0f}s"
+        elif estimated_remaining_seconds < 3600:
+            minutes = estimated_remaining_seconds / 60
+            return f"~{minutes:.1f}m"
+        else:
+            hours = estimated_remaining_seconds / 3600
+            return f"~{hours:.1f}h"
+    
+    def format_processing_time(self, processing_time: float) -> str:
+        """Format processing time in human readable format"""
+        if processing_time < 60:
+            return f"{processing_time:.1f}s"
+        elif processing_time < 3600:
+            minutes = processing_time / 60
+            return f"{minutes:.1f}m"
+        else:
+            hours = processing_time / 3600
+            return f"{hours:.1f}h"
+    
     def save_sfx_to_file(self, all_sfx_entries: List[Dict[str, Any]]) -> None:
         """Save all SFX entries to sfx.txt"""
         try:
@@ -300,8 +365,16 @@ OUTPUT: JSON with sound_or_silence_description field only."""
             print("❌ No valid timeline entries found")
             return False
         
+        # Initialize start time for time estimation
+        self.start_time = time.time()
+        
         # Process each entry individually
         all_sfx_entries = []
+        
+        print(f"\n📊 TIMELINE SFX GENERATION PROGRESS")
+        print("=" * 100)
+        print(f"{'Entry':<6} {'Duration':<10} {'Description':<50} {'Status':<15} {'Time':<10} {'ETA':<10}")
+        print("-" * 100)
         
         for i, entry in enumerate(entries):
             # Create unique key for this entry
@@ -311,7 +384,8 @@ OUTPUT: JSON with sound_or_silence_description field only."""
             if resumable_state and resumable_state.is_sfx_entry_complete(entry_key):
                 cached_sfx = resumable_state.get_sfx_entry(entry_key)
                 if cached_sfx:
-                    print(f"\n📝 Entry {i+1}/{len(entries)}: using cached SFX from checkpoint")
+                    eta = self.estimate_remaining_time(i+1, len(entries), entry_description=entry['description'])
+                    print(f"{i+1:<6} {entry['seconds']:<10.3f} {entry['description'][:50]:<50} {'CACHED':<15} {'--':<10} {eta:<10}")
                     sfx_entry = {
                         'seconds': entry['seconds'],
                         'sound_or_silence_description': cached_sfx
@@ -320,7 +394,8 @@ OUTPUT: JSON with sound_or_silence_description field only."""
                     continue
             
             entry_start_time = time.time()
-            print(f"\n📝 Processing entry {i+1}/{len(entries)}: {entry['seconds']}s - {entry['description'][:50]}...")
+            eta = self.estimate_remaining_time(i+1, len(entries), entry_description=entry['description'])
+            print(f"{i+1:<6} {entry['seconds']:<10.3f} {entry['description'][:50]:<50} {'PROCESSING':<15} {'--':<10} {eta:<10}")
             
             # Create prompt for this single entry
             prompt = self.create_prompt_for_single_entry(entry)
@@ -332,15 +407,17 @@ OUTPUT: JSON with sound_or_silence_description field only."""
                     'sound_or_silence_description': 'Silence'
                 }
                 all_sfx_entries.append(sfx_entry)
+                
+                entry_processing_time = time.time() - entry_start_time
+                self.processing_times.append(entry_processing_time)
+                eta = self.estimate_remaining_time(i+1, len(entries), entry_processing_time, entry['description'])
+                print(f"{i+1:<6} {entry['seconds']:<10.3f} {entry['description'][:50]:<50} {'SKIPPED':<15} {self.format_processing_time(entry_processing_time):<10} {eta:<10}")
                 print(f"🔕 Skipped LM Studio (rule matched: dot-only or ≤3 words) → {entry['seconds']}: Silence")
                 
                 # Save to checkpoint if resumable mode enabled
                 if resumable_state:
                     resumable_state.set_sfx_entry(entry_key, 'Silence')
                 
-                entry_end_time = time.time()
-                entry_duration = entry_end_time - entry_start_time
-                print(f"✅ Entry {i+1} processed successfully in {entry_duration:.2f} seconds")
                 if i < len(entries) - 1:
                     time.sleep(1)
                 continue
@@ -365,17 +442,20 @@ OUTPUT: JSON with sound_or_silence_description field only."""
                 if resumable_state:
                     resumable_state.set_sfx_entry(entry_key, sound_description)
                 
+                entry_processing_time = time.time() - entry_start_time
+                self.processing_times.append(entry_processing_time)
+                eta = self.estimate_remaining_time(i+1, len(entries), entry_processing_time, entry['description'])
+                print(f"{i+1:<6} {entry['seconds']:<10.3f} {entry['description'][:50]:<50} {'COMPLETED':<15} {self.format_processing_time(entry_processing_time):<10} {eta:<10}")
+                
                 # Live preview for this entry
                 print(f"🎵 Output: {entry['seconds']}: {sound_description}")
-
-                entry_end_time = time.time()
-                entry_duration = entry_end_time - entry_start_time
-                print(f"✅ Entry {i+1} processed successfully in {entry_duration:.2f} seconds")
                 
             except Exception as e:
-                entry_end_time = time.time()
-                entry_duration = entry_end_time - entry_start_time
-                print(f"❌ Error processing entry {i+1}: {str(e)} (took {entry_duration:.2f} seconds)")
+                entry_processing_time = time.time() - entry_start_time
+                self.processing_times.append(entry_processing_time)
+                eta = self.estimate_remaining_time(i+1, len(entries), entry_processing_time, entry['description'])
+                print(f"{i+1:<6} {entry['seconds']:<10.3f} {entry['description'][:50]:<50} {'ERROR':<15} {self.format_processing_time(entry_processing_time):<10} {eta:<10}")
+                print(f"❌ Error processing entry {i+1}: {str(e)}")
                 # Continue with next entry instead of failing completely
                 all_sfx_entries.append({
                     'seconds': entry['seconds'],
