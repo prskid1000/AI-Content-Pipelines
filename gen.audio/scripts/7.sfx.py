@@ -14,6 +14,7 @@ print = partial(_builtins.print, flush=True)
 # Feature flags
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
+WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
 # Resumable state management
 class ResumableState:
@@ -383,6 +384,8 @@ class DirectTimelineProcessor:
     
     def _print_workflow_summary(self, workflow: dict, title: str) -> None:
         """Print a comprehensive workflow summary showing the flow to sampler inputs."""
+        if not WORKFLOW_SUMMARY_ENABLED:
+            return
         print(f"\n🔗 WORKFLOW SUMMARY: {title}")
         print("   📊 KSampler(3) - Core Parameters:")
         

@@ -12,6 +12,7 @@ from pathlib import Path
 # Feature flags
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
+WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
 # Image resizing configuration (characters only)
 # Character image resize factor: 0.125 (12.5% of original size) - Better aspect ratio for stitching
@@ -703,6 +704,8 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
     
     def _print_workflow_summary(self, workflow: dict, title: str) -> None:
         """Print a simplified workflow summary showing flow to sampler inputs."""
+        if not WORKFLOW_SUMMARY_ENABLED:
+            return
         print(f"\n{'='*60}")
         print(f"WORKFLOW SUMMARY: {title}")
         print(f"{'='*60}")

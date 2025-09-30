@@ -15,6 +15,7 @@ print = partial(_builtins.print, flush=True)
 # Feature flags
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
+WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
@@ -409,6 +410,8 @@ class CharacterGenerator:
     
     def _print_workflow_summary(self, workflow: dict, title: str) -> None:
         """Print a simplified workflow summary showing flow to sampler inputs."""
+        if not WORKFLOW_SUMMARY_ENABLED:
+            return
         print(f"\n{'='*60}")
         print(f"WORKFLOW SUMMARY: {title}")
         print(f"{'='*60}")

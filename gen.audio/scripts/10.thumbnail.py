@@ -16,6 +16,9 @@ import random
 USE_RANDOM_SEED = True  # Set to True to use random seeds for each generation
 RANDOM_SEED = 333555666
 
+# Workflow configuration
+WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
+
 # Controls text generation method:
 # - True: use text overlay after image generation (generates 1 image: thumbnail.png)
 # - False: let Flux generate text in the image itself (generates 5 versions: thumbnail.flux.v1-v5.png)
@@ -271,6 +274,8 @@ class ThumbnailProcessor:
     
     def _print_workflow_summary(self, workflow: dict, title: str) -> None:
         """Print a simplified workflow summary showing flow to sampler inputs."""
+        if not WORKFLOW_SUMMARY_ENABLED:
+            return
         print(f"\n{'='*60}")
         print(f"WORKFLOW SUMMARY: {title}")
         print(f"{'='*60}")

@@ -12,6 +12,7 @@ from typing import List, Dict, Optional, Tuple
 # Feature flags
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
+WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
 # Video configuration constants
 VIDEO_WIDTH = 1024
@@ -1610,6 +1611,8 @@ class VideoAnimator:
 
     def _print_workflow_summary(self, workflow: dict, title: str) -> None:
         """Print a comprehensive workflow summary showing the flow to sampler inputs."""
+        if not WORKFLOW_SUMMARY_ENABLED:
+            return
         print(f"\n🔗 WORKFLOW SUMMARY: {title}")
         
         # Find the main sampler node (LTXVBaseSampler)
