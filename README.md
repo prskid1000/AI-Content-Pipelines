@@ -127,6 +127,8 @@ The AI Content Studio features a robust resumable processing system that allows 
 All major generation scripts now support resumable processing:
 
 **Audio Pipeline:**
+- ✅ `1.character.py` - Character voice assignment and analysis
+- ✅ `2.story.py` - Story audio generation with chunked processing
 - ✅ `5.timeline.py` - SFX timeline generation
 - ✅ `6.timing.py` - SFX timing refinement  
 - ✅ `7.sfx.py` - Sound effect generation
@@ -147,15 +149,27 @@ python 1.story.py
 # Force start from beginning (ignores checkpoints)
 python 2.character.py --force-start
 
+# Story processing with custom chunk size
+python 2.story.py --chunk-size 3
+
 # Combine with existing flags
 python 7.sfx.py --force-start --auto-confirm y
+
+# Disable resumable mode for story processing
+python 2.story.py --disable-resumable
 ```
 
 #### Checkpoint Management
 - **Location**: `../output/tracking/` directory in each pipeline
-- **Naming**: Script-specific files (e.g., `1.story.state.json`, `2.character.state.json`)
+- **Naming**: Script-specific files (e.g., `1.story.state.json`, `2.character.state.json`, `2.story.state.json`)
 - **Content**: JSON format with progress tracking and cached results
 - **Lifecycle**: Automatically created, updated, and optionally cleaned up based on `CLEANUP_TRACKING_FILES` setting
+
+#### Story Processing Checkpoints
+- **Chunk Progress**: Tracks completion of individual story chunks
+- **File Validation**: Ensures cached audio files still exist before skipping
+- **Final Concatenation**: Tracks completion of final audio assembly
+- **Resume Points**: Can resume from any completed chunk or final concatenation phase
 
 #### Progress Tracking
 - **Real-time Status**: Shows current progress on script startup
@@ -232,7 +246,7 @@ cd gen.audio/scripts && python 7.sfx.py --auto-confirm y
 
 **Purpose**: Generate narrated stories with sound effects and create YouTube-ready videos
 
-**Resumable Scripts**: `5.timeline.py`, `6.timing.py`, `7.sfx.py`
+**Resumable Scripts**: `1.character.py`, `2.story.py`, `5.timeline.py`, `6.timing.py`, `7.sfx.py`
 
 ### Workflow Overview
 ```
@@ -257,11 +271,63 @@ Story Text → Character Analysis → TTS → Transcription → SFX → Mixing �
 | `13.youtube.py` | Upload to YouTube | `final.mp4`, `description.txt`, `tags.txt` | YouTube upload | Google API |
 
 ### Audio Pipeline Features
-- **Character Voice Assignment**: Automatic gender detection and voice selection
+- **Character Voice Assignment**: Automatic gender detection and voice selection with resumable processing
+- **Story Audio Generation**: Chunked TTS processing with progress tracking and resumable recovery
 - **TTS Generation**: Multi-character narration with voice consistency
 - **SFX Integration**: AI-generated sound effects with precise timing
 - **Audio Mixing**: Professional-grade audio combination using PyTorch/Torchaudio
 - **YouTube Integration**: Automated upload with metadata generation
+
+### Resumable Story Processing (`2.story.py`)
+
+The story audio generation now supports advanced resumable processing with chunked generation:
+
+#### Key Features
+- **Chunked Processing**: Splits story into 5-line chunks for manageable processing
+- **Progress Tracking**: Real-time percentage completion with detailed status display
+- **Individual Chunk Output**: Saves each chunk as `output/story/start_line_end_line.wav`
+- **Final Concatenation**: Combines all chunks into final `story.wav`
+- **Checkpoint Recovery**: Resumes from any completed chunk if interrupted
+
+#### Progress Display
+```
+📊 STORY PROCESSING PROGRESS
+================================================================================
+Chunk   Lines       Progress     Status           Output                         
+--------------------------------------------------------------------------------
+1       1-5         12.5%        PROCESSING       Generating audio...            
+1       1-5         12.5%        ✅ COMPLETED      1_5.wav                        
+2       6-10        25.0%        PROCESSING       Generating audio...            
+2       6-10        25.0%        ✅ COMPLETED      6_10.wav                       
+3       11-15       37.5%        CACHED           11_15.wav                      
+```
+
+#### CLI Arguments
+```bash
+# Basic resumable processing
+python 2.story.py
+
+# Force start from beginning
+python 2.story.py --force-start
+
+# Disable resumable mode
+python 2.story.py --disable-resumable
+
+# Custom chunk size (3 lines per chunk)
+python 2.story.py --chunk-size 3
+```
+
+#### File Structure
+```
+gen.audio/output/
+├── story/                      # Individual chunk files
+│   ├── 1_5.wav               # Lines 1-5 audio
+│   ├── 6_10.wav              # Lines 6-10 audio
+│   └── ...
+├── story.wav                  # Final concatenated result
+└── tracking/                  # Checkpoint files
+    └── 2.story.state.json
+```
 
 ### Audio Pipeline Detailed Flowchart
 
@@ -606,6 +672,12 @@ AUTO_CHANGE_SETTINGS = "n"  # Allow setting changes
 comfyui_url = "http://127.0.0.1:8188/"
 output_folder = "../../ComfyUI/output/audio"
 final_output = "../output/story.wav"
+chunk_output_dir = "../output/story"
+
+# Resumable Processing Configuration
+CHUNK_SIZE = 5  # Number of dialogues/lines per chunk
+ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
+CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
 ```
 
 #### `7.sfx.py` - Sound Effects Generation
@@ -1337,7 +1409,7 @@ The orchestrator scripts automatically manage service dependencies with intellig
 - **NEEDS_COMFYUI**: `{"2.story.py", "7.sfx.py", "10.thumbnail.py"}`
 - **NEEDS_LMSTUDIO**: `{"1.character.py", "5.timeline.py", "6.timing.py", "9.description.py", "12.media.py"}`
 - **Scripts**: Currently all commented out (empty pipeline)
-- **Resumable Scripts**: `5.timeline.py`, `6.timing.py`, `7.sfx.py`
+- **Resumable Scripts**: `1.character.py`, `2.story.py`, `5.timeline.py`, `6.timing.py`, `7.sfx.py`
 
 #### Image Pipeline (`gen.image/generate.py`)  
 - **NEEDS_COMFYUI**: `{"2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py"}`
@@ -1534,6 +1606,8 @@ The current workflow files use direct resolution settings instead of dynamic `Fl
 - `--auto-confirm` - Skip interactive confirmations
 - `--bypass-validation` - Skip validation checks
 - `--force-start` - Force start from beginning, ignoring checkpoint files
+- `--disable-resumable` - Disable resumable mode for story processing
+- `--chunk-size N` - Set custom chunk size for story processing (default: 5)
 
 #### Pipeline-Specific Arguments
 - `--mode` - Select generation modes (e.g., "flux" for image generation)
@@ -1551,6 +1625,7 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 ../output/tracking/           # Checkpoint files location
 ├── 1.story.state.json       # Story parsing checkpoints
 ├── 2.character.state.json   # Character generation checkpoints
+├── 2.story.state.json       # Story audio generation checkpoints
 ├── 3.scene.state.json       # Scene generation checkpoints
 ├── 5.timeline.state.json    # Timeline generation checkpoints
 ├── 6.timing.state.json      # Timing refinement checkpoints
