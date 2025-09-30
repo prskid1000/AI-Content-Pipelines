@@ -649,6 +649,60 @@ The video pipeline includes commented references to image and audio pipeline scr
 
 Each script contains various configuration constants that control behavior, quality, and output settings. Here's a comprehensive breakdown:
 
+## 🔍 Workflow Summary Feature
+
+The `WORKFLOW_SUMMARY_ENABLED` feature provides detailed workflow execution summaries for debugging and monitoring ComfyUI workflow operations. When enabled, scripts will print comprehensive information about workflow structure, node configurations, and execution parameters.
+
+### Feature Overview
+- **Purpose**: Debug and monitor ComfyUI workflow execution
+- **Default State**: `False` (disabled by default)
+- **Usage**: Set to `True` to enable detailed workflow summaries
+- **Performance Impact**: Minimal - only affects logging output
+
+### Scripts Using WORKFLOW_SUMMARY_ENABLED
+
+| Pipeline | Script | Purpose | Workflow Type |
+|----------|--------|---------|---------------|
+| **Audio** | `2.story.py` | Story audio generation | TTS workflow |
+| **Audio** | `7.sfx.py` | Sound effects generation | Audio generation workflow |
+| **Audio** | `10.thumbnail.py` | Thumbnail generation | Image generation workflow |
+| **Image** | `2.character.py` | Character portrait generation | Image generation workflow |
+| **Image** | `3.scene.py` | Scene image generation | Image generation workflow |
+
+### Configuration
+```python
+# Feature flag in each script
+WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
+```
+
+### Workflow Summary Output
+When enabled, the feature provides detailed information about:
+- **Workflow Structure**: Node connections and data flow
+- **Parameter Values**: All input parameters and their values
+- **Node Configuration**: Detailed settings for each workflow node
+- **Execution Context**: Runtime information and resource usage
+
+### Usage Examples
+```python
+# Enable workflow summaries for debugging
+WORKFLOW_SUMMARY_ENABLED = True
+
+# Disable for production runs (default)
+WORKFLOW_SUMMARY_ENABLED = False
+```
+
+### When to Use
+- **Development**: Debugging workflow issues and parameter validation
+- **Troubleshooting**: Investigating generation failures or unexpected results
+- **Optimization**: Analyzing workflow performance and resource usage
+- **Documentation**: Understanding workflow structure and dependencies
+
+### Performance Considerations
+- **Logging Overhead**: Minimal impact on execution time
+- **Output Volume**: Can generate extensive log output
+- **Memory Usage**: Negligible additional memory consumption
+- **Recommended**: Enable only when debugging or troubleshooting
+
 ### Audio Pipeline Scripts
 
 #### `1.character.py` - Character Voice Assignment
