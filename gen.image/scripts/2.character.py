@@ -26,7 +26,7 @@ LATENT_MODE = "IMAGE"  # "LATENT" for normal noise generation, "IMAGE" for load 
 LATENT_DENOISING_STRENGTH = 0.82  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # LoRA Configuration
-USE_LORA = True  # Set to False to disable LoRA usage in workflow
+USE_LORA = False  # Set to False to disable LoRA usage in workflow
 LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
 
 # LoRA Configuration
@@ -980,7 +980,7 @@ class CharacterGenerator:
             if LATENT_MODE == "IMAGE":
                 # For chained mode: Replace EmptySD3LatentImage with LoadImage + VAEEncode
                 # For serial mode: This will be handled individually in _generate_character_image_serial
-                if LORA_MODE == "chained":
+                if LORA_MODE == "chained" or not USE_LORA:
                     self._replace_latent_with_image_input(workflow, node_id, self.latent_image_path, LATENT_DENOISING_STRENGTH)
                     print(f"Using image input mode with file: {self.latent_image_path}")
                 else:

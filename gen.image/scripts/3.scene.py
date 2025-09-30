@@ -1403,7 +1403,7 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
         if LATENT_MODE == "IMAGE":
             # For chained mode: Replace EmptySD3LatentImage with LoadImage + VAEEncode
             # For serial mode: This will be handled individually in _generate_character_image_serial
-            if LORA_MODE == "chained":
+            if LORA_MODE == "chained" or not USE_LORA:
                 self._replace_latent_with_image_input(workflow, "19", self.latent_image_path, LATENT_DENOISING_STRENGTH)
                 print(f"Using image input mode with file: {self.latent_image_path}")
             else:
