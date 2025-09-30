@@ -279,14 +279,14 @@ OUTPUT: JSON with sound_or_silence_description field only."""
         if not self.processing_times:
             return "No data available"
         
-        # Calculate base average processing time per entry
+        # Calculate base average processing time per entry using ALL previous entries
         avg_time_per_entry = sum(self.processing_times) / len(self.processing_times)
         
-        # If we have current entry processing time, use it for more accurate estimation
+        # If we have current entry processing time, include it in the calculation
         if entry_processing_time:
-            # Weight recent processing time more heavily
-            recent_avg = (sum(self.processing_times[-3:]) + entry_processing_time) / min(4, len(self.processing_times) + 1)
-            estimated_time_per_entry = recent_avg
+            # Use all previous entries plus current entry for more accurate estimation
+            all_times = self.processing_times + [entry_processing_time]
+            estimated_time_per_entry = sum(all_times) / len(all_times)
         else:
             estimated_time_per_entry = avg_time_per_entry
         

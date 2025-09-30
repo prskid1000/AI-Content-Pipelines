@@ -172,6 +172,10 @@ class VideoAnimator:
         # Motion data file
         self.motion_file = "../input/2.motion.txt"
 
+        # Time estimation tracking
+        self.processing_times = []
+        self.start_time = None
+
         # Create output directories
         os.makedirs(self.final_output_dir, exist_ok=True)
         os.makedirs(self.frames_output_dir, exist_ok=True)
@@ -180,6 +184,70 @@ class VideoAnimator:
         # Track silence block processing
         self._current_silence_block_count = 0
         self._current_silence_position = 0
+
+    def estimate_remaining_time(self, current_scene: int, total_scenes: int, scene_processing_time: float = None, scene_description: str = None, duration: float = None) -> str:
+        """Estimate remaining time based on processing history and content characteristics"""
+        if not self.processing_times:
+            return "No data available"
+        
+        # Calculate base average processing time per scene using ALL previous entries
+        avg_time_per_scene = sum(self.processing_times) / len(self.processing_times)
+        
+        # If we have current scene processing time, include it in the calculation
+        if scene_processing_time:
+            # Use all previous entries plus current entry for more accurate estimation
+            all_times = self.processing_times + [scene_processing_time]
+            estimated_time_per_scene = sum(all_times) / len(all_times)
+        else:
+            estimated_time_per_scene = avg_time_per_scene
+        
+        # Apply content-based adjustments if we have scene description and duration
+        if scene_description and duration is not None:
+            word_count = len(scene_description.split())
+            char_count = len(scene_description)
+            
+            # Calculate complexity factor based on content characteristics
+            # More complex scenes with more characters and longer durations take longer
+            word_factor = 1.0 + (word_count - 20) * 0.02  # Base 20 words, +2% per word over/under
+            char_factor = 1.0 + (char_count - 100) * 0.001  # Base 100 chars, +0.1% per char over/under
+            
+            # Duration factor - longer videos take more time to generate
+            duration_factor = 1.0 + (duration - 5.0) * 0.1  # Base 5 seconds, +10% per second over/under
+            
+            # Check for complexity indicators
+            complexity_factor = 1.0
+            if any(word in scene_description.lower() for word in ['complex', 'detailed', 'multiple', 'many', 'crowd', 'action', 'motion']):
+                complexity_factor = 1.4  # 40% longer for complex scenes
+            elif any(word in scene_description.lower() for word in ['simple', 'basic', 'single', 'minimal', 'static']):
+                complexity_factor = 0.8  # 20% shorter for simple scenes
+            
+            # Combine factors (cap at reasonable bounds)
+            complexity_factor = min(2.5, max(0.5, (word_factor + char_factor + duration_factor) / 3 * complexity_factor))
+            estimated_time_per_scene *= complexity_factor
+        
+        remaining_scenes = total_scenes - current_scene
+        estimated_remaining_seconds = remaining_scenes * estimated_time_per_scene
+        
+        # Convert to human readable format
+        if estimated_remaining_seconds < 60:
+            return f"~{estimated_remaining_seconds:.0f}s"
+        elif estimated_remaining_seconds < 3600:
+            minutes = estimated_remaining_seconds / 60
+            return f"~{minutes:.1f}m"
+        else:
+            hours = estimated_remaining_seconds / 3600
+            return f"~{hours:.1f}h"
+    
+    def format_processing_time(self, processing_time: float) -> str:
+        """Format processing time in human readable format"""
+        if processing_time < 60:
+            return f"{processing_time:.1f}s"
+        elif processing_time < 3600:
+            minutes = processing_time / 60
+            return f"{minutes:.1f}m"
+        else:
+            hours = processing_time / 3600
+            return f"{hours:.1f}h"
 
     def read_timeline_data(self) -> Tuple[List[float], List[Dict[str, str]]]:
         """Read durations and scene information from 2.timeline.script.txt.
@@ -1481,33 +1549,48 @@ class VideoAnimator:
         print_flush("=" * 60)
 
         results = {}
-        start_time = time.time()
+        # Initialize start time for time estimation
+        self.start_time = time.time()
+        
+        print_flush(f"\n📊 VIDEO ANIMATION PROGRESS")
+        print_flush("=" * 120)
+        print_flush(f"{'Scene':<6} {'Description':<50} {'Duration':<10} {'Status':<15} {'Time':<10} {'ETA':<10}")
+        print_flush("-" * 120)
         
         for i, (scene_name, scene_info) in enumerate(scenes_to_process.items(), 1):
-            print_flush(f"\n[{i}/{len(scenes_to_process)}] Processing {scene_name}...")
-            
+            scene_start_time = time.time()
             duration = scene_info["total_duration"]
             description = scene_info["description"]
             image_path = scene_info["image_path"]
             frame_count = self._calculate_frame_count(duration)
             
-            print_flush(f"Duration: {duration:.2f}s, Frames: {frame_count}")
+            eta = self.estimate_remaining_time(i, len(scenes_to_process), scene_description=description, duration=duration)
+            print_flush(f"{i:<6} {description[:50]:<50} {duration:<10.2f} {'PROCESSING':<15} {'--':<10} {eta:<10}")
             
             output_paths = self._generate_video(scene_name, description, image_path, duration, characters_data, motion_data, locations_data, resumable_state)
+            
+            scene_processing_time = time.time() - scene_start_time
+            self.processing_times.append(scene_processing_time)
+            
             if output_paths:
+                eta = self.estimate_remaining_time(i, len(scenes_to_process), scene_processing_time, description, duration)
                 if len(output_paths) == 1:
                     results[scene_name] = output_paths[0]
+                    print_flush(f"{i:<6} {description[:50]:<50} {duration:<10.2f} {'✅ COMPLETED':<15} {self.format_processing_time(scene_processing_time):<10} {eta:<10}")
                     print_flush(f"✅ Generated video: {scene_name}")
                 else:
                     # Multiple chunks generated
                     results[scene_name] = output_paths
+                    print_flush(f"{i:<6} {description[:50]:<50} {duration:<10.2f} {'✅ COMPLETED':<15} {self.format_processing_time(scene_processing_time):<10} {eta:<10}")
                     print_flush(f"✅ Generated {len(output_paths)} video chunks: {scene_name}")
-                    for i, path in enumerate(output_paths, 1):
-                        print_flush(f"   Chunk {i}: {os.path.basename(path)}")
+                    for j, path in enumerate(output_paths, 1):
+                        print_flush(f"   Chunk {j}: {os.path.basename(path)}")
             else:
+                eta = self.estimate_remaining_time(i, len(scenes_to_process), scene_processing_time, description, duration)
+                print_flush(f"{i:<6} {description[:50]:<50} {duration:<10.2f} {'❌ FAILED':<15} {self.format_processing_time(scene_processing_time):<10} {eta:<10}")
                 print_flush(f"❌ Failed: {scene_name}")
         
-        elapsed = time.time() - start_time
+        elapsed = time.time() - self.start_time
         
         print_flush("\n📊 ANIMATION SUMMARY:")
         print_flush(f"   • Total timeline entries: {len(durations)}")

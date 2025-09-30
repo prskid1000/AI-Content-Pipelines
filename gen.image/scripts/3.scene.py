@@ -225,11 +225,76 @@ class SceneGenerator:
         # Latent image input file path
         self.latent_image_path = "../input/3.latent.png"
 
+        # Time estimation tracking
+        self.processing_times = []
+        self.start_time = None
+
         # Create output directories
         os.makedirs(self.final_output_dir, exist_ok=True)
         os.makedirs(self.intermediate_output_dir, exist_ok=True)
         # Ensure ComfyUI input directory exists
         os.makedirs(self.comfyui_input_folder, exist_ok=True)
+
+    def estimate_remaining_time(self, current_scene: int, total_scenes: int, scene_processing_time: float = None, scene_description: str = None) -> str:
+        """Estimate remaining time based on processing history and content characteristics"""
+        if not self.processing_times:
+            return "No data available"
+        
+        # Calculate base average processing time per scene using ALL previous entries
+        avg_time_per_scene = sum(self.processing_times) / len(self.processing_times)
+        
+        # If we have current scene processing time, include it in the calculation
+        if scene_processing_time:
+            # Use all previous entries plus current entry for more accurate estimation
+            all_times = self.processing_times + [scene_processing_time]
+            estimated_time_per_scene = sum(all_times) / len(all_times)
+        else:
+            estimated_time_per_scene = avg_time_per_scene
+        
+        # Apply content-based adjustments if we have scene description
+        if scene_description:
+            word_count = len(scene_description.split())
+            char_count = len(scene_description)
+            
+            # Calculate complexity factor based on content characteristics
+            # More complex scenes with more characters and descriptions take longer
+            word_factor = 1.0 + (word_count - 20) * 0.02  # Base 20 words, +2% per word over/under
+            char_factor = 1.0 + (char_count - 100) * 0.001  # Base 100 chars, +0.1% per char over/under
+            
+            # Check for complexity indicators
+            complexity_factor = 1.0
+            if any(word in scene_description.lower() for word in ['complex', 'detailed', 'multiple', 'many', 'crowd', 'action']):
+                complexity_factor = 1.3  # 30% longer for complex scenes
+            elif any(word in scene_description.lower() for word in ['simple', 'basic', 'single', 'minimal']):
+                complexity_factor = 0.8  # 20% shorter for simple scenes
+            
+            # Combine factors (cap at reasonable bounds)
+            complexity_factor = min(2.0, max(0.5, (word_factor + char_factor) / 2 * complexity_factor))
+            estimated_time_per_scene *= complexity_factor
+        
+        remaining_scenes = total_scenes - current_scene
+        estimated_remaining_seconds = remaining_scenes * estimated_time_per_scene
+        
+        # Convert to human readable format
+        if estimated_remaining_seconds < 60:
+            return f"~{estimated_remaining_seconds:.0f}s"
+        elif estimated_remaining_seconds < 3600:
+            minutes = estimated_remaining_seconds / 60
+            return f"~{minutes:.1f}m"
+        else:
+            hours = estimated_remaining_seconds / 3600
+            return f"~{hours:.1f}h"
+    
+    def format_processing_time(self, processing_time: float) -> str:
+        """Format processing time in human readable format"""
+        if processing_time < 60:
+            return f"{processing_time:.1f}s"
+        elif processing_time < 3600:
+            minutes = processing_time / 60
+            return f"{minutes:.1f}m"
+        else:
+            hours = processing_time / 3600
+            return f"{hours:.1f}h"
 
     def _read_scene_data(self) -> dict[str, str]:
         """Parse scene data from input file."""
@@ -1406,8 +1471,18 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
         print("=" * 60)
 
         results = {}
+        # Initialize start time for time estimation
+        self.start_time = time.time()
+        
+        print(f"\n📊 SCENE GENERATION PROGRESS")
+        print("=" * 100)
+        print(f"{'Scene':<6} {'Description':<50} {'Status':<15} {'Time':<10} {'ETA':<10}")
+        print("-" * 100)
+        
         for i, (scene_id, scene_description) in enumerate(scenes_to_process.items(), 1):
-            print(f"\n[{i}/{len(scenes_to_process)}] Processing {scene_id}...")
+            scene_start_time = time.time()
+            eta = self.estimate_remaining_time(i, len(scenes_to_process), scene_description=scene_description)
+            print(f"{i:<6} {scene_description[:50]:<50} {'PROCESSING':<15} {'--':<10} {eta:<10}")
             
             character_names = self._extract_characters_from_scene(scene_description)
             valid_characters = [char for char in character_names if char in characters]
@@ -1417,10 +1492,18 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
                 continue
                 
             output_path = self._generate_scene_image(scene_id, scene_description, valid_characters, master_prompt, characters, locations, resumable_state)
+            
+            scene_processing_time = time.time() - scene_start_time
+            self.processing_times.append(scene_processing_time)
+            
             if output_path:
+                eta = self.estimate_remaining_time(i, len(scenes_to_process), scene_processing_time, scene_description)
+                print(f"{i:<6} {scene_description[:50]:<50} {'✅ COMPLETED':<15} {self.format_processing_time(scene_processing_time):<10} {eta:<10}")
                 results[scene_id] = output_path
                 print(f"[OK] Generated: {scene_id}")
             else:
+                eta = self.estimate_remaining_time(i, len(scenes_to_process), scene_processing_time, scene_description)
+                print(f"{i:<6} {scene_description[:50]:<50} {'❌ FAILED':<15} {self.format_processing_time(scene_processing_time):<10} {eta:<10}")
                 print(f"[FAILED] {scene_id}")
 
         return results

@@ -151,14 +151,14 @@ class StoryProcessor:
         if not self.processing_times:
             return "No data available"
         
-        # Calculate base average processing time per chunk
+        # Calculate base average processing time per chunk using ALL previous entries
         avg_time_per_chunk = sum(self.processing_times) / len(self.processing_times)
         
-        # If we have current chunk processing time, use it for more accurate estimation
+        # If we have current chunk processing time, include it in the calculation
         if chunk_processing_time:
-            # Weight recent processing time more heavily
-            recent_avg = (sum(self.processing_times[-3:]) + chunk_processing_time) / min(4, len(self.processing_times) + 1)
-            estimated_time_per_chunk = recent_avg
+            # Use all previous entries plus current entry for more accurate estimation
+            all_times = self.processing_times + [chunk_processing_time]
+            estimated_time_per_chunk = sum(all_times) / len(all_times)
         else:
             estimated_time_per_chunk = avg_time_per_chunk
         
