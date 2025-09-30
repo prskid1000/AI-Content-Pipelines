@@ -601,18 +601,42 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
             return {}
 
     def _apply_loras(self, workflow: dict) -> None:
-        """Apply LoRAs in series with individual bypass options."""
+        """Apply LoRAs based on mode (serial or chained)."""
+        if LORA_MODE == "serial":
+            self._apply_loras_serial(workflow)
+        else:
+            self._apply_loras_chained(workflow)
+    
+    def _apply_loras_serial(self, workflow: dict) -> None:
+        """Apply LoRAs in serial mode - each LoRA runs independently.
+        
+        Serial mode logic:
+        - Each LoRA runs in a separate workflow execution
+        - LoRA 0: Uses EmptySD3LatentImage (latent mode) or image input (image mode)
+        - LoRA 1+: Uses previous LoRA output as input
+        """
         enabled_loras = [lora for lora in LORAS if lora.get("enabled", True)]
         
         if not enabled_loras:
             print("No enabled LoRAs found in LORAS configuration")
             return
         
-        print(f"Applying {len(enabled_loras)} LoRAs in series...")
+        print(f"Serial LoRA mode: {len(enabled_loras)} LoRAs will run independently")
+        print("Note: Serial mode requires separate workflow execution for each LoRA")
+    
+    def _apply_loras_chained(self, workflow: dict) -> None:
+        """Apply LoRAs in series with individual bypass options (chained mode)."""
+        enabled_loras = [lora for lora in LORAS if lora.get("enabled", True)]
+        
+        if not enabled_loras:
+            print("No enabled LoRAs found in LORAS configuration")
+            return
+        
+        print(f"Applying {len(enabled_loras)} LoRAs in chained mode...")
         
         # Get initial model and clip connections
-        model_input = ["41", 0]  # Base model node
-        clip_input = ["10", 0]   # Base clip node
+        model_input = self._find_node_by_class(workflow, "UnetLoaderGGUF") or ["41", 0]
+        clip_input = self._find_node_by_class(workflow, ["DualCLIPLoader", "TripleCLIPLoader"]) or ["10", 0]
         
         last_model_output = model_input
         last_clip_output = clip_input
@@ -655,8 +679,8 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
             last_clip_output = [lora_node_id, 1]
         
         # Connect final LoRA outputs to workflow nodes
-        workflow["16"]["inputs"]["model"] = last_model_output
-        workflow["33"]["inputs"]["clip"] = last_clip_output
+        self._update_node_connections(workflow, "KSampler", "model", last_model_output)
+        self._update_node_connections(workflow, ["CLIPTextEncode", "CLIP Text Encode (Prompt)"], "clip", last_clip_output)
         
         print(f"LoRAs chain completed with {len(enabled_loras)} LoRAs")
     
@@ -676,6 +700,26 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
         
         for node_id in nodes_to_remove:
             del workflow[node_id]
+    
+    def _find_node_by_class(self, workflow: dict, class_types: str | list[str]) -> list | None:
+        """Find a node by its class type and return its connection."""
+        if isinstance(class_types, str):
+            class_types = [class_types]
+        
+        for node_id, node in workflow.items():
+            if isinstance(node, dict) and node.get("class_type") in class_types:
+                return [node_id, 0]
+        return None
+    
+    def _update_node_connections(self, workflow: dict, class_types: str | list[str], input_key: str, value) -> None:
+        """Update specific input connections for nodes matching class types."""
+        if isinstance(class_types, str):
+            class_types = [class_types]
+        
+        for node_id, node in workflow.items():
+            if isinstance(node, dict) and isinstance(node.get("inputs"), dict):
+                if node.get("class_type") in class_types and input_key in node["inputs"]:
+                    node["inputs"][input_key] = value
 
     def _create_image_processing_nodes(self, workflow: dict, all_images: dict, start_node_id: int) -> list[str]:
         """Create all image processing nodes with stitching and return reference latent node IDs."""
@@ -877,10 +921,19 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
         workflow["21"]["inputs"]["filename_prefix"] = scene_id
         
         # Set resolution parameters and handle latent input mode
+        # For chained mode: Apply latent/image logic based on LATENT_MODE
+        # For serial mode: This method is called for each LoRA individually
         if LATENT_MODE == "IMAGE":
-            # Replace EmptySD3LatentImage with LoadImage + VAEEncode for image input
-            self._replace_latent_with_image_input(workflow, "19", self.latent_image_path)
-            print(f"Using image input mode with file: {self.latent_image_path}")
+            # For chained mode: Replace EmptySD3LatentImage with LoadImage + VAEEncode
+            # For serial mode: This will be handled individually in _generate_character_image_serial
+            if LORA_MODE == "chained":
+                self._replace_latent_with_image_input(workflow, "19", self.latent_image_path, LATENT_DENOISING_STRENGTH)
+                print(f"Using image input mode with file: {self.latent_image_path}")
+            else:
+                # Serial mode: Just set dimensions, individual LoRA handling will replace this
+                workflow["19"]["inputs"]["width"] = IMAGE_WIDTH
+                workflow["19"]["inputs"]["height"] = IMAGE_HEIGHT
+                print(f"Serial mode: Set latent dimensions, individual LoRA handling will replace with image input")
         else:
             # Normal latent mode - set dimensions
             workflow["19"]["inputs"]["width"] = IMAGE_WIDTH
@@ -923,7 +976,7 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
         print(f"Text prompt: {text_prompt}")
         return workflow
 
-    def _replace_latent_with_image_input(self, workflow: dict, latent_node_id: str, image_path: str) -> None:
+    def _replace_latent_with_image_input(self, workflow: dict, latent_node_id: str, image_path: str, denoising_strength: float = None) -> None:
         """Replace EmptySD3LatentImage with LoadImage + VAEEncode for image input."""
         try:
             # Copy the image to ComfyUI input folder
@@ -962,7 +1015,11 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
                 if isinstance(sampler_node, dict) and sampler_node.get("class_type") == "KSampler":
                     if "latent_image" in sampler_node.get("inputs", {}):
                         sampler_node["inputs"]["latent_image"] = [encode_node_id, 0]
-                        sampler_node["inputs"]["denoise"] = LATENT_DENOISING_STRENGTH
+                        # Use provided denoising strength or fall back to LATENT_DENOISING_STRENGTH
+                        if denoising_strength is not None:
+                            sampler_node["inputs"]["denoise"] = denoising_strength
+                        else:
+                            sampler_node["inputs"]["denoise"] = LATENT_DENOISING_STRENGTH
                         break
             
             # Remove the original EmptySD3LatentImage node
@@ -970,12 +1027,12 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
             
             print(f"  Replaced EmptySD3LatentImage with LoadImage + VAEEncode")
             print(f"  LoadImage node: {load_image_node_id}, VAEEncode node: {encode_node_id}")
-            print(f"  Denoising strength set to: {LATENT_DENOISING_STRENGTH}")
+            print(f"  Denoising strength set to: {denoising_strength if denoising_strength is not None else LATENT_DENOISING_STRENGTH}")
             
         except Exception as e:
             print(f"WARNING: Failed to replace latent with image input: {e}")
 
-    def _replace_latent_with_previous_output(self, workflow: dict, image_path: str) -> None:
+    def _replace_latent_with_previous_output(self, workflow: dict, image_path: str, denoising_strength: float = None) -> None:
         """Replace EmptySD3LatentImage with LoadImage + VAEEncode for previous LoRA output."""
         try:
             # Copy the previous LoRA output to ComfyUI input folder
@@ -1014,7 +1071,9 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
                 if isinstance(sampler_node, dict) and sampler_node.get("class_type") == "KSampler":
                     if "latent_image" in sampler_node.get("inputs", {}):
                         sampler_node["inputs"]["latent_image"] = [encode_node_id, 0]
-                        # Keep the existing denoising strength from LoRA config
+                        # Use provided denoising strength or keep existing setting
+                        if denoising_strength is not None:
+                            sampler_node["inputs"]["denoise"] = denoising_strength
                         break
             
             # Remove the original EmptySD3LatentImage node
@@ -1121,20 +1180,34 @@ Each Non-Living Objects/Character in the illustration must be visually distinct/
                 self._update_node_connections(workflow, "KSampler", "steps", steps)
                 self._update_node_connections(workflow, "KSampler", "denoise", denoising_strength)
                 
-                # Handle input for this LoRA (first LoRA can use latent/image mode, subsequent LoRAs use previous output)
-                if i > 0 and current_image_path:
-                    # For subsequent LoRAs, use previous output as input
-                    self._replace_latent_with_previous_output(workflow, current_image_path)
-                    print(f"  Using previous LoRA output as latent input")
-                elif i == 0 and LATENT_MODE == "IMAGE":
-                    # For first LoRA, use image input mode if configured
-                    self._replace_latent_with_image_input(workflow, "19", self.latent_image_path)
-                    print(f"  Using image input mode for first LoRA with file: {self.latent_image_path}")
-                    
-                    # If this LoRA uses only intermediate result, ensure no character images are processed
-                    if use_only_intermediate:
-                        print(f"  Disabled character image processing for LoRA {i + 1}")
-                        # The workflow was already built without character images above
+                # Handle input for this LoRA based on serial mode logic
+                if i == 0:
+                    # First LoRA: Use latent/image mode based on LATENT_MODE setting
+                    if LATENT_MODE == "IMAGE":
+                        # Replace EmptySD3LatentImage with image input + LATENT_DENOISING_STRENGTH
+                        self._replace_latent_with_image_input(workflow, "19", self.latent_image_path, LATENT_DENOISING_STRENGTH)
+                        print(f"  Using image input mode for first LoRA with file: {self.latent_image_path}")
+                        print(f"  Using LATENT_DENOISING_STRENGTH: {LATENT_DENOISING_STRENGTH}")
+                    else:
+                        # Normal latent mode - set dimensions and use LoRA's denoising strength
+                        workflow["19"]["inputs"]["width"] = IMAGE_WIDTH
+                        workflow["19"]["inputs"]["height"] = IMAGE_HEIGHT
+                        print(f"  Using latent mode with dimensions: {IMAGE_WIDTH}x{IMAGE_HEIGHT}")
+                        print(f"  Using LoRA denoising_strength: {denoising_strength}")
+                else:
+                    # Subsequent LoRAs: Use previous LoRA output as input
+                    if current_image_path:
+                        self._replace_latent_with_previous_output(workflow, current_image_path, denoising_strength)
+                        print(f"  Using previous LoRA output as latent input")
+                        print(f"  Using LoRA denoising_strength: {denoising_strength}")
+                    else:
+                        print(f"  ERROR: No previous LoRA output available for LoRA {i + 1}")
+                        continue
+                
+                # If this LoRA uses only intermediate result, ensure no character images are processed
+                if use_only_intermediate:
+                    print(f"  Disabled character image processing for LoRA {i + 1}")
+                    # The workflow was already built without character images above
                 
                 # Generate filename for this LoRA step
                 lora_clean_name = re.sub(r'[^\w\s-]', '', lora_config['name']).strip()

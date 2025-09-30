@@ -310,7 +310,14 @@ class CharacterGenerator:
             self._apply_loras_chained(workflow)
     
     def _apply_loras_chained(self, workflow: dict) -> None:
-        """Apply LoRAs in series with individual bypass options (chained mode)."""
+        """Apply LoRAs in chained mode - all LoRAs stitched together in single workflow.
+        
+        Chained mode logic:
+        - All LoRAs are connected in a chain: Model -> LoRA1 -> LoRA2 -> LoRA3 -> KSampler
+        - Single workflow execution with all LoRAs applied together
+        - For IMAGE mode: EmptySD3LatentImage replaced with image input + LATENT_DENOISING_STRENGTH
+        - For LATENT mode: EmptySD3LatentImage remains with width/height settings
+        """
         enabled_loras = [lora for lora in LORAS if lora.get("enabled", True)]
         
         if not enabled_loras:
@@ -318,6 +325,7 @@ class CharacterGenerator:
             return
         
         print(f"Applying {len(enabled_loras)} LoRAs in chained mode...")
+        print("All LoRAs will be stitched together in a single workflow execution")
         
         # Get initial model and clip connections
         model_input = self._find_node_by_class(workflow, "UnetLoaderGGUF") or ["1", 0]
@@ -370,7 +378,14 @@ class CharacterGenerator:
         print(f"Multiple LoRAs chain completed with {len(enabled_loras)} LoRAs")
     
     def _apply_loras_serial(self, workflow: dict) -> None:
-        """Apply LoRAs in serial mode - each LoRA runs independently."""
+        """Apply LoRAs in serial mode - each LoRA runs independently.
+        
+        Serial mode logic:
+        - Each LoRA runs in a separate workflow execution
+        - LoRA 0: Uses EmptySD3LatentImage (latent mode) or image input (image mode)
+        - LoRA 1+: Uses previous LoRA output as input
+        - Each LoRA uses its own denoising_strength setting
+        """
         enabled_loras = [lora for lora in LORAS if lora.get("enabled", True)]
         
         if not enabled_loras:
@@ -379,13 +394,14 @@ class CharacterGenerator:
         
         print(f"Serial LoRA mode: {len(enabled_loras)} LoRAs will run independently")
         print("Note: Serial mode requires separate workflow execution for each LoRA")
+        print("Each LoRA will use its own denoising_strength setting")
     
     def _remove_all_lora_nodes(self, workflow: dict) -> None:
         """Remove all LoRA nodes from workflow."""
         # Remove LoRA nodes (lora_1, lora_2, etc.)
         nodes_to_remove = []
         for node_id in workflow.keys():
-            if node_id.startswith("lora_"):
+            if node_id.startswith("lora"):
                 nodes_to_remove.append(node_id)
         
         for node_id in nodes_to_remove:
@@ -473,16 +489,28 @@ class CharacterGenerator:
         return workflow
 
     def _update_workflow_resolution(self, workflow: dict) -> dict:
-        """Update the workflow with resolution settings and handle latent input mode."""
+        """Update the workflow with resolution settings and handle latent input mode.
+
+        Logic:
+        - For chained mode: Apply latent/image logic based on LATENT_MODE
+        - For serial mode: This method is called for each LoRA individually
+        """
         # Handle EmptySD3LatentImage node
         latent_image_node = self._find_node_by_class(workflow, "EmptySD3LatentImage")
         if latent_image_node:
             node_id = latent_image_node[0]
             
             if LATENT_MODE == "IMAGE":
-                # Replace EmptySD3LatentImage with LoadImage + VAEEncode for image input
-                self._replace_latent_with_image_input(workflow, node_id, self.latent_image_path)
-                print(f"Using image input mode with file: {self.latent_image_path}")
+                # For chained mode: Replace EmptySD3LatentImage with LoadImage + VAEEncode
+                # For serial mode: This will be handled individually in _generate_character_image_serial
+                if LORA_MODE == "chained":
+                    self._replace_latent_with_image_input(workflow, node_id, self.latent_image_path, LATENT_DENOISING_STRENGTH)
+                    print(f"Using image input mode with file: {self.latent_image_path}")
+                else:
+                    # Serial mode: Just set dimensions, individual LoRA handling will replace this
+                    workflow[node_id]["inputs"]["width"] = IMAGE_WIDTH
+                    workflow[node_id]["inputs"]["height"] = IMAGE_HEIGHT
+                    print(f"Serial mode: Set latent dimensions, individual LoRA handling will replace with image input")
             else:
                 # Normal latent mode - set dimensions
                 workflow[node_id]["inputs"]["width"] = IMAGE_WIDTH
@@ -491,7 +519,7 @@ class CharacterGenerator:
         
         return workflow
 
-    def _replace_latent_with_image_input(self, workflow: dict, latent_node_id: str, image_path: str) -> None:
+    def _replace_latent_with_image_input(self, workflow: dict, latent_node_id: str, image_path: str, denoising_strength: float = None) -> None:
         """Replace EmptySD3LatentImage with LoadImage + VAEEncode for image input."""
         try:
             # Copy the image to ComfyUI input folder
@@ -530,7 +558,9 @@ class CharacterGenerator:
                 if isinstance(sampler_node, dict) and sampler_node.get("class_type") == "KSampler":
                     if "latent_image" in sampler_node.get("inputs", {}):
                         sampler_node["inputs"]["latent_image"] = [encode_node_id, 0]
-                        sampler_node["inputs"]["denoise"] = LATENT_DENOISING_STRENGTH
+                        # Use provided denoising strength or fall back to LATENT_DENOISING_STRENGTH
+                        final_denoising = denoising_strength if denoising_strength is not None else LATENT_DENOISING_STRENGTH
+                        sampler_node["inputs"]["denoise"] = final_denoising
                         break
             
             # Remove the original EmptySD3LatentImage node
@@ -538,12 +568,12 @@ class CharacterGenerator:
             
             print(f"  Replaced EmptySD3LatentImage with LoadImage + VAEEncode")
             print(f"  LoadImage node: {load_image_node_id}, VAEEncode node: {encode_node_id}")
-            print(f"  Denoising strength set to: {LATENT_DENOISING_STRENGTH}")
+            print(f"  Denoising strength set to: {final_denoising}")
             
         except Exception as e:
             print(f"WARNING: Failed to replace latent with image input: {e}")
 
-    def _replace_latent_with_previous_output(self, workflow: dict, image_path: str) -> None:
+    def _replace_latent_with_previous_output(self, workflow: dict, image_path: str, denoising_strength: float = None) -> None:
         """Replace EmptySD3LatentImage with LoadImage + VAEEncode for previous LoRA output."""
         try:
             # Copy the previous LoRA output to ComfyUI input folder
@@ -582,7 +612,9 @@ class CharacterGenerator:
                 if isinstance(sampler_node, dict) and sampler_node.get("class_type") == "KSampler":
                     if "latent_image" in sampler_node.get("inputs", {}):
                         sampler_node["inputs"]["latent_image"] = [encode_node_id, 0]
-                        # Keep the existing denoising strength from LoRA config
+                        # Use provided denoising strength or keep existing
+                        if denoising_strength is not None:
+                            sampler_node["inputs"]["denoise"] = denoising_strength
                         break
             
             # Remove the original EmptySD3LatentImage node
@@ -591,6 +623,8 @@ class CharacterGenerator:
             
             print(f"  Replaced EmptySD3LatentImage with LoadImage + VAEEncode")
             print(f"  LoadImage node: {load_image_node_id}, VAEEncode node: {encode_node_id}")
+            if denoising_strength is not None:
+                print(f"  Denoising strength set to: {denoising_strength}")
             
         except Exception as e:
             print(f"WARNING: Failed to replace latent with previous output: {e}")
@@ -668,21 +702,33 @@ class CharacterGenerator:
                 workflow = self._update_workflow_seed(workflow)
                 workflow = self._update_workflow_resolution(workflow)
                 
-                # Set LoRA-specific sampling steps and denoising
+                # Set LoRA-specific sampling steps
                 steps = lora_config.get("steps", SAMPLING_STEPS)
                 denoising_strength = lora_config.get("denoising_strength", 1.0)
                 self._update_node_connections(workflow, "KSampler", "steps", steps)
-                self._update_node_connections(workflow, "KSampler", "denoise", denoising_strength)
                 
-                # Handle input for this LoRA (first LoRA can use latent/image mode, subsequent LoRAs use previous output)
-                if i > 0 and current_image_path:
-                    # For subsequent LoRAs, use previous output as input
-                    self._replace_latent_with_previous_output(workflow, current_image_path)
-                    print(f"  Using previous LoRA output as latent input")
-                elif i == 0 and LATENT_MODE == "IMAGE":
-                    # For first LoRA, use image input mode if configured
-                    self._replace_latent_with_image_input(workflow, "19", self.latent_image_path)
-                    print(f"  Using image input mode for first LoRA with file: {self.latent_image_path}")
+                # Handle input for this LoRA based on serial mode logic
+                if i == 0:
+                    # First LoRA: Use latent/image mode based on LATENT_MODE setting
+                    if LATENT_MODE == "IMAGE":
+                        # Replace EmptySD3LatentImage with image input + LATENT_DENOISING_STRENGTH
+                        self._replace_latent_with_image_input(workflow, "19", self.latent_image_path, LATENT_DENOISING_STRENGTH)
+                        print(f"  Using image input mode for first LoRA with file: {self.latent_image_path}")
+                        print(f"  Using LATENT_DENOISING_STRENGTH: {LATENT_DENOISING_STRENGTH}")
+                    else:
+                        # Keep EmptySD3LatentImage with width/height, use LoRA's denoising_strength
+                        self._update_node_connections(workflow, "KSampler", "denoise", denoising_strength)
+                        print(f"  Using latent mode for first LoRA with dimensions: {IMAGE_WIDTH}x{IMAGE_HEIGHT}")
+                        print(f"  Using LoRA denoising_strength: {denoising_strength}")
+                else:
+                    # Subsequent LoRAs: Use previous LoRA output as input
+                    if current_image_path:
+                        self._replace_latent_with_previous_output(workflow, current_image_path, denoising_strength)
+                        print(f"  Using previous LoRA output as latent input")
+                        print(f"  Using LoRA denoising_strength: {denoising_strength}")
+                    else:
+                        print(f"  ERROR: No previous LoRA output available for LoRA {i + 1}")
+                        continue
                 
                 # Generate filename for this LoRA step
                 lora_clean_name = re.sub(r'[^\w\s-]', '', lora_config['name']).strip()
