@@ -65,7 +65,7 @@ LORAS = [
 ]
 
 # Sampling Configuration
-SAMPLING_STEPS = 12  # Number of sampling steps (higher = better quality, slower)
+SAMPLING_STEPS = 30  # Number of sampling steps (higher = better quality, slower)
 
 # Negative Prompt Configuration
 USE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to disable
