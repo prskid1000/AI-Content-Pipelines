@@ -35,6 +35,12 @@ IMAGE_COMPRESSION_QUALITY = 99
 # "NONE" Skip location processing entirely
 # Note: LATENT_MODE controls whether location images are ALSO used as latent input (separate from grouping)
 
+# Location prompt handling modes
+# "IMAGE_TEXT" Use location images as reference images (stitched with characters) + location details appended from locations.txt
+# "TEXT" Only location details from locations.txt (replace {{loc_X}} with descriptions)
+# "IMAGE" Only location images as reference images (stitched with characters, no text replacement)
+# Note: LATENT_MODE controls whether location images are ALSO used as latent input (separate from grouping)
+
 # HARDCODED CHARACTER MODE - Change this to switch modes
 ACTIVE_CHARACTER_MODE = "IMAGE_TEXT"
 
