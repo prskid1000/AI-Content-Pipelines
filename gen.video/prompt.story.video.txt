@@ -1,4 +1,4 @@
-TASK: Write a Video Story in form of DIALOGUE-SCENE-MOTION divided into 3 PARTS.
+TASK: Write a Video Story in form of DIALOGUE-SCENE-MOTION divided into 5 PARTS.
 
 CONTENT:
 - Consulting Detective Sherlock Holmes Story [Victorian Drama] -> Sherlock Holmes and the Adventure of Casper Bridge. 
