@@ -20,15 +20,26 @@ CHARACTER_RESIZE_FACTOR = 1
 
 # Image compression configuration
 # JPEG quality: 1-100 (100 = best quality, larger file; 1 = worst quality, smaller file)
-IMAGE_COMPRESSION_QUALITY = 95
+IMAGE_COMPRESSION_QUALITY = 99
 
 # Character prompt handling modes
 # "IMAGE_TEXT" Send character images + character details appended from characters.txt
 # "TEXT" Only character details from characters.txt
 # "IMAGE" Only images
+# "NONE" Skip character processing entirely
+
+# Location prompt handling modes
+# "IMAGE_TEXT" Use location images as reference images (stitched with characters) + location details appended from locations.txt
+# "TEXT" Only location details from locations.txt (replace {{loc_X}} with descriptions)
+# "IMAGE" Only location images as reference images (stitched with characters, no text replacement)
+# "NONE" Skip location processing entirely
+# Note: LATENT_MODE controls whether location images are ALSO used as latent input (separate from grouping)
 
 # HARDCODED CHARACTER MODE - Change this to switch modes
 ACTIVE_CHARACTER_MODE = "IMAGE_TEXT"
+
+# HARDCODED LOCATION MODE - Change this to switch modes
+ACTIVE_LOCATION_MODE = "TEXT"
 
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
@@ -36,7 +47,7 @@ IMAGE_HEIGHT = 720
 
 # Latent Input Mode Configuration
 LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
-LATENT_DENOISING_STRENGTH = 0.82  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
+LATENT_DENOISING_STRENGTH = 0.90  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # Image Stitching Configuration (1-5)
 IMAGE_STITCH_COUNT = 1  # Number of images to stitch together in each group
@@ -59,7 +70,7 @@ LORAS = [
         "enabled": True,          # Set to False to disable this LoRA entirely
         
         # Serial mode specific settings (only used when LORA_MODE = "serial")
-        "steps": 6,               # Sampling steps for this LoRA (serial mode only)
+        "steps": 12,               # Sampling steps for this LoRA (serial mode only)
         "denoising_strength": 1, # Denoising strength (0.0 - 1.0) (serial mode only)
         "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
         "use_only_intermediate": False # Set to True to disable character images and use only intermediate result
@@ -91,8 +102,7 @@ NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, p
 USE_RANDOM_SEED = True  # Set to True to use random seed, False to use fixed seed - > Use when correcting images by regenerating
 FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 
-# Location Information Configuration
-USE_LOCATION_INFO = True  # Set to True to replace {{loc_1}} with location descriptions from 3.location.txt
+# Location Information Configuration (now handled by ACTIVE_LOCATION_MODE above)
 
 ART_STYLE = "Realistic Anime"
 
@@ -284,6 +294,7 @@ class SceneGenerator:
     def __init__(self, comfyui_url: str = "http://127.0.0.1:8188/"):
         self.comfyui_url = comfyui_url
         self.character_mode = ACTIVE_CHARACTER_MODE
+        self.location_mode = ACTIVE_LOCATION_MODE
         # ComfyUI saves images under this folder
         self.comfyui_output_folder = "../../ComfyUI/output"
         # ComfyUI input folder where we need to copy character images
@@ -497,6 +508,18 @@ class SceneGenerator:
         
         return "\n".join(details)
     
+    def _get_location_details(self, location_ids: list[str], locations_data: dict[str, str]) -> str:
+        """Get location details text for the given location IDs."""
+        if not location_ids or not locations_data:
+            return ""
+        
+        details = []
+        for loc_id in location_ids:
+            if loc_id in locations_data:
+                details.append(f"Location {loc_id}: {locations_data[loc_id]}")
+        
+        return "\n".join(details)
+    
     def _get_ordinal_suffix(self, num: int) -> str:
         """Get ordinal suffix for numbers (1st, 2nd, 3rd, etc.)."""
         if 10 <= num % 100 <= 20:
@@ -550,7 +573,8 @@ class SceneGenerator:
 
     def _replace_location_references(self, scene_description: str, locations_data: dict[str, str]) -> str:
         """Replace {{loc_id}} references with actual location descriptions."""
-        if not USE_LOCATION_INFO or not locations_data:
+        # Only replace location references in TEXT and IMAGE_TEXT modes (skip in NONE mode)
+        if self.location_mode not in ["TEXT", "IMAGE_TEXT"] or not locations_data:
             return scene_description
         
         def replace_func(match):
@@ -628,6 +652,50 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                 unique_characters.append(char)
         return unique_characters
 
+    def _extract_location_ids_from_scene(self, scene_description: str) -> list[str]:
+        """Extract location IDs from scene description."""
+        location_matches = re.findall(r'\{\{([^}]+)\}\}', scene_description)
+        seen = set()
+        unique_locations = []
+        for loc in location_matches:
+            loc = loc.strip()
+            if loc and loc not in seen:
+                seen.add(loc)
+                unique_locations.append(loc)
+        return unique_locations
+
+    def _get_location_image_path(self, location_id: str) -> str | None:
+        """Get the path to a location's generated image."""
+        # Location images are stored as loc_X.png in the locations output directory
+        location_images_dir = "../output/locations"
+        image_path = os.path.join(location_images_dir, f"{location_id}.png")
+        return image_path if os.path.exists(image_path) else None
+
+    def _get_location_latent_image_path(self, scene_description: str) -> str | None:
+        """Get the appropriate location image path for latent input based on scene description.
+        
+        This is controlled by LATENT_MODE, not location mode. Location mode only controls 
+        whether location images are added to groups/stitching.
+        """
+        # LATENT_MODE controls whether to use location images as latent input
+        # Location mode only controls grouping/stitching
+        location_ids = self._extract_location_ids_from_scene(scene_description)
+        
+        if not location_ids:
+            # No location references found, use default latent image
+            return self.latent_image_path
+        
+        # Use the first location found (in case of multiple locations)
+        primary_location_id = location_ids[0]
+        location_image_path = self._get_location_image_path(primary_location_id)
+        
+        if location_image_path:
+            print(f"Using location image for latent input: {primary_location_id} -> {location_image_path}")
+            return location_image_path
+        else:
+            print(f"Location image not found for {primary_location_id}, using default latent image")
+            return self.latent_image_path
+
     def _get_character_image_path(self, character_name: str) -> str | None:
         """Get the path to a character's generated image."""
         clean_name = re.sub(r'[^\w\s.-]', '', character_name).strip()
@@ -686,6 +754,59 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                     copied_images[char_name] = dest_path.replace('.jpg', '.png')
             else:
                 print(f"WARNING: Character image not found for: {char_name}")
+        return copied_images
+
+    def _copy_location_images_to_comfyui(self, location_ids: list[str]) -> dict[str, str]:
+        """Copy, resize, and compress location images to ComfyUI input directory."""
+        copied_images = {}
+        for location_id in location_ids:
+            source_path = self._get_location_image_path(location_id)
+            if source_path:
+                clean_name = re.sub(r'[^\w\s.-]', '', location_id).strip()
+                clean_name = re.sub(r'[-\s]+', '_', clean_name)
+                dest_path = os.path.join(self.comfyui_input_folder, f"loc_{clean_name}.jpg")
+                
+                try:
+                    # Open, resize, compress and save the image
+                    with Image.open(source_path) as img:
+                        # Convert RGBA to RGB if necessary (for JPEG compatibility)
+                        if img.mode in ('RGBA', 'LA'):
+                            # Create white background
+                            background = Image.new('RGB', img.size, (255, 255, 255))
+                            if img.mode == 'RGBA':
+                                background.paste(img, mask=img.split()[-1])  # Use alpha channel as mask
+                            else:
+                                background.paste(img)
+                            img = background
+                        elif img.mode != 'RGB':
+                            img = img.convert('RGB')
+                        
+                        # Resize the image using the resize factor
+                        new_width = int(img.width * CHARACTER_RESIZE_FACTOR)
+                        new_height = int(img.height * CHARACTER_RESIZE_FACTOR)
+                        
+                        # Resize with aspect ratio preserved
+                        img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+                        
+                        # Save with compression
+                        img.save(dest_path, 'JPEG', quality=IMAGE_COMPRESSION_QUALITY, optimize=True)
+                    
+                    copied_images[location_id] = dest_path
+                    
+                    # Get file sizes for logging
+                    original_size = os.path.getsize(source_path) / 1024  # KB
+                    compressed_size = os.path.getsize(dest_path) / 1024  # KB
+                    compression_ratio = (1 - compressed_size / original_size) * 100
+                    
+                    print(f"Compressed {location_id} image: {original_size:.1f}KB → {compressed_size:.1f}KB ({compression_ratio:.1f}% reduction)")
+                    
+                except Exception as e:
+                    print(f"ERROR: Failed to compress image for {location_id}: {e}")
+                    # Fallback to simple copy
+                    shutil.copy2(source_path, dest_path.replace('.jpg', '.png'))
+                    copied_images[location_id] = dest_path.replace('.jpg', '.png')
+            else:
+                print(f"WARNING: Location image not found for: {location_id}")
         return copied_images
 
     def _load_base_workflow(self) -> dict:
@@ -1470,15 +1591,28 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                 print("LoRA disabled in workflow")
         
         # Handle chained mode workflow setup
-        # Handle different character modes
+        # Handle different character and location modes
         all_images = {}
+        
+        # Copy character images if in IMAGE or IMAGE_TEXT mode (skip in NONE mode)
         if self.character_mode in ["IMAGE", "IMAGE_TEXT"]:
-            all_images = self._copy_character_images_to_comfyui(character_names)
-            if not all_images and self.character_mode == "IMAGE":
-                print("ERROR: No images copied to ComfyUI!")
+            character_images = self._copy_character_images_to_comfyui(character_names)
+            all_images.update(character_images)
+            if not character_images and self.character_mode == "IMAGE":
+                print("ERROR: No character images copied to ComfyUI!")
                 return {}
         
-        print(f"Character mode: {self.character_mode}, Images: {len(all_images)}")
+        # Copy location images if in IMAGE or IMAGE_TEXT mode (skip in NONE mode)
+        if self.location_mode in ["IMAGE", "IMAGE_TEXT"]:
+            location_ids = self._extract_location_ids_from_scene(scene_description)
+            if location_ids:
+                location_images = self._copy_location_images_to_comfyui(location_ids)
+                all_images.update(location_images)
+                print(f"Added {len(location_images)} location images to stitching process")
+            else:
+                print("No location references found in scene description")
+        
+        print(f"Character mode: {self.character_mode}, Location mode: {self.location_mode}, Total images: {len(all_images)}")
         
         # Calculate stitching groups for logging
         if all_images:
@@ -1506,21 +1640,30 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
 
         text_prompt = f"{master_prompt}"
 
-        # Replace location references if location data is available
+        # Replace location references if location data is available and in appropriate mode (skip in NONE mode)
         processed_scene_description = scene_description
-        if locations_data:
+        if locations_data and self.location_mode in ["TEXT", "IMAGE_TEXT"]:
             processed_scene_description = self._replace_location_references(scene_description, locations_data)
         
-        # Replace character references with position format (only in IMAGE and IMAGE_TEXT modes)
+        # Replace character references with position format (only in IMAGE and IMAGE_TEXT modes, skip in NONE mode)
         if self.character_mode in ["IMAGE", "IMAGE_TEXT"]:
             processed_scene_description = self._replace_character_references(processed_scene_description, character_names)
 
         text_prompt += f"\nSCENE TEXT-DESCRIPTION:\n Illustrate an exact scenery like {processed_scene_description}.\n"
 
+        # Add character details if in TEXT or IMAGE_TEXT mode (skip in NONE mode)
         if self.character_mode in ["TEXT", "IMAGE_TEXT"]:
             character_details = self._get_character_details(character_names, characters_data)
             if character_details:
                 text_prompt += f"\nCHARACTER TEXT-DESCRIPTION:\n{character_details}"
+        
+        # Add location details if in TEXT or IMAGE_TEXT mode (skip in NONE mode)
+        if self.location_mode in ["TEXT", "IMAGE_TEXT"] and locations_data:
+            location_ids = self._extract_location_ids_from_scene(scene_description)
+            if location_ids:
+                location_details = self._get_location_details(location_ids, locations_data)
+                if location_details:
+                    text_prompt += f"\nLOCATION TEXT-DESCRIPTION:\n{location_details}"
         
         workflow["33"]["inputs"]["text"] = text_prompt
         workflow["21"]["inputs"]["filename_prefix"] = scene_id
@@ -1529,11 +1672,14 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
         # For chained mode: Apply latent/image logic based on LATENT_MODE
         # For serial mode: This method is called for each LoRA individually
         if LATENT_MODE == "IMAGE":
+            # Get location-specific latent image path based on scene description
+            latent_image_path = self._get_location_latent_image_path(scene_description)
+            
             # For chained mode: Replace EmptySD3LatentImage with LoadImage + VAEEncode
             # For serial mode: This will be handled individually in _generate_character_image_serial
             if LORA_MODE == "chained" or not USE_LORA:
-                self._replace_latent_with_image_input(workflow, "19", self.latent_image_path, LATENT_DENOISING_STRENGTH)
-                print(f"Using image input mode with file: {self.latent_image_path}")
+                self._replace_latent_with_image_input(workflow, "19", latent_image_path, LATENT_DENOISING_STRENGTH)
+                print(f"Using image input mode with file: {latent_image_path}")
             else:
                 # Serial mode: Just set dimensions, individual LoRA handling will replace this
                 workflow["19"]["inputs"]["width"] = IMAGE_WIDTH
@@ -1780,14 +1926,16 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                     use_only_intermediate = lora_config.get("use_only_intermediate", False)
                     print(f"  Using current LoRA configuration for {lora_name}")
                 
-                # Determine character list for this LoRA
+                # Determine character and location lists for this LoRA
                 if use_only_intermediate and i > 0:
-                    # This LoRA should only use intermediate result, disable character images
-                    print(f"  LoRA {i + 1} configured to use only intermediate result (no character images)")
+                    # This LoRA should only use intermediate result, disable character and location images
+                    print(f"  LoRA {i + 1} configured to use only intermediate result (no character or location images)")
                     lora_character_names = []
+                    lora_location_ids = []
                 else:
-                    # Normal workflow with character images
-                    lora_character_names = character_names
+                    # Normal workflow with character and location images based on modes (skip in NONE mode)
+                    lora_character_names = character_names if self.character_mode in ["IMAGE", "IMAGE_TEXT"] else []
+                    lora_location_ids = self._extract_location_ids_from_scene(scene_description) if self.location_mode in ["IMAGE", "IMAGE_TEXT"] else []
                 
                 # Build the complete workflow with all prompting logic
                 workflow = self._build_dynamic_workflow(scene_id, scene_description, lora_character_names, master_prompt, characters_data, locations_data)
@@ -1818,12 +1966,16 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                 if i == 0:
                     # First LoRA: Use latent/image mode based on LATENT_MODE setting
                     if LATENT_MODE == "IMAGE":
+                        # Get location-specific latent image path based on scene description
+                        latent_image_path = self._get_location_latent_image_path(scene_description)
+                        
                         # Replace EmptySD3LatentImage with image input + LATENT_DENOISING_STRENGTH
-                        self._replace_latent_with_image_input(workflow, "19", self.latent_image_path, LATENT_DENOISING_STRENGTH)
+                        self._replace_latent_with_image_input(workflow, "19", latent_image_path, LATENT_DENOISING_STRENGTH)
                         # Apply LATENT_DENOISING_STRENGTH to KSampler for first LoRA in IMAGE mode
                         self._update_node_connections(workflow, "KSampler", "denoise", LATENT_DENOISING_STRENGTH)
                         self._update_node_connections(workflow, "KSampler", "seed", seed)
-                        print(f"  Using image input mode for first LoRA with file: {self.latent_image_path}")
+                        denoising_strength = LATENT_DENOISING_STRENGTH
+                        print(f"  Using image input mode for first LoRA with file: {latent_image_path}")
                         print(f"  Using LATENT_DENOISING_STRENGTH: {LATENT_DENOISING_STRENGTH}")
                     else:
                         # Normal latent mode - set dimensions and use LoRA's denoising strength
@@ -2143,17 +2295,25 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
         """Generate images for all scenes."""
         scenes = self._read_scene_data()
         characters = self._read_character_data()
-        locations = self._read_location_data() if USE_LOCATION_INFO else {}
+        # Skip location data loading when mode is NONE
+        locations = self._read_location_data() if self.location_mode in ["TEXT", "IMAGE_TEXT"] else {}
         master_prompt = self._get_master_prompt()
         
         if not scenes or not master_prompt:
             print("ERROR: Missing scene data or master prompt")
             return {}
 
-        if USE_LOCATION_INFO and locations:
+        print(f"Character mode: {self.character_mode}")
+        if self.character_mode == "NONE":
+            print("Character processing disabled (NONE mode)")
+        
+        print(f"Location mode: {self.location_mode}")
+        if self.location_mode in ["TEXT", "IMAGE_TEXT"] and locations:
             print(f"Location info enabled: {len(locations)} locations loaded")
-        elif USE_LOCATION_INFO:
-            print("WARNING: Location info enabled but no location data found")
+        elif self.location_mode in ["TEXT", "IMAGE_TEXT"]:
+            print("WARNING: Location mode requires location data but none found")
+        elif self.location_mode == "NONE":
+            print("Location processing disabled (NONE mode)")
 
         # Use resumable state if available, otherwise fall back to file-based checking
         if resumable_state:

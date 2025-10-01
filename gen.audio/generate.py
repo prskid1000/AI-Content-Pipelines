@@ -61,27 +61,27 @@ class TimedLogWriter:
 
 SCRIPTS = [
     #Speech
-    # "1.character.py",
-    # "2.story.py",
+    "1.character.py",
+    "2.story.py",
 
     #Transcription
-    # "3.transcribe.py",
-    # "4.quality.py",
+    "3.transcribe.py",
+    "4.quality.py",
 
     #SFX
-    # "5.timeline.py",
-    # "6.timing.py",
-    # "7.sfx.py",
+    "5.timeline.py",
+    "6.timing.py",
+    "7.sfx.py",
 
     #Video
-    # "8.combine.py",
-    # "9.description.py",
-    # "10.thumbnail.py",
-    # "11.video.py",
+    "8.combine.py",
+    "9.description.py",
+    "10.thumbnail.py",
+    "11.video.py",
 
     #YouTube
-    # "12.media.py",
-    # "13.youtube.py"
+    "12.media.py",
+    "13.youtube.py"
 ]
 
 SCRIPTS_DIR = "scripts"

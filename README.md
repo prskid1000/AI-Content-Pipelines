@@ -165,6 +165,21 @@ python 2.story.py --disable-resumable
 - **Content**: JSON format with progress tracking and cached results
 - **Lifecycle**: Automatically created, updated, and optionally cleaned up based on `CLEANUP_TRACKING_FILES` setting
 
+#### Complete Checkpoint File Inventory
+
+| Pipeline | Checkpoint File | Script | Tracks | Example Structure |
+|----------|----------------|--------|--------|-------------------|
+| **Audio** | `1.character.state.json` | `1.character.py` | Character analysis results | Voice assignments, gender detection |
+| **Audio** | `2.story.state.json` | `2.story.py` | Story chunk processing | Completed chunks, chunk audio files |
+| **Audio** | `5.timeline.state.json` | `5.timeline.py` | SFX timeline generation | Completed timeline entries |
+| **Audio** | `6.timing.state.json` | `6.timing.py` | SFX timing refinement | Timing adjustments, validation |
+| **Audio** | `7.sfx.state.json` | `7.sfx.py` | Sound effect generation | Generated SFX files, metadata |
+| **Image** | `1.story.state.json` | `1.story.py` | Story parsing (LLM operations) | Characters, locations, scenes, rewrites |
+| **Image** | `2.character.state.json` | `2.character.py` | Character image generation | Generated character images |
+| **Image** | `3.location.state.json` | `3.location.py` | Location image generation | Generated location images |
+| **Image** | `3.scene.state.json` | `3.scene.py` | Scene image generation | Generated scene images with stitching |
+| **Video** | `2.animate.state.json` | `2.animate.py` | Video animation generation | Animated video clips |
+
 #### Story Processing Checkpoints
 - **Chunk Progress**: Tracks completion of individual story chunks
 - **File Validation**: Ensures cached audio files still exist before skipping
@@ -455,23 +470,27 @@ graph TD
 
 ### Complete Image Script Inventory
 
-| Script | Purpose | Input Files | Output Files | Dependencies |
-|--------|---------|-------------|--------------|--------------|
-| `1.story.py` | Parse story and extract characters/scenes | `1.story.txt`, `9.description.txt` | `2.character.txt`, `3.scene.txt` | **LM Studio** |
-| `2.character.py` | Generate character portraits | `2.character.txt` | `characters/*.png` | **ComfyUI** |
-| `3.scene.py` | Generate scene images | `3.scene.txt`, `2.character.txt`, `characters/*.png` | `scene/*.png` | **ComfyUI** |
-| `4.audio.py` | Process timeline for video generation | `2.timeline.txt`, `1.story.txt`, `3.scene.txt` | `2.timeline.script.txt` | None |
-| `5.video.py` | Create per-scene videos from images | `scene/*.png`, `2.timeline.script.txt` | `video/*.mp4`, `merged.mp4` | FFmpeg |
-| `6.combine.py` | Merge videos with audio | `merged.mp4`, `final.wav` | `final_sd.mp4` | FFmpeg |
+| Script | Purpose | Input Files | Output Files | Dependencies | Resumable |
+|--------|---------|-------------|--------------|--------------|-----------|
+| `1.story.py` | Parse story and extract characters/locations/scenes | `1.story.txt`, `9.description.txt` | `2.character.txt`, `3.location.txt`, `3.scene.txt` | **LM Studio** | ✅ |
+| `2.character.py` | Generate character portraits | `2.character.txt` | `characters/*.png` | **ComfyUI** | ✅ |
+| `3.location.py` | Generate location background images | `3.location.txt` | `locations/*.png` | **ComfyUI** | ✅ |
+| `3.scene.py` | Generate scene images with characters and locations | `3.scene.txt`, `2.character.txt`, `3.location.txt`, `characters/*.png`, `locations/*.png` | `scene/*.png` | **ComfyUI** | ✅ |
+| `4.audio.py` | Process timeline for video generation | `2.timeline.txt`, `1.story.txt`, `3.scene.txt` | `2.timeline.script.txt` | None | ❌ |
+| `5.video.py` | Create per-scene videos from images | `scene/*.png`, `2.timeline.script.txt` | `video/*.mp4`, `merged.mp4` | FFmpeg | ❌ |
+| `6.combine.py` | Merge videos with audio | `merged.mp4`, `final.wav` | `final_sd.mp4` | FFmpeg | ❌ |
 
 ### Image Pipeline Features
-- **Character Generation**: High-quality character portraits with consistent styling
-- **Scene Visualization**: Detailed scene images with character integration
-- **Image Stitching**: Automatic combination of multiple character images
+- **Story Parsing**: LLM-powered extraction of characters, locations, and scenes from text stories
+- **Character Generation**: High-quality character portraits with consistent styling (resumable)
+- **Location Generation**: Background images for story locations (resumable)
+- **Scene Visualization**: Detailed scene images with character and location integration (resumable)
+- **Image Stitching**: Automatic combination of multiple character/location images
 - **Timeline Processing**: Audio-visual synchronization for video generation
 - **Video Compilation**: Per-scene video creation with FFmpeg integration
-- **Latent Input Mode**: Switch between noise generation and image input for enhanced control
+- **Latent Input Mode**: Switch between noise generation (LATENT) and image-to-image (IMAGE) for enhanced control
 - **Serial LoRA Processing**: Independent LoRA application with intermediate storage and resumable operations
+- **Multiple Prompt Modes**: Character and location handling with IMAGE_TEXT, TEXT, or IMAGE modes
 
 ### Image Pipeline Detailed Flowchart
 
@@ -722,16 +741,24 @@ AUTO_CHANGE_SETTINGS = "n"  # Allow setting changes
 
 #### `2.story.py` - Story Audio Generation
 ```python
+# Configuration Constants
+CHUNK_SIZE = 5  # Number of dialogues/lines per chunk
+ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
+CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
+WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
+
 # TTS Configuration
 comfyui_url = "http://127.0.0.1:8188/"
 output_folder = "../../ComfyUI/output/audio"
 final_output = "../output/story.wav"
 chunk_output_dir = "../output/story"
 
-# Resumable Processing Configuration
-CHUNK_SIZE = 5  # Number of dialogues/lines per chunk
-ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
-CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
+# Processing Features
+# - Chunked Processing: Splits story into manageable chunks
+# - Progress Tracking: Real-time percentage completion
+# - Individual Chunk Output: Saves each chunk as output/story/start_line_end_line.wav
+# - Final Concatenation: Combines all chunks into final story.wav
+# - Checkpoint Recovery: Resumes from any completed chunk if interrupted
 ```
 
 #### `7.sfx.py` - Sound Effects Generation
@@ -752,6 +779,23 @@ final_output_path = "../output/final.wav"
 
 #### `10.thumbnail.py` - Thumbnail Generation
 ```python
+# Random Seed Configuration
+USE_RANDOM_SEED = True  # Set to True to use random seeds for each generation
+RANDOM_SEED = 333555666
+
+# Workflow Configuration
+WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
+
+# Title Text Configuration
+USE_TITLE_TEXT = True  # True: use text overlay (1 image), False: let Flux generate text (5 versions)
+TITLE_POSITION = "middle"  # "top", "middle", or "bottom"
+TITLE_FONT_SCALE = 1.5  # Text scaling: 1 = default, 2 = 2x, 3 = 3x
+TITLE_LAYOUT = "overlay"  # "overlay", "expand", or "fit"
+
+# Target Output Canvas Size
+OUTPUT_WIDTH = 1280
+OUTPUT_HEIGHT = 720
+
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
 IMAGE_HEIGHT = 720
@@ -760,42 +804,30 @@ IMAGE_HEIGHT = 720
 LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
 LATENT_DENOISING_STRENGTH = 0.8  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
-# Title Text Configuration
-USE_TITLE_TEXT = True  # True: use text overlay, False: let Flux generate text
-TITLE_POSITION = "middle"  # "top", "middle", or "bottom"
-TITLE_FONT_SCALE = 1.5  # Text scaling: 1 = default, 2 = 2x, 3 = 3x
-TITLE_LAYOUT = "overlay"  # "overlay", "expand", or "fit"
-
-# Target output canvas size
-OUTPUT_WIDTH = 1280
-OUTPUT_HEIGHT = 720
-
 # LoRA Configuration
-USE_LORA = True
+USE_LORA = True  # Set to False to disable LoRA usage in workflow
 LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
 LORAS = [
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 3.0,    # Model strength (0.0 - 2.0)
-        "strength_clip": 3.0,     # CLIP strength (0.0 - 2.0)
-        "bypass_model": False,    # Set to True to bypass model part of this LoRA
-        "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
-        "enabled": True,          # Set to False to disable this LoRA entirely
-        
-        # Serial mode specific settings (only used when LORA_MODE = "serial")
-        "steps": 9,               # Sampling steps for this LoRA (serial mode only)
-        "denoising_strength": 1,  # Denoising strength (0.0 - 1.0) (serial mode only)
-        "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
-        "use_only_intermediate": False # Set to True to disable character images and use only intermediate result
+        "strength_model": 3.6,    # Model strength (0.0 - 2.0)
+        "strength_clip": 3.6,     # CLIP strength (0.0 - 2.0)
+        "bypass_model": False,
+        "bypass_clip": False,
+        "enabled": True,
+        "steps": 9,               # Serial mode only
+        "denoising_strength": 1,  # Serial mode only
+        "save_intermediate": True,
+        "use_only_intermediate": False
     }
 ]
 
 # Sampling Configuration
-SAMPLING_STEPS = 25
+SAMPLING_STEPS = 25  # Number of sampling steps (higher = better quality, slower)
 USE_NEGATIVE_PROMPT = True
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
-ART_STYLE = "Anime"
+ART_STYLE = "Realistic Anime"
 ```
 
 ### Image Pipeline Scripts
@@ -803,106 +835,182 @@ ART_STYLE = "Anime"
 #### `1.story.py` - Story Parsing
 ```python
 # Processing Limits
-CHARACTER_SUMMARY_WORD_COUNT = "30-60"
-LOCATION_CHARACTER_COUNT = 1600
+CHARACTER_SUMMARY_CHARACTER_COUNT = 600
+CHARACTER_REWRITE_CHARACTER_COUNT = 800
+LOCATION_CHARACTER_COUNT = 3600
+STORY_DESCRIPTION_CHARACTER_COUNT = 16000
 
 # Feature Flags
-ENABLE_CHARACTER_REWRITE = True
-ENABLE_RESUMABLE_MODE = True
+ENABLE_CHARACTER_REWRITE = True  # Set to False to skip character rewriting step
+ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
+ENABLE_THINKING = True  # Set to True to enable thinking in LM Studio responses
 
 # Model Configuration
-MODEL_STORY_DESCRIPTION = "qwen/qwen3-14b"
-MODEL_CHARACTER_GENERATION = "qwen/qwen3-14b"
-MODEL_CHARACTER_SUMMARY = "qwen/qwen3-14b"
-MODEL_LOCATION_EXPANSION = "qwen/qwen3-14b"
+MODEL_STORY_DESCRIPTION = "qwen/qwen3-14b"  # Model for generating story descriptions
+MODEL_CHARACTER_GENERATION = "qwen/qwen3-14b"  # Model for character description generation
+MODEL_CHARACTER_SUMMARY = "qwen/qwen3-14b"  # Model for character summary generation
+MODEL_LOCATION_EXPANSION = "qwen/qwen3-14b"  # Model for location expansion
+
+ART_STYLE = "Realistic Anime"
 ```
 
 #### `2.character.py` - Character Generation
 ```python
+# Feature Flags
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
+WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
+
+# Image Resolution Constants
+IMAGE_WIDTH = 1280
+IMAGE_HEIGHT = 720
+
+# Latent Input Mode Configuration
+LATENT_MODE = "IMAGE"  # "LATENT" for normal noise generation, "IMAGE" for load image input
+LATENT_DENOISING_STRENGTH = 0.82  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
+
+# LoRA Configuration
+USE_LORA = False  # Set to False to disable LoRA usage in workflow
+LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
+LORAS = [
+    {
+        "name": "FLUX.1-Turbo-Alpha.safetensors",
+        "strength_model": 2.0,    # Model strength (0.0 - 2.0)
+        "strength_clip": 2.0,     # CLIP strength (0.0 - 2.0)
+        "bypass_model": False,
+        "bypass_clip": False,
+        "enabled": True,
+        "steps": 6,               # Serial mode only
+        "denoising_strength": 1,  # Serial mode only
+        "save_intermediate": True,
+        "use_only_intermediate": False
+    }
+]
+
+# Sampling Configuration
+SAMPLING_STEPS = 45  # Number of sampling steps (higher = better quality, slower)
+USE_NEGATIVE_PROMPT = True
+NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
+
+# Random Seed Configuration
+USE_RANDOM_SEED = True  # Set to True to use random seeds, False to use fixed seed
+FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
+
+# Character Settings
+USE_CHARACTER_NAME_OVERLAY = False  # Set to False to disable name overlay
+CHARACTER_NAME_FONT_SCALE = 1
+CHARACTER_NAME_BAND_HEIGHT_RATIO = 0.30  # 15% of image height for name band
+
+ART_STYLE = "Realistic Anime"
+```
+
+#### `3.location.py` - Location Generation
+```python
+# Feature Flags
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
+WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
+
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
 IMAGE_HEIGHT = 720
 
 # Latent Input Mode Configuration
 LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
-LATENT_DENOISING_STRENGTH = 0.8  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
+LATENT_DENOISING_STRENGTH = 0.82  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # LoRA Configuration
-USE_LORA = True
+USE_LORA = False  # Set to False to disable LoRA usage in workflow
 LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
 LORAS = [
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 3.0,    # Model strength (0.0 - 2.0)
-        "strength_clip": 3.0,     # CLIP strength (0.0 - 2.0)
-        "bypass_model": False,    # Set to True to bypass model part of this LoRA
-        "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
-        "enabled": True,          # Set to False to disable this LoRA entirely
-        
-        # Serial mode specific settings (only used when LORA_MODE = "serial")
-        "steps": 9,               # Sampling steps for this LoRA (serial mode only)
-        "denoising_strength": 1,  # Denoising strength (0.0 - 1.0) (serial mode only)
-        "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
-        "use_only_intermediate": False # Set to True to disable character images and use only intermediate result
+        "strength_model": 2.0,
+        "strength_clip": 2.0,
+        "bypass_model": False,
+        "bypass_clip": False,
+        "enabled": True,
+        "steps": 6,
+        "denoising_strength": 1,
+        "save_intermediate": True,
+        "use_only_intermediate": False
     }
 ]
 
 # Sampling Configuration
-SAMPLING_STEPS = 25
+SAMPLING_STEPS = 45  # Number of sampling steps (higher = better quality, slower)
 USE_NEGATIVE_PROMPT = True
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
-# Character Settings
-USE_CHARACTER_NAME_OVERLAY = False
+# Random Seed Configuration
+USE_RANDOM_SEED = True  # Set to True to use random seeds, False to use fixed seed
+FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
+
+# Text Overlay Settings
+USE_CHARACTER_NAME_OVERLAY = False  # Set to False to disable name overlay
 CHARACTER_NAME_FONT_SCALE = 1
-CHARACTER_NAME_BAND_HEIGHT_RATIO = 0.30
+CHARACTER_NAME_BAND_HEIGHT_RATIO = 0.30  # 30% of image height for name band
 
 ART_STYLE = "Realistic Anime"
 ```
 
 #### `3.scene.py` - Scene Generation
 ```python
+# Feature Flags
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
+WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
+
 # Image Resolution Constants
-IMAGE_WIDTH = 1920
-IMAGE_HEIGHT = 1080
+IMAGE_WIDTH = 1280
+IMAGE_HEIGHT = 720
+
+# Image Resizing Configuration (characters only)
+CHARACTER_RESIZE_FACTOR = 1  # Character image resize factor: 1 = no resize
+
+# Image Compression Configuration
+IMAGE_COMPRESSION_QUALITY = 95  # JPEG quality: 1-100 (100 = best quality, larger file)
+
+# Character/Location Prompt Handling Modes
+# Character modes: "IMAGE_TEXT", "TEXT", "IMAGE", "NONE"
+# Location modes: "IMAGE_TEXT", "TEXT", "IMAGE", "NONE"
+ACTIVE_CHARACTER_MODE = "IMAGE_TEXT"  # Character handling mode
+ACTIVE_LOCATION_MODE = "IMAGE_TEXT"  # Location handling mode
 
 # Latent Input Mode Configuration
-LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
-LATENT_DENOISING_STRENGTH = 0.8  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
-
-# Image Processing Configuration
-CHARACTER_RESIZE_FACTOR = 0.25  # Character image resize factor for stitching
-IMAGE_COMPRESSION_QUALITY = 60  # JPEG quality: 1-100 (100 = best quality, larger file)
-ACTIVE_CHARACTER_MODE = "IMAGE"  # "IMAGE_TEXT", "TEXT", "IMAGE"
+LATENT_MODE = "IMAGE"  # "LATENT" for normal noise generation, "IMAGE" for load image input
+LATENT_DENOISING_STRENGTH = 0.1  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # Image Stitching Configuration (1-5)
 IMAGE_STITCH_COUNT = 1  # Number of images to stitch together in each group
 
 # LoRA Configuration
-USE_LORA = True
+USE_LORA = True  # Set to False to disable LoRA usage in workflow
 LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
 LORAS = [
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 3.0,    # Model strength (0.0 - 2.0)
-        "strength_clip": 3.0,     # CLIP strength (0.0 - 2.0)
-        "bypass_model": False,    # Set to True to bypass model part of this LoRA
-        "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
-        "enabled": True,          # Set to False to disable this LoRA entirely
-        
-        # Serial mode specific settings (only used when LORA_MODE = "serial")
-        "steps": 9,               # Sampling steps for this LoRA (serial mode only)
-        "denoising_strength": 1,  # Denoising strength (0.0 - 1.0) (serial mode only)
-        "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
-        "use_only_intermediate": False # Set to True to disable character images and use only intermediate result
+        "strength_model": 3.6,    # Model strength (0.0 - 2.0)
+        "strength_clip": 3.6,     # CLIP strength (0.0 - 2.0)
+        "bypass_model": False,
+        "bypass_clip": False,
+        "enabled": True,
+        "steps": 6,               # Serial mode only
+        "denoising_strength": 1,  # Serial mode only
+        "save_intermediate": True,
+        "use_only_intermediate": False
     }
 ]
 
 # Sampling Configuration
-SAMPLING_STEPS = 25
+SAMPLING_STEPS = 25  # Number of sampling steps (higher = better quality, slower)
 USE_NEGATIVE_PROMPT = True
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
+
+# Random Seed Configuration
+USE_RANDOM_SEED = True  # Set to True to use random seed, False to use fixed seed
+FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 
 ART_STYLE = "Realistic Anime"
 ```
@@ -911,17 +1019,21 @@ ART_STYLE = "Realistic Anime"
 
 #### `2.animate.py` - Video Animation
 ```python
+# Feature Flags
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
+
 # Video Configuration
 VIDEO_WIDTH = 1024
 VIDEO_HEIGHT = 576
 FRAMES_PER_SECOND = 24
 
-# Feature Flags
+# Feature Flags for Content Replacement
 ENABLE_MOTION = True
 ENABLE_SCENE = True
-ENABLE_LOCATION = True
+ENABLE_LOCATION = True  # Set to True to replace {{loc_1}} with location descriptions from 3.location.txt
 
-# Paths
+# File Paths
 comfyui_output_folder = "../../ComfyUI/output"
 comfyui_input_folder = "../../ComfyUI/input"
 scene_images_dir = "../../gen.image/output/scene"
@@ -1466,15 +1578,17 @@ The orchestrator scripts automatically manage service dependencies with intellig
 - **Resumable Scripts**: `1.character.py`, `2.story.py`, `5.timeline.py`, `6.timing.py`, `7.sfx.py`
 
 #### Image Pipeline (`gen.image/generate.py`)  
-- **NEEDS_COMFYUI**: `{"2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py"}`
+- **NEEDS_COMFYUI**: `{"2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py", "3.location.py"}`
 - **NEEDS_LMSTUDIO**: `{"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py", "9.description.py", "12.media.py"}`
 - **Active Scripts**: `["3.scene.py"]` (only scene generation active)
-- **Resumable Scripts**: `1.story.py`, `2.character.py`, `3.scene.py`
+- **Available Scripts**: `["1.story.py", "2.character.py", "3.location.py", "3.scene.py", "4.audio.py", "5.video.py", "6.combine.py"]`
+- **Resumable Scripts**: `1.story.py`, `2.character.py`, `3.location.py`, `3.scene.py`
 
 #### Video Pipeline (`gen.video/generate.py`)
-- **NEEDS_COMFYUI**: `{"2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py", "2.animate.py"}`
+- **NEEDS_COMFYUI**: `{"2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py", "2.animate.py", "3.location.py"}`
 - **NEEDS_LMSTUDIO**: `{"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py", "9.description.py", "12.media.py"}`
-- **Scripts**: Currently all commented out (empty pipeline)
+- **Active Scripts**: Currently all commented out (empty pipeline)
+- **Available Scripts**: `["1.story.py", "2.animate.py", "3.video.py"]`
 - **Resumable Scripts**: `2.animate.py`
 
 ### Service Lifecycle Management
@@ -1567,10 +1681,14 @@ The orchestrator scripts automatically manage service dependencies with intellig
 
 **Image Pipeline Inputs:**
 - `1.story.txt` - Source story text
+- `9.description.txt` - Story description (from audio pipeline)
 - `2.character.txt` - Character descriptions (generated by `1.story.py`)
-- `3.scene.txt` - Scene descriptions (generated by `1.story.py`)
 - `3.location.txt` - Location descriptions (generated by `1.story.py`)
+- `3.scene.txt` - Scene descriptions (generated by `1.story.py`)
 - `characters/*.png` - Character images (generated by `2.character.py`)
+- `locations/*.png` - Location images (generated by `3.location.py`)
+- `2.latent.png` - Input image for character generation (IMAGE mode only)
+- `3.latent.png` - Input image for scene generation (IMAGE mode only)
 
 **Video Pipeline Inputs:**
 - `scene/*.png` - Scene images from image pipeline
@@ -1606,7 +1724,10 @@ The current workflow files use direct resolution settings instead of dynamic `Fl
 
 #### Image Pipeline
 - `characters/*.png` - Character portrait images (1280x720)
-- `scene/*.png` - Scene visualization images (1920x1080)
+- `locations/*.png` - Location background images (1280x720)
+- `scene/*.png` - Scene visualization images (1280x720)
+- `backgrounds/*.png` - Background generation intermediate results
+- `lora/*.png` - LoRA intermediate results (serial mode)
 - `video/*.mp4` - Per-scene video clips
 - `merged.mp4` - Combined scene videos
 - `final_sd.mp4` - Final video with audio
@@ -1768,21 +1889,123 @@ This is a modular system designed for easy extension. Each script is self-contai
 - **Memory Optimization**: Reduced memory usage through cleaner node structures
 
 ### Configuration Standardization
-All image generation scripts now use consistent settings:
 
-| Setting | Characters | Scenes | Thumbnails |
-|---------|------------|--------|------------|
-| **Resolution** | 1280x720 | 1920x1080 | 1280x720 |
-| **LoRA Strength** | 3.0/3.0 | 3.0/3.0 | 3.0/3.0 |
-| **ART_STYLE** | "Realistic Anime" | "Realistic Anime" | "Anime" |
-| **Negative Prompt** | ✅ Enabled | ✅ Enabled | ✅ Enabled |
-| **Serial LoRA** | ✅ Supported | ✅ Supported | ✅ Supported |
+#### Image Generation Scripts Comparison
+
+| Setting | Characters (2) | Locations (3L) | Scenes (3S) | Thumbnails (10) |
+|---------|----------------|----------------|-------------|-----------------|
+| **Resolution** | 1280x720 | 1280x720 | 1280x720 | 1280x720 |
+| **Latent Mode** | IMAGE | LATENT | IMAGE | LATENT |
+| **Denoising** | 0.82 | 0.82 | 0.1 | 0.8 |
+| **LoRA Enabled** | ❌ False | ❌ False | ✅ True | ✅ True |
+| **LoRA Strength** | 2.0/2.0 | 2.0/2.0 | 3.6/3.6 | 3.6/3.6 |
+| **Sampling Steps** | 45 | 45 | 25 | 25 |
+| **LoRA Mode** | serial | serial | serial | serial |
+| **LoRA Steps** | 6 | 6 | 6 | 9 |
+| **ART_STYLE** | "Realistic Anime" | "Realistic Anime" | "Realistic Anime" | "Realistic Anime" |
+| **Negative Prompt** | ✅ Enabled | ✅ Enabled | ✅ Enabled | ✅ Enabled |
+| **Random Seed** | ✅ True | ✅ True | ✅ True | ✅ True |
+| **Resumable** | ✅ Yes | ✅ Yes | ✅ Yes | ❌ No |
+| **Workflow Summary** | ❌ False | ❌ False | ❌ False | ❌ False |
+
+#### Special Features by Script
+
+| Feature | Characters | Locations | Scenes | Notes |
+|---------|------------|-----------|--------|-------|
+| **Character Overlay** | ✅ Supported | ✅ Supported | ❌ N/A | Text overlay on images |
+| **Character Mode** | ❌ N/A | ❌ N/A | ✅ IMAGE_TEXT | How characters are handled |
+| **Location Mode** | ❌ N/A | ❌ N/A | ✅ IMAGE_TEXT | How locations are handled |
+| **Image Stitching** | ❌ N/A | ❌ N/A | ✅ 1 image | Combine multiple images |
+| **Character Resize** | ❌ N/A | ❌ N/A | ✅ 1.0 (100%) | Resize factor for stitching |
+| **Compression Quality** | ❌ N/A | ❌ N/A | ✅ 95 | JPEG quality 1-100 |
+| **Title Text Overlay** | ❌ N/A | ❌ N/A | ❌ N/A | Thumbnail only |
+| **Title Position** | ❌ N/A | ❌ N/A | ❌ N/A | Thumbnail only |
 
 ### Breaking Changes
 - **Resolution Constants**: Replaced `IMAGE_MEGAPIXEL` with direct `IMAGE_WIDTH`/`IMAGE_HEIGHT`
 - **Workflow Structure**: Removed `FluxResolutionNode` and `PreviewImage` nodes
 - **LoRA Configuration**: Updated to array format with serial mode support
 
+## 📊 Current System State Summary
+
+### Active Pipeline Scripts (October 2025)
+
+#### Audio Pipeline (`gen.audio/generate.py`)
+- **Total Scripts**: 13 scripts (all available, currently all commented out)
+- **Active Scripts**: None (empty pipeline - all commented out)
+- **Resumable Scripts**: 5 scripts (`1.character.py`, `2.story.py`, `5.timeline.py`, `6.timing.py`, `7.sfx.py`)
+- **Requires ComfyUI**: 3 scripts (`2.story.py`, `7.sfx.py`, `10.thumbnail.py`)
+- **Requires LM Studio**: 5 scripts (`1.character.py`, `5.timeline.py`, `6.timing.py`, `9.description.py`, `12.media.py`)
+
+#### Image Pipeline (`gen.image/generate.py`)
+- **Total Scripts**: 7 scripts (6 generation + 1 cross-pipeline script)
+- **Active Scripts**: 1 script (`3.scene.py` - scene generation only)
+- **New Script**: `3.location.py` (location background generation with resumable support)
+- **Resumable Scripts**: 4 scripts (`1.story.py`, `2.character.py`, `3.location.py`, `3.scene.py`)
+- **Requires ComfyUI**: 4 scripts (`2.character.py`, `3.location.py`, `3.scene.py`)
+- **Requires LM Studio**: 1 script (`1.story.py`)
+
+#### Video Pipeline (`gen.video/generate.py`)
+- **Total Scripts**: 3 scripts (all available, currently all commented out)
+- **Active Scripts**: None (empty pipeline - all commented out)
+- **Resumable Scripts**: 1 script (`2.animate.py`)
+- **Requires ComfyUI**: 1 script (`2.animate.py`)
+- **Requires LM Studio**: None
+
+### Key Features & Capabilities
+
+#### Resumable Processing System
+- **Total Resumable Scripts**: 10 across all pipelines
+- **Checkpoint Location**: `../output/tracking/` in each pipeline
+- **Checkpoint Files**: 10 distinct `.state.json` files tracking progress
+- **File Validation**: Automatic validation of cached results before skipping
+- **Force Restart**: `--force-start` flag available on all resumable scripts
+- **Cleanup Option**: `CLEANUP_TRACKING_FILES` configuration flag
+
+#### Image Generation Modes
+- **Latent Modes**: LATENT (noise-based) and IMAGE (image-to-image)
+- **LoRA Support**: Serial and chained modes with independent configuration
+- **Prompt Modes**: IMAGE_TEXT, TEXT, IMAGE for character and location handling
+- **Resolution**: Standardized 1280x720 for characters/locations/scenes (changed from 1920x1080)
+- **Image Stitching**: Support for combining multiple images (up to 5 images)
+
+#### Advanced Configuration Options
+- **Workflow Summary**: Debug mode available on all ComfyUI scripts (currently disabled)
+- **Random Seeds**: Configurable random or fixed seed generation
+- **Negative Prompts**: Enabled on all image generation scripts
+- **Denoising Strength**: Configurable per-script (0.1 to 0.82 across scripts)
+- **Sampling Steps**: Range from 25 (scenes/thumbnails) to 45 (characters/locations)
+- **LoRA Strength**: Range from 2.0 (chars/locs) to 3.6 (scenes/thumbnails)
+
+### File Structure & Outputs
+
+#### Input Files
+- **Audio**: `1.story.txt`, `2.character.txt`, voice samples
+- **Image**: `1.story.txt`, `9.description.txt`, `2.character.txt`, `3.location.txt`, `3.scene.txt`
+- **Image (Optional)**: `2.latent.png`, `3.latent.png` for IMAGE mode
+- **Video**: Scene images, timeline scripts
+
+#### Output Files
+- **Audio**: `story.wav`, `sfx.wav`, `final.wav`, `final.mp4`, `thumbnail.png`
+- **Image**: `characters/*.png`, `locations/*.png` (NEW), `scene/*.png`, `video/*.mp4`
+- **Video**: `animation/*.mp4`, `final_sd.mp4`
+- **Tracking**: 10 checkpoint files across 3 pipelines
+
+### Model Configuration
+- **LM Studio Model**: `qwen/qwen3-14b` (14B parameter language model)
+- **Image Models**: FLUX.1, SD 3.5, HiDream, Qwen Image (GGUF format)
+- **Video Models**: LTX Video, Wan 2.1/2.2 (GGUF format)
+- **LoRA**: FLUX.1-Turbo-Alpha (primary LoRA for all scripts)
+- **VAE**: Flux Kontext, LTX Video, SD 3.5, Wan 2.1 decoders
+
+### Service Dependencies
+- **ComfyUI** (Port 8188): 8 scripts require it across pipelines
+- **LM Studio** (Port 1234): 6 scripts require it across pipelines
+- **FFmpeg**: 3 scripts for video/audio compilation
+- **Whisper**: 1 script for audio transcription
+
 ---
 
 **Note**: This system requires significant computational resources. For optimal performance, use a CUDA-compatible GPU with 8GB+ VRAM and ensure adequate cooling during extended generation sessions. The resumable processing system allows for safe interruption and recovery of long-running operations, making it suitable for extended generation sessions across multiple days.
+
+**Last Updated**: October 2025 - Comprehensive documentation of all scripts, constants, configurations, input/output files, and resumable logic.

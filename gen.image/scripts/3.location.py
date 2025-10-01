@@ -22,7 +22,7 @@ IMAGE_WIDTH = 1280
 IMAGE_HEIGHT = 720
 
 # Latent Input Mode Configuration
-LATENT_MODE = "IMAGE"  # "LATENT" for normal noise generation, "IMAGE" for load image input
+LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
 LATENT_DENOISING_STRENGTH = 0.82  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # LoRA Configuration
@@ -111,7 +111,7 @@ class ResumableState:
                 print(f"WARNING: Failed to load checkpoint file: {ex}")
         
         return {
-            "characters": {
+            "locations": {
                 "completed": [],
                 "results": {}
             }
@@ -125,19 +125,19 @@ class ResumableState:
         except Exception as ex:
             print(f"WARNING: Failed to save checkpoint: {ex}")
     
-    def is_character_complete(self, character_name: str) -> bool:
-        """Check if character generation is complete."""
-        return character_name in self.state["characters"]["completed"]
+    def is_location_complete(self, location_name: str) -> bool:
+        """Check if location generation is complete."""
+        return location_name in self.state["locations"]["completed"]
     
-    def get_character_result(self, character_name: str) -> dict:
-        """Get character generation result."""
-        return self.state["characters"]["results"].get(character_name, {})
+    def get_location_result(self, location_name: str) -> dict:
+        """Get location generation result."""
+        return self.state["locations"]["results"].get(location_name, {})
     
-    def set_character_result(self, character_name: str, result: dict):
-        """Set character generation result and mark as complete."""
-        self.state["characters"]["results"][character_name] = result
-        if character_name not in self.state["characters"]["completed"]:
-            self.state["characters"]["completed"].append(character_name)
+    def set_location_result(self, location_name: str, result: dict):
+        """Set location generation result and mark as complete."""
+        self.state["locations"]["results"][location_name] = result
+        if location_name not in self.state["locations"]["completed"]:
+            self.state["locations"]["completed"].append(location_name)
         self._save_state()
     
     def cleanup(self):
@@ -163,44 +163,44 @@ class ResumableState:
         cleaned_count = 0
         characters_to_remove = []
         
-        print(f"Validating {len(self.state['characters']['completed'])} completed characters against output/characters directory...")
+        print(f"Validating {len(self.state['locations']['completed'])} completed locations against output/locations directory...")
         
-        # Check each completed character
-        for character_name in self.state["characters"]["completed"]:
-            result = self.state["characters"]["results"].get(character_name, {})
+        # Check each completed location
+        for location_name in self.state["locations"]["completed"]:
+            result = self.state["locations"]["results"].get(location_name, {})
             file_path = result.get('path', '')
             
             # Check if file actually exists
             main_exists = file_path and os.path.exists(file_path)
             
             if not main_exists:
-                print(f"Precheck: File missing for {character_name} - marking as not completed")
+                print(f"Precheck: File missing for {location_name} - marking as not completed")
                 print(f"  Main file exists: {main_exists} ({file_path})")
-                characters_to_remove.append(character_name)
+                characters_to_remove.append(location_name)
                 cleaned_count += 1
             elif output_characters_dir:
-                # Additional check: verify file exists in output/characters directory
-                expected_character_file = os.path.join(output_characters_dir, f"{character_name}.png")
-                if not os.path.exists(expected_character_file):
-                    print(f"Precheck: Character file missing in output/characters directory for {character_name} - marking as not completed")
-                    print(f"  Expected: {expected_character_file}")
-                    characters_to_remove.append(character_name)
+                # Additional check: verify file exists in output/locations directory
+                expected_location_file = os.path.join(output_characters_dir, f"{location_name}.png")
+                if not os.path.exists(expected_location_file):
+                    print(f"Precheck: Location file missing in output/locations directory for {location_name} - marking as not completed")
+                    print(f"  Expected: {expected_location_file}")
+                    characters_to_remove.append(location_name)
                     cleaned_count += 1
                 else:
-                    print(f"Precheck: ✓ {character_name} validated in output/characters directory")
+                    print(f"Precheck: ✓ {location_name} validated in output/locations directory")
         
         # Remove invalid entries
-        for character_name in characters_to_remove:
-            if character_name in self.state["characters"]["completed"]:
-                self.state["characters"]["completed"].remove(character_name)
-            if character_name in self.state["characters"]["results"]:
-                del self.state["characters"]["results"][character_name]
+        for location_name in characters_to_remove:
+            if location_name in self.state["locations"]["completed"]:
+                self.state["locations"]["completed"].remove(location_name)
+            if location_name in self.state["locations"]["results"]:
+                del self.state["locations"]["results"][location_name]
             
-            # Also clear any LoRA progress for this character
-            lora_progress_key = f"{character_name}_lora_progress"
+            # Also clear any LoRA progress for this location
+            lora_progress_key = f"{location_name}_lora_progress"
             if "lora_progress" in self.state and lora_progress_key in self.state["lora_progress"]:
                 del self.state["lora_progress"][lora_progress_key]
-                print(f"Precheck: Cleared LoRA progress for {character_name}")
+                print(f"Precheck: Cleared LoRA progress for {location_name}")
         
         # Save cleaned state if any changes were made
         if cleaned_count > 0:
@@ -226,96 +226,96 @@ class ResumableState:
             return 0
             
         added_count = 0
-        tracked_characters = set(self.state["characters"]["completed"])
+        tracked_locations = set(self.state["locations"]["completed"])
         
-        print(f"Scanning output/characters directory for untracked files: {output_characters_dir}")
+        print(f"Scanning output/locations directory for untracked files: {output_characters_dir}")
         
         # Find all .png files in the output directory
         for filename in os.listdir(output_characters_dir):
             if filename.endswith('.png'):
-                # Extract character name from filename (remove .png extension)
-                character_name = filename[:-4]
+                # Extract location name from filename (remove .png extension)
+                location_name = filename[:-4]
                 
-                # If this character isn't tracked, add it to completed
-                if character_name not in tracked_characters:
+                # If this location isn't tracked, add it to completed
+                if location_name not in tracked_locations:
                     file_path = os.path.join(output_characters_dir, filename)
                     result = {
                         'path': file_path,
-                        'character_name': character_name,
+                        'location_name': location_name,
                         'auto_detected': True
                     }
-                    self.state["characters"]["results"][character_name] = result
-                    self.state["characters"]["completed"].append(character_name)
+                    self.state["locations"]["results"][location_name] = result
+                    self.state["locations"]["completed"].append(location_name)
                     added_count += 1
-                    print(f"Auto-detected completed character: {character_name} -> {file_path}")
+                    print(f"Auto-detected completed location: {location_name} -> {file_path}")
                 else:
-                    print(f"Character already tracked: {character_name}")
+                    print(f"Location already tracked: {location_name}")
         
         # Save state if any files were added
         if added_count > 0:
             self._save_state()
-            print(f"Auto-detection: Added {added_count} characters from output/characters directory")
+            print(f"Auto-detection: Added {added_count} locations from output/locations directory")
         else:
-            print("No untracked character files found in output/characters directory")
+            print("No untracked location files found in output/locations directory")
         
         return added_count
     
     def get_progress_summary(self) -> str:
         """Get a summary of current progress."""
-        completed = len(self.state["characters"]["completed"])
-        total = len(self.state["characters"]["results"]) + len([k for k in self.state["characters"]["results"].keys() if k not in self.state["characters"]["completed"]])
+        completed = len(self.state["locations"]["completed"])
+        total = len(self.state["locations"]["results"]) + len([k for k in self.state["locations"]["results"].keys() if k not in self.state["locations"]["completed"]])
         
-        return f"Progress: Characters({completed}/{total})"
+        return f"Progress: Locations({completed}/{total})"
 
 
-class CharacterGenerator:
+class LocationGenerator:
     def __init__(self, comfyui_url: str = "http://127.0.0.1:8188/", mode: str = "flux"):
         self.comfyui_url = comfyui_url
         self.mode = (mode or "flux").strip().lower()
         # ComfyUI saves images under this folder
         self.comfyui_output_folder = "../../ComfyUI/output"
         # Final destination inside this repo
-        self.final_output_dir = "../output/characters"
+        self.final_output_dir = "../output/locations"
         self.intermediate_output_dir = "../output/lora"
-        self.input_file = "../input/2.character.txt"
+        self.input_file = "../input/3.location.txt"
         # Latent image input file path
         self.latent_image_path = "../input/2.latent.small.png"
-        # Dynamic workflow file selection based on mode
+        # Dynamic workflow file selection based on mode - use character workflow
         self.workflow_file = "../workflow/character.flux.json" if self.mode == "flux" else "../workflow/character.json"
 
         # Create output directories
         os.makedirs(self.final_output_dir, exist_ok=True)
         os.makedirs(self.intermediate_output_dir, exist_ok=True)
 
-    def _read_character_data(self) -> dict[str, str]:
-        """Parse character data from input file.
+    def _read_location_data(self) -> dict[str, str]:
+        """Parse location data from input file.
         
         Returns:
-            dict: {character_name: description} mapping
+            dict: {location_name: description} mapping
         """
-        characters = {}
+        locations = {}
         try:
             with open(self.input_file, "r", encoding="utf-8") as f:
                 content = f.read().strip()
                 
-            # Split by double newlines to separate character entries
-            entries = [entry.strip() for entry in content.split('\n\n') if entry.strip()]
+            # Split by single newlines to separate location entries
+            entries = [entry.strip() for entry in content.split('\n') if entry.strip()]
             
             for entry in entries:
-                # Match pattern: ((Character Name)): Description
-                match = re.match(r'\(\(([^)]+)\)\):\s*(.+)', entry, re.DOTALL)
+                # Match pattern: {{loc_X}}: Description
+                match = re.match(r'\{\{([^}]+)\}\}\s*(.+)', entry, re.DOTALL)
                 if match:
-                    character_name = match.group(1).strip()
+                    location_name = match.group(1).strip()
                     description = match.group(2).strip()
-                    characters[character_name] = description
+                    locations[location_name] = description
                     
         except Exception as e:
-            print(f"ERROR: Failed to read character data: {e}")
+            print(f"ERROR: Failed to read location data: {e}")
             
-        return characters
+        return locations
 
-    def _load_character_workflow(self) -> dict:
-        """Load the character generation workflow and apply settings."""
+    def _load_location_workflow(self) -> dict:
+        """Load the location generation workflow and apply settings."""
         try:
             with open(self.workflow_file, "r", encoding="utf-8") as f:
                 workflow = json.load(f)
@@ -341,11 +341,11 @@ class CharacterGenerator:
         if USE_LORA:
             # Handle multiple LoRAs in series
             self._apply_loras(workflow)
-            print("LoRA enabled in character workflow")
+            print("LoRA enabled in location workflow")
         else:
             # Remove all LoRA nodes if they exist
             self._remove_all_lora_nodes(workflow)
-            print("LoRA disabled in character workflow")
+            print("LoRA disabled in location workflow")
         
         # Apply sampling steps
         self._update_node_connections(workflow, "KSampler", "steps", SAMPLING_STEPS)
@@ -1017,15 +1017,15 @@ class CharacterGenerator:
                 if node.get("class_type") in class_types and input_key in node["inputs"]:
                     node["inputs"][input_key] = value
 
-    def _update_workflow_prompt(self, workflow: dict, character_name: str, description: str) -> dict:
-        """Update the workflow with character-specific prompt."""
-        prompt = f"Create a 16K ultra-high-resolution, Dressed Full Body Visible, Illustration in the style of {ART_STYLE} in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description and fine-level detailing, Vibrant Rich Bright Color Palette, and any part not cropped or hidden.Must use Black Background.\n\n Character Name = {character_name}. Character Description = {description}. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style."
+    def _update_workflow_prompt(self, workflow: dict, location_name: str, description: str) -> dict:
+        """Update the workflow with location-specific prompt."""
+        prompt = f"Create a 16K ultra-high-resolution, detailed location environment illustration in the style of {ART_STYLE}. The scene should be atmospheric, immersive, and precisely matching the location description with fine-level detailing, rich color palette, proper lighting, depth of field, and environmental storytelling. No characters should be visible in this location scene.\n\nLocation Name = {location_name}. Location Description = {description}. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style for environmental art."
         self._update_node_connections(workflow, ["CLIPTextEncode", "CLIP Text Encode (Prompt)"], "text", prompt)
         return workflow
 
-    def _update_workflow_filename(self, workflow: dict, character_name: str) -> dict:
-        """Update the workflow to save with character name as filename."""
-        clean_name = re.sub(r'[^\w\s.-]', '', character_name).strip()
+    def _update_workflow_filename(self, workflow: dict, location_name: str) -> dict:
+        """Update the workflow to save with location name as filename."""
+        clean_name = re.sub(r'[^\w\s.-]', '', location_name).strip()
         clean_name = re.sub(r'[-\s]+', '_', clean_name)
         self._update_node_connections(workflow, "SaveImage", "filename_prefix", clean_name)
         return workflow
@@ -1181,31 +1181,31 @@ class CharacterGenerator:
         except Exception as e:
             print(f"WARNING: Failed to replace latent with previous output: {e}")
 
-    def _generate_character_image_serial(self, character_name: str, description: str, resumable_state=None) -> str | None:
-        """Generate character image using serial LoRA mode with intermediate storage."""
+    def _generate_location_image_serial(self, location_name: str, description: str, resumable_state=None) -> str | None:
+        """Generate location image using serial LoRA mode with intermediate storage."""
         try:
             # Check if resumable and already complete
-            if resumable_state and resumable_state.is_character_complete(character_name):
-                cached_result = resumable_state.get_character_result(character_name)
+            if resumable_state and resumable_state.is_location_complete(location_name):
+                cached_result = resumable_state.get_location_result(location_name)
                 if cached_result and os.path.exists(cached_result.get('path', '')):
-                    print(f"Using cached character image: {character_name}")
+                    print(f"Using cached location image: {location_name}")
                     return cached_result['path']
                 elif cached_result:
-                    print(f"Cached file missing, regenerating: {character_name}")
+                    print(f"Cached file missing, regenerating: {location_name}")
             
-            print(f"Generating image for: {character_name} (Serial LoRA mode)")
+            print(f"Generating image for: {location_name} (Serial LoRA mode)")
             
             enabled_loras = [lora for lora in LORAS if lora.get("enabled", True)]
             if not enabled_loras:
                 print("ERROR: No enabled LoRAs found for serial mode")
                 return None
             
-            # Clean character name for filenames (preserve dots for version numbers like 1.1)
-            clean_name = re.sub(r'[^\w\s.-]', '', character_name).strip()
+            # Clean location name for filenames (preserve dots for version numbers like 1.1)
+            clean_name = re.sub(r'[^\w\s.-]', '', location_name).strip()
             clean_name = re.sub(r'[-\s]+', '_', clean_name)
             
             # Check for existing LoRA progress
-            lora_progress_key = f"{character_name}_lora_progress"
+            lora_progress_key = f"{location_name}_lora_progress"
             completed_loras = []
             current_image_path = None
             intermediate_paths = []
@@ -1256,7 +1256,7 @@ class CharacterGenerator:
                 print(f"\nProcessing LoRA {i + 1}/{len(enabled_loras)}: {lora_name}")
                 
                 # Load base workflow for this LoRA
-                workflow = self._load_character_workflow()
+                workflow = self._load_location_workflow()
                 if not workflow:
                     print(f"ERROR: Failed to load workflow for LoRA {i + 1}")
                     continue
@@ -1264,8 +1264,8 @@ class CharacterGenerator:
                 # Apply only this LoRA to the workflow
                 self._apply_single_lora(workflow, lora_config, i + 1)
                 
-                # Update workflow with character-specific settings
-                workflow = self._update_workflow_prompt(workflow, character_name, description)
+                # Update workflow with location-specific settings
+                workflow = self._update_workflow_prompt(workflow, location_name, description)
                 workflow = self._update_workflow_seed(workflow)
                 workflow = self._update_workflow_resolution(workflow)
                 
@@ -1379,17 +1379,17 @@ class CharacterGenerator:
                     print(f"  Saved LoRA progress: {len(completed_loras)}/{len(enabled_loras)} completed")
             
             if not current_image_path:
-                print(f"ERROR: No successful LoRA generations for {character_name}")
+                print(f"ERROR: No successful LoRA generations for {location_name}")
                 return None
             
             # Copy final result to output directory
-            final_path = os.path.join(self.final_output_dir, f"{character_name}.png")
+            final_path = os.path.join(self.final_output_dir, f"{location_name}.png")
             shutil.copy2(current_image_path, final_path)
             
-            # Apply character name overlay if enabled
+            # Apply location name overlay if enabled
             if USE_CHARACTER_NAME_OVERLAY:
-                print(f"Adding character name overlay...")
-                overlay_success = self._overlay_character_name(final_path, character_name)
+                print(f"Adding location name overlay...")
+                overlay_success = self._overlay_character_name(final_path, location_name)
                 if overlay_success:
                     print(f"Saved with name overlay: {final_path}")
                 else:
@@ -1401,19 +1401,19 @@ class CharacterGenerator:
             if resumable_state:
                 result = {
                     'path': final_path,
-                    'character_name': character_name,
+                    'location_name': location_name,
                     'description': description,
                     'intermediate_paths': intermediate_paths
                 }
-                resumable_state.set_character_result(character_name, result)
+                resumable_state.set_location_result(location_name, result)
                 
-                # Keep LoRA progress for completed character (not cleaning up)
-                print(f"  Preserved LoRA progress for completed character")
+                # Keep LoRA progress for completed location (not cleaning up)
+                print(f"  Preserved LoRA progress for completed location")
             
             return final_path
 
         except Exception as e:
-            print(f"ERROR: Failed to generate image for {character_name}: {e}")
+            print(f"ERROR: Failed to generate image for {location_name}: {e}")
             return None
 
     def _apply_single_lora(self, workflow: dict, lora_config: dict, lora_index: int) -> None:
@@ -1517,39 +1517,39 @@ class CharacterGenerator:
         except Exception as e:
             print(f"WARNING: Failed to set image input: {e}")
 
-    def _generate_character_image(self, character_name: str, description: str, resumable_state=None) -> str | None:
-        """Generate a single character image using ComfyUI."""
+    def _generate_location_image(self, location_name: str, description: str, resumable_state=None) -> str | None:
+        """Generate a single location image using ComfyUI."""
         try:
             # Check if resumable and already complete
-            if resumable_state and resumable_state.is_character_complete(character_name):
-                cached_result = resumable_state.get_character_result(character_name)
+            if resumable_state and resumable_state.is_location_complete(location_name):
+                cached_result = resumable_state.get_location_result(location_name)
                 if cached_result and os.path.exists(cached_result.get('path', '')):
-                    print(f"Using cached character image: {character_name}")
+                    print(f"Using cached location image: {location_name}")
                     return cached_result['path']
                 elif cached_result:
-                    print(f"Cached file missing, regenerating: {character_name}")
+                    print(f"Cached file missing, regenerating: {location_name}")
             
             # Use serial LoRA mode if enabled
             if USE_LORA and LORA_MODE == "serial":
-                return self._generate_character_image_serial(character_name, description, resumable_state)
+                return self._generate_location_image_serial(location_name, description, resumable_state)
             
-            print(f"Generating image for: {character_name}")
+            print(f"Generating image for: {location_name}")
             
             # Load and update workflow
-            workflow = self._load_character_workflow()
+            workflow = self._load_location_workflow()
             if not workflow:
                 return None
                 
-            workflow = self._update_workflow_prompt(workflow, character_name, description)
-            workflow = self._update_workflow_filename(workflow, character_name)
+            workflow = self._update_workflow_prompt(workflow, location_name, description)
+            workflow = self._update_workflow_filename(workflow, location_name)
             workflow = self._update_workflow_seed(workflow)
             workflow = self._update_workflow_resolution(workflow)
 
             # Print workflow summary
-            self._print_workflow_summary(workflow, f"Character: {character_name}")
+            self._print_workflow_summary(workflow, f"Location: {location_name}")
             
             # Print prompt before sending
-            print(f"\n=== PROMPT FOR CHARACTER: {character_name} ===")
+            print(f"\n=== PROMPT FOR LOCATION: {location_name} ===")
             # Get the text prompt from the workflow
             text_prompt = workflow.get("33", {}).get("inputs", {}).get("text", "No text prompt found")
             print(f"Text prompt: {text_prompt}")
@@ -1581,19 +1581,19 @@ class CharacterGenerator:
                 time.sleep(2)
 
             # Find the generated image
-            generated_image = self._find_newest_output_with_prefix(character_name)
+            generated_image = self._find_newest_output_with_prefix(location_name)
             if not generated_image:
-                print(f"ERROR: Could not find generated image for {character_name}")
+                print(f"ERROR: Could not find generated image for {location_name}")
                 return None
 
             # Copy to final output directory
-            final_path = os.path.join(self.final_output_dir, f"{character_name}.png")
+            final_path = os.path.join(self.final_output_dir, f"{location_name}.png")
             shutil.copy2(generated_image, final_path)
             
-            # Apply character name overlay if enabled
+            # Apply location name overlay if enabled
             if USE_CHARACTER_NAME_OVERLAY:
-                print(f"Adding character name overlay...")
-                overlay_success = self._overlay_character_name(final_path, character_name)
+                print(f"Adding location name overlay...")
+                overlay_success = self._overlay_character_name(final_path, location_name)
                 if overlay_success:
                     print(f"Saved with name overlay: {final_path}")
                 else:
@@ -1605,15 +1605,15 @@ class CharacterGenerator:
             if resumable_state:
                 result = {
                     'path': final_path,
-                    'character_name': character_name,
+                    'location_name': location_name,
                     'description': description
                 }
-                resumable_state.set_character_result(character_name, result)
+                resumable_state.set_location_result(location_name, result)
             
             return final_path
 
         except Exception as e:
-            print(f"ERROR: Failed to generate image for {character_name}: {e}")
+            print(f"ERROR: Failed to generate image for {location_name}: {e}")
             return None
 
     def _find_newest_output_with_prefix(self, prefix: str) -> str | None:
@@ -1788,84 +1788,84 @@ class CharacterGenerator:
             print(f"ERROR: Failed to overlay character name '{character_name}': {e}")
             return False
 
-    def _get_completed_characters(self) -> set[str]:
-        """Get character names that have already been generated."""
+    def _get_completed_locations(self) -> set[str]:
+        """Get location names that have already been generated."""
         if not os.path.exists(self.final_output_dir):
             return set()
         return {f[:-4] for f in os.listdir(self.final_output_dir) if f.endswith('.png')}
 
-    def generate_all_characters(self, force_regenerate: bool = False, resumable_state=None) -> dict[str, str]:
-        """Generate images for all characters.
+    def generate_all_locations(self, force_regenerate: bool = False, resumable_state=None) -> dict[str, str]:
+        """Generate images for all locations.
         
         Returns:
-            dict: {character_name: output_path} mapping of successful generations
+            dict: {location_name: output_path} mapping of successful generations
         """
-        characters = self._read_character_data()
-        if not characters:
-            print("ERROR: No character data found")
+        locations = self._read_location_data()
+        if not locations:
+            print("ERROR: No location data found")
             return {}
 
         # Use resumable state if available, otherwise fall back to file-based checking
         if resumable_state:
-            print(f"Validating and syncing with output/characters directory: {self.final_output_dir}")
+            print(f"Validating and syncing with output/locations directory: {self.final_output_dir}")
             
-            # First, sync with output/characters directory to detect any manually added files
+            # First, sync with output/locations directory to detect any manually added files
             synced_count = resumable_state.sync_with_output_directory(self.final_output_dir)
             if synced_count > 0:
-                print(f"Sync completed: {synced_count} characters auto-detected from output/characters directory")
+                print(f"Sync completed: {synced_count} locations auto-detected from output/locations directory")
             
             # Then run precheck to validate file existence and clean up invalid entries
             cleaned_count = resumable_state.validate_and_cleanup_results(self.final_output_dir)
             if cleaned_count > 0:
                 print(f"Precheck completed: {cleaned_count} invalid entries removed from checkpoint")
             
-            completed_characters = set()
-            for char_name in characters.keys():
-                if resumable_state.is_character_complete(char_name):
-                    completed_characters.add(char_name)
+            completed_locations = set()
+            for loc_name in locations.keys():
+                if resumable_state.is_location_complete(loc_name):
+                    completed_locations.add(loc_name)
         else:
-            completed_characters = self._get_completed_characters()
+            completed_locations = self._get_completed_locations()
         
-        if not force_regenerate and completed_characters:
-            print(f"Found {len(completed_characters)} completed characters: {sorted(completed_characters)}")
+        if not force_regenerate and completed_locations:
+            print(f"Found {len(completed_locations)} completed locations: {sorted(completed_locations)}")
 
-        characters_to_process = {name: desc for name, desc in characters.items() 
-                               if force_regenerate or name not in completed_characters}
+        locations_to_process = {name: desc for name, desc in locations.items() 
+                               if force_regenerate or name not in completed_locations}
 
-        if not characters_to_process:
-            print("All characters already generated!")
+        if not locations_to_process:
+            print("All locations already generated!")
             return {}
 
-        print(f"Processing {len(characters_to_process)} characters, skipped {len(completed_characters)}")
+        print(f"Processing {len(locations_to_process)} locations, skipped {len(completed_locations)}")
         print("=" * 60)
 
         results = {}
-        for i, (character_name, description) in enumerate(characters_to_process.items(), 1):
-            print(f"\n[{i}/{len(characters_to_process)}] Processing {character_name}...")
-            output_path = self._generate_character_image(character_name, description, resumable_state)
+        for i, (location_name, description) in enumerate(locations_to_process.items(), 1):
+            print(f"\n[{i}/{len(locations_to_process)}] Processing {location_name}...")
+            output_path = self._generate_location_image(location_name, description, resumable_state)
             if output_path:
-                results[character_name] = output_path
-                print(f"[OK] Generated: {character_name}")
+                results[location_name] = output_path
+                print(f"[OK] Generated: {location_name}")
             else:
-                print(f"[FAILED] {character_name}")
+                print(f"[FAILED] {location_name}")
 
         return results
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Generate character images using flux (default) or diffusion workflow.")
+    parser = argparse.ArgumentParser(description="Generate location images using flux (default) or diffusion workflow.")
     parser.add_argument("--mode", "-m", choices=["flux", "diffusion"], default="flux", help="Select workflow: flux (default) or diffusion")
-    parser.add_argument("--force", "-f", action="store_true", help="Force regeneration of all characters")
-    parser.add_argument("--list-completed", "-l", action="store_true", help="List completed characters")
+    parser.add_argument("--force", "-f", action="store_true", help="Force regeneration of all locations")
+    parser.add_argument("--list-completed", "-l", action="store_true", help="List completed locations")
     parser.add_argument("--force-start", action="store_true",
                        help="Force start from beginning, ignoring any existing checkpoint files")
     args = parser.parse_args()
     
-    generator = CharacterGenerator(mode=args.mode)
+    generator = LocationGenerator(mode=args.mode)
     
     if args.list_completed:
-        completed = generator._get_completed_characters()
-        print(f"Completed characters ({len(completed)}): {sorted(completed)}" if completed else "No completed characters")
+        completed = generator._get_completed_locations()
+        print(f"Completed locations ({len(completed)}): {sorted(completed)}" if completed else "No completed locations")
         return 0
     
     # Initialize resumable state if enabled
@@ -1883,11 +1883,11 @@ def main() -> int:
             print("No existing checkpoint found - starting fresh")
     
     start_time = time.time()
-    results = generator.generate_all_characters(force_regenerate=args.force, resumable_state=resumable_state)
+    results = generator.generate_all_locations(force_regenerate=args.force, resumable_state=resumable_state)
     elapsed = time.time() - start_time
     
     if results:
-        print(f"\nGenerated {len(results)} character images in {elapsed:.2f}s using {args.mode} mode:")
+        print(f"\nGenerated {len(results)} location images in {elapsed:.2f}s using {args.mode} mode:")
         for name, path in results.items():
             print(f"  {name}: {path}")
         
@@ -1899,7 +1899,7 @@ def main() -> int:
         
         return 0
     else:
-        print("No new character images generated")
+        print("No new location images generated")
         return 0
 
 
