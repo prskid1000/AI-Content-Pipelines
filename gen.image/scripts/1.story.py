@@ -852,11 +852,10 @@ def _build_story_description_prompt(story_content: str) -> str:
 def _build_location_expansion_prompt(filtered_story_content: str, location_id: str, original_description: str) -> str:
     return (
         f"You are a visual director creating detailed background location descriptions (approximately {LOCATION_CHARACTER_COUNT} characters) for AI image generation. "
-        "Based on the filtered story content that specifically uses this location, generate a comprehensive background description that covers ONLY the environmental and architectural elements of this place. "
+        "ADD lots of Objects like furniture, wall, windows, building, crowd, animals, birds, tree, etc relevant to the scene and Include specific details about architecture, lighting conditions, colors, materials,and any distinctive visual features of the place itself. "
         "Focus exclusively on the physical setting, atmosphere, lighting, textures, environmental details, architecture, furniture, objects, and any distinctive visual features of the location itself. "
-        "EXCLUDE all character references, character actions, character interactions, or any human elements. "
+        "EXCLUDE all character references, character actions, character interactions, pronouns, or any human elements. "
         "Consider the story context and setting to ensure the description fits the narrative tone and period. "
-        "Include specific details about architecture, furniture, lighting conditions, colors, materials, objects, and any distinctive visual features of the place itself. "
         "Make the description vivid, immersive, and focused purely on the background/environment for AI image generation.\n\n"
         f"Create a comprehensive background location description (approximately {LOCATION_CHARACTER_COUNT} characters) that covers ONLY the environmental and architectural elements of location {location_id}, excluding all character references. "
         f"Describe the location in {ART_STYLE} style. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.\n\n"
