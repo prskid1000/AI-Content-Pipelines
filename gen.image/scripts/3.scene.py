@@ -42,7 +42,7 @@ IMAGE_COMPRESSION_QUALITY = 99
 # Note: LATENT_MODE controls whether location images are ALSO used as latent input (separate from grouping)
 
 # HARDCODED CHARACTER MODE - Change this to switch modes
-ACTIVE_CHARACTER_MODE = "IMAGE_TEXT"
+ACTIVE_CHARACTER_MODE = "IMAGE"
 
 # HARDCODED LOCATION MODE - Change this to switch modes
 ACTIVE_LOCATION_MODE = "TEXT"
@@ -76,7 +76,7 @@ LORAS = [
         "enabled": True,          # Set to False to disable this LoRA entirely
         
         # Serial mode specific settings (only used when LORA_MODE = "serial")
-        "steps": 12,               # Sampling steps for this LoRA (serial mode only)
+        "steps": 6,               # Sampling steps for this LoRA (serial mode only)
         "denoising_strength": 1, # Denoising strength (0.0 - 1.0) (serial mode only)
         "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
         "use_only_intermediate": False # Set to True to disable character images and use only intermediate result
@@ -314,7 +314,7 @@ class SceneGenerator:
         self.workflow_file = "../workflow/scene.json"
         self.character_images_dir = "../output/characters"
         # Latent image input file path
-        self.latent_image_path = "../input/3.latent.png"
+        self.latent_image_path = "../input/3.latent.small.png"
 
         # Time estimation tracking
         self.processing_times = []
