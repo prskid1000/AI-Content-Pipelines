@@ -52,17 +52,31 @@ LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for
 LORAS = [
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 5.0,    # Model strength (0.0 - 2.0)
-        "strength_clip": 5.0,     # CLIP strength (0.0 - 2.0)
+        "strength_model": 3.6,    # Model strength (0.0 - 2.0)
+        "strength_clip": 3.6,     # CLIP strength (0.0 - 2.0)
         "bypass_model": False,    # Set to True to bypass model part of this LoRA
         "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
         "enabled": True,          # Set to False to disable this LoRA entirely
         
         # Serial mode specific settings (only used when LORA_MODE = "serial")
-        "steps": 6,               # Sampling steps for this LoRA (serial mode only)
+        "steps": 3,               # Sampling steps for this LoRA (serial mode only)
         "denoising_strength": 1, # Denoising strength (0.0 - 1.0) (serial mode only)
         "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
         "use_only_intermediate": False # Set to True to disable character images and use only intermediate result
+    },
+    {
+        "name": "FLUX.1-Turbo-Alpha.safetensors",
+        "strength_model": 3.6,    # Model strength (0.0 - 2.0)
+        "strength_clip": 3.6,     # CLIP strength (0.0 - 2.0)
+        "bypass_model": False,    # Set to True to bypass model part of this LoRA
+        "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
+        "enabled": False,          # Set to False to disable this LoRA entirely
+        
+        # Serial mode specific settings (only used when LORA_MODE = "serial")
+        "steps": 6,               # Sampling steps for this LoRA (serial mode only)
+        "denoising_strength": 0.1, # Denoising strength (0.0 - 1.0) (serial mode only)
+        "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
+        "use_only_intermediate": True # Set to True to disable character images and use only intermediate result
     }
 ]
 
@@ -192,6 +206,12 @@ class ResumableState:
                 self.state["scenes"]["completed"].remove(scene_id)
             if scene_id in self.state["scenes"]["results"]:
                 del self.state["scenes"]["results"][scene_id]
+            
+            # Also clear any LoRA progress for this scene
+            lora_progress_key = f"{scene_id}_lora_progress"
+            if "lora_progress" in self.state and lora_progress_key in self.state["lora_progress"]:
+                del self.state["lora_progress"][lora_progress_key]
+                print(f"Precheck: Cleared LoRA progress for {scene_id}")
         
         # Save cleaned state if any changes were made
         if cleaned_count > 0:
@@ -1721,6 +1741,18 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                         completed_loras = []
                         current_image_path = None
                         intermediate_paths = []
+                        saved_lora_configs = {}  # Clear saved configs when restarting
+                        
+                        # Update resumable state to reflect LoRA progress invalidation
+                        lora_progress = {
+                            "completed_loras": [],
+                            "current_image_path": None,
+                            "intermediate_paths": [],
+                            "lora_configs": {}
+                        }
+                        resumable_state.state.setdefault("lora_progress", {})[lora_progress_key] = lora_progress
+                        resumable_state._save_state()
+                        print("  Updated resumable state: LoRA progress invalidated")
             
             # Process each LoRA in sequence, using previous output as input
             for i, lora_config in enumerate(enabled_loras):
@@ -1728,8 +1760,11 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                 lora_clean_name = re.sub(r'[^\w\s-]', '', lora_name).strip()
                 lora_clean_name = re.sub(r'[-\s]+', '_', lora_clean_name)
                 
+                # Create unique identifier for this LoRA (index + name)
+                lora_unique_id = f"{i}_{lora_name}"
+                
                 # Skip if this LoRA was already completed
-                if lora_name in completed_loras:
+                if lora_unique_id in completed_loras:
                     print(f"Skipping completed LoRA {i + 1}/{len(enabled_loras)}: {lora_name}")
                     continue
                 
@@ -1737,8 +1772,8 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                 
                 # Check if this LoRA should use only intermediate result (no character images)
                 # Use saved config if resuming, otherwise use current config
-                if saved_lora_configs and lora_name in saved_lora_configs:
-                    saved_config = saved_lora_configs[lora_name]
+                if saved_lora_configs and lora_unique_id in saved_lora_configs:
+                    saved_config = saved_lora_configs[lora_unique_id]
                     use_only_intermediate = saved_config.get("use_only_intermediate", False)
                     print(f"  Using saved LoRA configuration for {lora_name}")
                 else:
@@ -1760,6 +1795,13 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                 if not workflow:
                     print(f"ERROR: Failed to build workflow for LoRA {i + 1}")
                     continue
+                
+                # Append dots to prompt based on LoRA position (LoRA 0 = no dots, LoRA 1 = 1 dot, etc.)
+                if i > 0:  # Skip first LoRA (index 0)
+                    dots = "." * i
+                    current_prompt = workflow["33"]["inputs"]["text"]
+                    workflow["33"]["inputs"]["text"] = current_prompt + dots
+                    print(f"  Added {i} dots to prompt: {dots}")
                 
                 # Apply only this LoRA to the workflow (after building the complete workflow)
                 self._apply_single_lora(workflow, lora_config, i + 1)
@@ -1869,12 +1911,12 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
                 
                 # Save progress after each LoRA completion
                 if resumable_state:
-                    completed_loras.append(lora_name)
+                    completed_loras.append(lora_unique_id)
                     lora_progress = {
                         "completed_loras": completed_loras,
                         "current_image_path": current_image_path,
                         "intermediate_paths": intermediate_paths,
-                        "lora_configs": {lora["name"]: lora for lora in enabled_loras}  # Save LoRA configs for resuming
+                        "lora_configs": {f"{i}_{lora["name"]}": lora for i, lora in enumerate(enabled_loras)}  # Save LoRA configs for resuming with unique IDs
                     }
                     resumable_state.state.setdefault("lora_progress", {})[lora_progress_key] = lora_progress
                     resumable_state._save_state()

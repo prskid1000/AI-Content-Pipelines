@@ -47,6 +47,20 @@ LORAS = [
         "denoising_strength": 1,  # Denoising strength (0.0 - 1.0) (serial mode only)
         "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
         "use_only_intermediate": False # Set to True to disable character images and use only intermediate result
+    },
+    {
+        "name": "FLUX.1-Turbo-Alpha.safetensors",
+        "strength_model": 3.6,    # Model strength (0.0 - 2.0)
+        "strength_clip": 3.6,     # CLIP strength (0.0 - 2.0)
+        "bypass_model": False,    # Set to True to bypass model part of this LoRA
+        "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
+        "enabled": False,          # Set to False to disable this LoRA entirely
+        
+        # Serial mode specific settings (only used when LORA_MODE = "serial")
+        "steps": 6,               # Sampling steps for this LoRA (serial mode only)
+        "denoising_strength": 0.1, # Denoising strength (0.0 - 1.0) (serial mode only)
+        "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
+        "use_only_intermediate": True # Set to True to disable character images and use only intermediate result
     }
 ]
 
@@ -181,6 +195,12 @@ class ResumableState:
                 self.state["characters"]["completed"].remove(character_name)
             if character_name in self.state["characters"]["results"]:
                 del self.state["characters"]["results"][character_name]
+            
+            # Also clear any LoRA progress for this character
+            lora_progress_key = f"{character_name}_lora_progress"
+            if "lora_progress" in self.state and lora_progress_key in self.state["lora_progress"]:
+                del self.state["lora_progress"][lora_progress_key]
+                print(f"Precheck: Cleared LoRA progress for {character_name}")
         
         # Save cleaned state if any changes were made
         if cleaned_count > 0:
@@ -1206,6 +1226,18 @@ class CharacterGenerator:
                         completed_loras = []
                         current_image_path = None
                         intermediate_paths = []
+                        saved_lora_configs = {}  # Clear saved configs when restarting
+                        
+                        # Update resumable state to reflect LoRA progress invalidation
+                        lora_progress = {
+                            "completed_loras": [],
+                            "current_image_path": None,
+                            "intermediate_paths": [],
+                            "lora_configs": {}
+                        }
+                        resumable_state.state.setdefault("lora_progress", {})[lora_progress_key] = lora_progress
+                        resumable_state._save_state()
+                        print("  Updated resumable state: LoRA progress invalidated")
             
             # Process each LoRA in sequence, using previous output as input
             for i, lora_config in enumerate(enabled_loras):
@@ -1213,8 +1245,11 @@ class CharacterGenerator:
                 lora_clean_name = re.sub(r'[^\w\s-]', '', lora_name).strip()
                 lora_clean_name = re.sub(r'[-\s]+', '_', lora_clean_name)
                 
+                # Create unique identifier for this LoRA (index + name)
+                lora_unique_id = f"{i}_{lora_name}"
+                
                 # Skip if this LoRA was already completed
-                if lora_name in completed_loras:
+                if lora_unique_id in completed_loras:
                     print(f"Skipping completed LoRA {i + 1}/{len(enabled_loras)}: {lora_name}")
                     continue
                 
@@ -1233,6 +1268,18 @@ class CharacterGenerator:
                 workflow = self._update_workflow_prompt(workflow, character_name, description)
                 workflow = self._update_workflow_seed(workflow)
                 workflow = self._update_workflow_resolution(workflow)
+                
+                # Append dots to prompt based on LoRA position (LoRA 0 = no dots, LoRA 1 = 1 dot, etc.)
+                if i > 0:  # Skip first LoRA (index 0)
+                    dots = "." * i
+                    # Find the CLIPTextEncode node and append dots to its text
+                    for node_id, node in workflow.items():
+                        if isinstance(node, dict) and node.get("class_type") == "CLIPTextEncode":
+                            if "text" in node.get("inputs", {}):
+                                current_prompt = node["inputs"]["text"]
+                                node["inputs"]["text"] = current_prompt + dots
+                                print(f"  Added {i} dots to prompt: {dots}")
+                                break
                 
                 # Set LoRA-specific sampling steps
                 steps = lora_config.get("steps", SAMPLING_STEPS)
@@ -1320,12 +1367,12 @@ class CharacterGenerator:
                 
                 # Save progress after each LoRA completion
                 if resumable_state:
-                    completed_loras.append(lora_name)
+                    completed_loras.append(lora_unique_id)
                     lora_progress = {
                         "completed_loras": completed_loras,
                         "current_image_path": current_image_path,
                         "intermediate_paths": intermediate_paths,
-                        "lora_configs": {lora["name"]: lora for lora in enabled_loras}  # Save LoRA configs for resuming
+                        "lora_configs": {f"{i}_{lora["name"]}": lora for i, lora in enumerate(enabled_loras)}  # Save LoRA configs for resuming with unique IDs
                     }
                     resumable_state.state.setdefault("lora_progress", {})[lora_progress_key] = lora_progress
                     resumable_state._save_state()
