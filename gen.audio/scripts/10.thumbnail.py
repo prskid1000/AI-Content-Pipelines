@@ -72,7 +72,7 @@ LORAS = [
         "use_only_intermediate": False # Set to True to disable character images and use only intermediate result
     },
     {
-        "name": "Ghibli_lora_weights.safetensors",  # Example second LoRA
+        "name": "Flux_Dev_4_step_lora.safetensors",  # Example second LoRA
         "strength_model": 2.0,
         "strength_clip": 2.0,
         "bypass_model": False,
@@ -80,7 +80,7 @@ LORAS = [
         "enabled": False,  # Disabled by default
         
         # Serial mode specific settings
-        "steps": 45,
+        "steps": 4,
         "denoising_strength": 0.6,
         "save_intermediate": True,
         "use_only_intermediate": True  # This LoRA will only use intermediate result, no character images
