@@ -77,7 +77,7 @@ SCRIPTS = [
     #Video
     # "2.character.py",
     # "3.location.py",
-    "3.scene.py",
+    # "3.scene.py",
     # "5.video.py",
     # "6.combine.py",
 
