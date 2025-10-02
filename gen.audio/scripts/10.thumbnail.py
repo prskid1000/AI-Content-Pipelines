@@ -1092,7 +1092,7 @@ class ThumbnailProcessor:
                 self._overlay_title(self.final_output_path, title)
             
             # Create YouTube Shorts versions
-            shorts_paths = self._create_shorts_versions(self.final_output_path)
+            shorts_paths = self._create_shorts_versions(prompt_text)
             if shorts_paths:
                 print(f"Also created {len(shorts_paths)} shorts variations: {shorts_paths}")
             
@@ -1302,9 +1302,10 @@ class ThumbnailProcessor:
                     saved_paths.append(final_path)
                     
                     # Create YouTube Shorts versions for each variant
-                    shorts_paths = self._create_shorts_versions(final_path)
+                    # When USE_TITLE_TEXT = False, each main variant gets 5 Shorts variations
+                    shorts_paths = self._create_shorts_versions_for_main_variant(prompt_text, idx)
                     if shorts_paths:
-                        print(f"Also created {len(shorts_paths)} shorts variations: {shorts_paths}")
+                        print(f"Also created {len(shorts_paths)} shorts variations for variant {idx}: {shorts_paths}")
 
                 return saved_paths
 
@@ -1339,7 +1340,7 @@ class ThumbnailProcessor:
                 self._overlay_title(final_path, title)
             
             # Create YouTube Shorts versions
-            shorts_paths = self._create_shorts_versions(final_path)
+            shorts_paths = self._create_shorts_versions(prompt_text)
             if shorts_paths:
                 print(f"Also created {len(shorts_paths)} shorts variations: {shorts_paths}")
             
@@ -1607,66 +1608,165 @@ class ThumbnailProcessor:
         except Exception:
             return False
 
-    def _create_shorts_versions(self, regular_thumbnail_path: str) -> list[str]:
-        """Create multiple YouTube Shorts versions of the thumbnail in proper 9:16 dimensions."""
+    def _create_shorts_versions(self, prompt_text: str) -> list[str]:
+        """Generate multiple YouTube Shorts versions using ComfyUI in proper 9:16 dimensions."""
         shorts_paths = []
         
         for i in range(1, SHORTS_VARIATIONS + 1):
             shorts_path = os.path.join(self.final_output_dir, f"thumbnail.short.v{i}.png")
-            success = self._create_single_shorts_version(regular_thumbnail_path, shorts_path, i)
+            success = self._generate_single_shorts_version(prompt_text, shorts_path, i)
             if success:
                 shorts_paths.append(shorts_path)
         
         return shorts_paths
 
-    def _create_single_shorts_version(self, regular_thumbnail_path: str, output_path: str, variation_num: int) -> bool:
-        """Create a YouTube Shorts version of the thumbnail in proper 9:16 dimensions."""
+    def _create_shorts_versions_for_main_variant(self, prompt_text: str, main_variant_num: int) -> list[str]:
+        """Generate multiple YouTube Shorts versions for a specific main variant using ComfyUI."""
+        shorts_paths = []
+        
+        for i in range(1, SHORTS_VARIATIONS + 1):
+            shorts_path = os.path.join(self.final_output_dir, f"thumbnail.short.v{main_variant_num}.v{i}.png")
+            success = self._generate_single_shorts_version(prompt_text, shorts_path, f"{main_variant_num}.{i}")
+            if success:
+                shorts_paths.append(shorts_path)
+        
+        return shorts_paths
+
+    def _generate_single_shorts_version(self, prompt_text: str, output_path: str, variation_num: int) -> bool:
+        """Generate a YouTube Shorts version using ComfyUI in proper 9:16 dimensions."""
         try:
-            if not os.path.exists(regular_thumbnail_path):
-                print(f"ERROR: Regular thumbnail not found: {regular_thumbnail_path}")
+            print(f"Generating YouTube Shorts version {variation_num} using ComfyUI...")
+            
+            # Load base workflow
+            workflow = self._load_thumbnail_workflow()
+            if not workflow:
+                print(f"ERROR: Failed to load workflow for Shorts version {variation_num}")
                 return False
             
-            # Load the regular thumbnail
-            img = Image.open(regular_thumbnail_path).convert("RGBA")
-            original_w, original_h = img.size
+            # Update workflow for Shorts (9:16 aspect ratio)
+            workflow = self._update_prompt_text(workflow, prompt_text)
+            workflow = self._update_workflow_resolution(workflow, SHORTS_WIDTH, SHORTS_HEIGHT)
             
-            # Create a new canvas with proper YouTube Shorts dimensions (9:16)
-            canvas = Image.new("RGBA", (SHORTS_WIDTH, SHORTS_HEIGHT), (0, 0, 0, 0))
-            
-            # Calculate how to fit the 16:9 image into 9:16 canvas
-            # We'll crop the center portion and resize to fit
-            original_ratio = original_w / original_h  # 16:9 = 1.78
-            shorts_ratio = SHORTS_WIDTH / SHORTS_HEIGHT  # 9:16 = 0.5625
-            
-            if original_ratio > shorts_ratio:
-                # Original is wider than shorts ratio, crop width to fit height
-                crop_w = int(original_h * shorts_ratio)
-                crop_x = (original_w - crop_w) // 2
-                cropped = img.crop((crop_x, 0, crop_x + crop_w, original_h))
+            # Generate unique filename for this Shorts variation
+            if isinstance(variation_num, str) and "." in str(variation_num):
+                # Format: "1.1", "1.2", etc. for main variant.sub-variant
+                shorts_filename = f"thumbnail.short.v{variation_num}"
             else:
-                # Original is taller than shorts ratio, crop height to fit width
-                crop_h = int(original_w / shorts_ratio)
-                crop_y = (original_h - crop_h) // 2
-                cropped = img.crop((0, crop_y, original_w, crop_y + crop_h))
+                # Format: "1", "2", etc. for single variant
+                shorts_filename = f"thumbnail.short.v{variation_num}"
+            workflow = self._update_saveimage_prefix(workflow, shorts_filename)
             
-            # Resize the cropped image to fit the shorts canvas
-            resized = cropped.resize((SHORTS_WIDTH, SHORTS_HEIGHT), Image.LANCZOS)
+            # Set unique seed for this variation
+            seed = self._get_seed()
+            workflow = self._update_workflow_seed(workflow, seed)
+            print(f"  Seed set to: {seed}")
             
-            # Paste the resized image onto the canvas
-            canvas.paste(resized, (0, 0))
+            # Print workflow summary
+            self._print_workflow_summary(workflow, f"YouTube Shorts Version {variation_num}")
+            
+            # Submit workflow to ComfyUI
+            resp = requests.post(f"{self.comfyui_url}prompt", json={"prompt": workflow}, timeout=60)
+            if resp.status_code != 200:
+                print(f"ERROR: ComfyUI API error for Shorts version {variation_num}: {resp.status_code} {resp.text}")
+                return False
+                
+            prompt_id = resp.json().get("prompt_id")
+            if not prompt_id:
+                print(f"ERROR: No prompt ID returned for Shorts version {variation_num}")
+                return False
+
+            # Wait for completion
+            print(f"  Waiting for Shorts version {variation_num} generation to complete...")
+            while True:
+                h = requests.get(f"{self.comfyui_url}history/{prompt_id}")
+                if h.status_code == 200:
+                    data = h.json()
+                    if prompt_id in data:
+                        status = data[prompt_id].get("status", {})
+                        if status.get("exec_info", {}).get("queue_remaining", 0) == 0:
+                            time.sleep(2)  # Give it a moment to finish
+                            break
+                time.sleep(2)
+
+            # Find the generated image
+            generated_image = self._find_newest_output_with_prefix(shorts_filename)
+            if not generated_image:
+                print(f"ERROR: Could not find generated image for Shorts version {variation_num}")
+                return False
+            
+            # Copy to final output location
+            shutil.copy2(generated_image, output_path)
             
             # Apply title overlay if enabled
             title = self._read_title_from_file()
             if title and USE_TITLE_TEXT:
-                self._overlay_title_on_shorts_canvas(canvas, title)
+                self._overlay_title_on_shorts_image(output_path, title)
             
-            # Save the shorts version
-            canvas.save(output_path)
             print(f"Created YouTube Shorts version {variation_num}: {output_path}")
             return True
             
         except Exception as e:
-            print(f"ERROR: Failed to create shorts version {variation_num}: {e}")
+            print(f"ERROR: Failed to generate Shorts version {variation_num}: {e}")
+            return False
+
+    def _overlay_title_on_shorts_image(self, image_path: str, title: str) -> bool:
+        """Apply title overlay to the shorts image file (9:16 format)."""
+        try:
+            img = Image.open(image_path).convert("RGBA")
+            w, h = img.size  # Should be SHORTS_WIDTH x SHORTS_HEIGHT (1080x1920)
+            
+            # Measure title block for the full shorts canvas
+            band_height, padding, lines, chosen_font, line_height, stroke_w = self._measure_title_block(
+                title, w, h
+            )
+            
+            if not lines:
+                return True
+            
+            # Create title band and text
+            band_opacity = int(0.60 * 255)
+            band = Image.new("RGBA", (w, band_height), (0, 0, 0, band_opacity))
+            shadow = band.copy().filter(ImageFilter.GaussianBlur(radius=int(h * 0.01)))
+            text_layer = Image.new("RGBA", (w, band_height), (0, 0, 0, 0))
+            text_draw = ImageDraw.Draw(text_layer)
+            
+            # Draw text lines
+            y_cursor = padding
+            for line in lines:
+                bbox = text_draw.textbbox((0, 0), line, font=chosen_font, stroke_width=0)
+                tw = bbox[2] - bbox[0]
+                x = (w - tw) // 2
+                text_draw.text((x, y_cursor), line, font=chosen_font, fill=(255, 255, 255, 255))
+                y_cursor += line_height
+            
+            # Position the title band using same logic as main thumbnail
+            pos = (TITLE_POSITION or "bottom").strip().lower()
+            if pos in ("top", "upper"):
+                band_y = 0
+            elif pos in ("middle", "center", "centre"):
+                band_y = max(0, (h - band_height) // 2)
+            else:
+                band_y = h - band_height
+            
+            # Apply shadow, band, and text to image
+            shadow_layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
+            shadow_layer.paste(shadow, (0, band_y), shadow)
+            img = Image.alpha_composite(img, shadow_layer)
+            
+            band_layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
+            band_layer.paste(band, (0, band_y), band)
+            img = Image.alpha_composite(img, band_layer)
+            
+            text_overlay_layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
+            text_overlay_layer.paste(text_layer, (0, band_y), text_layer)
+            img = Image.alpha_composite(img, text_overlay_layer)
+            
+            # Save back
+            img.save(image_path)
+            return True
+            
+        except Exception as e:
+            print(f"ERROR: Failed to overlay title on shorts image: {e}")
             return False
 
     def _overlay_title_on_shorts_canvas(self, canvas: Image.Image, title: str) -> bool:
