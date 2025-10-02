@@ -18,7 +18,7 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
 # Variation Configuration
-VARIATIONS_PER_CHARACTER = 2  # Number of variations to generate per character (in addition to original)
+VARIATIONS_PER_CHARACTER = 3  # Number of variations to generate per character (in addition to original)
 
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
