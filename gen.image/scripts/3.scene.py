@@ -1663,14 +1663,6 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
             if character_details:
                 text_prompt += f"\nCHARACTER TEXT-DESCRIPTION:\n{character_details}"
         
-        # Add location details if in TEXT or IMAGE_TEXT mode (skip in NONE mode)
-        if self.location_mode in ["TEXT", "IMAGE_TEXT"] and locations_data:
-            location_ids = self._extract_location_ids_from_scene(scene_description)
-            if location_ids:
-                location_details = self._get_location_details(location_ids, locations_data)
-                if location_details:
-                    text_prompt += f"\nLOCATION TEXT-DESCRIPTION:\n{location_details}"
-        
         workflow["33"]["inputs"]["text"] = text_prompt
         workflow["21"]["inputs"]["filename_prefix"] = scene_id
         
