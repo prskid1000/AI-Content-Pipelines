@@ -170,11 +170,19 @@ def transcribe_audio(audio_path, srt_file, text_file, timeline_file, model_name=
         model = whisper.load_model(model_name)
         
         print(f"Transcribing audio file: {audio_path}")
+        # Ensure audio_path is a valid string path
+        if audio_path is None:
+            raise ValueError("Audio path is None")
+        
         result = model.transcribe(
             audio_path, 
             verbose=True,
             temperature=0.0,
-            condition_on_previous_text=False,
+            condition_on_previous_text=True,
+            no_speech_threshold=0.1,
+            logprob_threshold=-1.5,
+            compression_ratio_threshold=1.0,
+            word_timestamps=True,
         )
         
         segment_count = len(result['segments'])
@@ -203,9 +211,14 @@ def main():
     text_file = "../input/2.story.str.txt"
     timeline_file = "../input/2.timeline.txt"
     
+    # Convert to absolute path to avoid any path resolution issues
+    audio_file = os.path.abspath(audio_file)
+    
     if not os.path.exists(audio_file):
         print(f"Error: Audio file '{audio_file}' not found!")
         return
+    
+    print(f"Using audio file: {audio_file}")
     
     print("Starting audio transcription with OpenAI Whisper...")
     print("=" * 50)
