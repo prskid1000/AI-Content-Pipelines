@@ -165,8 +165,14 @@ class ResumableState:
         characters_total = len(self.state["characters"]["results"]) + len([k for k in self.state["characters"]["results"].keys() if k not in self.state["characters"]["completed"]])
         summaries_done = len(self.state["character_summaries"]["completed"])
         summaries_total = len(self.state["character_summaries"]["results"]) + len([k for k in self.state["character_summaries"]["results"].keys() if k not in self.state["character_summaries"]["completed"]])
-        location_summaries_done = len(self.state["location_summaries"]["completed"])
-        location_summaries_total = len(self.state["location_summaries"]["results"]) + len([k for k in self.state["location_summaries"]["results"].keys() if k not in self.state["location_summaries"]["completed"]])
+        
+        # Backward compatibility: check if location_summaries exists
+        if "location_summaries" in self.state:
+            location_summaries_done = len(self.state["location_summaries"]["completed"])
+            location_summaries_total = len(self.state["location_summaries"]["results"]) + len([k for k in self.state["location_summaries"]["results"].keys() if k not in self.state["location_summaries"]["completed"]])
+        else:
+            location_summaries_done = 0
+            location_summaries_total = 0
         
         return (
             f"Progress: Story({story_done}) Locations({locations_done}/{locations_total}) "
@@ -503,7 +509,7 @@ def _sanitize_single_paragraph(text: str) -> str:
 
 
 def _schema_character() -> dict[str, object]:
-    """JSON schema for simplified character description focusing on face, hair, eyes, skin, and clothing details."""
+    """JSON schema for Western character description focusing on face, hair, eyes, skin, and clothing details."""
     return {
         "type": "json_schema",
         "json_schema": {
@@ -528,30 +534,30 @@ def _schema_character() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                             "tops": {
-                        "type": "object",
-                        "properties": {
-                                    "type": {"type": "string", "enum": ["shirt", "blouse", "t-shirt", "sweater", "jacket", "tank_top", "cardigan", "blazer", "bustier", "camisole", "cape", "corset", "hoodie", "polo", "turtleneck"]},
+                                "type": "object",
+                                "properties": {
+                                    "type": {"type": "string", "enum": ["dress_shirt", "casual_shirt", "t-shirt", "polo_shirt", "sweater", "cardigan", "blazer", "suit_jacket", "hoodie", "tank_top", "turtleneck", "henley", "flannel_shirt", "oxford_shirt", "button_down", "long_sleeve", "short_sleeve", "polo", "crew_neck", "v_neck"]},
                                     "color": {"type": "string", "description": "Primary color of the top"},
-                                    "pattern": {"type": "string", "description": "Solid, striped, plaid, floral, etc."},
-                                    "material": {"type": "string", "description": "Cotton, silk, wool, polyester, etc."},
+                                    "pattern": {"type": "string", "description": "Solid, striped, plaid, checkered, etc."},
+                                    "material": {"type": "string", "description": "Cotton, silk, wool, polyester, linen, etc."},
                                     "fit": {"type": "string", "enum": ["tight", "fitted", "loose", "oversized"]}
                                 },
                                 "required": ["type", "color"]
                             },
                             "bottoms": {
-                        "type": "object",
-                        "properties": {
-                                    "type": {"type": "string", "enum": ["pants", "shorts", "skirt", "trousers", "jeans", "jumpsuit", "leggings", "cargo_pants", "dress_pants"]},
+                                "type": "object",
+                                "properties": {
+                                    "type": {"type": "string", "enum": ["dress_pants", "casual_pants", "jeans", "shorts", "cargo_pants", "chinos", "khakis", "trousers", "slacks", "corduroy_pants", "denim_shorts", "dress_shorts", "cargo_shorts", "athletic_shorts", "swim_trunks"]},
                                     "color": {"type": "string", "description": "Primary color of the bottom"},
                                     "pattern": {"type": "string", "description": "Solid, striped, plaid, etc."},
-                                    "material": {"type": "string", "description": "Denim, cotton, wool, etc."},
+                                    "material": {"type": "string", "description": "Denim, cotton, wool, polyester, etc."},
                                     "fit": {"type": "string", "enum": ["tight", "fitted", "loose", "baggy"]}
                                 },
                                 "required": ["type", "color"]
                             },
                             "uniform_professional": {
-                        "type": "object",
-                        "properties": {
+                                "type": "object",
+                                "properties": {
                                     "type": {"type": "string", "enum": ["military_uniform", "police_uniform", "medical_scrubs", "chef_uniform", "nurse_uniform", "pilot_uniform", "flight_attendant", "security_guard", "firefighter", "paramedic", "business_suit", "formal_suit", "academic_robe", "judge_robe", "clerical_robe", "lab_coat", "apron", "overalls", "coveralls", "boiler_suit", "cargo_uniform", "tactical_gear", "dress_uniform", "service_uniform", "work_uniform"]},
                                     "color": {"type": "string", "description": "Primary color of the uniform"},
                                     "rank_insignia": {"type": "string", "description": "Rank, badges, patches, or insignia if applicable"},
@@ -561,11 +567,11 @@ def _schema_character() -> dict[str, object]:
                                 "required": ["type", "color"]
                             },
                             "outerwear": {
-                        "type": "object",
-                        "properties": {
-                                    "type": {"type": "string", "enum": ["coat", "jacket", "raincoat", "blazer", "overcoat", "pea_coat", "gown", "hoodie", "cardigan", "vest"]},
+                                "type": "object",
+                                "properties": {
+                                    "type": {"type": "string", "enum": ["coat", "jacket", "raincoat", "blazer", "overcoat", "pea_coat", "hoodie", "cardigan", "vest", "windbreaker", "bomber_jacket", "leather_jacket", "denim_jacket", "suit_jacket", "sports_jacket"]},
                                     "color": {"type": "string", "description": "Primary color of the outerwear"},
-                                    "material": {"type": "string", "description": "Leather, wool, denim, etc."},
+                                    "material": {"type": "string", "description": "Leather, wool, denim, polyester, etc."},
                                     "fit": {"type": "string", "enum": ["tight", "fitted", "loose", "oversized"]}
                                 }
                             }
@@ -575,7 +581,7 @@ def _schema_character() -> dict[str, object]:
                     "footwear": {
                         "type": "object",
                         "properties": {
-                            "type": {"type": "string", "enum": ["sneakers", "boots", "heels", "flats", "sandals", "loafers", "oxfords", "pumps", "ankle_boots", "knee_high_boots", "stilettos", "wedges", "ballet_flats", "moccasins", "slippers"]},
+                            "type": {"type": "string", "enum": ["dress_shoes", "loafers", "oxfords", "sneakers", "boots", "ankle_boots", "work_boots", "hiking_boots", "sandals", "flip_flops", "moccasins", "boat_shoes", "wingtip_shoes", "chelsea_boots", "combat_boots", "running_shoes", "basketball_shoes", "tennis_shoes", "dress_boots", "casual_shoes"]},
                             "color": {"type": "string", "description": "Primary color of the footwear"},
                             "material": {"type": "string", "description": "Leather, canvas, suede, rubber, etc."},
                             "style": {"type": "string", "description": "Casual, formal, athletic, etc."}
@@ -586,9 +592,9 @@ def _schema_character() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                             "glasses": {
-                        "type": "object",
-                        "properties": {
-                                    "type": {"type": "string", "enum": ["reading_glasses", "sunglasses", "prescription_glasses", "safety_glasses", "aviator", "cat_eye", "round", "square", "rectangular", "rimless", "bifocal", "transitional"]},
+                                "type": "object",
+                                "properties": {
+                                    "type": {"type": "string", "enum": ["reading_glasses", "sunglasses", "prescription_glasses", "safety_glasses", "aviator", "cat_eye", "round", "square", "rectangular", "rimless", "bifocal", "transitional", "wayfarer", "clubmaster"]},
                                     "color": {"type": "string", "description": "Frame color"},
                                     "material": {"type": "string", "description": "Metal, plastic, acetate, titanium, etc."}
                                 }
@@ -596,31 +602,31 @@ def _schema_character() -> dict[str, object]:
                             "tie": {
                                 "type": "object",
                                 "properties": {
-                                    "type": {"type": "string", "enum": ["necktie", "bow_tie", "bolo_tie", "ascot", "string_tie", "clip_on", "skinny_tie", "wide_tie"]},
+                                    "type": {"type": "string", "enum": ["necktie", "bow_tie", "bolo_tie", "ascot", "string_tie", "clip_on", "skinny_tie", "wide_tie", "silk_tie", "polyester_tie"]},
                                     "color": {"type": "string", "description": "Primary color of the tie"},
                                     "pattern": {"type": "string", "description": "Solid, striped, polka dot, paisley, etc."},
                                     "material": {"type": "string", "description": "Silk, polyester, cotton, etc."}
                                 }
                             },
                             "gloves": {
-                        "type": "object",
-                        "properties": {
-                                    "type": {"type": "string", "enum": ["fingerless", "full_finger", "mittens", "driving_gloves", "work_gloves", "dress_gloves", "winter_gloves", "leather_gloves", "cotton_gloves"]},
+                                "type": "object",
+                                "properties": {
+                                    "type": {"type": "string", "enum": ["fingerless", "full_finger", "mittens", "driving_gloves", "work_gloves", "dress_gloves", "winter_gloves", "leather_gloves", "cotton_gloves", "nitrile_gloves", "latex_gloves"]},
                                     "color": {"type": "string", "description": "Primary color of the gloves"},
                                     "material": {"type": "string", "description": "Leather, cotton, wool, synthetic, etc."}
                                 }
                             },
                             "hat": {
-                                    "type": "object",
-                                    "properties": {
-                                    "type": {"type": "string", "enum": ["baseball_cap", "fedora", "beanie", "beret", "cowboy_hat", "top_hat", "sun_hat", "winter_hat", "helmet", "visor", "turban", "headband"]},
+                                "type": "object",
+                                "properties": {
+                                    "type": {"type": "string", "enum": ["baseball_cap", "fedora", "beanie", "beret", "cowboy_hat", "top_hat", "sun_hat", "winter_hat", "helmet", "visor", "turban", "headband", "snapback", "trucker_hat", "bucket_hat"]},
                                     "color": {"type": "string", "description": "Primary color of the hat"},
                                     "material": {"type": "string", "description": "Cotton, wool, leather, synthetic, etc."}
                                 }
                             },
                             "jewelry": {
-                        "type": "object",
-                        "properties": {
+                                "type": "object",
+                                "properties": {
                                     "necklaces": {"type": "string", "description": "Type, color, and material of necklaces"},
                                     "rings": {"type": "string", "description": "Type, color, and material of rings"},
                                     "earrings": {"type": "string", "description": "Type, color, and material of earrings"},
@@ -631,16 +637,16 @@ def _schema_character() -> dict[str, object]:
                             "bag": {
                                 "type": "object",
                                 "properties": {
-                                    "type": {"type": "string", "enum": ["handbag", "backpack", "briefcase", "messenger_bag", "tote_bag", "clutch", "satchel", "duffel_bag", "purse", "wallet", "fanny_pack", "laptop_bag"]},
+                                    "type": {"type": "string", "enum": ["handbag", "backpack", "briefcase", "messenger_bag", "tote_bag", "clutch", "satchel", "duffel_bag", "purse", "wallet", "fanny_pack", "laptop_bag", "gym_bag", "travel_bag", "crossbody_bag"]},
                                     "color": {"type": "string", "description": "Primary color of the bag"},
                                     "material": {"type": "string", "description": "Leather, canvas, nylon, synthetic, etc."},
                                     "size": {"type": "string", "enum": ["small", "medium", "large", "oversized"]}
                                 }
                             },
                             "watch": {
-                                    "type": "object",
-                                    "properties": {
-                                    "type": {"type": "string", "enum": ["analog", "digital", "smartwatch", "dress_watch", "sports_watch", "vintage_watch", "luxury_watch", "casual_watch"]},
+                                "type": "object",
+                                "properties": {
+                                    "type": {"type": "string", "enum": ["analog", "digital", "smartwatch", "dress_watch", "sports_watch", "vintage_watch", "luxury_watch", "casual_watch", "fitness_tracker", "pocket_watch"]},
                                     "color": {"type": "string", "description": "Primary color of the watch"},
                                     "material": {"type": "string", "description": "Metal, leather, rubber, plastic, etc."},
                                     "style": {"type": "string", "description": "Formal, casual, sporty, etc."}
@@ -649,13 +655,15 @@ def _schema_character() -> dict[str, object]:
                         }
                     },
                     "overall_style": {
-                                    "type": "object",
-                                    "properties": {
-                            "style_category": {"type": "string", "enum": ["casual", "formal", "business", "sporty", "elegant", "bohemian", "vintage", "modern", "streetwear", "preppy"]},
+                        "type": "object",
+                        "properties": {
+                            "style_category": {"type": "string", "enum": ["casual", "formal", "business", "sporty", "elegant", "bohemian", "vintage", "modern", "streetwear", "preppy", "western", "preppy", "athletic"]},
                             "color_scheme": {"type": "string", "description": "Overall color palette (e.g., 'neutral tones', 'bright colors', 'monochrome')"},
-                            "season": {"type": "string", "enum": ["summer", "winter", "spring", "autumn", "all_season"]}
+                            "formality_level": {"type": "string", "enum": ["very_casual", "casual", "smart_casual", "business_casual", "business_formal", "semi_formal", "formal", "black_tie"]},
+                            "season": {"type": "string", "enum": ["summer", "winter", "spring", "autumn", "all_season"]},
+                            "outfit_coordination": {"type": "string", "description": "How the outfit elements work together (e.g., 'matching color scheme', 'complementary styles', 'unified formal look')"}
                         },
-                        "required": ["style_category", "color_scheme"]
+                        "required": ["style_category", "color_scheme", "formality_level", "outfit_coordination"]
                     }
                 },
                 "required": ["face", "clothing", "footwear", "overall_style"]
@@ -687,7 +695,7 @@ def _schema_character_summary() -> dict[str, object]:
     }
 
 
-def _schema_location_expansion() -> dict[str, object]:
+def _schema_location() -> dict[str, object]:
     """JSON schema for essential location description - only absolutely necessary visual information."""
     return {
         "type": "json_schema",
@@ -734,7 +742,9 @@ def _schema_location_expansion() -> dict[str, object]:
                     },
                     "objects": {
                         "type": "array",
-                        "description": "Visible objects in the scene",
+                        "description": "Visible objects in the scene - must include 15-20 detailed objects",
+                        "minItems": 15,
+                        "maxItems": 20,
                         "items": {
                             "type": "object",
                             "properties": {
@@ -820,6 +830,14 @@ def _build_character_system_prompt(story_desc: str, character_name: str, all_cha
         "Consider the character's profession, role, and story setting when making clothing and style decisions. "
         "For professional characters, prioritize uniform/professional clothing over casual wear. "
         "For characters with relationships to others, consider matching elements like wedding rings or shared accessories. "
+        "IMPORTANT: Create a complete, coordinated outfit that matches and complements each other. "
+        "Ensure tops and bottoms work together in style, formality level, and color scheme. "
+        "CRITICAL: Match appropriate clothing combinations - dress pants go with dress shirts, jeans go with t-shirts, chinos go with polo shirts. "
+        "Use Western clothing styles - dress shirts, polo shirts, jeans, chinos, khakis, dress pants, sneakers, boots, loafers. "
+        "Avoid mismatched combinations like casual t-shirt with dress pants or dress shirt with jeans. "
+        "Accessories should complement the overall outfit - formal accessories with formal wear, casual with casual. "
+        "Footwear should match the outfit's formality and style. "
+        "Avoid random mix-and-match - create a cohesive, well-dressed character. "
         "Keep descriptions concise but specific - focus on colors, textures, and key visual features. "
         f"Describe the character in {ART_STYLE} style. Strictly follow {ART_STYLE} Style.\n\n"
         f"STORY CONTEXT: {story_desc}\n\n"
@@ -873,13 +891,15 @@ def _build_location_system_prompt(story_desc: str, location_id: str, all_locatio
     other_locations_text = ", ".join(other_locations) if other_locations else "none"
     
     return (
-        f"You are a visual director creating focused location descriptions for AI image generation. "
+        f"You are a visual director creating detailed location descriptions for AI image generation. "
         "Focus on the most important visual elements: architecture, lighting, atmosphere, colors, materials, and environmental details. "
         "Analyze the story context and location to determine appropriate visual choices. "
         "Consider the location's purpose, setting, and story context when making architectural and environmental decisions. "
         "For outdoor locations, prioritize natural elements and weather conditions. "
         "For indoor locations, focus on architectural style, lighting, and interior design. "
         "Keep descriptions specific and detailed - focus on colors, textures, materials, and key visual features. "
+        "IMPORTANT: You must include 15-20 detailed objects in the scene. Think of every visible item: furniture, decorations, plants, windows, doors, lighting fixtures, natural elements, vehicles, buildings, and other objects. "
+        "Each object should have specific details about its appearance, color, material, size, and position in the scene. "
         f"Describe the location in {ART_STYLE} style. Strictly follow {ART_STYLE} Style.\n\n"
         f"STORY CONTEXT: {story_desc}\n\n"
         f"LOCATION TO DESCRIBE: {location_id}\n"
@@ -976,83 +996,209 @@ def _recursively_format_character_data(data: object, prefix: str = "", sentences
     return sentences
 
 
+def _format_structured_data(data: dict[str, object], data_type: str = "character") -> str:
+    """
+    Generic function to convert any structured data to readable description format.
+    Works for both character and location data.
+    
+    Example:
+    {
+        "head": {
+            "color": "brown",
+            "shape": {
+                "upper": "round",
+                "lower": "square"
+            }
+        }
+    }
+    
+    Returns: "Head: (Color: brown, Shape: (Upper: round, Lower: square))"
+    """
+    try:
+        formatted_text = _recursively_format_generic_data(data)
+        if not formatted_text.strip():
+            # Fallback message based on data type
+            if data_type == "location":
+                return "The location has distinctive visual features."
+            else:
+                return "The character has a distinctive appearance with unique physical features."
+        
+        return formatted_text
+    except Exception as ex:
+        print(f"WARNING: Failed to format {data_type} data: {ex}")
+        if data_type == "location":
+            return "The location has distinctive visual features."
+        else:
+            return "The character has a distinctive appearance with unique physical features."
+
+
+def _recursively_format_generic_data(data: dict | list, level: int = 0) -> str:
+    """
+    Recursively format nested data structure into readable text.
+    Handles nested dictionaries and arrays.
+    """
+    if isinstance(data, dict):
+        parts = []
+        for key, value in data.items():
+            formatted_key = key.replace('_', ' ').title()
+            
+            if isinstance(value, dict):
+                # Nested dictionary: Key: (nested content)
+                nested_content = _recursively_format_generic_data(value, level + 1)
+                parts.append(f"{formatted_key}: ({nested_content})")
+            elif isinstance(value, list):
+                # Array: Key: [item1, item2, ...]
+                if value:
+                    if isinstance(value[0], dict):
+                        # Array of objects
+                        items = []
+                        for item in value:
+                            item_content = _recursively_format_generic_data(item, level + 1)
+                            items.append(f"({item_content})")
+                        parts.append(f"{formatted_key}: [{', '.join(items)}]")
+                    else:
+                        # Array of primitives
+                        parts.append(f"{formatted_key}: [{', '.join(str(v) for v in value)}]")
+            elif isinstance(value, str) and value.strip():
+                # Simple key-value pair
+                parts.append(f"{formatted_key}: {value}")
+            elif value is not None:
+                # Other types (numbers, booleans, etc.)
+                parts.append(f"{formatted_key}: {value}")
+        
+        return ", ".join(parts)
+    
+    elif isinstance(data, list):
+        items = []
+        for item in data:
+            if isinstance(item, dict):
+                item_content = _recursively_format_generic_data(item, level + 1)
+                items.append(f"({item_content})")
+            else:
+                items.append(str(item))
+        return ", ".join(items)
+    
+    else:
+        return str(data)
+
+
 def _format_character_description(char_data: dict[str, object]) -> str:
     """
     Convert any structured character data to readable description format using generic recursive parsing.
     This unified function works for both initial character generation and character rewrites.
     """
-    try:
-        sentences = _recursively_format_character_data(char_data)
-        if not sentences:
-            # Fallback: if no sentences generated, try to extract any string values
-            sentences = []
-            for key, value in char_data.items():
-                if isinstance(value, str) and value.strip():
-                    formatted_key = key.replace('_', ' ').title()
-                    sentences.append(f"{formatted_key.lower()}: {value},")
-        
-        result = " ".join(sentences)
-        if not result.strip():
-            # Final fallback: return a generic message
-            return "The character has a distinctive appearance with unique physical features."
-        
-        return result
-        
-    except Exception as ex:
-        print(f"WARNING: Error in generic character formatting: {ex}")
-        # Fallback to a safe description
-        return "The character has a distinctive appearance with unique physical features."
+    return _format_structured_data(char_data, data_type="character")
 
 
-def _generate_character_descriptions(story_desc: str, characters: list[str], lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
-    name_to_desc: dict[str, str] = {}
-    total = len(characters)
-    print(f"Generating structured character descriptions: {total} total")
+def _generate_structured_descriptions(
+    items: list[str] | dict[str, str],
+    story_desc: str,
+    lm_studio_url: str,
+    model: str,
+    schema_func,
+    prompt_func,
+    format_func,
+    item_type: str,
+    resumable_state: ResumableState | None = None,
+    get_cached_func=None,
+    set_cached_func=None,
+    is_complete_func=None
+) -> dict[str, str]:
+    """
+    Common function to generate structured descriptions for both characters and locations.
     
-    for idx, name in enumerate(characters, 1):
+    Args:
+        items: List of items (characters) or dict of items (locations with original descriptions)
+        story_desc: Story description for context
+        lm_studio_url: LM Studio URL
+        model: Model to use
+        schema_func: Function that returns the schema
+        prompt_func: Function to build the prompt
+        format_func: Function to format structured data
+        item_type: Type of item ("character" or "location")
+        resumable_state: Resumable state manager
+        get_cached_func: Function to get cached description
+        set_cached_func: Function to set cached description
+        is_complete_func: Function to check if item is complete
+    """
+    item_to_desc: dict[str, str] = {}
+    
+    # Convert items to dict if it's a list
+    if isinstance(items, list):
+        items_dict = {item: item for item in items}
+    else:
+        items_dict = items
+    
+    total = len(items_dict)
+    print(f"Generating structured {item_type} descriptions: {total} total")
+    
+    for idx, (item_id, item_value) in enumerate(items_dict.items(), 1):
         # Check if resumable and already complete
-        if resumable_state and resumable_state.is_character_complete(name):
-            cached_desc = resumable_state.get_character_description(name)
+        if resumable_state and is_complete_func and is_complete_func(item_id):
+            cached_desc = get_cached_func(item_id) if get_cached_func else None
             if cached_desc:
-                print(f"({idx}/{total}) {name}: using cached description from checkpoint")
-                name_to_desc[name] = cached_desc
+                print(f"({idx}/{total}) {item_id}: using cached description from checkpoint")
+                item_to_desc[item_id] = cached_desc
                 continue
         
-        print(f"({idx}/{total}) {name}: generating structured description...")
-        prompt = _build_character_system_prompt(story_desc, name, characters)
+        print(f"({idx}/{total}) {item_id}: generating structured description...")
+        
+        # Build prompt based on item type
+        if isinstance(items, list):
+            prompt = prompt_func(story_desc, item_id, items)
+        else:
+            prompt = prompt_func(story_desc, item_id, list(items.keys()))
         
         try:
             # Use structured output with JSON schema
             user_payload = json.dumps({
-                "character_name": name,
+                f"{item_type}_id": item_id,
                 "story_context": story_desc,
-                "all_characters": characters
+                f"all_{item_type}s": list(items_dict.keys())
             }, ensure_ascii=False)
             
-            raw = _call_lm_studio(prompt, lm_studio_url, MODEL_CHARACTER_GENERATION, user_payload, _schema_character())
+            raw = _call_lm_studio(prompt, lm_studio_url, model, user_payload, schema_func())
             structured_data = _parse_structured_response(raw)
             
             if not structured_data:
                 raise RuntimeError("Failed to parse structured response")
             
             # Convert structured data to readable description
-            desc = _format_character_description(structured_data)
+            desc = format_func(structured_data)
             if not desc:
                 raise RuntimeError("Empty description generated")
             
             # Save to checkpoint if resumable mode enabled
-            if resumable_state:
-                resumable_state.set_character_description(name, desc)
+            if resumable_state and set_cached_func:
+                set_cached_func(item_id, desc)
                 
         except Exception as ex:
-            print(f"({idx}/{total}) {name}: FAILED - {ex}")
-            print(f"ERROR: Failed to generate description for '{name}': {ex}")
+            print(f"({idx}/{total}) {item_id}: FAILED - {ex}")
+            print(f"ERROR: Failed to generate description for '{item_id}': {ex}")
             raise
             
-        name_to_desc[name] = desc
-        print(f"({idx}/{total}) {name}: done ({len(desc.split())} words)")
+        item_to_desc[item_id] = desc
+        print(f"({idx}/{total}) {item_id}: done ({len(desc.split())} words)")
         
-    return name_to_desc
+    return item_to_desc
+
+
+def _generate_character_descriptions(story_desc: str, characters: list[str], lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
+    """Generate structured character descriptions using the common function."""
+    return _generate_structured_descriptions(
+        items=characters,
+        story_desc=story_desc,
+        lm_studio_url=lm_studio_url,
+        model=MODEL_CHARACTER_GENERATION,
+        schema_func=_schema_character,
+        prompt_func=_build_character_system_prompt,
+        format_func=_format_character_description,
+        item_type="character",
+        resumable_state=resumable_state,
+        get_cached_func=resumable_state.get_character_description if resumable_state else None,
+        set_cached_func=resumable_state.set_character_description if resumable_state else None,
+        is_complete_func=resumable_state.is_character_complete if resumable_state else None
+    )
 
 
 
@@ -1060,30 +1206,60 @@ def _generate_character_descriptions(story_desc: str, characters: list[str], lm_
 
 
 def _generate_character_summaries(name_to_desc: dict[str, str], lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
-    name_to_summary: dict[str, str] = {}
-    total = len(name_to_desc)
-    print(f"Generating character summaries: {total} total")
+    """Generate character summaries using the common function."""
+    return _generate_summaries(
+        item_to_desc=name_to_desc,
+        lm_studio_url=lm_studio_url,
+        model=MODEL_CHARACTER_SUMMARY,
+        schema_func=_schema_character_summary,
+        prompt_func=_build_character_summary_prompt,
+        item_type="character",
+        resumable_state=resumable_state,
+        get_cached_func=resumable_state.get_character_summary if resumable_state else None,
+        set_cached_func=resumable_state.set_character_summary if resumable_state else None,
+        is_complete_func=resumable_state.is_character_summary_complete if resumable_state else None,
+        temperature=0.1
+    )
+
+
+def _generate_summaries(
+    item_to_desc: dict[str, str],
+    lm_studio_url: str,
+    model: str,
+    schema_func,
+    prompt_func,
+    item_type: str,
+    resumable_state: ResumableState | None = None,
+    get_cached_func=None,
+    set_cached_func=None,
+    is_complete_func=None,
+    temperature: float = 0.1
+) -> dict[str, str]:
+    """
+    Common function to generate summaries for both characters and locations.
+    """
+    item_to_summary: dict[str, str] = {}
+    total = len(item_to_desc)
+    print(f"Generating {item_type} summaries: {total} total")
     
-    for idx, (name, detailed_desc) in enumerate(name_to_desc.items(), 1):
-        # Check if resumable and already complete
-        if resumable_state and resumable_state.is_character_summary_complete(name):
-            cached_summary = resumable_state.get_character_summary(name)
+    for idx, (item_id, detailed_desc) in enumerate(item_to_desc.items(), 1):
+        if resumable_state and is_complete_func and is_complete_func(item_id):
+            cached_summary = get_cached_func(item_id) if get_cached_func else None
             if cached_summary:
-                print(f"({idx}/{total}) {name}: using cached summary from checkpoint")
-                name_to_summary[name] = cached_summary
+                print(f"({idx}/{total}) {item_id}: using cached summary from checkpoint")
+                item_to_summary[item_id] = cached_summary
                 continue
         
-        print(f"({idx}/{total}) {name}: generating summary...")
-        prompt = _build_character_summary_prompt(name, detailed_desc)
+        print(f"({idx}/{total}) {item_id}: generating summary...")
+        prompt = prompt_func(item_id, detailed_desc)
         
         try:
-            # Use structured output with JSON schema for summary
             user_payload = json.dumps({
-                "character_name": name,
+                f"{item_type}_id": item_id,
                 "detailed_description": detailed_desc
             }, ensure_ascii=False)
             
-            raw = _call_lm_studio(prompt, lm_studio_url, MODEL_CHARACTER_SUMMARY, user_payload, _schema_character_summary(), temperature=0.1)
+            raw = _call_lm_studio(prompt, lm_studio_url, model, user_payload, schema_func(), temperature=temperature)
             structured_data = _parse_structured_response(raw)
             
             if not structured_data:
@@ -1093,19 +1269,18 @@ def _generate_character_summaries(name_to_desc: dict[str, str], lm_studio_url: s
             if not summary:
                 raise RuntimeError("Empty summary generated")
             
-            # Save to checkpoint if resumable mode enabled
-            if resumable_state:
-                resumable_state.set_character_summary(name, summary)
+            if resumable_state and set_cached_func:
+                set_cached_func(item_id, summary)
                 
         except Exception as ex:
-            print(f"({idx}/{total}) {name}: FAILED - {ex}")
-            print(f"ERROR: Failed to generate summary for '{name}': {ex}")
+            print(f"({idx}/{total}) {item_id}: FAILED - {ex}")
+            print(f"ERROR: Failed to generate summary for '{item_id}': {ex}")
             raise
             
-        name_to_summary[name] = summary
-        print(f"({idx}/{total}) {name}: done ({len(summary.split())} words)")
+        item_to_summary[item_id] = summary
+        print(f"({idx}/{total}) {item_id}: done ({len(summary.split())} words)")
         
-    return name_to_summary
+    return item_to_summary
 
 
 def _generate_story_description(story_content: str, lm_studio_url: str, resumable_state: ResumableState | None = None) -> str:
@@ -1191,55 +1366,21 @@ def _filter_story_content_for_location(content: str, pairs: list, location_id: s
 
 
 def _generate_location_descriptions(story_desc: str, locations: dict[str, str], lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
-    """Generate structured location descriptions using LLM."""
-    location_id_to_desc: dict[str, str] = {}
-    total = len(locations)
-    print(f"Generating structured location descriptions: {total} total")
-    
-    for idx, (loc_id, original_desc) in enumerate(locations.items(), 1):
-        # Check if resumable and already complete
-        if resumable_state and resumable_state.is_location_complete(loc_id):
-            cached_desc = resumable_state.get_location_description(loc_id)
-            if cached_desc:
-                print(f"({idx}/{total}) {loc_id}: using cached description from checkpoint")
-                location_id_to_desc[loc_id] = cached_desc
-                continue
-        
-        print(f"({idx}/{total}) {loc_id}: generating structured description...")
-        prompt = _build_location_system_prompt(story_desc, loc_id, list(locations.keys()))
-        
-        try:
-            # Use structured output with JSON schema
-            user_payload = json.dumps({
-                "location_id": loc_id,
-                "story_context": story_desc,
-                "all_locations": list(locations.keys())
-            }, ensure_ascii=False)
-            
-            raw = _call_lm_studio(prompt, lm_studio_url, MODEL_LOCATION_EXPANSION, user_payload, _schema_location_expansion())
-            structured_data = _parse_structured_response(raw)
-            
-            if not structured_data:
-                raise RuntimeError("Failed to parse structured response")
-            
-            # Convert structured data to readable description
-            desc = _format_location_description(structured_data)
-            if not desc:
-                raise RuntimeError("Empty description generated")
-            
-            # Save to checkpoint if resumable mode enabled
-            if resumable_state:
-                resumable_state.set_location_description(loc_id, desc)
-                
-        except Exception as ex:
-            print(f"({idx}/{total}) {loc_id}: FAILED - {ex}")
-            print(f"ERROR: Failed to generate description for '{loc_id}': {ex}")
-            raise
-            
-        location_id_to_desc[loc_id] = desc
-        print(f"({idx}/{total}) {loc_id}: done ({len(desc.split())} words)")
-        
-    return location_id_to_desc
+    """Generate structured location descriptions using the common function."""
+    return _generate_structured_descriptions(
+        items=locations,
+        story_desc=story_desc,
+        lm_studio_url=lm_studio_url,
+        model=MODEL_LOCATION_EXPANSION,
+        schema_func=_schema_location,
+        prompt_func=_build_location_system_prompt,
+        format_func=_format_location_description,
+        item_type="location",
+        resumable_state=resumable_state,
+        get_cached_func=resumable_state.get_location_description if resumable_state else None,
+        set_cached_func=resumable_state.set_location_description if resumable_state else None,
+        is_complete_func=resumable_state.is_location_complete if resumable_state else None
+    )
 
 
 def _format_location_description(location_data: dict[str, object]) -> str:
@@ -1247,53 +1388,7 @@ def _format_location_description(location_data: dict[str, object]) -> str:
     Convert any structured location data to readable description format using generic recursive parsing.
     This unified function works for both initial location generation and location summaries.
     """
-    try:
-        sentences = _recursively_format_location_data(location_data)
-        if not sentences:
-            # Fallback: if no sentences generated, try to extract any string values
-            sentences = []
-            for key, value in location_data.items():
-                if isinstance(value, str) and value.strip():
-                    formatted_key = key.replace('_', ' ').title()
-                    sentences.append(f"{formatted_key.lower()}: {value},")
-        
-        result = " ".join(sentences)
-        if not result.strip():
-            # Final fallback: return a generic message
-            return "The location has distinctive architectural and environmental features."
-        
-        return result
-    except Exception as ex:
-        print(f"WARNING: Failed to format location description: {ex}")
-        return "The location has distinctive architectural and environmental features."
-
-
-def _recursively_format_location_data(data: dict, prefix: str = "") -> list[str]:
-    """Recursively format location data into readable sentences."""
-    sentences = []
-    
-    for key, value in data.items():
-        if isinstance(value, dict):
-            # Recursively process nested objects
-            nested_sentences = _recursively_format_location_data(value, f"{prefix}{key}_" if prefix else f"{key}_")
-            sentences.extend(nested_sentences)
-        elif isinstance(value, str) and value.strip():
-            # Format key-value pairs into sentences
-            formatted_key = key.replace('_', ' ').title()
-            if prefix:
-                formatted_key = f"{prefix.replace('_', ' ').title()} {formatted_key}"
-            
-            # Create natural sentence
-            if formatted_key.lower() in ['building type', 'style', 'materials', 'colors']:
-                sentences.append(f"The {formatted_key.lower()} is {value}.")
-            elif formatted_key.lower() in ['lighting', 'atmosphere', 'mood']:
-                sentences.append(f"The {formatted_key.lower()} is {value}.")
-            elif formatted_key.lower() in ['dimensions', 'height', 'layout']:
-                sentences.append(f"The space is {value} in {formatted_key.lower()}.")
-            else:
-                sentences.append(f"{formatted_key}: {value}.")
-    
-    return sentences
+    return _format_structured_data(location_data, data_type="location")
 
 
 def _convert_location_structured_to_text(structured_data: dict) -> str:
@@ -1441,56 +1536,20 @@ def _convert_location_structured_to_text(structured_data: dict) -> str:
 
 
 def _generate_location_summaries(location_id_to_desc: dict[str, str], lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
-    """Generate location summaries from detailed descriptions."""
-    location_id_to_summary: dict[str, str] = {}
-    total = len(location_id_to_desc)
-    print(f"Generating location summaries: {total} total")
-    
-    for idx, (location_id, detailed_desc) in enumerate(location_id_to_desc.items(), 1):
-        # Check if resumable and already complete
-        if resumable_state and resumable_state.is_location_summary_complete(location_id):
-            cached_summary = resumable_state.get_location_summary(location_id)
-            if cached_summary:
-                print(f"({idx}/{total}) {location_id}: using cached summary from checkpoint")
-                location_id_to_summary[location_id] = cached_summary
-                continue
-        
-        print(f"({idx}/{total}) {location_id}: generating summary...")
-        
-        prompt = _build_location_summary_prompt(location_id, detailed_desc)
-        
-        try:
-            # Use structured output with JSON schema for location summary
-            user_payload = json.dumps({
-                "location_id": location_id,
-                "detailed_description": detailed_desc
-            }, ensure_ascii=False)
-            
-            raw = _call_lm_studio(prompt, lm_studio_url, MODEL_LOCATION_EXPANSION, user_payload, _schema_location_summary())
-            structured_data = _parse_structured_response(raw)
-            
-            if not structured_data:
-                raise RuntimeError("Failed to parse structured location summary response")
-            
-            summary = structured_data.get("summary", "").strip()
-            if not summary:
-                raise RuntimeError("Empty location summary generated")
-            
-            # Save to checkpoint if resumable mode enabled
-            if resumable_state:
-                resumable_state.set_location_summary(location_id, summary)
-                
-        except Exception as ex:
-            print(f"({idx}/{total}) {location_id}: FAILED - {ex}")
-            # Use a fallback summary
-            summary = f"Location {location_id}: {detailed_desc[:200]}..."
-            location_id_to_summary[location_id] = summary
-            continue
-        
-        location_id_to_summary[location_id] = summary
-        print(f"({idx}/{total}) {location_id}: done ({len(summary.split())} words)")
-        
-    return location_id_to_summary
+    """Generate location summaries using the common function."""
+    return _generate_summaries(
+        item_to_desc=location_id_to_desc,
+        lm_studio_url=lm_studio_url,
+        model=MODEL_LOCATION_EXPANSION,
+        schema_func=_schema_location_summary,
+        prompt_func=_build_location_summary_prompt,
+        item_type="location",
+        resumable_state=resumable_state,
+        get_cached_func=resumable_state.get_location_summary if resumable_state else None,
+        set_cached_func=resumable_state.set_location_summary if resumable_state else None,
+        is_complete_func=resumable_state.is_location_summary_complete if resumable_state else None,
+        temperature=0.1
+    )
 
 
 def _validate_and_write_character_file(name_to_desc: dict[str, str], out_path: str, expected_names: set[str]) -> int:
@@ -1668,7 +1727,8 @@ def main() -> int:
     scene_out_path = os.path.normpath(os.path.join(base_dir, "../input/3.scene.txt"))
     characters_out_path = os.path.normpath(os.path.join(base_dir, "../input/2.character.txt"))
     character_summary_out_path = os.path.normpath(os.path.join(base_dir, "../input/3.character.txt"))
-    locations_out_path = os.path.normpath(os.path.join(base_dir, "../input/3.location.txt"))
+    locations_out_path = os.path.normpath(os.path.join(base_dir, "../input/2.location.txt"))
+    location_summary_out_path = os.path.normpath(os.path.join(base_dir, "../input/3.location.txt"))
     
     # Initialize resumable state if enabled
     resumable_state = None
@@ -1742,17 +1802,16 @@ def main() -> int:
             # Generate structured location descriptions
             expanded_locations = _generate_location_descriptions(story_desc, locations, lm_studio_url, resumable_state)
             
+            # Write initial detailed location descriptions to 2.location.txt
+            written_locations = write_locations_file(expanded_locations, locations_out_path)
+            print(f"Wrote {written_locations} detailed location entries to: {locations_out_path}")
+            
             # Generate location summaries from expanded descriptions
             location_summaries = _generate_location_summaries(expanded_locations, lm_studio_url, resumable_state)
             
-            # Write expanded locations file
-            written_locations = write_locations_file(expanded_locations, locations_out_path)
-            print(f"Wrote {written_locations} expanded location entries to: {locations_out_path}")
-            
-            # Write location summaries file
-            location_summaries_path = os.path.join(os.path.dirname(locations_out_path), "3.location.txt")
-            written_summaries = write_locations_file(location_summaries, location_summaries_path)
-            print(f"Wrote {written_summaries} location summary entries to: {location_summaries_path}")
+            # Write location summaries to 3.location.txt
+            written_summaries = write_locations_file(location_summaries, location_summary_out_path)
+            print(f"Wrote {written_summaries} location summary entries to: {location_summary_out_path}")
             
             # Use expanded locations for scene processing
             locations = expanded_locations
@@ -1777,7 +1836,7 @@ def main() -> int:
                 lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v1")
                 
                 # Step 1: Generate initial character descriptions
-                name_to_desc = _generate_character_descriptions(story_desc, unique_names, lm_studio_url, resumable_state)      
+                name_to_desc = _generate_character_descriptions(story_desc, unique_names, lm_studio_url, resumable_state)
                 
                 # Step 3: Write the main character file with final descriptions
                 char_errors = _validate_and_write_character_file(name_to_desc, characters_out_path, set(unique_names))
