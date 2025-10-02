@@ -17,6 +17,9 @@ ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
+# Variation Configuration
+VARIATIONS_PER_CHARACTER = 10  # Number of variations to generate per character (in addition to original)
+
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
 IMAGE_HEIGHT = 720
@@ -126,8 +129,46 @@ class ResumableState:
             print(f"WARNING: Failed to save checkpoint: {ex}")
     
     def is_character_complete(self, character_name: str) -> bool:
-        """Check if character generation is complete."""
-        return character_name in self.state["characters"]["completed"]
+        """Check if character generation is complete (including all variations)."""
+        if character_name not in self.state["characters"]["results"]:
+            return False
+        
+        result = self.state["characters"]["results"][character_name]
+        variations = result.get("variations", {})
+        
+        # Check if original exists
+        if not result.get("path") or not os.path.exists(result.get("path", "")):
+            return False
+        
+        # Check if all variations exist
+        expected_variations = VARIATIONS_PER_CHARACTER
+        for i in range(1, expected_variations + 1):
+            var_key = f"v{i}"
+            if var_key not in variations or not os.path.exists(variations[var_key].get("path", "")):
+                return False
+        
+        return True
+    
+    def is_character_original_complete(self, character_name: str) -> bool:
+        """Check if the original character image is complete."""
+        if character_name not in self.state["characters"]["results"]:
+            return False
+        
+        result = self.state["characters"]["results"][character_name]
+        return result.get("path") and os.path.exists(result.get("path", ""))
+    
+    def is_character_variation_complete(self, character_name: str, variation_suffix: str) -> bool:
+        """Check if a specific variation is complete."""
+        if character_name not in self.state["characters"]["results"]:
+            return False
+        
+        result = self.state["characters"]["results"][character_name]
+        variations = result.get("variations", {})
+        
+        if variation_suffix not in variations:
+            return False
+        
+        return os.path.exists(variations[variation_suffix].get("path", ""))
     
     def get_character_result(self, character_name: str) -> dict:
         """Get character generation result."""
@@ -138,6 +179,17 @@ class ResumableState:
         self.state["characters"]["results"][character_name] = result
         if character_name not in self.state["characters"]["completed"]:
             self.state["characters"]["completed"].append(character_name)
+        self._save_state()
+    
+    def set_character_variation(self, character_name: str, variation_key: str, variation_result: dict):
+        """Set a specific variation result for a character."""
+        if character_name not in self.state["characters"]["results"]:
+            self.state["characters"]["results"][character_name] = {"variations": {}}
+        
+        if "variations" not in self.state["characters"]["results"][character_name]:
+            self.state["characters"]["results"][character_name]["variations"] = {}
+        
+        self.state["characters"]["results"][character_name]["variations"][variation_key] = variation_result
         self._save_state()
     
     def cleanup(self):
@@ -1023,11 +1075,17 @@ class CharacterGenerator:
         self._update_node_connections(workflow, ["CLIPTextEncode", "CLIP Text Encode (Prompt)"], "text", prompt)
         return workflow
 
-    def _update_workflow_filename(self, workflow: dict, character_name: str) -> dict:
+    def _update_workflow_filename(self, workflow: dict, character_name: str, variation_suffix: str = "") -> dict:
         """Update the workflow to save with character name as filename."""
         clean_name = re.sub(r'[^\w\s.-]', '', character_name).strip()
         clean_name = re.sub(r'[-\s]+', '_', clean_name)
-        self._update_node_connections(workflow, "SaveImage", "filename_prefix", clean_name)
+        
+        if variation_suffix:
+            filename = f"{clean_name}_{variation_suffix}"
+        else:
+            filename = clean_name
+            
+        self._update_node_connections(workflow, "SaveImage", "filename_prefix", filename)
         return workflow
 
     def _update_workflow_seed(self, workflow: dict, seed: int = None) -> dict:
@@ -1181,19 +1239,33 @@ class CharacterGenerator:
         except Exception as e:
             print(f"WARNING: Failed to replace latent with previous output: {e}")
 
-    def _generate_character_image_serial(self, character_name: str, description: str, resumable_state=None) -> str | None:
+    def _generate_character_image_serial(self, character_name: str, description: str, resumable_state=None, variation_suffix: str = "") -> str | None:
         """Generate character image using serial LoRA mode with intermediate storage."""
         try:
             # Check if resumable and already complete
-            if resumable_state and resumable_state.is_character_complete(character_name):
-                cached_result = resumable_state.get_character_result(character_name)
-                if cached_result and os.path.exists(cached_result.get('path', '')):
-                    print(f"Using cached character image: {character_name}")
-                    return cached_result['path']
-                elif cached_result:
-                    print(f"Cached file missing, regenerating: {character_name}")
+            if resumable_state:
+                if variation_suffix:
+                    # Check if this specific variation is complete
+                    if resumable_state.is_character_variation_complete(character_name, variation_suffix):
+                        result = resumable_state.get_character_result(character_name)
+                        variations = result.get("variations", {})
+                        if variation_suffix in variations and os.path.exists(variations[variation_suffix].get("path", "")):
+                            print(f"Using cached variation: {character_name}_{variation_suffix}")
+                            return variations[variation_suffix]["path"]
+                        else:
+                            print(f"Cached variation file missing, regenerating: {character_name}_{variation_suffix}")
+                else:
+                    # Check if original is complete
+                    if resumable_state.is_character_original_complete(character_name):
+                        cached_result = resumable_state.get_character_result(character_name)
+                        if cached_result and os.path.exists(cached_result.get('path', '')):
+                            print(f"Using cached character image: {character_name}")
+                            return cached_result['path']
+                        elif cached_result:
+                            print(f"Cached file missing, regenerating: {character_name}")
             
-            print(f"Generating image for: {character_name} (Serial LoRA mode)")
+            display_name = f"{character_name}_{variation_suffix}" if variation_suffix else character_name
+            print(f"Generating image for: {display_name} (Serial LoRA mode)")
             
             enabled_loras = [lora for lora in LORAS if lora.get("enabled", True)]
             if not enabled_loras:
@@ -1203,6 +1275,10 @@ class CharacterGenerator:
             # Clean character name for filenames (preserve dots for version numbers like 1.1)
             clean_name = re.sub(r'[^\w\s.-]', '', character_name).strip()
             clean_name = re.sub(r'[-\s]+', '_', clean_name)
+            
+            # Add variation suffix to clean name if provided
+            if variation_suffix:
+                clean_name = f"{clean_name}_{variation_suffix}"
             
             # Check for existing LoRA progress
             lora_progress_key = f"{character_name}_lora_progress"
@@ -1383,7 +1459,10 @@ class CharacterGenerator:
                 return None
             
             # Copy final result to output directory
-            final_path = os.path.join(self.final_output_dir, f"{character_name}.png")
+            if variation_suffix:
+                final_path = os.path.join(self.final_output_dir, f"{character_name}_{variation_suffix}.png")
+            else:
+                final_path = os.path.join(self.final_output_dir, f"{character_name}.png")
             shutil.copy2(current_image_path, final_path)
             
             # Apply character name overlay if enabled
@@ -1399,13 +1478,25 @@ class CharacterGenerator:
             
             # Save to checkpoint if resumable mode enabled
             if resumable_state:
-                result = {
-                    'path': final_path,
-                    'character_name': character_name,
-                    'description': description,
-                    'intermediate_paths': intermediate_paths
-                }
-                resumable_state.set_character_result(character_name, result)
+                if variation_suffix:
+                    # Save as variation
+                    variation_result = {
+                        'path': final_path,
+                        'character_name': character_name,
+                        'description': description,
+                        'variation_suffix': variation_suffix,
+                        'intermediate_paths': intermediate_paths
+                    }
+                    resumable_state.set_character_variation(character_name, variation_suffix, variation_result)
+                else:
+                    # Save as main result
+                    result = {
+                        'path': final_path,
+                        'character_name': character_name,
+                        'description': description,
+                        'intermediate_paths': intermediate_paths
+                    }
+                    resumable_state.set_character_result(character_name, result)
                 
                 # Keep LoRA progress for completed character (not cleaning up)
                 print(f"  Preserved LoRA progress for completed character")
@@ -1517,23 +1608,37 @@ class CharacterGenerator:
         except Exception as e:
             print(f"WARNING: Failed to set image input: {e}")
 
-    def _generate_character_image(self, character_name: str, description: str, resumable_state=None) -> str | None:
+    def _generate_character_image(self, character_name: str, description: str, resumable_state=None, variation_suffix: str = "") -> str | None:
         """Generate a single character image using ComfyUI."""
         try:
             # Check if resumable and already complete
-            if resumable_state and resumable_state.is_character_complete(character_name):
-                cached_result = resumable_state.get_character_result(character_name)
-                if cached_result and os.path.exists(cached_result.get('path', '')):
-                    print(f"Using cached character image: {character_name}")
-                    return cached_result['path']
-                elif cached_result:
-                    print(f"Cached file missing, regenerating: {character_name}")
+            if resumable_state:
+                if variation_suffix:
+                    # Check if this specific variation is complete
+                    if resumable_state.is_character_variation_complete(character_name, variation_suffix):
+                        result = resumable_state.get_character_result(character_name)
+                        variations = result.get("variations", {})
+                        if variation_suffix in variations and os.path.exists(variations[variation_suffix].get("path", "")):
+                            print(f"Using cached variation: {character_name}_{variation_suffix}")
+                            return variations[variation_suffix]["path"]
+                        else:
+                            print(f"Cached variation file missing, regenerating: {character_name}_{variation_suffix}")
+                else:
+                    # Check if original is complete
+                    if resumable_state.is_character_original_complete(character_name):
+                        cached_result = resumable_state.get_character_result(character_name)
+                        if cached_result and os.path.exists(cached_result.get('path', '')):
+                            print(f"Using cached character image: {character_name}")
+                            return cached_result['path']
+                        elif cached_result:
+                            print(f"Cached file missing, regenerating: {character_name}")
             
             # Use serial LoRA mode if enabled
             if USE_LORA and LORA_MODE == "serial":
-                return self._generate_character_image_serial(character_name, description, resumable_state)
+                return self._generate_character_image_serial(character_name, description, resumable_state, variation_suffix)
             
-            print(f"Generating image for: {character_name}")
+            display_name = f"{character_name}_{variation_suffix}" if variation_suffix else character_name
+            print(f"Generating image for: {display_name}")
             
             # Load and update workflow
             workflow = self._load_character_workflow()
@@ -1541,15 +1646,15 @@ class CharacterGenerator:
                 return None
                 
             workflow = self._update_workflow_prompt(workflow, character_name, description)
-            workflow = self._update_workflow_filename(workflow, character_name)
+            workflow = self._update_workflow_filename(workflow, character_name, variation_suffix)
             workflow = self._update_workflow_seed(workflow)
             workflow = self._update_workflow_resolution(workflow)
 
             # Print workflow summary
-            self._print_workflow_summary(workflow, f"Character: {character_name}")
+            self._print_workflow_summary(workflow, f"Character: {display_name}")
             
             # Print prompt before sending
-            print(f"\n=== PROMPT FOR CHARACTER: {character_name} ===")
+            print(f"\n=== PROMPT FOR CHARACTER: {display_name} ===")
             # Get the text prompt from the workflow
             text_prompt = workflow.get("33", {}).get("inputs", {}).get("text", "No text prompt found")
             print(f"Text prompt: {text_prompt}")
@@ -1581,13 +1686,17 @@ class CharacterGenerator:
                 time.sleep(2)
 
             # Find the generated image
-            generated_image = self._find_newest_output_with_prefix(character_name)
+            search_prefix = f"{character_name}_{variation_suffix}" if variation_suffix else character_name
+            generated_image = self._find_newest_output_with_prefix(search_prefix)
             if not generated_image:
-                print(f"ERROR: Could not find generated image for {character_name}")
+                print(f"ERROR: Could not find generated image for {display_name}")
                 return None
 
             # Copy to final output directory
-            final_path = os.path.join(self.final_output_dir, f"{character_name}.png")
+            if variation_suffix:
+                final_path = os.path.join(self.final_output_dir, f"{character_name}_{variation_suffix}.png")
+            else:
+                final_path = os.path.join(self.final_output_dir, f"{character_name}.png")
             shutil.copy2(generated_image, final_path)
             
             # Apply character name overlay if enabled
@@ -1603,17 +1712,28 @@ class CharacterGenerator:
             
             # Save to checkpoint if resumable mode enabled
             if resumable_state:
-                result = {
-                    'path': final_path,
-                    'character_name': character_name,
-                    'description': description
-                }
-                resumable_state.set_character_result(character_name, result)
+                if variation_suffix:
+                    # Save as variation
+                    variation_result = {
+                        'path': final_path,
+                        'character_name': character_name,
+                        'description': description,
+                        'variation_suffix': variation_suffix
+                    }
+                    resumable_state.set_character_variation(character_name, variation_suffix, variation_result)
+                else:
+                    # Save as main result
+                    result = {
+                        'path': final_path,
+                        'character_name': character_name,
+                        'description': description
+                    }
+                    resumable_state.set_character_result(character_name, result)
             
             return final_path
 
         except Exception as e:
-            print(f"ERROR: Failed to generate image for {character_name}: {e}")
+            print(f"ERROR: Failed to generate image for {display_name}: {e}")
             return None
 
     def _find_newest_output_with_prefix(self, prefix: str) -> str | None:
@@ -1795,7 +1915,7 @@ class CharacterGenerator:
         return {f[:-4] for f in os.listdir(self.final_output_dir) if f.endswith('.png')}
 
     def generate_all_characters(self, force_regenerate: bool = False, resumable_state=None) -> dict[str, str]:
-        """Generate images for all characters.
+        """Generate images for all characters with variations.
         
         Returns:
             dict: {character_name: output_path} mapping of successful generations
@@ -1819,35 +1939,63 @@ class CharacterGenerator:
             if cleaned_count > 0:
                 print(f"Precheck completed: {cleaned_count} invalid entries removed from checkpoint")
             
-            completed_characters = set()
+            fully_completed_characters = set()
             for char_name in characters.keys():
                 if resumable_state.is_character_complete(char_name):
-                    completed_characters.add(char_name)
+                    fully_completed_characters.add(char_name)
         else:
-            completed_characters = self._get_completed_characters()
+            fully_completed_characters = self._get_completed_characters()
         
-        if not force_regenerate and completed_characters:
-            print(f"Found {len(completed_characters)} completed characters: {sorted(completed_characters)}")
+        if not force_regenerate and fully_completed_characters:
+            print(f"Found {len(fully_completed_characters)} fully completed characters: {sorted(fully_completed_characters)}")
 
         characters_to_process = {name: desc for name, desc in characters.items() 
-                               if force_regenerate or name not in completed_characters}
+                               if force_regenerate or name not in fully_completed_characters}
 
         if not characters_to_process:
             print("All characters already generated!")
             return {}
 
-        print(f"Processing {len(characters_to_process)} characters, skipped {len(completed_characters)}")
+        print(f"Processing {len(characters_to_process)} characters with {VARIATIONS_PER_CHARACTER} variations each, skipped {len(fully_completed_characters)}")
         print("=" * 60)
 
         results = {}
         for i, (character_name, description) in enumerate(characters_to_process.items(), 1):
             print(f"\n[{i}/{len(characters_to_process)}] Processing {character_name}...")
-            output_path = self._generate_character_image(character_name, description, resumable_state)
-            if output_path:
-                results[character_name] = output_path
-                print(f"[OK] Generated: {character_name}")
+            
+            # Generate original image (only if not already complete)
+            if not resumable_state or not resumable_state.is_character_original_complete(character_name):
+                print(f"  Generating original image for {character_name}...")
+                output_path = self._generate_character_image(character_name, description, resumable_state)
+                if output_path:
+                    results[character_name] = output_path
+                    print(f"  [OK] Generated original: {character_name}")
+                else:
+                    print(f"  [FAILED] Original: {character_name}")
+                    continue
             else:
-                print(f"[FAILED] {character_name}")
+                print(f"  [SKIP] Original already exists: {character_name}")
+                # Get existing path for results
+                if resumable_state:
+                    result = resumable_state.get_character_result(character_name)
+                    if result and result.get("path"):
+                        results[character_name] = result["path"]
+            
+            # Generate variations (only missing ones)
+            for v in range(1, VARIATIONS_PER_CHARACTER + 1):
+                variation_suffix = f"v{v}"
+                
+                # Check if this variation already exists
+                if resumable_state and resumable_state.is_character_variation_complete(character_name, variation_suffix):
+                    print(f"  [SKIP] Variation {v} already exists: {character_name}_{variation_suffix}")
+                    continue
+                
+                print(f"  Generating variation {v}/{VARIATIONS_PER_CHARACTER} for {character_name}...")
+                var_output_path = self._generate_character_image(character_name, description, resumable_state, variation_suffix)
+                if var_output_path:
+                    print(f"  [OK] Generated variation {v}: {character_name}_{variation_suffix}")
+                else:
+                    print(f"  [FAILED] Variation {v}: {character_name}_{variation_suffix}")
 
         return results
 

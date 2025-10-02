@@ -40,6 +40,13 @@ TITLE_LAYOUT = "overlay"
 OUTPUT_WIDTH = 1280
 OUTPUT_HEIGHT = 720
 
+# YouTube Shorts format (9:16 aspect ratio)
+SHORTS_WIDTH = 1080
+SHORTS_HEIGHT = 1920
+
+# Number of shorts variations to generate
+SHORTS_VARIATIONS = 5
+
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
 IMAGE_HEIGHT = 720
@@ -106,6 +113,7 @@ class ThumbnailProcessor:
         self.final_output_dir = "../output"
         self.intermediate_output_dir = "../output/lora"
         self.final_output_path = os.path.join(self.final_output_dir, "thumbnail.png")
+        self.shorts_output_path = os.path.join(self.final_output_dir, "thumbnail.short.png")
         # Latent image input file path
         self.latent_image_path = "../input/10.latent.png"
 
@@ -113,6 +121,8 @@ class ThumbnailProcessor:
         os.makedirs(self.intermediate_output_dir, exist_ok=True)
         if os.path.exists(self.final_output_path):
             os.remove(self.final_output_path)
+        if os.path.exists(self.shorts_output_path):
+            os.remove(self.shorts_output_path)
 
     def _load_thumbnail_workflow(self) -> dict:
         filename = "thumbnail.flux.json" if self.mode == "flux" else "thumbnail.json"
@@ -1081,6 +1091,11 @@ class ThumbnailProcessor:
             if title and USE_TITLE_TEXT:
                 self._overlay_title(self.final_output_path, title)
             
+            # Create YouTube Shorts versions
+            shorts_paths = self._create_shorts_versions(self.final_output_path)
+            if shorts_paths:
+                print(f"Also created {len(shorts_paths)} shorts variations: {shorts_paths}")
+            
             print(f"Saved: {self.final_output_path}")
             return self.final_output_path
 
@@ -1285,6 +1300,11 @@ class ThumbnailProcessor:
                         shutil.copy2(newest_path, final_path)
 
                     saved_paths.append(final_path)
+                    
+                    # Create YouTube Shorts versions for each variant
+                    shorts_paths = self._create_shorts_versions(final_path)
+                    if shorts_paths:
+                        print(f"Also created {len(shorts_paths)} shorts variations: {shorts_paths}")
 
                 return saved_paths
 
@@ -1317,6 +1337,12 @@ class ThumbnailProcessor:
             # Apply text overlay if enabled
             if title and use_overlay:
                 self._overlay_title(final_path, title)
+            
+            # Create YouTube Shorts versions
+            shorts_paths = self._create_shorts_versions(final_path)
+            if shorts_paths:
+                print(f"Also created {len(shorts_paths)} shorts variations: {shorts_paths}")
+            
             return final_path
         except Exception:
             return None
@@ -1579,6 +1605,119 @@ class ThumbnailProcessor:
                 img.save(image_path)
             return True
         except Exception:
+            return False
+
+    def _create_shorts_versions(self, regular_thumbnail_path: str) -> list[str]:
+        """Create multiple YouTube Shorts versions of the thumbnail in proper 9:16 dimensions."""
+        shorts_paths = []
+        
+        for i in range(1, SHORTS_VARIATIONS + 1):
+            shorts_path = os.path.join(self.final_output_dir, f"thumbnail.short.v{i}.png")
+            success = self._create_single_shorts_version(regular_thumbnail_path, shorts_path, i)
+            if success:
+                shorts_paths.append(shorts_path)
+        
+        return shorts_paths
+
+    def _create_single_shorts_version(self, regular_thumbnail_path: str, output_path: str, variation_num: int) -> bool:
+        """Create a YouTube Shorts version of the thumbnail in proper 9:16 dimensions."""
+        try:
+            if not os.path.exists(regular_thumbnail_path):
+                print(f"ERROR: Regular thumbnail not found: {regular_thumbnail_path}")
+                return False
+            
+            # Load the regular thumbnail
+            img = Image.open(regular_thumbnail_path).convert("RGBA")
+            original_w, original_h = img.size
+            
+            # Create a new canvas with proper YouTube Shorts dimensions (9:16)
+            canvas = Image.new("RGBA", (SHORTS_WIDTH, SHORTS_HEIGHT), (0, 0, 0, 0))
+            
+            # Calculate how to fit the 16:9 image into 9:16 canvas
+            # We'll crop the center portion and resize to fit
+            original_ratio = original_w / original_h  # 16:9 = 1.78
+            shorts_ratio = SHORTS_WIDTH / SHORTS_HEIGHT  # 9:16 = 0.5625
+            
+            if original_ratio > shorts_ratio:
+                # Original is wider than shorts ratio, crop width to fit height
+                crop_w = int(original_h * shorts_ratio)
+                crop_x = (original_w - crop_w) // 2
+                cropped = img.crop((crop_x, 0, crop_x + crop_w, original_h))
+            else:
+                # Original is taller than shorts ratio, crop height to fit width
+                crop_h = int(original_w / shorts_ratio)
+                crop_y = (original_h - crop_h) // 2
+                cropped = img.crop((0, crop_y, original_w, crop_y + crop_h))
+            
+            # Resize the cropped image to fit the shorts canvas
+            resized = cropped.resize((SHORTS_WIDTH, SHORTS_HEIGHT), Image.LANCZOS)
+            
+            # Paste the resized image onto the canvas
+            canvas.paste(resized, (0, 0))
+            
+            # Apply title overlay if enabled
+            title = self._read_title_from_file()
+            if title and USE_TITLE_TEXT:
+                self._overlay_title_on_shorts_canvas(canvas, title)
+            
+            # Save the shorts version
+            canvas.save(output_path)
+            print(f"Created YouTube Shorts version {variation_num}: {output_path}")
+            return True
+            
+        except Exception as e:
+            print(f"ERROR: Failed to create shorts version {variation_num}: {e}")
+            return False
+
+    def _overlay_title_on_shorts_canvas(self, canvas: Image.Image, title: str) -> bool:
+        """Apply title overlay to the shorts canvas (9:16 format)."""
+        try:
+            w, h = canvas.size  # Should be SHORTS_WIDTH x SHORTS_HEIGHT (1080x1920)
+            
+            # Measure title block for the full shorts canvas
+            band_height, padding, lines, chosen_font, line_height, stroke_w = self._measure_title_block(
+                title, w, h
+            )
+            
+            if not lines:
+                return True
+            
+            # Create title band and text
+            band_opacity = int(0.60 * 255)
+            band = Image.new("RGBA", (w, band_height), (0, 0, 0, band_opacity))
+            shadow = band.copy().filter(ImageFilter.GaussianBlur(radius=int(h * 0.01)))
+            text_layer = Image.new("RGBA", (w, band_height), (0, 0, 0, 0))
+            text_draw = ImageDraw.Draw(text_layer)
+            
+            # Draw text lines
+            y_cursor = padding
+            for line in lines:
+                bbox = text_draw.textbbox((0, 0), line, font=chosen_font, stroke_width=0)
+                tw = bbox[2] - bbox[0]
+                x = (w - tw) // 2
+                text_draw.text((x, y_cursor), line, font=chosen_font, fill=(255, 255, 255, 255))
+                y_cursor += line_height
+            
+            # Position the title band at the bottom of the shorts canvas
+            band_y = h - band_height
+            
+            # Apply shadow, band, and text to canvas
+            shadow_layer = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
+            shadow_layer.paste(shadow, (0, band_y), shadow)
+            canvas.paste(shadow_layer, (0, 0), shadow_layer)
+            
+            band_layer = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
+            band_layer.paste(band, (0, band_y), band)
+            canvas.paste(band_layer, (0, 0), band_layer)
+            
+            text_overlay_layer = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
+            text_overlay_layer.paste(text_layer, (0, band_y), text_layer)
+            canvas.paste(text_overlay_layer, (0, 0), text_overlay_layer)
+            
+            return True
+            
+        except Exception as e:
+            print(f"ERROR: Failed to overlay title on shorts canvas: {e}")
             return False
 
     def _get_master_prompt(self) -> str:

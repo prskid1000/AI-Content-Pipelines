@@ -185,31 +185,91 @@ def upload_video(youtube_service, video_file_path, title, description, tags):
         print(f"❌ Unexpected error during upload: {e}")
         return None
 
+def find_shorts_videos(output_dir: str) -> list[str]:
+    """Find all shorts video files in the output directory."""
+    shorts_videos = []
+    for i in range(1, 6):  # shorts.v1.mp4 through shorts.v5.mp4
+        video_path = os.path.join(output_dir, f"shorts.v{i}.mp4")
+        if os.path.exists(video_path):
+            shorts_videos.append(video_path)
+    return shorts_videos
+
+def create_shorts_title(title: str, shorts_num: int) -> str:
+    """Create a title for shorts video."""
+    # Add shorts indicator and variation number
+    shorts_title = f"{title} #Shorts (Part {shorts_num})"
+    return shorts_title
+
+def create_shorts_description(description: str, shorts_num: int) -> str:
+    """Create a description for shorts video."""
+    shorts_desc = f"🎬 Shorts Version {shorts_num} - {description}\n\n#Shorts #YouTubeShorts"
+    return shorts_desc
+
+def upload_shorts_videos(youtube_service, output_dir: str, base_title: str, base_description: str, tags: list) -> list[str]:
+    """Upload all shorts videos to YouTube."""
+    shorts_videos = find_shorts_videos(output_dir)
+    
+    if not shorts_videos:
+        print("No shorts videos found to upload.")
+        return []
+    
+    print(f"\nFound {len(shorts_videos)} shorts videos to upload:")
+    for video in shorts_videos:
+        print(f"  - {os.path.basename(video)}")
+    
+    uploaded_video_ids = []
+    
+    for i, video_path in enumerate(shorts_videos, 1):
+        print(f"\n{'='*60}")
+        print(f"Uploading Shorts Video {i}/{len(shorts_videos)}: {os.path.basename(video_path)}")
+        print(f"{'='*60}")
+        
+        # Create shorts-specific title and description
+        shorts_title = create_shorts_title(base_title, i)
+        shorts_description = create_shorts_description(base_description, i)
+        
+        # Add shorts-specific tags
+        shorts_tags = tags + ["#Shorts", "#YouTubeShorts", f"Part{i}"]
+        
+        # Upload the shorts video
+        video_id = upload_video(youtube_service, video_path, shorts_title, shorts_description, shorts_tags)
+        
+        if video_id:
+            uploaded_video_ids.append(video_id)
+            print(f"✅ Shorts video {i} uploaded successfully!")
+        else:
+            print(f"❌ Shorts video {i} upload failed!")
+    
+    return uploaded_video_ids
+
 def main():
     parser = argparse.ArgumentParser(description='Upload video to YouTube')
     parser.add_argument('--video-file', required=True, help='Path to the video file to upload')
+    parser.add_argument('--upload-shorts', action='store_true', help='Also upload shorts videos')
+    parser.add_argument('--shorts-only', action='store_true', help='Upload only shorts videos (skip main video)')
     
     args = parser.parse_args()
     
-    # Validate video file exists
-    video_path = Path(args.video_file)
-    if not video_path.exists():
-        print(f"Error: Video file '{video_path}' not found!")
-        sys.exit(1)
-    
-    if not video_path.is_file():
-        print(f"Error: '{video_path}' is not a file!")
-        sys.exit(1)
-    
-    # Check if it's a video file (basic check)
-    video_extensions = {'.mp4', '.avi', '.mov', '.wmv', '.flv', '.webm', '.mkv'}
-    if video_path.suffix.lower() not in video_extensions:
-        print(f"Warning: '{video_path.suffix}' might not be a supported video format.")
-        print("Supported formats: " + ', '.join(video_extensions))
-        
-        response = input("Continue anyway? (y/N): ")
-        if response.lower() != 'y':
+    # Validate video file exists (unless shorts-only mode)
+    if not args.shorts_only:
+        video_path = Path(args.video_file)
+        if not video_path.exists():
+            print(f"Error: Video file '{video_path}' not found!")
             sys.exit(1)
+        
+        if not video_path.is_file():
+            print(f"Error: '{video_path}' is not a file!")
+            sys.exit(1)
+        
+        # Check if it's a video file (basic check)
+        video_extensions = {'.mp4', '.avi', '.mov', '.wmv', '.flv', '.webm', '.mkv'}
+        if video_path.suffix.lower() not in video_extensions:
+            print(f"Warning: '{video_path.suffix}' might not be a supported video format.")
+            print("Supported formats: " + ', '.join(video_extensions))
+            
+            response = input("Continue anyway? (y/N): ")
+            if response.lower() != 'y':
+                sys.exit(1)
     
     try:
         # Read metadata
@@ -225,16 +285,49 @@ def main():
         print("\nAuthenticating with YouTube API...")
         youtube_service = get_authenticated_service()
         
-        # Upload video
-        video_id = upload_video(youtube_service, str(video_path), title, description, tags)
+        uploaded_videos = []
         
-        if video_id:
-            print(f"\n🎉 Video uploaded successfully!")
-            print(f"Remember: The video is set to 'private' by default.")
-            print(f"You can change the privacy settings in YouTube Studio.")
+        # Upload main video (unless shorts-only mode)
+        if not args.shorts_only:
+            print(f"\n{'='*60}")
+            print("Uploading Main Video")
+            print(f"{'='*60}")
             
+            video_id = upload_video(youtube_service, str(video_path), title, description, tags)
+            
+            if video_id:
+                uploaded_videos.append(video_id)
+                print(f"\n🎉 Main video uploaded successfully!")
+                print(f"Remember: The video is set to 'private' by default.")
+                print(f"You can change the privacy settings in YouTube Studio.")
+            else:
+                print("\n❌ Main video upload failed!")
+                if not args.upload_shorts:
+                    sys.exit(1)
+        
+        # Upload shorts videos (if requested or shorts-only mode)
+        if args.upload_shorts or args.shorts_only:
+            output_dir = Path(__file__).parent.parent / "output"
+            shorts_video_ids = upload_shorts_videos(youtube_service, str(output_dir), title, description, tags)
+            uploaded_videos.extend(shorts_video_ids)
+            
+            if shorts_video_ids:
+                print(f"\n🎉 {len(shorts_video_ids)} shorts videos uploaded successfully!")
+            else:
+                print("\n❌ No shorts videos were uploaded!")
+        
+        # Summary
+        if uploaded_videos:
+            print(f"\n{'='*60}")
+            print("UPLOAD SUMMARY")
+            print(f"{'='*60}")
+            print(f"Total videos uploaded: {len(uploaded_videos)}")
+            for i, video_id in enumerate(uploaded_videos, 1):
+                print(f"  {i}. https://www.youtube.com/watch?v={video_id}")
+            print(f"\nAll videos are set to 'private' by default.")
+            print(f"You can change privacy settings in YouTube Studio.")
         else:
-            print("\n❌ Upload failed!")
+            print("\n❌ No videos were uploaded successfully!")
             sys.exit(1)
             
     except KeyboardInterrupt:
