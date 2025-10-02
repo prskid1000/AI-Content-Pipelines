@@ -26,7 +26,7 @@ IMAGE_HEIGHT = 720
 
 # Latent Input Mode Configuration
 LATENT_MODE = "IMAGE"  # "LATENT" for normal noise generation, "IMAGE" for load image input
-LATENT_DENOISING_STRENGTH = 0.82  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
+LATENT_DENOISING_STRENGTH = 0.85  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # LoRA Configuration
 USE_LORA = False  # Set to False to disable LoRA usage in workflow
@@ -1071,7 +1071,7 @@ class CharacterGenerator:
 
     def _update_workflow_prompt(self, workflow: dict, character_name: str, description: str) -> dict:
         """Update the workflow with character-specific prompt."""
-        prompt = f"Create a 16K ultra-high-resolution, Dressed Full Body Visible, Illustration in the style of {ART_STYLE} in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description and fine-level detailing, Vibrant Rich Bright Color Palette, and any part not cropped or hidden.Must use Black Background.\n\n Character Name = {character_name}. Character Description = {description}. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style."
+        prompt = f"Create a 16K ultra-high-resolution, Dressed Full Body Visible, Illustration in the style of {ART_STYLE} in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description and fine-level detailing, and any part not cropped or hidden.All Colorings, Styles, Shapes, Textures, Details, must be accurately and precisely matched to the character text-description. Must use Black Background.\n\n Character Name = {character_name}. Character Description = {description}. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style."
         self._update_node_connections(workflow, ["CLIPTextEncode", "CLIP Text Encode (Prompt)"], "text", prompt)
         return workflow
 
