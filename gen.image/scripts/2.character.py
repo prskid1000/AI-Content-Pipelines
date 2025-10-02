@@ -18,7 +18,7 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
 # Variation Configuration
-VARIATIONS_PER_CHARACTER = 10  # Number of variations to generate per character (in addition to original)
+VARIATIONS_PER_CHARACTER = 5  # Number of variations to generate per character (in addition to original)
 
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
@@ -331,7 +331,7 @@ class CharacterGenerator:
         self.intermediate_output_dir = "../output/lora"
         self.input_file = "../input/2.character.txt"
         # Latent image input file path
-        self.latent_image_path = "../input/2.latent.small.png"
+        self.latent_image_path = "../input/2.latent.medium.png"
         # Dynamic workflow file selection based on mode
         self.workflow_file = "../workflow/character.flux.json" if self.mode == "flux" else "../workflow/character.json"
 
