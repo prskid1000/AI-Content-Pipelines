@@ -68,7 +68,7 @@ LORAS = [
 ]
 
 # Sampling Configuration
-SAMPLING_STEPS = 45  # Number of sampling steps (higher = better quality, slower)
+SAMPLING_STEPS = 25  # Number of sampling steps (higher = better quality, slower)
 
 # Negative Prompt Configuration
 USE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to disable
@@ -84,6 +84,8 @@ ART_STYLE = "Realistic Anime"
 USE_CHARACTER_NAME_OVERLAY = False  # Set to False to disable name overlay
 CHARACTER_NAME_FONT_SCALE = 1
 CHARACTER_NAME_BAND_HEIGHT_RATIO = 0.30  # 15% of image height for name band
+
+USE_SUMMARY_TEXT = False  # Set to True to use summary text
 
 
 class ResumableState:
@@ -329,7 +331,7 @@ class LocationGenerator:
         # Final destination inside this repo
         self.final_output_dir = "../output/locations"
         self.intermediate_output_dir = "../output/lora"
-        self.input_file = "../input/3.location.txt"
+        self.input_file = "../input/3.location.txt" if USE_SUMMARY_TEXT else "../input/2.location.txt"
         # Latent image input file path
         self.latent_image_path = "../input/2.latent.small.png"
         # Dynamic workflow file selection based on mode - use character workflow
