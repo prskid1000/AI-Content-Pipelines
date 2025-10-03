@@ -30,10 +30,10 @@ ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 
 # Model constants for easy switching
-MODEL_STORY_DESCRIPTION = "qwen/qwen3-14b"  # Model for generating story descriptions
-MODEL_CHARACTER_GENERATION = "qwen/qwen3-14b"  # Model for character description generation
-MODEL_CHARACTER_SUMMARY = "qwen/qwen3-14b"  # Model for character summary generation
-MODEL_LOCATION_EXPANSION = "qwen/qwen3-14b"  # Model for location expansion
+MODEL_STORY_DESCRIPTION = "qwen2.5-omni-7b"  # Model for generating story descriptions
+MODEL_CHARACTER_GENERATION = "qwen2.5-omni-7b"  # Model for character description generation
+MODEL_CHARACTER_SUMMARY = "qwen2.5-omni-7b"  # Model for character summary generation
+MODEL_LOCATION_EXPANSION = "qwen2.5-omni-7b"  # Model for location expansion
 
 
 # Resumable state management
@@ -761,31 +761,6 @@ def _schema_location_summary() -> dict[str, object]:
         }
     }
 
-
-def _schema_story_description() -> dict[str, object]:
-    """JSON schema for story description generation."""
-    return {
-        "type": "json_schema",
-        "json_schema": {
-            "name": "story_description",
-            "schema": {
-                "type": "object",
-                "additionalProperties": False,
-                "properties": {
-                    "summary": {
-                        "type": "string",
-                        "minLength": STORY_DESCRIPTION_CHARACTER_MIN,
-                        "maxLength": STORY_DESCRIPTION_CHARACTER_MAX,
-                        "description": f"A Short Version of the COMPLETE STORY (MINIMUM {STORY_DESCRIPTION_CHARACTER_MIN} characters, MAXIMUM {STORY_DESCRIPTION_CHARACTER_MAX} characters, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words) that will contain entire story from start to end with all details in short version."
-                    }
-                },
-                "required": ["summary"]
-            },
-            "strict": True
-        }
-    }
-
-
 def _build_character_system_prompt() -> str:
     return (
         f"Create a detailed character description for AI image generation.\n\n"
@@ -817,7 +792,7 @@ def _build_character_summary_user_prompt(character_name: str, detailed_descripti
 
 def _build_story_description_prompt() -> str:
     return (
-        f"Create a story single continuous paragraph ({STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX}, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words) that will contain entire story from start to end with all details in short version.\n\n"
+        f"Create a story single continuous paragraph ({STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX}, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words, in form of  grammatically correct sentences) that will contain entire story from start to end with all details in short version.\n\n"
         f"It must always include all actors and their roles, all locations and settings, complete chronological events in details.\n"
     )
 
@@ -1234,20 +1209,12 @@ def _generate_story_description(story_content: str, lm_studio_url: str, resumabl
     try:
         # Use model constant for story description generation
         model = MODEL_STORY_DESCRIPTION
-          
-        raw = _call_lm_studio(prompt, user_prompt, lm_studio_url, model, _schema_story_description())
-        structured_data = _parse_structured_response(raw)
+        # Call without structured output - get plain text response
+        story_desc = _call_lm_studio(prompt, user_prompt, lm_studio_url, model, response_format=None)
+        story_desc = story_desc.strip()
         
-        if not structured_data:
-            raise RuntimeError("Failed to parse structured story description response")
-        
-        story_desc = structured_data.get("summary", "").strip()
         if not story_desc:
             raise RuntimeError("Empty story description generated")
-        
-        # Validate character count
-        if not _validate_character_count(story_desc, STORY_DESCRIPTION_CHARACTER_MIN, STORY_DESCRIPTION_CHARACTER_MAX, "Story description"):
-            raise RuntimeError(f"Story description character count validation failed")
         
         # Save to checkpoint if resumable mode enabled
         if resumable_state:
@@ -1260,43 +1227,6 @@ def _generate_story_description(story_content: str, lm_studio_url: str, resumabl
         
     print(f"Generated story description: {story_desc}")
     return story_desc
-
-
-def _filter_story_content_for_location(content: str, pairs: list, location_id: str) -> str:
-    """Filter story content to include only dialogue-scene pairs that use the specific location."""
-    filtered_pairs = []
-    
-    for pair in pairs:
-        scene = pair.get("scene")
-        dialogue = pair.get("dialogue")
-        
-        # Check if the scene contains the location reference
-        scene_uses_location = False
-        if scene:
-            scene_text = scene.get("raw", "")
-            if f"{{{{{location_id}}}}}" in scene_text in scene_text:
-                scene_uses_location = True
-        
-        # If scene uses this location, include both dialogue and scene
-        if scene_uses_location:
-            filtered_pairs.append(pair)
-    
-    # Format the filtered pairs back into story format
-    if not filtered_pairs:
-        return f"No dialogue-scene pairs found that use location '{location_id}'"
-    
-    formatted_lines = []
-    for pair in filtered_pairs:
-        dialogue = pair.get("dialogue")
-        scene = pair.get("scene")
-        
-        if dialogue:
-            formatted_lines.append(dialogue.get("raw", ""))
-        if scene:
-            formatted_lines.append(scene.get("raw", ""))
-    
-    return "\n".join(formatted_lines)
-
 
 def _generate_location_descriptions(story_desc: str, locations: dict[str, str], lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
     """Generate structured location descriptions using the common function."""
