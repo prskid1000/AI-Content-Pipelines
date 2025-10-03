@@ -430,30 +430,6 @@ def _validate_scene_id_continuity(tokens) -> int:
 
     return errors
 
-
-def _extract_dialogue_only_from_content(content: str) -> str:
-    """Extract only dialogue lines from story content, excluding scene descriptions."""
-    lines = content.split('\n')
-    dialogue_lines = []
-    
-    for line in lines:
-        line = line.strip()
-        if not line:
-            continue
-            
-        # Check if line is dialogue (starts with [character])
-        if line.startswith('[') and ']' in line:
-            # Extract character and dialogue content
-            m = _DIALOGUE_RE.match(line)
-            if m:
-                character = m.group(1).strip()
-                dialogue = m.group(2).strip()
-                if character and dialogue:
-                    dialogue_lines.append(f"[{character}] {dialogue}")
-    
-    return '\n'.join(dialogue_lines)
-
-
 def _extract_locations_from_content(content: str) -> dict[str, str]:
     """Extract all unique locations from content and return mapping of loc_id -> description."""
     locations = {}
@@ -1252,10 +1228,8 @@ def _generate_story_description(story_content: str, lm_studio_url: str, resumabl
             return cached_desc
     
     print("Generating story description from dialogue content...")
-    # Extract only dialogue lines from the story content
-    dialogue_content = _extract_dialogue_only_from_content(story_content)
     prompt = _build_story_description_prompt()
-    user_prompt = _build_story_description_user_prompt(dialogue_content)
+    user_prompt = _build_story_description_user_prompt(story_content)
     
     try:
         # Use model constant for story description generation
@@ -1604,7 +1578,7 @@ def main() -> int:
         try:
             lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v1")
             
-            # Generate story description from content using qwen/qwen3-14b
+            # Generate story description from content using qwen2.5-omni-7b
             story_desc = _generate_story_description(content, lm_studio_url, resumable_state)
             
             # Generate structured location descriptions
