@@ -738,7 +738,6 @@ MODEL_CHARACTER_META_SUMMARY = "qwen/qwen3-14b"
 # Story Processing
 CHUNK_SIZE = 50  # Lines per chapter chunk
 GENERATE_TITLE = True  # Auto title generation
-ENABLE_THINKING = False  # Set to True to enable thinking in LM Studio responses
 
 # Feature flags for resumable mode
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
@@ -871,7 +870,6 @@ STORY_DESCRIPTION_WORD_MAX = 2800
 # Feature Flags
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
-ENABLE_THINKING = True  # Set to True to enable thinking in LM Studio responses
 
 # Model Configuration
 MODEL_STORY_DESCRIPTION = "qwen/qwen3-14b"  # Model for generating story descriptions

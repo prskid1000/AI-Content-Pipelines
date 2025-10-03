@@ -20,15 +20,14 @@ LOCATION_SUMMARY_CHARACTER_MAX = 3000
 LOCATION_SUMMARY_WORD_MIN = 250
 LOCATION_SUMMARY_WORD_MAX = 375
 
-STORY_DESCRIPTION_CHARACTER_MIN = 15000
-STORY_DESCRIPTION_CHARACTER_MAX = 18000
-STORY_DESCRIPTION_WORD_MIN = 2500
-STORY_DESCRIPTION_WORD_MAX = 3000
+STORY_DESCRIPTION_CHARACTER_MIN = 5000
+STORY_DESCRIPTION_CHARACTER_MAX = 10000
+STORY_DESCRIPTION_WORD_MIN = 900
+STORY_DESCRIPTION_WORD_MAX = 1200
 
 # Feature flags
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
-ENABLE_THINKING = False  # Set to True to enable thinking in LM Studio responses
 
 # Model constants for easy switching
 MODEL_STORY_DESCRIPTION = "qwen/qwen3-14b"  # Model for generating story descriptions
@@ -829,14 +828,14 @@ def _schema_story_description() -> dict[str, object]:
                 "type": "object",
                 "additionalProperties": False,
                 "properties": {
-                    "description": {
+                    "summary": {
                         "type": "string",
                         "minLength": STORY_DESCRIPTION_CHARACTER_MIN,
                         "maxLength": STORY_DESCRIPTION_CHARACTER_MAX,
                         "description": f"a Short Version of the COMPLETE STORY (MINIMUM {STORY_DESCRIPTION_CHARACTER_MIN} characters, MAXIMUM {STORY_DESCRIPTION_CHARACTER_MAX} characters, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words) mentioning the story setting, tone, all events, all characters, all locations, and context for character and location generation. MUST be within the character count range."
                     }
                 },
-                "required": ["description"]
+                "required": ["summary"]
             },
             "strict": True
         }
@@ -899,10 +898,8 @@ def _call_lm_studio(system_prompt: str, lm_studio_url: str, model: str, user_pay
     headers = {"Content-Type": "application/json"}
     messages = [{"role": "system", "content": system_prompt}]
     if user_payload:
-        # Add thinking control to user payload
-        thinking_suffix = "" if ENABLE_THINKING else "\n/no_think"
-        messages.append({"role": "user", "content": f"{user_payload}{thinking_suffix}"})
-    
+        messages.append({"role": "user", "content": f"{user_payload}"})
+
     payload = {
         "model": model,
         "messages": messages,

@@ -15,7 +15,6 @@ MODEL_TIMELINE_GENERATION = "qwen/qwen3-14b"  # Model for timeline SFX generatio
 # Feature flags
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
-ENABLE_THINKING = False  # Set to True to enable thinking in LM Studio responses
 
 # Resumable state management
 class ResumableState:
@@ -199,7 +198,7 @@ OUTPUT: JSON with sound_or_silence_description field only."""
                     },
                     {
                         "role": "user",
-                        "content": f"{prompt}{'' if ENABLE_THINKING else '\n/no_think'}"
+                        "content": f"{prompt}"
                     }
                 ],
                 "temperature": 1,
@@ -554,7 +553,7 @@ def main():
     # Check if timeline file exists
     if not os.path.exists(args.timeline_file):
         print(f"❌ Timeline file '{args.timeline_file}' not found")
-        print("Usage: python 5.timeline.py [timeline_file] [--force-start] [--enable-thinking]")
+        print("Usage: python 5.timeline.py [timeline_file] [--force-start]")
         return 1
     
     # Initialize resumable state if enabled

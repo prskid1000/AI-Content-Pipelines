@@ -43,7 +43,7 @@ class DiffusionPromptGenerator:
          - precise material descriptions for textures and surfaces (dark oak, brass fittings, weathered leather)
 
         Ensure every element supports the story and maintains spatial clarity and visual coherence. Output must be a CREATIVELY generated single continuous paragraph of 300-500 words without line breaks. 
-        STORY TITLE/DESCRIPTION: {story_desc} /no_think"""
+        STORY TITLE/DESCRIPTION: {story_desc}"""
 
     def _call_lm_studio(self, system_prompt: str) -> str:
         headers = {"Content-Type": "application/json"}
