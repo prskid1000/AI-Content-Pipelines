@@ -544,85 +544,26 @@ def _schema_character() -> dict[str, object]:
                         "required": ["type", "color"]
                     },
                     "accessories": {
-                        "type": "object",
-                        "properties": {
-                            "glasses": {
-                        "type": "object",
-                        "properties": {
-                                    "type": {"type": "string", "enum": ["reading_glasses", "sunglasses", "prescription_glasses", "safety_glasses", "aviator", "cat_eye", "round", "square", "rectangular", "rimless", "bifocal", "transitional", "wayfarer", "clubmaster"]},
-                                    "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
-                                    "material": {"type": "string", "description": "Metal, plastic, acetate, titanium, etc."},
-                                }
+                        "type": "array",
+                        "description": "List of accessories worn by the character",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "type": {"type": "string", "description": "Type of accessory (e.g., 'glasses', 'hat', 'watch', 'jewelry', 'bag', 'gloves', 'tie', 'scarf', 'belt', 'piercings')"},
+                                "description": {"type": "string", "description": "Detailed description including color, material, style, and any distinctive features"},
+                                "location": {"type": "string", "description": "Where the accessory is worn (e.g., 'on head', 'around neck', 'on wrist', 'in hand', 'on face')"}
                             },
-                            "tie": {
-                                "type": "object",
-                                "properties": {
-                                    "type": {"type": "string", "enum": ["necktie", "bow_tie", "bolo_tie", "ascot", "string_tie", "clip_on", "skinny_tie", "wide_tie", "silk_tie", "polyester_tie"]},
-                                    "color": {
-                                        "type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"
-                                    },
-                                    "pattern": {"type": "string", "description": "Solid, striped, polka dot, paisley, etc."},
-                                    "material": {"type": "string", "description": "Silk, polyester, cotton, etc."},
-                                }
-                            },
-                            "gloves": {
-                        "type": "object",
-                        "properties": {
-                                    "type": {"type": "string", "enum": ["fingerless", "full_finger", "mittens", "driving_gloves", "work_gloves", "dress_gloves", "winter_gloves", "leather_gloves", "cotton_gloves", "nitrile_gloves", "latex_gloves"]},
-                                    "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
-                                    "material": {"type": "string", "description": "Leather, cotton, wool, synthetic, etc."},
-                                }
-                            },
-                            "hat": {
-                                    "type": "object",
-                                    "properties": {
-                                    "type": {"type": "string", "enum": ["baseball_cap", "fedora", "beanie", "beret", "cowboy_hat", "top_hat", "sun_hat", "winter_hat", "helmet", "visor", "turban", "headband", "snapback", "trucker_hat", "bucket_hat"]},
-                                    "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
-                                    "material": {"type": "string", "description": "Cotton, wool, leather, synthetic, etc."},
-                                }
-                            },
-                            "jewelry": {
-                        "type": "object",
-                        "properties": {
-                                    "necklaces": {"type": "string", "description": "Type, color, and material of necklaces"},
-                                    "rings": {"type": "string", "description": "Type, color, and material of rings"},
-                                    "earrings": {"type": "string", "description": "Type, color, and material of earrings"},
-                                    "bracelets": {"type": "string", "description": "Type, color, and material of bracelets"},
-                                    "piercings": {"type": "string", "description": "Type and location of piercings"}
-                                }
-                            },
-                            "bag": {
-                                "type": "object",
-                                "properties": {
-                                    "type": {"type": "string", "enum": ["handbag", "backpack", "briefcase", "messenger_bag", "tote_bag", "clutch", "satchel", "duffel_bag", "purse", "wallet", "fanny_pack", "laptop_bag", "gym_bag", "travel_bag", "crossbody_bag"]},
-                                    "color": {
-                                        "type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"
-                                    },
-                                    "material": {"type": "string", "description": "Leather, canvas, nylon, synthetic, etc."},
-                                    "size": {"type": "string", "enum": ["small", "medium", "large", "oversized"]}
-                                }
-                            },
-                            "watch": {
-                                    "type": "object",
-                                    "properties": {
-                                    "type": {"type": "string", "enum": ["analog", "digital", "smartwatch", "dress_watch", "sports_watch", "vintage_watch", "luxury_watch", "casual_watch", "fitness_tracker", "pocket_watch"]},
-                                    "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
-                                    "material": {"type": "string", "description": "Metal, leather, rubber, plastic, etc."},
-                                    "style": {"type": "string", "description": "Formal, casual, sporty, etc."}
-                                }
-                            }
+                            "required": ["type", "description"]
                         }
                     },
                     "overall_style": {
-                                    "type": "object",
-                                    "properties": {
+                        "type": "object",
+                        "properties": {
                             "style_category": {"type": "string", "enum": ["casual", "formal", "business", "sporty", "elegant", "bohemian", "vintage", "modern", "streetwear", "preppy", "western", "athletic"]},
-                            "color_scheme": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                             "formality_level": {"type": "string", "enum": ["very_casual", "casual", "smart_casual", "business_casual", "business_formal", "semi_formal", "formal", "black_tie"]},
-                            "season": {"type": "string", "enum": ["summer", "winter", "spring", "autumn", "all_season"]},
-                            "outfit_coordination": {"type": "string", "description": "How the outfit elements work together (e.g., 'matching color scheme', 'complementary styles', 'unified formal look')"}
+                            "season": {"type": "string", "enum": ["summer", "winter", "spring", "autumn", "all_season"]}
                         },
-                        "required": ["style_category", "color_scheme", "formality_level", "outfit_coordination"]
+                        "required": ["style_category", "formality_level", "season"]
                     }
                 },
                 "required": ["face", "clothing", "footwear", "overall_style"]
@@ -786,18 +727,13 @@ def _schema_story_description() -> dict[str, object]:
 
 def _build_character_system_prompt() -> str:
     return (
-        f"Create a detailed character description for AI image generation.\n\n"
-        f"It must always include all visual details from the original description, preserving all visual attributes and characteristics."
-        f"Consider the character's role and story context for appropriate styling.\n\n"
+        f"Create detailed visual-only attributes and characteristics for the character based its role in story for AI image generation.\n\n"
     )
 
-def _build_character_user_prompt(story_desc: str, character_name: str, all_characters: list[str]) -> str:
-    other_characters = [name for name in all_characters if name != character_name]
-    other_characters_text = ", ".join(other_characters) if other_characters else "none"
+def _build_character_user_prompt(story_desc: str, character_name: str, all_characters: dict[str, str]) -> str:
     return (
         f"Story: {story_desc}\n"
         f"Character: {character_name}\n"
-        f"Other characters: {other_characters_text}"
     )
 
 def _build_character_summary_prompt() -> str:
@@ -820,30 +756,38 @@ def _build_story_description_prompt() -> str:
     )
 
 def _build_story_description_user_prompt(story_content: str) -> str:
+    """Extract only dialogue lines from story content using existing regex"""
+    lines = story_content.split('\n')
+    dialogue_lines = []
+    
+    for line in lines:
+        # Use existing dialogue regex pattern to match dialogue lines
+        if _DIALOGUE_RE.match(line.strip()):
+            # Remove brackets, braces, and parentheses from the line
+            cleaned_line = line.replace('[', '').replace(']', '').replace('{', '').replace('}', '').replace('(', '').replace(')', '')
+            dialogue_lines.append(cleaned_line)
+    
+    dialogue_content = '\n'.join(dialogue_lines)
     return (
-        f"Story content: {story_content}"
+        f"Story content: {dialogue_content}"
     )
 
 def _build_location_system_prompt() -> str:
     return (
-        f"Create a detailed location description for AI image generation.\n\n"
-        f"It must always include all possible objects that can be seen in the scene, postioning large objects relative to the room, medium objects relative to large ones, small items relative to medium objects.\n"
+        f"Create a detailed location that includes all possible object that can be seen in such type of location, postioning large objects relative to the room, medium objects relative to large ones, small items relative to medium objects, for AI image generation.\n\n"
     )
 
-def _build_location_user_prompt(story_desc: str, location_id: str, all_locations: list[str]) -> str:
-    other_locations = [loc for loc in all_locations if loc != location_id]
-    other_locations_text = ", ".join(other_locations) if other_locations else "none"
+def _build_location_user_prompt(story_desc: str, location_id: str, all_locations: dict[str, str]) -> str:
     return (
         f"Story: {story_desc}\n"
-        f"Location: {location_id}\n"
-        f"Other locations: {other_locations_text}"
+        f"Location: {all_locations[location_id]}\n"
     )
 
 
 def _build_location_summary_prompt() -> str:
     return (
         f"Create a concise location single continuous paragraph ({LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters, approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words) that will contain entire location from start to end with all details in short version.\n\n"
-        f"It must always include all visual details from the original description, preserving all visualattributes, characteristics and postioning relationships.\n"
+        f"It must always include all visual details from the original description, preserving all visual attributes, characteristics and postioning relationships.\n"
     )
 
 def _build_location_summary_user_prompt(location_id: str, detailed_description: str) -> str:
@@ -855,7 +799,7 @@ def _build_location_summary_user_prompt(location_id: str, detailed_description: 
 
 def _call_lm_studio(system_prompt: str, user_prompt: str, lm_studio_url: str, model: str, response_format: dict[str, object] | None = None, temperature: float = 1.0) -> str:
     headers = {"Content-Type": "application/json"}
-    messages = [{"role": "user", "content": system_prompt}, {"role": "user", "content": user_prompt}]
+    messages = [{"role": "system", "content": system_prompt + "/no_think"}, {"role": "user", "content": user_prompt + "/no_think"}]
     payload = {
         "model": model,
         "messages": messages,
@@ -873,6 +817,8 @@ def _call_lm_studio(system_prompt: str, user_prompt: str, lm_studio_url: str, mo
     data = resp.json()
     if not data.get("choices"):
         raise RuntimeError("LM Studio returned no choices")
+    
+    print(f"Reasoning: {data['choices'][0]['message']['reasoning_content']}")
     return data["choices"][0]["message"]["content"]
 
 
@@ -889,19 +835,19 @@ def _parse_structured_response(content: str) -> dict[str, object] | None:
         return None
 
 
-def _validate_character_count(text: str, min_chars: int, max_chars: int, item_type: str) -> bool:
+def _validate_character_count(text: str, min_chars: int, max_chars: int) -> bool:
     """Validate that text meets character count requirements."""
     char_count = len(text)
     word_count = len(text.split())
     
     if char_count < min_chars:
-        print(f"WARNING: {item_type} summary too short: {char_count} characters (minimum: {min_chars})")
+        print(f"WARNING: Summary too short: {char_count} characters (minimum: {min_chars})")
         return False
     elif char_count > max_chars:
-        print(f"WARNING: {item_type} summary too long: {char_count} characters (maximum: {max_chars})")
+        print(f"WARNING: Summary too long: {char_count} characters (maximum: {max_chars})")
         return False
     
-    print(f"✓ {item_type} summary within limits: {char_count} characters, {word_count} words")
+    print(f"✓ Summary within limits: {char_count} characters, {word_count} words")
     return True
 
 
@@ -1085,14 +1031,12 @@ def _generate_structured_descriptions(
                 continue
         
         print(f"({idx}/{total}) {item_id}: generating structured description...")
-        
-        # Build prompt based on item type
-        if isinstance(items, list):
-            prompt = prompt_func()
-            user_prompt = user_prompt_func(story_desc, item_id, items)
-        else:
-            prompt = prompt_func()
-            user_prompt = user_prompt_func(story_desc, item_id, list(items.keys()))
+
+
+        print(f"Prompt: {items}")
+
+        prompt = prompt_func()
+        user_prompt = user_prompt_func(story_desc, item_id, items)
         
         try:
             raw = _call_lm_studio(prompt, user_prompt, lm_studio_url, model, schema_func())
@@ -1211,6 +1155,8 @@ def _generate_summaries(
             
         item_to_summary[item_id] = summary
         print(f"({idx}/{total}) {item_id}: done ({len(summary.split())} words)")
+
+        _validate_character_count(summary, LOCATION_SUMMARY_CHARACTER_MIN, LOCATION_SUMMARY_CHARACTER_MAX)
         
     return item_to_summary
 
@@ -1232,8 +1178,9 @@ def _generate_story_description(story_content: str, lm_studio_url: str, resumabl
         # Use model constant for story description generation
         model = MODEL_STORY_DESCRIPTION
         # Call with structured output using the story description schema
-        raw = _call_lm_studio(prompt, user_prompt, lm_studio_url, model, _schema_story_description(), 0.1)
+        raw = _call_lm_studio(prompt, user_prompt, lm_studio_url, model, _schema_story_description())
         structured_data = _parse_structured_response(raw)
+
         
         if not structured_data:
             raise RuntimeError("Failed to parse structured story description response")
@@ -1241,6 +1188,8 @@ def _generate_story_description(story_content: str, lm_studio_url: str, resumabl
         story_desc = structured_data.get("description", "").strip()
         if not story_desc:
             raise RuntimeError("Empty story description generated")
+
+        _validate_character_count(story_desc, STORY_DESCRIPTION_CHARACTER_MIN, STORY_DESCRIPTION_CHARACTER_MAX)
         
         # Save to checkpoint if resumable mode enabled
         if resumable_state:
