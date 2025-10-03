@@ -636,8 +636,11 @@ class SceneGenerator:
 All Non-Living Objects mentioned in Scene text-description must be present in illustration.Must Always Precisely & Accurately Represent entire Scene including all Non-Living Objects according to scene text-description.
 Must Always Precisely & Accurately Preserve each Character's Identity and Appearance(Properties like "Color", "Texture", "Shape", "Details", "Style", "Type") of Facial and Body Features as well as entire Clothing) from their respective reference image or image-section specified in Character's or Scene's text-description.
 All other aspects of Characters is adaptable/must change according to Scene and Character text-description.Keep each Character's all "Features Separate and Discrete" from each other.
-Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
         """.format(ART_STYLE=ART_STYLE)
+
+    def _get_master_end_prompt(self) -> str:
+        """Get the master end prompt content."""
+        return """\n\nStrictly, Accurately, Precisely, always must Follow {ART_STYLE} Style. All Colourings, Styles, Shapes, Textures, Details must be **exactly same/identical/as it is** in the scene text-description and character text-description."""
 
     def _get_seed(self) -> int:
         """Get seed value based on configuration."""
@@ -1663,7 +1666,7 @@ Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.
             if character_details:
                 text_prompt += f"\nCHARACTER TEXT-DESCRIPTION:\n{character_details}"
         
-        workflow["33"]["inputs"]["text"] = text_prompt
+        workflow["33"]["inputs"]["text"] = text_prompt + self._get_master_end_prompt()
         workflow["21"]["inputs"]["filename_prefix"] = scene_id
         
         # Set resolution parameters and handle latent input mode
