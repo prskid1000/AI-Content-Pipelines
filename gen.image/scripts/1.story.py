@@ -10,20 +10,20 @@ from pathlib import Path
 
 
 # Character and word count limits (min-max ranges)
-CHARACTER_SUMMARY_CHARACTER_MIN = 720
-CHARACTER_SUMMARY_CHARACTER_MAX = 960
-CHARACTER_SUMMARY_WORD_MIN = 120
+CHARACTER_SUMMARY_CHARACTER_MIN = 300
+CHARACTER_SUMMARY_CHARACTER_MAX = 600
+CHARACTER_SUMMARY_WORD_MIN = 50
 CHARACTER_SUMMARY_WORD_MAX = 160
 
-LOCATION_SUMMARY_CHARACTER_MIN = 1800
-LOCATION_SUMMARY_CHARACTER_MAX = 2160
-LOCATION_SUMMARY_WORD_MIN = 300
-LOCATION_SUMMARY_WORD_MAX = 360
+LOCATION_SUMMARY_CHARACTER_MIN = 1200
+LOCATION_SUMMARY_CHARACTER_MAX = 3000
+LOCATION_SUMMARY_WORD_MIN = 250
+LOCATION_SUMMARY_WORD_MAX = 375
 
 STORY_DESCRIPTION_CHARACTER_MIN = 15000
-STORY_DESCRIPTION_CHARACTER_MAX = 16800
+STORY_DESCRIPTION_CHARACTER_MAX = 18000
 STORY_DESCRIPTION_WORD_MIN = 2500
-STORY_DESCRIPTION_WORD_MAX = 2800
+STORY_DESCRIPTION_WORD_MAX = 3000
 
 # Feature flags
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
@@ -549,17 +549,9 @@ def _schema_character() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                                     "type": {"type": "string", "enum": ["dress_shirt", "casual_shirt", "t-shirt", "polo_shirt", "sweater", "cardigan", "blazer", "suit_jacket", "hoodie", "tank_top", "turtleneck", "henley", "flannel_shirt", "oxford_shirt", "button_down", "long_sleeve", "short_sleeve", "polo", "crew_neck", "v_neck"]},
-                                    "color": {
-                                        "type": "object",
-                                        "properties": {
-                                            "name": {"type": "string", "description": "Exact color name (e.g., 'blue', 'gray', 'red')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
-                                        },
-                                        "required": ["name", "shade"]
-                                    },
+                                    "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "pattern": {"type": "string", "description": "Solid, striped, plaid, checkered, etc."},
                                     "material": {"type": "string", "description": "Cotton, silk, wool, polyester, linen, etc."},
-                                    "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Material transparency level"},
                                     "fit": {"type": "string", "enum": ["tight", "fitted", "loose", "oversized"]}
                                 },
                                 "required": ["type", "color"]
@@ -568,17 +560,9 @@ def _schema_character() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                                     "type": {"type": "string", "enum": ["dress_pants", "casual_pants", "jeans", "shorts", "cargo_pants", "chinos", "khakis", "trousers", "slacks", "corduroy_pants", "denim_shorts", "dress_shorts", "cargo_shorts", "athletic_shorts", "swim_trunks"]},
-                                    "color": {
-                                        "type": "object",
-                                        "properties": {
-                                            "name": {"type": "string", "description": "Exact color name (e.g., 'gray', 'khaki', 'brown')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
-                                        },
-                                        "required": ["name", "shade"]
-                                    },
+                                    "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "pattern": {"type": "string", "description": "Solid, striped, plaid, etc."},
                                     "material": {"type": "string", "description": "Denim, cotton, wool, polyester, etc."},
-                                    "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Material transparency level"},
                                     "fit": {"type": "string", "enum": ["tight", "fitted", "loose", "baggy"]}
                                 },
                                 "required": ["type", "color"]
@@ -587,17 +571,9 @@ def _schema_character() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                                     "type": {"type": "string", "enum": ["military_uniform", "police_uniform", "medical_scrubs", "chef_uniform", "nurse_uniform", "pilot_uniform", "flight_attendant", "security_guard", "firefighter", "paramedic", "business_suit", "formal_suit", "academic_robe", "judge_robe", "clerical_robe", "lab_coat", "apron", "overalls", "coveralls", "boiler_suit", "cargo_uniform", "tactical_gear", "dress_uniform", "service_uniform", "work_uniform"]},
-                                    "color": {
-                                        "type": "object",
-                                        "properties": {
-                                            "name": {"type": "string", "description": "Exact color name (e.g., 'green', 'blue', 'white')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
-                                        },
-                                        "required": ["name", "shade"]
-                                    },
+                                    "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "rank_insignia": {"type": "string", "description": "Rank, badges, patches, or insignia if applicable"},
                                     "material": {"type": "string", "description": "Cotton, polyester, wool, etc."},
-                                    "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Material transparency level"},
                                     "condition": {"type": "string", "enum": ["pristine", "well_worn", "weathered", "tattered"]}
                                 },
                                 "required": ["type", "color"]
@@ -606,16 +582,8 @@ def _schema_character() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                                     "type": {"type": "string", "enum": ["coat", "jacket", "raincoat", "blazer", "overcoat", "pea_coat", "hoodie", "cardigan", "vest", "windbreaker", "bomber_jacket", "leather_jacket", "denim_jacket", "suit_jacket", "sports_jacket"]},
-                                    "color": {
-                                        "type": "object",
-                                        "properties": {
-                                            "name": {"type": "string", "description": "Exact color name (e.g., 'brown', 'black', 'camel')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
-                                        },
-                                        "required": ["name", "shade"]
-                                    },
+                                    "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "material": {"type": "string", "description": "Leather, wool, denim, polyester, etc."},
-                                    "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Material transparency level"},
                                     "fit": {"type": "string", "enum": ["tight", "fitted", "loose", "oversized"]}
                                 }
                             }
@@ -626,16 +594,8 @@ def _schema_character() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                             "type": {"type": "string", "enum": ["dress_shoes", "loafers", "oxfords", "sneakers", "boots", "ankle_boots", "work_boots", "hiking_boots", "sandals", "flip_flops", "moccasins", "boat_shoes", "wingtip_shoes", "chelsea_boots", "combat_boots", "running_shoes", "basketball_shoes", "tennis_shoes", "dress_boots", "casual_shoes"]},
-                            "color": {
-                                "type": "object",
-                                "properties": {
-                                    "name": {"type": "string", "description": "Exact color name (e.g., 'black', 'brown', 'white')"},
-                                    "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
-                                },
-                                "required": ["name", "shade"]
-                            },
+                            "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                             "material": {"type": "string", "description": "Leather, canvas, suede, rubber, etc."},
-                            "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Material transparency level"},
                             "style": {"type": "string", "description": "Casual, formal, athletic, etc."}
                         },
                         "required": ["type", "color"]
@@ -647,16 +607,8 @@ def _schema_character() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                                     "type": {"type": "string", "enum": ["reading_glasses", "sunglasses", "prescription_glasses", "safety_glasses", "aviator", "cat_eye", "round", "square", "rectangular", "rimless", "bifocal", "transitional", "wayfarer", "clubmaster"]},
-                                    "color": {
-                                        "type": "object",
-                                        "properties": {
-                                            "name": {"type": "string", "description": "Exact color name (e.g., 'gold', 'silver', 'black')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
-                                        },
-                                        "required": ["name", "shade"]
-                                    },
+                                    "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "material": {"type": "string", "description": "Metal, plastic, acetate, titanium, etc."},
-                                    "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Frame transparency level"}
                                 }
                             },
                             "tie": {
@@ -664,48 +616,26 @@ def _schema_character() -> dict[str, object]:
                                 "properties": {
                                     "type": {"type": "string", "enum": ["necktie", "bow_tie", "bolo_tie", "ascot", "string_tie", "clip_on", "skinny_tie", "wide_tie", "silk_tie", "polyester_tie"]},
                                     "color": {
-                                        "type": "object",
-                                        "properties": {
-                                            "name": {"type": "string", "description": "Exact color name (e.g., 'burgundy', 'blue', 'green')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
-                                        },
-                                        "required": ["name", "shade"]
+                                        "type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"
                                     },
                                     "pattern": {"type": "string", "description": "Solid, striped, polka dot, paisley, etc."},
                                     "material": {"type": "string", "description": "Silk, polyester, cotton, etc."},
-                                    "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Fabric transparency level"}
                                 }
                             },
                             "gloves": {
                         "type": "object",
                         "properties": {
                                     "type": {"type": "string", "enum": ["fingerless", "full_finger", "mittens", "driving_gloves", "work_gloves", "dress_gloves", "winter_gloves", "leather_gloves", "cotton_gloves", "nitrile_gloves", "latex_gloves"]},
-                                    "color": {
-                                        "type": "object",
-                                        "properties": {
-                                            "name": {"type": "string", "description": "Exact color name (e.g., 'brown', 'black', 'tan')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
-                                        },
-                                        "required": ["name", "shade"]
-                                    },
+                                    "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "material": {"type": "string", "description": "Leather, cotton, wool, synthetic, etc."},
-                                    "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Glove material transparency"}
                                 }
                             },
                             "hat": {
                                     "type": "object",
                                     "properties": {
                                     "type": {"type": "string", "enum": ["baseball_cap", "fedora", "beanie", "beret", "cowboy_hat", "top_hat", "sun_hat", "winter_hat", "helmet", "visor", "turban", "headband", "snapback", "trucker_hat", "bucket_hat"]},
-                                    "color": {
-                                        "type": "object",
-                                        "properties": {
-                                            "name": {"type": "string", "description": "Exact color name (e.g., 'blue', 'brown', 'gray')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
-                                        },
-                                        "required": ["name", "shade"]
-                                    },
+                                    "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "material": {"type": "string", "description": "Cotton, wool, leather, synthetic, etc."},
-                                    "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Hat material transparency"}
                                 }
                             },
                             "jewelry": {
@@ -723,15 +653,9 @@ def _schema_character() -> dict[str, object]:
                                 "properties": {
                                     "type": {"type": "string", "enum": ["handbag", "backpack", "briefcase", "messenger_bag", "tote_bag", "clutch", "satchel", "duffel_bag", "purse", "wallet", "fanny_pack", "laptop_bag", "gym_bag", "travel_bag", "crossbody_bag"]},
                                     "color": {
-                                        "type": "object",
-                                        "properties": {
-                                            "name": {"type": "string", "description": "Exact color name (e.g., 'brown', 'black', 'burgundy')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
-                                        },
-                                        "required": ["name", "shade"]
+                                        "type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"
                                     },
                                     "material": {"type": "string", "description": "Leather, canvas, nylon, synthetic, etc."},
-                                    "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Bag material transparency"},
                                     "size": {"type": "string", "enum": ["small", "medium", "large", "oversized"]}
                                 }
                             },
@@ -739,16 +663,8 @@ def _schema_character() -> dict[str, object]:
                                     "type": "object",
                                     "properties": {
                                     "type": {"type": "string", "enum": ["analog", "digital", "smartwatch", "dress_watch", "sports_watch", "vintage_watch", "luxury_watch", "casual_watch", "fitness_tracker", "pocket_watch"]},
-                                    "color": {
-                                        "type": "object",
-                                        "properties": {
-                                            "name": {"type": "string", "description": "Exact color name (e.g., 'silver', 'gold', 'black')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
-                                        },
-                                        "required": ["name", "shade"]
-                                    },
+                                    "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "material": {"type": "string", "description": "Metal, leather, rubber, plastic, etc."},
-                                    "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Watch material transparency"},
                                     "style": {"type": "string", "description": "Formal, casual, sporty, etc."}
                                 }
                             }
@@ -758,14 +674,7 @@ def _schema_character() -> dict[str, object]:
                                     "type": "object",
                                     "properties": {
                             "style_category": {"type": "string", "enum": ["casual", "formal", "business", "sporty", "elegant", "bohemian", "vintage", "modern", "streetwear", "preppy", "western", "athletic"]},
-                            "color_scheme": {
-                                "type": "object",
-                                "properties": {
-                                    "name": {"type": "string", "description": "Primary color name (e.g., 'blue', 'gray', 'white')"},
-                                    "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
-                                },
-                                "required": ["name", "shade"]
-                            },
+                            "color_scheme": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                             "formality_level": {"type": "string", "enum": ["very_casual", "casual", "smart_casual", "business_casual", "business_formal", "semi_formal", "formal", "black_tie"]},
                             "season": {"type": "string", "enum": ["summer", "winter", "spring", "autumn", "all_season"]},
                             "outfit_coordination": {"type": "string", "description": "How the outfit elements work together (e.g., 'matching color scheme', 'complementary styles', 'unified formal look')"}
@@ -836,15 +745,7 @@ def _schema_location() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                             "material": {"type": "string", "description": "What covers the ground (e.g., 'wood floor', 'grass', 'concrete')"},
-                            "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Ground material transparency"},
-                            "color": {
-                                "type": "object",
-                                "properties": {
-                                    "name": {"type": "string", "description": "Exact color name (e.g., 'brown', 'gray', 'green')"},
-                                    "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
-                                },
-                                "required": ["name", "shade"]
-                            }
+                            "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"}
                         },
                         "required": ["material", "color"]
                     },
@@ -852,14 +753,8 @@ def _schema_location() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                             "material": {"type": "string", "description": "What walls/surroundings are (e.g., 'painted walls', 'trees', 'brick')"},
-                            "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Wall/surrounding material transparency"},
                             "color": {
-                                "type": "object",
-                                "properties": {
-                                    "name": {"type": "string", "description": "Exact color name (e.g., 'white', 'gray', 'green')"},
-                                    "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
-                                },
-                                "required": ["name", "shade"]
+                                "type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"
                             }
                         },
                         "required": ["material", "color"]
@@ -874,16 +769,8 @@ def _schema_location() -> dict[str, object]:
                             "properties": {
                                 "name": {"type": "string", "description": "What the object is (e.g., 'wooden chair', 'red lamp', 'oak tree')"},
                                 "type": {"type": "string", "enum": ["furniture", "decoration", "plant", "window", "door", "lighting", "natural", "building", "vehicle", "other"]},
-                                "color": {
-                                    "type": "object",
-                                    "properties": {
-                                        "name": {"type": "string", "description": "Exact color name (e.g., 'brown', 'silver', 'red')"},
-                                        "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
-                                    },
-                                    "required": ["name", "shade"]
-                                },
+                                "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                 "material": {"type": "string", "description": "What it's made of"},
-                                "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Object material transparency"},
                                 "size": {"type": "string", "enum": ["tiny", "small", "medium", "large", "huge"]},
                                 "position": {"type": "string", "description": "Hierarchical positioning: for large objects use room/scene references (e.g., 'center of room', 'left wall', 'back corner'), for small objects reference large objects (e.g., 'on the wooden table', 'next to the sofa', 'under the window')"},
                                 "positioning_priority": {"type": "string", "enum": ["primary", "secondary", "tertiary"], "description": "Positioning hierarchy: 'primary' for large anchor objects, 'secondary' for medium objects, 'tertiary' for small decorative items"}
@@ -961,128 +848,50 @@ def _build_character_system_prompt(story_desc: str, character_name: str, all_cha
     other_characters_text = ", ".join(other_characters) if other_characters else "none"
     
     return (
-        f"You are a visual director creating focused character descriptions for AI image generation. "
-        "Focus on the most important visual elements: face, hair, eyes, skin, and clothing details with SPECIFIC colors. "
-        "CRITICAL COLOR REQUIREMENT: EVERY color field MUST use a structured object with 'name' and 'shade' fields. "
-        "NEVER use vague terms without proper structure. "
-        "ALWAYS use format: {'name': 'blue', 'shade': 'dark'} "
-        "SHADE REQUIREMENT: Use only these shade values: 'very_light', 'light', 'medium', 'dark', 'very_dark'. "
-        "The JSON schema will REJECT any color without proper structure. "
-        "COLOR SCHEME REQUIREMENT: The color_scheme field must contain ONLY ONE primary color using the same structured format. "
-        "DO NOT list multiple colors in color_scheme - choose the dominant color only. "
-        "TRANSPARENCY REQUIREMENT: Specify material transparency levels - 'opaque' for solid materials, 'semi_transparent' for materials like thin fabric or frosted glass, 'transparent' for clear glass or water. "
-        "Analyze the story context and character name to determine appropriate visual choices. "
-        "Consider the character's profession, role, and story setting when making clothing and style decisions. "
-        "For professional characters, prioritize uniform/professional clothing over casual wear. "
-        "For characters with relationships to others, consider matching elements like wedding rings or shared accessories. "
-        "IMPORTANT: Create a complete, coordinated outfit that matches and complements each other. "
-        "Ensure tops and bottoms work together in style, formality level, and color scheme. "
-        "CRITICAL: Match appropriate clothing combinations - dress pants go with dress shirts, jeans go with t-shirts, chinos go with polo shirts. "
-        "Use Western clothing styles - dress shirts, polo shirts, jeans, chinos, khakis, dress pants, sneakers, boots, loafers. "
-        "Avoid mismatched combinations like casual t-shirt with dress pants or dress shirt with jeans. "
-        "Accessories should complement the overall outfit - formal accessories with formal wear, casual with casual. "
-        "Footwear should match the outfit's formality and style. "
-        "Avoid random mix-and-match - create a cohesive, well-dressed character. "
-        "Keep descriptions concise but specific - focus on SPECIFIC colors, textures, and key visual features. "
-        f"Describe the character in {ART_STYLE} style. Strictly follow {ART_STYLE} Style.\n\n"
-        f"STORY CONTEXT: {story_desc}\n\n"
-        f"CHARACTER TO DESCRIBE: {character_name}\n"
-        f"OTHER CHARACTERS IN STORY: {other_characters_text}"
+        f"Create a detailed character description for AI image generation in {ART_STYLE} style.\n\n"
+        f"Focus on: face, hair, eyes, skin, clothing with specific colors (use prefix + color name like 'dark blue', 'light green'). "
+        f"Consider the character's role and story context for appropriate styling.\n\n"
+        f"Story: {story_desc}\n"
+        f"Character: {character_name}\n"
+        f"Other characters: {other_characters_text}"
     )
 
 
 def _build_character_summary_prompt(character_name: str, detailed_description: str) -> str:
     return (
-        f"You are a visual AI prompt specialist creating concise character summaries for AI image generation. "
-        f"CRITICAL REQUIREMENT: Your summary MUST be between {CHARACTER_SUMMARY_CHARACTER_MIN} and {CHARACTER_SUMMARY_CHARACTER_MAX} characters (approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words). "
-        f"FAILURE TO STAY WITHIN THESE LIMITS WILL RESULT IN REJECTION. "
-        "Your task is to SHORTEN and CONVERT the detailed description into clear, to-the-point sentences. "
-        "Write as clear, descriptive sentences that capture the exact visual aspects mentioned. "
-        "Focus only on colors, shapes, textures, and materials that are specifically mentioned. "
-        "DO NOT add any new visual elements, colors, or details that are not present in the original. "
-        "PRESERVE ALL MENTIONED DETAILS: Include every visual detail that appears in the original description. "
-        "PRESERVE ALL COLOR DETAILS: Every color mentioned must include name and shade exactly as written in the original. "
-        f"Create a concise visual summary that is EXACTLY between {CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters and includes only the visual details from the original description. "
-        f"Describe the character in {ART_STYLE} style. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.\n\n"
-        f"CHARACTER: {character_name}\n\n"
-        f"DETAILED DESCRIPTION: {detailed_description}\n\n"
+        f"Create a concise character summary ({CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters) for AI image generation in {ART_STYLE} style.\n\n"
+        f"It must always include all visual details from the original description, preserving all visual attributes and characteristics.\n"
+        f"Character: {character_name}\n\n"
+        f"Original description: {detailed_description}"
     )
 
 
 def _build_story_description_prompt(story_content: str) -> str:
     return (
-        f"You are a story analyst creating a Short Version of the COMPLETE STORY for AI character and location generation. "
-        f"CRITICAL REQUIREMENT: Your story description MUST be between {STORY_DESCRIPTION_CHARACTER_MIN} and {STORY_DESCRIPTION_CHARACTER_MAX} characters (approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words). "
-        f"FAILURE TO STAY WITHIN THESE LIMITS WILL RESULT IN REJECTION. "
-        f"Analyze the given story content and create a Short Version of the COMPLETE STORY that includes ALL details in proper chronological sequence.\n\n"
-        
-        "REQUIREMENTS:\n"
-        "1. Complete chronological sequence of ALL events from beginning to end\n"
-        "2. Every character mentioned in the story with their role and relationships\n"
-        "3. Every location visited or mentioned with their significance\n"
-        "4. Setting details: time period, place, atmosphere, tone\n"
-        "5. Character interactions and dialogue key points\n"
-        "6. Plot developments and story progression\n"
-        "7. Resolution and conclusion\n\n"
-        
-        "Write as a Short Version of the COMPLETE STORY that flows chronologically, covering every detail while staying within the character and word limits. "
-        "This will be used to generate consistent character and location descriptions, so include all visual and contextual information. "
-        f"Create a Short Version of the COMPLETE STORY (MINIMUM {STORY_DESCRIPTION_CHARACTER_MIN} characters, MAXIMUM {STORY_DESCRIPTION_CHARACTER_MAX} characters, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words) covering all characters, events, and locations in proper chronological sequence. "
-        f"Describe the story in {ART_STYLE} style. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.\n\n"
-
-        f"STORY CONTENT: {story_content}\n\n"
+        f"Create a story summary ({STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX} characters) for AI generation in {ART_STYLE} style.\n\n"
+        f"It must always include all characters and their roles, all locations and settings, complete chronological events in details.\n"
+        f"Story content: {story_content}"
     )
 
 
 def _build_location_system_prompt(story_desc: str, location_id: str, all_locations: list[str]) -> str:
     other_locations = [loc for loc in all_locations if loc != location_id]
     other_locations_text = ", ".join(other_locations) if other_locations else "none"
-    
     return (
-        f"You are a visual director creating detailed location descriptions for AI image generation. "
-        "Focus on the most important visual elements: architecture, lighting, atmosphere, colors, materials, and environmental details. "
-        "CRITICAL COLOR REQUIREMENT: EVERY color field MUST use a structured object with 'name' and 'shade' fields. "
-        "NEVER use vague terms without proper structure. "
-        "ALWAYS use format: {'name': 'gray', 'shade': 'dark'} "
-        "SHADE REQUIREMENT: Use only these shade values: 'very_light', 'light', 'medium', 'dark', 'very_dark'. "
-        "TRANSPARENCY REQUIREMENT: Specify material transparency levels - 'opaque' for solid materials, 'semi_transparent' for materials like frosted glass or thin fabric, 'transparent' for clear glass or water. "
-        "Analyze the story context and location to determine appropriate visual choices. "
-        "Consider the location's purpose, setting, and story context when making architectural and environmental decisions. "
-        "For outdoor locations, prioritize natural elements and weather conditions. "
-        "For indoor locations, focus on architectural style, lighting, and interior design. "
-        "Keep descriptions specific and detailed - focus on SPECIFIC colors, textures, materials, and key visual features. "
-        "IMPORTANT: You must include 15-20 detailed objects in the scene with HIERARCHICAL POSITIONING. "
-        "POSITIONING RULES: Start with large anchor objects (sofas, tables, beds, trees, buildings) positioned relative to the room/scene (e.g., 'center of room', 'left wall', 'back corner'). "
-        "Then position medium objects relative to large ones (e.g., 'on the wooden table', 'next to the sofa', 'under the window'). "
-        "Finally position small decorative items relative to medium objects (e.g., 'on the coffee table', 'next to the lamp', 'on the bookshelf'). "
-        "Each object should have specific details about its appearance, color, material, transparency level, size, hierarchical position, and positioning priority. "
-        f"Describe the location in {ART_STYLE} style. Strictly follow {ART_STYLE} Style.\n\n"
-        f"STORY CONTEXT: {story_desc}\n\n"
-        f"LOCATION TO DESCRIBE: {location_id}\n"
-        f"OTHER LOCATIONS IN STORY: {other_locations_text}"
+        f"Create a detailed location description for AI image generation in {ART_STYLE} style.\n\n"
+        f"It must always include all possible objects that can be seen in the scene, postioning large objects relative to the room, medium objects relative to large ones, small items relative to medium objects.\n"
+        f"Story: {story_desc}\n"
+        f"Location: {location_id}\n"
+        f"Other locations: {other_locations_text}"
     )
 
 
 def _build_location_summary_prompt(location_id: str, detailed_description: str) -> str:
     return (
-        f"You are a visual AI prompt specialist creating concise location summaries for AI image generation. "
-        f"CRITICAL REQUIREMENT: Your summary MUST be between {LOCATION_SUMMARY_CHARACTER_MIN} and {LOCATION_SUMMARY_CHARACTER_MAX} characters (approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words). "
-        f"FAILURE TO STAY WITHIN THESE LIMITS WILL RESULT IN REJECTION. "
-        "Your task is to SHORTEN and CONVERT the detailed location description into clear, to-the-point sentences. "
-        "ONLY include visual details that are ALREADY MENTIONED in the original description. "
-        "DO NOT add any new visual elements, colors, or details that are not present in the original. "
-        "PRESERVE ALL MENTIONED DETAILS: Include every visual detail that appears in the original description. "
-        "PRESERVE HIERARCHICAL POSITIONING: Maintain the positioning relationships between objects (large objects positioned relative to room/scene, medium objects relative to large ones, small objects relative to medium ones). "
-        "CRITICAL COLOR PRESERVATION: When mentioning colors, ALWAYS preserve the exact structured format from the original description. "
-        "NEVER change structured colors to simple text - keep the name and shade intact. "
-        "PRESERVE ALL COLOR STRUCTURE: Every color mentioned must include name and shade exactly as written in the original. "
-        "PRESERVE TRANSPARENCY LEVELS: Keep material transparency specifications (opaque, semi_transparent, transparent). "
-        "Write as clear, descriptive sentences that capture the exact visual aspects mentioned. "
-        "Focus on colors, shapes, textures, materials, transparency levels, and hierarchical positioning that are specifically mentioned. "
-        f"Create a concise visual summary that is EXACTLY between {LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters and includes only the visual details from the original description. "
-        f"Describe the location in {ART_STYLE} style. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.\n\n"
-        f"LOCATION: {location_id}\n\n"
-        f"DETAILED DESCRIPTION: {detailed_description}\n\n"
+        f"Create a concise location summary ({LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters) for AI image generation in {ART_STYLE} style.\n\n"
+        f"It must always include all visual details from the original description, preserving all visualattributes, characteristics and postioning relationships.\n"
+        f"Location: {location_id}\n\n"
+        f"Original description: {detailed_description}"
     )
 
 
