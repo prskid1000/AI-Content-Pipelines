@@ -475,7 +475,7 @@ def _extract_locations_from_content(content: str) -> dict[str, str]:
             pass
     
     return locations
-    
+
 def _sanitize_single_paragraph(text: str) -> str:
     if not text:
         return ""
@@ -670,7 +670,7 @@ def _schema_character_summary() -> dict[str, object]:
                         "type": "string",
                         "minLength": CHARACTER_SUMMARY_CHARACTER_MIN,
                         "maxLength": CHARACTER_SUMMARY_CHARACTER_MAX,
-                        "description": f"A summary (MINIMUM {CHARACTER_SUMMARY_CHARACTER_MIN} characters, MAXIMUM {CHARACTER_SUMMARY_CHARACTER_MAX} characters, approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words) of the character's all mentioned visual features. MUST be within the character count range."
+                        "description": f"A Short Version of the COMPLETE CHARACTER ({CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters, approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words) that will contain entire character from start to end with all details in short version in {ART_STYLE} style."
                     }
                 },
                 "required": ["summary"]
@@ -777,7 +777,7 @@ def _schema_location_summary() -> dict[str, object]:
                         "type": "string",
                         "minLength": LOCATION_SUMMARY_CHARACTER_MIN,
                         "maxLength": LOCATION_SUMMARY_CHARACTER_MAX,
-                        "description": f"A summary (MINIMUM {LOCATION_SUMMARY_CHARACTER_MIN} characters, MAXIMUM {LOCATION_SUMMARY_CHARACTER_MAX} characters, approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words) of the location's all mentioned visual features. MUST be within the character count range."
+                        "description": f"A Short Version of the COMPLETE LOCATION ({LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters, approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words) that will contain entire location from start to end with all details in short version in {ART_STYLE} style."
                     }
                 },
                 "required": ["summary"]
@@ -801,7 +801,7 @@ def _schema_story_description() -> dict[str, object]:
                         "type": "string",
                         "minLength": STORY_DESCRIPTION_CHARACTER_MIN,
                         "maxLength": STORY_DESCRIPTION_CHARACTER_MAX,
-                        "description": f"a Short Version of the COMPLETE STORY (MINIMUM {STORY_DESCRIPTION_CHARACTER_MIN} characters, MAXIMUM {STORY_DESCRIPTION_CHARACTER_MAX} characters, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words) mentioning the story setting, tone, all events, all characters, all locations, and context for character and location generation. MUST be within the character count range."
+                        "description": f"A Short Version of the COMPLETE STORY (MINIMUM {STORY_DESCRIPTION_CHARACTER_MIN} characters, MAXIMUM {STORY_DESCRIPTION_CHARACTER_MAX} characters, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words) that will contain entire story from start to end with all details in short version in {ART_STYLE} style."
                     }
                 },
                 "required": ["summary"]
