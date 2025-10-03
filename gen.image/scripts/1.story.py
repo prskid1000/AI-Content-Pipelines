@@ -35,7 +35,6 @@ MODEL_CHARACTER_GENERATION = "qwen/qwen3-14b"  # Model for character description
 MODEL_CHARACTER_SUMMARY = "qwen/qwen3-14b"  # Model for character summary generation
 MODEL_LOCATION_EXPANSION = "qwen/qwen3-14b"  # Model for location expansion
 
-ART_STYLE = "Realistic Anime"
 
 # Resumable state management
 class ResumableState:
@@ -670,7 +669,7 @@ def _schema_character_summary() -> dict[str, object]:
                         "type": "string",
                         "minLength": CHARACTER_SUMMARY_CHARACTER_MIN,
                         "maxLength": CHARACTER_SUMMARY_CHARACTER_MAX,
-                        "description": f"A Short Version of the COMPLETE CHARACTER ({CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters, approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words) that will contain entire character from start to end with all details in short version in {ART_STYLE} style."
+                        "description": f"A Short Version of the COMPLETE CHARACTER ({CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters, approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words) that will contain entire character from start to end with all details in short version."
                     }
                 },
                 "required": ["summary"]
@@ -777,7 +776,7 @@ def _schema_location_summary() -> dict[str, object]:
                         "type": "string",
                         "minLength": LOCATION_SUMMARY_CHARACTER_MIN,
                         "maxLength": LOCATION_SUMMARY_CHARACTER_MAX,
-                        "description": f"A Short Version of the COMPLETE LOCATION ({LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters, approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words) that will contain entire location from start to end with all details in short version in {ART_STYLE} style."
+                        "description": f"A Short Version of the COMPLETE LOCATION ({LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters, approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words) that will contain entire location from start to end with all details in short version."
                     }
                 },
                 "required": ["summary"]
@@ -801,7 +800,7 @@ def _schema_story_description() -> dict[str, object]:
                         "type": "string",
                         "minLength": STORY_DESCRIPTION_CHARACTER_MIN,
                         "maxLength": STORY_DESCRIPTION_CHARACTER_MAX,
-                        "description": f"A Short Version of the COMPLETE STORY (MINIMUM {STORY_DESCRIPTION_CHARACTER_MIN} characters, MAXIMUM {STORY_DESCRIPTION_CHARACTER_MAX} characters, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words) that will contain entire story from start to end with all details in short version in {ART_STYLE} style."
+                        "description": f"A Short Version of the COMPLETE STORY (MINIMUM {STORY_DESCRIPTION_CHARACTER_MIN} characters, MAXIMUM {STORY_DESCRIPTION_CHARACTER_MAX} characters, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words) that will contain entire story from start to end with all details in short version."
                     }
                 },
                 "required": ["summary"]
@@ -813,7 +812,7 @@ def _schema_story_description() -> dict[str, object]:
 
 def _build_character_system_prompt() -> str:
     return (
-        f"Create a detailed character description for AI image generation in {ART_STYLE} style.\n\n"
+        f"Create a detailed character description for AI image generation.\n\n"
         f"It must always include all visual details from the original description, preserving all visual attributes and characteristics."
         f"Consider the character's role and story context for appropriate styling.\n\n"
     )
@@ -829,7 +828,7 @@ def _build_character_user_prompt(story_desc: str, character_name: str, all_chara
 
 def _build_character_summary_prompt() -> str:
     return (
-        f"Create a concise character single continuous paragraph ({CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters, approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words) that will contain entire character from start to end with all details in short version in {ART_STYLE} style.\n\n"
+        f"Create a concise character single continuous paragraph ({CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters, approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words) that will contain entire character from start to end with all details in short version.\n\n"
         f"It must always include all visual details from the original description, preserving all visual attributes and characteristics.\n"
     )
 
@@ -842,7 +841,7 @@ def _build_character_summary_user_prompt(character_name: str, detailed_descripti
 
 def _build_story_description_prompt() -> str:
     return (
-        f"Create a story single continuous paragraph ({STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX}, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words) that will contain entire story from start to end with all details in short version in {ART_STYLE} style.\n\n"
+        f"Create a story single continuous paragraph ({STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX}, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words) that will contain entire story from start to end with all details in short version.\n\n"
         f"It must always include all actors and their roles, all locations and settings, complete chronological events in details.\n"
     )
 
@@ -853,7 +852,7 @@ def _build_story_description_user_prompt(story_content: str) -> str:
 
 def _build_location_system_prompt() -> str:
     return (
-        f"Create a detailed location description for AI image generation in {ART_STYLE} style.\n\n"
+        f"Create a detailed location description for AI image generation.\n\n"
         f"It must always include all possible objects that can be seen in the scene, postioning large objects relative to the room, medium objects relative to large ones, small items relative to medium objects.\n"
     )
 
@@ -869,7 +868,7 @@ def _build_location_user_prompt(story_desc: str, location_id: str, all_locations
 
 def _build_location_summary_prompt() -> str:
     return (
-        f"Create a concise location single continuous paragraph ({LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters, approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words) that will contain entire location from start to end with all details in short version in {ART_STYLE} style.\n\n"
+        f"Create a concise location single continuous paragraph ({LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters, approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words) that will contain entire location from start to end with all details in short version.\n\n"
         f"It must always include all visual details from the original description, preserving all visualattributes, characteristics and postioning relationships.\n"
     )
 
