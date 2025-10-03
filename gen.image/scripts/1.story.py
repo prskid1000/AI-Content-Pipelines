@@ -534,8 +534,8 @@ def _schema_character() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                             "tops": {
-                                "type": "object",
-                                "properties": {
+                        "type": "object",
+                        "properties": {
                                     "type": {"type": "string", "enum": ["dress_shirt", "casual_shirt", "t-shirt", "polo_shirt", "sweater", "cardigan", "blazer", "suit_jacket", "hoodie", "tank_top", "turtleneck", "henley", "flannel_shirt", "oxford_shirt", "button_down", "long_sleeve", "short_sleeve", "polo", "crew_neck", "v_neck"]},
                                     "color": {"type": "string", "description": "Primary color of the top"},
                                     "pattern": {"type": "string", "description": "Solid, striped, plaid, checkered, etc."},
@@ -545,8 +545,8 @@ def _schema_character() -> dict[str, object]:
                                 "required": ["type", "color"]
                             },
                             "bottoms": {
-                                "type": "object",
-                                "properties": {
+                        "type": "object",
+                        "properties": {
                                     "type": {"type": "string", "enum": ["dress_pants", "casual_pants", "jeans", "shorts", "cargo_pants", "chinos", "khakis", "trousers", "slacks", "corduroy_pants", "denim_shorts", "dress_shorts", "cargo_shorts", "athletic_shorts", "swim_trunks"]},
                                     "color": {"type": "string", "description": "Primary color of the bottom"},
                                     "pattern": {"type": "string", "description": "Solid, striped, plaid, etc."},
@@ -556,8 +556,8 @@ def _schema_character() -> dict[str, object]:
                                 "required": ["type", "color"]
                             },
                             "uniform_professional": {
-                                "type": "object",
-                                "properties": {
+                        "type": "object",
+                        "properties": {
                                     "type": {"type": "string", "enum": ["military_uniform", "police_uniform", "medical_scrubs", "chef_uniform", "nurse_uniform", "pilot_uniform", "flight_attendant", "security_guard", "firefighter", "paramedic", "business_suit", "formal_suit", "academic_robe", "judge_robe", "clerical_robe", "lab_coat", "apron", "overalls", "coveralls", "boiler_suit", "cargo_uniform", "tactical_gear", "dress_uniform", "service_uniform", "work_uniform"]},
                                     "color": {"type": "string", "description": "Primary color of the uniform"},
                                     "rank_insignia": {"type": "string", "description": "Rank, badges, patches, or insignia if applicable"},
@@ -567,8 +567,8 @@ def _schema_character() -> dict[str, object]:
                                 "required": ["type", "color"]
                             },
                             "outerwear": {
-                                "type": "object",
-                                "properties": {
+                        "type": "object",
+                        "properties": {
                                     "type": {"type": "string", "enum": ["coat", "jacket", "raincoat", "blazer", "overcoat", "pea_coat", "hoodie", "cardigan", "vest", "windbreaker", "bomber_jacket", "leather_jacket", "denim_jacket", "suit_jacket", "sports_jacket"]},
                                     "color": {"type": "string", "description": "Primary color of the outerwear"},
                                     "material": {"type": "string", "description": "Leather, wool, denim, polyester, etc."},
@@ -592,8 +592,8 @@ def _schema_character() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                             "glasses": {
-                                "type": "object",
-                                "properties": {
+                        "type": "object",
+                        "properties": {
                                     "type": {"type": "string", "enum": ["reading_glasses", "sunglasses", "prescription_glasses", "safety_glasses", "aviator", "cat_eye", "round", "square", "rectangular", "rimless", "bifocal", "transitional", "wayfarer", "clubmaster"]},
                                     "color": {"type": "string", "description": "Frame color"},
                                     "material": {"type": "string", "description": "Metal, plastic, acetate, titanium, etc."}
@@ -609,24 +609,24 @@ def _schema_character() -> dict[str, object]:
                                 }
                             },
                             "gloves": {
-                                "type": "object",
-                                "properties": {
+                        "type": "object",
+                        "properties": {
                                     "type": {"type": "string", "enum": ["fingerless", "full_finger", "mittens", "driving_gloves", "work_gloves", "dress_gloves", "winter_gloves", "leather_gloves", "cotton_gloves", "nitrile_gloves", "latex_gloves"]},
                                     "color": {"type": "string", "description": "Primary color of the gloves"},
                                     "material": {"type": "string", "description": "Leather, cotton, wool, synthetic, etc."}
                                 }
                             },
                             "hat": {
-                                "type": "object",
-                                "properties": {
+                                    "type": "object",
+                                    "properties": {
                                     "type": {"type": "string", "enum": ["baseball_cap", "fedora", "beanie", "beret", "cowboy_hat", "top_hat", "sun_hat", "winter_hat", "helmet", "visor", "turban", "headband", "snapback", "trucker_hat", "bucket_hat"]},
                                     "color": {"type": "string", "description": "Primary color of the hat"},
                                     "material": {"type": "string", "description": "Cotton, wool, leather, synthetic, etc."}
                                 }
                             },
                             "jewelry": {
-                                "type": "object",
-                                "properties": {
+                        "type": "object",
+                        "properties": {
                                     "necklaces": {"type": "string", "description": "Type, color, and material of necklaces"},
                                     "rings": {"type": "string", "description": "Type, color, and material of rings"},
                                     "earrings": {"type": "string", "description": "Type, color, and material of earrings"},
@@ -644,8 +644,8 @@ def _schema_character() -> dict[str, object]:
                                 }
                             },
                             "watch": {
-                                "type": "object",
-                                "properties": {
+                                    "type": "object",
+                                    "properties": {
                                     "type": {"type": "string", "enum": ["analog", "digital", "smartwatch", "dress_watch", "sports_watch", "vintage_watch", "luxury_watch", "casual_watch", "fitness_tracker", "pocket_watch"]},
                                     "color": {"type": "string", "description": "Primary color of the watch"},
                                     "material": {"type": "string", "description": "Metal, leather, rubber, plastic, etc."},
@@ -655,9 +655,9 @@ def _schema_character() -> dict[str, object]:
                         }
                     },
                     "overall_style": {
-                        "type": "object",
-                        "properties": {
-                            "style_category": {"type": "string", "enum": ["casual", "formal", "business", "sporty", "elegant", "bohemian", "vintage", "modern", "streetwear", "preppy", "western", "preppy", "athletic"]},
+                                    "type": "object",
+                                    "properties": {
+                            "style_category": {"type": "string", "enum": ["casual", "formal", "business", "sporty", "elegant", "bohemian", "vintage", "modern", "streetwear", "preppy", "western", "athletic"]},
                             "color_scheme": {"type": "string", "description": "Overall color palette (e.g., 'neutral tones', 'bright colors', 'monochrome')"},
                             "formality_level": {"type": "string", "enum": ["very_casual", "casual", "smart_casual", "business_casual", "business_formal", "semi_formal", "formal", "black_tie"]},
                             "season": {"type": "string", "enum": ["summer", "winter", "spring", "autumn", "all_season"]},
