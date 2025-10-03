@@ -28,7 +28,7 @@ STORY_DESCRIPTION_WORD_MAX = 3000
 # Feature flags
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
-ENABLE_THINKING = True  # Set to True to enable thinking in LM Studio responses
+ENABLE_THINKING = False  # Set to True to enable thinking in LM Studio responses
 
 # Model constants for easy switching
 MODEL_STORY_DESCRIPTION = "qwen/qwen3-14b"  # Model for generating story descriptions
@@ -918,7 +918,6 @@ def _call_lm_studio(system_prompt: str, lm_studio_url: str, model: str, user_pay
     if resp.status_code != 200:
         raise RuntimeError(f"LM Studio API error: {resp.status_code} {resp.text}")
     data = resp.json()
-    print(data)
     if not data.get("choices"):
         raise RuntimeError("LM Studio returned no choices")
     return data["choices"][0]["message"]["content"]
