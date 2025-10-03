@@ -918,7 +918,6 @@ def _call_lm_studio(system_prompt: str, lm_studio_url: str, model: str, user_pay
     if resp.status_code != 200:
         raise RuntimeError(f"LM Studio API error: {resp.status_code} {resp.text}")
     data = resp.json()
-    print(data)
     if not data.get("choices"):
         raise RuntimeError("LM Studio returned no choices")
     return data["choices"][0]["message"]["content"]
