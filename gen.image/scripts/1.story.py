@@ -549,7 +549,7 @@ def _schema_character() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                                     "type": {"type": "string", "enum": ["dress_shirt", "casual_shirt", "t-shirt", "polo_shirt", "sweater", "cardigan", "blazer", "suit_jacket", "hoodie", "tank_top", "turtleneck", "henley", "flannel_shirt", "oxford_shirt", "button_down", "long_sleeve", "short_sleeve", "polo", "crew_neck", "v_neck"]},
-                                    "color": {"type": "string", "pattern": "^[a-zA-Z_]+\\s+#[0-9A-Fa-f]{6}$", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'navy_blue #1E3A8A', 'royal_blue #4169E1', 'sky_blue #87CEEB')"},
+                                    "color": {"type": "string", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'navy_blue #1E3A8A', 'royal_blue #4169E1', 'sky_blue #87CEEB')"},
                                     "pattern": {"type": "string", "description": "Solid, striped, plaid, checkered, etc."},
                                     "material": {"type": "string", "description": "Cotton, silk, wool, polyester, linen, etc."},
                                     "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Material transparency level"},
@@ -561,7 +561,7 @@ def _schema_character() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                                     "type": {"type": "string", "enum": ["dress_pants", "casual_pants", "jeans", "shorts", "cargo_pants", "chinos", "khakis", "trousers", "slacks", "corduroy_pants", "denim_shorts", "dress_shorts", "cargo_shorts", "athletic_shorts", "swim_trunks"]},
-                                    "color": {"type": "string", "pattern": "^[a-zA-Z_]+\\s+#[0-9A-Fa-f]{6}$", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'charcoal_gray #36454F', 'khaki #F0E68C', 'dark_brown #654321')"},
+                                    "color": {"type": "string", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'charcoal_gray #36454F', 'khaki #F0E68C', 'dark_brown #654321')"},
                                     "pattern": {"type": "string", "description": "Solid, striped, plaid, etc."},
                                     "material": {"type": "string", "description": "Denim, cotton, wool, polyester, etc."},
                                     "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Material transparency level"},
@@ -573,7 +573,7 @@ def _schema_character() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                                     "type": {"type": "string", "enum": ["military_uniform", "police_uniform", "medical_scrubs", "chef_uniform", "nurse_uniform", "pilot_uniform", "flight_attendant", "security_guard", "firefighter", "paramedic", "business_suit", "formal_suit", "academic_robe", "judge_robe", "clerical_robe", "lab_coat", "apron", "overalls", "coveralls", "boiler_suit", "cargo_uniform", "tactical_gear", "dress_uniform", "service_uniform", "work_uniform"]},
-                                    "color": {"type": "string", "pattern": "^[a-zA-Z_]+\\s+#[0-9A-Fa-f]{6}$", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'military_green #4B5320', 'navy_blue #1E3A8A', 'white #FFFFFF')"},
+                                    "color": {"type": "string", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'military_green #4B5320', 'navy_blue #1E3A8A', 'white #FFFFFF')"},
                                     "rank_insignia": {"type": "string", "description": "Rank, badges, patches, or insignia if applicable"},
                                     "material": {"type": "string", "description": "Cotton, polyester, wool, etc."},
                                     "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Material transparency level"},
@@ -585,7 +585,7 @@ def _schema_character() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                                     "type": {"type": "string", "enum": ["coat", "jacket", "raincoat", "blazer", "overcoat", "pea_coat", "hoodie", "cardigan", "vest", "windbreaker", "bomber_jacket", "leather_jacket", "denim_jacket", "suit_jacket", "sports_jacket"]},
-                                    "color": {"type": "string", "pattern": "^[a-zA-Z_]+\\s+#[0-9A-Fa-f]{6}$", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'dark_brown #654321', 'black #000000', 'camel #C19A6B')"},
+                                    "color": {"type": "string", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'dark_brown #654321', 'black #000000', 'camel #C19A6B')"},
                                     "material": {"type": "string", "description": "Leather, wool, denim, polyester, etc."},
                                     "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Material transparency level"},
                                     "fit": {"type": "string", "enum": ["tight", "fitted", "loose", "oversized"]}
@@ -598,7 +598,7 @@ def _schema_character() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                             "type": {"type": "string", "enum": ["dress_shoes", "loafers", "oxfords", "sneakers", "boots", "ankle_boots", "work_boots", "hiking_boots", "sandals", "flip_flops", "moccasins", "boat_shoes", "wingtip_shoes", "chelsea_boots", "combat_boots", "running_shoes", "basketball_shoes", "tennis_shoes", "dress_boots", "casual_shoes"]},
-                            "color": {"type": "string", "pattern": "^[a-zA-Z_]+\\s+#[0-9A-Fa-f]{6}$", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'black #000000', 'brown #8B4513', 'white #FFFFFF')"},
+                            "color": {"type": "string", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'black #000000', 'brown #8B4513', 'white #FFFFFF')"},
                             "material": {"type": "string", "description": "Leather, canvas, suede, rubber, etc."},
                             "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Material transparency level"},
                             "style": {"type": "string", "description": "Casual, formal, athletic, etc."}
@@ -612,7 +612,7 @@ def _schema_character() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                                     "type": {"type": "string", "enum": ["reading_glasses", "sunglasses", "prescription_glasses", "safety_glasses", "aviator", "cat_eye", "round", "square", "rectangular", "rimless", "bifocal", "transitional", "wayfarer", "clubmaster"]},
-                                    "color": {"type": "string", "pattern": "^[a-zA-Z_]+\\s+#[0-9A-Fa-f]{6}$", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'gold #FFD700', 'silver #C0C0C0', 'black #000000')"},
+                                    "color": {"type": "string", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'gold #FFD700', 'silver #C0C0C0', 'black #000000')"},
                                     "material": {"type": "string", "description": "Metal, plastic, acetate, titanium, etc."},
                                     "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Frame transparency level"}
                                 }
@@ -621,7 +621,7 @@ def _schema_character() -> dict[str, object]:
                                 "type": "object",
                                 "properties": {
                                     "type": {"type": "string", "enum": ["necktie", "bow_tie", "bolo_tie", "ascot", "string_tie", "clip_on", "skinny_tie", "wide_tie", "silk_tie", "polyester_tie"]},
-                                    "color": {"type": "string", "pattern": "^[a-zA-Z_]+\\s+#[0-9A-Fa-f]{6}$", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'burgundy #800020', 'navy_blue #1E3A8A', 'forest_green #228B22')"},
+                                    "color": {"type": "string", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'burgundy #800020', 'navy_blue #1E3A8A', 'forest_green #228B22')"},
                                     "pattern": {"type": "string", "description": "Solid, striped, polka dot, paisley, etc."},
                                     "material": {"type": "string", "description": "Silk, polyester, cotton, etc."},
                                     "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Fabric transparency level"}
@@ -631,7 +631,7 @@ def _schema_character() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                                     "type": {"type": "string", "enum": ["fingerless", "full_finger", "mittens", "driving_gloves", "work_gloves", "dress_gloves", "winter_gloves", "leather_gloves", "cotton_gloves", "nitrile_gloves", "latex_gloves"]},
-                                    "color": {"type": "string", "pattern": "^[a-zA-Z_]+\\s+#[0-9A-Fa-f]{6}$", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'brown #8B4513', 'black #000000', 'tan #D2B48C')"},
+                                    "color": {"type": "string", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'brown #8B4513', 'black #000000', 'tan #D2B48C')"},
                                     "material": {"type": "string", "description": "Leather, cotton, wool, synthetic, etc."},
                                     "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Glove material transparency"}
                                 }
@@ -640,7 +640,7 @@ def _schema_character() -> dict[str, object]:
                                     "type": "object",
                                     "properties": {
                                     "type": {"type": "string", "enum": ["baseball_cap", "fedora", "beanie", "beret", "cowboy_hat", "top_hat", "sun_hat", "winter_hat", "helmet", "visor", "turban", "headband", "snapback", "trucker_hat", "bucket_hat"]},
-                                    "color": {"type": "string", "pattern": "^[a-zA-Z_]+\\s+#[0-9A-Fa-f]{6}$", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'navy_blue #1E3A8A', 'brown #8B4513', 'gray #808080')"},
+                                    "color": {"type": "string", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'navy_blue #1E3A8A', 'brown #8B4513', 'gray #808080')"},
                                     "material": {"type": "string", "description": "Cotton, wool, leather, synthetic, etc."},
                                     "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Hat material transparency"}
                                 }
@@ -659,7 +659,7 @@ def _schema_character() -> dict[str, object]:
                                 "type": "object",
                                 "properties": {
                                     "type": {"type": "string", "enum": ["handbag", "backpack", "briefcase", "messenger_bag", "tote_bag", "clutch", "satchel", "duffel_bag", "purse", "wallet", "fanny_pack", "laptop_bag", "gym_bag", "travel_bag", "crossbody_bag"]},
-                                    "color": {"type": "string", "pattern": "^[a-zA-Z_]+\\s+#[0-9A-Fa-f]{6}$", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'brown #8B4513', 'black #000000', 'burgundy #800020')"},
+                                    "color": {"type": "string", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'brown #8B4513', 'black #000000', 'burgundy #800020')"},
                                     "material": {"type": "string", "description": "Leather, canvas, nylon, synthetic, etc."},
                                     "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Bag material transparency"},
                                     "size": {"type": "string", "enum": ["small", "medium", "large", "oversized"]}
@@ -669,7 +669,7 @@ def _schema_character() -> dict[str, object]:
                                     "type": "object",
                                     "properties": {
                                     "type": {"type": "string", "enum": ["analog", "digital", "smartwatch", "dress_watch", "sports_watch", "vintage_watch", "luxury_watch", "casual_watch", "fitness_tracker", "pocket_watch"]},
-                                    "color": {"type": "string", "pattern": "^[a-zA-Z_]+\\s+#[0-9A-Fa-f]{6}$", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'silver #C0C0C0', 'gold #FFD700', 'black #000000')"},
+                                    "color": {"type": "string", "description": "MUST be exact color name and hex code format: 'color_name #HEXCODE' (e.g., 'silver #C0C0C0', 'gold #FFD700', 'black #000000')"},
                                     "material": {"type": "string", "description": "Metal, leather, rubber, plastic, etc."},
                                     "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Watch material transparency"},
                                     "style": {"type": "string", "description": "Formal, casual, sporty, etc."}
