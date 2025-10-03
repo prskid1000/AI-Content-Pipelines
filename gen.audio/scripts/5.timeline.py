@@ -183,7 +183,7 @@ class TimelineSFXGenerator:
                 "model": self.model,
                 "messages": [
                     {
-                        "role": "system",
+                        "role": "user",
                         "content": 
 """You are an SFX(Sound or Silence) generator for Sound Generating AI Models.
 

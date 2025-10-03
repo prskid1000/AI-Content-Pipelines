@@ -217,7 +217,7 @@ Consider:
                 "model": self.model,
                 "messages": [
                     {
-                        "role": "system",
+                        "role": "user",
                         "content": 
  """You are an audio timing expert. Estimate realistic sound effect duration and optimal placement within a transcript line.
 

@@ -527,7 +527,7 @@ class CharacterManager:
         payload = {
             "model": model,
             "messages": [
-                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": system_prompt},
             ],
             "temperature": 1,
             "max_tokens": 2048,
