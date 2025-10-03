@@ -85,7 +85,7 @@ USE_CHARACTER_NAME_OVERLAY = False  # Set to False to disable name overlay
 CHARACTER_NAME_FONT_SCALE = 1
 CHARACTER_NAME_BAND_HEIGHT_RATIO = 0.30  # 15% of image height for name band
 
-USE_SUMMARY_TEXT = False  # Set to True to use summary text
+USE_SUMMARY_TEXT = True  # Set to True to use summary text
 
 
 class ResumableState:
