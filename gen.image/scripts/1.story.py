@@ -475,38 +475,7 @@ def _extract_locations_from_content(content: str) -> dict[str, str]:
             pass
     
     return locations
-
-
-def _replace_location_references(text: str, locations: dict[str, str]) -> str:
-    """Replace {{loc_id}} and {{loc_id, ...}} with full descriptions in text."""
-    def replace_func(match):
-        full_match = match.group(0)
-        
-        # Try full location pattern first {{loc_id, description}}
-        full_loc_match = _LOCATION_FULL_RE.match(full_match)
-        if full_loc_match:
-            loc_id = full_loc_match.group(1).strip()
-            if loc_id in locations:
-                return f"{{{{{locations[loc_id]}}}}}"
-            return full_match
-        
-        # Try simple reference pattern {{loc_id}}
-        ref_match = _LOCATION_REF_RE.match(full_match)
-        if ref_match:
-            loc_id = ref_match.group(1).strip()
-            if loc_id in locations:
-                return f"{{{{{locations[loc_id]}}}}}"
-            return full_match
-        
-        return full_match
     
-    # Replace all location patterns
-    result = _LOCATION_FULL_RE.sub(replace_func, text)
-    result = _LOCATION_REF_RE.sub(replace_func, result)
-    
-    return result
-
-
 def _sanitize_single_paragraph(text: str) -> str:
     if not text:
         return ""
@@ -842,61 +811,78 @@ def _schema_story_description() -> dict[str, object]:
     }
 
 
-def _build_character_system_prompt(story_desc: str, character_name: str, all_characters: list[str]) -> str:
-    other_characters = [name for name in all_characters if name != character_name]
-    other_characters_text = ", ".join(other_characters) if other_characters else "none"
-    
+def _build_character_system_prompt() -> str:
     return (
         f"Create a detailed character description for AI image generation in {ART_STYLE} style.\n\n"
         f"It must always include all visual details from the original description, preserving all visual attributes and characteristics."
         f"Consider the character's role and story context for appropriate styling.\n\n"
+    )
+
+def _build_character_user_prompt(story_desc: str, character_name: str, all_characters: list[str]) -> str:
+    other_characters = [name for name in all_characters if name != character_name]
+    other_characters_text = ", ".join(other_characters) if other_characters else "none"
+    return (
         f"Story: {story_desc}\n"
         f"Character: {character_name}\n"
         f"Other characters: {other_characters_text}"
     )
 
-
-def _build_character_summary_prompt(character_name: str, detailed_description: str) -> str:
+def _build_character_summary_prompt() -> str:
     return (
         f"Create a concise character single continuous paragraph ({CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters, approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words) that will contain entire character from start to end with all details in short version in {ART_STYLE} style.\n\n"
         f"It must always include all visual details from the original description, preserving all visual attributes and characteristics.\n"
+    )
+
+def _build_character_summary_user_prompt(character_name: str, detailed_description: str) -> str:
+    return (
         f"Character: {character_name}\n\n"
         f"Original description: {detailed_description}"
     )
 
 
-def _build_story_description_prompt(story_content: str) -> str:
+def _build_story_description_prompt() -> str:
     return (
         f"Create a story single continuous paragraph ({STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX}, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words) that will contain entire story from start to end with all details in short version in {ART_STYLE} style.\n\n"
         f"It must always include all actors and their roles, all locations and settings, complete chronological events in details.\n"
+    )
+
+def _build_story_description_user_prompt(story_content: str) -> str:
+    return (
         f"Story content: {story_content}"
     )
 
-
-def _build_location_system_prompt(story_desc: str, location_id: str, all_locations: list[str]) -> str:
-    other_locations = [loc for loc in all_locations if loc != location_id]
-    other_locations_text = ", ".join(other_locations) if other_locations else "none"
+def _build_location_system_prompt() -> str:
     return (
         f"Create a detailed location description for AI image generation in {ART_STYLE} style.\n\n"
         f"It must always include all possible objects that can be seen in the scene, postioning large objects relative to the room, medium objects relative to large ones, small items relative to medium objects.\n"
+    )
+
+def _build_location_user_prompt(story_desc: str, location_id: str, all_locations: list[str]) -> str:
+    other_locations = [loc for loc in all_locations if loc != location_id]
+    other_locations_text = ", ".join(other_locations) if other_locations else "none"
+    return (
         f"Story: {story_desc}\n"
         f"Location: {location_id}\n"
         f"Other locations: {other_locations_text}"
     )
 
 
-def _build_location_summary_prompt(location_id: str, detailed_description: str) -> str:
+def _build_location_summary_prompt() -> str:
     return (
         f"Create a concise location single continuous paragraph ({LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters, approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words) that will contain entire location from start to end with all details in short version in {ART_STYLE} style.\n\n"
         f"It must always include all visual details from the original description, preserving all visualattributes, characteristics and postioning relationships.\n"
+    )
+
+def _build_location_summary_user_prompt(location_id: str, detailed_description: str) -> str:
+    return (
         f"Location: {location_id}\n\n"
         f"Original description: {detailed_description}"
     )
 
 
-def _call_lm_studio(system_prompt: str, lm_studio_url: str, model: str, response_format: dict[str, object] | None = None, temperature: float = 1.0) -> str:
+def _call_lm_studio(system_prompt: str, user_prompt: str, lm_studio_url: str, model: str, response_format: dict[str, object] | None = None, temperature: float = 1.0) -> str:
     headers = {"Content-Type": "application/json"}
-    messages = [{"role": "user", "content": system_prompt}]
+    messages = [{"role": "user", "content": system_prompt}, {"role": "user", "content": user_prompt}]
 
     payload = {
         "model": model,
@@ -1080,6 +1066,7 @@ def _generate_structured_descriptions(
     model: str,
     schema_func,
     prompt_func,
+    user_prompt_func,
     format_func,
     item_type: str,
     resumable_state: ResumableState | None = None,
@@ -1097,6 +1084,7 @@ def _generate_structured_descriptions(
         model: Model to use
         schema_func: Function that returns the schema
         prompt_func: Function to build the prompt
+        user_prompt_func: Function to build the user prompt
         format_func: Function to format structured data
         item_type: Type of item ("character" or "location")
         resumable_state: Resumable state manager
@@ -1128,12 +1116,14 @@ def _generate_structured_descriptions(
         
         # Build prompt based on item type
         if isinstance(items, list):
-            prompt = prompt_func(story_desc, item_id, items)
+            prompt = prompt_func()
+            user_prompt = user_prompt_func(story_desc, item_id, items)
         else:
-            prompt = prompt_func(story_desc, item_id, list(items.keys()))
+            prompt = prompt_func()
+            user_prompt = user_prompt_func(story_desc, item_id, list(items.keys()))
         
         try:
-            raw = _call_lm_studio(prompt, lm_studio_url, model, schema_func())
+            raw = _call_lm_studio(prompt, user_prompt, lm_studio_url, model, schema_func())
             structured_data = _parse_structured_response(raw)
             
             if not structured_data:
@@ -1168,6 +1158,7 @@ def _generate_character_descriptions(story_desc: str, characters: list[str], lm_
         model=MODEL_CHARACTER_GENERATION,
         schema_func=_schema_character,
         prompt_func=_build_character_system_prompt,
+        user_prompt_func=_build_character_user_prompt,
         format_func=_format_character_description,
         item_type="character",
         resumable_state=resumable_state,
@@ -1176,11 +1167,6 @@ def _generate_character_descriptions(story_desc: str, characters: list[str], lm_
         is_complete_func=resumable_state.is_character_complete if resumable_state else None
     )
 
-
-
-
-
-
 def _generate_character_summaries(name_to_desc: dict[str, str], lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
     """Generate character summaries using the common function."""
     return _generate_summaries(
@@ -1188,6 +1174,7 @@ def _generate_character_summaries(name_to_desc: dict[str, str], lm_studio_url: s
         lm_studio_url=lm_studio_url,
         model=MODEL_CHARACTER_SUMMARY,
         schema_func=_schema_character_summary,
+        user_prompt_func=_build_character_summary_user_prompt,
         prompt_func=_build_character_summary_prompt,
         item_type="character",
         resumable_state=resumable_state,
@@ -1204,6 +1191,7 @@ def _generate_summaries(
     model: str,
     schema_func,
     prompt_func,
+    user_prompt_func,
     item_type: str,
     resumable_state: ResumableState | None = None,
     get_cached_func=None,
@@ -1227,10 +1215,11 @@ def _generate_summaries(
                 continue
         
         print(f"({idx}/{total}) {item_id}: generating summary...")
-        prompt = prompt_func(item_id, detailed_desc)
+        prompt = prompt_func()
+        user_prompt = user_prompt_func(item_id, detailed_desc)
         
         try:
-            raw = _call_lm_studio(prompt, lm_studio_url, model, schema_func(), temperature=temperature)
+            raw = _call_lm_studio(prompt, user_prompt, lm_studio_url, model, schema_func(), temperature=temperature)
             structured_data = _parse_structured_response(raw)
             
             if not structured_data:
@@ -1266,13 +1255,14 @@ def _generate_story_description(story_content: str, lm_studio_url: str, resumabl
     print("Generating story description from dialogue content...")
     # Extract only dialogue lines from the story content
     dialogue_content = _extract_dialogue_only_from_content(story_content)
-    prompt = _build_story_description_prompt(dialogue_content)
+    prompt = _build_story_description_prompt()
+    user_prompt = _build_story_description_user_prompt(dialogue_content)
     
     try:
         # Use model constant for story description generation
         model = MODEL_STORY_DESCRIPTION
           
-        raw = _call_lm_studio(prompt, lm_studio_url, model, _schema_story_description())
+        raw = _call_lm_studio(prompt, user_prompt, lm_studio_url, model, _schema_story_description())
         structured_data = _parse_structured_response(raw)
         
         if not structured_data:
@@ -1344,6 +1334,7 @@ def _generate_location_descriptions(story_desc: str, locations: dict[str, str], 
         model=MODEL_LOCATION_EXPANSION,
         schema_func=_schema_location,
         prompt_func=_build_location_system_prompt,
+        user_prompt_func=_build_location_user_prompt,
         format_func=_format_location_description,
         item_type="location",
         resumable_state=resumable_state,
@@ -1360,151 +1351,6 @@ def _format_location_description(location_data: dict[str, object]) -> str:
     """
     return _format_structured_data(location_data, data_type="location")
 
-
-def _convert_location_structured_to_text(structured_data: dict) -> str:
-    """Convert structured location data to flowing text description."""
-    parts = []
-    
-    # Architecture
-    arch = structured_data.get("architecture", {})
-    if arch:
-        building_type = arch.get("building_type", "")
-        style = arch.get("style", "")
-        materials = arch.get("materials", "")
-        colors = arch.get("colors", "")
-        condition = arch.get("condition", "")
-        
-        arch_desc = f"A {style} {building_type}"
-        if materials:
-            arch_desc += f" constructed of {materials}"
-        if colors:
-            arch_desc += f" in {colors}"
-        if condition:
-            arch_desc += f", appearing {condition}"
-        parts.append(arch_desc)
-    
-    # Lighting
-    lighting = structured_data.get("lighting", {})
-    if lighting:
-        light_type = lighting.get("type", "")
-        intensity = lighting.get("intensity", "")
-        source = lighting.get("source", "")
-        direction = lighting.get("direction", "")
-        
-        light_desc = f"The lighting is {intensity} and {light_type}"
-        if source:
-            light_desc += f" from {source}"
-        if direction:
-            light_desc += f" coming from {direction}"
-        parts.append(light_desc)
-    
-    # Atmosphere
-    atmosphere = structured_data.get("atmosphere", {})
-    if atmosphere:
-        mood = atmosphere.get("mood", "")
-        weather = atmosphere.get("weather", "")
-        temperature = atmosphere.get("temperature", "")
-        
-        atm_desc = f"The atmosphere is {mood}"
-        if weather:
-            atm_desc += f" with {weather} weather"
-        if temperature:
-            atm_desc += f" and {temperature} temperature"
-        parts.append(atm_desc)
-    
-    # Colors and palette
-    colors = structured_data.get("colors_palette", {})
-    if colors:
-        primary = colors.get("primary_colors", "")
-        accent = colors.get("accent_colors", "")
-        tone = colors.get("overall_tone", "")
-        
-        color_desc = f"The color palette features {primary}"
-        if accent:
-            color_desc += f" with {accent} accents"
-        if tone:
-            color_desc += f", creating a {tone} tone"
-        parts.append(color_desc)
-    
-    # Size and scale
-    size = structured_data.get("size_scale", {})
-    if size:
-        dimensions = size.get("dimensions", "")
-        height = size.get("height", "")
-        layout = size.get("layout", "")
-        
-        size_desc = f"The space is {dimensions}"
-        if height:
-            size_desc += f" with {height} ceilings"
-        if layout:
-            size_desc += f" in a {layout} layout"
-        parts.append(size_desc)
-    
-    # Furniture and objects
-    furniture = structured_data.get("furniture_objects", {})
-    if furniture:
-        furn_items = []
-        if furniture.get("furniture"):
-            furn_items.append(furniture["furniture"])
-        if furniture.get("decorations"):
-            furn_items.append(furniture["decorations"])
-        if furniture.get("appliances"):
-            furn_items.append(furniture["appliances"])
-        if furniture.get("storage"):
-            furn_items.append(furniture["storage"])
-        
-        if furn_items:
-            parts.append(f"The space contains {', '.join(furn_items)}")
-    
-    # Textures and surfaces
-    textures = structured_data.get("textures_surfaces", {})
-    if textures:
-        surf_items = []
-        if textures.get("walls"):
-            surf_items.append(f"walls with {textures['walls']}")
-        if textures.get("flooring"):
-            surf_items.append(f"{textures['flooring']} flooring")
-        if textures.get("ceilings"):
-            surf_items.append(f"ceilings featuring {textures['ceilings']}")
-        if textures.get("windows"):
-            surf_items.append(f"windows with {textures['windows']}")
-        
-        if surf_items:
-            parts.append(f"Surfaces include {', '.join(surf_items)}")
-    
-    # Outdoor elements
-    outdoor = structured_data.get("outdoor_elements", {})
-    if outdoor:
-        outdoor_items = []
-        if outdoor.get("vegetation"):
-            outdoor_items.append(outdoor["vegetation"])
-        if outdoor.get("water_features"):
-            outdoor_items.append(outdoor["water_features"])
-        if outdoor.get("terrain"):
-            outdoor_items.append(f"{outdoor['terrain']} terrain")
-        if outdoor.get("wildlife"):
-            outdoor_items.append(outdoor["wildlife"])
-        
-        if outdoor_items:
-            parts.append(f"Outdoor elements include {', '.join(outdoor_items)}")
-    
-    # Time period
-    time_period = structured_data.get("time_period", {})
-    if time_period:
-        era = time_period.get("era", "")
-        season = time_period.get("season", "")
-        time_of_day = time_period.get("time_of_day", "")
-        
-        time_desc = f"Set in the {era} era"
-        if season:
-            time_desc += f" during {season}"
-        if time_of_day:
-            time_desc += f" at {time_of_day}"
-        parts.append(time_desc)
-    
-    return ". ".join(parts) + "." if parts else ""
-
-
 def _generate_location_summaries(location_id_to_desc: dict[str, str], lm_studio_url: str, resumable_state: ResumableState | None = None) -> dict[str, str]:
     """Generate location summaries using the common function."""
     return _generate_summaries(
@@ -1513,6 +1359,7 @@ def _generate_location_summaries(location_id_to_desc: dict[str, str], lm_studio_
         model=MODEL_LOCATION_EXPANSION,
         schema_func=_schema_location_summary,
         prompt_func=_build_location_summary_prompt,
+        user_prompt_func=_build_location_summary_user_prompt,
         item_type="location",
         resumable_state=resumable_state,
         get_cached_func=resumable_state.get_location_summary if resumable_state else None,
