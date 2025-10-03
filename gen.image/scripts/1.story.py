@@ -668,7 +668,7 @@ def _schema_location() -> dict[str, object]:
                     "place": {
                         "type": "object",
                         "properties": {
-                            "type": {"type": "string", "description": "What kind of place (e.g., 'bedroom', 'forest', 'office', 'street')"},
+                            "type": {"type": "string", "description": "Location (e.g., 'bedroom', 'forest', 'office', 'street')"},
                             "size": {"type": "string", "enum": ["tiny", "small", "medium", "large", "massive"]},
                             "style": {"type": "string", "description": "Visual style (e.g., 'modern', 'rustic', 'Victorian', 'industrial')"}
                         },
@@ -677,7 +677,7 @@ def _schema_location() -> dict[str, object]:
                     "lighting": {
                         "type": "object",
                         "properties": {
-                            "source": {"type": "string", "description": "Where light comes from (e.g., 'sunlight', 'lamp', 'candle')"},
+                            "source": {"type": "string", "description": "Object that provides light (e.g., 'sunlight', 'lamp', 'candle')"},
                             "color": {"type": "string", "enum": ["warm", "cool", "natural", "golden", "white", "dim"]},
                             "brightness": {"type": "string", "enum": ["bright", "moderate", "dim", "dark"]},
                             "time": {"type": "string", "enum": ["morning", "noon", "afternoon", "evening", "night"]}
@@ -687,7 +687,7 @@ def _schema_location() -> dict[str, object]:
                     "ground": {
                         "type": "object",
                         "properties": {
-                            "material": {"type": "string", "description": "What covers the ground (e.g., 'wood floor', 'grass', 'concrete')"},
+                            "material": {"type": "string", "description": "Material that covers the ground (e.g., 'wood floor', 'grass', 'concrete')"},
                             "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"}
                         },
                         "required": ["material", "color"]
@@ -695,7 +695,7 @@ def _schema_location() -> dict[str, object]:
                     "walls_or_surroundings": {
                         "type": "object",
                         "properties": {
-                            "material": {"type": "string", "description": "What walls/surroundings are (e.g., 'painted walls', 'trees', 'brick')"},
+                            "material": {"type": "string", "description": "Material that walls/surroundings are made of (e.g., 'painted walls', 'trees', 'brick')"},
                             "color": {
                                 "type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"
                             }
@@ -856,7 +856,6 @@ def _build_location_summary_user_prompt(location_id: str, detailed_description: 
 def _call_lm_studio(system_prompt: str, user_prompt: str, lm_studio_url: str, model: str, response_format: dict[str, object] | None = None, temperature: float = 1.0) -> str:
     headers = {"Content-Type": "application/json"}
     messages = [{"role": "user", "content": system_prompt}, {"role": "user", "content": user_prompt}]
-
     payload = {
         "model": model,
         "messages": messages,
@@ -1233,7 +1232,7 @@ def _generate_story_description(story_content: str, lm_studio_url: str, resumabl
         # Use model constant for story description generation
         model = MODEL_STORY_DESCRIPTION
         # Call with structured output using the story description schema
-        raw = _call_lm_studio(prompt, user_prompt, lm_studio_url, model, _schema_story_description())
+        raw = _call_lm_studio(prompt, user_prompt, lm_studio_url, model, _schema_story_description(), 0.1)
         structured_data = _parse_structured_response(raw)
         
         if not structured_data:
