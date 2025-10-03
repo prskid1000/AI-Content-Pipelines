@@ -859,7 +859,7 @@ def _build_character_system_prompt(story_desc: str, character_name: str, all_cha
 
 def _build_character_summary_prompt(character_name: str, detailed_description: str) -> str:
     return (
-        f"Create a concise character single continuous paragraph ({CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters) that will contain entire character with all details in short version in {ART_STYLE} style.\n\n"
+        f"Create a concise character single continuous paragraph ({CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters, approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words) that will contain entire character from start to end with all details in short version in {ART_STYLE} style.\n\n"
         f"It must always include all visual details from the original description, preserving all visual attributes and characteristics.\n"
         f"Character: {character_name}\n\n"
         f"Original description: {detailed_description}"
@@ -868,8 +868,8 @@ def _build_character_summary_prompt(character_name: str, detailed_description: s
 
 def _build_story_description_prompt(story_content: str) -> str:
     return (
-        f"Create a story single continuous paragraph ({STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX} characters) that will contain entire story with all details in short version in {ART_STYLE} style.\n\n"
-        f"It must always include all characters and their roles, all locations and settings, complete chronological events in details.\n"
+        f"Create a story single continuous paragraph ({STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX}, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words) that will contain entire story from start to end with all details in short version in {ART_STYLE} style.\n\n"
+        f"It must always include all actors and their roles, all locations and settings, complete chronological events in details.\n"
         f"Story content: {story_content}"
     )
 
@@ -888,7 +888,7 @@ def _build_location_system_prompt(story_desc: str, location_id: str, all_locatio
 
 def _build_location_summary_prompt(location_id: str, detailed_description: str) -> str:
     return (
-        f"Create a concise location single continuous paragraph ({LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters) that will contain entire location with all details in short version in {ART_STYLE} style.\n\n"
+        f"Create a concise location single continuous paragraph ({LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters, approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words) that will contain entire location from start to end with all details in short version in {ART_STYLE} style.\n\n"
         f"It must always include all visual details from the original description, preserving all visualattributes, characteristics and postioning relationships.\n"
         f"Location: {location_id}\n\n"
         f"Original description: {detailed_description}"
