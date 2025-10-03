@@ -553,10 +553,9 @@ def _schema_character() -> dict[str, object]:
                                         "type": "object",
                                         "properties": {
                                             "name": {"type": "string", "description": "Exact color name (e.g., 'blue', 'gray', 'red')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"},
-                                            "hexcode": {"type": "string", "description": "6-digit hex code (e.g., '#1E3A8A', '#36454F', '#800020')"}
+                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
                                         },
-                                        "required": ["name", "shade", "hexcode"]
+                                        "required": ["name", "shade"]
                                     },
                                     "pattern": {"type": "string", "description": "Solid, striped, plaid, checkered, etc."},
                                     "material": {"type": "string", "description": "Cotton, silk, wool, polyester, linen, etc."},
@@ -573,10 +572,9 @@ def _schema_character() -> dict[str, object]:
                                         "type": "object",
                                         "properties": {
                                             "name": {"type": "string", "description": "Exact color name (e.g., 'gray', 'khaki', 'brown')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"},
-                                            "hexcode": {"type": "string", "description": "6-digit hex code (e.g., '#36454F', '#F0E68C', '#654321')"}
+                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
                                         },
-                                        "required": ["name", "shade", "hexcode"]
+                                        "required": ["name", "shade"]
                                     },
                                     "pattern": {"type": "string", "description": "Solid, striped, plaid, etc."},
                                     "material": {"type": "string", "description": "Denim, cotton, wool, polyester, etc."},
@@ -593,10 +591,9 @@ def _schema_character() -> dict[str, object]:
                                         "type": "object",
                                         "properties": {
                                             "name": {"type": "string", "description": "Exact color name (e.g., 'green', 'blue', 'white')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"},
-                                            "hexcode": {"type": "string", "description": "6-digit hex code (e.g., '#4B5320', '#1E3A8A', '#FFFFFF')"}
+                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
                                         },
-                                        "required": ["name", "shade", "hexcode"]
+                                        "required": ["name", "shade"]
                                     },
                                     "rank_insignia": {"type": "string", "description": "Rank, badges, patches, or insignia if applicable"},
                                     "material": {"type": "string", "description": "Cotton, polyester, wool, etc."},
@@ -613,10 +610,9 @@ def _schema_character() -> dict[str, object]:
                                         "type": "object",
                                         "properties": {
                                             "name": {"type": "string", "description": "Exact color name (e.g., 'brown', 'black', 'camel')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"},
-                                            "hexcode": {"type": "string", "description": "6-digit hex code (e.g., '#654321', '#000000', '#C19A6B')"}
+                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
                                         },
-                                        "required": ["name", "shade", "hexcode"]
+                                        "required": ["name", "shade"]
                                     },
                                     "material": {"type": "string", "description": "Leather, wool, denim, polyester, etc."},
                                     "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Material transparency level"},
@@ -634,10 +630,9 @@ def _schema_character() -> dict[str, object]:
                                 "type": "object",
                                 "properties": {
                                     "name": {"type": "string", "description": "Exact color name (e.g., 'black', 'brown', 'white')"},
-                                    "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"},
-                                    "hexcode": {"type": "string", "description": "6-digit hex code (e.g., '#000000', '#8B4513', '#FFFFFF')"}
+                                    "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
                                 },
-                                "required": ["name", "shade", "hexcode"]
+                                "required": ["name", "shade"]
                             },
                             "material": {"type": "string", "description": "Leather, canvas, suede, rubber, etc."},
                             "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Material transparency level"},
@@ -656,10 +651,9 @@ def _schema_character() -> dict[str, object]:
                                         "type": "object",
                                         "properties": {
                                             "name": {"type": "string", "description": "Exact color name (e.g., 'gold', 'silver', 'black')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"},
-                                            "hexcode": {"type": "string", "description": "6-digit hex code (e.g., '#FFD700', '#C0C0C0', '#000000')"}
+                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
                                         },
-                                        "required": ["name", "shade", "hexcode"]
+                                        "required": ["name", "shade"]
                                     },
                                     "material": {"type": "string", "description": "Metal, plastic, acetate, titanium, etc."},
                                     "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Frame transparency level"}
@@ -673,10 +667,9 @@ def _schema_character() -> dict[str, object]:
                                         "type": "object",
                                         "properties": {
                                             "name": {"type": "string", "description": "Exact color name (e.g., 'burgundy', 'blue', 'green')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"},
-                                            "hexcode": {"type": "string", "description": "6-digit hex code (e.g., '#800020', '#1E3A8A', '#228B22')"}
+                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
                                         },
-                                        "required": ["name", "shade", "hexcode"]
+                                        "required": ["name", "shade"]
                                     },
                                     "pattern": {"type": "string", "description": "Solid, striped, polka dot, paisley, etc."},
                                     "material": {"type": "string", "description": "Silk, polyester, cotton, etc."},
@@ -691,10 +684,9 @@ def _schema_character() -> dict[str, object]:
                                         "type": "object",
                                         "properties": {
                                             "name": {"type": "string", "description": "Exact color name (e.g., 'brown', 'black', 'tan')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"},
-                                            "hexcode": {"type": "string", "description": "6-digit hex code (e.g., '#8B4513', '#000000', '#D2B48C')"}
+                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
                                         },
-                                        "required": ["name", "shade", "hexcode"]
+                                        "required": ["name", "shade"]
                                     },
                                     "material": {"type": "string", "description": "Leather, cotton, wool, synthetic, etc."},
                                     "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Glove material transparency"}
@@ -708,10 +700,9 @@ def _schema_character() -> dict[str, object]:
                                         "type": "object",
                                         "properties": {
                                             "name": {"type": "string", "description": "Exact color name (e.g., 'blue', 'brown', 'gray')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"},
-                                            "hexcode": {"type": "string", "description": "6-digit hex code (e.g., '#1E3A8A', '#8B4513', '#808080')"}
+                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
                                         },
-                                        "required": ["name", "shade", "hexcode"]
+                                        "required": ["name", "shade"]
                                     },
                                     "material": {"type": "string", "description": "Cotton, wool, leather, synthetic, etc."},
                                     "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Hat material transparency"}
@@ -735,10 +726,9 @@ def _schema_character() -> dict[str, object]:
                                         "type": "object",
                                         "properties": {
                                             "name": {"type": "string", "description": "Exact color name (e.g., 'brown', 'black', 'burgundy')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"},
-                                            "hexcode": {"type": "string", "description": "6-digit hex code (e.g., '#8B4513', '#000000', '#800020')"}
+                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
                                         },
-                                        "required": ["name", "shade", "hexcode"]
+                                        "required": ["name", "shade"]
                                     },
                                     "material": {"type": "string", "description": "Leather, canvas, nylon, synthetic, etc."},
                                     "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Bag material transparency"},
@@ -753,10 +743,9 @@ def _schema_character() -> dict[str, object]:
                                         "type": "object",
                                         "properties": {
                                             "name": {"type": "string", "description": "Exact color name (e.g., 'silver', 'gold', 'black')"},
-                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"},
-                                            "hexcode": {"type": "string", "description": "6-digit hex code (e.g., '#C0C0C0', '#FFD700', '#000000')"}
+                                            "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
                                         },
-                                        "required": ["name", "shade", "hexcode"]
+                                        "required": ["name", "shade"]
                                     },
                                     "material": {"type": "string", "description": "Metal, leather, rubber, plastic, etc."},
                                     "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Watch material transparency"},
@@ -773,10 +762,9 @@ def _schema_character() -> dict[str, object]:
                                 "type": "object",
                                 "properties": {
                                     "name": {"type": "string", "description": "Primary color name (e.g., 'blue', 'gray', 'white')"},
-                                    "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"},
-                                    "hexcode": {"type": "string", "description": "6-digit hex code (e.g., '#1E3A8A', '#36454F', '#FFFFFF')"}
+                                    "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
                                 },
-                                "required": ["name", "shade", "hexcode"]
+                                "required": ["name", "shade"]
                             },
                             "formality_level": {"type": "string", "enum": ["very_casual", "casual", "smart_casual", "business_casual", "business_formal", "semi_formal", "formal", "black_tie"]},
                             "season": {"type": "string", "enum": ["summer", "winter", "spring", "autumn", "all_season"]},
@@ -853,10 +841,9 @@ def _schema_location() -> dict[str, object]:
                                 "type": "object",
                                 "properties": {
                                     "name": {"type": "string", "description": "Exact color name (e.g., 'brown', 'gray', 'green')"},
-                                    "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"},
-                                    "hexcode": {"type": "string", "description": "6-digit hex code (e.g., '#8B4513', '#696969', '#50C878')"}
+                                    "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
                                 },
-                                "required": ["name", "shade", "hexcode"]
+                                "required": ["name", "shade"]
                             }
                         },
                         "required": ["material", "color"]
@@ -870,10 +857,9 @@ def _schema_location() -> dict[str, object]:
                                 "type": "object",
                                 "properties": {
                                     "name": {"type": "string", "description": "Exact color name (e.g., 'white', 'gray', 'green')"},
-                                    "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"},
-                                    "hexcode": {"type": "string", "description": "6-digit hex code (e.g., '#F5F5DC', '#8B8680', '#228B22')"}
+                                    "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
                                 },
-                                "required": ["name", "shade", "hexcode"]
+                                "required": ["name", "shade"]
                             }
                         },
                         "required": ["material", "color"]
@@ -892,10 +878,9 @@ def _schema_location() -> dict[str, object]:
                                     "type": "object",
                                     "properties": {
                                         "name": {"type": "string", "description": "Exact color name (e.g., 'brown', 'silver', 'red')"},
-                                        "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"},
-                                        "hexcode": {"type": "string", "description": "6-digit hex code (e.g., '#C04000', '#C0C0C0', '#800020')"}
+                                        "shade": {"type": "string", "enum": ["light", "medium", "dark", "very_light", "very_dark"], "description": "Color shade intensity"}
                                     },
-                                    "required": ["name", "shade", "hexcode"]
+                                    "required": ["name", "shade"]
                                 },
                                 "material": {"type": "string", "description": "What it's made of"},
                                 "transparency": {"type": "string", "enum": ["opaque", "semi_transparent", "transparent"], "description": "Object material transparency"},
@@ -978,11 +963,10 @@ def _build_character_system_prompt(story_desc: str, character_name: str, all_cha
     return (
         f"You are a visual director creating focused character descriptions for AI image generation. "
         "Focus on the most important visual elements: face, hair, eyes, skin, and clothing details with SPECIFIC colors. "
-        "CRITICAL COLOR REQUIREMENT: EVERY color field MUST use a structured object with 'name', 'shade', and 'hexcode' fields. "
+        "CRITICAL COLOR REQUIREMENT: EVERY color field MUST use a structured object with 'name' and 'shade' fields. "
         "NEVER use vague terms without proper structure. "
-        "ALWAYS use format: {'name': 'blue', 'shade': 'dark', 'hexcode': '#1E3A8A'} "
+        "ALWAYS use format: {'name': 'blue', 'shade': 'dark'} "
         "SHADE REQUIREMENT: Use only these shade values: 'very_light', 'light', 'medium', 'dark', 'very_dark'. "
-        "HEXCODE REQUIREMENT: Must be exactly 6-digit hex code format like '#1E3A8A', '#FFD700', '#36454F'. "
         "The JSON schema will REJECT any color without proper structure. "
         "COLOR SCHEME REQUIREMENT: The color_scheme field must contain ONLY ONE primary color using the same structured format. "
         "DO NOT list multiple colors in color_scheme - choose the dominant color only. "
@@ -999,7 +983,7 @@ def _build_character_system_prompt(story_desc: str, character_name: str, all_cha
         "Accessories should complement the overall outfit - formal accessories with formal wear, casual with casual. "
         "Footwear should match the outfit's formality and style. "
         "Avoid random mix-and-match - create a cohesive, well-dressed character. "
-        "Keep descriptions concise but specific - focus on SPECIFIC colors with hex codes, textures, and key visual features. "
+        "Keep descriptions concise but specific - focus on SPECIFIC colors, textures, and key visual features. "
         f"Describe the character in {ART_STYLE} style. Strictly follow {ART_STYLE} Style.\n\n"
         f"STORY CONTEXT: {story_desc}\n\n"
         f"CHARACTER TO DESCRIBE: {character_name}\n"
@@ -1017,10 +1001,10 @@ def _build_character_summary_prompt(character_name: str, detailed_description: s
         "DO NOT add any new visual elements, colors, or details that are not present in the original. "
         "PRESERVE ALL MENTIONED DETAILS: Include every visual detail that appears in the original description. "
         "CRITICAL COLOR PRESERVATION: When mentioning colors, ALWAYS preserve the exact structured format from the original description. "
-        "NEVER change structured colors to simple text - keep the name, shade, and hexcode intact. "
-        "PRESERVE ALL COLOR STRUCTURE: Every color mentioned must include name, shade, and hexcode exactly as written in the original. "
+        "NEVER change structured colors to simple text - keep the name and shade intact. "
+        "PRESERVE ALL COLOR STRUCTURE: Every color mentioned must include name and shade exactly as written in the original. "
         "Write as clear, descriptive sentences that capture the exact visual aspects mentioned. "
-        "Focus on colors with hex codes, shapes, textures, and materials that are specifically mentioned. "
+        "Focus on colors, shapes, textures, and materials that are specifically mentioned. "
         f"Create a concise visual summary that is EXACTLY between {CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters and includes only the visual details from the original description. "
         f"Describe the character in {ART_STYLE} style. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.\n\n"
         f"CHARACTER: {character_name}\n\n"
@@ -1060,22 +1044,21 @@ def _build_location_system_prompt(story_desc: str, location_id: str, all_locatio
     return (
         f"You are a visual director creating detailed location descriptions for AI image generation. "
         "Focus on the most important visual elements: architecture, lighting, atmosphere, colors, materials, and environmental details. "
-        "CRITICAL COLOR REQUIREMENT: EVERY color field MUST use a structured object with 'name', 'shade', and 'hexcode' fields. "
+        "CRITICAL COLOR REQUIREMENT: EVERY color field MUST use a structured object with 'name' and 'shade' fields. "
         "NEVER use vague terms without proper structure. "
-        "ALWAYS use format: {'name': 'gray', 'shade': 'dark', 'hexcode': '#8B8680'} "
+        "ALWAYS use format: {'name': 'gray', 'shade': 'dark'} "
         "SHADE REQUIREMENT: Use only these shade values: 'very_light', 'light', 'medium', 'dark', 'very_dark'. "
-        "HEXCODE REQUIREMENT: Must be exactly 6-digit hex code format like '#8B8680', '#50C878', '#8B4513'. "
         "TRANSPARENCY REQUIREMENT: Specify material transparency levels - 'opaque' for solid materials, 'semi_transparent' for materials like frosted glass or thin fabric, 'transparent' for clear glass or water. "
         "Analyze the story context and location to determine appropriate visual choices. "
         "Consider the location's purpose, setting, and story context when making architectural and environmental decisions. "
         "For outdoor locations, prioritize natural elements and weather conditions. "
         "For indoor locations, focus on architectural style, lighting, and interior design. "
-        "Keep descriptions specific and detailed - focus on SPECIFIC colors with hex codes, textures, materials, and key visual features. "
+        "Keep descriptions specific and detailed - focus on SPECIFIC colors, textures, materials, and key visual features. "
         "IMPORTANT: You must include 15-20 detailed objects in the scene with HIERARCHICAL POSITIONING. "
         "POSITIONING RULES: Start with large anchor objects (sofas, tables, beds, trees, buildings) positioned relative to the room/scene (e.g., 'center of room', 'left wall', 'back corner'). "
         "Then position medium objects relative to large ones (e.g., 'on the wooden table', 'next to the sofa', 'under the window'). "
         "Finally position small decorative items relative to medium objects (e.g., 'on the coffee table', 'next to the lamp', 'on the bookshelf'). "
-        "Each object should have specific details about its appearance, color with hex code, material, transparency level, size, hierarchical position, and positioning priority. "
+        "Each object should have specific details about its appearance, color, material, transparency level, size, hierarchical position, and positioning priority. "
         f"Describe the location in {ART_STYLE} style. Strictly follow {ART_STYLE} Style.\n\n"
         f"STORY CONTEXT: {story_desc}\n\n"
         f"LOCATION TO DESCRIBE: {location_id}\n"
@@ -1094,11 +1077,11 @@ def _build_location_summary_prompt(location_id: str, detailed_description: str) 
         "PRESERVE ALL MENTIONED DETAILS: Include every visual detail that appears in the original description. "
         "PRESERVE HIERARCHICAL POSITIONING: Maintain the positioning relationships between objects (large objects positioned relative to room/scene, medium objects relative to large ones, small objects relative to medium ones). "
         "CRITICAL COLOR PRESERVATION: When mentioning colors, ALWAYS preserve the exact structured format from the original description. "
-        "NEVER change structured colors to simple text - keep the name, shade, and hexcode intact. "
-        "PRESERVE ALL COLOR STRUCTURE: Every color mentioned must include name, shade, and hexcode exactly as written in the original. "
+        "NEVER change structured colors to simple text - keep the name and shade intact. "
+        "PRESERVE ALL COLOR STRUCTURE: Every color mentioned must include name and shade exactly as written in the original. "
         "PRESERVE TRANSPARENCY LEVELS: Keep material transparency specifications (opaque, semi_transparent, transparent). "
         "Write as clear, descriptive sentences that capture the exact visual aspects mentioned. "
-        "Focus on colors with hex codes, shapes, textures, materials, transparency levels, and hierarchical positioning that are specifically mentioned. "
+        "Focus on colors, shapes, textures, materials, transparency levels, and hierarchical positioning that are specifically mentioned. "
         f"Create a concise visual summary that is EXACTLY between {LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters and includes only the visual details from the original description. "
         f"Describe the location in {ART_STYLE} style. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.\n\n"
         f"LOCATION: {location_id}\n\n"
