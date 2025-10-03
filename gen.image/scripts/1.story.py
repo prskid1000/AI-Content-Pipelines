@@ -9,9 +9,21 @@ import time
 from pathlib import Path
 
 
-CHARACTER_SUMMARY_CHARACTER_COUNT = 1200
-LOCATION_SUMMARY_CHARACTER_COUNT = 3600
-STORY_DESCRIPTION_CHARACTER_COUNT = 16000
+# Character and word count limits (min-max ranges)
+CHARACTER_SUMMARY_CHARACTER_MIN = 720
+CHARACTER_SUMMARY_CHARACTER_MAX = 960
+CHARACTER_SUMMARY_WORD_MIN = 120
+CHARACTER_SUMMARY_WORD_MAX = 160
+
+LOCATION_SUMMARY_CHARACTER_MIN = 1800
+LOCATION_SUMMARY_CHARACTER_MAX = 2160
+LOCATION_SUMMARY_WORD_MIN = 300
+LOCATION_SUMMARY_WORD_MAX = 360
+
+STORY_DESCRIPTION_CHARACTER_MIN = 15000
+STORY_DESCRIPTION_CHARACTER_MAX = 16800
+STORY_DESCRIPTION_WORD_MIN = 2500
+STORY_DESCRIPTION_WORD_MAX = 2800
 
 # Feature flags
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
@@ -685,7 +697,6 @@ def _schema_character() -> dict[str, object]:
 
 
 def _schema_character_summary() -> dict[str, object]:
-    f"""JSON schema for character summary description ({CHARACTER_SUMMARY_CHARACTER_COUNT} characters).""".format(CHARACTER_SUMMARY_CHARACTER_COUNT)
     return {
         "type": "json_schema",
         "json_schema": {
@@ -696,7 +707,9 @@ def _schema_character_summary() -> dict[str, object]:
                 "properties": {
                     "summary": {
                         "type": "string",
-                        "description": f"A summary ({CHARACTER_SUMMARY_CHARACTER_COUNT} characters) of the character's all mentioned visual features."
+                        "minLength": CHARACTER_SUMMARY_CHARACTER_MIN,
+                        "maxLength": CHARACTER_SUMMARY_CHARACTER_MAX,
+                        "description": f"A summary (MINIMUM {CHARACTER_SUMMARY_CHARACTER_MIN} characters, MAXIMUM {CHARACTER_SUMMARY_CHARACTER_MAX} characters, approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words) of the character's all mentioned visual features. MUST be within the character count range."
                     }
                 },
                 "required": ["summary"]
@@ -802,7 +815,9 @@ def _schema_location_summary() -> dict[str, object]:
                 "properties": {
                     "summary": {
                         "type": "string",
-                        "description": f"A summary ({LOCATION_SUMMARY_CHARACTER_COUNT} characters) of the location's all mentioned visual features."
+                        "minLength": LOCATION_SUMMARY_CHARACTER_MIN,
+                        "maxLength": LOCATION_SUMMARY_CHARACTER_MAX,
+                        "description": f"A summary (MINIMUM {LOCATION_SUMMARY_CHARACTER_MIN} characters, MAXIMUM {LOCATION_SUMMARY_CHARACTER_MAX} characters, approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words) of the location's all mentioned visual features. MUST be within the character count range."
                     }
                 },
                 "required": ["summary"]
@@ -823,8 +838,10 @@ def _schema_story_description() -> dict[str, object]:
                 "additionalProperties": False,
                 "properties": {
                     "description": {
-                                "type": "string",
-                        "description": f"a Short Version of the COMEPLTE STORY in ({STORY_DESCRIPTION_CHARACTER_COUNT} characters) mentioning the story setting, tone, all events, all characters, all locations, and context for character and location generation"
+                        "type": "string",
+                        "minLength": STORY_DESCRIPTION_CHARACTER_MIN,
+                        "maxLength": STORY_DESCRIPTION_CHARACTER_MAX,
+                        "description": f"a Short Version of the COMPLETE STORY (MINIMUM {STORY_DESCRIPTION_CHARACTER_MIN} characters, MAXIMUM {STORY_DESCRIPTION_CHARACTER_MAX} characters, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words) mentioning the story setting, tone, all events, all characters, all locations, and context for character and location generation. MUST be within the character count range."
                     }
                 },
                 "required": ["description"]
@@ -866,14 +883,16 @@ def _build_character_system_prompt(story_desc: str, character_name: str, all_cha
 
 def _build_character_summary_prompt(character_name: str, detailed_description: str) -> str:
     return (
-        f"You are a visual AI prompt specialist creating concise character summaries ({CHARACTER_SUMMARY_CHARACTER_COUNT} characters) for AI image generation. "
+        f"You are a visual AI prompt specialist creating concise character summaries for AI image generation. "
+        f"CRITICAL REQUIREMENT: Your summary MUST be between {CHARACTER_SUMMARY_CHARACTER_MIN} and {CHARACTER_SUMMARY_CHARACTER_MAX} characters (approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words). "
+        f"FAILURE TO STAY WITHIN THESE LIMITS WILL RESULT IN REJECTION. "
         "Your task is to SHORTEN and CONVERT the detailed description into clear, to-the-point sentences. "
         "ONLY include visual details that are ALREADY MENTIONED in the original description. "
         "DO NOT add any new visual elements, colors, or details that are not present in the original. "
         "PRESERVE ALL MENTIONED DETAILS: Include every visual detail that appears in the original description. "
         "Write as clear, descriptive sentences that capture the exact visual aspects mentioned. "
         "Focus on colors, shapes, textures, and materials that are specifically mentioned. "
-        f"Create a concise visual summary ({CHARACTER_SUMMARY_CHARACTER_COUNT} characters) that includes only the visual details from the original description. "
+        f"Create a concise visual summary that is EXACTLY between {CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters and includes only the visual details from the original description. "
         f"Describe the character in {ART_STYLE} style. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.\n\n"
         f"CHARACTER: {character_name}\n\n"
         f"DETAILED DESCRIPTION: {detailed_description}\n\n"
@@ -883,7 +902,9 @@ def _build_character_summary_prompt(character_name: str, detailed_description: s
 def _build_story_description_prompt(story_content: str) -> str:
     return (
         f"You are a story analyst creating a Short Version of the COMPLETE STORY for AI character and location generation. "
-        f"Analyze the given story content and create a Short Version of the COMPLETE STORY (exactly {STORY_DESCRIPTION_CHARACTER_COUNT} characters) that includes ALL details in proper chronological sequence.\n\n"
+        f"CRITICAL REQUIREMENT: Your story description MUST be between {STORY_DESCRIPTION_CHARACTER_MIN} and {STORY_DESCRIPTION_CHARACTER_MAX} characters (approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words). "
+        f"FAILURE TO STAY WITHIN THESE LIMITS WILL RESULT IN REJECTION. "
+        f"Analyze the given story content and create a Short Version of the COMPLETE STORY that includes ALL details in proper chronological sequence.\n\n"
         
         "REQUIREMENTS:\n"
         "1. Complete chronological sequence of ALL events from beginning to end\n"
@@ -894,10 +915,9 @@ def _build_story_description_prompt(story_content: str) -> str:
         "6. Plot developments and story progression\n"
         "7. Resolution and conclusion\n\n"
         
-        "Write as a a Short Version of the COMPLETE STORY that flows chronologically, covering every detail while staying within the character limit. "
-        "This will be used to generate consistent character and location descriptions, so include all visual and contextual information."
-        
-        f"Create a Short Version of the COMPLETE STORY (exactly {STORY_DESCRIPTION_CHARACTER_COUNT} characters) covering all characters, events, and locations in proper chronological sequence. "
+        "Write as a Short Version of the COMPLETE STORY that flows chronologically, covering every detail while staying within the character and word limits. "
+        "This will be used to generate consistent character and location descriptions, so include all visual and contextual information. "
+        f"Create a Short Version of the COMPLETE STORY (MINIMUM {STORY_DESCRIPTION_CHARACTER_MIN} characters, MAXIMUM {STORY_DESCRIPTION_CHARACTER_MAX} characters, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words) covering all characters, events, and locations in proper chronological sequence. "
         f"Describe the story in {ART_STYLE} style. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.\n\n"
 
         f"STORY CONTENT: {story_content}\n\n"
@@ -933,7 +953,9 @@ def _build_location_system_prompt(story_desc: str, location_id: str, all_locatio
 
 def _build_location_summary_prompt(location_id: str, detailed_description: str) -> str:
     return (
-        f"You are a visual AI prompt specialist creating concise location summaries ({LOCATION_SUMMARY_CHARACTER_COUNT} characters) for AI image generation. "
+        f"You are a visual AI prompt specialist creating concise location summaries for AI image generation. "
+        f"CRITICAL REQUIREMENT: Your summary MUST be between {LOCATION_SUMMARY_CHARACTER_MIN} and {LOCATION_SUMMARY_CHARACTER_MAX} characters (approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words). "
+        f"FAILURE TO STAY WITHIN THESE LIMITS WILL RESULT IN REJECTION. "
         "Your task is to SHORTEN and CONVERT the detailed location description into clear, to-the-point sentences. "
         "ONLY include visual details that are ALREADY MENTIONED in the original description. "
         "DO NOT add any new visual elements, colors, or details that are not present in the original. "
@@ -943,7 +965,7 @@ def _build_location_summary_prompt(location_id: str, detailed_description: str) 
         "PRESERVE TRANSPARENCY LEVELS: Keep material transparency specifications (opaque, semi_transparent, transparent). "
         "Write as clear, descriptive sentences that capture the exact visual aspects mentioned. "
         "Focus on colors with hex codes, shapes, textures, materials, transparency levels, and hierarchical positioning that are specifically mentioned. "
-        f"Create a concise visual summary ({LOCATION_SUMMARY_CHARACTER_COUNT} characters) that includes only the visual details from the original description. "
+        f"Create a concise visual summary that is EXACTLY between {LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters and includes only the visual details from the original description. "
         f"Describe the location in {ART_STYLE} style. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style.\n\n"
         f"LOCATION: {location_id}\n\n"
         f"DETAILED DESCRIPTION: {detailed_description}\n\n"
@@ -989,6 +1011,22 @@ def _parse_structured_response(content: str) -> dict[str, object] | None:
         return json.loads(text)
     except Exception:
         return None
+
+
+def _validate_character_count(text: str, min_chars: int, max_chars: int, item_type: str) -> bool:
+    """Validate that text meets character count requirements."""
+    char_count = len(text)
+    word_count = len(text.split())
+    
+    if char_count < min_chars:
+        print(f"WARNING: {item_type} summary too short: {char_count} characters (minimum: {min_chars})")
+        return False
+    elif char_count > max_chars:
+        print(f"WARNING: {item_type} summary too long: {char_count} characters (maximum: {max_chars})")
+        return False
+    
+    print(f"✓ {item_type} summary within limits: {char_count} characters, {word_count} words")
+    return True
 
 
 def _recursively_format_character_data(data: object, prefix: str = "", sentences: list = None) -> list[str]:
@@ -1342,6 +1380,10 @@ def _generate_story_description(story_content: str, lm_studio_url: str, resumabl
         story_desc = structured_data.get("description", "").strip()
         if not story_desc:
             raise RuntimeError("Empty story description generated")
+        
+        # Validate character count
+        if not _validate_character_count(story_desc, STORY_DESCRIPTION_CHARACTER_MIN, STORY_DESCRIPTION_CHARACTER_MAX, "Story description"):
+            raise RuntimeError(f"Story description character count validation failed")
         
         # Save to checkpoint if resumable mode enabled
         if resumable_state:
