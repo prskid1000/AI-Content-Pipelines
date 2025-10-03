@@ -640,7 +640,7 @@ All other aspects of Characters is adaptable/must change according to Scene and 
 
     def _get_master_end_prompt(self) -> str:
         """Get the master end prompt content."""
-        return """\n\nStrictly, Accurately, Precisely, always must Follow {ART_STYLE} Style. All Colourings, Styles, Shapes, Textures, Details must be **exactly same/identical/as it is** in the scene text-description and character text-description."""
+        return """\n\nStrictly, Accurately, Precisely, always must Follow {ART_STYLE} Style. All Colourings, Styles, Shapes, Textures, Relative Positioning, Sizes, Details must be **exactly same/identical/as it is** in the scene text-description and character text-description as well as in the reference images/images-sections."""
 
     def _get_seed(self) -> int:
         """Get seed value based on configuration."""
