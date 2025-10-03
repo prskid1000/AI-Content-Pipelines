@@ -9,7 +9,7 @@ CONTENT:
 CONSTRAINTS:
 - Each PART_x must be at least 7500 characters and 1200 words.
 - Each SCENE/DIALOGUE must be always at least 30 characters.
-- Each LOCATION_k must be always atleast 190 words. 
+- Each LOCATION_k must be always atleast 50 words. 
 - Each DIALOGUE_i.j must have its single corresponding SCENE_i.j and MOTION_i.j.
 - Each PART_x can span over multiple LOCATION_k. 
 - Each LOCATION_k, will be used in multiple SCENE_i.j, keep description consistent and such that it has all objects needed/mentioned in past/current/future scenes. Repeat {{loc_k}} in each SCENE_i.j  where LOCATION_k used for next time. 
@@ -28,5 +28,5 @@ DIALOGUE-SCENE FORMAT:
 ....
 
 [gender_profession_actor_name] ....dialogue_i.j; start in same line as of [].
-(scene_i.j) {{loc_k, Description of aleast 190 words, including details of all visible objects only like furniture, wall, windows, building, crowd, animals, birds, tree, etc, in the scene}}, {Weather/Season/Time};
+(scene_i.j) {{loc_k, Description of aleast 50 words, including details of all visible objects only like furniture, wall, windows, building, crowd, animals, birds, tree, etc, in the scene}}, {Weather/Season/Time};
 ((gender_profession_actor_name - at most 3 actor, 2 same gender + 1 diffrent gender )){Facial Expression}, {Relative Location}, {Primary Motion-Less Action};start in same line as of ().
