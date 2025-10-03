@@ -76,7 +76,7 @@ SCRIPTS = [
 
     #Video
     # "2.character.py",
-    # "3.location.py",
+    # "2.location.py",
     # "3.scene.py",
     # "5.video.py",
     # "6.combine.py",
@@ -90,7 +90,7 @@ SCRIPTS = [
 
 SCRIPTS_DIR = "scripts"
 
-NEEDS_COMFYUI = {"2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py", "3.location.py"}
+NEEDS_COMFYUI = {"2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py", "2.location.py"}
 NEEDS_LMSTUDIO = {"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py", "9.description.py", "12.media.py"}
 
 # Centralized non-interactive defaults (only change this file)
