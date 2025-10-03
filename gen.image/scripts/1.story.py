@@ -894,11 +894,9 @@ def _build_location_summary_prompt(location_id: str, detailed_description: str) 
     )
 
 
-def _call_lm_studio(system_prompt: str, lm_studio_url: str, model: str, user_payload: str = "", response_format: dict[str, object] | None = None, temperature: float = 1.0) -> str:
+def _call_lm_studio(system_prompt: str, lm_studio_url: str, model: str, response_format: dict[str, object] | None = None, temperature: float = 1.0) -> str:
     headers = {"Content-Type": "application/json"}
     messages = [{"role": "system", "content": system_prompt}]
-    if user_payload:
-        messages.append({"role": "user", "content": f"{user_payload}"})
 
     payload = {
         "model": model,
@@ -1135,14 +1133,7 @@ def _generate_structured_descriptions(
             prompt = prompt_func(story_desc, item_id, list(items.keys()))
         
         try:
-            # Use structured output with JSON schema
-            user_payload = json.dumps({
-                f"{item_type}_id": item_id,
-                "story_context": story_desc,
-                f"all_{item_type}s": list(items_dict.keys())
-            }, ensure_ascii=False)
-            
-            raw = _call_lm_studio(prompt, lm_studio_url, model, user_payload, schema_func())
+            raw = _call_lm_studio(prompt, lm_studio_url, model, schema_func())
             structured_data = _parse_structured_response(raw)
             
             if not structured_data:
@@ -1239,12 +1230,7 @@ def _generate_summaries(
         prompt = prompt_func(item_id, detailed_desc)
         
         try:
-            user_payload = json.dumps({
-                f"{item_type}_id": item_id,
-                "detailed_description": detailed_desc
-            }, ensure_ascii=False)
-            
-            raw = _call_lm_studio(prompt, lm_studio_url, model, user_payload, schema_func(), temperature=temperature)
+            raw = _call_lm_studio(prompt, lm_studio_url, model, schema_func(), temperature=temperature)
             structured_data = _parse_structured_response(raw)
             
             if not structured_data:
@@ -1285,13 +1271,8 @@ def _generate_story_description(story_content: str, lm_studio_url: str, resumabl
     try:
         # Use model constant for story description generation
         model = MODEL_STORY_DESCRIPTION
-        
-        # Use structured output with JSON schema for story description
-        user_payload = json.dumps({
-            "story_content": dialogue_content
-        }, ensure_ascii=False)
-        
-        raw = _call_lm_studio(prompt, lm_studio_url, model, user_payload, _schema_story_description())
+          
+        raw = _call_lm_studio(prompt, lm_studio_url, model, _schema_story_description())
         structured_data = _parse_structured_response(raw)
         
         if not structured_data:
