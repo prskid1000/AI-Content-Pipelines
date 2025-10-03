@@ -815,17 +815,9 @@ def main():
                        help="Path to timing file (default: ../input/3.timing.txt)")
     parser.add_argument("--force-start", action="store_true",
                        help="Force start from beginning, ignoring any existing checkpoint files")
-    parser.add_argument("--enable-thinking", action="store_true",
-                       help="Enable thinking in LM Studio responses (default: disabled)")
+
     args = parser.parse_args()
-    
-    # Update ENABLE_THINKING based on CLI argument
-    if args.enable_thinking:
-        ENABLE_THINKING = True
-        print("🧠 Thinking enabled in LM Studio responses")
-    else:
-        print("🚫 Thinking disabled in LM Studio responses (using /no_think)")
-    
+        
     # Check if timing file exists
     if not os.path.exists(args.timing_file):
         print(f"❌ Timing file '{args.timing_file}' not found")

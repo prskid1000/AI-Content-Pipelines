@@ -1358,14 +1358,7 @@ if __name__ == "__main__":
     AUTO_CHANGE_SETTINGS = (args.change_settings or None)
     AUTO_REGION = (args.region or None)
     AUTO_LANGUAGE = (args.language or None)
-    
-    # Update ENABLE_THINKING based on CLI argument
-    if args.enable_thinking:
-        ENABLE_THINKING = True
-        print("🧠 Thinking enabled in LM Studio responses")
-    else:
-        print("🚫 Thinking disabled in LM Studio responses (using /no_think)")
-    
+        
     # Update ENABLE_RESUMABLE_MODE based on CLI argument
     if args.disable_resumable:
         ENABLE_RESUMABLE_MODE = False

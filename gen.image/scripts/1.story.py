@@ -849,7 +849,7 @@ def _build_character_system_prompt(story_desc: str, character_name: str, all_cha
     
     return (
         f"Create a detailed character description for AI image generation in {ART_STYLE} style.\n\n"
-        f"Focus on: face, hair, eyes, skin, clothing with specific colors (use prefix + color name like 'dark blue', 'light green'). "
+        f"It must always include all visual details from the original description, preserving all visual attributes and characteristics."
         f"Consider the character's role and story context for appropriate styling.\n\n"
         f"Story: {story_desc}\n"
         f"Character: {character_name}\n"
@@ -918,6 +918,7 @@ def _call_lm_studio(system_prompt: str, lm_studio_url: str, model: str, user_pay
     if resp.status_code != 200:
         raise RuntimeError(f"LM Studio API error: {resp.status_code} {resp.text}")
     data = resp.json()
+    print(data)
     if not data.get("choices"):
         raise RuntimeError("LM Studio returned no choices")
     return data["choices"][0]["message"]["content"]
@@ -1701,16 +1702,8 @@ def main() -> int:
                        help="Skip character consistency and scene ID continuity validation")
     parser.add_argument("--force-start", action="store_true",
                        help="Force start from beginning, ignoring any existing checkpoint files")
-    parser.add_argument("--enable-thinking", action="store_true",
-                       help="Enable thinking in LM Studio responses (default: disabled)")
-    args = parser.parse_args()
 
-    # Update ENABLE_THINKING based on CLI argument
-    if args.enable_thinking:
-        ENABLE_THINKING = True
-        print("🧠 Thinking enabled in LM Studio responses")
-    else:
-        print("🚫 Thinking disabled in LM Studio responses (using /no_think)")
+    args = parser.parse_args()
 
     base_dir = os.path.dirname(os.path.abspath(__file__))
 
