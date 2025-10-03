@@ -176,7 +176,7 @@ python 2.story.py --disable-resumable
 | **Audio** | `7.sfx.state.json` | `7.sfx.py` | Sound effect generation | Generated SFX files, metadata |
 | **Image** | `1.story.state.json` | `1.story.py` | Story parsing (LLM operations) | Characters, locations, scenes, rewrites |
 | **Image** | `2.character.state.json` | `2.character.py` | Character image generation | Generated character images |
-| **Image** | `3.location.state.json` | `2.location.py` | Location image generation | Generated location images |
+| **Image** | `2.location.state.json` | `2.location.py` | Location image generation | Generated location images |
 | **Image** | `3.scene.state.json` | `3.scene.py` | Scene image generation | Generated scene images with stitching |
 | **Video** | `2.animate.state.json` | `2.animate.py` | Video animation generation | Animated video clips |
 
@@ -726,6 +726,10 @@ WORKFLOW_SUMMARY_ENABLED = False
 
 #### `1.character.py` - Character Voice Assignment
 ```python
+# Language and Region Configuration
+LANGUAGE = "en"
+REGION = "in"
+
 # Model Configuration
 MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen/qwen3-14b"
 MODEL_CHARACTER_TITLE_GENERATION = "qwen/qwen3-14b"
@@ -734,6 +738,13 @@ MODEL_CHARACTER_META_SUMMARY = "qwen/qwen3-14b"
 # Story Processing
 CHUNK_SIZE = 50  # Lines per chapter chunk
 GENERATE_TITLE = True  # Auto title generation
+ENABLE_THINKING = False  # Set to True to enable thinking in LM Studio responses
+
+# Feature flags for resumable mode
+ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
+CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
+
+# Non-interactive defaults (can be overridden by CLI flags in __main__)
 AUTO_GENDER = "m"  # Default gender assignment
 AUTO_CONFIRM = "y"  # Auto-confirm prompts
 AUTO_CHANGE_SETTINGS = "n"  # Allow setting changes
@@ -796,6 +807,13 @@ TITLE_LAYOUT = "overlay"  # "overlay", "expand", or "fit"
 OUTPUT_WIDTH = 1280
 OUTPUT_HEIGHT = 720
 
+# YouTube Shorts format (9:16 aspect ratio)
+SHORTS_WIDTH = 1080
+SHORTS_HEIGHT = 1920
+
+# Number of shorts variations to generate
+SHORTS_VARIATIONS = 5
+
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
 IMAGE_HEIGHT = 720
@@ -835,13 +853,11 @@ ART_STYLE = "Realistic Anime"
 #### `1.story.py` - Story Parsing
 ```python
 # Processing Limits
-CHARACTER_SUMMARY_CHARACTER_COUNT = 600
-CHARACTER_REWRITE_CHARACTER_COUNT = 800
-LOCATION_CHARACTER_COUNT = 3600
+CHARACTER_SUMMARY_CHARACTER_COUNT = 1200
+LOCATION_SUMMARY_CHARACTER_COUNT = 3600
 STORY_DESCRIPTION_CHARACTER_COUNT = 16000
 
 # Feature Flags
-ENABLE_CHARACTER_REWRITE = True  # Set to False to skip character rewriting step
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
 ENABLE_THINKING = True  # Set to True to enable thinking in LM Studio responses
@@ -862,13 +878,16 @@ ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
+# Variation Configuration
+VARIATIONS_PER_CHARACTER = 3  # Number of variations to generate per character (in addition to original)
+
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
 IMAGE_HEIGHT = 720
 
 # Latent Input Mode Configuration
 LATENT_MODE = "IMAGE"  # "LATENT" for normal noise generation, "IMAGE" for load image input
-LATENT_DENOISING_STRENGTH = 0.82  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
+LATENT_DENOISING_STRENGTH = 0.85  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # LoRA Configuration
 USE_LORA = False  # Set to False to disable LoRA usage in workflow
@@ -912,6 +931,9 @@ ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
+# Variation Configuration
+VARIATIONS_PER_LOCATION = 3  # Number of variations to generate per location (in addition to original)
+
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
 IMAGE_HEIGHT = 720
@@ -926,15 +948,27 @@ LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for
 LORAS = [
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 2.0,
-        "strength_clip": 2.0,
+        "strength_model": 2.0,    # Model strength (0.0 - 2.0)
+        "strength_clip": 2.0,     # CLIP strength (0.0 - 2.0)
         "bypass_model": False,
         "bypass_clip": False,
         "enabled": True,
-        "steps": 6,
-        "denoising_strength": 1,
+        "steps": 6,               # Serial mode only
+        "denoising_strength": 1,  # Serial mode only
         "save_intermediate": True,
         "use_only_intermediate": False
+    },
+    {
+        "name": "FLUX.1-Turbo-Alpha.safetensors",
+        "strength_model": 3.6,    # Model strength (0.0 - 2.0)
+        "strength_clip": 3.6,     # CLIP strength (0.0 - 2.0)
+        "bypass_model": False,
+        "bypass_clip": False,
+        "enabled": False,          # Set to False to disable this LoRA entirely
+        "steps": 6,               # Serial mode only
+        "denoising_strength": 0.1, # Serial mode only
+        "save_intermediate": True,
+        "use_only_intermediate": True
     }
 ]
 
@@ -970,16 +1004,16 @@ IMAGE_HEIGHT = 720
 CHARACTER_RESIZE_FACTOR = 1  # Character image resize factor: 1 = no resize
 
 # Image Compression Configuration
-IMAGE_COMPRESSION_QUALITY = 95  # JPEG quality: 1-100 (100 = best quality, larger file)
+IMAGE_COMPRESSION_QUALITY = 99  # JPEG quality: 1-100 (100 = best quality, larger file)
 
 # Character/Location Prompt Handling Modes
 # Character modes: "IMAGE_TEXT", "TEXT", "IMAGE", "NONE"
 # Location modes: "IMAGE_TEXT", "TEXT", "IMAGE", "NONE"
-ACTIVE_CHARACTER_MODE = "IMAGE_TEXT"  # Character handling mode
-ACTIVE_LOCATION_MODE = "IMAGE_TEXT"  # Location handling mode
+ACTIVE_CHARACTER_MODE = "IMAGE"  # Character handling mode
+ACTIVE_LOCATION_MODE = "TEXT"    # Location handling mode
 
 # Latent Input Mode Configuration
-LATENT_MODE = "IMAGE"  # "LATENT" for normal noise generation, "IMAGE" for load image input
+LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
 LATENT_DENOISING_STRENGTH = 0.1  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # Image Stitching Configuration (1-5)
@@ -1125,7 +1159,7 @@ YOUTUBE_CATEGORY_ID=22
 
 #### FFmpeg
 - **Purpose**: Video/audio processing and compilation
-- **Required For**: `11.video.py` (final video), `5.video.py` (per-scene videos), `6.combine.py` (video merging), `2.combine.py` (video combination)
+- **Required For**: `11.video.py` (final video), `5.video.py` (per-scene videos), `6.combine.py` (video merging), `3.video.py` (video combination)
 
 ### Python Libraries
 
@@ -1580,13 +1614,13 @@ The orchestrator scripts automatically manage service dependencies with intellig
 #### Audio Pipeline (`gen.audio/generate.py`)
 - **NEEDS_COMFYUI**: `{"2.story.py", "7.sfx.py", "10.thumbnail.py"}`
 - **NEEDS_LMSTUDIO**: `{"1.character.py", "5.timeline.py", "6.timing.py", "9.description.py", "12.media.py"}`
-- **Scripts**: Currently all commented out (empty pipeline)
+- **Active Scripts**: All 13 scripts active (full pipeline enabled)
 - **Resumable Scripts**: `1.character.py`, `2.story.py`, `5.timeline.py`, `6.timing.py`, `7.sfx.py`
 
 #### Image Pipeline (`gen.image/generate.py`)  
 - **NEEDS_COMFYUI**: `{"2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py", "2.location.py"}`
 - **NEEDS_LMSTUDIO**: `{"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py", "9.description.py", "12.media.py"}`
-- **Active Scripts**: `["3.scene.py"]` (only scene generation active)
+- **Active Scripts**: `["2.character.py"]` (only character generation active)
 - **Available Scripts**: `["1.story.py", "2.character.py", "2.location.py", "3.scene.py", "4.audio.py", "5.video.py", "6.combine.py"]`
 - **Resumable Scripts**: `1.story.py`, `2.character.py`, `2.location.py`, `3.scene.py`
 
@@ -1806,6 +1840,7 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 ../output/tracking/           # Checkpoint files location
 ├── 1.story.state.json       # Story parsing checkpoints
 ├── 2.character.state.json   # Character generation checkpoints
+├── 2.location.state.json    # Location generation checkpoints
 ├── 2.story.state.json       # Story audio generation checkpoints
 ├── 3.scene.state.json       # Scene generation checkpoints
 ├── 5.timeline.state.json    # Timeline generation checkpoints
@@ -1934,19 +1969,19 @@ This is a modular system designed for easy extension. Each script is self-contai
 
 ## 📊 Current System State Summary
 
-### Active Pipeline Scripts (October 2025)
+### Active Pipeline Scripts (December 2024)
 
 #### Audio Pipeline (`gen.audio/generate.py`)
-- **Total Scripts**: 13 scripts (all available, currently all commented out)
-- **Active Scripts**: None (empty pipeline - all commented out)
+- **Total Scripts**: 13 scripts (all available and active)
+- **Active Scripts**: All 13 scripts active (full pipeline enabled)
 - **Resumable Scripts**: 5 scripts (`1.character.py`, `2.story.py`, `5.timeline.py`, `6.timing.py`, `7.sfx.py`)
 - **Requires ComfyUI**: 3 scripts (`2.story.py`, `7.sfx.py`, `10.thumbnail.py`)
 - **Requires LM Studio**: 5 scripts (`1.character.py`, `5.timeline.py`, `6.timing.py`, `9.description.py`, `12.media.py`)
 
 #### Image Pipeline (`gen.image/generate.py`)
 - **Total Scripts**: 7 scripts (6 generation + 1 cross-pipeline script)
-- **Active Scripts**: 1 script (`3.scene.py` - scene generation only)
-- **New Script**: `2.location.py` (location background generation with resumable support)
+- **Active Scripts**: 1 script (`2.character.py` - character generation only)
+- **Available Script**: `2.location.py` (location background generation with resumable support)
 - **Resumable Scripts**: 4 scripts (`1.story.py`, `2.character.py`, `2.location.py`, `3.scene.py`)
 - **Requires ComfyUI**: 4 scripts (`2.character.py`, `2.location.py`, `3.scene.py`)
 - **Requires LM Studio**: 1 script (`1.story.py`)
@@ -2007,11 +2042,11 @@ This is a modular system designed for easy extension. Each script is self-contai
 ### Service Dependencies
 - **ComfyUI** (Port 8188): 8 scripts require it across pipelines
 - **LM Studio** (Port 1234): 6 scripts require it across pipelines
-- **FFmpeg**: 3 scripts for video/audio compilation
+- **FFmpeg**: 4 scripts for video/audio compilation
 - **Whisper**: 1 script for audio transcription
 
 ---
 
 **Note**: This system requires significant computational resources. For optimal performance, use a CUDA-compatible GPU with 8GB+ VRAM and ensure adequate cooling during extended generation sessions. The resumable processing system allows for safe interruption and recovery of long-running operations, making it suitable for extended generation sessions across multiple days.
 
-**Last Updated**: October 2025 - Comprehensive documentation of all scripts, constants, configurations, input/output files, and resumable logic.
+**Last Updated**: December 2024 - Comprehensive documentation of all scripts, constants, configurations, input/output files, and resumable logic.
