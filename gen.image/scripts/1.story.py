@@ -20,10 +20,10 @@ LOCATION_SUMMARY_CHARACTER_MAX = 3000
 LOCATION_SUMMARY_WORD_MIN = 250
 LOCATION_SUMMARY_WORD_MAX = 375
 
-STORY_DESCRIPTION_CHARACTER_MIN = 5000
-STORY_DESCRIPTION_CHARACTER_MAX = 10000
-STORY_DESCRIPTION_WORD_MIN = 900
-STORY_DESCRIPTION_WORD_MAX = 1200
+STORY_DESCRIPTION_CHARACTER_MIN = 7200
+STORY_DESCRIPTION_CHARACTER_MAX = 9600
+STORY_DESCRIPTION_WORD_MIN = 1200
+STORY_DESCRIPTION_WORD_MAX = 1600
 
 # Feature flags
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
@@ -1297,7 +1297,7 @@ def _generate_story_description(story_content: str, lm_studio_url: str, resumabl
         if not structured_data:
             raise RuntimeError("Failed to parse structured story description response")
         
-        story_desc = structured_data.get("description", "").strip()
+        story_desc = structured_data.get("summary", "").strip()
         if not story_desc:
             raise RuntimeError("Empty story description generated")
         
