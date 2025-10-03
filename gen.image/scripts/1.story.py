@@ -896,7 +896,7 @@ def _build_location_summary_prompt(location_id: str, detailed_description: str) 
 
 def _call_lm_studio(system_prompt: str, lm_studio_url: str, model: str, response_format: dict[str, object] | None = None, temperature: float = 1.0) -> str:
     headers = {"Content-Type": "application/json"}
-    messages = [{"role": "system", "content": system_prompt}]
+    messages = [{"role": "user", "content": system_prompt}]
 
     payload = {
         "model": model,
