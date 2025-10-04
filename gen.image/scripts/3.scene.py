@@ -1665,8 +1665,10 @@ All other aspects of Characters is adaptable/must change according to Scene and 
             character_details = self._get_character_details(character_names, characters_data)
             if character_details:
                 text_prompt += f"\nCHARACTER TEXT-DESCRIPTION:\n{character_details}"
+
+        text_prompt += self._get_master_end_prompt()
         
-        workflow["33"]["inputs"]["text"] = text_prompt + self._get_master_end_prompt()
+        workflow["33"]["inputs"]["text"] = text_prompt
         workflow["21"]["inputs"]["filename_prefix"] = scene_id
         
         # Set resolution parameters and handle latent input mode
