@@ -1463,7 +1463,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 
 # Test LM Studio connection
 import requests
-response = requests.get('http://localhost:1234/v1/models')
+response = requests.get('http://localhost:1234/v0/models')
 print('LM Studio Status:', response.status_code)
 
 # Test ComfyUI connection
