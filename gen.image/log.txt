@@ -1,15 +1,22 @@
 Workflow runner started. Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
 Working directory: D:\.comfyui\gen.image
 Emptying ComfyUI input and output folders...
-Removed file: D:\.comfyui\ComfyUI\output\loc_1_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\loc_1_v1_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\thumbnail.shorts.v1.FLUX.1_Turbo_Alpha.safetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\thumbnail.shorts.v1.v1.FLUX.1_Turbo_Alpha.safetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\thumbnail.shorts.v1.v2.FLUX.1_Turbo_Alpha.safetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\thumbnail.shorts.v2.FLUX.1_Turbo_Alpha.safetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\thumbnail.shorts.v2.v1.FLUX.1_Turbo_Alpha.safetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\thumbnail.shorts.v2.v2.FLUX.1_Turbo_Alpha.safetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\thumbnail.v.FLUX.1_Turbo_Alpha.safetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\thumbnail.v1.FLUX.1_Turbo_Alpha.safetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\thumbnail.v2.FLUX.1_Turbo_Alpha.safetensors_00001_.png
 Successfully emptied ComfyUI input and output folders.
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
 [START] Security scan
 [DONE] Security scan
 ## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2025-10-04 17:10:39.416
+** ComfyUI startup time: 2025-10-04 20:31:17.427
 ** Platform: Windows
 ** Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
 ** Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
@@ -22,7 +29,7 @@ ComfyUI not ready yet (attempt 1). Retrying in 15s...
 
 Prestartup times for custom nodes:
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\rgthree-comfy
-   2.8 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   2.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
 
 Checkpoint files will always be loaded safely.
 Total VRAM 12227 MB, total RAM 64957 MB
@@ -30,3 +37,612 @@ pytorch version: 2.9.0.dev20250905+cu129
 Set vram state to: NORMAL_VRAM
 Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
 Using pytorch attention
+Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+ComfyUI version: 0.3.60
+ComfyUI frontend version: 1.26.13
+[Prompt Server] web root: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\Lib\site-packages\comfyui_frontend_package\static
+ComfyUI-GGUF: Allowing full torch compile
+### Loading: ComfyUI-Impact-Pack (V8.22.2)
+[Impact Pack] Wildcards loading done.
+### Loading: ComfyUI-Manager (V3.36)
+[ComfyUI-Manager] network_mode: public
+### ComfyUI Version: v0.3.60-34-g39fd106d | Released on '2025-09-28'
+
+[32mInitializing ControlAltAI Nodes[0m
+
+[92m[rgthree-comfy] Loaded 48 magnificent nodes. 🎉[0m
+
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
+✅ ChatterboxTTS loaded from bundled package
+✅ ChatterboxVC loaded from bundled package
+JAX version 0.7.1 available.
+✅ F5-TTS loaded from system package
+🎭 Character voices: Found 61 characters, 6 aliases
+✅ SRT modules loaded from system package
+🔧 Registering TTS Audio Suite nodes...
+======================================================================
+🚀 TTS Audio Suite v4.2.1
+Universal multi-engine TTS extension for ComfyUI
+⚠️ No local ChatterBox models found - will download from Hugging Face
+💡 Tip: First generation will download models (~1GB)
+   Models will be saved locally for future use
+✅ TTS Audio Suite v4.2.1 loaded with 16 nodes:
+   • ⚙️ ChatterBox TTS Engine
+   • ⚙️ F5 TTS Engine
+   • ⚙️ RVC Engine
+   • 🌊 Audio Wave Analyzer
+   • 🎙️ Voice Capture
+   • 🎤 TTS Text
+   • 🎭 Character Voices
+   • 🎭 Load RVC Character Model
+   • 👄 F5-TTS Speech Editor
+   • 📺 TTS SRT
+   • 🔄 Voice Changer
+   • 🔧 Audio Analyzer Options
+   • 🔧 F5-TTS Edit Options
+   • 🔧 RVC Pitch Extraction Options
+   • 🤐 Noise or Vocal Removal
+   • 🥪 Merge Audio
+======================================================================
+
+Import times for custom nodes:
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\rgthree-comfy
+   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
+   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-impact-pack
+   0.4 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   1.8 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
+   2.7 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
+
+Context impl SQLiteImpl.
+Will assume non-transactional DDL.
+No target revision found.
+Starting server
+
+To see the GUI go to: http://127.0.0.1:8188
+FETCH ComfyRegistry Data: 5/99
+ComfyUI is ready after 17.1s (attempt 2).
+
+===== START D:\.comfyui\gen.audio\scripts\10.thumbnail.py @ 2025-10-04 20:31:33 =====
+Removed: ../output\thumbnail.shorts.v1.png
+Removed: ../output\thumbnail.shorts.v1.v1.png
+Removed: ../output\thumbnail.shorts.v1.v2.png
+Removed: ../output\thumbnail.shorts.v2.png
+Removed: ../output\thumbnail.shorts.v2.v1.png
+Removed: ../output\thumbnail.shorts.v2.v2.png
+Removed: ../output\thumbnail.v.png
+Removed: ../output\thumbnail.v1.png
+Removed: ../output\thumbnail.v2.png
+Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.audio\output\tracking
+No existing checkpoint found - starting fresh
+Validating and syncing with output directory: ../output
+Scanning output directory for untracked files: ../output
+No untracked thumbnail files found in output directory
+Validating 0 completed thumbnails against output directory...
+Generating thumbnail 1 of 6
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1280x720
+  Seed set to: 1157462567
+  Using latent mode with dimensions: 1280x720
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Using pytorch attention in VAE
+Using pytorch attention in VAE
+VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
+CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
+clip missing: ['text_projection.weight']
+gguf qtypes: F32 (466), Q8_0 (304), BF16 (10)
+model weight dtype torch.bfloat16, manual cast: None
+model_type FLUX
+Token indices sequence length is longer than the specified maximum sequence length for this model (1030 > 512). Running this sequence through the model will result in indexing errors
+Requested to load FluxClipModel_
+FETCH ComfyRegistry Data: 10/99
+loaded completely 9518.8 9319.23095703125 True
+FETCH ComfyRegistry Data: 15/99
+Requested to load Flux
+FETCH ComfyRegistry Data: 20/99
+loaded partially 9390.07497329712 9389.463134765625 0
+Attempting to release mmap (127)
+FETCH ComfyRegistry Data: 25/99
+  0%|          | 0/6 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 30/99
+ 17%|█▋        | 1/6 [00:05<00:26,  5.26s/it]FETCH ComfyRegistry Data: 35/99
+ 33%|███▎      | 2/6 [00:10<00:19,  5.00s/it] 50%|█████     | 3/6 [00:14<00:14,  4.94s/it]FETCH ComfyRegistry Data: 40/99
+ 67%|██████▋   | 4/6 [00:19<00:09,  4.88s/it]FETCH ComfyRegistry Data: 45/99
+ 83%|████████▎ | 5/6 [00:24<00:04,  4.88s/it]FETCH ComfyRegistry Data: 50/99
+100%|██████████| 6/6 [00:29<00:00,  4.89s/it]100%|██████████| 6/6 [00:29<00:00,  4.92s/it]
+Requested to load AutoencodingEngine
+loaded completely 192.3203125 159.87335777282715 True
+Prompt executed in 52.04 seconds
+FETCH ComfyRegistry Data: 55/99
+  Saved LoRA result: ../output/lora\thumbnail.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+Saved: ../output\thumbnail.png
+../output\thumbnail.png
+Generating short 2 of SHORTS_VARIATIONS, variation 1 of 6
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 2013306262
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 60/99
+FETCH ComfyRegistry Data: 65/99
+ 17%|█▋        | 1/6 [00:08<00:44,  8.88s/it]FETCH ComfyRegistry Data: 70/99
+ 33%|███▎      | 2/6 [00:17<00:35,  8.76s/it]FETCH ComfyRegistry Data: 75/99
+FETCH ComfyRegistry Data: 80/99
+ 50%|█████     | 3/6 [00:26<00:26,  8.74s/it]FETCH ComfyRegistry Data: 85/99
+ 67%|██████▋   | 4/6 [00:34<00:17,  8.73s/it]FETCH ComfyRegistry Data: 90/99
+FETCH ComfyRegistry Data: 95/99
+ 83%|████████▎ | 5/6 [00:43<00:08,  8.71s/it]FETCH ComfyRegistry Data [DONE]
+[ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
+FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
+[ComfyUI-Manager] All startup tasks have been completed.
+100%|██████████| 6/6 [00:52<00:00,  8.73s/it]100%|██████████| 6/6 [00:52<00:00,  8.74s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 57.17 seconds
+  Saved LoRA result: ../output/lora\thumbnail.shorts.v1.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+Saved: ../output\thumbnail.shorts.v1.png
+../output\thumbnail.shorts.v1.png
+Generating short 3 of SHORTS_VARIATIONS, variation 1 of 6
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 631255512
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:08<00:44,  8.87s/it] 33%|███▎      | 2/6 [00:17<00:35,  8.77s/it] 50%|█████     | 3/6 [00:26<00:26,  8.76s/it] 67%|██████▋   | 4/6 [00:35<00:17,  8.77s/it] 83%|████████▎ | 5/6 [00:43<00:08,  8.79s/it]100%|██████████| 6/6 [00:52<00:00,  8.76s/it]100%|██████████| 6/6 [00:52<00:00,  8.77s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 57.98 seconds
+  Saved LoRA result: ../output/lora\thumbnail.shorts.v2.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+Saved: ../output\thumbnail.shorts.v2.png
+../output\thumbnail.shorts.v2.png
+Generating short 4 of SHORTS_VARIATIONS, variation 1 of 6
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 986767165
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:08<00:44,  8.92s/it] 33%|███▎      | 2/6 [00:17<00:35,  8.79s/it] 50%|█████     | 3/6 [00:26<00:26,  8.76s/it] 67%|██████▋   | 4/6 [00:35<00:17,  8.73s/it] 83%|████████▎ | 5/6 [00:43<00:08,  8.74s/it]100%|██████████| 6/6 [00:52<00:00,  8.74s/it]100%|██████████| 6/6 [00:52<00:00,  8.75s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 57.98 seconds
+  Saved LoRA result: ../output/lora\thumbnail.shorts.v3.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+Saved: ../output\thumbnail.shorts.v3.png
+../output\thumbnail.shorts.v3.png
+Generating short 5 of SHORTS_VARIATIONS, variation 1 of 6
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 1355863485
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:08<00:43,  8.77s/it] 33%|███▎      | 2/6 [00:17<00:35,  8.80s/it] 50%|█████     | 3/6 [00:26<00:26,  8.81s/it] 67%|██████▋   | 4/6 [00:35<00:17,  8.81s/it] 83%|████████▎ | 5/6 [00:43<00:08,  8.76s/it]100%|██████████| 6/6 [00:52<00:00,  8.77s/it]100%|██████████| 6/6 [00:52<00:00,  8.78s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 58.05 seconds
+  Saved LoRA result: ../output/lora\thumbnail.shorts.v4.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+Saved: ../output\thumbnail.shorts.v4.png
+../output\thumbnail.shorts.v4.png
+Generating short 6 of SHORTS_VARIATIONS, variation 1 of 6
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 2204199755
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:08<00:44,  8.94s/it] 33%|███▎      | 2/6 [00:17<00:35,  8.82s/it] 50%|█████     | 3/6 [00:26<00:26,  8.80s/it] 67%|██████▋   | 4/6 [00:35<00:17,  8.74s/it] 83%|████████▎ | 5/6 [00:43<00:08,  8.73s/it]100%|██████████| 6/6 [00:52<00:00,  8.72s/it]100%|██████████| 6/6 [00:52<00:00,  8.75s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 58.21 seconds
+  Saved LoRA result: ../output/lora\thumbnail.shorts.v5.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+Saved: ../output\thumbnail.shorts.v5.png
+../output\thumbnail.shorts.v5.png
+Generating thumbnail 2 of 6
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1280x720
+  Seed set to: 3338069656
+  Using latent mode with dimensions: 1280x720
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 9512.07497329712 9511.748046875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:05<00:25,  5.00s/it] 33%|███▎      | 2/6 [00:09<00:19,  4.96s/it] 50%|█████     | 3/6 [00:14<00:14,  4.96s/it] 67%|██████▋   | 4/6 [00:19<00:09,  4.95s/it] 83%|████████▎ | 5/6 [00:24<00:04,  4.95s/it]100%|██████████| 6/6 [00:29<00:00,  4.94s/it]100%|██████████| 6/6 [00:29<00:00,  4.95s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.3203125 159.87335777282715 True
+Prompt executed in 32.96 seconds
+  Saved LoRA result: ../output/lora\thumbnail1.v.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+Saved: ../output\thumbnail1.v.png
+../output\thumbnail1.v.png
+Generating short 2 of SHORTS_VARIATIONS, variation 2 of 6
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 3904818221
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:08<00:43,  8.75s/it] 33%|███▎      | 2/6 [00:17<00:35,  8.76s/it] 50%|█████     | 3/6 [00:26<00:26,  8.74s/it] 67%|██████▋   | 4/6 [00:34<00:17,  8.74s/it] 83%|████████▎ | 5/6 [00:43<00:08,  8.75s/it]100%|██████████| 6/6 [00:52<00:00,  8.76s/it]100%|██████████| 6/6 [00:52<00:00,  8.75s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 56.89 seconds
+  Saved LoRA result: ../output/lora\thumbnail.shorts.v1.v1.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+Saved: ../output\thumbnail.shorts.v1.v1.png
+../output\thumbnail.shorts.v1.v1.png
+Generating short 3 of SHORTS_VARIATIONS, variation 2 of 6
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 1045156949
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:08<00:44,  8.81s/it] 33%|███▎      | 2/6 [00:17<00:34,  8.73s/it] 50%|█████     | 3/6 [00:26<00:26,  8.72s/it] 67%|██████▋   | 4/6 [00:34<00:17,  8.74s/it] 83%|████████▎ | 5/6 [00:43<00:08,  8.72s/it]100%|██████████| 6/6 [00:52<00:00,  8.74s/it]100%|██████████| 6/6 [00:52<00:00,  8.74s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 58.03 seconds
+  Saved LoRA result: ../output/lora\thumbnail.shorts.v2.v1.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+Saved: ../output\thumbnail.shorts.v2.v1.png
+../output\thumbnail.shorts.v2.v1.png
+Generating short 4 of SHORTS_VARIATIONS, variation 2 of 6
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 3091053892
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:08<00:43,  8.78s/it] 33%|███▎      | 2/6 [00:17<00:35,  8.77s/it] 50%|█████     | 3/6 [00:26<00:26,  8.74s/it] 67%|██████▋   | 4/6 [00:35<00:17,  8.75s/it] 83%|████████▎ | 5/6 [00:43<00:08,  8.77s/it]100%|██████████| 6/6 [00:52<00:00,  8.76s/it]100%|██████████| 6/6 [00:52<00:00,  8.76s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 57.86 seconds
+  Saved LoRA result: ../output/lora\thumbnail.shorts.v3.v1.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+Saved: ../output\thumbnail.shorts.v3.v1.png
+../output\thumbnail.shorts.v3.v1.png
+Generating short 5 of SHORTS_VARIATIONS, variation 2 of 6
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 2424372647
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:08<00:44,  8.81s/it] 33%|███▎      | 2/6 [00:17<00:35,  8.76s/it] 50%|█████     | 3/6 [00:26<00:26,  8.72s/it] 67%|██████▋   | 4/6 [00:34<00:17,  8.73s/it] 83%|████████▎ | 5/6 [00:43<00:08,  8.72s/it]100%|██████████| 6/6 [00:52<00:00,  8.72s/it]100%|██████████| 6/6 [00:52<00:00,  8.73s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 57.77 seconds
+  Saved LoRA result: ../output/lora\thumbnail.shorts.v4.v1.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+Saved: ../output\thumbnail.shorts.v4.v1.png
+../output\thumbnail.shorts.v4.v1.png
+Generating short 6 of SHORTS_VARIATIONS, variation 2 of 6
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 3297055790
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:08<00:43,  8.77s/it] 33%|███▎      | 2/6 [00:17<00:34,  8.72s/it] 50%|█████     | 3/6 [00:26<00:26,  8.69s/it] 67%|██████▋   | 4/6 [00:34<00:17,  8.73s/it] 83%|████████▎ | 5/6 [00:43<00:08,  8.75s/it]100%|██████████| 6/6 [00:52<00:00,  8.75s/it]100%|██████████| 6/6 [00:52<00:00,  8.74s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 57.73 seconds
+  Saved LoRA result: ../output/lora\thumbnail.shorts.v5.v1.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+Saved: ../output\thumbnail.shorts.v5.v1.png
+../output\thumbnail.shorts.v5.v1.png
+Generating thumbnail 3 of 6
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1280x720
+  Seed set to: 460963259
+  Using latent mode with dimensions: 1280x720
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 9512.07497329712 9511.748046875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:04<00:24,  4.91s/it] 33%|███▎      | 2/6 [00:09<00:19,  4.90s/it] 50%|█████     | 3/6 [00:14<00:14,  4.91s/it] 67%|██████▋   | 4/6 [00:19<00:09,  4.93s/it] 83%|████████▎ | 5/6 [00:24<00:04,  4.95s/it]100%|██████████| 6/6 [00:29<00:00,  4.93s/it]100%|██████████| 6/6 [00:29<00:00,  4.92s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.3203125 159.87335777282715 True
+Prompt executed in 32.95 seconds
+  Saved LoRA result: ../output/lora\thumbnail2.v.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+Saved: ../output\thumbnail2.v.png
+../output\thumbnail2.v.png
+Generating short 2 of SHORTS_VARIATIONS, variation 3 of 6
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 2715640956
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:08<00:44,  8.81s/it] 33%|███▎      | 2/6 [00:17<00:35,  8.76s/it] 50%|█████     | 3/6 [00:26<00:26,  8.76s/it] 67%|██████▋   | 4/6 [00:35<00:17,  8.75s/it] 83%|████████▎ | 5/6 [00:43<00:08,  8.72s/it]100%|██████████| 6/6 [00:52<00:00,  8.70s/it]100%|██████████| 6/6 [00:52<00:00,  8.73s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 56.91 seconds
+  Saved LoRA result: ../output/lora\thumbnail.shorts.v1.v2.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+Saved: ../output\thumbnail.shorts.v1.v2.png
+../output\thumbnail.shorts.v1.v2.png
+Generating short 3 of SHORTS_VARIATIONS, variation 3 of 6
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 1543639115
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:08<00:43,  8.76s/it] 33%|███▎      | 2/6 [00:17<00:34,  8.72s/it] 50%|█████     | 3/6 [00:26<00:26,  8.73s/it] 67%|██████▋   | 4/6 [00:34<00:17,  8.74s/it] 83%|████████▎ | 5/6 [00:43<00:08,  8.74s/it]100%|██████████| 6/6 [00:52<00:00,  8.77s/it]100%|██████████| 6/6 [00:52<00:00,  8.75s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 58.22 seconds
+  Saved LoRA result: ../output/lora\thumbnail.shorts.v2.v2.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+Saved: ../output\thumbnail.shorts.v2.v2.png
+../output\thumbnail.shorts.v2.v2.png
+Generating short 4 of SHORTS_VARIATIONS, variation 3 of 6
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 3751808788
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:08<00:43,  8.79s/it] 33%|███▎      | 2/6 [00:17<00:35,  8.80s/it] 50%|█████     | 3/6 [00:26<00:26,  8.82s/it] 67%|██████▋   | 4/6 [00:35<00:17,  8.83s/it] 83%|████████▎ | 5/6 [00:44<00:08,  8.82s/it]100%|██████████| 6/6 [00:52<00:00,  8.83s/it]100%|██████████| 6/6 [00:52<00:00,  8.83s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 58.57 seconds
+  Saved LoRA result: ../output/lora\thumbnail.shorts.v3.v2.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+Saved: ../output\thumbnail.shorts.v3.v2.png
+../output\thumbnail.shorts.v3.v2.png
+Generating short 5 of SHORTS_VARIATIONS, variation 3 of 6
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 2720108323
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:08<00:44,  8.93s/it] 33%|███▎      | 2/6 [00:17<00:35,  8.88s/it] 50%|█████     | 3/6 [00:26<00:26,  8.86s/it] 67%|██████▋   | 4/6 [00:35<00:17,  8.83s/it] 83%|████████▎ | 5/6 [00:44<00:08,  8.82s/it]100%|██████████| 6/6 [00:53<00:00,  8.83s/it]100%|██████████| 6/6 [00:53<00:00,  8.84s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 58.77 seconds
+  Saved LoRA result: ../output/lora\thumbnail.shorts.v4.v2.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+Saved: ../output\thumbnail.shorts.v4.v2.png
+../output\thumbnail.shorts.v4.v2.png
+Generating short 6 of SHORTS_VARIATIONS, variation 3 of 6
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 26360815
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:08<00:44,  8.89s/it] 33%|███▎      | 2/6 [00:17<00:35,  8.83s/it] 50%|█████     | 3/6 [00:26<00:26,  8.84s/it] 67%|██████▋   | 4/6 [00:35<00:17,  8.88s/it] 83%|████████▎ | 5/6 [00:44<00:08,  8.88s/it]100%|██████████| 6/6 [00:53<00:00,  8.90s/it]100%|██████████| 6/6 [00:53<00:00,  8.88s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 57.66 seconds
+
+===== END D:\.comfyui\gen.audio\scripts\10.thumbnail.py @ 2025-10-04 20:48:50 (exit=3221225786, took=1037.28s) =====
+Stopping ComfyUI backend...

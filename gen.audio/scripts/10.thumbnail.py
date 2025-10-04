@@ -27,7 +27,7 @@ WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary print
 # Controls text generation method:
 # - True: use text overlay after image generation (generates 1 image: thumbnail.png)
 # - False: let Flux generate text in the image itself (generates 5 versions: thumbnail.flux.v1-v5.png)
-USE_TITLE_TEXT = False
+USE_TITLE_TEXT = True
 
 # Controls where the title band + text appears: "top", "middle", or "bottom"
 TITLE_POSITION = "middle"

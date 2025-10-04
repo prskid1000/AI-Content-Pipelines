@@ -76,12 +76,12 @@ SCRIPTS = [
     #Video
     # "8.combine.py",
     # "9.description.py",
-    # "10.thumbnail.py",
-    # "11.video.py",
+    "10.thumbnail.py",
+    "11.video.py",
 
     #YouTube
-    # "12.media.py",
-    # "13.youtube.py"
+    "12.media.py",
+    "13.youtube.py"
 ]
 
 SCRIPTS_DIR = "scripts"
