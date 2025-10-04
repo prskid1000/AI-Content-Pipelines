@@ -90,7 +90,7 @@ class ResumableState:
         return f"Progress: Timing Entries({timing_done}/{timing_total})"
 
 class TimingSFXGenerator:
-    def __init__(self, lm_studio_url="http://localhost:1234/v1", model=MODEL_TIMING_GENERATION, use_json_schema=True):
+    def __init__(self, lm_studio_url="http://localhost:1234/v0", model=MODEL_TIMING_GENERATION, use_json_schema=True):
         self.lm_studio_url = lm_studio_url
         self.output_file = "../input/4.sfx.txt"
         self.model = model

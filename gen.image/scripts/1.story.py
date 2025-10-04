@@ -586,7 +586,7 @@ def _schema_character_summary() -> dict[str, object]:
                         "type": "string",
                         "minLength": CHARACTER_SUMMARY_CHARACTER_MIN,
                         "maxLength": CHARACTER_SUMMARY_CHARACTER_MAX,
-                        "description": f"A Short Version of the COMPLETE CHARACTER ({CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters, approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words) that will contain entire character from start to end with all details in short version."
+                        "description": f"Entire character all details in short version."
                     }
                 },
                 "required": ["summary"]
@@ -693,7 +693,7 @@ def _schema_location_summary() -> dict[str, object]:
                         "type": "string",
                         "minLength": LOCATION_SUMMARY_CHARACTER_MIN,
                         "maxLength": LOCATION_SUMMARY_CHARACTER_MAX,
-                        "description": f"A Short Version of the COMPLETE LOCATION ({LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters, approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words) that will contain entire location from start to end with all details in short version."
+                        "description": f"Entire location with all details in short version."
                     }
                 },
                 "required": ["summary"]
@@ -716,7 +716,7 @@ def _schema_story_description() -> dict[str, object]:
                         "type": "string",
                         "minLength": STORY_DESCRIPTION_CHARACTER_MIN,
                         "maxLength": STORY_DESCRIPTION_CHARACTER_MAX,
-                        "description": f"A single continuous paragraph ({STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX} characters, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words) that contains the entire story from start to end with all details in short version. Must include all actors and their roles, all locations and settings, complete chronological events in details."
+                        "description": f"Entire story all details in short version."
                     }
                 },
                 "required": ["description"]
@@ -738,7 +738,7 @@ def _build_character_user_prompt(story_desc: str, character_name: str, all_chara
 
 def _build_character_summary_prompt() -> str:
     return (
-        f"Create a concise character single continuous paragraph ({CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters, approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words) that will contain entire character from start to end with all details in short version.\n\n"
+        f"Transform it into a continuous paragraph of {CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters, approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words.\n"
         f"It must always include all visual details from the original description, preserving all visual attributes and characteristics.\n"
     )
 
@@ -751,7 +751,7 @@ def _build_character_summary_user_prompt(character_name: str, detailed_descripti
 
 def _build_story_description_prompt() -> str:
     return (
-        f"Create a story single continuous paragraph ({STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX}, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words, in form of  grammatically correct sentences) that will contain entire story from start to end with all details in short version.\n\n"
+        f"Summarize Story it into a continuous paragraph of {STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX} characters, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words.\n"
         f"It must always include all actors and their roles, all locations and settings, complete chronological events in details.\n"
     )
 
@@ -786,7 +786,7 @@ def _build_location_user_prompt(story_desc: str, location_id: str, all_locations
 
 def _build_location_summary_prompt() -> str:
     return (
-        f"Create a concise location single continuous paragraph ({LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters, approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words) that will contain entire location from start to end with all details in short version.\n\n"
+        f"Transform it into a continuous paragraph of {LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters, approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words.\n"
         f"It must always include all visual details from the original description, preserving all visual attributes, characteristics and postioning relationships.\n"
     )
 
@@ -1479,7 +1479,7 @@ def main() -> int:
     story_desc = None
     if locations:
         try:
-            lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v1")
+            lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v0")
             
             # Generate story description from content using qwen/qwen3-14b
             story_desc = _generate_story_description(content, lm_studio_url, resumable_state)

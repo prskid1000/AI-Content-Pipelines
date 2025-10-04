@@ -91,7 +91,7 @@ class ResumableState:
         return f"Progress: SFX Entries({sfx_done}/{sfx_total})"
 
 class TimelineSFXGenerator:
-    def __init__(self, lm_studio_url="http://localhost:1234/v1", model=MODEL_TIMELINE_GENERATION, use_json_schema=True):
+    def __init__(self, lm_studio_url="http://localhost:1234/v0", model=MODEL_TIMELINE_GENERATION, use_json_schema=True):
         self.lm_studio_url = lm_studio_url
         self.output_file = "../input/3.timing.txt"
         self.model = model

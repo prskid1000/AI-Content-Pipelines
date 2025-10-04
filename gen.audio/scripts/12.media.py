@@ -19,7 +19,7 @@ MODEL_MEDIA_BULLETS = "qwen/qwen3-14b"  # Model for generating YouTube bullet po
 class YouTubeDescriptionGenerator:
     def __init__(
         self,
-        lm_studio_url: str = "http://localhost:1234/v1",
+        lm_studio_url: str = "http://localhost:1234/v0",
         model: str = MODEL_MEDIA_TAGS,
         diffusion_file: str = "../input/9.description.txt",
         title_file: str = "../input/10.title.txt",
