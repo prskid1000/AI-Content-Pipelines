@@ -333,7 +333,7 @@ class LocationGenerator:
         self.intermediate_output_dir = "../output/lora"
         self.input_file = "../input/3.location.txt" if USE_SUMMARY_TEXT else "../input/2.location.txt"
         # Latent image input file path
-        self.latent_image_path = "../input/2.latent.small.png"
+        self.latent_image_path = "../input/2.latent.location.large.png"
         # Dynamic workflow file selection based on mode - use character workflow
         self.workflow_file = "../workflow/character.flux.json" if self.mode == "flux" else "../workflow/character.json"
 

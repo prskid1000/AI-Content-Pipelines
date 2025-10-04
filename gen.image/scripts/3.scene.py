@@ -42,7 +42,7 @@ IMAGE_COMPRESSION_QUALITY = 99
 # Note: LATENT_MODE controls whether location images are ALSO used as latent input (separate from grouping)
 
 # HARDCODED CHARACTER MODE - Change this to switch modes
-ACTIVE_CHARACTER_MODE = "IMAGE"
+ACTIVE_CHARACTER_MODE = "IMAGE_TEXT"
 
 # HARDCODED LOCATION MODE - Change this to switch modes
 ACTIVE_LOCATION_MODE = "TEXT"

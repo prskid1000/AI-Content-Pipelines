@@ -87,6 +87,7 @@ CHARACTER_NAME_BAND_HEIGHT_RATIO = 0.30  # 15% of image height for name band
 
 USE_SUMMARY_TEXT = True  # Set to True to use summary text
 
+FACE_ONLY = False  # Set to True to generate only face
 
 class ResumableState:
     """Manages resumable state for expensive character generation operations."""
@@ -333,7 +334,7 @@ class CharacterGenerator:
         self.intermediate_output_dir = "../output/lora"
         self.input_file = "../input/3.character.txt" if USE_SUMMARY_TEXT else "../input/2.character.txt"
         # Latent image input file path
-        self.latent_image_path = "../input/2.latent.medium.png"
+        self.latent_image_path = "../input/2.latent.character.face.large.png" if FACE_ONLY else "../input/2.latent.character.body.large.png"
         # Dynamic workflow file selection based on mode
         self.workflow_file = "../workflow/character.flux.json" if self.mode == "flux" else "../workflow/character.json"
 
