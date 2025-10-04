@@ -18,7 +18,7 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
 # Variation Configuration
-VARIATIONS_PER_LOCATION = 5  # Number of variations to generate per location (in addition to original)
+VARIATIONS_PER_LOCATION = 1  # Number of variations to generate per location (in addition to original)
 
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
@@ -26,10 +26,11 @@ IMAGE_HEIGHT = 720
 
 # Latent Input Mode Configuration
 LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
+IMAGE_LATENT_SIZE = "large"
 LATENT_DENOISING_STRENGTH = 0.82  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # LoRA Configuration
-USE_LORA = False  # Set to False to disable LoRA usage in workflow
+USE_LORA = True  # Set to False to disable LoRA usage in workflow
 LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
 
 # LoRA Configuration
@@ -333,7 +334,7 @@ class LocationGenerator:
         self.intermediate_output_dir = "../output/lora"
         self.input_file = "../input/3.location.txt" if USE_SUMMARY_TEXT else "../input/2.location.txt"
         # Latent image input file path
-        self.latent_image_path = "../input/2.latent.location.large.png"
+        self.latent_image_path = f"../input/2.latent.location.{IMAGE_LATENT_SIZE}.png"
         # Dynamic workflow file selection based on mode - use character workflow
         self.workflow_file = "../workflow/character.flux.json" if self.mode == "flux" else "../workflow/character.json"
 

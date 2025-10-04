@@ -15,10 +15,10 @@ print = partial(_builtins.print, flush=True)
 # Feature flags
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
-WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
+WORKFLOW_SUMMARY_ENABLED = True  # Set to True to enable workflow summary printing
 
 # Variation Configuration
-VARIATIONS_PER_CHARACTER = 3  # Number of variations to generate per character (in addition to original)
+VARIATIONS_PER_CHARACTER = 1  # Number of variations to generate per character (in addition to original)
 
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
@@ -26,6 +26,7 @@ IMAGE_HEIGHT = 720
 
 # Latent Input Mode Configuration
 LATENT_MODE = "IMAGE"  # "LATENT" for normal noise generation, "IMAGE" for load image input
+IMAGE_LATENT_SIZE = "medium"
 LATENT_DENOISING_STRENGTH = 0.85  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # LoRA Configuration
@@ -334,7 +335,7 @@ class CharacterGenerator:
         self.intermediate_output_dir = "../output/lora"
         self.input_file = "../input/3.character.txt" if USE_SUMMARY_TEXT else "../input/2.character.txt"
         # Latent image input file path
-        self.latent_image_path = "../input/2.latent.character.face.large.png" if FACE_ONLY else "../input/2.latent.character.body.large.png"
+        self.latent_image_path = f"../input/2.latent.character.face.{IMAGE_LATENT_SIZE}.png" if FACE_ONLY else f"../input/2.latent.character.body.{IMAGE_LATENT_SIZE}.png"
         # Dynamic workflow file selection based on mode
         self.workflow_file = "../workflow/character.flux.json" if self.mode == "flux" else "../workflow/character.json"
 

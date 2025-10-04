@@ -63,16 +63,56 @@ The image generation scripts now support two distinct modes for controlling the 
 - **Denoising Control**: `LATENT_DENOISING_STRENGTH` (0.0-1.0) controls how much the input image is modified
 - **Serial LoRA Support**: First LoRA in serial mode can also use IMAGE mode for enhanced control
 
+### Image Latent Size Configuration
+
+The system supports different latent input image sizes for IMAGE mode generation:
+
+#### Latent Size Options
+- **"small"**: Smaller resolution input images (faster processing, lower quality)
+- **"medium"**: Balanced resolution input images (default for character generation)
+- **"large"**: Higher resolution input images (slower processing, higher quality)
+
+#### Configuration by Script
+- **Character Script**: `IMAGE_LATENT_SIZE = "medium"` (configurable)
+- **Location Script**: `IMAGE_LATENT_SIZE = "large"` (configurable)
+- **Scene Script**: Uses fixed `3.latent.png` path (not size-configurable)
+- **Thumbnail Script**: Uses fixed `10.latent.png` path (not size-configurable)
+
+### Face Only Mode (Character Script)
+
+The character generation script supports a special face-only mode for generating portrait-style character images:
+
+#### Face Only Configuration
+- **`FACE_ONLY = False`**: Generate full body character images (default)
+- **`FACE_ONLY = True`**: Generate face-only character portraits
+
+#### Dynamic File Path Generation
+When `FACE_ONLY = True`, the script automatically uses face-specific latent input files:
+```python
+# Face-only mode
+self.latent_image_path = f"../input/2.latent.character.face.{IMAGE_LATENT_SIZE}.png"
+
+# Full body mode (default)
+self.latent_image_path = f"../input/2.latent.character.body.{IMAGE_LATENT_SIZE}.png"
+```
+
 #### Implementation Details
 ```python
 # Configuration in each script
 LATENT_MODE = "LATENT"  # or "IMAGE"
+IMAGE_LATENT_SIZE = "medium"  # "small", "medium", "large"
+FACE_ONLY = False  # True for face-only, False for full body (character script only)
 LATENT_DENOISING_STRENGTH = 0.8  # Only used in IMAGE mode
 
-# File paths for IMAGE mode
-self.latent_image_path = "../input/2.latent.png"  # Character script
-self.latent_image_path = "../input/3.latent.png"  # Scene script  
-self.latent_image_path = "../input/10.latent.png" # Thumbnail script
+# File paths for IMAGE mode (dynamically generated based on configuration)
+# Character script:
+self.latent_image_path = f"../input/2.latent.character.face.{IMAGE_LATENT_SIZE}.png" if FACE_ONLY else f"../input/2.latent.character.body.{IMAGE_LATENT_SIZE}.png"
+# Location script:
+self.latent_image_path = f"../input/2.latent.location.{IMAGE_LATENT_SIZE}.png"
+# Scene script:
+self.latent_image_path = f"../input/3.latent.png"  # Uses fixed path
+# Thumbnail script:
+self.latent_image_path = f"../input/10.latent.png"  # Uses fixed path
 ```
 
 ### Serial LoRA Processing
@@ -211,7 +251,7 @@ python 2.story.py --disable-resumable
 ├── gen.image/                  # Image pipeline (6 scripts)
 │   ├── generate.py             # Main orchestrator
 │   ├── input/                  # Text descriptions
-│   ├── output/                 # characters/, scene/, video/
+│   ├── output/                 # characters/, locations/, scene/, lora/
 │   │   └── tracking/           # Resumable checkpoints (*.state.json)
 │   ├── scripts/                # Processing scripts
 │   └── workflow/               # ComfyUI workflows
@@ -885,10 +925,10 @@ ART_STYLE = "Realistic Anime"
 # Feature Flags
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
-WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
+WORKFLOW_SUMMARY_ENABLED = True  # Set to True to enable workflow summary printing
 
 # Variation Configuration
-VARIATIONS_PER_CHARACTER = 3  # Number of variations to generate per character (in addition to original)
+VARIATIONS_PER_CHARACTER = 1  # Number of variations to generate per character (in addition to original)
 
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
@@ -896,10 +936,12 @@ IMAGE_HEIGHT = 720
 
 # Latent Input Mode Configuration
 LATENT_MODE = "IMAGE"  # "LATENT" for normal noise generation, "IMAGE" for load image input
+IMAGE_LATENT_SIZE = "medium"  # Size for latent input images: "small", "medium", "large"
+FACE_ONLY = False  # Set to True to generate only face images, False for full body images
 LATENT_DENOISING_STRENGTH = 0.85  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # LoRA Configuration
-USE_LORA = False  # Set to False to disable LoRA usage in workflow
+USE_LORA = True  # Set to False to disable LoRA usage in workflow
 LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
 LORAS = [
     {
@@ -913,11 +955,23 @@ LORAS = [
         "denoising_strength": 1,  # Serial mode only
         "save_intermediate": True,
         "use_only_intermediate": False
+    },
+    {
+        "name": "FLUX.1-Turbo-Alpha.safetensors",
+        "strength_model": 3.6,    # Model strength (0.0 - 2.0)
+        "strength_clip": 3.6,     # CLIP strength (0.0 - 2.0)
+        "bypass_model": False,
+        "bypass_clip": False,
+        "enabled": False,         # Set to False to disable this LoRA entirely
+        "steps": 6,               # Serial mode only
+        "denoising_strength": 0.1, # Serial mode only
+        "save_intermediate": True,
+        "use_only_intermediate": True
     }
 ]
 
 # Sampling Configuration
-SAMPLING_STEPS = 45  # Number of sampling steps (higher = better quality, slower)
+SAMPLING_STEPS = 25  # Number of sampling steps (higher = better quality, slower)
 USE_NEGATIVE_PROMPT = True
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
@@ -928,7 +982,10 @@ FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 # Character Settings
 USE_CHARACTER_NAME_OVERLAY = False  # Set to False to disable name overlay
 CHARACTER_NAME_FONT_SCALE = 1
-CHARACTER_NAME_BAND_HEIGHT_RATIO = 0.30  # 15% of image height for name band
+CHARACTER_NAME_BAND_HEIGHT_RATIO = 0.30  # 30% of image height for name band
+
+# Text Processing
+USE_SUMMARY_TEXT = False  # Set to True to use summary text
 
 ART_STYLE = "Realistic Anime"
 ```
@@ -941,7 +998,7 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
 # Variation Configuration
-VARIATIONS_PER_LOCATION = 3  # Number of variations to generate per location (in addition to original)
+VARIATIONS_PER_LOCATION = 1  # Number of variations to generate per location (in addition to original)
 
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
@@ -949,10 +1006,11 @@ IMAGE_HEIGHT = 720
 
 # Latent Input Mode Configuration
 LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
+IMAGE_LATENT_SIZE = "large"  # Size for latent input images: "small", "medium", "large"
 LATENT_DENOISING_STRENGTH = 0.82  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # LoRA Configuration
-USE_LORA = False  # Set to False to disable LoRA usage in workflow
+USE_LORA = True  # Set to False to disable LoRA usage in workflow
 LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
 LORAS = [
     {
@@ -982,7 +1040,7 @@ LORAS = [
 ]
 
 # Sampling Configuration
-SAMPLING_STEPS = 45  # Number of sampling steps (higher = better quality, slower)
+SAMPLING_STEPS = 25  # Number of sampling steps (higher = better quality, slower)
 USE_NEGATIVE_PROMPT = True
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
@@ -994,6 +1052,9 @@ FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 USE_CHARACTER_NAME_OVERLAY = False  # Set to False to disable name overlay
 CHARACTER_NAME_FONT_SCALE = 1
 CHARACTER_NAME_BAND_HEIGHT_RATIO = 0.30  # 30% of image height for name band
+
+# Text Processing
+USE_SUMMARY_TEXT = True  # Set to True to use summary text
 
 ART_STYLE = "Realistic Anime"
 ```
@@ -1010,20 +1071,20 @@ IMAGE_WIDTH = 1280
 IMAGE_HEIGHT = 720
 
 # Image Resizing Configuration (characters only)
-CHARACTER_RESIZE_FACTOR = 1  # Character image resize factor: 1 = no resize
+CHARACTER_RESIZE_FACTOR = 0.5  # Character image resize factor: 0.5 = 50% of original size
 
 # Image Compression Configuration
-IMAGE_COMPRESSION_QUALITY = 99  # JPEG quality: 1-100 (100 = best quality, larger file)
+IMAGE_COMPRESSION_QUALITY = 90  # JPEG quality: 1-100 (90 = good quality, smaller file)
 
 # Character/Location Prompt Handling Modes
 # Character modes: "IMAGE_TEXT", "TEXT", "IMAGE", "NONE"
 # Location modes: "IMAGE_TEXT", "TEXT", "IMAGE", "NONE"
-ACTIVE_CHARACTER_MODE = "IMAGE"  # Character handling mode
-ACTIVE_LOCATION_MODE = "TEXT"    # Location handling mode
+ACTIVE_CHARACTER_MODE = "IMAGE_TEXT"  # Character handling mode
+ACTIVE_LOCATION_MODE = "TEXT"         # Location handling mode
 
 # Latent Input Mode Configuration
 LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
-LATENT_DENOISING_STRENGTH = 0.1  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
+LATENT_DENOISING_STRENGTH = 0.90  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # Image Stitching Configuration (1-5)
 IMAGE_STITCH_COUNT = 1  # Number of images to stitch together in each group
@@ -1043,6 +1104,18 @@ LORAS = [
         "denoising_strength": 1,  # Serial mode only
         "save_intermediate": True,
         "use_only_intermediate": False
+    },
+    {
+        "name": "FLUX.1-Turbo-Alpha.safetensors",
+        "strength_model": 3.6,    # Model strength (0.0 - 2.0)
+        "strength_clip": 3.6,     # CLIP strength (0.0 - 2.0)
+        "bypass_model": False,
+        "bypass_clip": False,
+        "enabled": False,         # Set to False to disable this LoRA entirely
+        "steps": 6,               # Serial mode only
+        "denoising_strength": 0.1, # Serial mode only
+        "save_intermediate": True,
+        "use_only_intermediate": True
     }
 ]
 
@@ -1704,6 +1777,7 @@ The orchestrator scripts automatically manage service dependencies with intellig
 #### Image → Video Pipeline
 - `gen.image/output/scene/*.png` → `gen.video/scripts/2.animate.py`
 - `gen.image/output/characters/*.png` → `gen.image/scripts/3.scene.py`
+- `gen.image/output/locations/*.png` → `gen.image/scripts/3.scene.py`
 
 #### Audio → Video Pipeline
 - `gen.audio/output/final.wav` → `gen.video/scripts/3.video.py`
@@ -1732,12 +1806,16 @@ The orchestrator scripts automatically manage service dependencies with intellig
 - `1.story.txt` - Source story text
 - `9.description.txt` - Story description (from audio pipeline)
 - `2.character.txt` - Character descriptions (generated by `1.story.py`)
-- `3.location.txt` - Location descriptions (generated by `1.story.py`)
+- `3.character.txt` - Character summary descriptions (generated by `1.story.py`)
+- `2.location.txt` - Location descriptions (generated by `1.story.py`)
+- `3.location.txt` - Location summary descriptions (generated by `1.story.py`)
 - `3.scene.txt` - Scene descriptions (generated by `1.story.py`)
 - `characters/*.png` - Character images (generated by `2.character.py`)
 - `locations/*.png` - Location images (generated by `2.location.py`)
-- `2.latent.png` - Input image for character generation (IMAGE mode only)
-- `3.latent.png` - Input image for scene generation (IMAGE mode only)
+- `2.latent.character.face.{size}.png` - Face-only input image for character generation (IMAGE mode, FACE_ONLY = True)
+- `2.latent.character.body.{size}.png` - Full body input image for character generation (IMAGE mode, FACE_ONLY = False)
+- `2.latent.location.{size}.png` - Input image for location generation (IMAGE mode only)
+- `3.latent.small.png` - Input image for scene generation (IMAGE mode only)
 
 **Video Pipeline Inputs:**
 - `scene/*.png` - Scene images from image pipeline
@@ -1786,9 +1864,14 @@ The current workflow files use direct resolution settings instead of dynamic `Fl
 - `final_sd.mp4` - Final animated video with audio
 
 #### Latent Input Files (for IMAGE mode)
-- `2.latent.png` - Input image for character generation
-- `3.latent.png` - Input image for scene generation
-- `10.latent.png` - Input image for thumbnail generation
+- `2.latent.character.face.{size}.png` - Face-only input image for character generation (when FACE_ONLY = True)
+- `2.latent.character.body.{size}.png` - Full body input image for character generation (when FACE_ONLY = False)
+- `2.latent.location.{size}.png` - Input image for location generation
+- `3.latent.small.png` - Input image for scene generation (fixed filename)
+- `3.latent.png` - Input image for scene generation (fixed path)
+- `10.latent.png` - Input image for thumbnail generation (fixed path)
+
+Where `{size}` can be "small", "medium", or "large" based on `IMAGE_LATENT_SIZE` configuration.
 
 ### Intermediate Files
 
@@ -1945,11 +2028,13 @@ This is a modular system designed for easy extension. Each script is self-contai
 | Setting | Characters (2) | Locations (3L) | Scenes (3S) | Thumbnails (10) |
 |---------|----------------|----------------|-------------|-----------------|
 | **Resolution** | 1280x720 | 1280x720 | 1280x720 | 1280x720 |
-| **Latent Mode** | IMAGE | LATENT | IMAGE | LATENT |
-| **Denoising** | 0.82 | 0.82 | 0.1 | 0.8 |
-| **LoRA Enabled** | ❌ False | ❌ False | ✅ True | ✅ True |
+| **Latent Mode** | IMAGE | LATENT | LATENT | LATENT |
+| **Latent Size** | medium | large | N/A | N/A |
+| **Face Only** | False | N/A | N/A | N/A |
+| **Denoising** | 0.85 | 0.82 | 0.90 | 0.8 |
+| **LoRA Enabled** | ✅ True | ✅ True | ✅ True | ✅ True |
 | **LoRA Strength** | 2.0/2.0 | 2.0/2.0 | 3.6/3.6 | 3.6/3.6 |
-| **Sampling Steps** | 45 | 45 | 25 | 25 |
+| **Sampling Steps** | 25 | 25 | 25 | 25 |
 | **LoRA Mode** | serial | serial | serial | serial |
 | **LoRA Steps** | 6 | 6 | 6 | 9 |
 | **ART_STYLE** | "Realistic Anime" | "Realistic Anime" | "Realistic Anime" | "Realistic Anime" |
@@ -1964,12 +2049,15 @@ This is a modular system designed for easy extension. Each script is self-contai
 |---------|------------|-----------|--------|-------|
 | **Character Overlay** | ✅ Supported | ✅ Supported | ❌ N/A | Text overlay on images |
 | **Character Mode** | ❌ N/A | ❌ N/A | ✅ IMAGE_TEXT | How characters are handled |
-| **Location Mode** | ❌ N/A | ❌ N/A | ✅ IMAGE_TEXT | How locations are handled |
+| **Location Mode** | ❌ N/A | ❌ N/A | ✅ TEXT | How locations are handled |
 | **Image Stitching** | ❌ N/A | ❌ N/A | ✅ 1 image | Combine multiple images |
-| **Character Resize** | ❌ N/A | ❌ N/A | ✅ 1.0 (100%) | Resize factor for stitching |
-| **Compression Quality** | ❌ N/A | ❌ N/A | ✅ 95 | JPEG quality 1-100 |
+| **Character Resize** | ❌ N/A | ❌ N/A | ✅ 0.5 (50%) | Resize factor for stitching |
+| **Compression Quality** | ❌ N/A | ❌ N/A | ✅ 90 | JPEG quality 1-100 |
 | **Title Text Overlay** | ❌ N/A | ❌ N/A | ❌ N/A | Thumbnail only |
 | **Title Position** | ❌ N/A | ❌ N/A | ❌ N/A | Thumbnail only |
+| **Workflow Summary** | ✅ Enabled | ❌ Disabled | ❌ Disabled | Debug mode |
+| **Variations** | 1 | 1 | N/A | Variations per item |
+| **Summary Text** | ❌ Disabled | ✅ Enabled | N/A | Use summary text files |
 
 ### Breaking Changes
 - **Resolution Constants**: Replaced `IMAGE_MEGAPIXEL` with direct `IMAGE_WIDTH`/`IMAGE_HEIGHT`
