@@ -1,200 +1,142 @@
-(scene_1.1) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)) {Neutral}, {Sitting on sofa}, {Reading newspaper};
+(scene_1.1) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)){Neutral} {Sitting on sofa}{Reading newspaper};((male_detective_holmes)){Neutral} {Sitting opposite on armchair}{Reading monograph};
 
-(scene_1.2) {{loc_1}}, {Sunny Winter Morning};((male_detective_holmes)) {Surprise}, {Standing by window}, {Looking outside};
+(scene_1.2) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)){Curious} {Leaning forward on sofa}{Holding newspaper};((male_detective_holmes)){Neutral} {Standing near dining table}{Holding slim book};
 
-(scene_1.3) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)) {Slight Amusement}, {On sofa near fire}, {Turning page of newspaper};
+(scene_1.3) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)){Attentive} {Leaning back}{Setting down paper};((male_detective_holmes)){Slight smile} {Standing near fireplace}{Closing book};
 
-(scene_1.4) {{loc_1}}, {Sunny Winter Morning};((male_detective_holmes)) {Thoughtful}, {Leaning on window frame}, {Gesturing with pipe};
+(scene_1.4) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)){Thoughtful} {Sitting still}{Hands clasped};((male_detective_holmes)){Neutral} {Walking slowly toward sofa}{Gesturing with hand};
 
-(scene_1.5) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)) {Curious}, {Leaning forward on sofa}, {Resting newspaper on knee};
+(scene_1.5) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)){Slightly embarrassed} {Looking at floor}{Adjusting spectacles};((male_detective_holmes)){Encouraging} {Standing before Watson}{Hands behind back};
 
-(scene_1.6) {{loc_1}}, {Sunny Winter Morning};((male_detective_holmes)) {Confident}, {By window turning towards door}, {Tapping ash from pipe};
+(scene_1.6) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)){Surprised} {Looking at boots}{Leaning forward};((male_detective_holmes)){Neutral} {Pointing at Watson’s boots}{Calmly explaining};
 
-(scene_1.7) {{loc_1}}, {Sunny Winter Morning};((male_client_stranger)) {Anxious}, {At doorway clutching hat}, {Nervously twisting gloves};
+(scene_1.7) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)){Amazed} {Sitting back}{Eyes wide};((male_detective_holmes)){Slightly amused} {Pacing slowly}{Hands clasped behind};
 
-(scene_1.8) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)) {Polite}, {Rising from sofa}, {Gesturing toward fire};
+(scene_1.8) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)){Alert} {Turning head toward door}{Waiting};((male_detective_holmes)){Neutral} {Standing near fireplace}{Listening intently};
 
-(scene_1.9) {{loc_1}}, {Sunny Winter Morning};((male_detective_holmes)) {Sharp}, {Approaching visitor}, {Fixing gaze upon client};
+(scene_1.9) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)){Curious} {Half-rising from sofa}{Looking toward doorway};((male_detective_holmes)){Neutral} {Motioning with hand}{Calmly speaking};((female_landlady_hudson)){Neutral} {Standing in doorway}{Holding door slightly open};
 
-(scene_1.10) {{loc_1}}, {Sunny Winter Morning};((male_client_stranger)) {Alarmed}, {Near doorway}, {Clutching hat tighter};
+(scene_1.10) {{loc_2}}, {Late Winter Morning, Clear};((male_doctor_watson)){Neutral} {Standing near sofa}{Watching visitor};((male_detective_holmes)){Neutral} {Standing near center table}{Observing keenly};((male_naval_officer)) {Anxious} {Standing near door}{Holding cap};
 
-(scene_1.11) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)) {Reflective}, {Standing by chair}, {Hands folded behind back};
+(scene_1.11) {{loc_2}}, {Late Winter Morning, Clear};((male_doctor_watson)){Attentive} {Standing still}{Hands clasped};((male_detective_holmes)){Interested} {Tilting head slightly}{Hands joined behind back};((male_naval_officer)){Tense} {Stepping forward}{Speaking earnestly};
 
-(scene_1.12) {{loc_1}}, {Sunny Winter Morning};((male_detective_holmes)) {Commanding}, {Pointing to armchair}, {Lighting pipe anew};
+(scene_1.12) {{loc_2}}, {Late Winter Morning, Clear};((male_doctor_watson)){Inquisitive} {Looking at officer}{Leaning slightly forward};((male_detective_holmes)){Neutral} {Watching closely}{Standing tall};((male_naval_officer)){Anxious} {Gesturing with hand}{Explaining};
 
-(scene_1.13) {{loc_1}}, {Sunny Winter Morning};((male_client_stranger)) {Desperate}, {Lowering into armchair}, {Leaning forward imploringly};
+(scene_1.13) {{loc_2}}, {Late Winter Morning, Clear};((male_doctor_watson)){Shocked} {Taking a step back}{Hand to chin};((male_detective_holmes)){Calm} {Standing still}{Eyes fixed on officer};((male_naval_officer)){Distressed} {Hands trembling slightly}{Speaking quickly};
 
-(scene_1.14) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)) {Concerned}, {Standing beside Holmes}, {Hands clasped at back};
+(scene_2.1) {{loc_3}}, {Late Winter Morning, Cold and Foggy};((male_doctor_watson)){Curious} {Sitting in cab as it halts}{Looking at ship};((male_detective_holmes)){Neutral} {Stepping down from cab}{Scanning surroundings};((male_naval_officer)){Determined} {Standing near gangplank}{Pointing toward ship};
 
-(scene_1.15) {{loc_1}}, {Sunny Winter Morning};((male_client_stranger)) {Distraught}, {In armchair}, {Gesturing helplessly};
+(scene_2.2) {{loc_3}}, {Late Winter Morning, Cold and Foggy};((male_doctor_watson)){Attentive} {Climbing down cab}{Adjusting coat};((male_detective_holmes)){Observant} {Standing near gangplank}{Hands clasped behind back};((male_naval_officer)){Solemn} {Gesturing to sailors nearby}{Speaking low};
 
-(scene_1.16) {{loc_1}}, {Sunny Winter Morning};((male_detective_holmes)) {Analytical}, {Standing over client}, {Hands behind back};
+(scene_2.3) {{loc_3}}, {Late Winter Morning, Cold and Foggy};((male_doctor_watson)){Impressed} {Looking across deck}{Hands in coat pockets};((male_detective_holmes)){Neutral} {Ascending gangplank slowly}{Eyes roving keenly};((male_naval_officer)){Worried} {Walking ahead}{Glancing back anxiously};
 
-(scene_1.17) {{loc_1}}, {Sunny Winter Morning};((male_client_stranger)) {Uneasy}, {In chair}, {Shaking head slowly};
+(scene_2.4) {{loc_3}}, {Late Winter Morning, Cold and Foggy};((male_doctor_watson)){Thoughtful} {Pausing at gangplank}{Watching Holmes};((male_detective_holmes)){Neutral} {Pointing at sailors on deck}{Speaking firmly};((male_naval_officer)){Nervous} {Lowering voice}{Nodding};
 
-(scene_1.18) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)) {Grave}, {Standing near mantelpiece}, {Glancing at Holmes};
+(scene_2.5) {{loc_3}}, {Late Winter Morning, Cold and Foggy};((male_doctor_watson)){Startled} {Looking quickly to Holmes}{Raising brow};((male_detective_holmes)){Serious} {Turning to commander}{Hands behind back};((male_naval_officer)){Uneasy} {Clenching cap in hand}{Speaking earnestly};
 
-(scene_1.19) {{loc_1}}, {Sunny Winter Morning};((male_detective_holmes)) {Firm}, {Facing client}, {Reaching hand expectantly};
+(scene_2.6) {{loc_3}}, {Late Winter Morning, Cold and Foggy};((male_doctor_watson)){Inquisitive} {Standing beside Holmes}{Gesturing with hand};((male_detective_holmes)){Calm} {Looking at deck}{Speaking softly};((male_naval_officer)){Quiet} {Glancing toward sailors}{Nervous gesture};
 
-(scene_1.20) {{loc_1}}, {Sunny Winter Morning};((male_client_stranger)) {Resigned}, {Holding out scarf}, {Hand trembling};
+(scene_2.7) {{loc_4}}, {Late Winter Morning, Cold and Dim};((male_doctor_watson)){Observant} {Standing near desk}{Looking at charts};((male_detective_holmes)){Focused} {Kneeling near safe}{Examining lock};((male_naval_officer)){Uneasy} {Standing near door}{Watching Holmes};
 
-(scene_1.21) {{loc_1}}, {Sunny Winter Morning};((male_detective_holmes)) {Intense}, {Examining scarf}, {Holding close to lamp};
+(scene_2.8) {{loc_4}}, {Late Winter Morning, Cold and Dim};((male_doctor_watson)){Curious} {Leaning forward}{Peering at safe};((male_detective_holmes)){Serious} {Holding tiny fragment}{Examining closely};((male_naval_officer)){Nervous} {Clutching hands}{Waiting silently};
 
-(scene_1.22) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)) {Amazed}, {Looking at scarf}, {Hands clasped tightly};
+(scene_2.9) {{loc_4}}, {Late Winter Morning, Cold and Dim};((male_doctor_watson)){Amazed} {Looking at Holmes}{Straightening};((male_detective_holmes)){Calm} {Holding up fragment}{Speaking evenly};((male_naval_officer)){Tense} {Stepping closer}{Watching intently};
 
-(scene_1.23) {{loc_1}}, {Sunny Winter Morning};((male_detective_holmes)) {Resolute}, {Turning toward door}, {Reaching for hat and coat};
+(scene_2.10) {{loc_4}}, {Late Winter Morning, Cold and Dim};((male_doctor_watson)){Attentive} {Looking at carpet}{Pointing faintly};((male_detective_holmes)){Neutral} {Tracing scuff marks}{Gesturing};((male_naval_officer)){Concerned} {Rubbing chin}{Leaning forward};
 
-(scene_1.24) {{loc_2}}, {Cold Midday Fog};((male_doctor_watson)) {Narrative Neutral}, {Standing beside Holmes}, {Holding walking stick};
+(scene_2.11) {{loc_4}}, {Late Winter Morning, Cold and Dim};((male_doctor_watson)){Neutral} {Nodding slightly}{Hands clasped};((male_detective_holmes)){Slightly amused} {Turning to Watson}{Raising brow};((male_naval_officer)){Serious} {Standing rigid}{Listening};
 
-(scene_1.25) {{loc_2}}, {Cold Midday Fog};((male_detective_holmes)) {Focused}, {Kneeling by railing}, {Running fingers along iron};
+(scene_2.12) {{loc_4}}, {Late Winter Morning, Cold and Dim};((male_doctor_watson)){Curious} {Turning toward officer}{Arms folded};((male_detective_holmes)){Serious} {Standing tall}{Facing officer};((male_naval_officer)){Defensive} {Spreading hands}{Speaking earnestly};
 
-(scene_1.26) {{loc_2}}, {Cold Midday Fog};((male_doctor_watson)) {Alarmed}, {Bending over railing}, {Pointing with stick};
+(scene_2.13) {{loc_4}}, {Late Winter Morning, Cold and Dim};((male_doctor_watson)){Reflective} {Looking at safe}{Hands behind back};((male_detective_holmes)){Neutral} {Pacing slowly}{Hands clasped};((male_naval_officer)){Tense} {Watching Holmes closely}{Breathing unevenly};
 
-(scene_1.27) {{loc_2}}, {Cold Midday Fog};((male_detective_holmes)) {Serious}, {Examining railing}, {Holding magnifying glass};
+(scene_3.1) {{loc_5}}, {Cold Winter Noon, Slight Fog};((male_doctor_watson)){Neutral} {Standing near table}{Glancing around};((male_detective_holmes)){Serious} {Standing at head of table}{Observing carefully};((male_naval_officer)){Neutral} {Leading two men inside}{Motioning them forward};
 
-(scene_1.28) {{loc_2}}, {Cold Midday Fog};((male_client_stranger)) {Hopeful}, {Standing close behind Holmes}, {Clutching coat tightly};
+(scene_3.2) {{loc_5}}, {Cold Winter Noon, Slight Fog};((male_doctor_watson)){Neutral} {Standing near fireplace}{Hands clasped};((male_detective_holmes)){Calm} {Gesturing toward chairs}{Speaking evenly};((male_naval_officer)){Neutral} {Standing behind men}{Arms folded};((male_naval_lieutenant_graves)){Defensive} {Standing stiffly}{Adjusting uniform};((male_ship_steward_finch)){Nervous} {Shuffling feet}{Holding cap};
 
-(scene_1.29) {{loc_2}}, {Cold Midday Fog};((male_detective_holmes)) {Determined}, {Pointing toward northern end}, {Gesturing Mason and Watson forward};
+(scene_3.3) {{loc_5}}, {Cold Winter Noon, Slight Fog};((male_doctor_watson)){Attentive} {Standing nearby}{Observing faces};((male_detective_holmes)){Neutral} {Standing still}{Eyes fixed on Graves};((male_naval_lieutenant_graves)){Proud} {Taking seat firmly}{Chin raised};((male_ship_steward_finch)){Timid} {Sitting hesitantly}{Looking down};
 
-(scene_1.30) {{loc_2}}, {Cold Midday Fog};((male_doctor_watson)) {Reflective}, {Walking behind Holmes}, {Holding scarf carefully};
+(scene_3.4) {{loc_5}}, {Cold Winter Noon, Slight Fog};((male_doctor_watson)){Neutral} {Standing still}{Hands behind back};((male_detective_holmes)){Serious} {Leaning forward}{Speaking firmly};((male_naval_lieutenant_graves)){Cold} {Hands folded}{Voice clipped};((male_ship_steward_finch)){Uneasy} {Fidgeting with cap}{Looking away};
 
-(scene_2.1) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Neutral}, {Standing in hallway}, {Holding walking stick};
+(scene_3.5) {{loc_5}}, {Cold Winter Noon, Slight Fog};((male_doctor_watson)){Neutral} {Standing quietly}{Watching Graves};((male_detective_holmes)){Neutral} {Eyes fixed on Graves}{Listening intently};((male_naval_lieutenant_graves)){Confident} {Sitting tall}{Speaking directly};
 
-(scene_2.2) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Analytical}, {Standing beside Watson}, {Glancing up staircase};
+(scene_3.6) {{loc_5}}, {Cold Winter Noon, Slight Fog};((male_doctor_watson)){Attentive} {Leaning slightly}{Looking at Holmes};((male_detective_holmes)){Neutral} {Turning gaze toward Finch}{Gesturing slightly};((male_ship_steward_finch)){Uneasy} {Clearing throat}{Speaking nervously};
 
-(scene_2.3) {{loc_3}}, {Overcast Afternoon};((female_landlady_mrs_hudmore)) {Sad}, {At foot of staircase}, {Wringing hands in apron};
+(scene_3.7) {{loc_5}}, {Cold Winter Noon, Slight Fog};((male_doctor_watson)){Neutral} {Watching steward}{Arms crossed};((male_detective_holmes)){Calm} {Standing tall}{Hands behind back};((male_ship_steward_finch)){Timid} {Lowering eyes}{Speaking quickly};
 
-(scene_2.4) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Polite}, {Turning toward landlady}, {Gesturing respectfully};
+(scene_3.8) {{loc_5}}, {Cold Winter Noon, Slight Fog};((male_doctor_watson)){Suspicious} {Looking at steward}{Tilting head};((male_detective_holmes)){Serious} {Moving closer}{Studying face};((male_ship_steward_finch)){Nervous} {Clutching cap tighter}{Shifting in chair};
 
-(scene_2.5) {{loc_3}}, {Overcast Afternoon};((female_landlady_mrs_hudmore)) {Uneasy}, {Ascending stairs slowly}, {Holding key nervously};
+(scene_3.9) {{loc_5}}, {Cold Winter Noon, Slight Fog};((male_doctor_watson)){Thoughtful} {Standing still}{Hands clasped};((male_detective_holmes)){Neutral} {Speaking slowly}{Eyes on Finch};((male_ship_steward_finch)){Uneasy} {Swallowing hard}{Nodding};
 
-(scene_2.6) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Focused}, {Following behind}, {Hands clasped behind back};
+(scene_3.10) {{loc_5}}, {Cold Winter Noon, Slight Fog};((male_doctor_watson)){Startled} {Looking down at boots}{Raising brow};((male_detective_holmes)){Neutral} {Pointing at boots}{Speaking firmly};((male_ship_steward_finch)){Shaken} {Glancing down}{Muttering};
 
-(scene_2.7) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Narrative Neutral}, {Standing behind Holmes}, {Watching intently};
+(scene_3.11) {{loc_5}}, {Cold Winter Noon, Slight Fog};((male_doctor_watson)){Curious} {Turning toward Holmes}{Leaning closer};((male_detective_holmes)){Focused} {Eyes narrowing}{Speaking evenly};((male_ship_steward_finch)){Defensive} {Shaking head}{Gesturing weakly};
 
-(scene_2.8) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Concentrated}, {Bending over desk}, {Picking up fragments};
+(scene_3.12) {{loc_5}}, {Cold Winter Noon, Slight Fog};((male_doctor_watson)){Neutral} {Watching closely}{Arms folded};((male_detective_holmes)){Neutral} {Leaning back slightly}{Waiting};((male_ship_steward_finch)){Flustered} {Shifting uneasily}{Speaking hurriedly};
 
-(scene_2.9) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Concerned}, {Leaning over desk}, {Peering at scraps};
+(scene_3.13) {{loc_5}}, {Cold Winter Noon, Slight Fog};((male_doctor_watson)){Doubtful} {Frowning}{Looking at officer};((male_detective_holmes)){Calm} {Turning slowly toward Graves}{Speaking sharply};((male_naval_lieutenant_graves)){Cold} {Sitting motionless}{Eyes steady};
 
-(scene_2.10) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Triumphant}, {Arranging fragments}, {Pointing with finger};
+(scene_3.14) {{loc_5}}, {Cold Winter Noon, Slight Fog};((male_doctor_watson)){Neutral} {Waiting quietly}{Hands clasped};((male_detective_holmes)){Neutral} {Standing tall}{Watching carefully};((male_naval_lieutenant_graves)){Firm} {Speaking crisply}{Glancing at Finch};
 
-(scene_2.11) {{loc_3}}, {Overcast Afternoon};((male_client_stranger)) {Alarmed}, {Standing in doorway}, {Clutching hat};
+(scene_3.15) {{loc_5}}, {Cold Winter Noon, Slight Fog};((male_doctor_watson)){Surprised} {Looking quickly at Finch}{Brow furrowed};((male_detective_holmes)){Neutral} {Narrowing eyes}{Hands clasped};((male_ship_steward_finch)){Alarmed} {Throwing up hands}{Protesting};
 
-(scene_2.12) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Questioning}, {Turning sharply}, {Fixing eyes on landlady};
+(scene_3.16) {{loc_5}}, {Cold Winter Noon, Slight Fog};((male_doctor_watson)){Suspicious} {Looking between them}{Silent};((male_detective_holmes)){Neutral} {Holding up hand}{Speaking coolly};((male_naval_officer)){Tense} {Frowning deeply}{Watching quarrel};
 
-(scene_2.13) {{loc_3}}, {Overcast Afternoon};((female_landlady_mrs_hudmore)) {Uneasy}, {Shifting on feet}, {Glancing down stairs};
+(scene_3.17) {{loc_5}}, {Cold Winter Noon, Slight Fog};((male_doctor_watson)){Serious} {Nodding slightly}{Taking mental note};((male_detective_holmes)){Neutral} {Turning away}{Pacing slowly};((male_naval_officer)){Concerned} {Watching Holmes closely}{Waiting};
 
-(scene_2.14) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Inquisitive}, {Facing landlady}, {Holding notebook ready};
+(scene_4.1) {{loc_6}}, {Cold Winter Evening, Fog Descending};((male_doctor_watson)){Neutral} {Walking beside Holmes}{Hands in coat};((male_detective_holmes)){Focused} {Striding quickly}{Eyes scanning};((male_naval_officer)){Puzzled} {Following behind}{Hands clasped};
 
-(scene_2.15) {{loc_3}}, {Overcast Afternoon};((female_landlady_mrs_hudmore)) {Suspicious}, {Crossing arms}, {Shaking head};
+(scene_4.2) {{loc_6}}, {Cold Winter Evening, Fog Descending};((male_doctor_watson)){Curious} {Glancing sideways}{Keeping pace};((male_detective_holmes)){Neutral} {Walking swiftly}{Hands behind back};((male_naval_officer)){Anxious} {Keeping up}{Looking around};
 
-(scene_2.16) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Eager}, {Kneeling on floor}, {Lifting corner of carpet};
+(scene_4.3) {{loc_6}}, {Cold Winter Evening, Fog Descending};((male_doctor_watson)){Startled} {Stopping a moment}{Looking at Holmes};((male_detective_holmes)){Calm} {Continuing forward}{Speaking low};((male_naval_officer)){Surprised} {Lifting brows}{Looking at Holmes};
 
-(scene_2.17) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Surprised}, {Holding scrap}, {Examining closely};
+(scene_4.4) {{loc_6}}, {Cold Winter Evening, Fog Descending};((male_doctor_watson)){Serious} {Walking faster}{Hands folded};((male_detective_holmes)){Neutral} {Nodding slightly}{Eyes fixed ahead};((male_naval_officer)){Tense} {Clenching jaw}{Glancing around};
 
-(scene_2.18) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Decisive}, {Straightening}, {Pocketing cloth};
+(scene_4.5) {{loc_7}}, {Cold Winter Evening, Indoors, Dim Candlelight};((male_doctor_watson)){Neutral} {Standing near bed}{Looking around};((male_detective_holmes)){Serious} {Leaning over desk}{Examining papers};((male_naval_officer)){Uneasy} {Standing near door}{Watching closely};
 
-(scene_2.19) {{loc_3}}, {Overcast Afternoon};((male_client_stranger)) {Distressed}, {Gripping chair}, {Lowering head};
+(scene_4.6) {{loc_7}}, {Cold Winter Evening, Indoors, Dim Candlelight};((male_doctor_watson)){Curious} {Leaning over Holmes}{Looking at box};((male_detective_holmes)){Focused} {Holding small box}{Shaking gently};((male_naval_officer)){Tense} {Clenching fists}{Watching box};
 
-(scene_2.20) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Speculative}, {Turning toward Holmes}, {Resting hand on desk};
+(scene_4.7) {{loc_7}}, {Cold Winter Evening, Indoors, Dim Candlelight};((male_doctor_watson)){Hopeful} {Standing upright}{Looking at Holmes};((male_detective_holmes)){Neutral} {Listening at box}{Speaking evenly};((male_naval_officer)){Impatient} {Leaning forward}{Eyes fixed};
 
-(scene_2.21) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Approving}, {Pointing at window}, {Holding magnifying lens};
+(scene_4.8) {{loc_7}}, {Cold Winter Evening, Indoors, Dim Candlelight};((male_doctor_watson)){Neutral} {Leaning close}{Watching carefully};((male_detective_holmes)){Serious} {Opening box deftly}{Sorting papers};((male_naval_officer)){Anxious} {Standing tense}{Breathing fast};
 
-(scene_2.22) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Alarmed}, {Stepping toward window}, {Looking outside fog};
+(scene_4.9) {{loc_7}}, {Cold Winter Evening, Indoors, Dim Candlelight};((male_doctor_watson)){Shocked} {Looking at letters}{Exclaiming};((male_detective_holmes)){Neutral} {Handing Watson letter}{Explaining};((male_naval_officer)){Disturbed} {Running hand over face}{Murmuring};
 
-(scene_2.23) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Calm}, {Tracing finger across sill}, {Smiling faintly};
+(scene_4.10) {{loc_7}}, {Cold Winter Evening, Indoors, Dim Candlelight};((male_doctor_watson)){Neutral} {Holding letter}{Looking to Holmes};((male_detective_holmes)){Calm} {Shaking head slightly}{Speaking firmly};((male_naval_officer)){Puzzled} {Standing still}{Listening closely};
 
-(scene_2.24) {{loc_3}}, {Overcast Afternoon};((male_client_stranger)) {Urgent}, {Rising from chair}, {Clenching fists};
+(scene_4.11) {{loc_7}}, {Cold Winter Evening, Indoors, Dim Candlelight};((male_doctor_watson)){Thoughtful} {Pacing slowly}{Hands clasped};((male_detective_holmes)){Neutral} {Holding letter up to light}{Studying ink};((male_naval_officer)){Uneasy} {Leaning against wall}{Breathing shallow};
 
-(scene_2.25) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Practical}, {Turning from window}, {Adjusting coat};
+(scene_4.12) {{loc_7}}, {Cold Winter Evening, Indoors, Dim Candlelight};((male_doctor_watson)){Neutral} {Turning to Holmes}{Brows raised};((male_detective_holmes)){Slight smile} {Folding letter}{Placing in pocket};((male_naval_officer)){Tense} {Watching Holmes}{Silent};
 
-(scene_2.26) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Resolute}, {Facing Watson and Mason}, {Tapping pipe against palm};
+(scene_4.13) {{loc_8}}, {Cold Winter Night, Heavy Fog};((male_doctor_watson)){Anxious} {Standing in alley}{Watching shop};((male_naval_officer)){Tense} {Standing beside Watson}{Clutching cane};((male_detective_holmes)){Neutral} {Inside shop}{Speaking quietly};
 
-(scene_2.27) {{loc_3}}, {Overcast Afternoon};((female_landlady_mrs_hudmore)) {Fearful}, {Clutching apron}, {Backing toward stairs};
+(scene_4.14) {{loc_8}}, {Cold Winter Night, Heavy Fog};((male_doctor_watson)){Startled} {Peering closer}{Clutching alley wall};((male_naval_officer)){Shocked} {Whispering harshly}{Gripping cane};((male_detective_holmes)){Neutral} {Emerging from shop}{Gesturing urgently};((male_naval_lieutenant_graves)){Secretive} {Entering shop}{Hood drawn low};
 
-(scene_2.28) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Reflective}, {Standing at door}, {Looking back at room};
+(scene_4.15) {{loc_8}}, {Cold Winter Night, Heavy Fog};((male_doctor_watson)){Neutral} {Watching carefully}{Holding breath};((male_detective_holmes)){Calm} {Stepping back into alley}{Speaking low};((male_naval_lieutenant_graves)){Unaware} {Inside shop}{Handing over parcel};
 
-(scene_2.29) {{loc_3}}, {Overcast Afternoon};((male_detective_holmes)) {Determined}, {Turning down staircase}, {Pulling coat tighter};
+(scene_5.1) {{loc_8}}, {Cold Winter Night, Dense Fog};((male_doctor_watson)){Tense} {Standing half-hidden}{Watching shop};((male_detective_holmes)){Neutral} {Standing calmly}{Eyes fixed};((male_naval_officer)){Angry} {Clenching fists}{Whispering};((male_naval_lieutenant_graves)){Focused} {Inside shop}{Unwrapping parcel};
 
-(scene_2.30) {{loc_3}}, {Overcast Afternoon};((male_doctor_watson)) {Loyal}, {Following Holmes}, {Gripping walking stick firmly};
+(scene_5.2) {{loc_8}}, {Cold Winter Night, Dense Fog};((male_doctor_watson)){Startled} {Eyes wide}{Whispering};((male_detective_holmes)){Neutral} {Watching intently}{Pointing};((male_naval_officer)){Outraged} {Starting forward}{Restrained by Holmes};((male_naval_lieutenant_graves)){Nervous} {Glancing about}{Lifting gem};
 
-(scene_3.1) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Neutral}, {Walking beside Holmes}, {Holding walking stick tightly};
+(scene_5.3) {{loc_8}}, {Cold Winter Night, Dense Fog};((male_doctor_watson)){Breathless} {Watching gem}{Clutching coat};((male_detective_holmes)){Calm} {Raising hand}{Speaking firmly};((male_naval_officer)){Agitated} {Leaning forward}{Whispering harshly};((male_naval_lieutenant_graves)){Greedy} {Holding gem}{Hand trembling};
 
-(scene_3.2) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Focused}, {Pointing toward far building}, {Keeping voice low};
+(scene_5.4) {{loc_8}}, {Cold Winter Night, Dense Fog};((male_doctor_watson)){Alert} {Stepping forward}{Heart pounding};((male_detective_holmes)){Neutral} {Motioning calmly}{Standing tall};((male_naval_officer)){Furious} {Striding into shop}{Pointing hand};((male_naval_lieutenant_graves)){Shocked} {Whirling round}{Eyes wide};
 
-(scene_3.3) {{loc_4}}, {Foggy Night};((male_client_stranger)) {Worried}, {Glancing about nervously}, {Clutching coat collar};
+(scene_5.5) {{loc_8}}, {Cold Winter Night, Dense Fog};((male_doctor_watson)){Neutral} {Standing in doorway}{Watching scene};((male_detective_holmes)){Neutral} {Following commander}{Silent};((male_naval_officer)){Severe} {Grasping gem}{Snatching from Graves};((male_naval_lieutenant_graves)){Defensive} {Stammering}{Hands raised};
 
-(scene_3.4) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Calm}, {Pointing toward dock}, {Stepping carefully over cobbles};
+(scene_5.6) {{loc_8}}, {Cold Winter Night, Dense Fog};((male_doctor_watson)){Disgusted} {Shaking head}{Looking at Graves};((male_detective_holmes)){Cold} {Gazing sharply}{Speaking firmly};((male_naval_officer)){Righteous} {Holding gem aloft}{Breathing heavily};((male_naval_lieutenant_graves)){Broken} {Slumping}{Head bowed};
 
-(scene_3.5) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Cautious}, {Looking at planks}, {Adjusting hat brim};
+(scene_5.7) {{loc_1}}, {Late Winter Night, Warm Firelight};((male_doctor_watson)){Neutral} {Sitting on sofa}{Leaning forward};((male_detective_holmes)){Calm} {Standing by fireplace}{Hands folded};
 
-(scene_3.6) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Stern}, {Moving toward dock}, {Holding lantern hooded in hand};
+(scene_5.8) {{loc_1}}, {Late Winter Night, Warm Firelight};((male_doctor_watson)){Curious} {Watching Holmes}{Notebook in hand};((male_detective_holmes)){Neutral} {Pacing slowly}{Speaking deliberately};
 
-(scene_3.7) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Tense}, {Following behind Holmes}, {Clutching walking stick};
+(scene_5.9) {{loc_1}}, {Late Winter Night, Warm Firelight};((male_doctor_watson)){Thoughtful} {Taking notes}{Nodding slowly};((male_detective_holmes)){Neutral} {Gesturing with hand}{Speaking firmly};
 
-(scene_3.8) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Alert}, {Stopping abruptly}, {Tilting head to listen};
+(scene_5.10) {{loc_1}}, {Late Winter Night, Warm Firelight};((male_doctor_watson)){Amazed} {Lowering pen}{Looking at Holmes};((male_detective_holmes)){Slight smile} {Standing tall}{Hands clasped};
 
-(scene_3.9) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Focused}, {Leaning nearer to wall}, {Listening intently};
+(scene_5.11) {{loc_1}}, {Late Winter Night, Warm Firelight};((male_doctor_watson)){Neutral} {Waiting quietly}{Leaning forward};((male_detective_holmes)){Calm} {Nodding slightly}{Explaining};
 
-(scene_3.10) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Commanding}, {Stepping aside}, {Gesturing to window crack};
+(scene_5.12) {{loc_1}}, {Late Winter Night, Warm Firelight};((male_doctor_watson)){Respectful} {Looking at gem}{Speaking softly};((male_detective_holmes)){Neutral} {Standing near table}{Resting hand on case};
 
-(scene_3.11) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Shocked}, {Looking through shutter}, {Gripping sill tightly};
-
-(scene_3.12) {{loc_4}}, {Foggy Night};((male_client_stranger)) {Overcome}, {Trying to push forward}, {Raising voice inadvertently};
-
-(scene_3.13) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Sharp}, {Holding Mason back}, {Pressing finger to lips};
-
-(scene_3.14) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Urgent}, {Whispering near Holmes}, {Gripping stick tighter};
-
-(scene_3.15) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Strategic}, {Pointing directions}, {Speaking low};
-
-(scene_3.16) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Resolute}, {Nodding}, {Stepping back from shutter};
-
-(scene_3.17) {{loc_4}}, {Foggy Night};((male_client_stranger)) {Anxious}, {Looking between them}, {Clutching fists};
-
-(scene_3.18) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Firm}, {Gripping Mason’s shoulder}, {Staring intensely};
-
-(scene_3.19) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Anxious}, {At warehouse door}, {Rapping wood with stick};
-
-(scene_3.20) {{loc_4}}, {Foggy Night};((male_villain_scarred)) {Suspicious}, {Inside warehouse}, {Moving toward door};
-
-(scene_3.21) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Feigning Calm}, {Outside door}, {Calling through planks};
-
-(scene_3.22) {{loc_4}}, {Foggy Night};((male_villain_shorter)) {Irritated}, {Pacing inside}, {Kicking crate};
-
-(scene_3.23) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Commanding}, {Forcing back door}, {Rushing inside};
-
-(scene_3.24) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Determined}, {Charging in}, {Swinging walking stick};
-
-(scene_3.25) {{loc_4}}, {Foggy Night};((male_client_stranger)) {Furious}, {Rushing after Holmes}, {Leaping toward chair};
-
-(scene_3.26) {{loc_4}}, {Foggy Night};((male_villain_scarred)) {Enraged}, {Drawing knife}, {Lunging at Holmes};
-
-(scene_3.27) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Cold}, {Sidestepping blow}, {Seizing villain’s wrist};
-
-(scene_3.28) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Forceful}, {Swinging stick}, {Striking shorter villain};
-
-(scene_3.29) {{loc_4}}, {Foggy Night};((male_client_stranger)) {Desperate}, {Cutting Clara’s bonds}, {Falling to knees beside her};
-
-(scene_3.30) {{loc_4}}, {Foggy Night};((female_clara_whitfield)) {Weak but Relieved}, {Slumping forward}, {Grasping Mason’s arm};
-
-(scene_3.31) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Commanding}, {Binding villain’s wrists}, {Kneeling firmly};
-
-(scene_3.32) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Satisfied}, {Kneeling on shorter man}, {Tying rope};
-
-(scene_3.33) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Triumphant}, {Standing over villain}, {Pointing accusing finger};
-
-(scene_3.34) {{loc_4}}, {Foggy Night};((male_villain_scarred)) {Defeated}, {On knees}, {Spitting at ground};
-
-(scene_3.35) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Respectful}, {Standing beside Holmes}, {Wiping brow};
-
-(scene_3.36) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Modest}, {Adjusting cuffs}, {Glancing at Clara};
-
-(scene_3.37) {{loc_4}}, {Foggy Night};((female_clara_whitfield)) {Grateful}, {Clutching Mason’s arm}, {Looking toward Holmes};
-
-(scene_3.38) {{loc_4}}, {Foggy Night};((male_client_stranger)) {Emotional}, {Embracing Clara}, {Looking to Holmes with gratitude};
-
-(scene_3.39) {{loc_4}}, {Foggy Night};((male_doctor_watson)) {Reflective}, {Walking with Holmes}, {Holding stick loosely};
-
-(scene_3.40) {{loc_4}}, {Foggy Night};((male_detective_holmes)) {Smiling}, {Walking beside Watson}, {Placing pipe between teeth};
+(scene_5.13) {{loc_1}}, {Late Winter Night, Warm Firelight};((male_doctor_watson)){Warm admiration} {Leaning back}{Sighing};((male_detective_holmes)){Slight smile} {Standing near fire}{Lighting pipe};
 

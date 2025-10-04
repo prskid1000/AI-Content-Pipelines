@@ -1,8 +1,6 @@
-32%: Shadows at Casper
-SHORT_SUMMARY : 🧠 A mysterious disappearance leads Holmes and Watson to Casper Bridge, where clues hidden in a scarf hint at danger lurking beneath the surface.
-28%: Footprints in the Fog
-SHORT_SUMMARY : 🔍 Holmes and Watson follow bloodstains and footprints to investigate Clara Whitfield's mysterious abduction in London's fog.
-25%: Shadows of the Wharves
-SHORT_SUMMARY : 🕵️‍♂️ Holmes and Watson infiltrate shadowy warehouses to rescue Clara Whitfield, discovering her bound and fearing for her life as they prepare a stealthy attack.
-15%: Shadows Reveal Truth
-SHORT_SUMMARY : 🔍 Fog, danger, and justice converge as Holmes rescues Clara from villains, revealing their crimes through subtle clues.
+39%: The Vanishing Gem
+SHORT_SUMMARY : 🌞 Holmes deduces clues from Watson's boots as Commander Ellery reports the theft of the Blue Water sapphire.
+33%: Clay and Denial
+SHORT_SUMMARY : 🕵️‍♂️ Holmes uncovers deceit through Finch's clay-stained boots and conflicting testimonies, leading to a tense confrontation aboard the Dauntless.
+29%: The Sapphire's Revelation
+SHORT_SUMMARY : 🔍 Holmes exposes Lieutenant Graves' theft using red clay evidence, with Watson beside him as they retrieve the Blue Water sapphire.
