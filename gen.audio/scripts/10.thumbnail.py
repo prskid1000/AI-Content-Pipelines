@@ -1,3 +1,4 @@
+import glob
 import json
 import os
 import time
@@ -113,7 +114,6 @@ class ThumbnailProcessor:
         self.final_output_dir = "../output"
         self.intermediate_output_dir = "../output/lora"
         self.final_output_path = os.path.join(self.final_output_dir, "thumbnail.png")
-        self.shorts_output_path = os.path.join(self.final_output_dir, "thumbnail.short.png")
         # Latent image input file path
         self.latent_image_path = "../input/10.latent.png"
 
@@ -121,8 +121,13 @@ class ThumbnailProcessor:
         os.makedirs(self.intermediate_output_dir, exist_ok=True)
         if os.path.exists(self.final_output_path):
             os.remove(self.final_output_path)
-        if os.path.exists(self.shorts_output_path):
-            os.remove(self.shorts_output_path)
+
+        pattern = self.final_output_dir + "/*thumbnail.shorts*"
+        files_to_remove = glob.glob(pattern, recursive=True)
+        for file in files_to_remove:
+            if os.path.exists(file):
+                os.remove(file)
+                print(f"Removed: {file}")
 
     def _load_thumbnail_workflow(self) -> dict:
         filename = "thumbnail.flux.json" if self.mode == "flux" else "thumbnail.json"
@@ -964,7 +969,7 @@ class ThumbnailProcessor:
         except Exception as e:
             print(f"WARNING: Failed to replace latent with previous output: {e}")
 
-    def _generate_thumbnail_serial(self, prompt_text: str) -> str | None:
+    def _generate_thumbnail_serial(self, prompt_text: str, shorts: bool = False, variation_number: int = 0) -> str | None:
         """Generate thumbnail using serial LoRA mode with intermediate storage."""
         try:
             print(f"Generating thumbnail (Serial LoRA mode)")
@@ -995,14 +1000,14 @@ class ThumbnailProcessor:
                 # Generate filename for this LoRA step
                 lora_clean_name = re.sub(r'[^\w\s.-]', '', lora_config['name']).strip()
                 lora_clean_name = re.sub(r'[-\s]+', '_', lora_clean_name)
-                lora_filename = f"thumbnail.{lora_clean_name}"
+                lora_filename = f"thumbnail{".shorts" + ".v" + str(variation_number) if shorts else ""}.{lora_clean_name}"
                 workflow = self._update_saveimage_prefix(workflow, lora_filename)
-                workflow = self._update_workflow_resolution(workflow, OUTPUT_WIDTH, OUTPUT_HEIGHT)
+                workflow = self._update_workflow_resolution(workflow, SHORTS_WIDTH if shorts else OUTPUT_WIDTH, SHORTS_HEIGHT if shorts else OUTPUT_HEIGHT)
                 
                 # Set LoRA-specific sampling steps, seed, and denoising
                 steps = lora_config.get("steps", SAMPLING_STEPS)
                 denoising_strength = lora_config.get("denoising_strength", 1.0)
-                seed = self._get_seed(variation_number=0)  # Serial mode uses base seed for each LoRA
+                seed = self._get_seed(variation_number=variation_number)  # Serial mode uses base seed for each LoRA
                 self._update_node_connections(workflow, "KSampler", "steps", steps)
                 self._update_node_connections(workflow, "KSampler", "seed", seed)
                 print(f"  Seed set to: {seed}")
@@ -1019,12 +1024,12 @@ class ThumbnailProcessor:
                         print(f"  Using LATENT_DENOISING_STRENGTH: {LATENT_DENOISING_STRENGTH}")
                     else:
                         # Normal latent mode - set dimensions and use LoRA's denoising strength
-                        workflow["19"]["inputs"]["width"] = OUTPUT_WIDTH
-                        workflow["19"]["inputs"]["height"] = OUTPUT_HEIGHT
+                        workflow["19"]["inputs"]["width"] = SHORTS_WIDTH if shorts else OUTPUT_WIDTH
+                        workflow["19"]["inputs"]["height"] = SHORTS_HEIGHT if shorts else OUTPUT_HEIGHT
                         # Apply LoRA's denoising_strength to KSampler for first LoRA in LATENT mode
                         self._update_node_connections(workflow, "KSampler", "denoise", denoising_strength)
                         denoising_strength = LATENT_DENOISING_STRENGTH 
-                        print(f"  Using latent mode with dimensions: {OUTPUT_WIDTH}x{OUTPUT_HEIGHT}")
+                        print(f"  Using latent mode with dimensions: {SHORTS_WIDTH if shorts else OUTPUT_WIDTH}x{SHORTS_HEIGHT if shorts else OUTPUT_HEIGHT}")
                         print(f"  Using LoRA denoising_strength: {denoising_strength}")
                 else:
                     # Subsequent LoRAs: Use previous LoRA output as input
@@ -1074,7 +1079,7 @@ class ThumbnailProcessor:
                     continue
                 
                 # Save result to lora folder (save final result from each LoRA)
-                lora_final_path = os.path.join(self.intermediate_output_dir, f"thumbnail.{lora_clean_name}.png")
+                lora_final_path = os.path.join(self.intermediate_output_dir, f"thumbnail{".shorts" + ".v" + str(variation_number) if shorts else ""}.{lora_clean_name}.png")
                 shutil.copy2(generated_image, lora_final_path)
                 print(f"  Saved LoRA result: {lora_final_path}")
                 
@@ -1085,22 +1090,19 @@ class ThumbnailProcessor:
             if not current_image_path:
                 print(f"ERROR: No successful LoRA generations for thumbnail")
                 return None
+
+            output_path = os.path.join(self.final_output_dir, f"thumbnail{".shorts" + ".v" + str(variation_number) if shorts else ""}.png")
             
             # Copy final result to output directory
-            shutil.copy2(current_image_path, self.final_output_path)
+            shutil.copy2(current_image_path, output_path)
             
             # Apply text overlay if enabled
             title = self._read_title_from_file()
             if title and USE_TITLE_TEXT:
-                self._overlay_title(self.final_output_path, title)
+                self._overlay_title(output_path, title)
             
-            # Create YouTube Shorts versions
-            shorts_paths = self._create_shorts_versions(prompt_text)
-            if shorts_paths:
-                print(f"Also created {len(shorts_paths)} shorts variations: {shorts_paths}")
-            
-            print(f"Saved: {self.final_output_path}")
-            return self.final_output_path
+            print(f"Saved: {output_path}")
+            return output_path
 
         except Exception as e:
             print(f"ERROR: Failed to generate thumbnail: {e}")
@@ -1207,11 +1209,11 @@ class ThumbnailProcessor:
         except Exception as e:
             print(f"WARNING: Failed to set image input: {e}")
 
-    def generate_thumbnail(self, prompt_text: str) -> str | list[str] | None:
+    def generate_thumbnail(self, prompt_text: str, shorts: bool = False, variation_number: int = 0) -> str | list[str] | None:
         try:
             # Use serial LoRA mode if enabled
             if USE_LORA and LORA_MODE == "serial":
-                return self._generate_thumbnail_serial(prompt_text)
+                return self._generate_thumbnail_serial(prompt_text, shorts, variation_number)
             
             # Determine if we should use text overlay or let the model generate text
             use_overlay = USE_TITLE_TEXT
@@ -1222,43 +1224,43 @@ class ThumbnailProcessor:
                 title = self._read_title_from_file()
                 # Compute for the final canvas size
                 band_height, _padding, _lines, _font, _line_height, _stroke_w = self._measure_title_block(
-                    title or "", OUTPUT_WIDTH, OUTPUT_HEIGHT
+                    title or "", SHORTS_WIDTH if shorts else OUTPUT_WIDTH, SHORTS_HEIGHT if shorts else OUTPUT_HEIGHT
                 )
 
             # Decide generation image area based on layout/position
-            gen_width = OUTPUT_WIDTH
-            gen_height = OUTPUT_HEIGHT
+            gen_width = SHORTS_WIDTH if shorts else OUTPUT_WIDTH
+            gen_height = SHORTS_HEIGHT if shorts else OUTPUT_HEIGHT
             if use_overlay:
                 position = (TITLE_POSITION or "bottom").strip().lower()
                 layout = (TITLE_LAYOUT or "overlay").strip().lower()
                 if layout in ("expand",):
                     # Keep base generation at full size; we'll expand canvas after
-                    gen_width, gen_height = OUTPUT_WIDTH, OUTPUT_HEIGHT
+                    gen_width, gen_height = SHORTS_WIDTH if shorts else OUTPUT_WIDTH, SHORTS_HEIGHT if shorts else OUTPUT_HEIGHT
                 elif layout in ("fit",):
                     # Reserve band space within the canvas for top/bottom
                     if position in ("top", "upper", "bottom"):
-                        gen_height = max(1, OUTPUT_HEIGHT - band_height)
+                        gen_height = max(1, SHORTS_HEIGHT if shorts else OUTPUT_HEIGHT - band_height)
                     else:
-                        gen_height = OUTPUT_HEIGHT
+                        gen_height = SHORTS_HEIGHT if shorts else OUTPUT_HEIGHT
                 else:
                     # overlay uses full image
-                    gen_width, gen_height = OUTPUT_WIDTH, OUTPUT_HEIGHT
+                    gen_width, gen_height = SHORTS_WIDTH if shorts else OUTPUT_WIDTH, SHORTS_HEIGHT if shorts else OUTPUT_HEIGHT
 
             workflow = self._load_thumbnail_workflow()
             workflow = self._update_prompt_text(workflow, prompt_text)
             workflow = self._update_workflow_resolution(workflow, gen_width, gen_height)
-            workflow = self._update_saveimage_prefix(workflow, "thumbnail")
+            workflow = self._update_saveimage_prefix(workflow, "thumbnail" + ".shorts" + ".v" + str(variation_number) if shorts else "")
             
             # Set seed based on configuration (variation 0 = original)
-            seed = self._get_seed(variation_number=0)
+            seed = self._get_seed(variation_number=variation_number)
             workflow = self._update_workflow_seed(workflow, seed)
             print(f"Seed set to: {seed}")
 
             # Print workflow summary
-            self._print_workflow_summary(workflow, "Thumbnail")
+            self._print_workflow_summary(workflow, "Thumbnail" + ".shorts" + ".v" + str(variation_number) if shorts else "")
             
             # Print prompt before sending
-            print(f"\n=== PROMPT FOR THUMBNAIL ===")
+            print(f"\n=== PROMPT FOR THUMBNAIL{".shorts" + ".v" + str(variation_number) if shorts else ""} ===")
             # Get the text prompt from the workflow
             text_prompt = workflow.get("33", {}).get("inputs", {}).get("text", "No text prompt found")
             print(f"Text prompt: {text_prompt}")
@@ -1270,7 +1272,7 @@ class ThumbnailProcessor:
                 saved_paths: list[str] = []
                 for idx in range(1, 6):
                     # Use seed based on configuration with variation number
-                    seed_value = self._get_seed(variation_number=idx)
+                    seed_value = self._get_seed(variation_number=variation_number + idx)
                     workflow = self._update_workflow_seed(workflow, seed_value)
                     resp = requests.post(f"{self.comfyui_url}prompt", json={"prompt": workflow}, timeout=60)
                     if resp.status_code != 200:
@@ -1290,12 +1292,12 @@ class ThumbnailProcessor:
                                     break
                         time.sleep(2)
 
-                    newest_path = self._find_newest_output_with_prefix("thumbnail")
+                    newest_path = self._find_newest_output_with_prefix("thumbnail" + ".shorts" + ".v" + str(variation_number) if shorts else "")
                     if not newest_path:
                         return None
 
                     # Store outputs as PNG with version suffix
-                    final_path = os.path.join(self.final_output_dir, f"thumbnail.v{idx}.png")
+                    final_path = os.path.join(self.final_output_dir, f"thumbnail{".shorts" + ".v" + str(variation_number) if shorts else ""}.v{idx}.png")
                     try:
                         img = Image.open(newest_path)
                         img.save(final_path, format="PNG")
@@ -1303,12 +1305,6 @@ class ThumbnailProcessor:
                         shutil.copy2(newest_path, final_path)
 
                     saved_paths.append(final_path)
-                    
-                    # Create YouTube Shorts versions for each variant
-                    # When USE_TITLE_TEXT = False, each main variant gets 5 Shorts variations
-                    shorts_paths = self._create_shorts_versions_for_main_variant(prompt_text, idx)
-                    if shorts_paths:
-                        print(f"Also created {len(shorts_paths)} shorts variations for variant {idx}: {shorts_paths}")
 
                 return saved_paths
 
@@ -1331,21 +1327,16 @@ class ThumbnailProcessor:
                             break
                 time.sleep(2)
 
-            newest_path = self._find_newest_output_with_prefix("thumbnail")
+            newest_path = self._find_newest_output_with_prefix("thumbnail" + ".shorts" + ".v" + str(variation_number) if shorts else "")
             if not newest_path:
                 return None
 
             src_ext = Path(newest_path).suffix.lower()
-            final_path = self.final_output_path if src_ext == ".png" else os.path.join(self.final_output_dir, f"thumbnail{src_ext}")
+            final_path = self.final_output_path if src_ext == ".png" else os.path.join(self.final_output_dir, f"thumbnail{".shorts" + ".v" + str(variation_number) if shorts else ""}{src_ext}")
             shutil.copy2(newest_path, final_path)
             # Apply text overlay if enabled
             if title and use_overlay:
                 self._overlay_title(final_path, title)
-            
-            # Create YouTube Shorts versions
-            shorts_paths = self._create_shorts_versions(prompt_text)
-            if shorts_paths:
-                print(f"Also created {len(shorts_paths)} shorts variations: {shorts_paths}")
             
             return final_path
         except Exception:
@@ -1611,217 +1602,6 @@ class ThumbnailProcessor:
         except Exception:
             return False
 
-    def _create_shorts_versions(self, prompt_text: str) -> list[str]:
-        """Generate multiple YouTube Shorts versions using ComfyUI in proper 9:16 dimensions."""
-        shorts_paths = []
-        
-        for i in range(1, SHORTS_VARIATIONS + 1):
-            shorts_path = os.path.join(self.final_output_dir, f"thumbnail.short.v{i}.png")
-            success = self._generate_single_shorts_version(prompt_text, shorts_path, i)
-            if success:
-                shorts_paths.append(shorts_path)
-        
-        return shorts_paths
-
-    def _create_shorts_versions_for_main_variant(self, prompt_text: str, main_variant_num: int) -> list[str]:
-        """Generate multiple YouTube Shorts versions for a specific main variant using ComfyUI."""
-        shorts_paths = []
-        
-        for i in range(1, SHORTS_VARIATIONS + 1):
-            shorts_path = os.path.join(self.final_output_dir, f"thumbnail.short.v{main_variant_num}.v{i}.png")
-            success = self._generate_single_shorts_version(prompt_text, shorts_path, f"{main_variant_num}.{i}")
-            if success:
-                shorts_paths.append(shorts_path)
-        
-        return shorts_paths
-
-    def _generate_single_shorts_version(self, prompt_text: str, output_path: str, variation_num: int) -> bool:
-        """Generate a YouTube Shorts version using ComfyUI in proper 9:16 dimensions."""
-        try:
-            print(f"Generating YouTube Shorts version {variation_num} using ComfyUI...")
-            
-            # Load base workflow
-            workflow = self._load_thumbnail_workflow()
-            if not workflow:
-                print(f"ERROR: Failed to load workflow for Shorts version {variation_num}")
-                return False
-            
-            # Update workflow for Shorts (9:16 aspect ratio)
-            workflow = self._update_prompt_text(workflow, prompt_text)
-            workflow = self._update_workflow_resolution(workflow, SHORTS_WIDTH, SHORTS_HEIGHT)
-            
-            # Generate unique filename for this Shorts variation
-            if isinstance(variation_num, str) and "." in str(variation_num):
-                # Format: "1.1", "1.2", etc. for main variant.sub-variant
-                shorts_filename = f"thumbnail.short.v{variation_num}"
-            else:
-                # Format: "1", "2", etc. for single variant
-                shorts_filename = f"thumbnail.short.v{variation_num}"
-            workflow = self._update_saveimage_prefix(workflow, shorts_filename)
-            
-            # Set unique seed for this variation
-            seed = self._get_seed(variation_number=variation_num)
-            workflow = self._update_workflow_seed(workflow, seed)
-            print(f"  Seed set to: {seed}")
-            
-            # Print workflow summary
-            self._print_workflow_summary(workflow, f"YouTube Shorts Version {variation_num}")
-            
-            # Submit workflow to ComfyUI
-            resp = requests.post(f"{self.comfyui_url}prompt", json={"prompt": workflow}, timeout=60)
-            if resp.status_code != 200:
-                print(f"ERROR: ComfyUI API error for Shorts version {variation_num}: {resp.status_code} {resp.text}")
-                return False
-                
-            prompt_id = resp.json().get("prompt_id")
-            if not prompt_id:
-                print(f"ERROR: No prompt ID returned for Shorts version {variation_num}")
-                return False
-
-            # Wait for completion
-            print(f"  Waiting for Shorts version {variation_num} generation to complete...")
-            while True:
-                h = requests.get(f"{self.comfyui_url}history/{prompt_id}")
-                if h.status_code == 200:
-                    data = h.json()
-                    if prompt_id in data:
-                        status = data[prompt_id].get("status", {})
-                        if status.get("exec_info", {}).get("queue_remaining", 0) == 0:
-                            time.sleep(2)  # Give it a moment to finish
-                            break
-                time.sleep(2)
-
-            # Find the generated image
-            generated_image = self._find_newest_output_with_prefix(shorts_filename)
-            if not generated_image:
-                print(f"ERROR: Could not find generated image for Shorts version {variation_num}")
-                return False
-            
-            # Copy to final output location
-            shutil.copy2(generated_image, output_path)
-            
-            # Apply title overlay if enabled
-            title = self._read_title_from_file()
-            if title and USE_TITLE_TEXT:
-                self._overlay_title_on_shorts_image(output_path, title)
-            
-            print(f"Created YouTube Shorts version {variation_num}: {output_path}")
-            return True
-            
-        except Exception as e:
-            print(f"ERROR: Failed to generate Shorts version {variation_num}: {e}")
-            return False
-
-    def _overlay_title_on_shorts_image(self, image_path: str, title: str) -> bool:
-        """Apply title overlay to the shorts image file (9:16 format)."""
-        try:
-            img = Image.open(image_path).convert("RGBA")
-            w, h = img.size  # Should be SHORTS_WIDTH x SHORTS_HEIGHT (1080x1920)
-            
-            # Measure title block for the full shorts canvas
-            band_height, padding, lines, chosen_font, line_height, stroke_w = self._measure_title_block(
-                title, w, h
-            )
-            
-            if not lines:
-                return True
-            
-            # Create title band and text
-            band_opacity = int(0.60 * 255)
-            band = Image.new("RGBA", (w, band_height), (0, 0, 0, band_opacity))
-            shadow = band.copy().filter(ImageFilter.GaussianBlur(radius=int(h * 0.01)))
-            text_layer = Image.new("RGBA", (w, band_height), (0, 0, 0, 0))
-            text_draw = ImageDraw.Draw(text_layer)
-            
-            # Draw text lines
-            y_cursor = padding
-            for line in lines:
-                bbox = text_draw.textbbox((0, 0), line, font=chosen_font, stroke_width=0)
-                tw = bbox[2] - bbox[0]
-                x = (w - tw) // 2
-                text_draw.text((x, y_cursor), line, font=chosen_font, fill=(255, 255, 255, 255))
-                y_cursor += line_height
-            
-            # Position the title band using same logic as main thumbnail
-            pos = (TITLE_POSITION or "bottom").strip().lower()
-            if pos in ("top", "upper"):
-                band_y = 0
-            elif pos in ("middle", "center", "centre"):
-                band_y = max(0, (h - band_height) // 2)
-            else:
-                band_y = h - band_height
-            
-            # Apply shadow, band, and text to image
-            shadow_layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
-            shadow_layer.paste(shadow, (0, band_y), shadow)
-            img = Image.alpha_composite(img, shadow_layer)
-            
-            band_layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
-            band_layer.paste(band, (0, band_y), band)
-            img = Image.alpha_composite(img, band_layer)
-            
-            text_overlay_layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
-            text_overlay_layer.paste(text_layer, (0, band_y), text_layer)
-            img = Image.alpha_composite(img, text_overlay_layer)
-            
-            # Save back
-            img.save(image_path)
-            return True
-            
-        except Exception as e:
-            print(f"ERROR: Failed to overlay title on shorts image: {e}")
-            return False
-
-    def _overlay_title_on_shorts_canvas(self, canvas: Image.Image, title: str) -> bool:
-        """Apply title overlay to the shorts canvas (9:16 format)."""
-        try:
-            w, h = canvas.size  # Should be SHORTS_WIDTH x SHORTS_HEIGHT (1080x1920)
-            
-            # Measure title block for the full shorts canvas
-            band_height, padding, lines, chosen_font, line_height, stroke_w = self._measure_title_block(
-                title, w, h
-            )
-            
-            if not lines:
-                return True
-            
-            # Create title band and text
-            band_opacity = int(0.60 * 255)
-            band = Image.new("RGBA", (w, band_height), (0, 0, 0, band_opacity))
-            shadow = band.copy().filter(ImageFilter.GaussianBlur(radius=int(h * 0.01)))
-            text_layer = Image.new("RGBA", (w, band_height), (0, 0, 0, 0))
-            text_draw = ImageDraw.Draw(text_layer)
-            
-            # Draw text lines
-            y_cursor = padding
-            for line in lines:
-                bbox = text_draw.textbbox((0, 0), line, font=chosen_font, stroke_width=0)
-                tw = bbox[2] - bbox[0]
-                x = (w - tw) // 2
-                text_draw.text((x, y_cursor), line, font=chosen_font, fill=(255, 255, 255, 255))
-                y_cursor += line_height
-            
-            # Position the title band at the bottom of the shorts canvas
-            band_y = h - band_height
-            
-            # Apply shadow, band, and text to canvas
-            shadow_layer = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
-            shadow_layer.paste(shadow, (0, band_y), shadow)
-            canvas.paste(shadow_layer, (0, 0), shadow_layer)
-            
-            band_layer = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
-            band_layer.paste(band, (0, band_y), band)
-            canvas.paste(band_layer, (0, 0), band_layer)
-            
-            text_overlay_layer = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
-            text_overlay_layer.paste(text_layer, (0, band_y), text_layer)
-            canvas.paste(text_overlay_layer, (0, 0), text_overlay_layer)
-            
-            return True
-            
-        except Exception as e:
-            print(f"ERROR: Failed to overlay title on shorts canvas: {e}")
-            return False
 
     def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
@@ -1859,6 +1639,7 @@ if __name__ == "__main__":
         prompt = "TITLE DESCRIPTION: ADD A very large semi-transparent floating newspaper at top-center with arial bold font & grammatically correct english-only legible engraving as \"" + processor._normalize_title(title) + "\"\n\n" + prompt
 
     result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt)
+
     if result:
         if isinstance(result, list):
             for p in result:
@@ -1867,5 +1648,16 @@ if __name__ == "__main__":
             print(result)
     else:
         raise SystemExit(1)
+
+    for i in range(SHORTS_VARIATIONS):
+        result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt, shorts=True, variation_number=i)
+        if result:
+            if isinstance(result, list):
+                for p in result:
+                    print(p)
+            else:
+                print(result)
+        else:
+            raise SystemExit(1)
 
 
