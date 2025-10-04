@@ -15,7 +15,7 @@ print = partial(_builtins.print, flush=True)
 # Feature flags
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
-WORKFLOW_SUMMARY_ENABLED = True  # Set to True to enable workflow summary printing
+WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
 # Variation Configuration
 VARIATIONS_PER_CHARACTER = 1  # Number of variations to generate per character (in addition to original)
