@@ -703,7 +703,11 @@ def _schema_location_summary() -> dict[str, object]:
     }
 
 def _schema_story_summary() -> dict[str, object]:
-    """JSON schema for story description."""
+    """JSON schema for story description with 5 parts."""
+    # Calculate character limits per part (divide total by 5)
+    part_min = STORY_DESCRIPTION_CHARACTER_MIN // 5
+    part_max = STORY_DESCRIPTION_CHARACTER_MAX // 5
+    
     return {
         "type": "json_schema",
         "json_schema": {
@@ -712,14 +716,32 @@ def _schema_story_summary() -> dict[str, object]:
                 "type": "object",
                 "additionalProperties": False,
                 "properties": {
-                    "summary": {
-                        "type": "string",
-                        "minLength": STORY_DESCRIPTION_CHARACTER_MIN,
-                        "maxLength": STORY_DESCRIPTION_CHARACTER_MAX,
-                        "description": f"Entire story all details in short version."
+                    "parts": {
+                        "type": "array",
+                        "minItems": 5,
+                        "maxItems": 5,
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": False,
+                            "properties": {
+                                "title": {
+                                    "type": "string",
+                                    "minLength": 10,
+                                    "maxLength": 100,
+                                    "description": "Brief descriptive title for this part of the story"
+                                },
+                                "summary": {
+                                    "type": "string",
+                                    "minLength": part_min,
+                                    "maxLength": part_max,
+                                    "description": f"Detailed summary of this part of the story ({part_min}-{part_max} characters)"
+                                }
+                            },
+                            "required": ["title", "summary"]
+                        }
                     }
                 },
-                "required": ["summary"]
+                "required": ["parts"]
             },
             "strict": True
         }
@@ -750,9 +772,14 @@ def _build_character_summary_user_prompt(character_name: str, detailed_descripti
 
 
 def _build_story_summary_prompt() -> str:
+    part_min = STORY_DESCRIPTION_CHARACTER_MIN // 5
+    part_max = STORY_DESCRIPTION_CHARACTER_MAX // 5
     return (
-        f"Transform it into a continuous paragraph of {STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX} characters, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words.\n"
-        f"It must always include all actors and their roles, all locations and settings, complete chronological events in details.\n"
+        f"Transform the story into 5 distinct parts, each with a title and detailed summary.\n"
+        f"Each part should be {part_min}-{part_max} characters (approximately {part_min//6}-{part_max//6} words).\n"
+        f"Total across all parts: {STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX} characters.\n"
+        f"Each part must include all actors and their roles, all locations and settings, complete chronological events in details for that section.\n"
+        f"Divide the story chronologically into 5 meaningful parts that tell the complete story.\n"
     )
 
 def _build_story_summary_user_prompt(story_content: str) -> str:
@@ -1183,10 +1210,29 @@ def _generate_story_summary(story_content: str, lm_studio_url: str, resumable_st
         if not structured_data:
             raise RuntimeError("Failed to parse structured story description response")
         
-        story_desc = structured_data.get("summary", "").strip()
-        if not story_desc:
-            raise RuntimeError("Empty story description generated")
-
+        parts = structured_data.get("parts", [])
+        if not parts or len(parts) != 5:
+            raise RuntimeError("Expected exactly 5 story parts, got " + str(len(parts) if parts else 0))
+        
+        # Combine all parts into a single story description
+        story_desc = ""
+        part_min = STORY_DESCRIPTION_CHARACTER_MIN // 5
+        part_max = STORY_DESCRIPTION_CHARACTER_MAX // 5
+        
+        for i, part in enumerate(parts):
+            title = part.get("title", "").strip()
+            summary = part.get("summary", "").strip()
+            
+            if not title or not summary:
+                raise RuntimeError(f"Part {i+1} missing title or summary")
+            
+            # Validate each part's character count
+            _validate_character_count(summary, part_min, part_max)
+            
+            # Add to combined story description
+            story_desc += f"Part {i+1}: {title}\n{summary}\n\n"
+        
+        # Validate total character count
         _validate_character_count(story_desc, STORY_DESCRIPTION_CHARACTER_MIN, STORY_DESCRIPTION_CHARACTER_MAX)
         
         # Save to checkpoint if resumable mode enabled
