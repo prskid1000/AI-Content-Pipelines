@@ -23,7 +23,7 @@ WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary print
 # Controls text generation method:
 # - True: use text overlay after image generation (generates 1 image: thumbnail.png)
 # - False: let Flux generate text in the image itself (generates 5 versions: thumbnail.flux.v1-v5.png)
-USE_TITLE_TEXT = True
+USE_TITLE_TEXT = False
 
 # Controls where the title band + text appears: "top", "middle", or "bottom"
 TITLE_POSITION = "middle"
@@ -46,7 +46,7 @@ SHORTS_WIDTH = 1080
 SHORTS_HEIGHT = 1920
 
 # Number of shorts variations to generate
-SHORTS_VARIATIONS = 5
+SHORTS_VARIATIONS = 2
 
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
@@ -74,7 +74,7 @@ LORAS = [
         "enabled": True,          # Set to False to disable this LoRA entirely
         
         # Serial mode specific settings (only used when LORA_MODE = "serial")
-        "steps": 9,               # Sampling steps for this LoRA (serial mode only)
+        "steps": 1,               # Sampling steps for this LoRA (serial mode only)
         "denoising_strength": 1,  # Denoising strength (0.0 - 1.0) (serial mode only)
         "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
         "use_only_intermediate": False # Set to True to disable character images and use only intermediate result
@@ -969,7 +969,7 @@ class ThumbnailProcessor:
         except Exception as e:
             print(f"WARNING: Failed to replace latent with previous output: {e}")
 
-    def _generate_thumbnail_serial(self, prompt_text: str, shorts: bool = False, variation_number: int = 0) -> str | None:
+    def _generate_thumbnail_serial(self, prompt_text: str, shorts: bool = False, variation_number: str = "") -> str | None:
         """Generate thumbnail using serial LoRA mode with intermediate storage."""
         try:
             print(f"Generating thumbnail (Serial LoRA mode)")
@@ -1000,14 +1000,14 @@ class ThumbnailProcessor:
                 # Generate filename for this LoRA step
                 lora_clean_name = re.sub(r'[^\w\s.-]', '', lora_config['name']).strip()
                 lora_clean_name = re.sub(r'[-\s]+', '_', lora_clean_name)
-                lora_filename = f"thumbnail{".shorts" + ".v" + str(variation_number) if shorts else ""}.{lora_clean_name}"
+                lora_filename = f"thumbnail{".shorts" if shorts else "" + variation_number}.{lora_clean_name}"
                 workflow = self._update_saveimage_prefix(workflow, lora_filename)
                 workflow = self._update_workflow_resolution(workflow, SHORTS_WIDTH if shorts else OUTPUT_WIDTH, SHORTS_HEIGHT if shorts else OUTPUT_HEIGHT)
                 
                 # Set LoRA-specific sampling steps, seed, and denoising
                 steps = lora_config.get("steps", SAMPLING_STEPS)
                 denoising_strength = lora_config.get("denoising_strength", 1.0)
-                seed = self._get_seed(variation_number=variation_number)  # Serial mode uses base seed for each LoRA
+                seed = self._get_seed()  # Serial mode uses base seed for each LoRA
                 self._update_node_connections(workflow, "KSampler", "steps", steps)
                 self._update_node_connections(workflow, "KSampler", "seed", seed)
                 print(f"  Seed set to: {seed}")
@@ -1079,7 +1079,7 @@ class ThumbnailProcessor:
                     continue
                 
                 # Save result to lora folder (save final result from each LoRA)
-                lora_final_path = os.path.join(self.intermediate_output_dir, f"thumbnail{".shorts" + ".v" + str(variation_number) if shorts else ""}.{lora_clean_name}.png")
+                lora_final_path = os.path.join(self.intermediate_output_dir, f"thumbnail{".shorts" if shorts else "" + variation_number}.{lora_clean_name}.png")
                 shutil.copy2(generated_image, lora_final_path)
                 print(f"  Saved LoRA result: {lora_final_path}")
                 
@@ -1091,7 +1091,7 @@ class ThumbnailProcessor:
                 print(f"ERROR: No successful LoRA generations for thumbnail")
                 return None
 
-            output_path = os.path.join(self.final_output_dir, f"thumbnail{".shorts" + ".v" + str(variation_number) if shorts else ""}.png")
+            output_path = os.path.join(self.final_output_dir, f"thumbnail{".shorts" if shorts else "" + variation_number}.png")
             
             # Copy final result to output directory
             shutil.copy2(current_image_path, output_path)
@@ -1209,7 +1209,7 @@ class ThumbnailProcessor:
         except Exception as e:
             print(f"WARNING: Failed to set image input: {e}")
 
-    def generate_thumbnail(self, prompt_text: str, shorts: bool = False, variation_number: int = 0) -> str | list[str] | None:
+    def generate_thumbnail(self, prompt_text: str, shorts: bool = False, variation_number: str = "") -> str | list[str] | None:
         try:
             # Use serial LoRA mode if enabled
             if USE_LORA and LORA_MODE == "serial":
@@ -1249,64 +1249,23 @@ class ThumbnailProcessor:
             workflow = self._load_thumbnail_workflow()
             workflow = self._update_prompt_text(workflow, prompt_text)
             workflow = self._update_workflow_resolution(workflow, gen_width, gen_height)
-            workflow = self._update_saveimage_prefix(workflow, "thumbnail" + ".shorts" + ".v" + str(variation_number) if shorts else "")
+            workflow = self._update_saveimage_prefix(workflow, "thumbnail" + ".shorts" if shorts else "" + variation_number)
             
             # Set seed based on configuration (variation 0 = original)
-            seed = self._get_seed(variation_number=variation_number)
+            seed = self._get_seed()
             workflow = self._update_workflow_seed(workflow, seed)
             print(f"Seed set to: {seed}")
 
             # Print workflow summary
-            self._print_workflow_summary(workflow, "Thumbnail" + ".shorts" + ".v" + str(variation_number) if shorts else "")
+            self._print_workflow_summary(workflow, "Thumbnail" + ".shorts" if shorts else "" + variation_number)
             
             # Print prompt before sending
-            print(f"\n=== PROMPT FOR THUMBNAIL{".shorts" + ".v" + str(variation_number) if shorts else ""} ===")
+            print(f"\n=== PROMPT FOR THUMBNAIL{".shorts" if shorts else "" + variation_number} ===")
             # Get the text prompt from the workflow
             text_prompt = workflow.get("33", {}).get("inputs", {}).get("text", "No text prompt found")
             print(f"Text prompt: {text_prompt}")
             print(f"Workflow nodes: {len(workflow)} nodes")
             print("=" * 50)
-
-            # If not using overlay, generate multiple variants (like flux mode)
-            if not use_overlay:
-                saved_paths: list[str] = []
-                for idx in range(1, 6):
-                    # Use seed based on configuration with variation number
-                    seed_value = self._get_seed(variation_number=variation_number + idx)
-                    workflow = self._update_workflow_seed(workflow, seed_value)
-                    resp = requests.post(f"{self.comfyui_url}prompt", json={"prompt": workflow}, timeout=60)
-                    if resp.status_code != 200:
-                        return None
-                    prompt_id = resp.json().get("prompt_id")
-                    if not prompt_id:
-                        return None
-
-                    while True:
-                        h = requests.get(f"{self.comfyui_url}history/{prompt_id}")
-                        if h.status_code == 200:
-                            data = h.json()
-                            if prompt_id in data:
-                                status = data[prompt_id].get("status", {})
-                                if status.get("exec_info", {}).get("queue_remaining", 0) == 0:
-                                    time.sleep(2)
-                                    break
-                        time.sleep(2)
-
-                    newest_path = self._find_newest_output_with_prefix("thumbnail" + ".shorts" + ".v" + str(variation_number) if shorts else "")
-                    if not newest_path:
-                        return None
-
-                    # Store outputs as PNG with version suffix
-                    final_path = os.path.join(self.final_output_dir, f"thumbnail{".shorts" + ".v" + str(variation_number) if shorts else ""}.v{idx}.png")
-                    try:
-                        img = Image.open(newest_path)
-                        img.save(final_path, format="PNG")
-                    except Exception:
-                        shutil.copy2(newest_path, final_path)
-
-                    saved_paths.append(final_path)
-
-                return saved_paths
 
             # Single generation path with text overlay
             resp = requests.post(f"{self.comfyui_url}prompt", json={"prompt": workflow}, timeout=60)
@@ -1327,12 +1286,12 @@ class ThumbnailProcessor:
                             break
                 time.sleep(2)
 
-            newest_path = self._find_newest_output_with_prefix("thumbnail" + ".shorts" + ".v" + str(variation_number) if shorts else "")
+            newest_path = self._find_newest_output_with_prefix("thumbnail" + ".shorts" if shorts else "" + variation_number)
             if not newest_path:
                 return None
 
             src_ext = Path(newest_path).suffix.lower()
-            final_path = self.final_output_path if src_ext == ".png" else os.path.join(self.final_output_dir, f"thumbnail{".shorts" + ".v" + str(variation_number) if shorts else ""}{src_ext}")
+            final_path = self.final_output_path if src_ext == ".png" else os.path.join(self.final_output_dir, f"thumbnail{".shorts" if shorts else "" + variation_number}{src_ext}")
             shutil.copy2(newest_path, final_path)
             # Apply text overlay if enabled
             if title and use_overlay:
@@ -1638,19 +1597,10 @@ if __name__ == "__main__":
         # Only include title in prompt when not using overlay (let model generate text)
         prompt = "TITLE DESCRIPTION: ADD A very large semi-transparent floating newspaper at top-center with arial bold font & grammatically correct english-only legible engraving as \"" + processor._normalize_title(title) + "\"\n\n" + prompt
 
-    result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt)
+    if USE_TITLE_TEXT:
 
-    if result:
-        if isinstance(result, list):
-            for p in result:
-                print(p)
-        else:
-            print(result)
-    else:
-        raise SystemExit(1)
+        result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt)
 
-    for i in range(SHORTS_VARIATIONS):
-        result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt, shorts=True, variation_number=i)
         if result:
             if isinstance(result, list):
                 for p in result:
@@ -1659,5 +1609,40 @@ if __name__ == "__main__":
                 print(result)
         else:
             raise SystemExit(1)
+
+        for i in range(SHORTS_VARIATIONS):
+            result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt, shorts=True, variation_number=".v" + str(i))
+            if result:
+                if isinstance(result, list):
+                    for p in result:
+                        print(p)
+                else:
+                    print(result)
+            else:
+                raise SystemExit(1)
+
+    else:
+
+        for i in range(0, 6):
+            result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt, variation_number=".v" + str(i))
+            if result:
+                if isinstance(result, list):
+                    for p in result:
+                        print(p)
+                else:
+                    print(result)
+            else:
+                raise SystemExit(1)
+
+            for j in range(SHORTS_VARIATIONS):
+                result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt, shorts=True, variation_number=".v" + str(i) + ".v" + str(j))
+                if result:
+                    if isinstance(result, list):
+                        for p in result:
+                            print(p)
+                    else:
+                        print(result)
+                else:
+                    raise SystemExit(1)
 
 
