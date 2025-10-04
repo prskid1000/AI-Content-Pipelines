@@ -207,7 +207,7 @@ character_voices = {
 }
 
 class CharacterManager:
-    def __init__(self, language=LANGUAGE, region=REGION, lm_studio_url="http://localhost:1234/v0", model=MODEL_CHARACTER_CHAPTER_SUMMARY):
+    def __init__(self, language=LANGUAGE, region=REGION, lm_studio_url="http://localhost:1234/v1", model=MODEL_CHARACTER_CHAPTER_SUMMARY):
         self.language = language
         self.region = region
         self.character_voices = character_voices.copy()

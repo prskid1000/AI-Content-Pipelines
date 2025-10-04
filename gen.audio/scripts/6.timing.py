@@ -12,6 +12,8 @@ print = partial(_builtins.print, flush=True)
 # Model constants for easy switching
 MODEL_TIMING_GENERATION = "qwen/qwen3-14b"  # Model for timing SFX generation
 
+ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
+
 # Feature flags
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 
@@ -90,7 +92,7 @@ class ResumableState:
         return f"Progress: Timing Entries({timing_done}/{timing_total})"
 
 class TimingSFXGenerator:
-    def __init__(self, lm_studio_url="http://localhost:1234/v0", model=MODEL_TIMING_GENERATION, use_json_schema=True):
+    def __init__(self, lm_studio_url="http://localhost:1234/v1", model=MODEL_TIMING_GENERATION, use_json_schema=True):
         self.lm_studio_url = lm_studio_url
         self.output_file = "../input/4.sfx.txt"
         self.model = model

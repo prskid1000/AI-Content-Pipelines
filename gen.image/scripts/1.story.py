@@ -799,7 +799,7 @@ def _build_location_summary_user_prompt(location_id: str, detailed_description: 
 
 def _call_lm_studio(system_prompt: str, user_prompt: str, lm_studio_url: str, model: str, response_format: dict[str, object] | None = None, temperature: float = 1.0) -> str:
     headers = {"Content-Type": "application/json"}
-    messages = [{"role": "system", "content": system_prompt + "/no_think"}, {"role": "user", "content": user_prompt + "/no_think"}]
+    messages = [{"role": "user", "content": user_prompt}, {"role": "system", "content": system_prompt}, ]
     payload = {
         "model": model,
         "messages": messages,
@@ -1479,7 +1479,7 @@ def main() -> int:
     story_desc = None
     if locations:
         try:
-            lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v0")
+            lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v1")
             
             # Generate story description from content using qwen/qwen3-14b
             story_desc = _generate_story_description(content, lm_studio_url, resumable_state)
@@ -1518,7 +1518,7 @@ def main() -> int:
         unique_names = sorted(schars)
         if unique_names:
             try:
-                lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v0")
+                lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v1")
                 
                 # Step 1: Generate initial character descriptions
                 name_to_desc = _generate_character_descriptions(story_desc, unique_names, lm_studio_url, resumable_state)

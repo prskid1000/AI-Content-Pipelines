@@ -11,7 +11,7 @@ print = partial(_builtins.print, flush=True)
 MODEL_DESCRIPTION_GENERATION = "qwen/qwen3-14b"  # Model for description generation
 
 class DiffusionPromptGenerator:
-    def __init__(self, lm_studio_url: str = "http://localhost:1234/v0", model: str = MODEL_DESCRIPTION_GENERATION):
+    def __init__(self, lm_studio_url: str = "http://localhost:1234/v1", model: str = MODEL_DESCRIPTION_GENERATION):
         self.lm_studio_url = lm_studio_url
         self.model = model
         self.input_file = "../input/9.description.txt"
