@@ -29,8 +29,8 @@ class DiffusionPromptGenerator:
         with open(path, "w", encoding="utf-8") as f:
             f.write(content)
 
-    def _build_system_prompt(self, story_desc: str) -> str:
-        return f"""You are a visual director CREATIVELY generating one Image Generation Model Prompt of 300-500 words for the following STORY TITLE/DESCRIPTION.
+    def _build_system_prompt(self) -> str:
+        return """You are a visual director CREATIVELY generating one Image Generation Model Prompt of 300-500 words for the following STORY TITLE/DESCRIPTION.
         
         CONSTRAINTS: 
          - highly specific spatial and material details, and technical quality flags. 
@@ -42,15 +42,18 @@ class DiffusionPromptGenerator:
          - all object positions using directional terms (left wall, center focus, far background)
          - precise material descriptions for textures and surfaces (dark oak, brass fittings, weathered leather)
 
-        Ensure every element supports the story and maintains spatial clarity and visual coherence. Output must be a CREATIVELY generated single continuous paragraph of 300-500 words without line breaks. 
-        STORY TITLE/DESCRIPTION: {story_desc}"""
+        Ensure every element supports the story and maintains spatial clarity and visual coherence. Output must be a CREATIVELY generated single continuous paragraph of 300-500 words without line breaks."""
 
-    def _call_lm_studio(self, system_prompt: str) -> str:
+    def _build_user_prompt(self, story_desc: str) -> str:
+        return f"""STORY TITLE/DESCRIPTION: {story_desc}"""
+
+    def _call_lm_studio(self, system_prompt: str, user_prompt: str) -> str:
         headers = {"Content-Type": "application/json"}
         payload = {
             "model": self.model,
             "messages": [
-                {"role": "user", "content": system_prompt + "/no_think /no_think"},
+                {"role": "system", "content": system_prompt + "/no_think /no_think"},
+                {"role": "user", "content": user_prompt + "/no_think /no_think"},
             ],
             "temperature": 1,
             "stream": False,
@@ -84,10 +87,11 @@ class DiffusionPromptGenerator:
             print("ERROR: No story description found in 9.description.txt")
             return None
 
-        system_prompt = self._build_system_prompt(story_desc)
+        system_prompt = self._build_system_prompt()
+        user_prompt = self._build_user_prompt(story_desc)
 
         try:
-            raw = self._call_lm_studio(system_prompt)
+            raw = self._call_lm_studio(system_prompt, user_prompt)
             prompt = self._sanitize_single_paragraph(raw)
             if not prompt:
                 raise RuntimeError("Empty prompt generated")

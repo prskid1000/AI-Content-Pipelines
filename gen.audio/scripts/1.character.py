@@ -512,7 +512,7 @@ class CharacterManager:
             }
         }
 
-    def _call_lm_studio(self, system_prompt: str, use_structured_output: bool = False, is_title_generation: bool = False, is_meta_summary: bool = False) -> str:
+    def _call_lm_studio(self, system_prompt: str, user_prompt: str, use_structured_output: bool = False, is_title_generation: bool = False, is_meta_summary: bool = False) -> str:
         """Call LM Studio API for text generation with optional structured output"""
         headers = {"Content-Type": "application/json"}
         
@@ -527,7 +527,8 @@ class CharacterManager:
         payload = {
             "model": model,
             "messages": [
-                {"role": "user", "content": system_prompt + "/no_think /no_think"},
+                {"role": "system", "content": system_prompt + "/no_think /no_think"},
+                {"role": "user", "content": user_prompt + "/no_think /no_think"},
             ],
             "temperature": 1,
             "stream": False,
@@ -622,9 +623,9 @@ class CharacterManager:
         
         return chunks
 
-    def _build_chapter_summary_prompt(self, chunk_text: str, part_number: int, total_parts: int, percentage: float) -> str:
+    def _build_chapter_summary_system_prompt(self) -> str:
         """Build system prompt for chapter title and summary generation with structured JSON output"""
-        return f"""You are a literary analyst creating chapter titles and summaries. This is Part {part_number} of {total_parts} ({percentage:.1f}% of the total story).
+        return """You are a literary analyst creating chapter titles and summaries.
 
 Analyze the story section and generate:
 1. A compelling chapter title (2-4 words, captures the essence/theme of this section)
@@ -640,15 +641,18 @@ REQUIREMENTS:
 - Include character names and their actions
 - Preserve the story's tone and style
 
-STORY PART {part_number}/{total_parts} ({percentage:.1f}%):
-{chunk_text}
-
 Generate a JSON response with "title", "summary", and "short_summary" fields. Both summaries should be single continuous paragraphs."""
 
-    def _build_meta_summary_prompt(self, summary_parts: list) -> str:
+    def _build_chapter_summary_user_prompt(self, chunk_text: str, part_number: int, total_parts: int, percentage: float) -> str:
+        """Build user prompt with story data for chapter analysis"""
+        return f"""This is Part {part_number} of {total_parts} ({percentage:.1f}% of the total story).
+
+STORY PART {part_number}/{total_parts} ({percentage:.1f}%):
+{chunk_text}"""
+
+    def _build_meta_summary_system_prompt(self) -> str:
         """Build system prompt for meta-summarization of all parts"""
-        combined_summaries = "\n\n".join([f"PART {i+1}: {summary}" for i, summary in enumerate(summary_parts)])
-        return f"""You are a master literary summarizer creating a comprehensive story overview. You have been given {len(summary_parts)} individual part summaries of a complete story. Your task is to synthesize these into one cohesive, comprehensive summary.
+        return """You are a master literary summarizer creating a comprehensive story overview. You have been given individual part summaries of a complete story. Your task is to synthesize these into one cohesive, comprehensive summary.
 
 REQUIREMENTS:
 - Exactly 1000-1200 words
@@ -661,21 +665,27 @@ REQUIREMENTS:
 - Eliminate redundancy between parts while maintaining completeness
 - Create smooth transitions between story segments
 
-INDIVIDUAL PART SUMMARIES:
-{combined_summaries}
-
 Create a masterful synthesis that reads as a single, comprehensive story summary rather than separate parts stitched together. Focus on narrative flow and character arcs across the entire story. Generate a JSON response with a "summary" field containing your comprehensive synthesis."""
+
+    def _build_meta_summary_user_prompt(self, summary_parts: list) -> str:
+        """Build user prompt with summary data for meta-summarization"""
+        combined_summaries = "\n\n".join([f"PART {i+1}: {summary}" for i, summary in enumerate(summary_parts)])
+        return f"""You have been given {len(summary_parts)} individual part summaries of a complete story.
+
+INDIVIDUAL PART SUMMARIES:
+{combined_summaries}"""
 
     def _generate_meta_summary(self, summary_parts: list) -> str:
         """Generate a meta-summary by re-summarizing all part summaries through LM Studio"""
         print(f"🔄 Re-summarizing {len(summary_parts)} part summaries into comprehensive overview...")
         
-        # Build the meta-summary prompt
-        system_prompt = self._build_meta_summary_prompt(summary_parts)
+        # Build the meta-summary prompts
+        system_prompt = self._build_meta_summary_system_prompt()
+        user_prompt = self._build_meta_summary_user_prompt(summary_parts)
         
         # Generate meta-summary with structured output
         start_time = time.time()
-        raw_meta_summary = self._call_lm_studio(system_prompt, use_structured_output=True, is_meta_summary=True)
+        raw_meta_summary = self._call_lm_studio(system_prompt, user_prompt, use_structured_output=True, is_meta_summary=True)
         generation_time = time.time() - start_time
         
         # Parse structured JSON response
@@ -698,9 +708,9 @@ Create a masterful synthesis that reads as a single, comprehensive story summary
         
         return meta_summary
 
-    def _build_story_title_prompt(self, story_summary: str) -> str:
+    def _build_story_title_system_prompt(self) -> str:
         """Build system prompt for story title generation"""
-        return f"""You are a creative title generator specializing in compelling story titles. Based on the comprehensive story summary provided, generate a captivating and memorable title that captures the essence, theme, and intrigue of the story.
+        return """You are a creative title generator specializing in compelling story titles. Based on the comprehensive story summary provided, generate a captivating and memorable title that captures the essence, theme, and intrigue of the story.
 
 REQUIREMENTS:
 - Create a title that is engaging and memorable
@@ -719,10 +729,12 @@ EXAMPLES OF GOOD TITLES:
 - "Shadows in Baker Street"
 - "The Mystery of Thornfield Manor"
 
-STORY SUMMARY:
-{story_summary}
-
 Generate a JSON response with a "title" field containing your suggested story title. Focus on creating something that would intrigue potential listeners and capture the story's essence without giving away the plot."""
+
+    def _build_story_title_user_prompt(self, story_summary: str) -> str:
+        """Build user prompt with story data for title generation"""
+        return f"""STORY SUMMARY:
+{story_summary}"""
 
     def generate_story_title(self, story_summary: str, output_dir: str = "../input", resumable_state: ResumableState | None = None) -> str:
         """Generate a story title based on the comprehensive summary and save to 10.title.txt"""
@@ -742,12 +754,13 @@ Generate a JSON response with a "title" field containing your suggested story ti
         print("\n=== GENERATING STORY TITLE ===")
         
         try:
-            # Build title generation prompt
-            system_prompt = self._build_story_title_prompt(story_summary)
+            # Build title generation prompts
+            system_prompt = self._build_story_title_system_prompt()
+            user_prompt = self._build_story_title_user_prompt(story_summary)
             
             # Generate title with structured output
             start_time = time.time()
-            raw_response = self._call_lm_studio(system_prompt, use_structured_output=True, is_title_generation=True)
+            raw_response = self._call_lm_studio(system_prompt, user_prompt, use_structured_output=True, is_title_generation=True)
             generation_time = time.time() - start_time
             
             # Parse structured JSON response
@@ -925,8 +938,9 @@ Generate a JSON response with a "title" field containing your suggested story ti
             print(f"   Lines {chunk['start_line']}-{chunk['end_line']} ({chunk['character_count']:,} chars)")
             
             try:
-                # Build chapter prompt
-                system_prompt = self._build_chapter_summary_prompt(
+                # Build chapter prompts
+                system_prompt = self._build_chapter_summary_system_prompt()
+                user_prompt = self._build_chapter_summary_user_prompt(
                     chunk['text'], 
                     chunk['part_number'], 
                     total_parts, 
@@ -935,7 +949,7 @@ Generate a JSON response with a "title" field containing your suggested story ti
                 
                 # Generate chapter title and summary with structured output
                 start_time = time.time()
-                raw_response = self._call_lm_studio(system_prompt, use_structured_output=True)
+                raw_response = self._call_lm_studio(system_prompt, user_prompt, use_structured_output=True)
                 generation_time = time.time() - start_time
                 
                 # Parse structured JSON response
