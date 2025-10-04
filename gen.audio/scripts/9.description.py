@@ -52,8 +52,8 @@ class DiffusionPromptGenerator:
         payload = {
             "model": self.model,
             "messages": [
-                {"role": "system", "content": system_prompt + "/no_think /no_think"},
-                {"role": "user", "content": user_prompt + "/no_think /no_think"},
+                {"role": "system", "content": system_prompt + "\n/no_think"},
+                {"role": "user", "content": user_prompt + "\n/no_think"},
             ],
             "temperature": 1,
             "stream": False,

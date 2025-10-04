@@ -198,7 +198,7 @@ OUTPUT: JSON with sound_or_silence_description field only."""
                     },
                     {
                         "role": "user",
-                        "content": f"{prompt}/no_think /no_think"
+                        "content": f"{prompt}\n/no_think"
                     }
                 ],
                 "temperature": 1,

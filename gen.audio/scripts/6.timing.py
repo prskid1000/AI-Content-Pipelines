@@ -237,7 +237,7 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
                     },
                     {
                         "role": "user",
-                        "content": f"{prompt}/no_think /no_think"
+                        "content": f"{prompt}\n/no_think"
                     }
                 ],
                 "temperature": 1,
