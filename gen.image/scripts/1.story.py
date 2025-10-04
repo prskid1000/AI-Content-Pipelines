@@ -10,9 +10,9 @@ from pathlib import Path
 
 
 # Character and word count limits (min-max ranges)
-CHARACTER_SUMMARY_CHARACTER_MIN = 300
-CHARACTER_SUMMARY_CHARACTER_MAX = 600
-CHARACTER_SUMMARY_WORD_MIN = 50
+CHARACTER_SUMMARY_CHARACTER_MIN = 540
+CHARACTER_SUMMARY_CHARACTER_MAX = 960
+CHARACTER_SUMMARY_WORD_MIN = 90
 CHARACTER_SUMMARY_WORD_MAX = 160
 
 LOCATION_SUMMARY_CHARACTER_MIN = 1200
@@ -24,7 +24,7 @@ STORY_DESCRIPTION_CHARACTER_MIN = 6600
 STORY_DESCRIPTION_CHARACTER_MAX = 7200
 STORY_DESCRIPTION_WORD_MIN = 1100
 STORY_DESCRIPTION_WORD_MAX = 1200
-STORY_DESCRIPTION_PARTS = 12
+STORY_DESCRIPTION_PARTS = 5
 
 # Feature flags
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
@@ -750,7 +750,7 @@ def _schema_story_summary() -> dict[str, object]:
 
 def _build_character_system_prompt() -> str:
     return (
-        f"Create detailed visual-only attributes and characteristics for the character based its role in story for AI image generation.\n\n"
+        f"You are a Professional Visual Director and Character Creator and Character Designer and Character Writer and Character Illustrator. Your Job is to Create detailed visual-only attributes and characteristics for the character based its role in story for AI image generation.\n\n"
     )
 
 def _build_character_user_prompt(story_desc: str, character_name: str, all_characters: dict[str, str]) -> str:
@@ -761,7 +761,7 @@ def _build_character_user_prompt(story_desc: str, character_name: str, all_chara
 
 def _build_character_summary_prompt() -> str:
     return (
-        f"Transform it into a continuous paragraph of {CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters, approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words.\n"
+        f"You are a Professional Visual Director and Character Creator and Character Designer and Character Writer and Character Illustrator. Your Job is to Transform it into a continuous paragraph of {CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters, approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words.\n"
         f"It must always include all visual details like color(required), pattern, texture, type, etc. from the original description, preserving all visual attributes and characteristics.\n"
     )
 
@@ -778,7 +778,7 @@ def _build_story_summary_prompt() -> str:
     word_min = STORY_DESCRIPTION_WORD_MIN // STORY_DESCRIPTION_PARTS
     word_max = STORY_DESCRIPTION_WORD_MAX // STORY_DESCRIPTION_PARTS
     return (
-        f"Transform the story into 5 distinct parts, each with a title and detailed summary.\n"
+        f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Transform the story into 5 distinct parts, each with a title and detailed summary.\n"
         f"Each part should be {char_min}-{char_max} characters (approximately {word_min}-{word_max} words).\n"
         f"Total across all parts: {STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX} characters.\n"
         f"Each part must include all actors and their roles, all locations and settings, complete chronological events in details for that section.\n"
@@ -804,7 +804,7 @@ def _build_story_summary_user_prompt(story_content: str) -> str:
 
 def _build_location_system_prompt() -> str:
     return (
-        f"Create a detailed location that includes all possible object that can be seen in such type of location, postioning large objects relative to the room, medium objects relative to large ones, small items relative to medium objects, for AI image generation.\n\n"
+        f"You are a Professional Visual Director and Location Creator and Location Designer and Location Writer and Location Illustrator. Your Job is to Create a detailed location that includes all possible object that can be seen in such type of location, postioning large objects relative to the room, medium objects relative to large ones, small items relative to medium objects, for AI image generation.\n\n"
     )
 
 def _build_location_user_prompt(story_desc: str, location_id: str, all_locations: dict[str, str]) -> str:
@@ -816,7 +816,7 @@ def _build_location_user_prompt(story_desc: str, location_id: str, all_locations
 
 def _build_location_summary_prompt() -> str:
     return (
-        f"Transform it into a continuous paragraph of {LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters, approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words.\n"
+        f"You are a Professional Visual Director and Location Creator and Location Designer and Location Writer and Location Illustrator. Your Job is to Transform it into a continuous paragraph of {LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters, approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words.\n"
         f"It must always include all visual details like color(required),position(required), pattern, texture, type, etc. from the original description, preserving all visual attributes, characteristics and postioning relationships.\n"
     )
 
