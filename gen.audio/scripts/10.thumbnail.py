@@ -27,7 +27,7 @@ WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary print
 # Controls text generation method:
 # - True: use text overlay after image generation (generates 1 image: thumbnail.png)
 # - False: let Flux generate text in the image itself (generates 5 versions: thumbnail.flux.v1-v5.png)
-USE_TITLE_TEXT = False
+USE_TITLE_TEXT = True
 
 # Controls where the title band + text appears: "top", "middle", or "bottom"
 TITLE_POSITION = "middle"
@@ -1988,7 +1988,7 @@ if __name__ == "__main__":
 
         for i in range(0, 6):
             print(f"Generating thumbnail {i + 1} of 6")
-            result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt, shorts=False, variation_number=((str(i)+ ".v") if i > 0 else ""), resumable_state=resumable_state)
+            result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt, shorts=False, variation_number=((".v" + str(i)) if i > 0 else ""), resumable_state=resumable_state)
             if result:
                 if isinstance(result, list):
                     for p in result:
