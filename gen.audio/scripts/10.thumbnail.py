@@ -13,6 +13,10 @@ print = partial(_builtins.print, flush=True)
 import re
 import random
 
+# Feature flags
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
+
 # Random seed configuration
 USE_RANDOM_SEED = True  # Set to True to use random seeds for each generation
 RANDOM_SEED = 333555666
@@ -46,7 +50,7 @@ SHORTS_WIDTH = 1080
 SHORTS_HEIGHT = 1920
 
 # Number of shorts variations to generate
-SHORTS_VARIATIONS = 2
+SHORTS_VARIATIONS = 5
 
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
@@ -104,6 +108,257 @@ NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, p
 
 ART_STYLE = "Realistic Anime"
 
+class ResumableState:
+    """Manages resumable state for expensive thumbnail generation operations."""
+    
+    def __init__(self, checkpoint_dir: str, script_name: str, force_start: bool = False):
+        self.checkpoint_dir = Path(checkpoint_dir)
+        self.checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        self.state_file = self.checkpoint_dir / f"{script_name}.state.json"
+        
+        # If force_start is True, remove existing checkpoint and start fresh
+        if force_start and self.state_file.exists():
+            try:
+                self.state_file.unlink()
+                print("Force start enabled - removed existing checkpoint")
+            except Exception as ex:
+                print(f"WARNING: Failed to remove checkpoint for force start: {ex}")
+        
+        self.state = self._load_state()
+    
+    def _load_state(self) -> dict:
+        """Load state from checkpoint file."""
+        if self.state_file.exists():
+            try:
+                with open(self.state_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as ex:
+                print(f"WARNING: Failed to load checkpoint file: {ex}")
+        
+        return {
+            "thumbnails": {
+                "completed": [],
+                "results": {}
+            }
+        }
+    
+    def _save_state(self):
+        """Save current state to checkpoint file."""
+        try:
+            with open(self.state_file, 'w', encoding='utf-8') as f:
+                json.dump(self.state, f, indent=2, ensure_ascii=False)
+        except Exception as ex:
+            print(f"WARNING: Failed to save checkpoint: {ex}")
+    
+    def is_thumbnail_complete(self, thumbnail_key: str) -> bool:
+        """Check if thumbnail generation is complete (including all variations)."""
+        if thumbnail_key not in self.state["thumbnails"]["results"]:
+            return False
+        
+        result = self.state["thumbnails"]["results"][thumbnail_key]
+        variations = result.get("variations", {})
+        
+        # Check if original exists
+        if not result.get("path") or not os.path.exists(result.get("path", "")):
+            return False
+        
+        # Check if all variations exist
+        expected_variations = 6  # 6 main variations (0-5)
+        for i in range(1, expected_variations + 1):
+            var_key = f"v{i}"
+            if var_key not in variations or not os.path.exists(variations[var_key].get("path", "")):
+                return False
+        
+        # Check shorts variations for each main variation
+        for i in range(0, expected_variations + 1):
+            main_var_key = f"v{i}" if i > 0 else "original"
+            shorts_vars = variations.get(main_var_key, {}).get("shorts", {})
+            for j in range(1, SHORTS_VARIATIONS + 1):
+                shorts_key = f"shorts_v{j}"
+                if shorts_key not in shorts_vars or not os.path.exists(shorts_vars[shorts_key].get("path", "")):
+                    return False
+        
+        return True
+    
+    def is_thumbnail_original_complete(self, thumbnail_key: str) -> bool:
+        """Check if the original thumbnail is complete."""
+        if thumbnail_key not in self.state["thumbnails"]["results"]:
+            return False
+        
+        result = self.state["thumbnails"]["results"][thumbnail_key]
+        return result.get("path") and os.path.exists(result.get("path", ""))
+    
+    def is_thumbnail_variation_complete(self, thumbnail_key: str, variation_suffix: str) -> bool:
+        """Check if a specific variation is complete."""
+        if thumbnail_key not in self.state["thumbnails"]["results"]:
+            return False
+        
+        result = self.state["thumbnails"]["results"][thumbnail_key]
+        variations = result.get("variations", {})
+        
+        if variation_suffix not in variations:
+            return False
+        
+        return os.path.exists(variations[variation_suffix].get("path", ""))
+    
+    def is_shorts_variation_complete(self, thumbnail_key: str, main_variation: str, shorts_variation: str) -> bool:
+        """Check if a specific shorts variation is complete."""
+        if thumbnail_key not in self.state["thumbnails"]["results"]:
+            return False
+        
+        result = self.state["thumbnails"]["results"][thumbnail_key]
+        variations = result.get("variations", {})
+        
+        if main_variation not in variations:
+            return False
+        
+        shorts_vars = variations[main_variation].get("shorts", {})
+        if shorts_variation not in shorts_vars:
+            return False
+        
+        return os.path.exists(shorts_vars[shorts_variation].get("path", ""))
+    
+    def get_thumbnail_result(self, thumbnail_key: str) -> dict:
+        """Get thumbnail generation result."""
+        return self.state["thumbnails"]["results"].get(thumbnail_key, {})
+    
+    def set_thumbnail_result(self, thumbnail_key: str, result: dict):
+        """Set thumbnail generation result and mark as complete."""
+        self.state["thumbnails"]["results"][thumbnail_key] = result
+        if thumbnail_key not in self.state["thumbnails"]["completed"]:
+            self.state["thumbnails"]["completed"].append(thumbnail_key)
+        self._save_state()
+    
+    def set_thumbnail_variation(self, thumbnail_key: str, variation_key: str, variation_result: dict):
+        """Set a specific variation result for a thumbnail."""
+        if thumbnail_key not in self.state["thumbnails"]["results"]:
+            self.state["thumbnails"]["results"][thumbnail_key] = {"variations": {}}
+        
+        if "variations" not in self.state["thumbnails"]["results"][thumbnail_key]:
+            self.state["thumbnails"]["results"][thumbnail_key]["variations"] = {}
+        
+        self.state["thumbnails"]["results"][thumbnail_key]["variations"][variation_key] = variation_result
+        self._save_state()
+    
+    def set_shorts_variation(self, thumbnail_key: str, main_variation: str, shorts_key: str, shorts_result: dict):
+        """Set a specific shorts variation result."""
+        if thumbnail_key not in self.state["thumbnails"]["results"]:
+            self.state["thumbnails"]["results"][thumbnail_key] = {"variations": {}}
+        
+        variations = self.state["thumbnails"]["results"][thumbnail_key]["variations"]
+        if main_variation not in variations:
+            variations[main_variation] = {"shorts": {}}
+        
+        if "shorts" not in variations[main_variation]:
+            variations[main_variation]["shorts"] = {}
+        
+        variations[main_variation]["shorts"][shorts_key] = shorts_result
+        self._save_state()
+    
+    def cleanup(self):
+        """Clean up tracking files based on configuration setting."""
+        try:
+            if CLEANUP_TRACKING_FILES and self.state_file.exists():
+                self.state_file.unlink()
+                print("All operations completed successfully - tracking files cleaned up")
+            else:
+                print("All operations completed successfully - tracking files preserved")
+        except Exception as ex:
+            print(f"WARNING: Error in cleanup: {ex}")
+    
+    def validate_and_cleanup_results(self, output_dir: str = None) -> int:
+        """Validate that all completed thumbnail files actually exist and clean up missing entries."""
+        cleaned_count = 0
+        thumbnails_to_remove = []
+        
+        print(f"Validating {len(self.state['thumbnails']['completed'])} completed thumbnails against output directory...")
+        
+        # Check each completed thumbnail
+        for thumbnail_key in self.state["thumbnails"]["completed"]:
+            result = self.state["thumbnails"]["results"].get(thumbnail_key, {})
+            file_path = result.get('path', '')
+            
+            # Check if file actually exists
+            main_exists = file_path and os.path.exists(file_path)
+            
+            if not main_exists:
+                print(f"Precheck: File missing for {thumbnail_key} - marking as not completed")
+                print(f"  Main file exists: {main_exists} ({file_path})")
+                thumbnails_to_remove.append(thumbnail_key)
+                cleaned_count += 1
+            elif output_dir:
+                # Additional check: verify file exists in output directory
+                expected_thumbnail_file = os.path.join(output_dir, f"{thumbnail_key}.png")
+                if not os.path.exists(expected_thumbnail_file):
+                    print(f"Precheck: Thumbnail file missing in output directory for {thumbnail_key} - marking as not completed")
+                    print(f"  Expected: {expected_thumbnail_file}")
+                    thumbnails_to_remove.append(thumbnail_key)
+                    cleaned_count += 1
+                else:
+                    print(f"Precheck: ✓ {thumbnail_key} validated in output directory")
+        
+        # Remove invalid entries
+        for thumbnail_key in thumbnails_to_remove:
+            if thumbnail_key in self.state["thumbnails"]["completed"]:
+                self.state["thumbnails"]["completed"].remove(thumbnail_key)
+            if thumbnail_key in self.state["thumbnails"]["results"]:
+                del self.state["thumbnails"]["results"][thumbnail_key]
+        
+        # Save cleaned state if any changes were made
+        if cleaned_count > 0:
+            self._save_state()
+            print(f"Precheck: Cleaned up {cleaned_count} invalid entries from checkpoint")
+        
+        return cleaned_count
+    
+    def sync_with_output_directory(self, output_dir: str) -> int:
+        """Sync resumable state with actual files in output directory."""
+        if not os.path.exists(output_dir):
+            print(f"Output directory does not exist: {output_dir}")
+            return 0
+            
+        added_count = 0
+        tracked_thumbnails = set(self.state["thumbnails"]["completed"])
+        
+        print(f"Scanning output directory for untracked files: {output_dir}")
+        
+        # Find all thumbnail-related files in the output directory
+        for filename in os.listdir(output_dir):
+            if filename.startswith('thumbnail') and filename.endswith('.png'):
+                # Extract thumbnail key from filename
+                thumbnail_key = filename[:-4]  # Remove .png extension
+                
+                # If this thumbnail isn't tracked, add it to completed
+                if thumbnail_key not in tracked_thumbnails:
+                    file_path = os.path.join(output_dir, filename)
+                    result = {
+                        'path': file_path,
+                        'thumbnail_key': thumbnail_key,
+                        'auto_detected': True
+                    }
+                    self.state["thumbnails"]["results"][thumbnail_key] = result
+                    self.state["thumbnails"]["completed"].append(thumbnail_key)
+                    added_count += 1
+                    print(f"Auto-detected completed thumbnail: {thumbnail_key} -> {file_path}")
+                else:
+                    print(f"Thumbnail already tracked: {thumbnail_key}")
+        
+        # Save state if any files were added
+        if added_count > 0:
+            self._save_state()
+            print(f"Auto-detection: Added {added_count} thumbnails from output directory")
+        else:
+            print("No untracked thumbnail files found in output directory")
+        
+        return added_count
+    
+    def get_progress_summary(self) -> str:
+        """Get a summary of current progress."""
+        completed = len(self.state["thumbnails"]["completed"])
+        total = len(self.state["thumbnails"]["results"]) + len([k for k in self.state["thumbnails"]["results"].keys() if k not in self.state["thumbnails"]["completed"]])
+        
+        return f"Progress: Thumbnails({completed}/{total})"
+
 class ThumbnailProcessor:
     def __init__(self, comfyui_url: str = "http://127.0.0.1:8188/", mode: str = "diffusion"):
         self.comfyui_url = comfyui_url
@@ -113,16 +368,13 @@ class ThumbnailProcessor:
         # Final destination inside this repo
         self.final_output_dir = "../output"
         self.intermediate_output_dir = "../output/lora"
-        self.final_output_path = os.path.join(self.final_output_dir, "thumbnail.png")
         # Latent image input file path
         self.latent_image_path = "../input/10.latent.png"
 
         os.makedirs(self.final_output_dir, exist_ok=True)
         os.makedirs(self.intermediate_output_dir, exist_ok=True)
-        if os.path.exists(self.final_output_path):
-            os.remove(self.final_output_path)
 
-        pattern = self.final_output_dir + "/*thumbnail.shorts*"
+        pattern = self.final_output_dir + "/*thumbnail*"
         files_to_remove = glob.glob(pattern, recursive=True)
         for file in files_to_remove:
             if os.path.exists(file):
@@ -969,7 +1221,7 @@ class ThumbnailProcessor:
         except Exception as e:
             print(f"WARNING: Failed to replace latent with previous output: {e}")
 
-    def _generate_thumbnail_serial(self, prompt_text: str, shorts: bool = False, variation_number: str = "") -> str | None:
+    def _generate_thumbnail_serial(self, prompt_text: str, shorts: bool = False, variation_number: str = "", resumable_state=None) -> str | None:
         """Generate thumbnail using serial LoRA mode with intermediate storage."""
         try:
             print(f"Generating thumbnail (Serial LoRA mode)")
@@ -1000,7 +1252,7 @@ class ThumbnailProcessor:
                 # Generate filename for this LoRA step
                 lora_clean_name = re.sub(r'[^\w\s.-]', '', lora_config['name']).strip()
                 lora_clean_name = re.sub(r'[-\s]+', '_', lora_clean_name)
-                lora_filename = f"thumbnail{".shorts" if shorts else "" + variation_number}.{lora_clean_name}"
+                lora_filename = f"thumbnail{".shorts" if shorts else ""}{variation_number}.{lora_clean_name}"
                 workflow = self._update_saveimage_prefix(workflow, lora_filename)
                 workflow = self._update_workflow_resolution(workflow, SHORTS_WIDTH if shorts else OUTPUT_WIDTH, SHORTS_HEIGHT if shorts else OUTPUT_HEIGHT)
                 
@@ -1079,7 +1331,7 @@ class ThumbnailProcessor:
                     continue
                 
                 # Save result to lora folder (save final result from each LoRA)
-                lora_final_path = os.path.join(self.intermediate_output_dir, f"thumbnail{".shorts" if shorts else "" + variation_number}.{lora_clean_name}.png")
+                lora_final_path = os.path.join(self.intermediate_output_dir, f"thumbnail{".shorts" if shorts else ""}{variation_number}.{lora_clean_name}.png")
                 shutil.copy2(generated_image, lora_final_path)
                 print(f"  Saved LoRA result: {lora_final_path}")
                 
@@ -1091,7 +1343,7 @@ class ThumbnailProcessor:
                 print(f"ERROR: No successful LoRA generations for thumbnail")
                 return None
 
-            output_path = os.path.join(self.final_output_dir, f"thumbnail{".shorts" if shorts else "" + variation_number}.png")
+            output_path = os.path.join(self.final_output_dir, f"thumbnail{".shorts" if shorts else ""}{variation_number}.png")
             
             # Copy final result to output directory
             shutil.copy2(current_image_path, output_path)
@@ -1209,11 +1461,52 @@ class ThumbnailProcessor:
         except Exception as e:
             print(f"WARNING: Failed to set image input: {e}")
 
-    def generate_thumbnail(self, prompt_text: str, shorts: bool = False, variation_number: str = "") -> str | list[str] | None:
+    def generate_thumbnail(self, prompt_text: str, shorts: bool = False, variation_number: str = "", resumable_state=None) -> str | list[str] | None:
         try:
+            # Check if resumable and already complete
+            if resumable_state:
+                thumbnail_key = f"thumbnail{'.shorts' if shorts else ''}{variation_number}"
+                
+                if shorts:
+                    # For shorts, we need to check if the specific shorts variation is complete
+                    # Extract main variation and shorts variation from variation_number
+                    if ".v" in variation_number:
+                        parts = variation_number.split(".v")
+                        if len(parts) >= 3:  # .v{j}.v{i}
+                            shorts_var_num = parts[1]
+                            main_var_num = parts[2] if parts[2] else "0"
+                            main_variation = f"v{main_var_num}" if main_var_num != "0" else "original"
+                            shorts_variation = f"shorts_v{shorts_var_num}"
+                        else:  # .v{j} (only shorts variation, main is 0/original)
+                            shorts_var_num = parts[1]
+                            main_variation = "original"
+                            shorts_variation = f"shorts_v{shorts_var_num}"
+                    else:
+                        # Fallback for simple shorts variations
+                        main_variation = "original"
+                        shorts_variation = "shorts_v1"
+                    
+                    if resumable_state.is_shorts_variation_complete("thumbnail", main_variation, shorts_variation):
+                        result = resumable_state.get_thumbnail_result("thumbnail")
+                        variations = result.get("variations", {})
+                        if main_variation in variations:
+                            shorts_vars = variations[main_variation].get("shorts", {})
+                            if shorts_variation in shorts_vars and os.path.exists(shorts_vars[shorts_variation].get("path", "")):
+                                print(f"Using cached shorts variation: {thumbnail_key}")
+                                return shorts_vars[shorts_variation]["path"]
+                else:
+                    # For regular thumbnails, check if this specific variation is complete
+                    if resumable_state.is_thumbnail_variation_complete("thumbnail", variation_number or "original"):
+                        result = resumable_state.get_thumbnail_result("thumbnail")
+                        variations = result.get("variations", {})
+                        var_key = variation_number or "original"
+                        if var_key in variations and os.path.exists(variations[var_key].get("path", "")):
+                            print(f"Using cached thumbnail: {thumbnail_key}")
+                            return variations[var_key]["path"]
+            
             # Use serial LoRA mode if enabled
             if USE_LORA and LORA_MODE == "serial":
-                return self._generate_thumbnail_serial(prompt_text, shorts, variation_number)
+                return self._generate_thumbnail_serial(prompt_text, shorts, variation_number, resumable_state)
             
             # Determine if we should use text overlay or let the model generate text
             use_overlay = USE_TITLE_TEXT
@@ -1291,11 +1584,52 @@ class ThumbnailProcessor:
                 return None
 
             src_ext = Path(newest_path).suffix.lower()
-            final_path = self.final_output_path if src_ext == ".png" else os.path.join(self.final_output_dir, f"thumbnail{".shorts" if shorts else "" + variation_number}{src_ext}")
+            final_path = os.path.join(self.final_output_dir, f"thumbnail{".shorts" if shorts else "" + variation_number}{src_ext}")
             shutil.copy2(newest_path, final_path)
             # Apply text overlay if enabled
             if title and use_overlay:
                 self._overlay_title(final_path, title)
+            
+            # Save to checkpoint if resumable mode enabled
+            if resumable_state:
+                if shorts:
+                    # Save as shorts variation
+                    # Extract main variation and shorts variation from variation_number
+                    # Format: ".v{j}.v{i}" where j is shorts variation, i is main variation
+                    if ".v" in variation_number:
+                        parts = variation_number.split(".v")
+                        if len(parts) >= 3:  # .v{j}.v{i}
+                            shorts_var_num = parts[1]
+                            main_var_num = parts[2] if parts[2] else "0"
+                            main_variation = f"v{main_var_num}" if main_var_num != "0" else "original"
+                            shorts_key = f"shorts_v{shorts_var_num}"
+                        else:  # .v{j} (only shorts variation, main is 0/original)
+                            shorts_var_num = parts[1]
+                            main_variation = "original"
+                            shorts_key = f"shorts_v{shorts_var_num}"
+                    else:
+                        # Fallback for simple shorts variations
+                        main_variation = "original"
+                        shorts_key = "shorts_v1"
+                    
+                    shorts_result = {
+                        'path': final_path,
+                        'thumbnail_key': f"thumbnail{'.shorts' if shorts else ''}{variation_number}",
+                        'shorts': shorts,
+                        'variation_number': variation_number,
+                        'main_variation': main_variation
+                    }
+                    resumable_state.set_shorts_variation("thumbnail", main_variation, shorts_key, shorts_result)
+                else:
+                    # Save as main variation
+                    var_key = variation_number or "original"
+                    variation_result = {
+                        'path': final_path,
+                        'thumbnail_key': f"thumbnail{variation_number}",
+                        'shorts': shorts,
+                        'variation_number': variation_number
+                    }
+                    resumable_state.set_thumbnail_variation("thumbnail", var_key, variation_result)
             
             return final_path
         except Exception:
@@ -1582,6 +1916,8 @@ def read_prompt_from_file(filename: str = "../input/10.thumbnail.txt") -> str | 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate a thumbnail using diffusion (default) or flux workflow.")
     parser.add_argument("--mode", "-m", choices=["diffusion", "flux"], default="diffusion", help="Select workflow: diffusion (default) or flux")
+    parser.add_argument("--force", "-f", action="store_true", help="Force regeneration of all thumbnails")
+    parser.add_argument("--force-start", action="store_true", help="Force start from beginning, ignoring any existing checkpoint files")
     args = parser.parse_args()
 
     prompt = read_prompt_from_file()
@@ -1592,6 +1928,33 @@ if __name__ == "__main__":
 
     processor = ThumbnailProcessor(mode=args.mode)
 
+    # Initialize resumable state if enabled
+    resumable_state = None
+    if ENABLE_RESUMABLE_MODE:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        checkpoint_dir = os.path.normpath(os.path.join(base_dir, "../output/tracking"))
+        script_name = Path(__file__).stem  # Automatically get script name without .py extension
+        resumable_state = ResumableState(checkpoint_dir, script_name, args.force_start)
+        print(f"Resumable mode enabled - checkpoint directory: {checkpoint_dir}")
+        if resumable_state.state_file.exists():
+            print(f"Found existing checkpoint: {resumable_state.state_file}")
+            print(resumable_state.get_progress_summary())
+        else:
+            print("No existing checkpoint found - starting fresh")
+        
+        # Validate and sync with output directory
+        print(f"Validating and syncing with output directory: {processor.final_output_dir}")
+        
+        # First, sync with output directory to detect any manually added files
+        synced_count = resumable_state.sync_with_output_directory(processor.final_output_dir)
+        if synced_count > 0:
+            print(f"Sync completed: {synced_count} thumbnails auto-detected from output directory")
+        
+        # Then run precheck to validate file existence and clean up invalid entries
+        cleaned_count = resumable_state.validate_and_cleanup_results(processor.final_output_dir)
+        if cleaned_count > 0:
+            print(f"Precheck completed: {cleaned_count} invalid entries removed from checkpoint")
+
     title = processor._read_title_from_file()
     if title and not USE_TITLE_TEXT:
         # Only include title in prompt when not using overlay (let model generate text)
@@ -1599,7 +1962,7 @@ if __name__ == "__main__":
 
     if USE_TITLE_TEXT:
 
-        result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt)
+        result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt, shorts=False, variation_number="", resumable_state=resumable_state)
 
         if result:
             if isinstance(result, list):
@@ -1610,8 +1973,8 @@ if __name__ == "__main__":
         else:
             raise SystemExit(1)
 
-        for i in range(SHORTS_VARIATIONS):
-            result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt, shorts=True, variation_number=".v" + str(i))
+        for i in range(1, SHORTS_VARIATIONS + 1):
+            result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt, shorts=True, variation_number=".v" + str(i), resumable_state=resumable_state)
             if result:
                 if isinstance(result, list):
                     for p in result:
@@ -1624,7 +1987,8 @@ if __name__ == "__main__":
     else:
 
         for i in range(0, 6):
-            result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt, variation_number=".v" + str(i))
+            print(f"Generating thumbnail {i + 1} of 6")
+            result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt, shorts=False, variation_number=((str(i)+ ".v") if i > 0 else ""), resumable_state=resumable_state)
             if result:
                 if isinstance(result, list):
                     for p in result:
@@ -1634,8 +1998,9 @@ if __name__ == "__main__":
             else:
                 raise SystemExit(1)
 
-            for j in range(SHORTS_VARIATIONS):
-                result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt, shorts=True, variation_number=".v" + str(i) + ".v" + str(j))
+            for j in range(1, SHORTS_VARIATIONS + 1):
+                print(f"Generating short {j + 1} of SHORTS_VARIATIONS, variation {i + 1} of 6")
+                result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt, shorts=True, variation_number=(".v" + str(j) + (".v" + str(i) if i > 0 else "")), resumable_state=resumable_state)
                 if result:
                     if isinstance(result, list):
                         for p in result:
@@ -1645,4 +2010,9 @@ if __name__ == "__main__":
                 else:
                     raise SystemExit(1)
 
+    # Clean up checkpoint files if resumable mode was used and everything completed successfully
+    if resumable_state:
+        print("All thumbnail generation completed successfully")
+        print("Final progress:", resumable_state.get_progress_summary())
+        resumable_state.cleanup()
 
