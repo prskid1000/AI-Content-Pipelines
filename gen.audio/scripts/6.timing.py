@@ -219,7 +219,7 @@ Consider:
                 "model": self.model,
                 "messages": [
                     {
-                        "role": "user",
+                        "role": "system",
                         "content": 
  """You are an audio timing expert. Estimate realistic sound effect duration and optimal placement within a transcript line.
 
@@ -237,7 +237,7 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
                     },
                     {
                         "role": "user",
-                        "content": f"{prompt}"
+                        "content": f"{prompt}/no_think /no_think"
                     }
                 ],
                 "temperature": 1,

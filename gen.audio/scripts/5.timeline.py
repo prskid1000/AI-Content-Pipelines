@@ -183,7 +183,7 @@ class TimelineSFXGenerator:
                 "model": self.model,
                 "messages": [
                     {
-                        "role": "user",
+                        "role": "system",
                         "content": 
 """You are an SFX(Sound or Silence) generator for Sound Generating AI Models.
 
@@ -198,7 +198,7 @@ OUTPUT: JSON with sound_or_silence_description field only."""
                     },
                     {
                         "role": "user",
-                        "content": f"{prompt}"
+                        "content": f"{prompt}/no_think /no_think"
                     }
                 ],
                 "temperature": 1,

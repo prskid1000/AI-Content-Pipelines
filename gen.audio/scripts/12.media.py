@@ -155,8 +155,8 @@ class YouTubeDescriptionGenerator:
         body = {
             "model": model or self.model,
             "messages": [
-                {"role": "user", "content": system_prompt},
-                {"role": "user", "content": user_payload},
+                {"role": "system", "content": system_prompt + "/no_think /no_think"},
+                {"role": "user", "content": user_payload + "/no_think /no_think"},
             ],
             "temperature": 1,
             "stream": False,

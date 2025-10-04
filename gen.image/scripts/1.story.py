@@ -64,7 +64,7 @@ class ResumableState:
             except Exception as ex:
                 print(f"WARNING: Failed to load checkpoint state: {ex}")
         return {
-            "story_description": {"completed": False, "result": None},
+            "story_summary": {"completed": False, "result": None},
             "locations": {"completed": [], "results": {}},
             "location_summaries": {"completed": [], "results": {}},
             "characters": {"completed": [], "results": {}},
@@ -81,18 +81,18 @@ class ResumableState:
         except Exception as ex:
             print(f"WARNING: Failed to save checkpoint state: {ex}")
     
-    def is_story_description_complete(self) -> bool:
+    def is_story_summary_complete(self) -> bool:
         """Check if story description generation is complete."""
-        return self.state["story_description"]["completed"]
+        return self.state["story_summary"]["completed"]
     
-    def get_story_description(self) -> str | None:
+    def get_story_summary(self) -> str | None:
         """Get cached story description if available."""
-        return self.state["story_description"]["result"]
+        return self.state["story_summary"]["result"]
     
-    def set_story_description(self, description: str):
+    def set_story_summary(self, description: str):
         """Set story description and mark as complete."""
-        self.state["story_description"]["completed"] = True
-        self.state["story_description"]["result"] = description
+        self.state["story_summary"]["completed"] = True
+        self.state["story_summary"]["result"] = description
         self._save_state()
     
     def is_location_complete(self, location_id: str) -> bool:
@@ -168,7 +168,7 @@ class ResumableState:
     
     def get_progress_summary(self) -> str:
         """Get a summary of current progress."""
-        story_done = "✓" if self.is_story_description_complete() else "✗"
+        story_done = "✓" if self.is_story_summary_complete() else "✗"
         locations_done = len(self.state["locations"]["completed"])
         locations_total = len(self.state["locations"]["results"]) + len([k for k in self.state["locations"]["results"].keys() if k not in self.state["locations"]["completed"]])
         characters_done = len(self.state["characters"]["completed"])
@@ -702,24 +702,24 @@ def _schema_location_summary() -> dict[str, object]:
         }
     }
 
-def _schema_story_description() -> dict[str, object]:
+def _schema_story_summary() -> dict[str, object]:
     """JSON schema for story description."""
     return {
         "type": "json_schema",
         "json_schema": {
-            "name": "story_description",
+            "name": "story_summary",
             "schema": {
                 "type": "object",
                 "additionalProperties": False,
                 "properties": {
-                    "description": {
+                    "summary": {
                         "type": "string",
                         "minLength": STORY_DESCRIPTION_CHARACTER_MIN,
                         "maxLength": STORY_DESCRIPTION_CHARACTER_MAX,
                         "description": f"Entire story all details in short version."
                     }
                 },
-                "required": ["description"]
+                "required": ["summary"]
             },
             "strict": True
         }
@@ -749,13 +749,13 @@ def _build_character_summary_user_prompt(character_name: str, detailed_descripti
     )
 
 
-def _build_story_description_prompt() -> str:
+def _build_story_summary_prompt() -> str:
     return (
-        f"Summarize Story it into a continuous paragraph of {STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX} characters, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words.\n"
+        f"Transform it into a continuous paragraph of {STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX} characters, approximately {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX} words.\n"
         f"It must always include all actors and their roles, all locations and settings, complete chronological events in details.\n"
     )
 
-def _build_story_description_user_prompt(story_content: str) -> str:
+def _build_story_summary_user_prompt(story_content: str) -> str:
     """Extract only dialogue lines from story content using existing regex"""
     lines = story_content.split('\n')
     dialogue_lines = []
@@ -799,7 +799,7 @@ def _build_location_summary_user_prompt(location_id: str, detailed_description: 
 
 def _call_lm_studio(system_prompt: str, user_prompt: str, lm_studio_url: str, model: str, response_format: dict[str, object] | None = None, temperature: float = 1.0) -> str:
     headers = {"Content-Type": "application/json"}
-    messages = [{"role": "user", "content": user_prompt}, {"role": "system", "content": system_prompt}, ]
+    messages = [{"role": "system", "content": system_prompt + "/no_think /no_think"}, {"role": "user", "content": user_prompt + "/no_think /no_think"}]
     payload = {
         "model": model,
         "messages": messages,
@@ -1159,31 +1159,31 @@ def _generate_summaries(
     return item_to_summary
 
 
-def _generate_story_description(story_content: str, lm_studio_url: str, resumable_state: ResumableState | None = None) -> str:
+def _generate_story_summary(story_content: str, lm_studio_url: str, resumable_state: ResumableState | None = None) -> str:
     """Generate story description from story content using LLM."""
     # Check if resumable and already complete
-    if resumable_state and resumable_state.is_story_description_complete():
-        cached_desc = resumable_state.get_story_description()
+    if resumable_state and resumable_state.is_story_summary_complete():
+        cached_desc = resumable_state.get_story_summary()
         if cached_desc:
             print("Using cached story description from checkpoint")
             return cached_desc
     
     print("Generating story description from dialogue content...")
-    prompt = _build_story_description_prompt()
-    user_prompt = _build_story_description_user_prompt(story_content)
+    prompt = _build_story_summary_prompt()
+    user_prompt = _build_story_summary_user_prompt(story_content)
     
     try:
         # Use model constant for story description generation
         model = MODEL_STORY_DESCRIPTION
         # Call with structured output using the story description schema
-        raw = _call_lm_studio(prompt, user_prompt, lm_studio_url, model, _schema_story_description())
+        raw = _call_lm_studio(prompt, user_prompt, lm_studio_url, model, _schema_story_summary())
         structured_data = _parse_structured_response(raw)
 
         
         if not structured_data:
             raise RuntimeError("Failed to parse structured story description response")
         
-        story_desc = structured_data.get("description", "").strip()
+        story_desc = structured_data.get("summary", "").strip()
         if not story_desc:
             raise RuntimeError("Empty story description generated")
 
@@ -1191,7 +1191,7 @@ def _generate_story_description(story_content: str, lm_studio_url: str, resumabl
         
         # Save to checkpoint if resumable mode enabled
         if resumable_state:
-            resumable_state.set_story_description(story_desc)
+            resumable_state.set_story_summary(story_desc)
             print("Saved story description to checkpoint")
             
     except Exception as ex:
@@ -1482,7 +1482,7 @@ def main() -> int:
             lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v1")
             
             # Generate story description from content using qwen/qwen3-14b
-            story_desc = _generate_story_description(content, lm_studio_url, resumable_state)
+            story_desc = _generate_story_summary(content, lm_studio_url, resumable_state)
             
             # Generate structured location descriptions
             expanded_locations = _generate_location_descriptions(story_desc, locations, lm_studio_url, resumable_state)
