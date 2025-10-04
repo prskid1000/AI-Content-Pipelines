@@ -34,10 +34,10 @@ def find_shorts_thumbnails(output_dir: str) -> list[str]:
     shorts_thumbnails = []
     for i in range(1, SHORTS_VIDEO_COUNT + 1):
         candidates = [
-            os.path.join(output_dir, f"thumbnail.short.v{i}.png"),
-            os.path.join(output_dir, f"thumbnail.short.v{i}.jpg"),
-            os.path.join(output_dir, f"thumbnail.short.v{i}.jpeg"),
-            os.path.join(output_dir, f"thumbnail.short.v{i}.webp"),
+            os.path.join(output_dir, f"thumbnail.shorts.v{i}.png"),
+            os.path.join(output_dir, f"thumbnail.shorts.v{i}.jpg"),
+            os.path.join(output_dir, f"thumbnail.shorts.v{i}.jpeg"),
+            os.path.join(output_dir, f"thumbnail.shorts.v{i}.webp"),
         ]
         for path in candidates:
             if os.path.exists(path):
