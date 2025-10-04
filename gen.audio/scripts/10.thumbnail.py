@@ -125,6 +125,9 @@ class ResumableState:
                 print(f"WARNING: Failed to remove checkpoint for force start: {ex}")
         
         self.state = self._load_state()
+        
+        # Always save initial state to ensure file is created
+        self._save_state()
     
     def _load_state(self) -> dict:
         """Load state from checkpoint file."""
@@ -374,12 +377,14 @@ class ThumbnailProcessor:
         os.makedirs(self.final_output_dir, exist_ok=True)
         os.makedirs(self.intermediate_output_dir, exist_ok=True)
 
-        pattern = self.final_output_dir + "/*thumbnail*"
-        files_to_remove = glob.glob(pattern, recursive=True)
-        for file in files_to_remove:
-            if os.path.exists(file):
-                os.remove(file)
-                print(f"Removed: {file}")
+
+        if not ENABLE_RESUMABLE_MODE:
+            pattern = self.final_output_dir + "/*thumbnail*"
+            files_to_remove = glob.glob(pattern, recursive=True)
+            for file in files_to_remove:
+                if os.path.exists(file):
+                    os.remove(file)
+                    print(f"Removed: {file}")
 
     def _load_thumbnail_workflow(self) -> dict:
         filename = "thumbnail.flux.json" if self.mode == "flux" else "thumbnail.json"
@@ -1353,6 +1358,46 @@ class ThumbnailProcessor:
             if title and USE_TITLE_TEXT:
                 self._overlay_title(output_path, title)
             
+            # Save to checkpoint if resumable mode enabled
+            if resumable_state:
+                if shorts:
+                    # Save as shorts variation
+                    # Extract main variation and shorts variation from variation_number
+                    if ".v" in variation_number:
+                        parts = variation_number.split(".v")
+                        if len(parts) >= 3:  # .v{j}.v{i}
+                            shorts_var_num = parts[1]
+                            main_var_num = parts[2] if parts[2] else "0"
+                            main_variation = f"v{main_var_num}" if main_var_num != "0" else "original"
+                            shorts_key = f"shorts_v{shorts_var_num}"
+                        else:  # .v{j} (only shorts variation, main is 0/original)
+                            shorts_var_num = parts[1]
+                            main_variation = "original"
+                            shorts_key = f"shorts_v{shorts_var_num}"
+                    else:
+                        # Fallback for simple shorts variations
+                        main_variation = "original"
+                        shorts_key = "shorts_v1"
+                    
+                    shorts_result = {
+                        'path': output_path,
+                        'thumbnail_key': f"thumbnail{'.shorts' if shorts else ''}{variation_number}",
+                        'shorts': shorts,
+                        'variation_number': variation_number,
+                        'main_variation': main_variation
+                    }
+                    resumable_state.set_shorts_variation("thumbnail", main_variation, shorts_key, shorts_result)
+                else:
+                    # Save as main variation
+                    var_key = variation_number or "original"
+                    variation_result = {
+                        'path': output_path,
+                        'thumbnail_key': f"thumbnail{variation_number}",
+                        'shorts': shorts,
+                        'variation_number': variation_number
+                    }
+                    resumable_state.set_thumbnail_variation("thumbnail", var_key, variation_result)
+            
             print(f"Saved: {output_path}")
             return output_path
 
@@ -1963,7 +2008,7 @@ if __name__ == "__main__":
     if USE_TITLE_TEXT:
 
         result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt, shorts=False, variation_number="", resumable_state=resumable_state)
-
+        resumable_state._save_state()
         if result:
             if isinstance(result, list):
                 for p in result:
@@ -1975,6 +2020,7 @@ if __name__ == "__main__":
 
         for i in range(1, SHORTS_VARIATIONS + 1):
             result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt, shorts=True, variation_number=".v" + str(i), resumable_state=resumable_state)
+            resumable_state._save_state()
             if result:
                 if isinstance(result, list):
                     for p in result:
@@ -1989,6 +2035,7 @@ if __name__ == "__main__":
         for i in range(0, 6):
             print(f"Generating thumbnail {i + 1} of 6")
             result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt, shorts=False, variation_number=((".v" + str(i)) if i > 0 else ""), resumable_state=resumable_state)
+            resumable_state._save_state()
             if result:
                 if isinstance(result, list):
                     for p in result:
@@ -2001,6 +2048,7 @@ if __name__ == "__main__":
             for j in range(1, SHORTS_VARIATIONS + 1):
                 print(f"Generating short {j + 1} of SHORTS_VARIATIONS, variation {i + 1} of 6")
                 result = processor.generate_thumbnail(processor._get_master_prompt() + "\n\n " + prompt, shorts=True, variation_number=(".v" + str(j) + (".v" + str(i) if i > 0 else "")), resumable_state=resumable_state)
+                resumable_state._save_state()
                 if result:
                     if isinstance(result, list):
                         for p in result:
@@ -2014,5 +2062,7 @@ if __name__ == "__main__":
     if resumable_state:
         print("All thumbnail generation completed successfully")
         print("Final progress:", resumable_state.get_progress_summary())
+        # Save final state before cleanup
+        print("Final state saved to checkpoint")
         resumable_state.cleanup()
 
