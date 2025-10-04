@@ -202,7 +202,6 @@ OUTPUT: JSON with sound_or_silence_description field only."""
                     }
                 ],
                 "temperature": 1,
-                "max_tokens": 512,
                 "stream": False
             }
 

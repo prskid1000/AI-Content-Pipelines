@@ -53,7 +53,6 @@ class DiffusionPromptGenerator:
                 {"role": "user", "content": system_prompt},
             ],
             "temperature": 1,
-            "max_tokens": 1024,
             "stream": False,
         }
 

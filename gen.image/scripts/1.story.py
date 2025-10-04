@@ -804,7 +804,6 @@ def _call_lm_studio(system_prompt: str, user_prompt: str, lm_studio_url: str, mo
         "model": model,
         "messages": messages,
         "temperature": temperature,
-        "max_tokens": 8192,
         "stream": False,
     }
     
@@ -817,8 +816,7 @@ def _call_lm_studio(system_prompt: str, user_prompt: str, lm_studio_url: str, mo
     data = resp.json()
     if not data.get("choices"):
         raise RuntimeError("LM Studio returned no choices")
-    
-    print(f"Reasoning: {data['choices'][0]['message']['reasoning_content']}")
+
     return data["choices"][0]["message"]["content"]
 
 
@@ -1520,7 +1518,7 @@ def main() -> int:
         unique_names = sorted(schars)
         if unique_names:
             try:
-                lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v1")
+                lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v0")
                 
                 # Step 1: Generate initial character descriptions
                 name_to_desc = _generate_character_descriptions(story_desc, unique_names, lm_studio_url, resumable_state)

@@ -239,7 +239,6 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
                     }
                 ],
                 "temperature": 1,
-                "max_tokens": 128,
                 "stream": False
             }
 

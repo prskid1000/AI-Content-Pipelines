@@ -159,7 +159,6 @@ class YouTubeDescriptionGenerator:
                 {"role": "user", "content": user_payload},
             ],
             "temperature": 1,
-            "max_tokens": 1536,
             "stream": False,
         }
         if response_format is not None:

@@ -530,7 +530,6 @@ class CharacterManager:
                 {"role": "user", "content": system_prompt},
             ],
             "temperature": 1,
-            "max_tokens": 2048,
             "stream": False,
         }
 
