@@ -825,14 +825,17 @@ class ThumbnailProcessor:
         
         return workflow
 
-    def _get_seed(self) -> int:
+    def _get_seed(self, variation_number: int = 0) -> int:
         """Get seed value based on configuration."""
         if USE_RANDOM_SEED:
-            return random.randint(0, 2**32 - 1)
+            # Generate different seed for each variation
+            base_seed = random.randint(0, 2**32 - 1)
+            return base_seed + variation_number
         else:
-            return RANDOM_SEED
+            # Use fixed seed with variation offset
+            return RANDOM_SEED + variation_number
 
-    def _update_workflow_seed(self, workflow: dict, seed: int) -> dict:
+    def _update_workflow_seed(self, workflow: dict, seed: int, variation_number: int = 0) -> dict:
         """Set seed inputs across nodes when available."""
         # Update KSampler seed
         self._update_node_connections(workflow, "KSampler", "seed", int(seed))
@@ -999,7 +1002,7 @@ class ThumbnailProcessor:
                 # Set LoRA-specific sampling steps, seed, and denoising
                 steps = lora_config.get("steps", SAMPLING_STEPS)
                 denoising_strength = lora_config.get("denoising_strength", 1.0)
-                seed = self._get_seed()
+                seed = self._get_seed(variation_number=0)  # Serial mode uses base seed for each LoRA
                 self._update_node_connections(workflow, "KSampler", "steps", steps)
                 self._update_node_connections(workflow, "KSampler", "seed", seed)
                 print(f"  Seed set to: {seed}")
@@ -1246,8 +1249,8 @@ class ThumbnailProcessor:
             workflow = self._update_workflow_resolution(workflow, gen_width, gen_height)
             workflow = self._update_saveimage_prefix(workflow, "thumbnail")
             
-            # Set seed based on configuration
-            seed = self._get_seed()
+            # Set seed based on configuration (variation 0 = original)
+            seed = self._get_seed(variation_number=0)
             workflow = self._update_workflow_seed(workflow, seed)
             print(f"Seed set to: {seed}")
 
@@ -1266,8 +1269,8 @@ class ThumbnailProcessor:
             if not use_overlay:
                 saved_paths: list[str] = []
                 for idx in range(1, 6):
-                    # Use seed based on configuration
-                    seed_value = self._get_seed()
+                    # Use seed based on configuration with variation number
+                    seed_value = self._get_seed(variation_number=idx)
                     workflow = self._update_workflow_seed(workflow, seed_value)
                     resp = requests.post(f"{self.comfyui_url}prompt", json={"prompt": workflow}, timeout=60)
                     if resp.status_code != 200:
@@ -1657,7 +1660,7 @@ class ThumbnailProcessor:
             workflow = self._update_saveimage_prefix(workflow, shorts_filename)
             
             # Set unique seed for this variation
-            seed = self._get_seed()
+            seed = self._get_seed(variation_number=variation_num)
             workflow = self._update_workflow_seed(workflow, seed)
             print(f"  Seed set to: {seed}")
             

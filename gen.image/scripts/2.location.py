@@ -18,7 +18,7 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
 # Variation Configuration
-VARIATIONS_PER_LOCATION = 1  # Number of variations to generate per location (in addition to original)
+VARIATIONS_PER_LOCATION = 3  # Number of variations to generate per location (in addition to original)
 
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
@@ -1091,13 +1091,16 @@ class LocationGenerator:
         self._update_node_connections(workflow, "SaveImage", "filename_prefix", filename)
         return workflow
 
-    def _update_workflow_seed(self, workflow: dict, seed: int = None) -> dict:
+    def _update_workflow_seed(self, workflow: dict, seed: int = None, variation_number: int = 0) -> dict:
         """Update the workflow with a seed based on configuration."""
         if seed is None:
             if USE_RANDOM_SEED:
-                seed = random.randint(1, 2**32 - 1)
+                # Generate different seed for each variation
+                base_seed = random.randint(1, 2**32 - 1)
+                seed = base_seed + variation_number
             else:
-                seed = FIXED_SEED
+                # Use fixed seed with variation offset
+                seed = FIXED_SEED + variation_number
         self._update_node_connections(workflow, "KSampler", "seed", seed)
         return workflow
 
@@ -1345,7 +1348,9 @@ class LocationGenerator:
                 
                 # Update workflow with location-specific settings
                 workflow = self._update_workflow_prompt(workflow, location_name, description)
-                workflow = self._update_workflow_seed(workflow)
+                # Determine variation number for seed generation (0 = original, 1+ = variations)
+                variation_num = 0 if not variation_suffix else int(variation_suffix.replace('v', ''))
+                workflow = self._update_workflow_seed(workflow, variation_number=variation_num)
                 workflow = self._update_workflow_resolution(workflow)
                 
                 # Append dots to prompt based on LoRA position (LoRA 0 = no dots, LoRA 1 = 1 dot, etc.)
@@ -1650,7 +1655,9 @@ class LocationGenerator:
                 
             workflow = self._update_workflow_prompt(workflow, location_name, description)
             workflow = self._update_workflow_filename(workflow, location_name, variation_suffix)
-            workflow = self._update_workflow_seed(workflow)
+            # Determine variation number for seed generation (0 = original, 1+ = variations)
+            variation_num = 0 if not variation_suffix else int(variation_suffix.replace('v', ''))
+            workflow = self._update_workflow_seed(workflow, variation_number=variation_num)
             workflow = self._update_workflow_resolution(workflow)
 
             # Print workflow summary
