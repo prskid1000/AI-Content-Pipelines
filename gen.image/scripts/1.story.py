@@ -762,7 +762,7 @@ def _build_character_user_prompt(story_desc: str, character_name: str, all_chara
 def _build_character_summary_prompt() -> str:
     return (
         f"You are a Professional Visual Director and Character Creator and Character Designer and Character Writer and Character Illustrator. Your Job is to Transform it into a continuous paragraph of {CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters, approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words.\n"
-        f"It must always include all visual details like color(required), pattern, texture, type, etc. from the original description, preserving all visual attributes and characteristics.\n"
+        f"It must always include all visual details like color(required, must always be present for every attribute/property), type(required, must always be present for every attribute/property), material(required, must always be present for every attribute/property), pattern, texture, etc. from the original description, preserving all visual attributes, characteristics and postioning relationships.\n"
     )
 
 def _build_character_summary_user_prompt(character_name: str, detailed_description: str) -> str:
@@ -817,7 +817,7 @@ def _build_location_user_prompt(story_desc: str, location_id: str, all_locations
 def _build_location_summary_prompt() -> str:
     return (
         f"You are a Professional Visual Director and Location Creator and Location Designer and Location Writer and Location Illustrator. Your Job is to Transform it into a continuous paragraph of {LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters, approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words.\n"
-        f"It must always include all visual details like color(required),position(required), pattern, texture, type, etc. from the original description, preserving all visual attributes, characteristics and postioning relationships.\n"
+        f"It must always include all visual details like color(required, must always be present for every attribute/property),position(required, must always be present for every attribute/property),type(required, must always be present for every attribute/property), material(required, must always be present for every attribute/property), pattern, texture, etc. from the original description, preserving all visual attributes, characteristics and postioning relationships.\n"
     )
 
 def _build_location_summary_user_prompt(location_id: str, detailed_description: str) -> str:
