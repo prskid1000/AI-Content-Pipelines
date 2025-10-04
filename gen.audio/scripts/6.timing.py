@@ -12,6 +12,8 @@ print = partial(_builtins.print, flush=True)
 # Model constants for easy switching
 MODEL_TIMING_GENERATION = "qwen/qwen3-14b"  # Model for timing SFX generation
 
+ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
+
 # Feature flags
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 
