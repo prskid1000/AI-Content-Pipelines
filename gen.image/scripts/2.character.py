@@ -87,7 +87,7 @@ CHARACTER_NAME_BAND_HEIGHT_RATIO = 0.30  # 15% of image height for name band
 
 USE_SUMMARY_TEXT = True  # Set to True to use summary text
 
-FACE_ONLY = False  # Set to True to generate only face
+FACE_ONLY = True  # Set to True to generate only face
 
 class ResumableState:
     """Manages resumable state for expensive character generation operations."""
