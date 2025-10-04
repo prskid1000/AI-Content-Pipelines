@@ -61,8 +61,8 @@ class TimedLogWriter:
 
 SCRIPTS = [
     #Speech
-    # "1.story.py",
-    # "../gen.audio/scripts/1.character.py",
+    "1.story.py",
+    "../gen.audio/scripts/1.character.py",
     # "../gen.audio/scripts/2.story.py",
     # "../gen.audio/scripts/3.transcribe.py",
     # "../gen.audio/scripts/4.quality.py",
@@ -82,9 +82,9 @@ SCRIPTS = [
     # "6.combine.py",
 
     # YouTube
-    # "../gen.audio/scripts/9.description.py",
-    # "../gen.audio/scripts/10.thumbnail.py",
-    # "../gen.audio/scripts/12.media.py",
+    "../gen.audio/scripts/9.description.py",
+    "../gen.audio/scripts/10.thumbnail.py",
+    "../gen.audio/scripts/12.media.py",
     # "../gen.audio/scripts/13.youtube.py"
 ]
 

@@ -1,267 +1,136 @@
-4.690000: It was a calm morning when I found myself once again in the company of my friend Sherlock Holmes,
-5.950000: that extraordinary consulting detective whose life and work had often overshadowed my own profession as a medical man.
-6.860000: As usual, he was restless while I attempted to enjoy the tranquility afforded by our sitting room in Baker Street.
-5.860000: Look, Watson, out there across the rooftops, the frost clings like lace.
-4.760000: And yet you bury yourself in the dull columns of that newspaper.
-4.300000: My dear Holmes, some men find as much adventure in the morning news
-3.170000: as you find in a muddy footprint upon the pavement.
-3.530000: Adventure, Watson, is not printed in ink.
-5.170000: It is written in dust upon boots, in the tremor of a hand as it seals a letter,
-2.950000: or in the curious case that knocks at our door.
-1.040000: ..
-3.040000: You speak as if you expect a case this very morning.
-3.560000: Expect? No. Observe? Yes.
-3.070000: Footsteps ascended our stair only moments ago.
-7.970000: deliberate yet halting a visitor stands now upon our threshold uncertain whether to knock
-6.440000: gentlemen forgive the intrusion i am in need of your counsel mr holmes break come in sir the fire
-4.880000: is warm and mr do and mr upward holmes has been expecting you in a manner of speaking
-1.280000: ..
-7.200000: indeed sir you have walked from the northern districts over the bridge they called casper
-5.000000: And you come with more upon your conscience than frost upon your boots.
-1.240000: ..
-2.680000: Startled, how on earth could you know such a thing?
-4.950000: Aside, narrating, here once again I saw my friend's extraordinary powers at play.
-3.510000: Deductions drawn from signs invisible to my untrained eye.
-4.560000: Les amis and more no one here as les amis fears this to see what he saw.
-3.800000: Your boots, sir, still damp with viver mist.
-6.220000: the clay upon their edges is peculiar to the banks near Casper Bridge. Furthermore,
-4.520000: your right glove is missing a button, and the anxiety with which you twisted
-6.050000: betrays an urgent matter weighing upon your mind. But come, enough of this display.
-3.770000: Take a seat, and tell us what clouds your spirit.
-3.980000: My name is Edward Mason. It is not my own safety I fear, but that of a woman.
-3.380000: She has vanished near Casper Bridge, and the police dismiss it as hysteria.
-1.400000: But I know she is in peril.
+5.790000: It was a calm winter morning and the faint golden light of the sun filtered into our sitting room at Baker Street,
+4.510000: illuminating the quiet chaos of books, newspapers and Holmes' chemical apparatus.
+2.560000: I had been attempting to follow an article in the Times,
+5.690000: while Holmes, with his customary detachment, perused a slim monograph on rare gemstones.
+2.870000: Hmm, look Watson, hmm.
+8.180000: Here lies an instructive example, an account of a jewel thief who failed because he ignored the simplest observation.
+3.600000: You never cease to find lessons in these reports, Holmes,
+5.950000: yet what intrigues me is how you manage to reduce matters of the most bewildering complexity to mere trifles.
+1.950000: Elementary, my dear Watson.
+6.380000: A man must train his eyes to see and his mind to connect what others discard.
+1.740000: ..
+2.240000: Complexity is but the mask of ignorance.
+3.560000: And yet, I confess, I am still struggling with that art.
+3.420000: Every time I attempt to emulate you, I fall into error.
+4.620000: That is precisely why I persist in your education, Watson.
+4.020000: Wysh is not contouring, it is discipline.
+6.950000: Now observe, your boots carry faint traces of the reddish clay from yesterday's walk by the serpentine.
+4.310000: You did not notice it yourself, yet it speaks clearly to me.
+5.240000: By Jove, Holmes, I had not the slightest notion. You astound me every time.
+4.440000: And so, when a true mystery presents itself,
+3.020000: the practice of noticing will serve us well.
+1.740000: ..
+1.390000: Ah! Listen!
+4.850000: That is Mrs. Hudson's tread. She brings us a visitor.
+3.480000: A gentleman to see you, Mr. Holmes, says it's urgent.
+6.260000: The visitor entered, a tall naval officer with weather-beaten features and a look of suppressed anxiety.
+5.130000: His uniform was impeccable, yet his gloved hands trembled slightly as he removed his cap.
+2.930000: Mr. Holmes, Dr. Watson, forgive the intrusion.
+1.610000: I am Commander James M. Watson.
+1.370000: I am the artillery of Her Majesty's Navy.
+5.580000: I come on a matter of the gravest urgency concerning a jewel known as the Blue Water.
+4.890000: Blue Water? I have heard whispers of that name. Pray enlighten us, Commander.
+2.890000: The Blue Water is no ordinary jewel, gentlemen.
+7.430000: It is a sapphire of extraordinary size and purity, long kept as a naval trust.
+4.390000: Yesterday, from a locked compartment aboard my ship, it vanished.
+2.120000: I am ruined if it is not recovered.
 1.340000: ..
-1.000000: Vanished, you say?
-1.800000: Pray give us the particulars.
-1.770000: She is Clara Whitfield,
-1.720000: governess to my sister's children.
-0.840000: At three nights past,
-0.790000: she crossed Casper Bridge
-0.910000: to return to her lodgings,
-0.850000: but never arrived.
-1.690000: All that was found was her scarf,
-1.960000: caught on the railings above the water.
-2.860000: A scarf by itself proves nothing.
-1.330000: Did she have enemies?
-1.180000: ..
-1.570000: Deaths, suitors,
-1.510000: who might wish her harm?
-1.040000: ..
-1.650000: None that I know of, Mr. Holmes.
-1.270000: She was gentle, quiet,
-4.340000: much loved by the children, but lately she seemed troubled, startled by shadows, pale
-1.900000: as if pursued by some secret fear.
-2.880000: The Holmes this has the scent of something dark.
-2.000000: Indeed, Watson.
-4.060000: Mr. Mason, we shall visit this bridge and the young woman's lodgings.
-2.760000: But first I should like to see the scarf.
-2.000000: Produce his item from his coat-pocket.
-1.000000: Here, sir.
-2.000000: It is still damp with river mist.
-1.000000: Ha!
-10.680000: Note, Watson, the faint trace of perfume upon this phadric, yet beneath it a darker stain, blood, though partially washed away by the river, elementary.
-4.240000: Uncle, with awe, you see such things where I perceive nothing.
-3.800000: You perceive, Watson, but you do not observe.
-1.950000: Therein lies all the difference.
-4.370000: But come, Mr. Mason, we go at once to Casper Bridge.
-3.740000: By midday, we had crossed into the northern districts of London,
-1.640000: the fog clung to the riverbanks,
-3.050000: and the great arc of Casper Bridge loomed before us.
-2.410000: It was here, amid the shifting currents
-2.740000: and the creak of wagon wheels upon the stone span,
-2.610000: that the case drew us deeper into shadow.
-4.840000: Note, Watson, the marks upon the stone where the scarf was caught.
-2.410000: Do you see how the fibres are frayed,
-3.460000: not merely by wind, but by a violent tug?
-2.220000: By Jove, Holmes, so they are.
-3.150000: and here I see something glistening upon the stone.
-1.530000: Could it be blood?
-1.680000: Precisely, Watson.
-3.100000: A smear, thin yet undeniable.
-1.690000: She straddled here,
-2.830000: perhaps dragged or forced against the railing.
-2.480000: The river was not her chosen grave.
-2.700000: It was an attempt at concealment.
-2.060000: Boy is trembling, when she yet may live.
-1.060000: ..
-3.820000: That, Mr. Mason, depends upon the swiftness of our pursuit
-2.560000: and the cunning of her assailant.
-3.810000: Come, let us face the footprints leading off the bridge.
-2.250000: Note their irregular spacing.
-4.760000: A man half dragging, half carrying, a burden heavier than himself.
-1.650000: Aside, narrating.
-3.340000: Thus began our strange pursuit across the cobbles of London,
-2.970000: following the faintest impressions upon damp stone,
-1.550000: impressions only Holmes could read.
-2.280000: With such clarity, my heart quickened,
-2.970000: for I knew then that we were upon the trail of a mystery
-3.140000: whose darkness lay just beyond the veil of this fog.
-4.870000: No chain bamp in, goes the tray from Casper Bridge, faint as it was,
-5.030000: led us northward through winding lanes until we reached the narrow street where Clara Whitfield resided.
-3.530000: It was there, amid the worn facades and the scent of coal smoke,
-3.770000: that Holmes resolved to search for the young woman's presence or her absence.
-1.060000: ..
-4.480000: Observe, Watson, the absence of order in this establishment.
-1.140000: ..
-3.280000: It mirrors the turmoil of its inhabitants.
-8.180000: Gentlemen, you seek Miss Whitfield? Poor soul, she has not been seen since that dreadful night.
-1.100000: ..
-3.860000: We are here at the request of Mr. Edward Mason. Permit us to view her room, madam.
-1.280000: ..
-2.920000: Very well, sir, but it chills me to open that door.
-6.460000: She left it locked behind her, and yet, when I entered the air to she's, things were not as she had left them.
-1.020000: ..
-4.610000: Precisely what we must see. Lead on, if you please.
-5.310000: Narrating, we ascended to the third floor, where the narrow corridor grew colder and dimmer.
-3.490000: The landlady unlocked the chamber door, and Holmes entered at once,
-2.070000: his sharp eyes darting from shadow to shadow.
-1.040000: ..
-5.220000: Note, Watson, the bed covering creased at the edge, as though by a hurried departure.
-4.520000: And here, on the writing desk, scraps of torn paper.
-5.540000: They appear to be from a litter, but the ink is smeared as though moistened by tears or water.
-3.810000: A careful hand can reconstruct the words.
-3.030000: Bridge danger, trust no one.
-1.220000: Do you see?
-3.250000: The message was hurried, yet deliberate.
-2.370000: She anticipated peril.
-2.670000: Then she knew she was pursued.
-2.730000: Holmes, what villain dared menace her?
+2.670000: Holmes and I were seated in a handsome cab with Commander Illery.
+4.970000: See, the frost of that winter morning clung to the windows as we rattled toward the docks by the Thames.
+3.290000: I confess, my imagination was fired by the prospect.
+5.470000: A jewel of incalculable worth, a theft upon a naval vessel, and Holmes in his element.
 1.120000: ..
-2.830000: That, sir, is what we must uncover.
-3.910000: Tell me, landlady, who last called upon Miss Whitfield?
-2.190000: Only a gentleman.
-3.960000: A tall figure, well-dressed, though his manner was harsh.
-3.530000: He pressed her with questions, and she seemed frightened.
-2.150000: I thought him her uncle.
-1.750000: Did he give his name?
-3.740000: He signed the register as Mr. Harland.
-1.820000: But I mistrust it.
-3.860000: It was written with a heavy flourish, unlike a true name.
-7.100000: Farland, curious, a false name, likely chosen to mislead
-5.760000: And here, Watson, observe beneath the carpet a scrap of dark cloth
-3.400000: It is coarse wool, torn from a man's overcoat
-2.620000: There are also small drains of sand embedded within
-5.180000: Just so, sand not of London's streets, but of the villa bank
-2.700000: Casper Bridge once more calls to us
-5.010000: The villain tracked her here and lightly dragged her hence.
-2.860000: Then she was abducted from her very room. Heaven help her.
-4.560000: Bones, do you suppose this Harlan sought to silence her, fearing what she knew?
-3.060000: An excellent hypothesis, my dear Watson.
-1.990000: You are learning.
-3.940000: Observe also the open window latch, though closed now.
-2.490000: It bears scratches from recent forcing.
-2.420000: She did not depart of her own will.
-3.390000: By heaven, the villain carried her out into the night.
-6.730000: Not quite. See these faint impressions on the silchock dust common to warehouse floors.
-7.990000: I deduce she was carried not into the street, but through a rear passage that leads to the wharves.
-3.650000: Then the warehouses conceal her captors. We must hasten there at once.
-2.670000: Holmes, shall we call upon the constabulary?
-1.520000: No, Watson.
-2.500000: Hmm. Hint. Oh.
-6.020000: The police, with their blundering zeal, would only frighten the villains into deeper concealment.
-2.020000: Subtlety is our ally.
-4.360000: Tonight, when fog thickens, we shall visit these warehouses.
+5.130000: Gentlemen, this is the Dauntless, my ship, and the scene of this deplorable theft.
+1.440000: Remarkable, Holmes!
+5.850000: The sheer order of a naval deck, yet within such order, a crime of the first magnitude.
+4.780000: Okay, and that, Watson, is the paradox which interests me.
+8.810000: A theft amidst perfect vigilance suggests either extraordinary cunning or internal collusion.
+6.350000: I fear as much. The Blue Water was kept in the Captain's cabin, in a steel box with double locks.
+5.970000: Only I and the First Lieutenant had keys. Yet the box was found forced open this morning.
+3.850000: But surely, Holmes, that suggests a most limited field of suspects.
+5.430000: Commander Illery ushered us below deck, into the Captain's quarters, where the theft had occurred.
+6.470000: The cabin was orderly, almost austere, yet its every detail invited scrutiny under Holmes' searching gaze.
+5.880000: A crude instrument used, and in haste, this was no professional cracksman.
+6.400000: Note the rough scoring here, Watson, and the fragment of metal still lodged in the keyhole.
+3.440000: By heavens, Holmes, you perceive all this from a mere glance.
+6.180000: A not a glance, Watson, an accumulation of small certainties.
+6.460000: Observe the dust displaced on the carpet, scarcely disturbed elsewhere, but heavily pressed here.
+2.730000: Someone note to ply his tool.
+4.120000: Then the thief must have acted in the night, when silence covered his efforts.
+6.820000: Just so. Yet why here, and why now? That is what we must uncover.
+3.440000: Commander, who had access to this cabin?
+5.570000: Only myself, the first lieutenant, and occasionally the ship's steward when bringing supplies.
+2.420000: No one else would dare.
+5.160000: Commander Illery, pained with strain, wasted no time in summoning the two men under suspicion,
+4.340000: Lieutenant Graves, his second-in-command, and the ship's steward, Mr. Finch.
+4.840000: Holmes suggested that the mess hall would provide sufficient space and privacy for the examination.
+6.600000: With measured dread, we made our way along the polished corridors of the vessel until we emerged into that long chamber
+2.040000: where officers took their meals.
+6.650000: Mr. Holmes, this is Lieutenant Graves, and here, Steward Finch, gentlemen, you will answer Mr. Mr.
+2.080000: Holmes, directly and fully.
+4.450000: Please be seated. I am less concerned with rank than with truths.
+1.640000: ..
+5.280000: Narrating, I noted the contrast. The lieutenant, with an officer's stiff bearing and narrowed eyes,
+5.480000: and the steward, pale, twitching, visibly ill at ease, hums, with his piercing gaze,
+3.880000: seemed to weigh both men as one might examine specimens in a cabinet.
+7.540000: Lieutenant Graves, let us begin. At what hour did you last see the jewels secure in the captain's safe?
+6.440000: Shortly after the evening round, sir. I verified the locks myself at half-past nine. The safe was undisturbed. Ah!
+2.180000: ...
+2.850000: Steward Finch, when were you last in the cabin?
+5.170000: I? I brought wine for the captain's table at supper, sir. That was all. I never touched the safe.
+1.790000: The man seemed shaken.
+3.440000: Though whether from guilt or fear of authority, I could not tell.
+8.800000: Tell me, Finch, why do your boots bear traces of reddish clay, when we stand upon damp cobble and salt-stained planks?
+3.790000: I went ashore yesterday, sir. Only briefly.
+11.740000: Briefly? And yet the clay clings thickly. Not the trace of a fleeting step, but the imprint of a prolonged errand. Where precisely did you go?
+2.300000: To, to fetch tobacco, sir.
+0.990000: Near Coving Garden.
+6.850000: And you, Lieutenant? Did you observe Finch absent from the ship yesterday?
+2.860000: No, sir. To my knowledge, he never left.
+3.200000: That's false. I went ashore. I swear it.
+1.180000: ..
+11.880000: Enough. The contradiction itself is valuable. Watson, note how truth resists alignment. The clay upon Finch's boots, the denial of Graves.
+3.320000: One of them conceals more than he admits.
+12.720000: The interrogation aboard the Dauntless left my mind in turmoil. Finch's trembling denials, the Lieutenant's stiff refusals, and Holmes's quiet absorption all seemed to form pieces of a puzzle whose outline I could barely perceive.
+10.280000: When, late in the afternoon, Holmes suddenly declared that we must return ashore at once, I pressed him for an explanation. But he offered only that enigmatic smile which told me nothing and promised everything.
+3.130000: Habs, may I not at least know where we hasten?
+14.720000: Patience, Watson. The clay upon Finch's boots was not of Coving Garden, nor of the Thames docks. It was from a garden soil unique to this quarter, red with iron. A careless slip betrayed him.
+2.940000: Then you believe Finch lied about his errand?
+2.680000: We entered the dim stairwell of the Nodging House.
+1.010000: You really we?
+5.500000: The air smelled of boiled cabbage and damp plaster, while the groan of old boards echoed beneath our seats.
+0.000000: 
+6.700000: We walked down the steps. Holmes, with noiseless tread, led us upward until we reached a door faintly marked with the Steward's name.
+8.940000: Ha! ha! Here lies the heart of our matter. Observe, Watson, the wooden box locked yet light in the hand.
+2.770000: Could it contain the blue water itself?
+8.660000: Not so heavy, nor merely papers, perhaps correspondence. Yet even scraps of ink may speak louder than gems.
+2.920000: Here, letters in a foreign language.
+0.890000: The hand of the Lord.
+7.740000: Italian. And see, this seal of a pawnbroker in Clerkenwell. The Steward was entangled in debt.
+3.850000: Debt! Then perhaps he stole the gem to settle his obligations.
+13.250000: Too crude for that. The forced lock. The clumsy entry. These do not speak of a desperate debtor. They speak of a decoy. The true hand is more disciplined.
+2.120000: Then you believe Finch is but a pawn?
+5.400000: That very evening, Holmes led us to Clerkenwell, where gas lamps glowed feebly upon shuttered shops.
+8.510000: At the corner stood the pawnbroker's establishment, mentioned in Finch's papers. Holmes, with quiet instructions, stationed us in shadow while he himself vanished inside.
+12.210000: Narrating, the minutes dragged. I felt my pulse quicken with every passing sound, until at last the shop-door creaked and a tall figure in naval greatcoat slipped within. Holmes's snare was closing.
+2.500000: Graves, by heaven, it is he!
+9.410000: In all the adventures I shared with my friend Mr. Sherlock Holmes, few rivaled the tension of that fog-drenched night in Clerkenwell when Lieutenant Graves slipped into the pawnbroker's shop.
+5.660000: Bearing that fateful parcel, I felt the very air quiver with the weight of justice about to descend.
+9.420000: Watson, observe! The parcel's bulk, its manner of unfolding. Yes, there! The blue water gleams at last!
+2.140000: By heavens, it is the sapphire!
+2.970000: Now, Commander, your moment!
+3.640000: I will confront your lieutenant and reclaim your honour!
+4.460000: Graves, you vile traitor! You dared betray the trust of the navy!
+3.730000: Ay, I only meant to hold it as collateral. The debts, my honour, was lost already.
+14.190000: Hours later, safe within the familiar warmth of Baker Street, I pressed Holmes for a full account. The fire crackled in the grade, and the sapphire itself lay upon the table, casting a faint blue radiance, as if mocking the fog and shadows of the night's adventure.
+3.850000: Holmes, you must explain how you unravelled the tangle so swiftly.
+22.240000: It was all, my dear Watson, a matter of exclusion. The lock upon the safe was forced with crude haste, clearly to suggest a common thief. Yet Graves possessed both the knowledge and the opportunity. He contrived to leave false traces, and seized upon Finch's debts to deflect suspicion.
+2.530000: The red clay was the pivot.
+9.390000: Finch, indeed, bore it upon his boots. But it was not from Govent Garden, as he claimed. It belonged to the very street where he lodged.
+8.530000: Why, he lodged! The act, coupled with Graves's denial of Finch's absence, revealed collusion of silence and deceit.
+2.540000: Then Finch was guilty of weakness, not of theft?
 1.080000: ..
-2.100000: God preserve you, gentlemen.
-3.790000: That district is a haunt of rogues and smugglers.
-3.130000: Beware, for none return unscathed.
-1.500000: ..
-0.560000: Narrating.
-4.280000: Thus did we glean the clues from Clara Whitfield's chamber fragments of warning,
-2.840000: pounded cloth, the trace of chalk and sand,
-3.010000: and as evening shadows lengthened, I felt the chill of foreboding,
-3.430000: knowing that our next steps would lead us into the heart of London's darkness.
-1.040000: ..
-2.660000: Come, Watson, there is no time to waste.
-3.670000: Tonight we move from observation to action.
-2.310000: Dossied Holmes, as always.
-2.420000: Hildning fell upon London like a shroud,
-2.220000: the fog rising from the river thick as wool.
-3.580000: Holmes led us toward the warehouses that lined the northern bank,
-2.750000: their looming shapes half-swallowed in shadow.
-4.710000: It was there, he insisted, that the fate of Clara Whitfield awaited discovery.
-4.190000: Observe, Watson, the lantern glow within yonder warehouse.
-3.600000: That, I think, is our destination.
-2.600000: But how shall we enter without alerting them?
-1.680000: Subtlety, Mr. Mason.
-3.510000: The river offers concealment where doors will not.
-4.170000: Watson, do you note the planks leading to the side dock?
-3.170000: I see them, warped and slippery, yet serviceable
-1.420000: Do you mean to approach by the rear?
-1.080000: ..
-1.820000: Precisely, follow quietly
-2.260000: Sound is our enemy tonight
-3.540000: Narrating, we crept along the dam boards
-1.620000: The river lapping beneath our feet
-2.080000: My heart thudded with each cautious step
-2.260000: Fearful that one misstep would betray us
-3.300000: Holmes, by contrast, moved with the precision of a shadow
-2.160000: Colt, do you hear it?
-2.430000: The murmur of voices within?
-2.210000: Yes, two men speaking harshly.
-2.360000: One curses, the other urges silence.
-1.570000: Let us confirm.
-1.740000: Here is a crack in the shutter.
-2.840000: Clear through Watson and tell me what you see.
-2.040000: Fearing? By heavens!
-2.410000: There, Clara Whitfield bound to a chair,
-1.600000: her face pale but alive.
-1.370000: And beside her, two ruffians,
-1.450000: one taut with a scarred cheek,
-2.470000: the other shorter, pacing like a hound.
-2.570000: Clara, she lives. We must rush them at once.
-6.920000: Hush, man. Your zeal would undo us. Action must be precise, not reckless.
-1.460000: Holmes, what do you propose?
-1.060000: ..
-7.510000: A diversion, Watson. You shall circle to the front and draw their attention with a firm knock.
-4.510000: Mason and I will enter from behind, where the knock is weakest.
-2.650000: A perilous plan, but I trust you.
-1.870000: Um, and I, hmm.
-7.280000: Your task is silence. Follow me, but do not speak unless bidden.
-5.360000: Narrating, thus we parted, Holmes and Mason to the shadows at the rear, I to the fore.
-5.360000: My heart thundered as I approached the heavy doors, lifted my stick, and rapped thrice.
-3.890000: Who goes there? Blasted! Who knocks at this hour?
-3.760000: A lost passerby, sir, seeking directions in the fog.
-4.050000: Pool, send him off. We cannot be discovered.
-5.200000: Bursting in from rear. Now, Watson, strike true.
-1.040000: ..
-3.080000: Joining for Clara. Unhand her villains.
-1.020000: ..
-3.320000: Gnarling a trap. Two arms, Ned.
-2.450000: Move. Not so fast.
-2.440000: Striking down you go.
-1.620000: Clara, hold on.
-2.720000: Edward, oh thank heaven.
-2.850000: Watson, secure the shorter man.
-3.340000: The constable shall find two prizes this night.
-1.840000: Already done, Holmes
-1.520000: He will not stir soon
-1.660000: To scard villain
-3.340000: And you, sir, shall answer for your cruelty
-2.300000: You lured the lady with threats
-3.800000: Sought to silence her knowledge of your smuggling enterprise
-3.680000: And chose Casper Bridge as the place of terror
-2.760000: But your carelessness betrayed you
-2.820000: Sand on your coat, chalk on the sill
-2.800000: And the stain of blood upon her scarf
-1.180000: Elementary
-1.000000: inventory.
-1.000000: Hm.
-1.680000: Curse you, Holmes.
-2.720000: Holmes, you have done it again.
-2.660000: Not I, Watson, the evidence.
-3.140000: I merely followed where it led.
-1.680000: You saved me, Mr. Holmes.
-1.720000: I shall never forget.
-1.520000: Nor shall I.
-2.320000: My family owes you a debt beyond words.
-5.060000: Ah, narrating, thus ended the adventure of Caspel Bridge, with the lady restored, the
-3.300000: villains captured, and Holmes once more triumphant.
-1.770000: as we stepped into the fog-laden night,
-2.860000: I could not help but marvel at the subtle chain of cues,
-1.750000: cues that I, though present,
-2.970000: might never have seen without my friend's unerring eye.
-2.750000: Come, Watson, another case awaits,
-2.600000: and the game, as always, is afoot.
-0.220000: .
+6.540000: Precisely. Graves preyed upon Finch's desperation, using his room and debts as camouflage.
+8.490000: Yet the lieutenant's own arrogance led him to the pawnbroker, where his hands betrayed him with the sapphire itself.
+3.930000: And so the Bluewater is safe again, thanks to your science of deduction.
+0.480000: .
