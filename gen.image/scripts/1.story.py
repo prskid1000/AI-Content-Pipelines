@@ -31,10 +31,10 @@ ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 
 # Model constants for easy switching
-MODEL_STORY_DESCRIPTION = "qwen/qwen3-14b"  # Model for generating story descriptions
-MODEL_CHARACTER_GENERATION = "qwen/qwen3-14b"  # Model for character description generation
-MODEL_CHARACTER_SUMMARY = "qwen/qwen3-14b"  # Model for character summary generation
-MODEL_LOCATION_EXPANSION = "qwen/qwen3-14b"  # Model for location expansion
+MODEL_STORY_DESCRIPTION = "qwen3-30b-a3b-instruct-2507"  # Model for generating story descriptions
+MODEL_CHARACTER_GENERATION = "qwen3-30b-a3b-instruct-2507"  # Model for character description generation
+MODEL_CHARACTER_SUMMARY = "qwen3-30b-a3b-instruct-2507"  # Model for character summary generation
+MODEL_LOCATION_EXPANSION = "qwen3-30b-a3b-instruct-2507"  # Model for location expansion
 
 
 # Resumable state management
@@ -1530,7 +1530,7 @@ def main() -> int:
         try:
             lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v1")
             
-            # Generate story description from content using qwen/qwen3-14b
+            # Generate story description from content using qwen3-30b-a3b-instruct-2507
             story_desc = _generate_story_summary(content, lm_studio_url, resumable_state)
             
             # Generate structured location descriptions

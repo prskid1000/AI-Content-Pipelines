@@ -10,10 +10,10 @@ import builtins as _builtins
 print = partial(_builtins.print, flush=True)
 
 # Model constants for easy switching
-MODEL_MEDIA_TAGS = "qwen/qwen3-14b"  # Model for generating YouTube tags
-MODEL_MEDIA_TITLE = "qwen/qwen3-14b"  # Model for generating YouTube titles
-MODEL_MEDIA_HOOK = "qwen/qwen3-14b"  # Model for generating YouTube hooks
-MODEL_MEDIA_BULLETS = "qwen/qwen3-14b"  # Model for generating YouTube bullet points
+MODEL_MEDIA_TAGS = "qwen3-30b-a3b-instruct-2507"  # Model for generating YouTube tags
+MODEL_MEDIA_TITLE = "qwen3-30b-a3b-instruct-2507"  # Model for generating YouTube titles
+MODEL_MEDIA_HOOK = "qwen3-30b-a3b-instruct-2507"  # Model for generating YouTube hooks
+MODEL_MEDIA_BULLETS = "qwen3-30b-a3b-instruct-2507"  # Model for generating YouTube bullet points
 
 
 class YouTubeDescriptionGenerator:

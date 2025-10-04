@@ -17,7 +17,7 @@ The AI Content Studio is built on a modular pipeline architecture with three mai
 
 ### Core Services
 - **ComfyUI** (Port 8188) - AI model inference server for TTS, image generation, and video animation
-- **LM Studio** (Port 1234) - Local language model (qwen/qwen3-14b) for text processing and content analysis
+- **LM Studio** (Port 1234) - Local language model (qwen3-30b-a3b-instruct-2507) for text processing and content analysis
 - **FFmpeg** - Video/audio processing and compilation
 - **Whisper** - Audio transcription
 
@@ -229,7 +229,7 @@ python 2.story.py --disable-resumable
 
 ### Prerequisites
 1. **ComfyUI** - AI model server for TTS, image, and video generation
-2. **LM Studio** - Local language model (qwen/qwen3-14b) 
+2. **LM Studio** - Local language model (qwen3-30b-a3b-instruct-2507) 
 3. **FFmpeg** - Video/audio processing
 4. **Python Dependencies** - `pip install -r requirements.txt`
 5. **YouTube API** (optional) - For automated uploads
@@ -731,9 +731,9 @@ LANGUAGE = "en"
 REGION = "in"
 
 # Model Configuration
-MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen/qwen3-14b"
-MODEL_CHARACTER_TITLE_GENERATION = "qwen/qwen3-14b"
-MODEL_CHARACTER_META_SUMMARY = "qwen/qwen3-14b"
+MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen3-30b-a3b-instruct-2507"
+MODEL_CHARACTER_TITLE_GENERATION = "qwen3-30b-a3b-instruct-2507"
+MODEL_CHARACTER_META_SUMMARY = "qwen3-30b-a3b-instruct-2507"
 
 # Story Processing
 CHUNK_SIZE = 50  # Lines per chapter chunk
@@ -872,10 +872,10 @@ ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
 
 # Model Configuration
-MODEL_STORY_DESCRIPTION = "qwen/qwen3-14b"  # Model for generating story descriptions
-MODEL_CHARACTER_GENERATION = "qwen/qwen3-14b"  # Model for character description generation
-MODEL_CHARACTER_SUMMARY = "qwen/qwen3-14b"  # Model for character summary generation
-MODEL_LOCATION_EXPANSION = "qwen/qwen3-14b"  # Model for location expansion
+MODEL_STORY_DESCRIPTION = "qwen3-30b-a3b-instruct-2507"  # Model for generating story descriptions
+MODEL_CHARACTER_GENERATION = "qwen3-30b-a3b-instruct-2507"  # Model for character description generation
+MODEL_CHARACTER_SUMMARY = "qwen3-30b-a3b-instruct-2507"  # Model for character summary generation
+MODEL_LOCATION_EXPANSION = "qwen3-30b-a3b-instruct-2507"  # Model for location expansion
 
 ART_STYLE = "Realistic Anime"
 ```
@@ -1128,7 +1128,7 @@ COMFYUI_DIR=/path/to/ComfyUI
 LM_STUDIO_CMD=lms
 
 # Model Configuration
-LM_STUDIO_MODEL=qwen/qwen3-14b
+LM_STUDIO_MODEL=qwen3-30b-a3b-instruct-2507
 PYTHONIOENCODING=utf-8
 PYTHONUNBUFFERED=1
 
@@ -1155,7 +1155,7 @@ YOUTUBE_CATEGORY_ID=22
 
 #### LM Studio
 - **Purpose**: Local language model for text processing and content analysis
-- **Model**: qwen/qwen3-14b (default)
+- **Model**: qwen3-30b-a3b-instruct-2507 (default)
 - **Port**: 1234 (default)
 - **Required For**:
   - **Audio Pipeline**: `1.character.py` (character analysis), `5.timeline.py` (SFX descriptions), `6.timing.py` (timing refinement), `9.description.py` (thumbnail prompts), `12.media.py` (YouTube metadata)
@@ -1209,7 +1209,7 @@ YOUTUBE_CATEGORY_ID=22
 
 ### Prerequisites
 1. Install ComfyUI and required custom nodes
-2. Install LM Studio and load qwen/qwen3-14b model
+2. Install LM Studio and load qwen3-30b-a3b-instruct-2507 model
 3. Install FFmpeg
 4. Install Python dependencies: `pip install -r requirements.txt`
 5. Set up YouTube API credentials (optional)
@@ -1220,7 +1220,7 @@ The AI Content Studio requires several AI models for different generation tasks.
 
 ### LM Studio Models (Language Processing)
 
-#### Primary Model: qwen/qwen3-14b
+#### Primary Model: qwen3-30b-a3b-instruct-2507
 - **Format**: GGUF (recommended for LM Studio)
 - **Size**: ~8GB (Q4_K_M quantization)
 - **Download Sources**:
@@ -1819,7 +1819,7 @@ The current workflow files use direct resolution settings instead of dynamic `Fl
 - `LM_STUDIO_CMD` - Custom LM Studio command (overrides default lms)
 
 #### Model Configuration
-- `LM_STUDIO_MODEL` - Model name (default: qwen/qwen3-14b)
+- `LM_STUDIO_MODEL` - Model name (default: qwen3-30b-a3b-instruct-2507)
 - `PYTHONIOENCODING` - Python encoding (default: utf-8)
 - `PYTHONUNBUFFERED` - Python output buffering (default: 1)
 
@@ -2042,7 +2042,7 @@ This is a modular system designed for easy extension. Each script is self-contai
 - **Tracking**: 10 checkpoint files across 3 pipelines
 
 ### Model Configuration
-- **LM Studio Model**: `qwen/qwen3-14b` (14B parameter language model)
+- **LM Studio Model**: `qwen3-30b-a3b-instruct-2507` (14B parameter language model)
 - **Image Models**: FLUX.1, SD 3.5, HiDream, Qwen Image (GGUF format)
 - **Video Models**: LTX Video, Wan 2.1/2.2 (GGUF format)
 - **LoRA**: FLUX.1-Turbo-Alpha (primary LoRA for all scripts)

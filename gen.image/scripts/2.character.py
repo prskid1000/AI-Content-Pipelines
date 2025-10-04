@@ -18,7 +18,7 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
 # Variation Configuration
-VARIATIONS_PER_CHARACTER = 5  # Number of variations to generate per character (in addition to original)
+VARIATIONS_PER_CHARACTER = 3  # Number of variations to generate per character (in addition to original)
 
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
@@ -29,7 +29,7 @@ LATENT_MODE = "IMAGE"  # "LATENT" for normal noise generation, "IMAGE" for load 
 LATENT_DENOISING_STRENGTH = 0.85  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # LoRA Configuration
-USE_LORA = False  # Set to False to disable LoRA usage in workflow
+USE_LORA = True  # Set to False to disable LoRA usage in workflow
 LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
 
 # LoRA Configuration
@@ -85,9 +85,9 @@ USE_CHARACTER_NAME_OVERLAY = False  # Set to False to disable name overlay
 CHARACTER_NAME_FONT_SCALE = 1
 CHARACTER_NAME_BAND_HEIGHT_RATIO = 0.30  # 15% of image height for name band
 
-USE_SUMMARY_TEXT = True  # Set to True to use summary text
+USE_SUMMARY_TEXT = False  # Set to True to use summary text
 
-FACE_ONLY = True  # Set to True to generate only face
+FACE_ONLY = False  # Set to True to generate only face
 
 class ResumableState:
     """Manages resumable state for expensive character generation operations."""

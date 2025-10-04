@@ -8,7 +8,7 @@ import builtins as _builtins
 print = partial(_builtins.print, flush=True)
 
 # Model constants for easy switching
-MODEL_DESCRIPTION_GENERATION = "qwen/qwen3-14b"  # Model for description generation
+MODEL_DESCRIPTION_GENERATION = "qwen3-30b-a3b-instruct-2507"  # Model for description generation
 
 class DiffusionPromptGenerator:
     def __init__(self, lm_studio_url: str = "http://localhost:1234/v1", model: str = MODEL_DESCRIPTION_GENERATION):

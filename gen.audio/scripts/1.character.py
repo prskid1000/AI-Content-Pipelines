@@ -15,9 +15,9 @@ LANGUAGE = "en"
 REGION = "in"
 
 # Model constants for easy switching
-MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen/qwen3-14b"  # Model for chapter summarization
-MODEL_CHARACTER_TITLE_GENERATION = "qwen/qwen3-14b"  # Model for story title generation
-MODEL_CHARACTER_META_SUMMARY = "qwen/qwen3-14b"  # Model for meta-summary generation
+MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen3-30b-a3b-instruct-2507"  # Model for chapter summarization
+MODEL_CHARACTER_TITLE_GENERATION = "qwen3-30b-a3b-instruct-2507"  # Model for story title generation
+MODEL_CHARACTER_META_SUMMARY = "qwen3-30b-a3b-instruct-2507"  # Model for meta-summary generation
 
 # Story processing configuration
 CHUNK_SIZE = 50  # Number of lines per chapter chunk for summarization
