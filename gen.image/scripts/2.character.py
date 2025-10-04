@@ -1074,7 +1074,10 @@ class CharacterGenerator:
 
     def _update_workflow_prompt(self, workflow: dict, character_name: str, description: str) -> dict:
         """Update the workflow with character-specific prompt."""
-        prompt = f"Create a 16K ultra-high-resolution, Dressed Full Body Visible, Illustration in the style of {ART_STYLE} in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description and fine-level detailing, and any part not cropped or hidden.\n\n Character Name = {character_name}. Character Description = {description}. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style. All Colourings, Styles, Shapes, Textures, Lightings and Detailing, must be **exactly same/ identical/as it is** in the character text-description. Must use Black Background."
+        if FACE_ONLY:
+            prompt = f"Create a 16K ultra-high-resolution, Dressed Face and upto Shoulders Visible, Illustration in the style of {ART_STYLE} in which face(eyes, nose, mouth, skin, shoulders), precisely and accurately matching character with description and fine-level detailing, and any part not cropped or hidden.\n\n Character Name = {character_name}. Character Description = {description}. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style. All Colourings, Styles, Shapes, Textures, Lightings and Detailing, must be **exactly same/ identical/as it is** in the character text-description. Must use Black Background."
+        else:
+            prompt = f"Create a 16K ultra-high-resolution, Full Body Visible, Illustration in the style of {ART_STYLE} in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description and fine-level detailing, and any part not cropped or hidden.\n\n Character Name = {character_name}. Character Description = {description}. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style. All Colourings, Styles, Shapes, Textures, Lightings and Detailing, must be **exactly same/ identical/as it is** in the character text-description. Must use Black Background."
         self._update_node_connections(workflow, ["CLIPTextEncode", "CLIP Text Encode (Prompt)"], "text", prompt)
         return workflow
 
