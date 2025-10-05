@@ -178,7 +178,7 @@ def transcribe_audio(audio_path, srt_file, text_file, timeline_file, model_name=
             audio_path, 
             verbose=True,
             temperature=0.0,
-            condition_on_previous_text=True,
+            condition_on_previous_text=False,
             no_speech_threshold=0.1,
             logprob_threshold=-1.5,
             compression_ratio_threshold=1.0,
