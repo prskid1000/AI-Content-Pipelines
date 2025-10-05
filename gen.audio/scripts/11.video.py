@@ -10,7 +10,7 @@ print = partial(_builtins.print, flush=True)
 
 # Configuration
 SHORTS_VIDEO_COUNT = 5  # Number of shorts videos to create
-SHORTS_VIDEO_LENGTH = 60  # Length of each shorts video in seconds
+SHORTS_VIDEO_LENGTH = 30  # Length of each shorts video in seconds
 
 
 def find_thumbnail(output_dir: str) -> str | None:
