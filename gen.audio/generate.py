@@ -75,19 +75,18 @@ SCRIPTS = [
 
     #Video
     # "8.combine.py",
-    # "9.description.py",
+    # "9.media.py",
     # "10.thumbnail.py",
     # "11.video.py",
 
     #YouTube
-    # "12.media.py",
-    # "13.youtube.py"
+    # "12.youtube.py"
 ]
 
 SCRIPTS_DIR = "scripts"
 
 NEEDS_COMFYUI = {"2.story.py", "7.sfx.py", "10.thumbnail.py"}
-NEEDS_LMSTUDIO = {"1.character.py", "5.timeline.py", "6.timing.py", "9.description.py", "12.media.py"}
+NEEDS_LMSTUDIO = {"1.character.py", "5.timeline.py", "6.timing.py", "9.media.py"}
 
  
 
@@ -96,7 +95,7 @@ SCRIPT_ARGS = {
     "1.character.py": ["--auto-gender", "m", "--auto-confirm", "y", "--change-settings", "n"],
     "10.thumbnail.py": ["--mode", "flux"],
     "2.character.py": ["--mode", "flux"],
-    "13.youtube.py": ["--video-file", "../output/final.mp4"],
+    "12.youtube.py": ["--video-file", "../output/final.mp4", "--upload-shorts"],
     # "7.sfx.py": ["--auto-confirm", "y"],  # sfx script auto-confirms by default; passing is harmless
 }
 

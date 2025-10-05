@@ -82,17 +82,16 @@ SCRIPTS = [
     # "6.combine.py",
 
     # YouTube
-    # "../gen.audio/scripts/9.description.py",
+    # "../gen.audio/scripts/9.media.py",
     # "../gen.audio/scripts/10.thumbnail.py",
     # "../gen.audio/scripts/11.video.py",
-    # "../gen.audio/scripts/12.media.py",
-    # "../gen.audio/scripts/13.youtube.py"
+    # "../gen.audio/scripts/12.youtube.py"
 ]
 
 SCRIPTS_DIR = "scripts"
 
 NEEDS_COMFYUI = {"2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py", "2.location.py"}
-NEEDS_LMSTUDIO = {"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py", "9.description.py", "12.media.py"}
+NEEDS_LMSTUDIO = {"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py", "9.media.py"}
 
 # Centralized non-interactive defaults (only change this file)
 SCRIPT_ARGS = {
@@ -103,7 +102,7 @@ SCRIPT_ARGS = {
     "2.character.py": ["--mode", "flux"],
     "5.timeline.py": ["../input/2.timeline.script.txt"],  # Pass the 2.1.timeline.txt file to 5.timeline.py (relative to gen.audio/scripts/)
     "7.sfx.py": ["--auto-confirm", "y"],  # sfx script auto-confirms by default; passing is harmless
-    "13.youtube.py": ["--video-file", "../../gen.image/output/final_sd.mp4", "--upload-shorts", "--shorts-dir", "../../gen.audio/output/shorts"],
+    "12.youtube.py": ["--video-file", "../../gen.image/output/final_sd.mp4", "--upload-shorts", "--shorts-dir", "../../gen.audio/output/shorts"],
 }
 
 

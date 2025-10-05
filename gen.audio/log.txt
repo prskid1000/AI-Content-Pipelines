@@ -7,7 +7,7 @@ Waiting for ComfyUI to become ready (polling every 15s)...
 [START] Security scan
 [DONE] Security scan
 ## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2025-10-04 21:14:43.554
+** ComfyUI startup time: 2025-10-05 08:54:16.909
 ** Platform: Windows
 ** Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
 ** Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
@@ -20,7 +20,7 @@ ComfyUI not ready yet (attempt 1). Retrying in 15s...
 
 Prestartup times for custom nodes:
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\rgthree-comfy
-   2.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   2.3 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
 
 Checkpoint files will always be loaded safely.
 Total VRAM 12227 MB, total RAM 64957 MB
@@ -41,10 +41,10 @@ ComfyUI-GGUF: Allowing full torch compile
 
 [32mInitializing ControlAltAI Nodes[0m
 
-[92m[rgthree-comfy] Loaded 48 exciting nodes. 🎉[0m
+[92m[rgthree-comfy] Loaded 48 fantastic nodes. 🎉[0m
 
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
@@ -88,9 +88,9 @@ Import times for custom nodes:
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
    0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
    0.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-impact-pack
-   0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-   2.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
-   3.3 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
+   0.4 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   2.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
+   2.8 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
 
 Context impl SQLiteImpl.
 Will assume non-transactional DDL.
@@ -101,7 +101,7 @@ To see the GUI go to: http://127.0.0.1:8188
 FETCH ComfyRegistry Data: 5/99
 ComfyUI is ready after 17.1s (attempt 2).
 
-===== START D:\.comfyui\gen.audio\scripts\10.thumbnail.py @ 2025-10-04 21:14:59 =====
+===== START D:\.comfyui\gen.audio\scripts\10.thumbnail.py @ 2025-10-05 08:54:32 =====
 Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.audio\output\tracking
 Found existing checkpoint: D:\.comfyui\gen.audio\output\tracking\10.thumbnail.state.json
 Progress: Thumbnails(0/0)
@@ -109,6 +109,7 @@ Validating and syncing with output directory: ../output
 Scanning output directory for untracked files: ../output
 No untracked thumbnail files found in output directory
 Validating 0 completed thumbnails against output directory...
+Generating main thumbnail...
 Generating thumbnail (Serial LoRA mode)
 
 Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
@@ -120,7 +121,7 @@ Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anat
   Model strength: 3.6
   CLIP strength: 3.6
 Using latent mode with dimensions: 1280x720
-  Seed set to: 1395710829
+  Seed set to: 2432720520
   Using latent mode with dimensions: 1280x720
   Using LoRA denoising_strength: 0.8
   Steps: 6, Denoising: 0.8
@@ -138,28 +139,237 @@ Token indices sequence length is longer than the specified maximum sequence leng
 Requested to load FluxClipModel_
 FETCH ComfyRegistry Data: 10/99
 loaded completely 9518.8 9319.23095703125 True
-FETCH ComfyRegistry Data: 15/99
 Requested to load Flux
+FETCH ComfyRegistry Data: 15/99
 FETCH ComfyRegistry Data: 20/99
 loaded partially 9390.07497329712 9389.463134765625 0
 Attempting to release mmap (127)
-FETCH ComfyRegistry Data: 25/99
-  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:05<00:26,  5.32s/it]FETCH ComfyRegistry Data: 30/99
- 33%|███▎      | 2/6 [00:10<00:20,  5.02s/it]FETCH ComfyRegistry Data: 35/99
- 50%|█████     | 3/6 [00:15<00:14,  4.98s/it]FETCH ComfyRegistry Data: 40/99
- 67%|██████▋   | 4/6 [00:19<00:09,  4.95s/it]FETCH ComfyRegistry Data: 45/99
- 83%|████████▎ | 5/6 [00:24<00:04,  4.91s/it]FETCH ComfyRegistry Data: 50/99
-100%|██████████| 6/6 [00:29<00:00,  4.89s/it]100%|██████████| 6/6 [00:29<00:00,  4.94s/it]
+  0%|          | 0/6 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 25/99
+ 17%|█▋        | 1/6 [00:05<00:25,  5.07s/it]FETCH ComfyRegistry Data: 30/99
+ 33%|███▎      | 2/6 [00:09<00:19,  4.88s/it]FETCH ComfyRegistry Data: 35/99
+ 50%|█████     | 3/6 [00:14<00:14,  4.83s/it]FETCH ComfyRegistry Data: 40/99
+ 67%|██████▋   | 4/6 [00:19<00:09,  4.84s/it]FETCH ComfyRegistry Data: 45/99
+ 83%|████████▎ | 5/6 [00:24<00:04,  4.83s/it]FETCH ComfyRegistry Data: 50/99
+100%|██████████| 6/6 [00:29<00:00,  4.84s/it]100%|██████████| 6/6 [00:29<00:00,  4.85s/it]
 Requested to load AutoencodingEngine
 loaded completely 192.3203125 159.87335777282715 True
-Prompt executed in 53.86 seconds
-FETCH ComfyRegistry Data: 55/99
+Prompt executed in 49.83 seconds
   Saved LoRA result: ../output/lora\thumbnail.FLUX.1_Turbo_Alpha.safetensors.png
   LoRA 1 completed successfully
+  Preserved LoRA progress for completed thumbnail
 Saved: ../output\thumbnail.png
-../output\thumbnail.png
+Generated: ../output\thumbnail.png
+Generating shorts thumbnail 1/5...
+Generating thumbnail (Serial LoRA mode)
 
-===== END D:\.comfyui\gen.audio\scripts\10.thumbnail.py @ 2025-10-04 21:15:56 (exit=1, took=56.66s) =====
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 3287128243
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 55/99
+FETCH ComfyRegistry Data: 60/99
+ 17%|█▋        | 1/6 [00:08<00:43,  8.65s/it]FETCH ComfyRegistry Data: 65/99
+ 33%|███▎      | 2/6 [00:17<00:34,  8.65s/it]FETCH ComfyRegistry Data: 70/99
+FETCH ComfyRegistry Data: 75/99
+ 50%|█████     | 3/6 [00:25<00:25,  8.62s/it]FETCH ComfyRegistry Data: 80/99
+ 67%|██████▋   | 4/6 [00:34<00:17,  8.62s/it]FETCH ComfyRegistry Data: 85/99
+FETCH ComfyRegistry Data: 90/99
+ 83%|████████▎ | 5/6 [00:43<00:08,  8.63s/it]FETCH ComfyRegistry Data: 95/99
+100%|██████████| 6/6 [00:51<00:00,  8.60s/it]100%|██████████| 6/6 [00:51<00:00,  8.62s/it]
+Requested to load AutoencodingEngine
+FETCH ComfyRegistry Data [DONE]
+[ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
+FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
+[ComfyUI-Manager] All startup tasks have been completed.
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 56.90 seconds
+  Saved LoRA result: ../output/lora\thumbnail.shorts.v1.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+  Preserved LoRA progress for completed thumbnail
+Saved: ../output\thumbnail.shorts.v1.png
+Generated: ../output\thumbnail.shorts.v1.png
+Generating shorts thumbnail 2/5...
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 263316887
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:08<00:43,  8.72s/it] 33%|███▎      | 2/6 [00:17<00:34,  8.64s/it] 50%|█████     | 3/6 [00:25<00:25,  8.66s/it] 67%|██████▋   | 4/6 [00:34<00:17,  8.63s/it] 83%|████████▎ | 5/6 [00:43<00:08,  8.64s/it]100%|██████████| 6/6 [00:51<00:00,  8.64s/it]100%|██████████| 6/6 [00:51<00:00,  8.65s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 57.76 seconds
+  Saved LoRA result: ../output/lora\thumbnail.shorts.v2.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+  Preserved LoRA progress for completed thumbnail
+Saved: ../output\thumbnail.shorts.v2.png
+Generated: ../output\thumbnail.shorts.v2.png
+Generating shorts thumbnail 3/5...
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 4156176071
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:08<00:43,  8.74s/it] 33%|███▎      | 2/6 [00:17<00:34,  8.64s/it] 50%|█████     | 3/6 [00:25<00:25,  8.63s/it] 67%|██████▋   | 4/6 [00:34<00:17,  8.61s/it] 83%|████████▎ | 5/6 [00:43<00:08,  8.64s/it]100%|██████████| 6/6 [00:51<00:00,  8.62s/it]100%|██████████| 6/6 [00:51<00:00,  8.63s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 57.73 seconds
+  Saved LoRA result: ../output/lora\thumbnail.shorts.v3.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+  Preserved LoRA progress for completed thumbnail
+Saved: ../output\thumbnail.shorts.v3.png
+Generated: ../output\thumbnail.shorts.v3.png
+Generating shorts thumbnail 4/5...
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 2664756864
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:08<00:44,  8.80s/it] 33%|███▎      | 2/6 [00:17<00:34,  8.72s/it] 50%|█████     | 3/6 [00:26<00:26,  8.70s/it] 67%|██████▋   | 4/6 [00:34<00:17,  8.70s/it] 83%|████████▎ | 5/6 [00:43<00:08,  8.67s/it]100%|██████████| 6/6 [00:52<00:00,  8.66s/it]100%|██████████| 6/6 [00:52<00:00,  8.68s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 56.67 seconds
+  Saved LoRA result: ../output/lora\thumbnail.shorts.v4.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+  Preserved LoRA progress for completed thumbnail
+Saved: ../output\thumbnail.shorts.v4.png
+Generated: ../output\thumbnail.shorts.v4.png
+Generating shorts thumbnail 5/5...
+Generating thumbnail (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode: 1 LoRAs will run independently
+Note: Serial mode requires separate workflow execution for each LoRA
+LoRA enabled in thumbnail workflow
+Sampling steps set to: 25
+Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
+  Model strength: 3.6
+  CLIP strength: 3.6
+Using latent mode with dimensions: 1080x1920
+  Seed set to: 240241286
+  Using latent mode with dimensions: 1080x1920
+  Using LoRA denoising_strength: 0.8
+  Steps: 6, Denoising: 0.8
+got prompt
+  Waiting for LoRA 1 generation to complete...
+loaded partially 8396.07497329712 8395.794921875 0
+  0%|          | 0/6 [00:00<?, ?it/s] 17%|█▋        | 1/6 [00:08<00:44,  8.88s/it] 33%|███▎      | 2/6 [00:17<00:34,  8.73s/it] 50%|█████     | 3/6 [00:26<00:26,  8.72s/it] 67%|██████▋   | 4/6 [00:34<00:17,  8.72s/it] 83%|████████▎ | 5/6 [00:43<00:08,  8.72s/it]100%|██████████| 6/6 [00:52<00:00,  8.71s/it]100%|██████████| 6/6 [00:52<00:00,  8.72s/it]
+Requested to load AutoencodingEngine
+loaded completely 190.28515625 159.87335777282715 True
+Prompt executed in 56.90 seconds
+  Saved LoRA result: ../output/lora\thumbnail.shorts.v5.FLUX.1_Turbo_Alpha.safetensors.png
+  LoRA 1 completed successfully
+  Preserved LoRA progress for completed thumbnail
+Saved: ../output\thumbnail.shorts.v5.png
+Generated: ../output\thumbnail.shorts.v5.png
+
+Generated 6 thumbnail images:
+  thumbnail: ../output\thumbnail.png
+  thumbnail.shorts.v1: ../output\thumbnail.shorts.v1.png
+  thumbnail.shorts.v2: ../output\thumbnail.shorts.v2.png
+  thumbnail.shorts.v3: ../output\thumbnail.shorts.v3.png
+  thumbnail.shorts.v4: ../output\thumbnail.shorts.v4.png
+  thumbnail.shorts.v5: ../output\thumbnail.shorts.v5.png
+All thumbnail generation completed successfully
+Final progress: Progress: Thumbnails(5/7)
+Final state saved to checkpoint
+All operations completed successfully - tracking files preserved
+
+===== END D:\.comfyui\gen.audio\scripts\10.thumbnail.py @ 2025-10-05 09:00:27 (exit=0, took=355.18s) =====
 Stopping ComfyUI backend...
 ComfyUI appears stopped (after 1 checks).
-ABORTING: 10.thumbnail.py exited with code 1.
+
+===== START D:\.comfyui\gen.audio\scripts\11.video.py @ 2025-10-05 09:00:29 =====
+Creating regular video...
+Running: ffmpeg -y -loop 1 -i D:\.comfyui\gen.audio\output\thumbnail.png -i D:\.comfyui\gen.audio\output\final.wav -c:v libx264 -profile:v high -level:v 4.2 -tune stillimage -preset medium -crf 18 -pix_fmt yuv420p -color_primaries bt709 -color_trc bt709 -colorspace bt709 -r 30 -g 60 -movflags +faststart -c:a aac -b:a 192k -ar 48000 -ac 2 -shortest D:\.comfyui\gen.audio\output\final.mp4
+Regular video written to D:\.comfyui\gen.audio\output\final.mp4
+Creating 5 shorts videos...
+Each video will be 60 seconds long
+
+Creating shorts video 1/5:
+  Thumbnail: thumbnail.shorts.v1.png
+  Audio segment: 221.37s - 281.37s
+  Output: shorts.v1.mp4
+  ✓ Success: D:\.comfyui\gen.audio\output\shorts.v1.mp4
+
+Creating shorts video 2/5:
+  Thumbnail: thumbnail.shorts.v2.png
+  Audio segment: 345.53s - 405.53s
+  Output: shorts.v2.mp4
+  ✓ Success: D:\.comfyui\gen.audio\output\shorts.v2.mp4
+
+Creating shorts video 3/5:
+  Thumbnail: thumbnail.shorts.v3.png
+  Audio segment: 149.52s - 209.52s
+  Output: shorts.v3.mp4
+  ✓ Success: D:\.comfyui\gen.audio\output\shorts.v3.mp4
+
+Creating shorts video 4/5:
+  Thumbnail: thumbnail.shorts.v4.png
+  Audio segment: 340.28s - 400.28s
+  Output: shorts.v4.mp4
+  ✓ Success: D:\.comfyui\gen.audio\output\shorts.v4.mp4
+
+Creating shorts video 5/5:
+  Thumbnail: thumbnail.shorts.v5.png
+  Audio segment: 170.09s - 230.09s
+  Output: shorts.v5.mp4
+  ✓ Success: D:\.comfyui\gen.audio\output\shorts.v5.mp4
+
+Completed: 5/5 shorts videos created
+
+===== END D:\.comfyui\gen.audio\scripts\11.video.py @ 2025-10-05 09:04:18 (exit=0, took=228.94s) =====
+
+Log time stats: writes=0.000s, flushes=0.000s, total=0.000s (~0.00% of runtime)
+
+All scripts completed successfully.
