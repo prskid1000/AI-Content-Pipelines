@@ -319,11 +319,10 @@ Story Text → Character Analysis → TTS → Transcription → SFX → Mixing �
 | `6.timing.py` | SFX timing refinement | `2.timeline.txt` | `3.timing.txt` | **LM Studio** |
 | `7.sfx.py` | Generate sound effects | `3.timing.txt` | `sfx.wav` | **ComfyUI** |
 | `8.combine.py` | Mix audio (story + SFX) | `story.wav`, `sfx.wav` | `final.wav` | PyTorch/Torchaudio |
-| `9.description.py` | Thumbnail description | `1.story.txt` | `10.thumbnail.txt` | **LM Studio** |
+| `9.media.py` | YouTube metadata & thumbnail description | `1.story.txt`, `9.summary.txt` | `10.thumbnail.txt`, `description.txt`, `tags.txt` | **LM Studio** |
 | `10.thumbnail.py` | Generate thumbnail image | `10.thumbnail.txt` | `thumbnail.png` | **ComfyUI** |
-| `11.video.py` | Create final video | `final.wav`, `thumbnail.png` | `final.mp4` | FFmpeg |
-| `12.media.py` | YouTube metadata | `1.story.txt` | `description.txt`, `tags.txt` | **LM Studio** |
-| `13.youtube.py` | Upload to YouTube | `final.mp4`, `description.txt`, `tags.txt` | YouTube upload | Google API |
+| `11.video.py` | Create final video | `final.wav`, `thumbnail.png` | `final.mp4`, `shorts.v1-v5.mp4` | FFmpeg |
+| `12.youtube.py` | Upload to YouTube | `final.mp4`, `shorts.v1-v5.mp4`, `description.txt`, `tags.txt` | YouTube upload | Google API |
 
 ### Audio Pipeline Features
 - **Character Voice Assignment**: Automatic gender detection and voice selection with resumable processing
@@ -423,7 +422,7 @@ graph TD
     U --> V[final.wav]
     U -.-> W[PyTorch/Torchaudio]
     
-    A --> X[9.description.py]
+    A --> X[9.media.py]
     X --> Y[10.thumbnail.txt]
     X -.-> E
     
@@ -434,14 +433,16 @@ graph TD
     V --> BB[11.video.py]
     AA --> BB
     BB --> CC[final.mp4]
+    BB --> CC2[shorts.v1-v5.mp4]
     BB -.-> DD[FFmpeg]
     
-    A --> EE[12.media.py]
+    A --> EE[9.media.py]
     EE --> FF[description.txt]
     EE --> GG[tags.txt]
     EE -.-> E
     
-    CC --> HH[13.youtube.py]
+    CC --> HH[12.youtube.py]
+    CC2 --> HH
     FF --> HH
     GG --> HH
     HH --> II[YouTube Upload]
@@ -461,7 +462,7 @@ graph TD
 
 The image pipeline creates character portraits, scene visualizations, and processes audio timeline data for video generation.
 
-**Resumable Scripts**: `1.story.py`, `2.character.py`, `3.scene.py`
+**Resumable Scripts**: `1.story.py`, `2.character.py`, `2.location.py`, `3.scene.py`
 
 ### Image Pipeline Flowchart
 
@@ -469,6 +470,7 @@ The image pipeline creates character portraits, scene visualizations, and proces
 graph TD
     A[1.story.txt] --> B[1.story.py]
     B --> I[2.character.txt]
+    B --> I2[3.location.txt]
     B --> J[3.scene.txt]
     B -.-> H[LM Studio]
     
@@ -476,8 +478,13 @@ graph TD
     C --> M[characters/*.png]
     C -.-> L[ComfyUI]
     
+    I2 --> C2[2.location.py]
+    C2 --> M2[locations/*.png]
+    C2 -.-> L
+    
     J --> D[3.scene.py]
     M --> D
+    M2 --> D
     D --> N[scene/*.png]
     D -.-> L
     
@@ -594,7 +601,7 @@ The image pipeline includes references to audio pipeline scripts:
 | `../gen.audio/scripts/6.timing.py` | SFX timing refinement | **LM Studio** |
 | `../gen.audio/scripts/7.sfx.py` | Sound effect generation | **ComfyUI** |
 | `../gen.audio/scripts/8.combine.py` | Audio mixing | PyTorch/Torchaudio |
-| `../gen.audio/scripts/9.description.py` | Thumbnail description | **LM Studio** |
+| `../gen.audio/scripts/9.media.py` | YouTube metadata & thumbnail description | **LM Studio** |
 | `../gen.audio/scripts/10.thumbnail.py` | Thumbnail generation | **ComfyUI** |
 | `../gen.audio/scripts/12.media.py` | YouTube metadata | **LM Studio** |
 
@@ -700,7 +707,7 @@ The video pipeline includes commented references to image and audio pipeline scr
 | `../gen.audio/scripts/6.timing.py` | SFX timing refinement | **LM Studio** | 
 | `../gen.audio/scripts/7.sfx.py` | Sound effect generation | **ComfyUI** | 
 | `../gen.audio/scripts/8.combine.py` | Audio mixing | PyTorch/Torchaudio | 
-| `../gen.audio/scripts/9.description.py` | Thumbnail description | **LM Studio** | 
+| `../gen.audio/scripts/9.media.py` | YouTube metadata & thumbnail description | **LM Studio** | 
 | `../gen.audio/scripts/10.thumbnail.py` | Thumbnail generation | **ComfyUI** | 
 | `../gen.audio/scripts/12.media.py` | YouTube metadata | **LM Studio** | 
 
@@ -1231,7 +1238,7 @@ YOUTUBE_CATEGORY_ID=22
 - **Model**: qwen3-30b-a3b-instruct-2507 (default)
 - **Port**: 1234 (default)
 - **Required For**:
-  - **Audio Pipeline**: `1.character.py` (character analysis), `5.timeline.py` (SFX descriptions), `6.timing.py` (timing refinement), `9.description.py` (thumbnail prompts), `12.media.py` (YouTube metadata)
+  - **Audio Pipeline**: `1.character.py` (character analysis), `5.timeline.py` (SFX descriptions), `6.timing.py` (timing refinement), `9.media.py` (thumbnail prompts & metadata), `12.youtube.py` (YouTube upload)
   - **Image Pipeline**: `1.story.py` (story parsing) + all cross-pipeline audio scripts
   - **Video Pipeline**: All cross-pipeline audio and image scripts
 
@@ -1695,20 +1702,20 @@ The orchestrator scripts automatically manage service dependencies with intellig
 
 #### Audio Pipeline (`gen.audio/generate.py`)
 - **NEEDS_COMFYUI**: `{"2.story.py", "7.sfx.py", "10.thumbnail.py"}`
-- **NEEDS_LMSTUDIO**: `{"1.character.py", "5.timeline.py", "6.timing.py", "9.description.py", "12.media.py"}`
+- **NEEDS_LMSTUDIO**: `{"1.character.py", "5.timeline.py", "6.timing.py", "9.media.py", "12.youtube.py"}`
 - **Active Scripts**: All 13 scripts active (full pipeline enabled)
 - **Resumable Scripts**: `1.character.py`, `2.story.py`, `5.timeline.py`, `6.timing.py`, `7.sfx.py`
 
 #### Image Pipeline (`gen.image/generate.py`)  
 - **NEEDS_COMFYUI**: `{"2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py", "2.location.py"}`
-- **NEEDS_LMSTUDIO**: `{"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py", "9.description.py", "12.media.py"}`
+- **NEEDS_LMSTUDIO**: `{"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py", "9.media.py", "12.youtube.py"}`
 - **Active Scripts**: `["2.character.py"]` (only character generation active)
 - **Available Scripts**: `["1.story.py", "2.character.py", "2.location.py", "3.scene.py", "4.audio.py", "5.video.py", "6.combine.py"]`
 - **Resumable Scripts**: `1.story.py`, `2.character.py`, `2.location.py`, `3.scene.py`
 
 #### Video Pipeline (`gen.video/generate.py`)
 - **NEEDS_COMFYUI**: `{"2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py", "2.animate.py", "2.location.py"}`
-- **NEEDS_LMSTUDIO**: `{"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py", "9.description.py", "12.media.py"}`
+- **NEEDS_LMSTUDIO**: `{"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py", "9.media.py", "12.youtube.py"}`
 - **Active Scripts**: Currently all commented out (empty pipeline)
 - **Available Scripts**: `["1.story.py", "2.animate.py", "3.video.py"]`
 - **Resumable Scripts**: `2.animate.py`
@@ -1743,11 +1750,10 @@ The orchestrator scripts automatically manage service dependencies with intellig
 | `6.timing.py` | `2.timeline.txt` | `3.timing.txt` | SFX timing refinement |
 | `7.sfx.py` | `3.timing.txt` | `sfx.wav` | SFX generation logs |
 | `8.combine.py` | `story.wav`, `sfx.wav` | `final.wav` | Audio mixing logs |
-| `9.description.py` | `1.story.txt` | `10.thumbnail.txt` | Thumbnail description |
+| `9.media.py` | `1.story.txt`, `9.summary.txt` | `10.thumbnail.txt`, `description.txt`, `tags.txt` | YouTube metadata & thumbnail description |
 | `10.thumbnail.py` | `10.thumbnail.txt` | `thumbnail.png` | Image generation logs |
-| `11.video.py` | `final.wav`, `thumbnail.png` | `final.mp4` | Video compilation logs |
-| `12.media.py` | `1.story.txt` | `description.txt`, `tags.txt` | YouTube metadata |
-| `13.youtube.py` | `final.mp4`, `description.txt`, `tags.txt` | YouTube upload | Upload logs |
+| `11.video.py` | `final.wav`, `thumbnail.png` | `final.mp4`, `shorts.v1-v5.mp4` | Video compilation logs |
+| `12.youtube.py` | `final.mp4`, `shorts.v1-v5.mp4`, `description.txt`, `tags.txt` | YouTube upload | Upload logs |
 
 ### Image Pipeline File Flow
 
@@ -1800,7 +1806,7 @@ The orchestrator scripts automatically manage service dependencies with intellig
 - `2.story.str.txt` - Plain text transcription
 - `2.timeline.txt` - SFX timeline (generated by `5.timeline.py`)
 - `3.timing.txt` - Refined SFX timing (generated by `6.timing.py`)
-- `10.thumbnail.txt` - Thumbnail description (generated by `9.description.py`)
+- `10.thumbnail.txt` - Thumbnail description (generated by `9.media.py`)
 
 **Image Pipeline Inputs:**
 - `1.story.txt` - Source story text
@@ -1997,29 +2003,36 @@ This is a modular system designed for easy extension. Each script is self-contai
 
 ## 🆕 Recent Updates & Improvements
 
-### Major Enhancements (Latest Version)
+### Major Enhancements (December 2024)
+
+#### 📺 YouTube Integration & Content Creation
+- **YouTube Shorts Support**: Automatic generation of 9:16 aspect ratio videos (`shorts.v1.mp4` through `shorts.v5.mp4`)
+- **Enhanced Metadata Generation**: Improved YouTube descriptions, tags, and thumbnail descriptions
+- **Script Consolidation**: Merged `9.description.py` → `9.media.py` and `12.media.py` → `12.youtube.py`
+- **Story Summary Integration**: New `9.summary.txt` file for enhanced media generation prompts
 
 #### 🎨 Advanced Image Generation
+- **Location Background Generation**: New location generation pipeline with `locations/` directory
 - **Latent Input Mode**: Switch between noise generation (`LATENT`) and image input (`IMAGE`) modes
 - **Denoising Control**: Configurable denoising strength (0.0-1.0) for image-to-image generation
-- **Direct Resolution**: Simplified workflow structure with fixed resolution constants
-- **Serial LoRA Processing**: Independent LoRA application with intermediate storage
+- **Serial LoRA Processing**: Independent LoRA application with intermediate storage and extensive results tracking
+
+#### 🔄 Enhanced Resumable Processing
+- **Expanded Checkpoint Support**: 10 scripts now support resumable processing across all pipelines
+- **Advanced State Management**: Sophisticated checkpoint recovery with file validation
+- **Progress Tracking**: Real-time status updates with completion percentages
+- **Force Restart Options**: `--force-start` flag available on all resumable scripts
 
 #### 🔧 Workflow Optimization
-- **Removed FluxResolutionNode**: Simplified workflows with direct width/height settings
+- **Pipeline Reconfiguration**: Audio pipeline fully active (13 scripts), Image pipeline focused (character generation), Video pipeline disabled
 - **Standardized Configurations**: Consistent settings across all image generation scripts
 - **Enhanced LoRA Support**: Serial and chained modes with per-LoRA configuration
 - **Improved Error Handling**: Better fault tolerance and recovery mechanisms
 
 #### 📁 File Structure Improvements
-- **Cleaner Codebase**: Removed 153 lines of unused code from scene generation
-- **Consistent Naming**: Standardized file paths and configuration variables
-- **Better Organization**: Clear separation of input files and generated outputs
-
-#### ⚡ Performance Enhancements
-- **Simplified Processing**: Direct latent replacement instead of complex image stitching
-- **Faster LoRA Chaining**: Streamlined workflow for serial LoRA processing
-- **Memory Optimization**: Reduced memory usage through cleaner node structures
+- **Enhanced Input Files**: New latent input images for different sizes (small, medium, large, original)
+- **Comprehensive Output Structure**: Organized directories for characters, locations, scenes, LoRA results, and tracking
+- **Better Organization**: Clear separation of input files and generated outputs with extensive intermediate storage
 
 ### Configuration Standardization
 
@@ -2059,10 +2072,23 @@ This is a modular system designed for easy extension. Each script is self-contai
 | **Variations** | 1 | 1 | N/A | Variations per item |
 | **Summary Text** | ❌ Disabled | ✅ Enabled | N/A | Use summary text files |
 
-### Breaking Changes
+### Breaking Changes & Script Reorganization
+
+#### Script Renaming & Consolidation
+- **`9.description.py`** → **`9.media.py`**: Enhanced YouTube metadata generation with story summary integration
+- **`12.media.py`** → **`12.youtube.py`**: Consolidated YouTube upload functionality
+- **`13.youtube.py`**: Merged into `12.youtube.py` for streamlined workflow
+
+#### New File Dependencies
+- **`9.summary.txt`**: New input file for enhanced media generation prompts
+- **`10.thumbnail.txt`**: Enhanced thumbnail descriptions with detailed visual prompts
+- **Location Generation**: New `locations/` directory with background images
+
+#### Technical Changes
 - **Resolution Constants**: Replaced `IMAGE_MEGAPIXEL` with direct `IMAGE_WIDTH`/`IMAGE_HEIGHT`
 - **Workflow Structure**: Removed `FluxResolutionNode` and `PreviewImage` nodes
 - **LoRA Configuration**: Updated to array format with serial mode support
+- **YouTube Integration**: Enhanced with Shorts support and improved metadata generation
 
 ## 📊 Current System State Summary
 
@@ -2073,15 +2099,17 @@ This is a modular system designed for easy extension. Each script is self-contai
 - **Active Scripts**: All 13 scripts active (full pipeline enabled)
 - **Resumable Scripts**: 5 scripts (`1.character.py`, `2.story.py`, `5.timeline.py`, `6.timing.py`, `7.sfx.py`)
 - **Requires ComfyUI**: 3 scripts (`2.story.py`, `7.sfx.py`, `10.thumbnail.py`)
-- **Requires LM Studio**: 5 scripts (`1.character.py`, `5.timeline.py`, `6.timing.py`, `9.description.py`, `12.media.py`)
+- **Requires LM Studio**: 5 scripts (`1.character.py`, `5.timeline.py`, `6.timing.py`, `9.media.py`, `12.youtube.py`)
+- **New Features**: YouTube Shorts generation, enhanced metadata creation, story summary integration
 
 #### Image Pipeline (`gen.image/generate.py`)
 - **Total Scripts**: 7 scripts (6 generation + 1 cross-pipeline script)
 - **Active Scripts**: 1 script (`2.character.py` - character generation only)
-- **Available Script**: `2.location.py` (location background generation with resumable support)
+- **Available Scripts**: `2.location.py` (location background generation with resumable support)
 - **Resumable Scripts**: 4 scripts (`1.story.py`, `2.character.py`, `2.location.py`, `3.scene.py`)
 - **Requires ComfyUI**: 4 scripts (`2.character.py`, `2.location.py`, `3.scene.py`)
 - **Requires LM Studio**: 1 script (`1.story.py`)
+- **New Features**: Location background generation, extensive LoRA processing, latent input modes
 
 #### Video Pipeline (`gen.video/generate.py`)
 - **Total Scripts**: 3 scripts (all available, currently all commented out)
@@ -2124,10 +2152,11 @@ This is a modular system designed for easy extension. Each script is self-contai
 - **Video**: Scene images, timeline scripts
 
 #### Output Files
-- **Audio**: `story.wav`, `sfx.wav`, `final.wav`, `final.mp4`, `thumbnail.png`
-- **Image**: `characters/*.png`, `locations/*.png` (NEW), `scene/*.png`, `video/*.mp4`
+- **Audio**: `story.wav`, `sfx.wav`, `final.wav`, `final.mp4`, `thumbnail.png`, `shorts.v1-v5.mp4` (YouTube Shorts)
+- **Image**: `characters/*.png`, `locations/*.png` (NEW), `scene/*.png`, `lora/*.png` (extensive LoRA results)
 - **Video**: `animation/*.mp4`, `final_sd.mp4`
 - **Tracking**: 10 checkpoint files across 3 pipelines
+- **YouTube**: `description.txt`, `tags.txt` (enhanced metadata generation)
 
 ### Model Configuration
 - **LM Studio Model**: `qwen3-30b-a3b-instruct-2507` (14B parameter language model)
@@ -2146,4 +2175,4 @@ This is a modular system designed for easy extension. Each script is self-contai
 
 **Note**: This system requires significant computational resources. For optimal performance, use a CUDA-compatible GPU with 8GB+ VRAM and ensure adequate cooling during extended generation sessions. The resumable processing system allows for safe interruption and recovery of long-running operations, making it suitable for extended generation sessions across multiple days.
 
-**Last Updated**: December 2024 - Comprehensive documentation of all scripts, constants, configurations, input/output files, and resumable logic.
+**Last Updated**: December 2024 - Enhanced with YouTube Shorts support, location generation, script reorganization, and expanded resumable processing capabilities.

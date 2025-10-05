@@ -35,7 +35,7 @@ class DiffusionPromptGenerator:
             f.write(content)
 
     def _build_system_prompt(self) -> str:
-        return """You are a visual director CREATIVELY generating one Image Generation Model Prompt of 300-500 words for the following STORY TITLE/DESCRIPTION.
+        return """You are a visual director CREATIVELY generating one Image Generation Model Prompt for Thumbnail within the word limit of 300-350 words from the following story summary.
         
         CONSTRAINTS: 
          - highly specific spatial and material details, and technical quality flags. 
@@ -47,10 +47,10 @@ class DiffusionPromptGenerator:
          - all object positions using directional terms (left wall, center focus, far background)
          - precise material descriptions for textures and surfaces (dark oak, brass fittings, weathered leather)
 
-        Ensure every element supports the story and maintains spatial clarity and visual coherence. Output must be a CREATIVELY generated single continuous paragraph of 300-500 words without line breaks."""
+        Ensure every element supports the story and maintains spatial clarity and visual coherence. Output must be a CREATIVELY generated single continuous paragraph within the word limit of 300-350 words without line breaks."""
 
     def _build_user_prompt(self, story_desc: str) -> str:
-        return f"""STORY TITLE/DESCRIPTION: {story_desc}"""
+        return f"""STORY SUMMARY: {story_desc}"""
 
     def _call_lm_studio(self, system_prompt: str, user_prompt: str) -> str:
         headers = {"Content-Type": "application/json"}
