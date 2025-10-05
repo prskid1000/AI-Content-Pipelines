@@ -262,7 +262,7 @@ class YouTubeDescriptionGenerator:
         }
         if response_format is not None:
             body["response_format"] = response_format
-        resp = requests.post(f"{self.lm_studio_url}/chat/completions", headers=headers, json=body, timeout=60)
+        resp = requests.post(f"{self.lm_studio_url}/chat/completions", headers=headers, json=body)
         if resp.status_code != 200:
             raise RuntimeError(f"LM Studio API error: {resp.status_code} {resp.text}")
         data = resp.json()
@@ -289,15 +289,33 @@ class YouTubeDescriptionGenerator:
                 "schema": {
                     "type": "object",
                     "additionalProperties": False,
+                    "description": "Tags for a YouTube video",
+                    "maxLength": 500,
+                    "minLength": 475,
                     "properties": {
-                        "tags": {
+                        "core_sherlock_holmes_terms": {
+                            "type": "array",
+                            "items": {"type": "string"},
+                            "minItems": 15,
+                            "maxItems": 10,
+                            "description": "Core Sherlock Holmes Story terms"
+                        },
+                        "audience_targeting": {
                             "type": "array",
                             "items": {"type": "string"},
                             "minItems": 30,
-                            "maxItems": 36,
+                            "maxItems": 30,
+                            "description": "Tags targeting mystery fans, audiobook listeners, commuters"
+                        },
+                        "story_specific_elements": {
+                            "type": "array",
+                            "items": {"type": "string"},
+                            "minItems": 15,
+                            "maxItems": 15,
+                            "description": "Story-specific plot and character elements"
                         }
                     },
-                    "required": ["tags"],
+                    "required": ["core_sherlock_holmes_terms", "audience_targeting", "audio_format_appeal", "story_specific_elements"],
                 },
                 "strict": True,
             },
@@ -306,25 +324,27 @@ class YouTubeDescriptionGenerator:
     def _gen_tags_initial(self, title: str, summary: str) -> List[str]:
         sys = (
             "TASK: Using the story title and summary, create 60 YouTube tags for an audio story channel.\n"
-            "REQUIREMENTS:\n"
-            "- Total tags string must be 650 characters (target).\n"
             "- No repeated words across all tags.\n"
             "- Include story-specific characters/plot elements.\n"
             "- Target: mystery fans, audiobook listeners, commuters.\n"
             "- Mix popular + niche terms for discovery.\n"
             "- Two/One word tags only.\n\n"
-            "TAG PRIORITIES:\n"
-            "- Core Sherlock Holmes Story terms (10 tags).\n"
-            "- Audience targeting (20 tags).\n"
-            "- Audio format appeal (20 tags).\n"
-            "- Story-specific elements (10 tags).\n\n"
-            "Return JSON with an array 'tags' of 30–36 strings; no commentary."
+            "- core_sherlock_holmes_terms: 15 tags (Sherlock Holmes, Watson, detective, mystery, etc.)\n"
+            "- audience_targeting: 20 tags (audiobook, podcast, commute, bedtime story, etc.)\n"
+            "- story_specific_elements: 15 tags (specific plot points, characters, locations from the story)\n\n"
+            "Return JSON with the four arrays as specified in the schema; no commentary."
         )
         payload = {"title": title, "summary": summary}
         raw = self._call_lm_studio(sys, json.dumps(payload, ensure_ascii=False), response_format=self._schema_tags(), model=MODEL_MEDIA_TAGS)
         obj = self._parse_structured_response(raw) or {}
-        tags = obj.get("tags") or []
-        return [str(t).strip() for t in tags if str(t).strip()]
+        
+        # Combine all tag categories into a single list
+        all_tags = []
+        for category in ["core_sherlock_holmes_terms", "audience_targeting", "audio_format_appeal", "story_specific_elements"]:
+            category_tags = obj.get(category, [])
+            all_tags.extend([str(t).strip() for t in category_tags if str(t).strip()])
+        
+        return all_tags
 
     def _normalize_and_trim_tags(self, tags: List[str]) -> List[str]:
         # enforce one/two words, remove duplicates, keep order
