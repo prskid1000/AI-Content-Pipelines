@@ -125,9 +125,6 @@ class ResumableState:
                 print(f"WARNING: Failed to remove checkpoint for force start: {ex}")
         
         self.state = self._load_state()
-        
-        # Always save initial state to ensure file is created
-        self._save_state()
     
     def _load_state(self) -> dict:
         """Load state from checkpoint file."""
@@ -231,6 +228,26 @@ class ResumableState:
         if shorts_thumbnail_key not in self.state["thumbnails"]["completed"]:
             self.state["thumbnails"]["completed"].append(shorts_thumbnail_key)
         self._save_state()
+    
+    def get_lora_progress(self, thumbnail_key: str) -> dict:
+        """Get LoRA progress for a thumbnail."""
+        return self.state.get("lora_progress", {}).get(thumbnail_key, {})
+    
+    def set_lora_progress(self, thumbnail_key: str, progress: dict):
+        """Set LoRA progress for a thumbnail."""
+        if "lora_progress" not in self.state:
+            self.state["lora_progress"] = {}
+        self.state["lora_progress"][thumbnail_key] = progress
+        self._save_state()
+    
+    def cleanup_lora_progress(self, thumbnail_key: str):
+        """Clean up LoRA progress for a completed thumbnail."""
+        if "lora_progress" in self.state and thumbnail_key in self.state["lora_progress"]:
+            del self.state["lora_progress"][thumbnail_key]
+            if not self.state["lora_progress"]:
+                del self.state["lora_progress"]
+            self._save_state()
+            print(f"Cleaned up LoRA progress for {thumbnail_key}")
     
     def cleanup(self):
         """Clean up tracking files based on configuration setting."""
@@ -1211,9 +1228,35 @@ class ThumbnailProcessor:
                 return None
             
             current_image_path = None
+            intermediate_paths = []
+            
+            # Check for existing LoRA progress if resumable mode enabled
+            lora_progress_key = f"thumbnail{".shorts" if shorts else ""}{variation_number}"
+            if resumable_state:
+                lora_progress = resumable_state.get_lora_progress(lora_progress_key)
+                completed_loras = lora_progress.get("completed_loras", [])
+                current_image_path = lora_progress.get("current_image_path")
+                intermediate_paths = lora_progress.get("intermediate_paths", [])
+                
+                if completed_loras:
+                    print(f"Resuming from LoRA {len(completed_loras) + 1}/{len(enabled_loras)}")
+                    if current_image_path and os.path.exists(current_image_path):
+                        print(f"Using previous LoRA output: {current_image_path}")
+                    else:
+                        print("Previous LoRA output missing, restarting from LoRA 1")
+                        completed_loras = []
+                        current_image_path = None
+                        intermediate_paths = []
+            else:
+                completed_loras = []
             
             # Process each LoRA in sequence, using previous output as input
             for i, lora_config in enumerate(enabled_loras):
+                # Skip already completed LoRAs
+                if i < len(completed_loras):
+                    print(f"\nSkipping LoRA {i + 1}/{len(enabled_loras)}: {lora_config['name']} (already completed)")
+                    continue
+                    
                 print(f"\nProcessing LoRA {i + 1}/{len(enabled_loras)}: {lora_config['name']}")
                 
                 # Load base workflow for this LoRA
@@ -1312,11 +1355,23 @@ class ThumbnailProcessor:
                 # Save result to lora folder (save final result from each LoRA)
                 lora_final_path = os.path.join(self.intermediate_output_dir, f"thumbnail{".shorts" if shorts else ""}{variation_number}.{lora_clean_name}.png")
                 shutil.copy2(generated_image, lora_final_path)
+                intermediate_paths.append(lora_final_path)
                 print(f"  Saved LoRA result: {lora_final_path}")
                 
                 # Use this output as input for next LoRA
                 current_image_path = generated_image
                 print(f"  LoRA {i + 1} completed successfully")
+                
+                # Save progress after each LoRA completion
+                if resumable_state:
+                    completed_loras.append(i)
+                    lora_progress = {
+                        "completed_loras": completed_loras,
+                        "current_image_path": current_image_path,
+                        "intermediate_paths": intermediate_paths,
+                        "lora_configs": {str(j): enabled_loras[j] for j in range(len(enabled_loras))}
+                    }
+                    resumable_state.set_lora_progress(lora_progress_key, lora_progress)
             
             if not current_image_path:
                 print(f"ERROR: No successful LoRA generations for thumbnail")
@@ -1341,7 +1396,8 @@ class ThumbnailProcessor:
                         'path': output_path,
                         'thumbnail_key': thumbnail_key,
                         'shorts': shorts,
-                        'variation_number': variation_number
+                        'variation_number': variation_number,
+                        'intermediate_paths': intermediate_paths
                     }
                     resumable_state.set_shorts_thumbnail_result(thumbnail_key, shorts_result)
                 else:
@@ -1351,9 +1407,13 @@ class ThumbnailProcessor:
                         'path': output_path,
                         'thumbnail_key': f"thumbnail{variation_number}",
                         'shorts': shorts,
-                        'variation_number': variation_number
+                        'variation_number': variation_number,
+                        'intermediate_paths': intermediate_paths
                     }
                     resumable_state.set_thumbnail_variation("thumbnail", var_key, variation_result)
+                
+                # Keep LoRA progress for completed thumbnail (not cleaning up)
+                print(f"  Preserved LoRA progress for completed thumbnail")
             
             print(f"Saved: {output_path}")
             return output_path
@@ -1580,7 +1640,8 @@ class ThumbnailProcessor:
                         'path': final_path,
                         'thumbnail_key': thumbnail_key,
                         'shorts': shorts,
-                        'variation_number': variation_number
+                        'variation_number': variation_number,
+                        'intermediate_paths': []  # Empty for non-serial modes
                     }
                     resumable_state.set_shorts_thumbnail_result(thumbnail_key, shorts_result)
                 else:
@@ -1590,7 +1651,8 @@ class ThumbnailProcessor:
                         'path': final_path,
                         'thumbnail_key': f"thumbnail{variation_number}",
                         'shorts': shorts,
-                        'variation_number': variation_number
+                        'variation_number': variation_number,
+                        'intermediate_paths': []  # Empty for non-serial modes
                     }
                     resumable_state.set_thumbnail_variation("thumbnail", var_key, variation_result)
             
