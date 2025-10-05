@@ -21,11 +21,11 @@ WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary print
 VARIATIONS_PER_CHARACTER = 1  # Number of variations to generate per character (in addition to original)
 
 # Image Resolution Constants
-IMAGE_WIDTH = 1280
-IMAGE_HEIGHT = 720
+IMAGE_WIDTH = 472
+IMAGE_HEIGHT = 632
 
 # Latent Input Mode Configuration
-LATENT_MODE = "IMAGE"  # "LATENT" for normal noise generation, "IMAGE" for load image input
+LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
 IMAGE_LATENT_SIZE = "medium"
 LATENT_DENOISING_STRENGTH = 0.85  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 

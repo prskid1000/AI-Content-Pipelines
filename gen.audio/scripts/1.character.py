@@ -527,8 +527,8 @@ class CharacterManager:
         payload = {
             "model": model,
             "messages": [
-                {"role": "system", "content": system_prompt + "\n/no_think"},
-                {"role": "user", "content": user_prompt + "\n/no_think"},
+                {"role": "system", "content": system_prompt + "\nOnly use English Language for Input, Thinking, abd Output\n/no_think"},
+                {"role": "user", "content": user_prompt + "\nOnly use English Language for Input, Thinking, abd Output\n/no_think"},
             ],
             "temperature": 1,
             "stream": False,
