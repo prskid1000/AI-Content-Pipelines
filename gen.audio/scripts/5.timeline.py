@@ -195,11 +195,11 @@ RULES:
 - You must output only sound descriptions, any other sensory descriptions like visual, touch, smell, taste, etc. are not allowed;use "Silence".
 - Return only JSON matching the schema.
 
-OUTPUT: JSON with sound_or_silence_description field only."""
+OUTPUT: JSON with sound_or_silence_description field only. Only use English Language\n/no_think"""
                     },
                     {
                         "role": "user",
-                        "content": f"{prompt}\n/no_think"
+                        "content": f"{prompt}\nOnly use English Language\n/no_think"
                     }
                 ],
                 "temperature": 1,

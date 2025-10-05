@@ -57,8 +57,8 @@ class DiffusionPromptGenerator:
         payload = {
             "model": self.model,
             "messages": [
-                {"role": "system", "content": system_prompt + "\n/no_think"},
-                {"role": "user", "content": user_prompt + "\n/no_think"},
+                {"role": "system", "content": system_prompt + "\nOnly use English Language\n/no_think"},
+                {"role": "user", "content": user_prompt + "\nOnly use English Language\n/no_think"},
             ],
             "temperature": 1,
             "stream": False,
@@ -254,8 +254,8 @@ class YouTubeDescriptionGenerator:
         body = {
             "model": model or self.model,
             "messages": [
-                {"role": "system", "content": system_prompt + "\n/no_think"},
-                {"role": "user", "content": user_payload + "\n/no_think"},
+                {"role": "system", "content": system_prompt + "\nOnly use English Language\n/no_think"},
+                {"role": "user", "content": user_payload + "\nOnly use English Language\n/no_think"},
             ],
             "temperature": 1,
             "stream": False,

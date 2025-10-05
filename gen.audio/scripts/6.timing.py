@@ -233,11 +233,11 @@ IMPORTANT RULES:
 - Consider word count and context - match sound to action/description portion
 - Be realistic about physics (footsteps = 1-2s, door knock = 0.5s, etc.)
 
-OUTPUT: JSON with realistic_duration_seconds and position_float fields."""
+OUTPUT: JSON with realistic_duration_seconds and position_float fields. Only use English Language\n/no_think"""
                     },
                     {
                         "role": "user",
-                        "content": f"{prompt}\n/no_think"
+                        "content": f"{prompt}\nOnly use English Language\n/no_think"
                     }
                 ],
                 "temperature": 1,
