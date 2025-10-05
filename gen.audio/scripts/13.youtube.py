@@ -185,11 +185,11 @@ def upload_video(youtube_service, video_file_path, title, description, tags):
         print(f"❌ Unexpected error during upload: {e}")
         return None
 
-def find_shorts_videos(output_dir: str) -> list[str]:
-    """Find all shorts video files in the output directory."""
+def find_shorts_videos(shorts_dir: str) -> list[str]:
+    """Find all shorts video files in the specified directory."""
     shorts_videos = []
     for i in range(1, 6):  # shorts.v1.mp4 through shorts.v5.mp4
-        video_path = os.path.join(output_dir, f"shorts.v{i}.mp4")
+        video_path = os.path.join(shorts_dir, f"shorts.v{i}.mp4")
         if os.path.exists(video_path):
             shorts_videos.append(video_path)
     return shorts_videos
@@ -205,9 +205,9 @@ def create_shorts_description(description: str, shorts_num: int) -> str:
     shorts_desc = f"🎬 Shorts Version {shorts_num} - {description}\n\n#Shorts #YouTubeShorts"
     return shorts_desc
 
-def upload_shorts_videos(youtube_service, output_dir: str, base_title: str, base_description: str, tags: list) -> list[str]:
+def upload_shorts_videos(youtube_service, shorts_dir: str, base_title: str, base_description: str, tags: list) -> list[str]:
     """Upload all shorts videos to YouTube."""
-    shorts_videos = find_shorts_videos(output_dir)
+    shorts_videos = find_shorts_videos(shorts_dir)
     
     if not shorts_videos:
         print("No shorts videos found to upload.")
@@ -245,6 +245,7 @@ def upload_shorts_videos(youtube_service, output_dir: str, base_title: str, base
 def main():
     parser = argparse.ArgumentParser(description='Upload video to YouTube')
     parser.add_argument('--video-file', required=True, help='Path to the video file to upload')
+    parser.add_argument('--shorts-dir', help='Directory containing shorts videos (default: ../output)')
     parser.add_argument('--upload-shorts', action='store_true', help='Also upload shorts videos')
     parser.add_argument('--shorts-only', action='store_true', help='Upload only shorts videos (skip main video)')
     
@@ -307,8 +308,22 @@ def main():
         
         # Upload shorts videos (if requested or shorts-only mode)
         if args.upload_shorts or args.shorts_only:
-            output_dir = Path(__file__).parent.parent / "output"
-            shorts_video_ids = upload_shorts_videos(youtube_service, str(output_dir), title, description, tags)
+            # Use provided shorts directory or default to ../output
+            if args.shorts_dir:
+                shorts_dir = args.shorts_dir
+            else:
+                shorts_dir = str(Path(__file__).parent.parent / "output")
+            
+            # Validate shorts directory exists
+            if not os.path.exists(shorts_dir):
+                print(f"Error: Shorts directory '{shorts_dir}' not found!")
+                sys.exit(1)
+            
+            if not os.path.isdir(shorts_dir):
+                print(f"Error: '{shorts_dir}' is not a directory!")
+                sys.exit(1)
+            
+            shorts_video_ids = upload_shorts_videos(youtube_service, shorts_dir, title, description, tags)
             uploaded_videos.extend(shorts_video_ids)
             
             if shorts_video_ids:

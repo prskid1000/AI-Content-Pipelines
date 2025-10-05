@@ -84,6 +84,7 @@ SCRIPTS = [
     # YouTube
     # "../gen.audio/scripts/9.description.py",
     # "../gen.audio/scripts/10.thumbnail.py",
+    # "../gen.audio/scripts/11.video.py",
     # "../gen.audio/scripts/12.media.py",
     # "../gen.audio/scripts/13.youtube.py"
 ]
@@ -102,7 +103,7 @@ SCRIPT_ARGS = {
     "2.character.py": ["--mode", "flux"],
     "5.timeline.py": ["../input/2.timeline.script.txt"],  # Pass the 2.1.timeline.txt file to 5.timeline.py (relative to gen.audio/scripts/)
     "7.sfx.py": ["--auto-confirm", "y"],  # sfx script auto-confirms by default; passing is harmless
-    "13.youtube.py": ["--video-file", "../../gen.image/output/final_sd.mp4"],
+    "13.youtube.py": ["--video-file", "../../gen.image/output/final_sd.mp4", "--upload-shorts", "--shorts-dir", "../../gen.audio/output/shorts"],
 }
 
 
