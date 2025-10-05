@@ -190,7 +190,8 @@ class TimelineSFXGenerator:
 RULES:
 - Keep descriptions under 12 words, concrete, specific, unambiguous, descriptive(pitch, amplitude, timbre, sonance, frequency, etc.) and present tense.
 - If no clear Sound related words or an important Action/Object that is producing or can produce sound is present in the transcript line, use 'Silence'; invent nothing yourself.
-- No speech, lyrics, music, or vocal sounds allowed;use "Silence". May generate sounds(Diegetic/Non-diegetic) like atmosphere/ambience/background/noise/foley deduced from the transcript line.
+- No speech, lyrics, music, or vocal sounds allowed;use "Silence". 
+- Generate sounds(Diegetic/Non-diegetic) like atmosphere/ambience/background/noise/foley deduced from the transcript line, when relevant.
 - You must output only sound descriptions, any other sensory descriptions like visual, touch, smell, taste, etc. are not allowed;use "Silence".
 - Return only JSON matching the schema.
 
