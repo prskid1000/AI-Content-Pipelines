@@ -829,7 +829,7 @@ def _build_location_summary_user_prompt(location_id: str, detailed_description: 
 
 def _call_lm_studio(system_prompt: str, user_prompt: str, lm_studio_url: str, model: str, response_format: dict[str, object] | None = None, temperature: float = 1.0) -> str:
     headers = {"Content-Type": "application/json"}
-    messages = [{"role": "system", "content": system_prompt + "\nOnly use English Language for Input, Thinking, abd Output\n/no_think"}, {"role": "user", "content": user_prompt + "\nOnly use English Language for Input, Thinking, abd Output\n/no_think"}]
+    messages = [{"role": "system", "content": system_prompt + "\nOnly use English Language for Input, Thinking, and Output\n/no_think"}, {"role": "user", "content": user_prompt + "\nOnly use English Language for Input, Thinking, and Output\n/no_think"}]
     payload = {
         "model": model,
         "messages": messages,
