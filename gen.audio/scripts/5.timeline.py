@@ -10,7 +10,7 @@ from pathlib import Path
 print = partial(_builtins.print, flush=True)
 
 # Model constants for easy switching
-MODEL_TIMELINE_GENERATION = "qwen3-30b-a3b-instruct-2507"  # Model for timeline SFX generation
+MODEL_TIMELINE_GENERATION = "qwen3-30b-a3b"  # Model for timeline SFX generation
 
 # Feature flags
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode

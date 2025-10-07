@@ -10,11 +10,11 @@ import builtins as _builtins
 print = partial(_builtins.print, flush=True)
 
 # Model constants for easy switching
-MODEL_MEDIA_TAGS = "qwen3-30b-a3b-instruct-2507"  # Model for generating YouTube tags
-MODEL_MEDIA_TITLE = "qwen3-30b-a3b-instruct-2507"  # Model for generating YouTube titles
-MODEL_MEDIA_HOOK = "qwen3-30b-a3b-instruct-2507"  # Model for generating YouTube hooks
-MODEL_MEDIA_BULLETS = "qwen3-30b-a3b-instruct-2507"  # Model for generating YouTube bullet points
-MODEL_DESCRIPTION_GENERATION = "qwen3-30b-a3b-instruct-2507"  # Model for description generation
+MODEL_MEDIA_TAGS = "qwen3-30b-a3b"  # Model for generating YouTube tags
+MODEL_MEDIA_TITLE = "qwen3-30b-a3b"  # Model for generating YouTube titles
+MODEL_MEDIA_HOOK = "qwen3-30b-a3b"  # Model for generating YouTube hooks
+MODEL_MEDIA_BULLETS = "qwen3-30b-a3b"  # Model for generating YouTube bullet points
+MODEL_DESCRIPTION_GENERATION = "qwen3-30b-a3b"  # Model for description generation
 class DiffusionPromptGenerator:
     def __init__(self, lm_studio_url: str = "http://localhost:1234/v1", model: str = MODEL_DESCRIPTION_GENERATION):
         self.lm_studio_url = lm_studio_url
