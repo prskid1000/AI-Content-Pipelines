@@ -1229,7 +1229,7 @@ def _generate_story_summary(story_content: str, lm_studio_url: str, resumable_st
                 raise RuntimeError(f"Plot Summary {i+1} missing title or summary")
             
             # Validate each part's character count
-            _validate_character_count(summary, STORY_DESCRIPTION_CHARACTER_MIN, STORY_DESCRIPTION_CHARACTER_MAX)
+            _validate_character_count(summary, STORY_DESCRIPTION_CHARACTER_MIN // STORY_DESCRIPTION_PARTS, STORY_DESCRIPTION_CHARACTER_MAX // STORY_DESCRIPTION_PARTS)
             
             # Add to combined story description
             story_desc += f"Plot Summary {i+1}: {title}\n{summary}\n\n"

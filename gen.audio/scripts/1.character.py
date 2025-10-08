@@ -563,6 +563,21 @@ class CharacterManager:
         except Exception as e:
             raise RuntimeError(f"LM Studio API call failed: {str(e)}")
 
+    def _validate_character_count(self, text: str, min_chars: int, max_chars: int) -> bool:
+        """Validate that text meets character count requirements."""
+        char_count = len(text)
+        word_count = len(text.split())
+        
+        if char_count < min_chars:
+            print(f"WARNING: Summary too short: {char_count} characters (minimum: {min_chars})")
+            return False
+        elif char_count > max_chars:
+            print(f"WARNING: Summary too long: {char_count} characters (maximum: {max_chars})")
+            return False
+        
+        print(f"✓ Summary within limits: {char_count} characters, {word_count} words")
+        return True
+
     def _sanitize_single_paragraph(self, text: str) -> str:
         """Convert text to a single paragraph format"""
         if not text:
@@ -664,19 +679,32 @@ class CharacterManager:
         meta_summary_data = self._parse_meta_summary_response(raw_meta_summary)
         parts = meta_summary_data.get("plot_summaries", [])
         
-        # Calculate total statistics
+        # Calculate character limits per part
+        part_min = STORY_DESCRIPTION_CHARACTER_MIN // STORY_DESCRIPTION_PARTS
+        part_max = STORY_DESCRIPTION_CHARACTER_MAX // STORY_DESCRIPTION_PARTS
+        
+        # Calculate total statistics and validate each part
         total_words = 0
         total_chars = 0
-        for part in parts:
+        for i, part in enumerate(parts, 1):
             summary_text = part.get("long_summary", "")
             total_words += len(summary_text.split())
             total_chars += len(summary_text)
+            
+            # Validate each part's character count
+            print(f"Validating part {i}/{len(parts)}:")
+            self._validate_character_count(summary_text, part_min, part_max)
         
-        print(f"📝 Meta-summary statistics:")
+        print(f"\n📝 Meta-summary statistics:")
         print(f"   🎯 Total Words: {total_words} (target: {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX})")
         print(f"   📏 Total Characters: {total_chars} (target: {STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX})")
         print(f"   📦 Parts: {len(parts)} (expected: {STORY_DESCRIPTION_PARTS})")
         print(f"   ⏱️  Generation time: {generation_time:.2f}s")
+        
+        # Validate total character count
+        print(f"\nValidating total summary:")
+        total_summary = " ".join([p.get("long_summary", "") for p in parts])
+        self._validate_character_count(total_summary, STORY_DESCRIPTION_CHARACTER_MIN, STORY_DESCRIPTION_CHARACTER_MAX)
         
         # Check if within target range
         if STORY_DESCRIPTION_WORD_MIN <= total_words <= STORY_DESCRIPTION_WORD_MAX:
