@@ -16,11 +16,11 @@ WORKFLOW_SUMMARY_ENABLED = False # Set to True to enable workflow summary printi
 
 # Image resizing configuration (characters only)
 # Character image resize factor: 0.125 (12.5% of original size) - Better aspect ratio for stitching
-CHARACTER_RESIZE_FACTOR = 0.5
+CHARACTER_RESIZE_FACTOR = 1
 
 # Image compression configuration
 # JPEG quality: 1-100 (100 = best quality, larger file; 1 = worst quality, smaller file)
-IMAGE_COMPRESSION_QUALITY = 90
+IMAGE_COMPRESSION_QUALITY = 95
 
 # Character prompt handling modes
 # "IMAGE_TEXT" Send character images + character details appended from characters.txt
@@ -76,7 +76,7 @@ LORAS = [
         "enabled": True,          # Set to False to disable this LoRA entirely
         
         # Serial mode specific settings (only used when LORA_MODE = "serial")
-        "steps": 6,               # Sampling steps for this LoRA (serial mode only)
+        "steps": 9,               # Sampling steps for this LoRA (serial mode only)
         "denoising_strength": 1, # Denoising strength (0.0 - 1.0) (serial mode only)
         "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
         "use_only_intermediate": False # Set to True to disable character images and use only intermediate result
@@ -90,7 +90,7 @@ LORAS = [
         "enabled": False,          # Set to False to disable this LoRA entirely
         
         # Serial mode specific settings (only used when LORA_MODE = "serial")
-        "steps": 6,               # Sampling steps for this LoRA (serial mode only)
+        "steps": 9,               # Sampling steps for this LoRA (serial mode only)
         "denoising_strength": 0.1, # Denoising strength (0.0 - 1.0) (serial mode only)
         "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
         "use_only_intermediate": True # Set to True to disable character images and use only intermediate result

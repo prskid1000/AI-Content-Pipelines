@@ -47,7 +47,7 @@ LORAS = [
         "enabled": True,          # Set to False to disable this LoRA entirely
         
         # Serial mode specific settings (only used when LORA_MODE = "serial")
-        "steps": 6,               # Sampling steps for this LoRA (serial mode only)
+        "steps": 9,               # Sampling steps for this LoRA (serial mode only)
         "denoising_strength": 1,  # Denoising strength (0.0 - 1.0) (serial mode only)
         "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
         "use_only_intermediate": False # Set to True to disable character images and use only intermediate result
@@ -61,7 +61,7 @@ LORAS = [
         "enabled": False,          # Set to False to disable this LoRA entirely
         
         # Serial mode specific settings (only used when LORA_MODE = "serial")
-        "steps": 6,               # Sampling steps for this LoRA (serial mode only)
+        "steps": 9,               # Sampling steps for this LoRA (serial mode only)
         "denoising_strength": 0.1, # Denoising strength (0.0 - 1.0) (serial mode only)
         "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
         "use_only_intermediate": True # Set to True to disable character images and use only intermediate result

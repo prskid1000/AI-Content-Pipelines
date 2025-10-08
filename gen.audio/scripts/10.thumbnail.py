@@ -71,28 +71,28 @@ LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for
 LORAS = [
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 3.6,    # Model strength (0.0 - 2.0)
-        "strength_clip": 3.6,     # CLIP strength (0.0 - 2.0)
+        "strength_model": 2.0,    # Model strength (0.0 - 2.0)
+        "strength_clip": 2.0,     # CLIP strength (0.0 - 2.0)
         "bypass_model": False,    # Set to True to bypass model part of this LoRA
         "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
         "enabled": True,          # Set to False to disable this LoRA entirely
         
         # Serial mode specific settings (only used when LORA_MODE = "serial")
-        "steps": 6,               # Sampling steps for this LoRA (serial mode only)
+        "steps": 9,               # Sampling steps for this LoRA (serial mode only)
         "denoising_strength": 1,  # Denoising strength (0.0 - 1.0) (serial mode only)
         "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
         "use_only_intermediate": False # Set to True to disable character images and use only intermediate result
     },
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 3.6,    # Model strength (0.0 - 2.0)
-        "strength_clip": 3.6,     # CLIP strength (0.0 - 2.0)
+        "strength_model": 2.0,    # Model strength (0.0 - 2.0)
+        "strength_clip": 2.0,     # CLIP strength (0.0 - 2.0)
         "bypass_model": False,    # Set to True to bypass model part of this LoRA
         "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
         "enabled": False,          # Set to False to disable this LoRA entirely
         
         # Serial mode specific settings (only used when LORA_MODE = "serial")
-        "steps": 6,               # Sampling steps for this LoRA (serial mode only)
+        "steps": 9,               # Sampling steps for this LoRA (serial mode only)
         "denoising_strength": 0.1, # Denoising strength (0.0 - 1.0) (serial mode only)
         "save_intermediate": True, # Save intermediate results for debugging (serial mode only)
         "use_only_intermediate": True # Set to True to disable character images and use only intermediate result
