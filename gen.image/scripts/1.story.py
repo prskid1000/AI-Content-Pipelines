@@ -706,8 +706,8 @@ def _schema_location_summary() -> dict[str, object]:
 def _schema_story_summary() -> dict[str, object]:
     """JSON schema for story description with 5 parts."""
     # Calculate character limits per part (divide total by 5)
-    part_min = STORY_DESCRIPTION_CHARACTER_MIN // 5
-    part_max = STORY_DESCRIPTION_CHARACTER_MAX // 5
+    part_min = STORY_DESCRIPTION_CHARACTER_MIN // STORY_DESCRIPTION_PARTS
+    part_max = STORY_DESCRIPTION_CHARACTER_MAX // STORY_DESCRIPTION_PARTS
     
     return {
         "type": "json_schema",
@@ -778,12 +778,12 @@ def _build_story_summary_prompt() -> str:
     word_min = STORY_DESCRIPTION_WORD_MIN // STORY_DESCRIPTION_PARTS
     word_max = STORY_DESCRIPTION_WORD_MAX // STORY_DESCRIPTION_PARTS
     return (
-        f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Transform the story into 5 distinct parts, each with a title and detailed summary.\n"
-        f"Each part should be {char_min}-{char_max} characters (approximately {word_min}-{word_max} words).\n"
-        f"Total across all parts: {STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX} characters.\n"
-        f"Each part must include all actors and their roles, all locations and settings, complete chronological events in details for that section.\n"
-        f"Divide the story chronologically into 5 meaningful parts that tell the complete story.\n"
+        f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Transform the story into 5 distinct parts, each with a title, a short summary, and a detailed summary.\n"
+        f"Each part/sub-plot should be {char_min}-{char_max} characters (approximately {word_min}-{word_max} words).\n"
+        f"Divide the story chronologically into {STORY_DESCRIPTION_PARTS} meaningful parts/sub-plots. Total across all parts/sub-plots: {STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX} characters.\n"
+        f"Each part/sub-plot must include all actors and their roles, all locations and settings, complete chronological events in details for that section/sub-plot of story.\n"
     )
+       
 
 def _build_story_summary_user_prompt(story_content: str) -> str:
     """Extract only dialogue lines from story content using existing regex"""
