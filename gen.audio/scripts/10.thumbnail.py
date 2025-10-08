@@ -287,6 +287,12 @@ class ResumableState:
                 self.state["thumbnails"]["completed"].remove(thumbnail_key)
             if thumbnail_key in self.state["thumbnails"]["results"]:
                 del self.state["thumbnails"]["results"][thumbnail_key]
+            
+            # Also clear LoRA progress for this thumbnail
+            lora_progress_key = f"{thumbnail_key}_lora_progress"
+            if "lora_progress" in self.state and lora_progress_key in self.state["lora_progress"]:
+                del self.state["lora_progress"][lora_progress_key]
+                print(f"Precheck: Cleared LoRA progress for {thumbnail_key}")
         
         # Save cleaned state if any changes were made
         if cleaned_count > 0:
@@ -559,9 +565,6 @@ class ThumbnailProcessor:
                 source_output = input_value[1]
                 self._trace_input_flow(workflow, input_name, source_node_id, source_output, sampler_id)
         
-        # Print comprehensive sampler summary
-        self._print_sampler_summary(workflow, sampler_id)
-        
         print(f"{'='*60}\n")
 
     def _trace_input_flow(self, workflow: dict, input_name: str, source_node_id: str, source_output: int, sampler_id: str) -> None:
@@ -642,114 +645,6 @@ class ThumbnailProcessor:
             # Show node parameters
             self._show_node_parameters(node_type, node_inputs, indent + "   ")
 
-    def _build_forward_path(self, workflow: dict, start_node_id: str, end_node_id: str) -> list:
-        """Build a path from start node to end node by tracing forwards."""
-        path = []
-        visited = set()
-        current = start_node_id
-        
-        while current and current not in visited:
-            visited.add(current)
-            path.append(current)
-            
-            if current == end_node_id:
-                break
-                
-            # Find the next node that this node connects to
-            # Look for nodes that have this node as an input
-            found_next = False
-            for node_id, node_data in workflow.items():
-                if node_id != current and node_id not in visited:
-                    node_inputs = node_data.get("inputs", {})
-                    for input_name, input_value in node_inputs.items():
-                        if isinstance(input_value, list) and len(input_value) >= 2:
-                            if input_value[0] == current:
-                                current = node_id
-                                found_next = True
-                                break
-                    if found_next:
-                        break
-            
-            if not found_next:
-                break
-        
-        return path
-
-    def _print_forward_path(self, workflow: dict, path: list, sampler_id: str) -> None:
-        """Print the forward path from source to sampler."""
-        if not path:
-            print("      ❌ No path found")
-            return
-            
-        for i, node_id in enumerate(path):
-            if node_id not in workflow:
-                continue
-                
-            node = workflow[node_id]
-            node_type = node.get("class_type", "Unknown")
-            node_inputs = node.get("inputs", {})
-            
-            # Indent based on position in path
-            indent = "      " + "   " * i
-            
-            if i == 0:
-                # First node (source)
-                print(f"{indent}📤 {node_type}({node_id})")
-            elif i == len(path) - 1:
-                # Last node (sampler)
-                print(f"{indent}📥 {node_type}({node_id})")
-            else:
-                # Middle nodes
-                print(f"{indent}⬇️  {node_type}({node_id})")
-            
-            # Show node parameters
-            self._show_node_parameters(node_type, node_inputs, indent + "   ")
-
-    def _print_sampler_summary(self, workflow: dict, sampler_id: str) -> None:
-        """Print a comprehensive summary of all sampler values and connections."""
-        print(f"\n📊 SAMPLER SUMMARY:")
-        
-        sampler_node = workflow.get(sampler_id, {})
-        sampler_inputs = sampler_node.get("inputs", {})
-        
-        # Core sampler parameters
-        print(f"   🎲 Core Parameters:")
-        print(f"      Steps: {sampler_inputs.get('steps', 'N/A')}")
-        print(f"      Denoising: {sampler_inputs.get('denoise', 'N/A')}")
-        print(f"      Seed: {sampler_inputs.get('seed', 'N/A')}")
-        print(f"      CFG: {sampler_inputs.get('cfg', 'N/A')}")
-        print(f"      Sampler: {sampler_inputs.get('sampler_name', 'N/A')}")
-        print(f"      Scheduler: {sampler_inputs.get('scheduler', 'N/A')}")
-        
-        
-
-    def _trace_node_backwards(self, workflow: dict, node_id: str, target_id: str, depth: int) -> None:
-        """Recursively trace backwards through the workflow graph."""
-        if node_id not in workflow:
-            return
-            
-        node = workflow[node_id]
-        node_type = node.get("class_type", "Unknown")
-        node_inputs = node.get("inputs", {})
-        
-        # Indent based on depth
-        indent = "      " + "   " * depth
-        
-        # Show current node
-        if depth == 0:
-            print(f"      {node_type}({node_id}) → KSampler({target_id})")
-        else:
-            print(f"{indent}⬆️  {node_type}({node_id})")
-        
-        # Show node parameters
-        self._show_node_parameters(node_type, node_inputs, indent + "   ")
-        
-        # Continue tracing backwards for each input
-        for input_name, input_value in node_inputs.items():
-            if isinstance(input_value, list) and len(input_value) >= 2:
-                upstream_node_id = input_value[0]
-                if upstream_node_id in workflow and upstream_node_id != node_id:  # Avoid infinite loops
-                    self._trace_node_backwards(workflow, upstream_node_id, target_id, depth + 1)
 
     def _show_node_parameters(self, node_type: str, node_inputs: dict, indent: str) -> None:
         """Show relevant parameters for a node type."""
