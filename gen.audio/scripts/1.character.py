@@ -15,10 +15,16 @@ LANGUAGE = "en"
 REGION = "in"
 
 # Model constants for easy switching
-MODEL_CHARACTER_CHAPTER_SUMMARY = "magistral-small-2509"  # Model for chapter summarization
-MODEL_CHARACTER_TITLE_GENERATION = "magistral-small-2509"  # Model for story title generation
-MODEL_CHARACTER_META_SUMMARY = "magistral-small-2509"  # Model for meta-summary generation
-MODEL_DESCRIPTION_GENERATION = "magistral-small-2509"  # Model for description generation
+MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen3-30b-a3b-instruct-2507"  # Model for chapter summarization
+MODEL_CHARACTER_TITLE_GENERATION = "qwen3-30b-a3b-instruct-2507"  # Model for story title generation
+MODEL_CHARACTER_META_SUMMARY = "qwen3-30b-a3b-instruct-2507"  # Model for meta-summary generation
+MODEL_DESCRIPTION_GENERATION = "qwen3-30b-a3b-instruct-2507"  # Model for description generation
+
+STORY_DESCRIPTION_CHARACTER_MIN = 7200
+STORY_DESCRIPTION_CHARACTER_MAX = 9600
+STORY_DESCRIPTION_WORD_MIN = 1200
+STORY_DESCRIPTION_WORD_MAX = 1600
+STORY_DESCRIPTION_PARTS = 5
 
 STORY_DESCRIPTION_CHARACTER_MIN = 7200
 STORY_DESCRIPTION_CHARACTER_MAX = 9600
