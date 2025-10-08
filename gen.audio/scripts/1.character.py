@@ -20,10 +20,10 @@ MODEL_CHARACTER_TITLE_GENERATION = "qwen3-30b-a3b-instruct-2507"  # Model for st
 MODEL_CHARACTER_META_SUMMARY = "qwen3-30b-a3b-instruct-2507"  # Model for meta-summary generation
 MODEL_DESCRIPTION_GENERATION = "qwen3-30b-a3b-instruct-2507"  # Model for description generation
 
-STORY_DESCRIPTION_CHARACTER_MIN = 1800
-STORY_DESCRIPTION_CHARACTER_MAX = 2160
-STORY_DESCRIPTION_WORD_MIN = 300
-STORY_DESCRIPTION_WORD_MAX = 360
+STORY_DESCRIPTION_CHARACTER_MIN = 7200
+STORY_DESCRIPTION_CHARACTER_MAX = 9600
+STORY_DESCRIPTION_WORD_MIN = 1200
+STORY_DESCRIPTION_WORD_MAX = 1600
 STORY_DESCRIPTION_PARTS = 5
 
 # Story processing configuration
@@ -627,7 +627,9 @@ class CharacterManager:
 
     def _build_meta_summary_system_prompt(self) -> str:
         return (
-            f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Transform the story into 5 distinct plot summaries each with a title, a short summary, and a long summary.\n"
+            f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Summarize the story into 5 distinct plot summaries each with a title, a short summary, and a long summary.\n"
+            f"The long summary should describe the chronology of all events in the plot. There should absolutely no dialogues in the long summary.\n"
+            f"Use written grammatically correct and complete short english sentences (6-9 words) that are well-structured with clear subject and predicate."
         )
 
     def _build_meta_summary_user_prompt(self, story_content: str) -> str:

@@ -20,10 +20,10 @@ LOCATION_SUMMARY_CHARACTER_MAX = 3000
 LOCATION_SUMMARY_WORD_MIN = 250
 LOCATION_SUMMARY_WORD_MAX = 375
 
-STORY_DESCRIPTION_CHARACTER_MIN = 1800
-STORY_DESCRIPTION_CHARACTER_MAX = 2160
-STORY_DESCRIPTION_WORD_MIN = 300
-STORY_DESCRIPTION_WORD_MAX = 360
+STORY_DESCRIPTION_CHARACTER_MIN = 7200
+STORY_DESCRIPTION_CHARACTER_MAX = 9600
+STORY_DESCRIPTION_WORD_MIN = 1200
+STORY_DESCRIPTION_WORD_MAX = 1600
 STORY_DESCRIPTION_PARTS = 5
 
 # Feature flags
@@ -780,7 +780,9 @@ def _build_character_summary_user_prompt(character_name: str, detailed_descripti
 
 def _build_story_summary_prompt() -> str:
     return (
-        f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Transform the story into 5 distinct plot summaries, each with a title, a short summary, and a detailed summary.\n"
+        f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Summarize the story into 5 distinct plot summaries each with a title, a short summary, and a long summary.\n"
+        f"The long summary should describe the chronology of all events in the plot. There should absolutely no dialogues in the long summary.\n"
+        f"Use written grammatically correct and complete short english sentences (6-9 words) that are well-structured with clear subject and predicate."
     )
        
 
