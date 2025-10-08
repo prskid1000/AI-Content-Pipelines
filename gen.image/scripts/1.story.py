@@ -1061,9 +1061,6 @@ def _generate_structured_descriptions(
         
         print(f"({idx}/{total}) {item_id}: generating structured description...")
 
-
-        print(f"Prompt: {items}")
-
         prompt = prompt_func()
         user_prompt = user_prompt_func(story_desc, item_id, items)
         
