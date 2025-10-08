@@ -20,10 +20,10 @@ MODEL_CHARACTER_TITLE_GENERATION = "qwen3-30b-a3b-instruct-2507"  # Model for st
 MODEL_CHARACTER_META_SUMMARY = "qwen3-30b-a3b-instruct-2507"  # Model for meta-summary generation
 MODEL_DESCRIPTION_GENERATION = "qwen3-30b-a3b-instruct-2507"  # Model for description generation
 
-STORY_DESCRIPTION_CHARACTER_MIN = 21600
-STORY_DESCRIPTION_CHARACTER_MAX = 21900
-STORY_DESCRIPTION_WORD_MIN = 3600
-STORY_DESCRIPTION_WORD_MAX = 3650
+STORY_DESCRIPTION_CHARACTER_MIN = 1800
+STORY_DESCRIPTION_CHARACTER_MAX = 2160
+STORY_DESCRIPTION_WORD_MIN = 300
+STORY_DESCRIPTION_WORD_MAX = 360
 STORY_DESCRIPTION_PARTS = 5
 
 # Story processing configuration
@@ -481,7 +481,7 @@ class CharacterManager:
                     "type": "object",
                     "additionalProperties": False,
                     "properties": {
-                        "parts": {
+                        "plot_summaries": {
                             "type": "array",
                             "minItems": STORY_DESCRIPTION_PARTS,
                             "maxItems": STORY_DESCRIPTION_PARTS,
@@ -501,18 +501,18 @@ class CharacterManager:
                                         "maxLength": 200,
                                         "description": "Short summary of this part of the story (20-200 characters)"
                                     },
-                                    "plot_summary": {
+                                    "long_summary": {
                                         "type": "string",
                                         "minLength": part_min,
                                         "maxLength": part_max,
                                         "description": f"Detailed summary of this part of the story ({part_min}-{part_max} characters)"
                                     }
                                 },
-                                "required": ["title", "short_summary", "plot_summary"]
+                                "required": ["title", "short_summary", "long_summary"]
                             }
                         }
                     },
-                    "required": ["parts"]
+                    "required": ["plot_summaries"]
                 },
                 "strict": True
             }
@@ -626,15 +626,8 @@ class CharacterManager:
 
 
     def _build_meta_summary_system_prompt(self) -> str:
-        char_min = STORY_DESCRIPTION_CHARACTER_MIN // STORY_DESCRIPTION_PARTS
-        char_max = STORY_DESCRIPTION_CHARACTER_MAX // STORY_DESCRIPTION_PARTS
-        word_min = STORY_DESCRIPTION_WORD_MIN // STORY_DESCRIPTION_PARTS
-        word_max = STORY_DESCRIPTION_WORD_MAX // STORY_DESCRIPTION_PARTS
         return (
-            f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Transform the story into 5 distinct parts, each with a title, a short summary, and a detailed summary.\n"
-            f"Each part/sub-plot should be {char_min}-{char_max} characters (approximately {word_min}-{word_max} words).\n"
-            f"Divide the story chronologically into {STORY_DESCRIPTION_PARTS} meaningful parts/sub-plots. Total across all parts/sub-plots: {STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX} characters.\n"
-            f"Each part/sub-plot should summarize in third person perspective thats includes all characters, locations, and events in details for that section/sub-plot of story.\n"
+            f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Transform the story into 5 distinct plot summaries each with a title, a short summary, and a long summary.\n"
         )
 
     def _build_meta_summary_user_prompt(self, story_content: str) -> str:
@@ -667,13 +660,13 @@ class CharacterManager:
         
         # Parse structured JSON response
         meta_summary_data = self._parse_meta_summary_response(raw_meta_summary)
-        parts = meta_summary_data.get("parts", [])
+        parts = meta_summary_data.get("plot_summaries", [])
         
         # Calculate total statistics
         total_words = 0
         total_chars = 0
         for part in parts:
-            summary_text = part.get("plot_summary", "")
+            summary_text = part.get("long_summary", "")
             total_words += len(summary_text.split())
             total_chars += len(summary_text)
         
@@ -854,8 +847,8 @@ Generate a JSON response with a "title" field containing your suggested story ti
             # Parse JSON
             json_obj = json.loads(text)
             
-            if isinstance(json_obj, dict) and "parts" in json_obj:
-                parts = json_obj.get("parts", [])
+            if isinstance(json_obj, dict) and "plot_summaries" in json_obj:
+                parts = json_obj.get("plot_summaries", [])
                 
                 # Validate that we have the expected structure
                 if not isinstance(parts, list) or len(parts) == 0:
@@ -863,24 +856,24 @@ Generate a JSON response with a "title" field containing your suggested story ti
                 
                 # Sanitize each part's summaries to single paragraph
                 for part in parts:
-                    if "plot_summary" in part:
-                        part["plot_summary"] = self._sanitize_single_paragraph(part["plot_summary"])
+                    if "long_summary" in part:
+                        part["long_summary"] = self._sanitize_single_paragraph(part["long_summary"])
                     if "short_summary" in part:
                         part["short_summary"] = self._sanitize_single_paragraph(part["short_summary"])
                 
-                return {"parts": parts}
+                return {"plot_summaries": parts}
             else:
-                raise ValueError("JSON response does not contain 'parts' array")
+                raise ValueError("JSON response does not contain 'plot_summaries' array")
             
         except json.JSONDecodeError as e:
             print(f"⚠️  JSON parsing error for meta-summary: {e}")
             print(f"Raw response: {raw_response[:200]}...")
             # Fallback: return empty parts
-            return {"parts": []}
+            return {"plot_summaries": []}
         except Exception as e:
             print(f"⚠️  Error parsing meta-summary response: {e}")
             # Fallback: return empty parts
-            return {"parts": []}
+            return {"plot_summaries": []}
 
     def _save_story_title(self, title: str, output_dir: str):
         """Save the generated story title to 10.title.txt"""

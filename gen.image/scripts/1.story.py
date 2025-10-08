@@ -20,10 +20,10 @@ LOCATION_SUMMARY_CHARACTER_MAX = 3000
 LOCATION_SUMMARY_WORD_MIN = 250
 LOCATION_SUMMARY_WORD_MAX = 375
 
-STORY_DESCRIPTION_CHARACTER_MIN = 6600
-STORY_DESCRIPTION_CHARACTER_MAX = 7200
-STORY_DESCRIPTION_WORD_MIN = 1100
-STORY_DESCRIPTION_WORD_MAX = 1200
+STORY_DESCRIPTION_CHARACTER_MIN = 1800
+STORY_DESCRIPTION_CHARACTER_MAX = 2160
+STORY_DESCRIPTION_WORD_MIN = 300
+STORY_DESCRIPTION_WORD_MAX = 360
 STORY_DESCRIPTION_PARTS = 5
 
 # Feature flags
@@ -717,7 +717,7 @@ def _schema_story_summary() -> dict[str, object]:
                 "type": "object",
                 "additionalProperties": False,
                 "properties": {
-                    "parts": {
+                    "plot_summaries": {
                         "type": "array",
                         "minItems": STORY_DESCRIPTION_PARTS,
                         "maxItems": STORY_DESCRIPTION_PARTS,
@@ -731,18 +731,24 @@ def _schema_story_summary() -> dict[str, object]:
                                     "maxLength": 100,
                                     "description": "Brief descriptive title for this part of the story"
                                 },
-                                "summary": {
+                                "short_summary": {
+                                    "type": "string",
+                                    "minLength": 20,
+                                    "maxLength": 200,
+                                    "description": "Short summary of this part of the story (20-200 characters)"
+                                },
+                                "long_summary": {
                                     "type": "string",
                                     "minLength": part_min,
                                     "maxLength": part_max,
                                     "description": f"Detailed summary of this part of the story ({part_min}-{part_max} characters)"
                                 }
                             },
-                            "required": ["title", "summary"]
+                            "required": ["title", "short_summary", "long_summary"]
                         }
                     }
                 },
-                "required": ["parts"]
+                "required": ["plot_summaries"]
             },
             "strict": True
         }
@@ -773,15 +779,8 @@ def _build_character_summary_user_prompt(character_name: str, detailed_descripti
 
 
 def _build_story_summary_prompt() -> str:
-    char_min = STORY_DESCRIPTION_CHARACTER_MIN // STORY_DESCRIPTION_PARTS
-    char_max = STORY_DESCRIPTION_CHARACTER_MAX // STORY_DESCRIPTION_PARTS
-    word_min = STORY_DESCRIPTION_WORD_MIN // STORY_DESCRIPTION_PARTS
-    word_max = STORY_DESCRIPTION_WORD_MAX // STORY_DESCRIPTION_PARTS
     return (
-        f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Transform the story into 5 distinct parts, each with a title, a short summary, and a detailed summary.\n"
-        f"Each part/sub-plot should be {char_min}-{char_max} characters (approximately {word_min}-{word_max} words).\n"
-        f"Divide the story chronologically into {STORY_DESCRIPTION_PARTS} meaningful parts/sub-plots. Total across all parts/sub-plots: {STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX} characters.\n"
-        f"Each part/sub-plot should summarize in third person perspective thats includes all characters, locations, and events in details for that section/sub-plot of story.\n"
+        f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Transform the story into 5 distinct plot summaries, each with a title, a short summary, and a detailed summary.\n"
     )
        
 
@@ -1213,27 +1212,25 @@ def _generate_story_summary(story_content: str, lm_studio_url: str, resumable_st
         if not structured_data:
             raise RuntimeError("Failed to parse structured story description response")
         
-        parts = structured_data.get("parts", [])
+        parts = structured_data.get("plot_summaries", [])
         if not parts or len(parts) != STORY_DESCRIPTION_PARTS:
             raise RuntimeError("Expected exactly 5 story parts, got " + str(len(parts) if parts else 0))
         
         # Combine all parts into a single story description
         story_desc = ""
-        char_min = STORY_DESCRIPTION_CHARACTER_MIN // STORY_DESCRIPTION_PARTS
-        char_max = STORY_DESCRIPTION_CHARACTER_MAX // STORY_DESCRIPTION_PARTS
         
         for i, part in enumerate(parts):
             title = part.get("title", "").strip()
             summary = part.get("summary", "").strip()
             
             if not title or not summary:
-                raise RuntimeError(f"Part {i+1} missing title or summary")
+                raise RuntimeError(f"Plot Summary {i+1} missing title or summary")
             
             # Validate each part's character count
-            _validate_character_count(summary, char_min, char_max)
+            _validate_character_count(summary, STORY_DESCRIPTION_CHARACTER_MIN, STORY_DESCRIPTION_CHARACTER_MAX)
             
             # Add to combined story description
-            story_desc += f"Part {i+1}: {title}\n{summary}\n\n"
+            story_desc += f"Plot Summary {i+1}: {title}\n{summary}\n\n"
         
         # Validate total character count
         _validate_character_count(story_desc, STORY_DESCRIPTION_CHARACTER_MIN, STORY_DESCRIPTION_CHARACTER_MAX)
