@@ -31,10 +31,10 @@ ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 
 # Model constants for easy switching
-MODEL_STORY_DESCRIPTION = "qwen3-30b-a3b"  # Model for generating story descriptions
-MODEL_CHARACTER_GENERATION = "qwen3-30b-a3b"  # Model for character description generation
-MODEL_CHARACTER_SUMMARY = "qwen3-30b-a3b"  # Model for character summary generation
-MODEL_LOCATION_EXPANSION = "qwen3-30b-a3b"  # Model for location expansion
+MODEL_STORY_DESCRIPTION = "magistral-small-2509"  # Model for generating story descriptions
+MODEL_CHARACTER_GENERATION = "magistral-small-2509"  # Model for character description generation
+MODEL_CHARACTER_SUMMARY = "magistral-small-2509"  # Model for character summary generation
+MODEL_LOCATION_EXPANSION = "magistral-small-2509"  # Model for location expansion
 
 
 # Resumable state management
@@ -706,8 +706,8 @@ def _schema_location_summary() -> dict[str, object]:
 def _schema_story_summary() -> dict[str, object]:
     """JSON schema for story description with 5 parts."""
     # Calculate character limits per part (divide total by 5)
-    part_min = STORY_DESCRIPTION_CHARACTER_MIN // 5
-    part_max = STORY_DESCRIPTION_CHARACTER_MAX // 5
+    part_min = STORY_DESCRIPTION_CHARACTER_MIN // STORY_DESCRIPTION_PARTS
+    part_max = STORY_DESCRIPTION_CHARACTER_MAX // STORY_DESCRIPTION_PARTS
     
     return {
         "type": "json_schema",
@@ -778,12 +778,12 @@ def _build_story_summary_prompt() -> str:
     word_min = STORY_DESCRIPTION_WORD_MIN // STORY_DESCRIPTION_PARTS
     word_max = STORY_DESCRIPTION_WORD_MAX // STORY_DESCRIPTION_PARTS
     return (
-        f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Transform the story into 5 distinct parts, each with a title and detailed summary.\n"
-        f"Each part should be {char_min}-{char_max} characters (approximately {word_min}-{word_max} words).\n"
-        f"Total across all parts: {STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX} characters.\n"
-        f"Each part must include all actors and their roles, all locations and settings, complete chronological events in details for that section.\n"
-        f"Divide the story chronologically into 5 meaningful parts that tell the complete story.\n"
+        f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Transform the story into 5 distinct parts, each with a title, a short summary, and a detailed summary.\n"
+        f"Each part/sub-plot should be {char_min}-{char_max} characters (approximately {word_min}-{word_max} words).\n"
+        f"Divide the story chronologically into {STORY_DESCRIPTION_PARTS} meaningful parts/sub-plots. Total across all parts/sub-plots: {STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX} characters.\n"
+        f"Each part/sub-plot should summarize in third person perspective thats includes all characters, locations, and events in details for that section/sub-plot of story.\n"
     )
+       
 
 def _build_story_summary_user_prompt(story_content: str) -> str:
     """Extract only dialogue lines from story content using existing regex"""
@@ -1530,7 +1530,7 @@ def main() -> int:
         try:
             lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v1")
             
-            # Generate story description from content using qwen3-30b-a3b
+            # Generate story description from content using magistral-small-2509
             story_desc = _generate_story_summary(content, lm_studio_url, resumable_state)
             
             # Generate structured location descriptions

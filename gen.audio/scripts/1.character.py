@@ -15,13 +15,18 @@ LANGUAGE = "en"
 REGION = "in"
 
 # Model constants for easy switching
-MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen3-30b-a3b"  # Model for chapter summarization
-MODEL_CHARACTER_TITLE_GENERATION = "qwen3-30b-a3b"  # Model for story title generation
-MODEL_CHARACTER_META_SUMMARY = "qwen3-30b-a3b"  # Model for meta-summary generation
-MODEL_DESCRIPTION_GENERATION = "qwen3-30b-a3b"  # Model for description generation
+MODEL_CHARACTER_CHAPTER_SUMMARY = "magistral-small-2509"  # Model for chapter summarization
+MODEL_CHARACTER_TITLE_GENERATION = "magistral-small-2509"  # Model for story title generation
+MODEL_CHARACTER_META_SUMMARY = "magistral-small-2509"  # Model for meta-summary generation
+MODEL_DESCRIPTION_GENERATION = "magistral-small-2509"  # Model for description generation
+
+STORY_DESCRIPTION_CHARACTER_MIN = 7200
+STORY_DESCRIPTION_CHARACTER_MAX = 9600
+STORY_DESCRIPTION_WORD_MIN = 1200
+STORY_DESCRIPTION_WORD_MAX = 1600
+STORY_DESCRIPTION_PARTS = 5
 
 # Story processing configuration
-CHUNK_SIZE = 50  # Number of lines per chapter chunk for summarization
 GENERATE_TITLE = True  # Set to False to disable automatic title generation
 
 # Feature flags for resumable mode
@@ -37,7 +42,13 @@ AUTO_LANGUAGE = ""
 
 # Resumable state management
 class ResumableState:
-    """Manages resumable state for expensive LLM operations."""
+    """Manages resumable state for expensive LLM operations.
+    
+    Tracks completion of:
+    - Character voice assignments
+    - Meta-summary generation (contains all chapter data)
+    - Story title generation
+    """
     
     def __init__(self, checkpoint_dir: str, script_name: str, force_start: bool = False):
         self.checkpoint_dir = Path(checkpoint_dir)
@@ -64,7 +75,6 @@ class ResumableState:
                 print(f"WARNING: Failed to load checkpoint state: {ex}")
         return {
             "character_voices": {"completed": False, "result": None},
-            "chapters": {"completed": [], "results": {}},
             "meta_summary": {"completed": False, "result": None},
             "story_title": {"completed": False, "result": None},
             "metadata": {"start_time": time.time(), "last_update": time.time()}
@@ -93,31 +103,16 @@ class ResumableState:
         self.state["character_voices"]["result"] = character_voices
         self._save_state()
     
-    def is_chapter_complete(self, chapter_number: int) -> bool:
-        """Check if specific chapter summary is complete."""
-        return chapter_number in self.state["chapters"]["completed"]
-    
-    def get_chapter_result(self, chapter_number: int) -> dict | None:
-        """Get cached chapter result if available."""
-        return self.state["chapters"]["results"].get(str(chapter_number))
-    
-    def set_chapter_result(self, chapter_number: int, chapter_data: dict):
-        """Set chapter result and mark as complete."""
-        if chapter_number not in self.state["chapters"]["completed"]:
-            self.state["chapters"]["completed"].append(chapter_number)
-        self.state["chapters"]["results"][str(chapter_number)] = chapter_data
-        self._save_state()
-    
     def is_meta_summary_complete(self) -> bool:
         """Check if meta-summary generation is complete."""
         return self.state["meta_summary"]["completed"]
     
-    def get_meta_summary(self) -> str | None:
-        """Get cached meta-summary if available."""
+    def get_meta_summary(self) -> dict | None:
+        """Get cached meta-summary (dict with parts) if available."""
         return self.state["meta_summary"]["result"]
     
-    def set_meta_summary(self, meta_summary: str):
-        """Set meta-summary and mark as complete."""
+    def set_meta_summary(self, meta_summary: dict):
+        """Set meta-summary (dict with parts) and mark as complete."""
         self.state["meta_summary"]["completed"] = True
         self.state["meta_summary"]["result"] = meta_summary
         self._save_state()
@@ -150,14 +145,11 @@ class ResumableState:
     def get_progress_summary(self) -> str:
         """Get a summary of current progress."""
         voices_done = "✓" if self.is_character_voices_complete() else "✗"
-        chapters_done = len(self.state["chapters"]["completed"])
-        chapters_total = len(self.state["chapters"]["results"]) + len([k for k in self.state["chapters"]["results"].keys() if int(k) not in self.state["chapters"]["completed"]])
         meta_done = "✓" if self.is_meta_summary_complete() else "✗"
         title_done = "✓" if self.is_story_title_complete() else "✗"
         
         return (
-            f"Progress: Voices({voices_done}) Chapters({chapters_done}/{chapters_total}) "
-            f"Meta({meta_done}) Title({title_done})"
+            f"Progress: Voices({voices_done}) Meta-Summary({meta_done}) Title({title_done})"
         )
 
 def load_available_voices(language=LANGUAGE, region=REGION):
@@ -456,25 +448,6 @@ class CharacterManager:
         """Set character voice assignments"""
         self.character_voices.update(voices_dict)
     
-    def _build_chapter_response_format(self) -> dict:
-        """Build JSON Schema response format for chapter title and summary generation"""
-        return {
-            "type": "json_schema",
-            "json_schema": {
-                "name": "chapter_analysis",
-                "schema": {
-                    "type": "object",
-                    "additionalProperties": False,
-                    "properties": {
-                        "title": {"type": "string"},
-                        "summary": {"type": "string"},
-                        "short_summary": {"type": "string"}
-                    },
-                    "required": ["title", "summary", "short_summary"]
-                },
-                "strict": True
-            }
-        }
 
     def _build_story_title_response_format(self) -> dict:
         """Build JSON Schema response format for story title generation"""
@@ -495,18 +468,51 @@ class CharacterManager:
         }
 
     def _build_meta_summary_response_format(self) -> dict:
-        """Build JSON Schema response format for meta-summary generation"""
+        """JSON schema for story description with 5 parts."""
+        # Calculate character limits per part (divide total by 5)
+        part_min = STORY_DESCRIPTION_CHARACTER_MIN // STORY_DESCRIPTION_PARTS
+        part_max = STORY_DESCRIPTION_CHARACTER_MAX // STORY_DESCRIPTION_PARTS
+        
         return {
             "type": "json_schema",
             "json_schema": {
-                "name": "meta_summary",
+                "name": "story_summary",
                 "schema": {
                     "type": "object",
                     "additionalProperties": False,
                     "properties": {
-                        "summary": {"type": "string"}
+                        "parts": {
+                            "type": "array",
+                            "minItems": STORY_DESCRIPTION_PARTS,
+                            "maxItems": STORY_DESCRIPTION_PARTS,
+                            "items": {
+                                "type": "object",
+                                "additionalProperties": False,
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "minLength": 10,
+                                        "maxLength": 100,
+                                        "description": "Brief descriptive title for this part of the story"
+                                    },
+                                    "short_summary": {
+                                        "type": "string",
+                                        "minLength": 20,
+                                        "maxLength": 200,
+                                        "description": "Short summary of this part of the story (20-200 characters)"
+                                    },
+                                    "plot_summary": {
+                                        "type": "string",
+                                        "minLength": part_min,
+                                        "maxLength": part_max,
+                                        "description": f"Detailed summary of this part of the story ({part_min}-{part_max} characters)"
+                                    }
+                                },
+                                "required": ["title", "short_summary", "plot_summary"]
+                            }
+                        }
                     },
-                    "required": ["summary"]
+                    "required": ["parts"]
                 },
                 "strict": True
             }
@@ -538,13 +544,8 @@ class CharacterManager:
         if use_structured_output:
             if is_title_generation:
                 payload["response_format"] = self._build_story_title_response_format()
-                payload["max_tokens"] = 512  # Reduce tokens for title generation
             elif is_meta_summary:
                 payload["response_format"] = self._build_meta_summary_response_format()
-                payload["max_tokens"] = 2048  # More tokens for comprehensive meta-summary
-            else:
-                payload["response_format"] = self._build_chapter_response_format()
-                payload["max_tokens"] = 1024  # Reduce tokens for structured output
 
         try:
             resp = requests.post(f"{self.lm_studio_url}/chat/completions", headers=headers, json=payload)
@@ -623,65 +624,41 @@ class CharacterManager:
         
         return chunks
 
-    def _build_chapter_summary_system_prompt(self) -> str:
-        """Build system prompt for chapter title and summary generation with structured JSON output"""
-        return """You are a literary analyst creating chapter titles and summaries.
-
-Analyze the story section and generate:
-1. A compelling chapter title (2-4 words, captures the essence/theme of this section)
-2. A comprehensive summary (exactly 500 words, single paragraph)
-3. A short summary (exactly 20 words, captures the key essence, should start with an emoji, engaging and spoiler-light)
-
-REQUIREMENTS:
-- Chapter title should reflect the main theme, conflict, or development in this section
-- Summary: exactly 500 words (±10 words acceptable), single paragraph format
-- Short summary: exactly 20 words (±2 words acceptable), concise key points only, should start with an emoji, engaging and spoiler-light
-- Capture key plot points, character interactions, and important dialogue
-- Maintain narrative flow and story continuity
-- Include character names and their actions
-- Preserve the story's tone and style
-
-Generate a JSON response with "title", "summary", and "short_summary" fields. Both summaries should be single continuous paragraphs."""
-
-    def _build_chapter_summary_user_prompt(self, chunk_text: str, part_number: int, total_parts: int, percentage: float) -> str:
-        """Build user prompt with story data for chapter analysis"""
-        return f"""This is Part {part_number} of {total_parts} ({percentage:.1f}% of the total story).
-
-STORY PART {part_number}/{total_parts} ({percentage:.1f}%):
-{chunk_text}"""
 
     def _build_meta_summary_system_prompt(self) -> str:
-        """Build system prompt for meta-summarization of all parts"""
-        return """You are a master literary summarizer creating a comprehensive story overview. You have been given individual part summaries of a complete story. Your task is to synthesize these into one cohesive, comprehensive summary.
+        char_min = STORY_DESCRIPTION_CHARACTER_MIN // STORY_DESCRIPTION_PARTS
+        char_max = STORY_DESCRIPTION_CHARACTER_MAX // STORY_DESCRIPTION_PARTS
+        word_min = STORY_DESCRIPTION_WORD_MIN // STORY_DESCRIPTION_PARTS
+        word_max = STORY_DESCRIPTION_WORD_MAX // STORY_DESCRIPTION_PARTS
+        return (
+            f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Transform the story into 5 distinct parts, each with a title, a short summary, and a detailed summary.\n"
+            f"Each part/sub-plot should be {char_min}-{char_max} characters (approximately {word_min}-{word_max} words).\n"
+            f"Divide the story chronologically into {STORY_DESCRIPTION_PARTS} meaningful parts/sub-plots. Total across all parts/sub-plots: {STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX} characters.\n"
+            f"Each part/sub-plot should summarize in third person perspective thats includes all characters, locations, and events in details for that section/sub-plot of story.\n"
+        )
 
-REQUIREMENTS:
-- Exactly 1000-1200 words
-- Single continuous paragraph (no line breaks)
-- Synthesize all parts into a flowing narrative
-- Maintain chronological story progression
-- Include all major characters and their development
-- Capture key plot points, conflicts, and resolutions
-- Preserve the story's tone, style, and themes
-- Eliminate redundancy between parts while maintaining completeness
-- Create smooth transitions between story segments
+    def _build_meta_summary_user_prompt(self, story_content: str) -> str:
+        """Extract only dialogue lines from story content using existing regex"""
+        lines = story_content.split('\n')
+        dialogue_lines = []
+        
+        for line in lines:
+            # Remove brackets, braces, and parentheses from the line
+            cleaned_line = line.replace('[', '').replace(']', '').replace('{', '').replace('}', '').replace('(', '').replace(')', '')
+            dialogue_lines.append(cleaned_line)
+        
+        dialogue_content = '\n'.join(dialogue_lines)
+        return (
+            f"Story content: {dialogue_content}"
+        )
 
-Create a masterful synthesis that reads as a single, comprehensive story summary rather than separate parts stitched together. Focus on narrative flow and character arcs across the entire story. Generate a JSON response with a "summary" field containing your comprehensive synthesis."""
-
-    def _build_meta_summary_user_prompt(self, summary_parts: list) -> str:
-        """Build user prompt with summary data for meta-summarization"""
-        combined_summaries = "\n\n".join([f"PART {i+1}: {summary}" for i, summary in enumerate(summary_parts)])
-        return f"""You have been given {len(summary_parts)} individual part summaries of a complete story.
-
-INDIVIDUAL PART SUMMARIES:
-{combined_summaries}"""
-
-    def _generate_meta_summary(self, summary_parts: list) -> str:
-        """Generate a meta-summary by re-summarizing all part summaries through LM Studio"""
-        print(f"🔄 Re-summarizing {len(summary_parts)} part summaries into comprehensive overview...")
+    def _generate_meta_summary(self, story_content: str) -> dict:
+        """Generate a meta-summary with parts containing title, short_summary, and summary through LM Studio"""
+        print(f"🔄 Summarizing story content into {STORY_DESCRIPTION_PARTS} parts...")
         
         # Build the meta-summary prompts
         system_prompt = self._build_meta_summary_system_prompt()
-        user_prompt = self._build_meta_summary_user_prompt(summary_parts)
+        user_prompt = self._build_meta_summary_user_prompt(story_content)
         
         # Generate meta-summary with structured output
         start_time = time.time()
@@ -689,24 +666,33 @@ INDIVIDUAL PART SUMMARIES:
         generation_time = time.time() - start_time
         
         # Parse structured JSON response
-        meta_summary = self._parse_meta_summary_response(raw_meta_summary)
+        meta_summary_data = self._parse_meta_summary_response(raw_meta_summary)
+        parts = meta_summary_data.get("parts", [])
         
-        # Validate length requirements
-        word_count = len(meta_summary.split())
-        char_count = len(meta_summary)
+        # Calculate total statistics
+        total_words = 0
+        total_chars = 0
+        for part in parts:
+            summary_text = part.get("plot_summary", "")
+            total_words += len(summary_text.split())
+            total_chars += len(summary_text)
         
         print(f"📝 Meta-summary statistics:")
-        print(f"   🎯 Words: {word_count} (target: 1000-1200)")
-        print(f"   📏 Characters: {char_count}")
+        print(f"   🎯 Total Words: {total_words} (target: {STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX})")
+        print(f"   📏 Total Characters: {total_chars} (target: {STORY_DESCRIPTION_CHARACTER_MIN}-{STORY_DESCRIPTION_CHARACTER_MAX})")
+        print(f"   📦 Parts: {len(parts)} (expected: {STORY_DESCRIPTION_PARTS})")
         print(f"   ⏱️  Generation time: {generation_time:.2f}s")
         
         # Check if within target range
-        if 950 <= word_count <= 1250:
+        if STORY_DESCRIPTION_WORD_MIN <= total_words <= STORY_DESCRIPTION_WORD_MAX:
             print("✅ Meta-summary meets word count target")
         else:
-            print(f"⚠️  Meta-summary word count outside target range (1000-1200)")
+            print(f"⚠️  Meta-summary word count outside target range ({STORY_DESCRIPTION_WORD_MIN}-{STORY_DESCRIPTION_WORD_MAX})")
         
-        return meta_summary
+        if len(parts) != STORY_DESCRIPTION_PARTS:
+            print(f"⚠️  Expected {STORY_DESCRIPTION_PARTS} parts but got {len(parts)}")
+        
+        return meta_summary_data
 
     def _build_story_title_system_prompt(self) -> str:
         """Build system prompt for story title generation"""
@@ -848,8 +834,8 @@ Generate a JSON response with a "title" field containing your suggested story ti
             print(f"⚠️  Error in fallback title parsing: {e}")
             return "Untitled Story"
 
-    def _parse_meta_summary_response(self, raw_response: str) -> str:
-        """Parse the structured JSON meta-summary response to extract the summary"""
+    def _parse_meta_summary_response(self, raw_response: str) -> dict:
+        """Parse the structured JSON meta-summary response to extract parts with title, short_summary, and summary"""
         try:
             # Clean up response text (remove code fences if present)
             text = raw_response.strip()
@@ -868,25 +854,33 @@ Generate a JSON response with a "title" field containing your suggested story ti
             # Parse JSON
             json_obj = json.loads(text)
             
-            if isinstance(json_obj, dict):
-                summary = json_obj.get("summary", "").strip()
+            if isinstance(json_obj, dict) and "parts" in json_obj:
+                parts = json_obj.get("parts", [])
                 
-                # Sanitize to single paragraph
-                summary = self._sanitize_single_paragraph(summary)
+                # Validate that we have the expected structure
+                if not isinstance(parts, list) or len(parts) == 0:
+                    raise ValueError("Parts array is empty or invalid")
                 
-                return summary
+                # Sanitize each part's summaries to single paragraph
+                for part in parts:
+                    if "plot_summary" in part:
+                        part["plot_summary"] = self._sanitize_single_paragraph(part["plot_summary"])
+                    if "short_summary" in part:
+                        part["short_summary"] = self._sanitize_single_paragraph(part["short_summary"])
+                
+                return {"parts": parts}
             else:
-                raise ValueError("JSON response is not a dictionary")
+                raise ValueError("JSON response does not contain 'parts' array")
             
         except json.JSONDecodeError as e:
             print(f"⚠️  JSON parsing error for meta-summary: {e}")
             print(f"Raw response: {raw_response[:200]}...")
-            # Fallback to treating response as summary
-            return self._sanitize_single_paragraph(raw_response)
+            # Fallback: return empty parts
+            return {"parts": []}
         except Exception as e:
             print(f"⚠️  Error parsing meta-summary response: {e}")
-            # Fallback to treating response as summary
-            return self._sanitize_single_paragraph(raw_response)
+            # Fallback: return empty parts
+            return {"parts": []}
 
     def _save_story_title(self, title: str, output_dir: str):
         """Save the generated story title to 10.title.txt"""
@@ -902,8 +896,8 @@ Generate a JSON response with a "title" field containing your suggested story ti
             print(f"❌ Error saving story title file: {e}")
 
     def generate_chapter_summaries(self, story_text: str, output_dir: str = "../input", resumable_state: ResumableState | None = None) -> list:
-        """Generate chapter titles and summaries for each chunk of the story (configurable via CHUNK_SIZE)"""
-        print("\n=== CHAPTER ANALYSIS AND SUMMARIZATION ===")
+        """Generate chapters from meta-summary parts (no LLM calls per chapter)"""
+        print("\n=== CHAPTER GENERATION FROM META-SUMMARY ===")
         
         # Calculate story statistics
         story_stats = self._calculate_story_statistics(story_text)
@@ -912,207 +906,92 @@ Generate a JSON response with a "title" field containing your suggested story ti
         print(f"   📝 Total words: {story_stats['total_words']:,}")
         print(f"   📄 Total lines: {story_stats['total_lines']:,}")
         
-        # Split story into chunks with character statistics
-        chunks = self._split_story_into_chunks(story_text, CHUNK_SIZE, story_stats['total_characters'])
-        total_parts = len(chunks)
+        # Check if resumable and meta-summary already complete
+        meta_summary_data = None
+        if resumable_state and resumable_state.is_meta_summary_complete():
+            cached_meta = resumable_state.get_meta_summary()
+            if cached_meta:
+                print("\n=== USING CACHED META-SUMMARY ===")
+                print("Using cached meta-summary from checkpoint")
+                meta_summary_data = cached_meta
         
-        print(f"\nStory split into {total_parts} chapters of ~{CHUNK_SIZE} lines each")
-        
-        chapters = []
-        chapter_data = []
-        
-        for i, chunk in enumerate(chunks):
-            chapter_number = chunk['part_number']
-            
-            # Check if resumable and already complete
-            if resumable_state and resumable_state.is_chapter_complete(chapter_number):
-                cached_chapter = resumable_state.get_chapter_result(chapter_number)
-                if cached_chapter:
-                    print(f"\nChapter {chapter_number}/{total_parts}: using cached result from checkpoint")
-                    chapters.append(cached_chapter)
-                    if cached_chapter.get('summary'):
-                        chapter_data.append(cached_chapter['summary'])  # For meta-summary
-                    continue
-            
-            print(f"\nProcessing Chapter {chapter_number}/{total_parts} ({chunk['percentage']:.1f}% of story)...")
-            print(f"   Lines {chunk['start_line']}-{chunk['end_line']} ({chunk['character_count']:,} chars)")
-            
+        # Generate meta-summary if not cached
+        if meta_summary_data is None:
+            print("\n=== GENERATING META-SUMMARY ===")
             try:
-                # Build chapter prompts
-                system_prompt = self._build_chapter_summary_system_prompt()
-                user_prompt = self._build_chapter_summary_user_prompt(
-                    chunk['text'], 
-                    chunk['part_number'], 
-                    total_parts, 
-                    chunk['percentage']
-                )
-                
-                # Generate chapter title and summary with structured output
-                start_time = time.time()
-                raw_response = self._call_lm_studio(system_prompt, user_prompt, use_structured_output=True)
-                generation_time = time.time() - start_time
-                
-                # Parse structured JSON response
-                chapter_title, chapter_summary, short_summary = self._parse_structured_chapter_response(raw_response)
-                
-                # Validate length requirements
-                word_count = len(chapter_summary.split()) if chapter_summary else 0
-                char_count = len(chapter_summary) if chapter_summary else 0
-                short_word_count = len(short_summary.split()) if short_summary else 0
-                
-                print(f"✅ Chapter {chapter_number} generated:")
-                print(f"   📖 Title: {chapter_title}")
-                print(f"   📝 Summary words: {word_count} (target: 500)")
-                print(f"   📏 Summary characters: {char_count}")
-                print(f"   🔸 Short summary words: {short_word_count} (target: 20)")
-                print(f"   ⏱️  Generation time: {generation_time:.2f}s")
-                
-                # Store chapter info
-                chapter_info = {
-                    'part_number': chunk['part_number'],
-                    'start_line': chunk['start_line'],
-                    'end_line': chunk['end_line'],
-                    'percentage': chunk['percentage'],
-                    'character_count': chunk['character_count'],
-                    'title': chapter_title,
-                    'summary': chapter_summary,
-                    'short_summary': short_summary,
-                    'word_count': word_count,
-                    'char_count': char_count,
-                    'short_word_count': short_word_count,
-                    'generation_time': generation_time
-                }
-                chapters.append(chapter_info)
-                chapter_data.append(chapter_summary)  # For meta-summary
+                meta_summary_data = self._generate_meta_summary(story_text)
+                print("✅ Meta-summary generated successfully")
                 
                 # Save to checkpoint if resumable mode enabled
                 if resumable_state:
-                    resumable_state.set_chapter_result(chapter_number, chapter_info)
-                
-                # Small delay between API calls
-                if i < len(chunks) - 1:
-                    time.sleep(1)
-                    
+                    resumable_state.set_meta_summary(meta_summary_data)
             except Exception as e:
-                print(f"❌ Error generating chapter {chapter_number}: {e}")
-                # Continue with next part instead of failing completely
-                error_chapter = {
-                    'part_number': chunk['part_number'],
-                    'start_line': chunk['start_line'],
-                    'end_line': chunk['end_line'],
-                    'percentage': chunk['percentage'],
-                    'character_count': chunk['character_count'],
-                    'error': str(e),
-                    'title': None,
-                    'summary': None,
-                    'short_summary': None
-                }
-                chapters.append(error_chapter)
-                
-                # Save error state to checkpoint if resumable mode enabled
-                if resumable_state:
-                    resumable_state.set_chapter_result(chapter_number, error_chapter)
+                print(f"❌ Meta-summary generation failed: {e}")
+                return []
+        
+        # Convert meta-summary parts to chapter format
+        parts = meta_summary_data.get("parts", [])
+        if not parts:
+            print("❌ No parts found in meta-summary")
+            return []
+        
+        total_parts = len(parts)
+        chapters = []
+        
+        # Calculate percentage per part (should be roughly 100/total_parts)
+        percentage_per_part = 100.0 / total_parts
+        
+        print(f"\nConverting {total_parts} meta-summary parts to chapters...")
+        
+        for i, part in enumerate(parts):
+            chapter_number = i + 1
+            percentage = percentage_per_part * chapter_number
+            
+            title = part.get("title", f"Chapter {chapter_number}")
+            summary = part.get("plot_summary", "")
+            short_summary = part.get("short_summary", "")
+            
+            word_count = len(summary.split()) if summary else 0
+            char_count = len(summary) if summary else 0
+            short_word_count = len(short_summary.split()) if short_summary else 0
+            
+            print(f"✅ Chapter {chapter_number}/{total_parts}:")
+            print(f"   📖 Title: {title}")
+            print(f"   📝 Summary words: {word_count}")
+            print(f"   🔸 Short summary words: {short_word_count}")
+            
+            # Store chapter info
+            chapter_info = {
+                'part_number': chapter_number,
+                'percentage': percentage,
+                'title': title,
+                'summary': summary,
+                'short_summary': short_summary,
+                'word_count': word_count,
+                'char_count': char_count,
+                'short_word_count': short_word_count
+            }
+            chapters.append(chapter_info)
         
         # Save chapters to files
         self._save_chapters_file(chapters, output_dir)
-        meta_summary = self._save_merged_summary(chapter_data, output_dir, chapters, resumable_state)
+        
+        # Save merged summary (concatenate all part summaries)
+        merged_summary = " ".join([part.get("plot_summary", "") for part in parts])
+        self._save_summary_file(merged_summary, output_dir, chapters)
         
         # Generate story title from meta-summary if enabled
-        if meta_summary and GENERATE_TITLE:
+        if merged_summary and GENERATE_TITLE:
             try:
-                self.generate_story_title(meta_summary, output_dir, resumable_state)
+                self.generate_story_title(merged_summary, output_dir, resumable_state)
             except Exception as e:
                 print(f"⚠️  Title generation failed: {e}")
         
-        print(f"\n🎉 Chapter analysis completed!")
-        print(f"📊 Successfully generated {len([c for c in chapters if c.get('summary')])} chapters")
-        print(f"❌ Failed: {len([c for c in chapters if c.get('error')])} chapters")
+        print(f"\n🎉 Chapter generation completed!")
+        print(f"📊 Successfully generated {len(chapters)} chapters from meta-summary")
         
         return chapters
 
-    def _parse_structured_chapter_response(self, raw_response: str) -> tuple:
-        """Parse the structured JSON chapter response to extract title, summary, and short_summary"""
-        try:
-            # Clean up response text (remove code fences if present)
-            text = raw_response.strip()
-            if text.startswith("```"):
-                m = re.search(r"```(?:json)?\s*([\s\S]*?)\s*```", text, flags=re.IGNORECASE)
-                if m:
-                    text = m.group(1).strip()
-            
-            # Fallback: extract braces region if not starting with {
-            if not text.startswith("{"):
-                first = text.find("{")
-                last = text.rfind("}")
-                if first != -1 and last != -1 and last > first:
-                    text = text[first:last+1]
-            
-            # Parse JSON
-            json_obj = json.loads(text)
-            
-            if isinstance(json_obj, dict):
-                title = json_obj.get("title", "Untitled Chapter").strip()
-                summary = json_obj.get("summary", "").strip()
-                short_summary = json_obj.get("short_summary", "").strip()
-                
-                # Clean up title (remove quotes, extra whitespace)
-                title = re.sub(r'^["\']|["\']$', '', title).strip()
-                
-                # Sanitize summaries to single paragraph
-                summary = self._sanitize_single_paragraph(summary)
-                short_summary = self._sanitize_single_paragraph(short_summary)
-                
-                return title, summary, short_summary
-            else:
-                raise ValueError("JSON response is not a dictionary")
-            
-        except json.JSONDecodeError as e:
-            print(f"⚠️  JSON parsing error: {e}")
-            print(f"Raw response: {raw_response[:200]}...")
-            # Fallback to old text parsing method
-            return self._parse_fallback_chapter_response(raw_response)
-        except Exception as e:
-            print(f"⚠️  Error parsing structured chapter response: {e}")
-            # Fallback to old text parsing method
-            return self._parse_fallback_chapter_response(raw_response)
-
-    def _parse_fallback_chapter_response(self, raw_response: str) -> tuple:
-        """Fallback parser for non-JSON responses"""
-        try:
-            # Look for TITLE:, SUMMARY:, and SHORT_SUMMARY: patterns
-            title_match = re.search(r'TITLE:\s*(.+?)(?:\n|SUMMARY:|SHORT_SUMMARY:|$)', raw_response, re.IGNORECASE | re.DOTALL)
-            summary_match = re.search(r'SUMMARY:\s*(.+?)(?:\n|SHORT_SUMMARY:|$)', raw_response, re.IGNORECASE | re.DOTALL)
-            short_summary_match = re.search(r'SHORT_SUMMARY:\s*(.+?)$', raw_response, re.IGNORECASE | re.DOTALL)
-            
-            title = title_match.group(1).strip() if title_match else "Untitled Chapter"
-            summary = summary_match.group(1).strip() if summary_match else ""
-            short_summary = short_summary_match.group(1).strip() if short_summary_match else ""
-            
-            # Clean up title (remove quotes, extra whitespace)
-            title = re.sub(r'^["\']|["\']$', '', title).strip()
-            
-            # Sanitize summaries to single paragraph
-            summary = self._sanitize_single_paragraph(summary)
-            short_summary = self._sanitize_single_paragraph(short_summary)
-            
-            if not summary:
-                # Last resort: treat entire response as summary
-                summary = self._sanitize_single_paragraph(raw_response)
-            
-            if not short_summary:
-                # Generate a basic short summary from the long summary or response
-                words = (summary or raw_response).split()[:20]
-                short_summary = " ".join(words)
-            
-            return title, summary, short_summary
-            
-        except Exception as e:
-            print(f"⚠️  Error in fallback parsing: {e}")
-            # Ultimate fallback
-            summary = self._sanitize_single_paragraph(raw_response)
-            words = summary.split()[:20]
-            short_summary = " ".join(words)
-            return "Untitled Chapter", summary, short_summary
 
     def _save_chapters_file(self, chapters: list, output_dir: str):
         """Save chapters with percentages and titles to 12.chapters.txt"""
@@ -1167,130 +1046,51 @@ Generate a JSON response with a "title" field containing your suggested story ti
         print(f"{'TOT':<4} {f'{successful_chapters}/{len(chapters)} chapters generated':<30} {'-':<8} {'-':<8} {'DONE':<8}")
         print("=" * 90)
 
-    def _save_merged_summary(self, summary_parts: list, output_dir: str, summaries: list, resumable_state: ResumableState | None = None):
-        """Save all summaries merged into 9.summary.txt and display statistics table"""
-        if not summary_parts:
-            print("⚠️  No summaries to merge - skipping 9.summary.txt creation")
-            return None
-        
+    def _save_summary_file(self, merged_summary: str, output_dir: str, chapters: list):
+        """Save the merged summary to 9.summary.txt and display statistics"""
         output_path = os.path.join(output_dir, "9.summary.txt")
         
-        # Check if resumable and meta-summary already complete
-        if resumable_state and resumable_state.is_meta_summary_complete():
-            cached_meta = resumable_state.get_meta_summary()
-            if cached_meta:
-                print("\n=== USING CACHED META-SUMMARY ===")
-                print("Using cached meta-summary from checkpoint")
-                final_content = cached_meta
-            else:
-                # Generate meta-summary through LM Studio
-                print("\n=== GENERATING META-SUMMARY ===")
-                try:
-                    meta_summary = self._generate_meta_summary(summary_parts)
-                    final_content = meta_summary
-                    print("✅ Meta-summary generated successfully")
-                    
-                    # Save to checkpoint if resumable mode enabled
-                    if resumable_state:
-                        resumable_state.set_meta_summary(meta_summary)
-                except Exception as e:
-                    print(f"❌ Meta-summary generation failed: {e}")
-                    print("📄 Falling back to concatenated summaries")
-                    # Fallback to simple concatenation
-                    merged_content = " ".join(summary_parts)
-                    final_content = self._sanitize_single_paragraph(merged_content)
-        else:
-            # Generate meta-summary through LM Studio
-            print("\n=== GENERATING META-SUMMARY ===")
-            try:
-                meta_summary = self._generate_meta_summary(summary_parts)
-                final_content = meta_summary
-                print("✅ Meta-summary generated successfully")
-                
-                # Save to checkpoint if resumable mode enabled
-                if resumable_state:
-                    resumable_state.set_meta_summary(meta_summary)
-            except Exception as e:
-                print(f"❌ Meta-summary generation failed: {e}")
-                print("📄 Falling back to concatenated summaries")
-                # Fallback to simple concatenation
-                merged_content = " ".join(summary_parts)
-                final_content = self._sanitize_single_paragraph(merged_content)
+        try:
+            # Write to 9.summary.txt
+            with open(output_path, 'w', encoding='utf-8') as f:
+                f.write(merged_summary)
+            
+            # Calculate final statistics
+            total_words = len(merged_summary.split())
+            total_chars = len(merged_summary)
+            
+            print(f"📄 Summary saved to: {output_path}")
+            print(f"📝 Total words: {total_words}")
+            print(f"📏 Total characters: {total_chars}")
+            
+            # Display chapter statistics
+            self._display_chapter_statistics(chapters, total_words, total_chars)
+            
+        except Exception as e:
+            print(f"❌ Error saving summary file: {e}")
+    
+    def _display_chapter_statistics(self, chapters: list, total_output_words: int, total_output_chars: int):
+        """Display a formatted table of chapter statistics"""
+        print("\n📊 CHAPTER STATISTICS")
+        print("=" * 80)
+        print(f"{'Part':<6} {'Title':<30} {'Words':<10} {'Chars':<10} {'Short Words':<12}")
+        print("-" * 80)
         
-        # Write to 9.summary.txt
-        with open(output_path, 'w', encoding='utf-8') as f:
-            f.write(final_content)
+        for chapter in chapters:
+            part_num = chapter.get('part_number', 0)
+            title = chapter.get('title', 'Untitled')[:28]
+            if len(chapter.get('title', '')) > 28:
+                title += '..'
+            word_count = chapter.get('word_count', 0)
+            char_count = chapter.get('char_count', 0)
+            short_word_count = chapter.get('short_word_count', 0)
+            
+            print(f"{part_num:<6} {title:<30} {word_count:<10} {char_count:<10} {short_word_count:<12}")
         
-        # Calculate final statistics
-        total_words = len(final_content.split())
-        total_chars = len(final_content)
-        
-        print(f"📄 Final summary saved to: {output_path}")
-        
-        # Display statistics table
-        self._display_summary_table(summaries, total_words, total_chars)
-        
-        # Return the final content for title generation
-        return final_content
+        print("-" * 80)
+        print(f"{'TOTAL':<6} {f'{len(chapters)} chapters':<30} {total_output_words:<10} {total_output_chars:<10} {'-':<12}")
+        print("=" * 80)
 
-    def _display_summary_table(self, summaries: list, total_output_words: int, total_output_chars: int):
-        """Display a formatted table of input/output statistics"""
-        print("\n📊 SUMMARY STATISTICS TABLE")
-        print("=" * 90)
-        print(f"{'Part':<4} {'Input Lines':<12} {'Input Words':<12} {'Input Chars':<12} {'Output Words':<13} {'Output Chars':<13} {'Status':<8}")
-        print("-" * 90)
-        
-        successful_summaries = [s for s in summaries if s.get('summary')]
-        total_input_lines = 0
-        total_input_words = 0
-        total_input_chars = 0
-        
-        for summary in summaries:
-            part_num = summary['part_number']
-            input_lines = summary['end_line'] - summary['start_line'] + 1
-            input_words = summary.get('input_words', 0)
-            input_chars = summary.get('input_chars', 0)
-            
-            if summary.get('summary'):
-                output_words = summary['word_count']
-                output_chars = summary['char_count']
-                status = "✅ OK"
-            else:
-                output_words = 0
-                output_chars = 0
-                status = "❌ FAIL"
-            
-            total_input_lines += input_lines
-            total_input_words += input_words
-            total_input_chars += input_chars
-            
-            print(f"{part_num:<4} {input_lines:<12} {input_words:<12} {input_chars:<12} {output_words:<13} {output_chars:<13} {status:<8}")
-        
-        print("-" * 90)
-        print(f"{'PARTS':<4} {total_input_lines:<12} {total_input_words:<12} {total_input_chars:<12} {len([s for s in summaries if s.get('summary')]) * 500:<13} {'-':<13} {'PARTS':<8}")
-        print(f"{'FINAL':<4} {'-':<12} {'-':<12} {'-':<12} {total_output_words:<13} {total_output_chars:<13} {'META':<8}")
-        print("=" * 90)
-        
-        # Calculate compression ratios
-        parts_total_words = len([s for s in summaries if s.get('summary')]) * 500  # Approximate
-        
-        if total_input_words > 0:
-            parts_compression = (parts_total_words / total_input_words) * 100 if parts_total_words > 0 else 0
-            final_compression = (total_output_words / total_input_words) * 100
-            print(f"📈 Parts Compression: {parts_compression:.1f}% ({parts_total_words}/{total_input_words} words)")
-            print(f"🎯 Final Compression: {final_compression:.1f}% ({total_output_words}/{total_input_words} words)")
-        
-        if total_input_chars > 0:
-            char_compression = (total_output_chars / total_input_chars) * 100
-            print(f"📏 Character Compression: {char_compression:.1f}% ({total_output_chars}/{total_input_chars} chars)")
-        
-        print(f"📑 Parts processed: {len(summaries)}")
-        print(f"✅ Successful: {len(successful_summaries)}")
-        print(f"❌ Failed: {len(summaries) - len(successful_summaries)}")
-        
-        # Meta-summary info
-        if total_output_words >= 1000:
-            print(f"🔄 Meta-summary: {total_output_words} words (target: 1000-1200)")
 
     def preprocess_story(self, story_text, resumable_state: ResumableState | None = None):
         """Preprocess the story to identify and assign voices to characters"""
