@@ -925,7 +925,7 @@ Generate a JSON response with a "title" field containing your suggested story ti
                 return []
         
         # Convert meta-summary parts to chapter format
-        parts = meta_summary_data.get("parts", [])
+        parts = meta_summary_data.get("plot_summaries", [])
         if not parts:
             print("❌ No parts found in meta-summary")
             return []
@@ -943,7 +943,7 @@ Generate a JSON response with a "title" field containing your suggested story ti
             percentage = percentage_per_part * chapter_number
             
             title = part.get("title", f"Chapter {chapter_number}")
-            summary = part.get("plot_summary", "")
+            summary = part.get("long_summary", "")
             short_summary = part.get("short_summary", "")
             
             word_count = len(summary.split()) if summary else 0
@@ -972,7 +972,7 @@ Generate a JSON response with a "title" field containing your suggested story ti
         self._save_chapters_file(chapters, output_dir)
         
         # Save merged summary (concatenate all part summaries)
-        merged_summary = " ".join([part.get("plot_summary", "") for part in parts])
+        merged_summary = " ".join([part.get("long_summary", "") for part in parts])
         self._save_summary_file(merged_summary, output_dir, chapters)
         
         # Generate story title from meta-summary if enabled

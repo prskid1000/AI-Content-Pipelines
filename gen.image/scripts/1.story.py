@@ -1223,7 +1223,7 @@ def _generate_story_summary(story_content: str, lm_studio_url: str, resumable_st
         
         for i, part in enumerate(parts):
             title = part.get("title", "").strip()
-            summary = part.get("summary", "").strip()
+            summary = part.get("long_summary", "").strip()
             
             if not title or not summary:
                 raise RuntimeError(f"Plot Summary {i+1} missing title or summary")
