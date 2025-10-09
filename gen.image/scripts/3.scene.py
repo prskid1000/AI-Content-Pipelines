@@ -69,8 +69,8 @@ LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for
 LORAS = [
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 3.6,    # Model strength (0.0 - 2.0)
-        "strength_clip": 3.6,     # CLIP strength (0.0 - 2.0)
+        "strength_model": 2.0,    # Model strength (0.0 - 2.0)
+        "strength_clip": 2.0,     # CLIP strength (0.0 - 2.0)
         "bypass_model": False,    # Set to True to bypass model part of this LoRA
         "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
         "enabled": True,          # Set to False to disable this LoRA entirely
@@ -83,8 +83,8 @@ LORAS = [
     },
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 3.6,    # Model strength (0.0 - 2.0)
-        "strength_clip": 3.6,     # CLIP strength (0.0 - 2.0)
+        "strength_model": 2.0,    # Model strength (0.0 - 2.0)
+        "strength_clip": 2.0,     # CLIP strength (0.0 - 2.0)
         "bypass_model": False,    # Set to True to bypass model part of this LoRA
         "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
         "enabled": False,          # Set to False to disable this LoRA entirely
@@ -634,13 +634,13 @@ class SceneGenerator:
         """Get the master prompt content."""
         return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
 All Non-Living Objects mentioned in Scene text-description must be present in illustration.Must Always Precisely & Accurately Represent entire Scene including all Non-Living Objects according to scene text-description.
-Must Always Precisely & Accurately Preserve each Character's Identity and Appearance(Properties like "Color", "Texture", "Shape", "Details", "Style", "Type") of Facial and Body Features as well as entire Clothing) from their respective reference image or image-section specified in Character's or Scene's text-description.
-All other aspects of Characters is adaptable/must change according to Scene and Character text-description.Keep each Character's all "Features Separate and Discrete" from each other.
+Must Always Precisely & Accurately Preserve each Character's Identity and Appearance(Properties like "Color", "Texture", "Shape", "Details", "Style", "Type") of Face and Body Features as well as entire Clothing) from their respective reference image or image-section specified in Character's or Scene's text-description.
+All other aspects of Characters is adaptable/must change according to Scene and Character text-description. Keep each Character's all "Features Separate and Discrete" from each other.
         """.format(ART_STYLE=ART_STYLE)
 
     def _get_master_end_prompt(self) -> str:
         """Get the master end prompt content."""
-        return """\n\nStrictly, Accurately, Precisely, always must Follow {ART_STYLE} Style. All Colourings, Styles, Shapes, Textures, Relative Positioning, Sizes, Lightings and Detailing, must be **exactly same/identical/as it is** in the scene text-description and character text-description as well as in the reference images/images-sections."""
+        return """\n\nStrictly, Accurately, Precisely, always must Follow {ART_STYLE} Style. All Colourings, Styles, Shapes, Textures, Relative Positioning, Sizes, Lightings and Detailing, must be **exactly same/identical/as it is** in the scene text-description and character text-description as well as in the reference images/images-sections.""".format(ART_STYLE=ART_STYLE)
 
     def _get_seed(self) -> int:
         """Get seed value based on configuration."""
