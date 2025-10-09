@@ -9,23 +9,28 @@ import time
 from pathlib import Path
 
 
-# Character and word count limits (min-max ranges)
-CHARACTER_SUMMARY_CHARACTER_MIN = 720
-CHARACTER_SUMMARY_CHARACTER_MAX = 870
-CHARACTER_SUMMARY_WORD_MIN = 120
-CHARACTER_SUMMARY_WORD_MAX = 145
+WORD_FACTOR = 6
 
-LOCATION_SUMMARY_CHARACTER_MIN = 1200
-LOCATION_SUMMARY_CHARACTER_MAX = 1350
-LOCATION_SUMMARY_WORD_MIN = 200
-LOCATION_SUMMARY_WORD_MAX = 225
+# Character and word count limits (min-max ranges)
+CHARACTER_SUMMARY_WORD_MIN = 30
+CHARACTER_SUMMARY_WORD_MAX = 60
+CHARACTER_SUMMARY_CHARACTER_MIN = WORD_FACTOR * CHARACTER_SUMMARY_WORD_MIN
+CHARACTER_SUMMARY_CHARACTER_MAX = WORD_FACTOR * CHARACTER_SUMMARY_WORD_MAX
+
+LOCATION_SUMMARY_WORD_MIN = 60
+LOCATION_SUMMARY_WORD_MAX = 120
+LOCATION_SUMMARY_CHARACTER_MIN = WORD_FACTOR * LOCATION_SUMMARY_WORD_MIN
+LOCATION_SUMMARY_CHARACTER_MAX = WORD_FACTOR * LOCATION_SUMMARY_WORD_MAX
+
 MIN_OBJECTS_PER_LOCATION = 10
 MAX_OBJECTS_PER_LOCATION = 15
 
+STORY_DESCRIPTION_WORD_MIN = 300
+STORY_DESCRIPTION_WORD_MAX = 600
+
 STORY_DESCRIPTION_CHARACTER_MIN = 7200
 STORY_DESCRIPTION_CHARACTER_MAX = 9600
-STORY_DESCRIPTION_WORD_MIN = 1200
-STORY_DESCRIPTION_WORD_MAX = 1600
+
 STORY_DESCRIPTION_PARTS = 5
 
 # Feature flags
@@ -551,6 +556,8 @@ def _schema_character() -> dict[str, object]:
                         "description": "List of accessories worn by the character",
                         "items": {
                             "type": "object",
+                            "minItems": 0,
+                            "maxItems": 3,
                             "properties": {
                                 "type": {"type": "string", "description": "Type of accessory (e.g., 'glasses', 'hat', 'watch', 'jewelry', 'bag', 'gloves', 'tie', 'scarf', 'belt', 'piercings')"},
                                 "description": {"type": "string", "description": "Detailed description including color, material, style, and any distinctive features"},
