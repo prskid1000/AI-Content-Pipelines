@@ -10,15 +10,17 @@ from pathlib import Path
 
 
 # Character and word count limits (min-max ranges)
-CHARACTER_SUMMARY_CHARACTER_MIN = 540
-CHARACTER_SUMMARY_CHARACTER_MAX = 960
-CHARACTER_SUMMARY_WORD_MIN = 90
-CHARACTER_SUMMARY_WORD_MAX = 160
+CHARACTER_SUMMARY_CHARACTER_MIN = 570
+CHARACTER_SUMMARY_CHARACTER_MAX = 600
+CHARACTER_SUMMARY_WORD_MIN = 95
+CHARACTER_SUMMARY_WORD_MAX = 100
 
-LOCATION_SUMMARY_CHARACTER_MIN = 1200
-LOCATION_SUMMARY_CHARACTER_MAX = 3000
-LOCATION_SUMMARY_WORD_MIN = 250
-LOCATION_SUMMARY_WORD_MAX = 375
+LOCATION_SUMMARY_CHARACTER_MIN = 1140
+LOCATION_SUMMARY_CHARACTER_MAX = 1200
+LOCATION_SUMMARY_WORD_MIN = 190
+LOCATION_SUMMARY_WORD_MAX = 200
+MIN_OBJECTS_PER_LOCATION = 5
+MAX_OBJECTS_PER_LOCATION = 15
 
 STORY_DESCRIPTION_CHARACTER_MIN = 7200
 STORY_DESCRIPTION_CHARACTER_MAX = 9600
@@ -647,8 +649,8 @@ def _schema_location() -> dict[str, object]:
                     "objects": {
                         "type": "array",
                         "description": "Visible objects in the scene - must include 15-20 detailed objects with hierarchical positioning. HIERARCHY: 1) Large objects (sofas, tables, trees) positioned relative to room/scene, 2) Medium objects (lamps, chairs) positioned relative to large objects, 3) Small objects (books, vases) positioned relative to medium objects",
-                        "minItems": 15,
-                        "maxItems": 20,
+                        "minItems": MIN_OBJECTS_PER_LOCATION,
+                        "maxItems": MAX_OBJECTS_PER_LOCATION,
                         "items": {
                             "type": "object",
                             "properties": {

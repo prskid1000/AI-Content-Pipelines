@@ -37,7 +37,8 @@
       "device": "auto",
       "exaggeration": 0.8,
       "temperature": 1.0000000000000002,
-      "cfg_weight": 0.2
+      "cfg_weight": 0.2,
+      "crash_protection_template": ""
     },
     "class_type": "ChatterBoxEngineNode",
     "_meta": {
