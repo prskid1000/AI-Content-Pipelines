@@ -112,6 +112,8 @@ FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 
 ART_STYLE = "Realistic Anime"
 
+USE_SUMMARY_TEXT = False  # Set to True to use summary text
+
 
 class ResumableState:
     """Manages resumable state for expensive scene generation operations."""
@@ -309,7 +311,7 @@ class SceneGenerator:
         self.final_output_dir = "../output/scene"
         self.intermediate_output_dir = "../output/lora"
         self.scene_file = "../input/3.scene.txt"
-        self.character_file = "../input/3.character.txt"
+        self.character_file = "../input/3.character.txt" if USE_SUMMARY_TEXT else "../input/2.character.txt"
         self.location_file = "../input/3.location.txt"
         self.workflow_file = "../workflow/scene.json"
         self.character_images_dir = "../output/characters"

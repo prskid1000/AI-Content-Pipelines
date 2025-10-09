@@ -10,16 +10,16 @@ from pathlib import Path
 
 
 # Character and word count limits (min-max ranges)
-CHARACTER_SUMMARY_CHARACTER_MIN = 570
-CHARACTER_SUMMARY_CHARACTER_MAX = 600
-CHARACTER_SUMMARY_WORD_MIN = 95
-CHARACTER_SUMMARY_WORD_MAX = 100
+CHARACTER_SUMMARY_CHARACTER_MIN = 720
+CHARACTER_SUMMARY_CHARACTER_MAX = 870
+CHARACTER_SUMMARY_WORD_MIN = 120
+CHARACTER_SUMMARY_WORD_MAX = 145
 
-LOCATION_SUMMARY_CHARACTER_MIN = 1140
-LOCATION_SUMMARY_CHARACTER_MAX = 1200
-LOCATION_SUMMARY_WORD_MIN = 190
-LOCATION_SUMMARY_WORD_MAX = 200
-MIN_OBJECTS_PER_LOCATION = 5
+LOCATION_SUMMARY_CHARACTER_MIN = 1200
+LOCATION_SUMMARY_CHARACTER_MAX = 1350
+LOCATION_SUMMARY_WORD_MIN = 200
+LOCATION_SUMMARY_WORD_MAX = 225
+MIN_OBJECTS_PER_LOCATION = 10
 MAX_OBJECTS_PER_LOCATION = 15
 
 STORY_DESCRIPTION_CHARACTER_MIN = 7200
@@ -771,6 +771,7 @@ def _build_character_summary_prompt() -> str:
     return (
         f"You are a Professional Visual Director and Character Creator and Character Designer and Character Writer and Character Illustrator. Your Job is to Transform it into a continuous paragraph of {CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters, approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words.\n"
         f"It must always include all visual details like color(required, must always be present for every attribute/property), type(required, must always be present for every attribute/property), material(required, must always be present for every attribute/property), pattern, texture, etc. from the original description, preserving all visual attributes, characteristics and postioning relationships.\n"
+        f"Use Comma Separated Partial Sentence, No need for complete sentences."
     )
 
 def _build_character_summary_user_prompt(character_name: str, detailed_description: str) -> str:
@@ -807,7 +808,7 @@ def _build_story_summary_user_prompt(story_content: str) -> str:
 
 def _build_location_system_prompt() -> str:
     return (
-        f"You are a Professional Visual Director and Location Creator and Location Designer and Location Writer and Location Illustrator. Your Job is to Create a detailed location that includes all possible object that can be seen in such type of location, postioning large objects relative to the room, medium objects relative to large ones, small items relative to medium objects, for AI image generation.\n\n"
+        f"You are a Professional Visual Director and Location Creator and Location Designer and Location Writer and Location Illustrator. Your Job is to Create a detailed location that includes all possible object that can be seen in such type of location, postioning large objects relative to the room, medium objects relative to large ones, small items relative to medium objects.\n\n"
     )
 
 def _build_location_user_prompt(story_desc: str, location_id: str, all_locations: dict[str, str]) -> str:
