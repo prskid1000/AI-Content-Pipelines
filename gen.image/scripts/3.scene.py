@@ -42,7 +42,7 @@ IMAGE_COMPRESSION_QUALITY = 95
 # Note: LATENT_MODE controls whether location images are ALSO used as latent input (separate from grouping)
 
 # HARDCODED CHARACTER MODE - Change this to switch modes
-ACTIVE_CHARACTER_MODE = "IMAGE_TEXT"
+ACTIVE_CHARACTER_MODE = "IMAGE"
 
 # HARDCODED LOCATION MODE - Change this to switch modes
 ACTIVE_LOCATION_MODE = "TEXT"
@@ -112,8 +112,7 @@ FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 
 ART_STYLE = "Realistic Anime"
 
-USE_SUMMARY_TEXT = False  # Set to True to use summary text
-
+USE_SUMMARY_TEXT = True  # Set to True to use summary text
 
 class ResumableState:
     """Manages resumable state for expensive scene generation operations."""
@@ -312,7 +311,7 @@ class SceneGenerator:
         self.intermediate_output_dir = "../output/lora"
         self.scene_file = "../input/3.scene.txt"
         self.character_file = "../input/3.character.txt" if USE_SUMMARY_TEXT else "../input/2.character.txt"
-        self.location_file = "../input/3.location.txt"
+        self.location_file = "../input/3.location.txt" if USE_SUMMARY_TEXT else "../input/2.location.txt"
         self.workflow_file = "../workflow/scene.json"
         self.character_images_dir = "../output/characters"
         # Latent image input file path
