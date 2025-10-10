@@ -1830,8 +1830,7 @@ class ThumbnailProcessor:
 
     def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
-        return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
-        Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style. All Colourings, Styles, Shapes, Textures, Relative Positioning, Sizes, Lightings and Detailing, must be **exactly same/identical/as it is** in the text-description as well as in the reference images/images-sections.
+        return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}. The artwork should feature fine, intricate details and a natural sense of depth, with Utra Wide Angle (120 degrees FOV) Paranomic Shot/View to ensure that all mentioned characters and objects are fully visible. 
         """.format(ART_STYLE=ART_STYLE)
         
 def read_prompt_from_file(filename: str = "../input/10.thumbnail.txt") -> str | None:
