@@ -22,8 +22,8 @@ LOCATION_SUMMARY_WORD_MAX = 320
 LOCATION_SUMMARY_CHARACTER_MIN = WORD_FACTOR * LOCATION_SUMMARY_WORD_MIN
 LOCATION_SUMMARY_CHARACTER_MAX = WORD_FACTOR * LOCATION_SUMMARY_WORD_MAX
 
-MIN_OBJECTS_PER_LOCATION = 5
-MAX_OBJECTS_PER_LOCATION = 10
+MIN_OBJECTS_PER_LOCATION = 3
+MAX_OBJECTS_PER_LOCATION = 5
 
 STORY_DESCRIPTION_WORD_MIN = 600
 STORY_DESCRIPTION_WORD_MAX = 1200
@@ -497,8 +497,8 @@ def _schema_character() -> dict[str, object]:
                         "type": "object",
                         "properties": {
                             "tops": {
-                        "type": "object",
-                        "properties": {
+                                "type": "object",
+                                "properties": {
                                     "type": {"type": "string", "enum": ["dress_shirt", "casual_shirt", "t-shirt", "polo_shirt", "sweater", "cardigan", "blazer", "suit_jacket", "hoodie", "tank_top", "turtleneck", "henley", "flannel_shirt", "oxford_shirt", "button_down", "long_sleeve", "short_sleeve", "polo", "crew_neck", "v_neck"]},
                                     "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "pattern": {"type": "string", "description": "Solid, striped, plaid, checkered, etc."},
@@ -508,8 +508,8 @@ def _schema_character() -> dict[str, object]:
                                 "required": ["type", "color"]
                             },
                             "bottoms": {
-                        "type": "object",
-                        "properties": {
+                                "type": "object",
+                                "properties": {
                                     "type": {"type": "string", "enum": ["dress_pants", "casual_pants", "jeans", "shorts", "cargo_pants", "chinos", "khakis", "trousers", "slacks", "corduroy_pants", "denim_shorts", "dress_shorts", "cargo_shorts", "athletic_shorts", "swim_trunks"]},
                                     "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "pattern": {"type": "string", "description": "Solid, striped, plaid, etc."},
@@ -519,8 +519,8 @@ def _schema_character() -> dict[str, object]:
                                 "required": ["type", "color"]
                             },
                             "uniform_professional": {
-                        "type": "object",
-                        "properties": {
+                                "type": "object",
+                                "properties": {
                                     "type": {"type": "string", "enum": ["military_uniform", "police_uniform", "medical_scrubs", "chef_uniform", "nurse_uniform", "pilot_uniform", "flight_attendant", "security_guard", "firefighter", "paramedic", "business_suit", "formal_suit", "academic_robe", "judge_robe", "clerical_robe", "lab_coat", "apron", "overalls", "coveralls", "boiler_suit", "cargo_uniform", "tactical_gear", "dress_uniform", "service_uniform", "work_uniform"]},
                                     "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "rank_insignia": {"type": "string", "description": "Rank, badges, patches, or insignia if applicable"},
@@ -530,30 +530,30 @@ def _schema_character() -> dict[str, object]:
                                 "required": ["type", "color"]
                             },
                             "outerwear": {
-                        "type": "object",
-                        "properties": {
+                                "type": "object",
+                                "properties": {
                                     "type": {"type": "string", "enum": ["coat", "jacket", "raincoat", "blazer", "overcoat", "pea_coat", "hoodie", "cardigan", "vest", "windbreaker", "bomber_jacket", "leather_jacket", "denim_jacket", "suit_jacket", "sports_jacket"]},
                                     "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "material": {"type": "string", "description": "Leather, wool, denim, polyester, etc."},
                                     "fit": {"type": "string", "enum": ["tight", "fitted", "loose", "oversized"]}
                                 }
+                            },
+                            "footwear": {
+                                "type": "object",
+                                "properties": {
+                                    "type": {"type": "string", "enum": ["dress_shoes", "loafers", "oxfords", "sneakers", "boots", "ankle_boots", "work_boots", "hiking_boots", "sandals", "flip_flops", "moccasins", "boat_shoes", "wingtip_shoes", "chelsea_boots", "combat_boots", "running_shoes", "basketball_shoes", "tennis_shoes", "dress_boots", "casual_shoes"]},
+                                    "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
+                                    "material": {"type": "string", "description": "Leather, canvas, suede, rubber, etc."},
+                                    "style": {"type": "string", "description": "Casual, formal, athletic, etc."}
+                                },
+                                "required": ["type", "color"]
                             }
                         },
-                        "required": ["tops", "bottoms"]
-                    },
-                    "footwear": {
-                        "type": "object",
-                        "properties": {
-                            "type": {"type": "string", "enum": ["dress_shoes", "loafers", "oxfords", "sneakers", "boots", "ankle_boots", "work_boots", "hiking_boots", "sandals", "flip_flops", "moccasins", "boat_shoes", "wingtip_shoes", "chelsea_boots", "combat_boots", "running_shoes", "basketball_shoes", "tennis_shoes", "dress_boots", "casual_shoes"]},
-                            "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
-                            "material": {"type": "string", "description": "Leather, canvas, suede, rubber, etc."},
-                            "style": {"type": "string", "description": "Casual, formal, athletic, etc."}
-                        },
-                        "required": ["type", "color"]
+                        "required": ["tops", "bottoms", "footwear"]
                     },
                     "accessories": {
                         "type": "array",
-                        "description": "List of accessories worn by the character",
+                        "description": "List of at most 3 accessories that are worn by the character",
                         "items": {
                             "type": "object",
                             "minItems": 0,
@@ -565,18 +565,9 @@ def _schema_character() -> dict[str, object]:
                             },
                             "required": ["type", "description"]
                         }
-                    },
-                    "overall_style": {
-                        "type": "object",
-                        "properties": {
-                            "style_category": {"type": "string", "enum": ["casual", "formal", "business", "sporty", "elegant", "bohemian", "vintage", "modern", "streetwear", "preppy", "western", "athletic"]},
-                            "formality_level": {"type": "string", "enum": ["very_casual", "casual", "smart_casual", "business_casual", "business_formal", "semi_formal", "formal", "black_tie"]},
-                            "season": {"type": "string", "enum": ["summer", "winter", "spring", "autumn", "all_season"]}
-                        },
-                        "required": ["style_category", "formality_level", "season"]
                     }
                 },
-                "required": ["face", "clothing", "footwear", "overall_style"]
+                "required": ["face", "clothing", "accessories"]
             },
             "strict": True
         }
@@ -625,16 +616,6 @@ def _schema_location() -> dict[str, object]:
                         },
                         "required": ["type", "size"]
                     },
-                    "lighting": {
-                        "type": "object",
-                        "properties": {
-                            "source": {"type": "string", "description": "Object that provides light (e.g., 'sunlight', 'lamp', 'candle')"},
-                            "color": {"type": "string", "enum": ["warm", "cool", "natural", "golden", "white", "dim"]},
-                            "brightness": {"type": "string", "enum": ["bright", "moderate", "dim", "dark"]},
-                            "time": {"type": "string", "enum": ["morning", "noon", "afternoon", "evening", "night"]}
-                        },
-                        "required": ["source", "brightness", "time"]
-                    },
                     "ground": {
                         "type": "object",
                         "properties": {
@@ -655,7 +636,7 @@ def _schema_location() -> dict[str, object]:
                     },
                     "objects": {
                         "type": "array",
-                        "description": "Visible objects in the scene - must include 15-20 detailed objects with hierarchical positioning. HIERARCHY: 1) Large objects (sofas, tables, trees) positioned relative to room/scene, 2) Medium objects (lamps, chairs) positioned relative to large objects, 3) Small objects (books, vases) positioned relative to medium objects",
+                        "description": f"Visible objects in the scene - must include {MIN_OBJECTS_PER_LOCATION}-{MAX_OBJECTS_PER_LOCATION} detailed objects with hierarchical positioning. HIERARCHY: 1) Large objects (sofas, tables, trees) positioned relative to room/scene, 2) Medium objects (lamps, chairs) positioned relative to large objects, 3) Small objects (books, vases) positioned relative to medium objects",
                         "minItems": MIN_OBJECTS_PER_LOCATION,
                         "maxItems": MAX_OBJECTS_PER_LOCATION,
                         "items": {
@@ -671,18 +652,9 @@ def _schema_location() -> dict[str, object]:
                             },
                             "required": ["name", "type", "color", "material", "size", "position", "positioning_priority"]
                         }
-                    },
-                    "atmosphere": {
-                        "type": "object",
-                        "properties": {
-                            "weather": {"type": "string", "description": "Weather if visible (e.g., 'sunny', 'rainy', 'foggy', 'not visible')"},
-                            "season": {"type": "string", "enum": ["spring", "summer", "autumn", "winter"]},
-                            "mood": {"type": "string", "description": "Visual feeling (e.g., 'cozy', 'dramatic', 'peaceful', 'busy')"}
-                        },
-                        "required": ["mood"]
                     }
                 },
-                "required": ["place", "lighting", "ground", "walls_or_surroundings", "objects", "atmosphere"]
+                "required": ["place", "ground", "walls_or_surroundings", "objects"]
             },
             "strict": True
         }
