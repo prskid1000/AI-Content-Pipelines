@@ -17,16 +17,16 @@ CHARACTER_SUMMARY_WORD_MAX = 120
 CHARACTER_SUMMARY_CHARACTER_MIN = WORD_FACTOR * CHARACTER_SUMMARY_WORD_MIN
 CHARACTER_SUMMARY_CHARACTER_MAX = WORD_FACTOR * CHARACTER_SUMMARY_WORD_MAX
 
-LOCATION_SUMMARY_WORD_MIN = 160
-LOCATION_SUMMARY_WORD_MAX = 320
+LOCATION_SUMMARY_WORD_MIN = 60
+LOCATION_SUMMARY_WORD_MAX = 120
 LOCATION_SUMMARY_CHARACTER_MIN = WORD_FACTOR * LOCATION_SUMMARY_WORD_MIN
 LOCATION_SUMMARY_CHARACTER_MAX = WORD_FACTOR * LOCATION_SUMMARY_WORD_MAX
 
 MIN_OBJECTS_PER_LOCATION = 3
 MAX_OBJECTS_PER_LOCATION = 5
 
-STORY_DESCRIPTION_WORD_MIN = 600
-STORY_DESCRIPTION_WORD_MAX = 1200
+STORY_DESCRIPTION_WORD_MIN = 500
+STORY_DESCRIPTION_WORD_MAX = 600
 
 STORY_DESCRIPTION_CHARACTER_MIN = WORD_FACTOR * STORY_DESCRIPTION_WORD_MIN
 STORY_DESCRIPTION_CHARACTER_MAX = WORD_FACTOR * STORY_DESCRIPTION_WORD_MAX
@@ -648,9 +648,8 @@ def _schema_location() -> dict[str, object]:
                                 "material": {"type": "string", "description": "What it's made of"},
                                 "size": {"type": "string", "enum": ["tiny", "small", "medium", "large", "huge"]},
                                 "position": {"type": "string", "description": "Hierarchical positioning: for large objects use room/scene references (e.g., 'center of room', 'left wall', 'back corner'), for small objects reference large objects (e.g., 'on the wooden table', 'next to the sofa', 'under the window')"},
-                                "positioning_priority": {"type": "string", "enum": ["primary", "secondary", "tertiary"], "description": "Positioning hierarchy: 'primary' for large anchor objects, 'secondary' for medium objects, 'tertiary' for small decorative items"}
                             },
-                            "required": ["name", "type", "color", "material", "size", "position", "positioning_priority"]
+                            "required": ["name", "type", "color", "material", "size", "position"]
                         }
                     }
                 },

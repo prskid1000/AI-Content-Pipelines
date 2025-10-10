@@ -47,6 +47,8 @@ ACTIVE_CHARACTER_MODE = "IMAGE"
 # HARDCODED LOCATION MODE - Change this to switch modes
 ACTIVE_LOCATION_MODE = "TEXT"
 
+LOCATION_CHAR_LIMIT = 30
+
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
 IMAGE_HEIGHT = 720
@@ -591,13 +593,13 @@ class SceneGenerator:
                 # Full format: {{loc_id, description}} - replace with full description from file
                 loc_id = match.group(1).strip()
                 if loc_id in locations_data:
-                    return f"{{{{{locations_data[loc_id]}}}}}"
+                    return f"{{{{{locations_data[loc_id][:LOCATION_CHAR_LIMIT]}}}}}"
                 return full_match
             else:
                 # Simple reference: {{loc_id}} - replace with description
                 loc_id = match.group(1).strip()
                 if loc_id in locations_data:
-                    return f"{{{{{locations_data[loc_id]}}}}}"
+                    return f"{{{{{locations_data[loc_id][:LOCATION_CHAR_LIMIT]}}}}}"
                 return full_match
         
         # Replace {{loc_id}} patterns with location descriptions
