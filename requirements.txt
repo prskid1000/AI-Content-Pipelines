@@ -4,10 +4,10 @@
 # including audio generation, image generation, video processing, and YouTube upload
 
 # Core audio processing
-requests>=2.25.1
-pydub>=0.25.1
-pathlib2>=2.3.5
-futures>=3.1.1
+requests
+pydub
+pathlib2
+futures
 
 # AI/ML frameworks
 torch
@@ -17,12 +17,12 @@ torchaudio
 openai-whisper
 
 # Image processing
-Pillow>=10.0.0
+Pillow
 
 # YouTube API integration
-google-api-python-client==2.108.0
-google-auth-httplib2==0.1.1
-google-auth-oauthlib==1.1.0
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
 
 # System dependencies (install separately):
 # - FFmpeg (for video processing)
