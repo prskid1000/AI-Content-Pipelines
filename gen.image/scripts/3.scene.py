@@ -636,12 +636,11 @@ class SceneGenerator:
     def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
         return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
-Must Always Precisely & Accurately Preserve each Character's Identity and Appearance(Properties like "Color", "Texture", "Shape", "Details", "Style", "Type") of Face and Body Features as well as entire Clothing) from their respective reference image or image-section specified in Character's or Scene's text-description.
         """.format(ART_STYLE=ART_STYLE)
 
     def _get_master_end_prompt(self) -> str:
         """Get the master end prompt content."""
-        return """\n\nStrictly, Accurately, Precisely, always must Follow {ART_STYLE} Style. All Colourings, Styles, Shapes, Textures, Relative Positioning, Sizes, Lightings and Detailing, must be **exactly same/identical/as it is** in the scene text-description and character text-description as well as in the reference images/images-sections.""".format(ART_STYLE=ART_STYLE)
+        return """\n\nStrictly, Accurately, Precisely, always must Follow {ART_STYLE} Style. All Colourings, Styles, Shapes, Textures, Relative Positioning, Sizes, Lightings and Detailing, must be **exactly same/identical/as it is** in the text-description as well as in the reference images/images-sections.""".format(ART_STYLE=ART_STYLE)
 
     def _get_seed(self) -> int:
         """Get seed value based on configuration."""
