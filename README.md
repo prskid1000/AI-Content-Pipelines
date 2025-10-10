@@ -715,6 +715,98 @@ The video pipeline includes commented references to image and audio pipeline scr
 
 Each script contains various configuration constants that control behavior, quality, and output settings. Here's a comprehensive breakdown:
 
+### 📂 File Paths & Directory Structure
+
+#### Audio Pipeline (`gen.audio/`)
+
+**Input Directories:**
+- `../input/` - Main input directory
+- `voices/` - Character voice samples (organized by gender: `m_*` for male, `f_*` for female)
+
+**Output Directories:**
+- `../output/` - Main output directory
+- `../output/story/` - Individual story chunk files (`{start_line}_{end_line}.wav`)
+- `../output/sfx/` - Generated sound effects
+- `../output/tracking/` - Resumable checkpoint files (`*.state.json`)
+- `../output/shorts/` - YouTube Shorts videos (`shorts.v1-v5.mp4`)
+- `../../ComfyUI/output/audio/` - ComfyUI audio generation output
+- `../../ComfyUI/output/audio/sfx/` - ComfyUI SFX generation output
+
+**Key Files:**
+- Input: `1.story.txt`, `2.character.txt`, `2.timeline.txt`, `3.timing.txt`, `9.summary.txt`, `10.thumbnail.txt`
+- Output: `story.wav`, `sfx.wav`, `final.wav`, `final.mp4`, `thumbnail.png`, `description.txt`, `tags.txt`
+- Intermediate: `2.story.srt`, `2.story.str.txt`, `2.timeline.script.txt`, `12.chapters.txt`
+
+#### Image Pipeline (`gen.image/`)
+
+**Input Directories:**
+- `../input/` - Main input directory with story and description files
+- `../../ComfyUI/input/` - ComfyUI input folder for workflow execution
+
+**Output Directories:**
+- `../output/characters/` - Character portrait images
+- `../output/locations/` - Location background images
+- `../output/scene/` - Scene visualization images
+- `../output/backgrounds/` - Background generation intermediate results
+- `../output/lora/` - LoRA intermediate results (serial mode)
+- `../output/video/` - Per-scene video clips
+- `../output/tracking/` - Resumable checkpoint files (`*.state.json`)
+- `../../ComfyUI/output/` - ComfyUI generation output
+
+**Key Files:**
+- Input: `1.story.txt`, `9.summary.txt`, `2.character.txt`, `3.character.txt`, `2.location.txt`, `3.location.txt`, `3.scene.txt`
+- Latent Input (IMAGE mode): `2.latent.character.face.{size}.png`, `2.latent.character.body.{size}.png`, `2.latent.location.{size}.png`, `3.latent.png`
+- Output: `characters/*.png`, `locations/*.png`, `scene/*.png`, `merged.mp4`, `final_sd.mp4`
+
+#### Video Pipeline (`gen.video/`)
+
+**Input Directories:**
+- `../../gen.image/output/scene/` - Scene images from image pipeline
+- `../../gen.audio/input/` - Audio timeline files
+- `../../ComfyUI/input/` - ComfyUI input folder
+
+**Output Directories:**
+- `../output/animation/` - Animated video clips
+- `../output/frames/` - Extracted frame files
+- `../output/tracking/` - Resumable checkpoint files (`*.state.json`)
+- `../../ComfyUI/output/` - ComfyUI output folder
+
+**Key Files:**
+- Input: `2.timeline.script.txt`, `3.character.txt`, `3.location.txt`, `2.motion.txt`
+- Output: `animation/*.mp4`, `final_sd.mp4`
+- Workflow: `../workflow/animate.json`
+
+### 🔧 Service URLs & Endpoints
+
+**ComfyUI Configuration:**
+```python
+# Default URL (configurable via environment variable)
+COMFYUI_BASE_URL = "http://127.0.0.1:8188"
+
+# Used in scripts:
+comfyui_url = "http://127.0.0.1:8188/"
+comfyui_output_folder = "../../ComfyUI/output"
+comfyui_input_folder = "../../ComfyUI/input"
+```
+
+**LM Studio Configuration:**
+```python
+# Default URL (configurable via environment variable)
+LM_STUDIO_BASE_URL = "http://127.0.0.1:1234/v1"
+
+# Models endpoint for health checks
+models_url = "http://127.0.0.1:1234/v1/models"
+```
+
+**Environment Variables:**
+- `COMFYUI_BASE_URL` - Override default ComfyUI URL
+- `COMFYUI_DIR` - Custom ComfyUI directory path
+- `LM_STUDIO_BASE_URL` - Override default LM Studio URL
+- `LM_STUDIO_CMD` - Custom LM Studio command (default: `lms`)
+- `LM_STUDIO_MODEL` - Model name (default: `qwen3-30b-a3b-instruct-2507`)
+- `PYTHONIOENCODING` - Python encoding (default: `utf-8`)
+- `PYTHONUNBUFFERED` - Python output buffering (default: `1`)
+
 ## 🔍 Workflow Summary Feature
 
 The `WORKFLOW_SUMMARY_ENABLED` feature provides detailed workflow execution summaries for debugging and monitoring ComfyUI workflow operations. When enabled, scripts will print comprehensive information about workflow structure, node configurations, and execution parameters.
@@ -769,9 +861,11 @@ WORKFLOW_SUMMARY_ENABLED = False
 - **Memory Usage**: Negligible additional memory consumption
 - **Recommended**: Enable only when debugging or troubleshooting
 
-### Audio Pipeline Scripts
+### 🎯 Complete Configuration Constants Reference
 
-#### `1.character.py` - Character Voice Assignment
+#### Audio Pipeline Scripts
+
+##### `1.character.py` - Character Voice Assignment
 ```python
 # Language and Region Configuration
 LANGUAGE = "en"
@@ -781,22 +875,28 @@ REGION = "in"
 MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen3-30b-a3b-instruct-2507"
 MODEL_CHARACTER_TITLE_GENERATION = "qwen3-30b-a3b-instruct-2507"
 MODEL_CHARACTER_META_SUMMARY = "qwen3-30b-a3b-instruct-2507"
+MODEL_DESCRIPTION_GENERATION = "qwen3-30b-a3b-instruct-2507"
 
 # Story Processing
 CHUNK_SIZE = 50  # Lines per chapter chunk
 GENERATE_TITLE = True  # Auto title generation
 
-# Feature flags for resumable mode
+# Feature Flags
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
-CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
+CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
 
-# Non-interactive defaults (can be overridden by CLI flags in __main__)
+# Non-interactive Defaults (overridden by CLI flags)
 AUTO_GENDER = "m"  # Default gender assignment
 AUTO_CONFIRM = "y"  # Auto-confirm prompts
 AUTO_CHANGE_SETTINGS = "n"  # Allow setting changes
+
+# File Paths
+checkpoint_dir = "../output/tracking"
+voices_dir = "../voices"
+output_file = "../input/2.character.txt"
 ```
 
-#### `2.story.py` - Story Audio Generation
+##### `2.story.py` - Story Audio Generation
 ```python
 # Configuration Constants
 CHUNK_SIZE = 5  # Number of dialogues/lines per chunk
@@ -809,192 +909,329 @@ comfyui_url = "http://127.0.0.1:8188/"
 output_folder = "../../ComfyUI/output/audio"
 final_output = "../output/story.wav"
 chunk_output_dir = "../output/story"
+checkpoint_dir = "../output/tracking"
+
+# Input Files
+story_file = "../input/1.story.txt"
+character_file = "../input/2.character.txt"
 
 # Processing Features
 # - Chunked Processing: Splits story into manageable chunks
 # - Progress Tracking: Real-time percentage completion
-# - Individual Chunk Output: Saves each chunk as output/story/start_line_end_line.wav
+# - Individual Chunk Output: Saves each chunk as output/story/{start}_{end}.wav
 # - Final Concatenation: Combines all chunks into final story.wav
 # - Checkpoint Recovery: Resumes from any completed chunk if interrupted
 ```
 
-#### `7.sfx.py` - Sound Effects Generation
+##### `3.transcribe.py` - Audio Transcription
 ```python
+# Input/Output Files
+audio_file = "../output/story.wav"
+srt_output = "../input/2.story.srt"
+text_output = "../input/2.story.str.txt"
+timeline_file = "../input/2.timeline.txt"
+
+# Uses Whisper for transcription
+```
+
+##### `4.quality.py` - Transcription Quality Check
+```python
+# Input File
+transcription_file = "../input/2.story.str.txt"
+
+# No external dependencies - standalone quality analysis
+```
+
+##### `5.timeline.py` - SFX Timeline Generation
+```python
+# Model Configuration
+MODEL_TIMELINE_GENERATION = "qwen3-30b-a3b-instruct-2507"
+
+# Feature Flags
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False
+
+# File Paths
+input_file = "../input/2.story.str.txt"
+output_file = "../input/2.timeline.txt"
+checkpoint_dir = "../output/tracking"
+```
+
+##### `6.timing.py` - SFX Timing Refinement
+```python
+# Model Configuration
+MODEL_TIMING_GENERATION = "qwen3-30b-a3b-instruct-2507"
+
+# Feature Flags
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False
+
+# File Paths
+timeline_file = "../input/2.timeline.txt"
+output_file = "../input/3.timing.txt"
+checkpoint_dir = "../output/tracking"
+```
+
+##### `7.sfx.py` - Sound Effects Generation
+```python
+# Feature Flags
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False
+WORKFLOW_SUMMARY_ENABLED = False
+
 # SFX Processing
 comfyui_url = "http://127.0.0.1:8188/"
 output_folder = "../../ComfyUI/output/audio/sfx"
+final_output_folder = "../output/sfx"
 max_workers = 3  # Concurrent processing
+
+# File Paths
+input_file = "../input/3.timing.txt"
+checkpoint_dir = "../output/tracking"
 ```
 
-#### `8.combine.py` - Audio Mixing
+##### `8.combine.py` - Audio Mixing
 ```python
 # Audio Processing
 story_audio_path = "../output/story.wav"
 sfx_audio_path = "../output/sfx.wav"
 final_output_path = "../output/final.wav"
+
+# Uses PyTorch/Torchaudio for professional mixing
 ```
 
-#### `10.thumbnail.py` - Thumbnail Generation
+##### `9.media.py` - YouTube Metadata Generation
 ```python
+# Model Configuration
+MODEL_MEDIA_TAGS = "qwen3-30b-a3b-instruct-2507"
+MODEL_MEDIA_TITLE = "qwen3-30b-a3b-instruct-2507"
+MODEL_MEDIA_HOOK = "qwen3-30b-a3b-instruct-2507"
+MODEL_MEDIA_BULLETS = "qwen3-30b-a3b-instruct-2507"
+MODEL_DESCRIPTION_GENERATION = "qwen3-30b-a3b-instruct-2507"
+
+# File Paths
+story_file = "../input/1.story.txt"
+summary_file = "../input/9.summary.txt"
+thumbnail_output = "../input/10.thumbnail.txt"
+description_output = "../output/description.txt"
+tags_output = "../output/tags.txt"
+title_output = "../input/10.title.txt"
+```
+
+##### `10.thumbnail.py` - Thumbnail Generation
+```python
+# Feature Flags
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False
+WORKFLOW_SUMMARY_ENABLED = False
+
 # Random Seed Configuration
-USE_RANDOM_SEED = True  # Set to True to use random seeds for each generation
+USE_RANDOM_SEED = True
 RANDOM_SEED = 333555666
 
-# Workflow Configuration
-WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
-
 # Title Text Configuration
-USE_TITLE_TEXT = True  # True: use text overlay (1 image), False: let Flux generate text (5 versions)
-TITLE_POSITION = "middle"  # "top", "middle", or "bottom"
-TITLE_FONT_SCALE = 1.5  # Text scaling: 1 = default, 2 = 2x, 3 = 3x
-TITLE_LAYOUT = "overlay"  # "overlay", "expand", or "fit"
+USE_TITLE_TEXT = True  # True: use text overlay, False: Flux generates text
+TITLE_POSITION = "middle"  # "top", "middle", "bottom"
+TITLE_FONT_SCALE = 1.5
+TITLE_LAYOUT = "overlay"  # "overlay", "expand", "fit"
 
-# Target Output Canvas Size
+# Output Canvas Size
 OUTPUT_WIDTH = 1280
 OUTPUT_HEIGHT = 720
 
-# YouTube Shorts format (9:16 aspect ratio)
+# YouTube Shorts (9:16 aspect ratio)
 SHORTS_WIDTH = 1080
 SHORTS_HEIGHT = 1920
-
-# Number of shorts variations to generate
 SHORTS_VARIATIONS = 5
 
-# Image Resolution Constants
+# Image Resolution
 IMAGE_WIDTH = 1280
 IMAGE_HEIGHT = 720
 
-# Latent Input Mode Configuration
-LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
-LATENT_DENOISING_STRENGTH = 0.8  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
+# Latent Input Mode
+LATENT_MODE = "LATENT"
+LATENT_DENOISING_STRENGTH = 0.8
 
 # LoRA Configuration
-USE_LORA = True  # Set to False to disable LoRA usage in workflow
-LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
+USE_LORA = True
+LORA_MODE = "serial"
 LORAS = [
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 3.6,    # Model strength (0.0 - 2.0)
-        "strength_clip": 3.6,     # CLIP strength (0.0 - 2.0)
+        "strength_model": 3.6,
+        "strength_clip": 3.6,
         "bypass_model": False,
         "bypass_clip": False,
         "enabled": True,
-        "steps": 9,               # Serial mode only
-        "denoising_strength": 1,  # Serial mode only
+        "steps": 9,
+        "denoising_strength": 1,
         "save_intermediate": True,
         "use_only_intermediate": False
     }
 ]
 
 # Sampling Configuration
-SAMPLING_STEPS = 25  # Number of sampling steps (higher = better quality, slower)
+SAMPLING_STEPS = 25
 USE_NEGATIVE_PROMPT = True
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
 ART_STYLE = "Realistic Anime"
+
+# File Paths
+comfyui_url = "http://127.0.0.1:8188/"
+comfyui_output_folder = "../../ComfyUI/output"
+input_file = "../input/10.thumbnail.txt"
+output_file = "../output/thumbnail.png"
+checkpoint_dir = "../output/tracking"
 ```
 
-### Image Pipeline Scripts
-
-#### `1.story.py` - Story Parsing
+##### `11.video.py` - Final Video Creation
 ```python
-# Processing Limits (min-max ranges with 6:1 character-to-word ratio)
-CHARACTER_SUMMARY_CHARACTER_MIN = 720
-CHARACTER_SUMMARY_CHARACTER_MAX = 960
-CHARACTER_SUMMARY_WORD_MIN = 120
-CHARACTER_SUMMARY_WORD_MAX = 160
+# Input Files
+audio_file = "../output/final.wav"
+thumbnail_file = "../output/thumbnail.png"
 
-LOCATION_SUMMARY_CHARACTER_MIN = 1800
-LOCATION_SUMMARY_CHARACTER_MAX = 2160
-LOCATION_SUMMARY_WORD_MIN = 300
-LOCATION_SUMMARY_WORD_MAX = 360
+# Output Files
+output_file = "../output/final.mp4"
+shorts_output = "../output/shorts.v{1-5}.mp4"
 
-STORY_DESCRIPTION_CHARACTER_MIN = 15000
-STORY_DESCRIPTION_CHARACTER_MAX = 16800
-STORY_DESCRIPTION_WORD_MIN = 2500
-STORY_DESCRIPTION_WORD_MAX = 2800
+# Uses FFmpeg for video compilation
+```
+
+##### `12.youtube.py` - YouTube Upload
+```python
+# Input Files
+video_file = "../output/final.mp4"
+shorts_files = "../output/shorts/shorts.v{1-5}.mp4"
+description_file = "../output/description.txt"
+tags_file = "../output/tags.txt"
+
+# YouTube API Configuration
+client_secrets = "../client_secrets.json"
+token_file = "../token.json"
+
+# Upload Settings
+YOUTUBE_PRIVACY_STATUS = "private"  # "private", "unlisted", "public"
+YOUTUBE_CATEGORY_ID = "22"  # People & Blogs
+```
+
+#### Image Pipeline Scripts
+
+##### `1.story.py` - Story Parsing
+```python
+# Word to Character Ratio
+WORD_FACTOR = 6
+
+# Processing Limits (min-max ranges)
+CHARACTER_SUMMARY_WORD_MIN = 60
+CHARACTER_SUMMARY_WORD_MAX = 120
+CHARACTER_SUMMARY_CHARACTER_MIN = 360  # 60 * 6
+CHARACTER_SUMMARY_CHARACTER_MAX = 720  # 120 * 6
+
+LOCATION_SUMMARY_WORD_MIN = 60
+LOCATION_SUMMARY_WORD_MAX = 120
+LOCATION_SUMMARY_CHARACTER_MIN = 360
+LOCATION_SUMMARY_CHARACTER_MAX = 720
 
 # Feature Flags
-ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
-CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False
 
 # Model Configuration
-MODEL_STORY_DESCRIPTION = "qwen3-30b-a3b-instruct-2507"  # Model for generating story descriptions
-MODEL_CHARACTER_GENERATION = "qwen3-30b-a3b-instruct-2507"  # Model for character description generation
-MODEL_CHARACTER_SUMMARY = "qwen3-30b-a3b-instruct-2507"  # Model for character summary generation
-MODEL_LOCATION_EXPANSION = "qwen3-30b-a3b-instruct-2507"  # Model for location expansion
+MODEL_STORY_DESCRIPTION = "qwen3-30b-a3b-instruct-2507"
+MODEL_CHARACTER_GENERATION = "qwen3-30b-a3b-instruct-2507"
+MODEL_CHARACTER_SUMMARY = "qwen3-30b-a3b-instruct-2507"
+MODEL_LOCATION_EXPANSION = "qwen3-30b-a3b-instruct-2507"
 
 ART_STYLE = "Realistic Anime"
+
+# File Paths
+story_file = "../input/1.story.txt"
+summary_file = "../input/9.summary.txt"
+character_output = "../input/2.character.txt"
+character_summary_output = "../input/3.character.txt"
+location_output = "../input/2.location.txt"
+location_summary_output = "../input/3.location.txt"
+scene_output = "../input/3.scene.txt"
+checkpoint_dir = "../output/tracking"
 ```
 
-#### `2.character.py` - Character Generation
+##### `2.character.py` - Character Generation
 ```python
 # Feature Flags
 ENABLE_RESUMABLE_MODE = True
-CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
-WORKFLOW_SUMMARY_ENABLED = True  # Set to True to enable workflow summary printing
+CLEANUP_TRACKING_FILES = False
+WORKFLOW_SUMMARY_ENABLED = False
 
 # Variation Configuration
-VARIATIONS_PER_CHARACTER = 1  # Number of variations to generate per character (in addition to original)
+VARIATIONS_PER_CHARACTER = 1
 
-# Image Resolution Constants
-IMAGE_WIDTH = 1280
-IMAGE_HEIGHT = 720
+# Image Resolution
+IMAGE_WIDTH = 633
+IMAGE_HEIGHT = 950
 
-# Latent Input Mode Configuration
-LATENT_MODE = "IMAGE"  # "LATENT" for normal noise generation, "IMAGE" for load image input
-IMAGE_LATENT_SIZE = "medium"  # Size for latent input images: "small", "medium", "large"
-FACE_ONLY = False  # Set to True to generate only face images, False for full body images
-LATENT_DENOISING_STRENGTH = 0.85  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
+# Latent Input Mode
+LATENT_MODE = "LATENT"
+IMAGE_LATENT_SIZE = "medium"  # "small", "medium", "large"
+FACE_ONLY = False  # True: face only, False: full body
+LATENT_DENOISING_STRENGTH = 0.85
 
 # LoRA Configuration
-USE_LORA = True  # Set to False to disable LoRA usage in workflow
-LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
+USE_LORA = True
+LORA_MODE = "serial"
 LORAS = [
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 2.0,    # Model strength (0.0 - 2.0)
-        "strength_clip": 2.0,     # CLIP strength (0.0 - 2.0)
+        "strength_model": 2.0,
+        "strength_clip": 2.0,
         "bypass_model": False,
         "bypass_clip": False,
         "enabled": True,
-        "steps": 6,               # Serial mode only
-        "denoising_strength": 1,  # Serial mode only
+        "steps": 6,
+        "denoising_strength": 1,
         "save_intermediate": True,
         "use_only_intermediate": False
     },
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 3.6,    # Model strength (0.0 - 2.0)
-        "strength_clip": 3.6,     # CLIP strength (0.0 - 2.0)
+        "strength_model": 3.6,
+        "strength_clip": 3.6,
         "bypass_model": False,
         "bypass_clip": False,
-        "enabled": False,         # Set to False to disable this LoRA entirely
-        "steps": 6,               # Serial mode only
-        "denoising_strength": 0.1, # Serial mode only
+        "enabled": False,
+        "steps": 6,
+        "denoising_strength": 0.1,
         "save_intermediate": True,
         "use_only_intermediate": True
     }
 ]
 
 # Sampling Configuration
-SAMPLING_STEPS = 25  # Number of sampling steps (higher = better quality, slower)
+SAMPLING_STEPS = 25
 USE_NEGATIVE_PROMPT = True
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
-# Random Seed Configuration
-USE_RANDOM_SEED = True  # Set to True to use random seeds, False to use fixed seed
-FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
+# Random Seed
+USE_RANDOM_SEED = True
+FIXED_SEED = 333555666
 
-# Character Settings
-USE_CHARACTER_NAME_OVERLAY = False  # Set to False to disable name overlay
+# Character Overlay Settings
+USE_CHARACTER_NAME_OVERLAY = False
 CHARACTER_NAME_FONT_SCALE = 1
-CHARACTER_NAME_BAND_HEIGHT_RATIO = 0.30  # 30% of image height for name band
+CHARACTER_NAME_BAND_HEIGHT_RATIO = 0.30
 
 # Text Processing
-USE_SUMMARY_TEXT = False  # Set to True to use summary text
+USE_SUMMARY_TEXT = False
 
 ART_STYLE = "Realistic Anime"
+
+# File Paths
+comfyui_url = "http://127.0.0.1:8188/"
+comfyui_output_folder = "../../ComfyUI/output"
+workflow_file = "../workflow/character.flux.json"  # or "../workflow/character.json"
+input_file = "../input/2.character.txt"  # or "../input/3.character.txt" if USE_SUMMARY_TEXT
+output_dir = "../output/characters"
+checkpoint_dir = "../output/tracking"
 ```
 
 #### `2.location.py` - Location Generation
@@ -1064,99 +1301,168 @@ CHARACTER_NAME_BAND_HEIGHT_RATIO = 0.30  # 30% of image height for name band
 USE_SUMMARY_TEXT = True  # Set to True to use summary text
 
 ART_STYLE = "Realistic Anime"
+
+# File Paths
+comfyui_url = "http://127.0.0.1:8188/"
+comfyui_output_folder = "../../ComfyUI/output"
+workflow_file = "../workflow/character.flux.json"
+input_file = "../input/3.location.txt"  # or "../input/2.location.txt" if not USE_SUMMARY_TEXT
+output_dir = "../output/locations"
+checkpoint_dir = "../output/tracking"
 ```
 
-#### `3.scene.py` - Scene Generation
+##### `3.scene.py` - Scene Generation
 ```python
 # Feature Flags
 ENABLE_RESUMABLE_MODE = True
-CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
-WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
+CLEANUP_TRACKING_FILES = False
+WORKFLOW_SUMMARY_ENABLED = False
 
-# Image Resolution Constants
+# Image Resolution
 IMAGE_WIDTH = 1280
 IMAGE_HEIGHT = 720
 
-# Image Resizing Configuration (characters only)
-CHARACTER_RESIZE_FACTOR = 0.5  # Character image resize factor: 0.5 = 50% of original size
+# Image Processing
+CHARACTER_RESIZE_FACTOR = 1  # Character resize: 1 = 100% original size
+IMAGE_COMPRESSION_QUALITY = 95  # JPEG quality: 1-100
 
-# Image Compression Configuration
-IMAGE_COMPRESSION_QUALITY = 90  # JPEG quality: 1-100 (90 = good quality, smaller file)
+# Prompt Handling Modes
+ACTIVE_CHARACTER_MODE = "IMAGE"  # "IMAGE_TEXT", "TEXT", "IMAGE", "NONE"
+ACTIVE_LOCATION_MODE = "TEXT"    # "IMAGE_TEXT", "TEXT", "IMAGE", "NONE"
+LOCATION_CHAR_LIMIT = 30
 
-# Character/Location Prompt Handling Modes
-# Character modes: "IMAGE_TEXT", "TEXT", "IMAGE", "NONE"
-# Location modes: "IMAGE_TEXT", "TEXT", "IMAGE", "NONE"
-ACTIVE_CHARACTER_MODE = "IMAGE_TEXT"  # Character handling mode
-ACTIVE_LOCATION_MODE = "TEXT"         # Location handling mode
+# Latent Input Mode
+LATENT_MODE = "LATENT"
+LATENT_DENOISING_STRENGTH = 0.90
 
-# Latent Input Mode Configuration
-LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
-LATENT_DENOISING_STRENGTH = 0.90  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
-
-# Image Stitching Configuration (1-5)
-IMAGE_STITCH_COUNT = 1  # Number of images to stitch together in each group
+# Image Stitching
+IMAGE_STITCH_COUNT = 1  # Number of images to stitch (1-5)
 
 # LoRA Configuration
-USE_LORA = True  # Set to False to disable LoRA usage in workflow
-LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
+USE_LORA = True
+LORA_MODE = "serial"
 LORAS = [
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 3.6,    # Model strength (0.0 - 2.0)
-        "strength_clip": 3.6,     # CLIP strength (0.0 - 2.0)
+        "strength_model": 2.0,
+        "strength_clip": 2.0,
         "bypass_model": False,
         "bypass_clip": False,
         "enabled": True,
-        "steps": 6,               # Serial mode only
-        "denoising_strength": 1,  # Serial mode only
+        "steps": 9,
+        "denoising_strength": 1,
         "save_intermediate": True,
         "use_only_intermediate": False
     },
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 3.6,    # Model strength (0.0 - 2.0)
-        "strength_clip": 3.6,     # CLIP strength (0.0 - 2.0)
+        "strength_model": 2.0,
+        "strength_clip": 2.0,
         "bypass_model": False,
         "bypass_clip": False,
-        "enabled": False,         # Set to False to disable this LoRA entirely
-        "steps": 6,               # Serial mode only
-        "denoising_strength": 0.1, # Serial mode only
+        "enabled": False,
+        "steps": 9,
+        "denoising_strength": 0.1,
         "save_intermediate": True,
         "use_only_intermediate": True
     }
 ]
 
 # Sampling Configuration
-SAMPLING_STEPS = 25  # Number of sampling steps (higher = better quality, slower)
+SAMPLING_STEPS = 25
 USE_NEGATIVE_PROMPT = True
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
-# Random Seed Configuration
-USE_RANDOM_SEED = True  # Set to True to use random seed, False to use fixed seed
-FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
+# Random Seed
+USE_RANDOM_SEED = True
+FIXED_SEED = 333555666
+
+# Text Processing
+USE_SUMMARY_TEXT = True
 
 ART_STYLE = "Realistic Anime"
+
+# File Paths
+comfyui_url = "http://127.0.0.1:8188/"
+comfyui_output_folder = "../../ComfyUI/output"
+comfyui_input_folder = "../../ComfyUI/input"
+scene_file = "../input/3.scene.txt"
+character_file = "../input/3.character.txt"  # or "../input/2.character.txt"
+location_file = "../input/3.location.txt"    # or "../input/2.location.txt"
+workflow_file = "../workflow/scene.json"
+output_dir = "../output/scene"
+character_images_dir = "../output/characters"
+location_images_dir = "../output/locations"
+checkpoint_dir = "../output/tracking"
 ```
 
-### Video Pipeline Scripts
+##### `4.audio.py` - Audio Timeline Processing
+```python
+# File Paths
+timeline_file = "../../gen.audio/input/2.timeline.txt"
+story_file = "../input/1.story.txt"
+scene_file = "../input/3.scene.txt"
+output_file = "../../gen.audio/input/2.timeline.script.txt"
 
-#### `2.animate.py` - Video Animation
+# No external dependencies - processes timeline data
+```
+
+##### `5.video.py` - Per-Scene Video Creation
+```python
+# Input Files
+scene_images_dir = "../output/scene"
+timeline_file = "../../gen.audio/input/2.timeline.script.txt"
+
+# Output Files
+output_dir = "../output/video"
+merged_output = "../output/merged.mp4"
+
+# Uses FFmpeg for video compilation
+```
+
+##### `6.combine.py` - Video Audio Combination
+```python
+# Input Files
+video_file = "../output/merged.mp4"
+audio_file = "../../gen.audio/output/final.wav"
+
+# Output File
+output_file = "../output/final_sd.mp4"
+
+# Uses FFmpeg for video/audio merging
+```
+
+#### Video Pipeline Scripts
+
+##### `1.story.py` - Video Story Analysis
+```python
+# File Paths
+story_file = "../input/1.story.txt"
+
+# Uses LM Studio for story structure analysis
+# (Currently commented out in generate.py)
+```
+
+##### `2.animate.py` - Video Animation
 ```python
 # Feature Flags
 ENABLE_RESUMABLE_MODE = True
-CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
+CLEANUP_TRACKING_FILES = False
 
 # Video Configuration
 VIDEO_WIDTH = 1024
 VIDEO_HEIGHT = 576
 FRAMES_PER_SECOND = 24
 
-# Feature Flags for Content Replacement
+# Content Replacement Flags
 ENABLE_MOTION = True
 ENABLE_SCENE = True
-ENABLE_LOCATION = True  # Set to True to replace {{loc_1}} with location descriptions from 3.location.txt
+ENABLE_LOCATION = True
+
+ART_STYLE = "Anime"
 
 # File Paths
+comfyui_url = "http://127.0.0.1:8188/"
 comfyui_output_folder = "../../ComfyUI/output"
 comfyui_input_folder = "../../ComfyUI/input"
 scene_images_dir = "../../gen.image/output/scene"
@@ -1167,36 +1473,120 @@ workflow_file = "../workflow/animate.json"
 character_file = "../../gen.image/input/3.character.txt"
 location_file = "../../gen.image/input/3.location.txt"
 motion_file = "../input/2.motion.txt"
-
-ART_STYLE = "Anime"
+checkpoint_dir = "../output/tracking"
 ```
 
-### Global Pipeline Settings
-
-#### Service Management
+##### `3.video.py` - Final Video Compilation
 ```python
-# Service URLs
+# Input Files
+animation_dir = "../output/animation"
+audio_file = "../../gen.audio/output/final.wav"
+
+# Output File
+output_file = "../output/final_sd.mp4"
+
+# Uses FFmpeg for final video assembly
+```
+
+### 🌐 Global Pipeline Settings
+
+#### Service Management (generate.py files)
+
+**Service URLs:**
+```python
+# Environment variable defaults
 COMFYUI_BASE_URL = "http://127.0.0.1:8188"
 LM_STUDIO_BASE_URL = "http://127.0.0.1:1234/v1"
-
-# Timeouts
-COMFYUI_READY_CHECK_INTERVAL = 15  # seconds
-LM_STUDIO_READY_CHECK_INTERVAL = 15  # seconds
-SERVICE_SHUTDOWN_TIMEOUT = 10  # seconds
-SERVICE_KILL_TIMEOUT = 5  # seconds
 ```
 
-#### Script Arguments
+**Service Polling Intervals:**
 ```python
-# Default Arguments per Script
+# Ready check intervals (seconds)
+COMFYUI_READY_CHECK_INTERVAL = 15
+LM_STUDIO_READY_CHECK_INTERVAL = 15
+
+# Shutdown timeouts (seconds)
+SERVICE_SHUTDOWN_TIMEOUT = 10
+SERVICE_KILL_TIMEOUT = 5
+SERVICE_STOPPED_CHECK_INTERVAL = 3
+```
+
+**Service Dependencies:**
+```python
+# Audio Pipeline (gen.audio/generate.py)
+NEEDS_COMFYUI = {"2.story.py", "7.sfx.py", "10.thumbnail.py"}
+NEEDS_LMSTUDIO = {"1.character.py", "5.timeline.py", "6.timing.py", "9.media.py"}
+
+# Image Pipeline (gen.image/generate.py)
+NEEDS_COMFYUI = {"2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py", "2.location.py"}
+NEEDS_LMSTUDIO = {"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py", "9.media.py"}
+
+# Video Pipeline (gen.video/generate.py)
+NEEDS_COMFYUI = {"2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py", "2.animate.py", "2.location.py"}
+NEEDS_LMSTUDIO = {"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py", "9.media.py"}
+```
+
+#### Script Arguments (generate.py files)
+
+**Audio Pipeline:**
+```python
+SCRIPT_ARGS = {
+    "1.character.py": ["--auto-gender", "m", "--auto-confirm", "y", "--change-settings", "n"],
+    "10.thumbnail.py": ["--mode", "flux"],
+    "12.youtube.py": ["--video-file", "../output/final.mp4", "--upload-shorts"]
+}
+```
+
+**Image Pipeline:**
+```python
 SCRIPT_ARGS = {
     "1.character.py": ["--auto-gender", "m", "--auto-confirm", "y", "--change-settings", "n"],
     "10.thumbnail.py": ["--mode", "flux"],
     "2.character.py": ["--mode", "flux"],
     "5.timeline.py": ["../input/2.timeline.script.txt"],
     "7.sfx.py": ["--auto-confirm", "y"],
-    "13.youtube.py": ["--video-file", "../output/final.mp4"]
+    "12.youtube.py": ["--video-file", "../../gen.image/output/final_sd.mp4", "--upload-shorts", "--shorts-dir", "../../gen.audio/output/shorts"]
 }
+```
+
+**Video Pipeline:**
+```python
+SCRIPT_ARGS = {
+    "1.character.py": ["--auto-gender", "m", "--auto-confirm", "y", "--change-settings", "n"],
+    "10.thumbnail.py": ["--mode", "flux"],
+    "2.character.py": ["--mode", "flux"],
+    "5.timeline.py": ["../input/2.timeline.script.txt"],
+    "7.sfx.py": ["--auto-confirm", "y"],
+    "12.youtube.py": ["--video-file", "../../gen.video/output/final.mp4", "--upload-shorts", "--shorts-dir", "../../gen.audio/output/shorts"]
+}
+```
+
+#### Active Scripts Configuration
+
+**Audio Pipeline (gen.audio/generate.py):**
+```python
+SCRIPTS = [
+    # All 13 scripts currently commented out
+    # Uncomment to activate full audio pipeline
+]
+```
+
+**Image Pipeline (gen.image/generate.py):**
+```python
+SCRIPTS = [
+    "1.story.py",
+    "2.character.py",
+    "3.scene.py",
+    # Other scripts commented out
+]
+```
+
+**Video Pipeline (gen.video/generate.py):**
+```python
+SCRIPTS = [
+    # All scripts currently commented out
+    # Empty pipeline - configure as needed
+]
 ```
 
 ### Environment Variables
