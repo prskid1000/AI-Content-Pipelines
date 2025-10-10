@@ -635,13 +635,8 @@ class SceneGenerator:
 
     def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
-        return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}. The artwork should feature fine, intricate details and a natural sense of depth, with Utra Wide Angle (120 degrees FOV) Paranomic Shot/View to ensure that at least all mentioned characters and objects are fully visible and exists in the scene.
-        Illustrate each Character's Face and Body Features as well as entire Clothing as in the respective reference image, and character text-description though all other aspects like face and body direction, pose, posture, props, etc. are adaptable to Scene text-description
+        return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}.
         """.format(ART_STYLE=ART_STYLE)
-
-    def _get_master_end_prompt(self) -> str:
-        """Get the master end prompt content."""
-        return """\n\nStrictly, Accurately, Precisely, always must Follow {ART_STYLE} Style. All Colourings, Styles, Shapes, Textures, Relative Positioning, Sizes, Lightings, Expression, and Detailing, must be **exactly same/identical/as it is** in the text-description as well as in the reference images/images-sections.""".format(ART_STYLE=ART_STYLE)
 
     def _get_seed(self) -> int:
         """Get seed value based on configuration."""
@@ -1555,8 +1550,6 @@ class SceneGenerator:
             character_details = self._get_character_details(character_names, characters_data)
             if character_details:
                 text_prompt += f"\nCHARACTER TEXT-DESCRIPTION:\n{character_details}"
-
-        text_prompt += self._get_master_end_prompt()
         
         workflow["33"]["inputs"]["text"] = text_prompt
         workflow["21"]["inputs"]["filename_prefix"] = scene_id
