@@ -609,7 +609,7 @@ class SceneGenerator:
                 
                 # Only add location details in TEXT and IMAGE_TEXT modes, skip in NONE and IMAGE mode
                 # Only add position description in IMAGE and IMAGE_TEXT modes, skip in NONE and TEXT mode
-                return f"USE, {position_desc if self.location_mode in ['IMAGE', 'IMAGE_TEXT'] else ''}, {locations_data.get(loc_id, '')[:LOCATION_CHAR_LIMIT] if self.location_mode in ['TEXT', 'IMAGE_TEXT'] else ''} to illustrate the scene"
+                return f"USE{ "," +position_desc if self.location_mode in ['IMAGE', 'IMAGE_TEXT'] else ''}, {locations_data.get(loc_id, '')[:LOCATION_CHAR_LIMIT] if self.location_mode in ['TEXT', 'IMAGE_TEXT'] else ''} to illustrate the scene"
             else:
                 # Location not found in the list, keep original
                 return full_match
@@ -638,7 +638,7 @@ class SceneGenerator:
                 position_desc = self._get_position_description(position_in_group, group_number)
 
                 # Only add character details in TEXT and IMAGE_TEXT modes, skip in NONE  and IMAGE mode.Only add position description in IMAGE and IMAGE_TEXT modes, skip in NONE and TEXT mode.
-                return f"USE, {position_desc if self.character_mode in ['IMAGE', 'IMAGE_TEXT'] else ''}, {characters_data[char_name] if self.character_mode in ['TEXT', 'IMAGE_TEXT'] else ''} to illustrate the scene"
+                return f"USE{ "," +position_desc if self.character_mode in ['IMAGE', 'IMAGE_TEXT'] else ''}, {characters_data[char_name] if self.character_mode in ['TEXT', 'IMAGE_TEXT'] else ''} to illustrate the scene"
             else:
                 # Character not found in the list, keep original
                 return full_match
