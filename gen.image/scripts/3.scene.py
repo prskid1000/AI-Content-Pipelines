@@ -636,7 +636,6 @@ class SceneGenerator:
         return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
 All Non-Living Objects mentioned in Scene text-description must be present in illustration.Must Always Precisely & Accurately Represent entire Scene including all Non-Living Objects according to scene text-description.
 Must Always Precisely & Accurately Preserve each Character's Identity and Appearance(Properties like "Color", "Texture", "Shape", "Details", "Style", "Type") of Face and Body Features as well as entire Clothing) from their respective reference image or image-section specified in Character's or Scene's text-description.
-All other aspects of Characters is adaptable/must change according to Scene and Character text-description. Keep each Character's all "Features Separate and Discrete" from each other.
         """.format(ART_STYLE=ART_STYLE)
 
     def _get_master_end_prompt(self) -> str:

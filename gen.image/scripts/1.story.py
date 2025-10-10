@@ -737,7 +737,8 @@ def _schema_story_summary() -> dict[str, object]:
 
 def _build_character_system_prompt() -> str:
     return (
-        f"You are a Professional Visual Director and Character Creator and Character Designer and Character Writer and Character Illustrator. Your Job is to Create detailed visual-only attributes and characteristics for the character based its role in story for AI image generation.\n\n"
+        f"You are a Professional Visual Director and Character Creator and Character Designer and Character Writer and Character Illustrator. Your Job is to Create detailed visual-only attributes and characteristics for the character based its role in story for AI image generation.\n"
+        f"Each value should be short and precise i.e do not use long phrases or sentences."
     )
 
 def _build_character_user_prompt(story_desc: str, character_name: str, all_characters: dict[str, str]) -> str:
@@ -763,7 +764,8 @@ def _build_character_summary_user_prompt(character_name: str, detailed_descripti
 def _build_story_summary_prompt() -> str:
     return (
         f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Summarize the story into 5 distinct plot summaries each with a title, a short summary, and a long summary.\n"
-        f"Use written grammatically correct and complete short english sentences (6-9 words) that are well-structured with clear subject and predicate."
+        f"Use written grammatically correct and complete short and precise english sentences (6-9 words) that are well-structured with clear subject and predicate."
+        f"You can only use full stop, comma, apostrophe, and space as special characters."
         f"The long summary should describe the chronology of all events and actions in the plot.\n"
         f"Focus on event and actions not on what characters are explaining/thinking/discussing/feeling/saying.\n"
     )
@@ -788,7 +790,8 @@ def _build_story_summary_user_prompt(story_content: str) -> str:
 
 def _build_location_system_prompt() -> str:
     return (
-        f"You are a Professional Visual Director and Location Creator and Location Designer and Location Writer and Location Illustrator. Your Job is to Create a detailed location that includes all possible object that can be seen in such type of location, postioning large objects relative to the room, medium objects relative to large ones, small items relative to medium objects.\n\n"
+        f"You are a Professional Visual Director and Location Creator and Location Designer and Location Writer and Location Illustrator.Your Job is to Create a detailed location that includes at max{MAX_OBJECTS_PER_LOCATION} most relevant objects(excluding any direct/in-direct references to characters/actors) that can be seen in such type of location, postioning large objects relative to the room, medium objects relative to large ones, small items relative to medium objects.\n"
+        f"Each value should be short and precise i.e do not use long phrases or sentences."
     )
 
 def _build_location_user_prompt(story_desc: str, location_id: str, all_locations: dict[str, str]) -> str:
