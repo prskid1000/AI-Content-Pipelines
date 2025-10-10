@@ -635,7 +635,7 @@ class SceneGenerator:
 
     def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
-        return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}. The artwork should feature fine, intricate details and a natural sense of depth, with carefully chosen camera angle and focus to best frame the Scene. 
+        return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}. The artwork should feature fine, intricate details and a natural sense of depth, with Paranomic Sweep/Wide Angle(120 degrees FOV) Shot to ensure that all mentioned character as well as entire scene is fully visible. 
         """.format(ART_STYLE=ART_STYLE)
 
     def _get_master_end_prompt(self) -> str:
