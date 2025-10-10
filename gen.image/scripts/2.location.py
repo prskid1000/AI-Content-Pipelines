@@ -971,7 +971,7 @@ class LocationGenerator:
 
     def _update_workflow_prompt(self, workflow: dict, location_name: str, description: str) -> dict:
         """Update the workflow with location-specific prompt."""
-        prompt = f"Create a 16K ultra-high-resolution, detailed location environment illustration in the style of {ART_STYLE}. The scene should be atmospheric, immersive, and precisely matching the location description with fine-level detailing, rich color palette, proper lighting, depth of field, and environmental storytelling. No characters should be visible in this location scene.\n\nLocation Name = {location_name}. Location Description = {description}. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style for environmental art.All Colourings, Styles, Shapes, Textures, Lightings and Detailing, must be **exactly same/ identical/as it is** in the scene text-description"
+        prompt = f"Create a 16K ultra-high-resolution, detailed location environment illustration in the style of {ART_STYLE}. The scene should be atmospheric, immersive, and precisely matching the location description with fine-level detailing, rich color palette, proper lighting, depth of field, and environmental storytelling. No characters should be visible in this location scene.\n\n Location Description = {description}. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style for environmental art.All Colourings, Styles, Shapes, Textures, Lightings and Detailing, must be **exactly same/ identical/as it is** in the scene text-description"
         self._update_node_connections(workflow, ["CLIPTextEncode", "CLIP Text Encode (Prompt)"], "text", prompt)
         return workflow
 

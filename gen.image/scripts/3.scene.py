@@ -508,7 +508,7 @@ class SceneGenerator:
                     # Create position description using helper method
                     position_desc = self._get_position_description(position_in_group, group_number)
                     
-                    details.append(f"({position_desc}) is (({char})) who looks like {{{characters_data[char]}}}.")
+                    details.append(f"({position_desc}) is looks like {{{characters_data[char]}}}.")
                 else:
                     # TEXT mode: use simple format without position information
                     details.append(f"{char} WITH {{{characters_data[char]}}}.")
@@ -622,7 +622,7 @@ class SceneGenerator:
                 
                 # Create position description using helper method
                 position_desc = self._get_position_description(position_in_group, group_number)
-                return f"Place (({char_name})), the {position_desc},"
+                return f"Place the {position_desc},"
             else:
                 # Character not found in the list, keep original
                 return full_match
