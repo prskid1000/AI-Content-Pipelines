@@ -9,7 +9,7 @@ CONTENT:
 CONSTRAINTS:
 - Each PART_x must be at least 7500 characters and 1200 words.
 - Each SCENE/DIALOGUE must be always at least 30 characters.
-- Each LOCATION_k must be always atleast 50 words. 
+- Each LOCATION_k must be always at max 12 words. 
 - Each DIALOGUE_i.j must have its single corresponding SCENE_i.j and MOTION_i.j.
 - Each PART_x can span over multiple LOCATION_k. 
 - Each LOCATION_k, will be used in multiple SCENE_i.j, keep description consistent and such that it has all objects needed/mentioned in past/current/future scenes. Repeat {{loc_k}} in each SCENE_i.j  where LOCATION_k used for next time. 
@@ -18,7 +18,7 @@ CONSTRAINTS:
 DIALOGUE-SCENE FORMAT:
 
 [male_doctor_watson] It was calm morning....
-(scene_1.1) {{loc_1, A British, Victorian, Living Room, it has a large sofa...}}, {Sunny Winter Morning};((male_doctor_watson)){Neutral} {Sitting on sofa}{Reading newspaper};((male_detective_holmes)){Neutral} {Sitting on sofa}{Reading books};
+(scene_1.1) {{loc_1, A British, Victorian, Living Room...}}, {Sunny Winter Morning};((male_doctor_watson)){Neutral} {Sitting on sofa}{Reading newspaper};((male_detective_holmes)){Neutral} {Sitting on sofa}{Reading books};
 (motion_1.1) ((male_doctor_watson)) {moving eyes, and hands with newspaper};((male_detective_holmes)) {moving eyes, and hands with books};
 
 [male_detective_holmes] Look Watson.... 
@@ -28,5 +28,5 @@ DIALOGUE-SCENE FORMAT:
 ....
 
 [gender_profession_actor_name] ....dialogue_i.j; start in same line as of [].
-(scene_i.j) {{loc_k, Description of aleast 50 words, including details of all visible objects only like furniture, wall, windows, building, crowd, animals, birds, tree, etc, in the scene}}, {Weather/Season/Time};
-((gender_profession_actor_name - at most 3 actor, 2 same gender + 1 diffrent gender )){Facial Expression}, {Relative Location}, {Primary Motion-Less Action};start in same line as of ().
+(scene_i.j) {{loc_k, Description of at max 12 words}}, {Weather/Season/Time};
+((gender_profession_actor_name - at max 3 actor, 2 same gender + 1 diffrent gender )){Facial Expression}, {Relative Location}, {Primary Motion-Less Action};start in same line as of ().
