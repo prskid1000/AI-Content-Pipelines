@@ -648,9 +648,8 @@ def _schema_location() -> dict[str, object]:
                                 "material": {"type": "string", "description": "What it's made of"},
                                 "size": {"type": "string", "enum": ["tiny", "small", "medium", "large", "huge"]},
                                 "position": {"type": "string", "description": "Hierarchical positioning: for large objects use room/scene references (e.g., 'center of room', 'left wall', 'back corner'), for small objects reference large objects (e.g., 'on the wooden table', 'next to the sofa', 'under the window')"},
-                                "positioning_priority": {"type": "string", "enum": ["primary", "secondary", "tertiary"], "description": "Positioning hierarchy: 'primary' for large anchor objects, 'secondary' for medium objects, 'tertiary' for small decorative items"}
                             },
-                            "required": ["name", "type", "color", "material", "size", "position", "positioning_priority"]
+                            "required": ["name", "type", "color", "material", "size", "position"]
                         }
                     }
                 },
