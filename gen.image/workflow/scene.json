@@ -92,7 +92,7 @@
   },
   "32": {
     "inputs": {
-      "guidance": 1.6,
+      "guidance": 2,
       "conditioning": [
         "30",
         0
