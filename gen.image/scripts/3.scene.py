@@ -491,43 +491,6 @@ class SceneGenerator:
         except Exception as e:
             print(f"ERROR: Failed to read location data: {e}")
         return locations
-
-    def _get_character_details(self, character_names: list[str], characters_data: dict[str, str]) -> str:
-        """Get character details text for the given character names with position information."""
-        if not character_names or not characters_data:
-            return ""
-        
-        details = []
-        for i, char in enumerate(character_names):
-            if char in characters_data:
-                # Calculate position information (only for IMAGE and IMAGE_TEXT modes)
-                if self.character_mode in ["IMAGE", "IMAGE_TEXT"]:
-                    # X = position within group (1-based)
-                    # Y = group number (1-based)
-                    position_in_group = (i % IMAGE_STITCH_COUNT) + 1
-                    group_number = (i // IMAGE_STITCH_COUNT) + 1
-                    
-                    # Create position description using helper method
-                    position_desc = self._get_position_description(position_in_group, group_number)
-                    
-                    details.append(f"({position_desc}) is looks like {{{characters_data[char]}}}.")
-                else:
-                    # TEXT mode: use simple format without position information
-                    details.append(f"{char} WITH {{{characters_data[char]}}}.")
-        
-        return "\n".join(details)
-    
-    def _get_location_details(self, location_ids: list[str], locations_data: dict[str, str]) -> str:
-        """Get location details text for the given location IDs."""
-        if not location_ids or not locations_data:
-            return ""
-        
-        details = []
-        for loc_id in location_ids:
-            if loc_id in locations_data:
-                details.append(f"Location {loc_id}: {locations_data[loc_id]}")
-        
-        return "\n".join(details)
     
     def _get_ordinal_suffix(self, num: int) -> str:
         """Get ordinal suffix for numbers (1st, 2nd, 3rd, etc.)."""
@@ -580,33 +543,82 @@ class SceneGenerator:
             ordinal_suffix = self._get_ordinal_suffix(position_in_group)
             return f"{position_in_group}{ordinal_suffix} Character from Left in Image {group_number}"
 
-    def _replace_location_references(self, scene_description: str, locations_data: dict[str, str]) -> str:
-        """Replace {{loc_id}} references with actual location descriptions."""
-        # Only replace location references in TEXT and IMAGE_TEXT modes (skip in NONE mode)
-        if self.location_mode not in ["TEXT", "IMAGE_TEXT"] or not locations_data:
+    def _get_location_position_description(self, position_in_group: int, group_number: int) -> str:
+        """Get position description for location placement."""
+        if IMAGE_STITCH_COUNT == 1:
+            # When only one location per image, use simpler description
+            return f"Location in Image {group_number}"
+        elif IMAGE_STITCH_COUNT == 2:
+            if position_in_group == 1:
+                # When two locations per image, use simple description
+                return f"Leftmost Location in Image {group_number}"
+            else:
+                return f"Rightmost Location in Image {group_number}"
+        elif IMAGE_STITCH_COUNT == 3:
+            if position_in_group == 1:
+                return f"Leftmost Location in Image {group_number}"
+            elif position_in_group == 2:
+                return f"Middle Location in Image {group_number}"
+            else:
+                return f"Rightmost Location in Image {group_number}"
+        elif IMAGE_STITCH_COUNT == 4:
+            if position_in_group == 1:
+                return f"Leftmost Location in Image {group_number}"
+            elif position_in_group == 2:
+                return f"Middle Left Location in Image {group_number}"
+            elif position_in_group == 3:
+                return f"Middle Right Location in Image {group_number}"
+            else:
+                return f"Rightmost Location in Image {group_number}"
+        elif IMAGE_STITCH_COUNT == 5:
+            if position_in_group == 1:
+                return f"Leftmost Location in Image {group_number}"
+            elif position_in_group == 2:
+                return f"Middle Left Location in Image {group_number}"
+            elif position_in_group == 3:
+                return f"Middle Right Location in Image {group_number}"
+            elif position_in_group == 4:
+                return f"Rightmost Location in Image {group_number}"
+            else:
+                return f"Center Location in Image {group_number}"
+        else:
+            # When multiple locations per image, use ordinal position
+            ordinal_suffix = self._get_ordinal_suffix(position_in_group)
+            return f"{position_in_group}{ordinal_suffix} Location from Left in Image {group_number}"
+
+    def _replace_location_references(self, scene_description: str, location_ids: list[str], locations_data: dict[str, str]) -> str:
+        """Replace {{loc_id}} references with position and location descriptions."""
+        if not location_ids:
             return scene_description
         
         def replace_func(match):
             full_match = match.group(0)
-            # Try to match {{loc_id, description}} or {{loc_id}}
-            if ',' in full_match:
-                # Full format: {{loc_id, description}} - replace with full description from file
-                loc_id = match.group(1).strip()
-                if loc_id in locations_data:
-                    return f"{{{{{locations_data[loc_id][:LOCATION_CHAR_LIMIT]}}}}}"
-                return full_match
+            # Extract loc_id (handle both {{loc_id}} and {{loc_id, description}} formats)
+            content = match.group(1).strip()
+            loc_id = content.split(',')[0].strip() if ',' in content else content
+            
+            # Find the index of this location in the list
+            if loc_id in location_ids:
+                loc_index = location_ids.index(loc_id)
+                # Calculate position information
+                position_in_group = (loc_index % IMAGE_STITCH_COUNT) + 1
+                group_number = (loc_index // IMAGE_STITCH_COUNT) + 1
+                
+                # Create position description using helper method
+                position_desc = self._get_location_position_description(position_in_group, group_number)
+                
+                # Only add location details in TEXT and IMAGE_TEXT modes, skip in NONE and IMAGE mode
+                # Only add position description in IMAGE and IMAGE_TEXT modes, skip in NONE and TEXT mode
+                return f"USE, {position_desc if self.location_mode in ['IMAGE', 'IMAGE_TEXT'] else ''}, {locations_data.get(loc_id, '')[:LOCATION_CHAR_LIMIT] if self.location_mode in ['TEXT', 'IMAGE_TEXT'] else ''} to illustrate the scene"
             else:
-                # Simple reference: {{loc_id}} - replace with description
-                loc_id = match.group(1).strip()
-                if loc_id in locations_data:
-                    return f"{{{{{locations_data[loc_id][:LOCATION_CHAR_LIMIT]}}}}}"
+                # Location not found in the list, keep original
                 return full_match
         
-        # Replace {{loc_id}} patterns with location descriptions
+        # Replace {{loc_id}} patterns with position format
         result = re.sub(r'\{\{([^}]+)\}\}', replace_func, scene_description)
         return result
 
-    def _replace_character_references(self, scene_description: str, character_names: list[str]) -> str:
+    def _replace_character_references(self, scene_description: str, character_names: list[str], characters_data) -> str:
         """Replace ((character_name)) references with position format in scene description."""
         if not character_names:
             return scene_description
@@ -624,7 +636,9 @@ class SceneGenerator:
                 
                 # Create position description using helper method
                 position_desc = self._get_position_description(position_in_group, group_number)
-                return f"Place the {position_desc},"
+
+                # Only add character details in TEXT and IMAGE_TEXT modes, skip in NONE  and IMAGE mode.Only add position description in IMAGE and IMAGE_TEXT modes, skip in NONE and TEXT mode.
+                return f"USE, {position_desc if self.character_mode in ['IMAGE', 'IMAGE_TEXT'] else ''}, {characters_data[char_name] if self.character_mode in ['TEXT', 'IMAGE_TEXT'] else ''} to illustrate the scene"
             else:
                 # Character not found in the list, keep original
                 return full_match
@@ -635,13 +649,8 @@ class SceneGenerator:
 
     def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
-        return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}. The artwork should feature fine, intricate details and a natural sense of depth, with Utra Wide Angle (120 degrees FOV) Paranomic Shot/View to ensure that at least all mentioned characters and objects are fully visible and exists in the scene.
-        Illustrate each Character's Face and Body Features as well as entire Clothing as in the respective reference image, and character text-description though all other aspects like face and body direction, pose, posture, props, etc. are adaptable to Scene text-description
+        return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}.
         """.format(ART_STYLE=ART_STYLE)
-
-    def _get_master_end_prompt(self) -> str:
-        """Get the master end prompt content."""
-        return """\n\nStrictly, Accurately, Precisely, always must Follow {ART_STYLE} Style. All Colourings, Styles, Shapes, Textures, Relative Positioning, Sizes, Lightings, Expression, and Detailing, must be **exactly same/identical/as it is** in the text-description as well as in the reference images/images-sections.""".format(ART_STYLE=ART_STYLE)
 
     def _get_seed(self) -> int:
         """Get seed value based on configuration."""
@@ -1468,7 +1477,7 @@ class SceneGenerator:
 
         return ref_latent_nodes
 
-    def _build_dynamic_workflow(self, scene_id: str, scene_description: str, character_names: list[str], master_prompt: str, characters_data: dict[str, str], locations_data: dict[str, str] = None) -> dict:
+    def _build_dynamic_workflow(self, scene_id: str, scene_description: str, character_names: list[str], location_ids: list[str], master_prompt: str, characters_data: dict[str, str], locations_data: dict[str, str] = None) -> dict:
         """Build a dynamic workflow with N character images."""
         # Start with base workflow
         workflow = self._load_base_workflow()
@@ -1497,19 +1506,19 @@ class SceneGenerator:
         if self.character_mode in ["IMAGE", "IMAGE_TEXT"]:
             character_images = self._copy_character_images_to_comfyui(character_names)
             all_images.update(character_images)
+            print(f"Added {len(character_images)} character images to stitching process")
             if not character_images and self.character_mode == "IMAGE":
                 print("ERROR: No character images copied to ComfyUI!")
                 return {}
         
         # Copy location images if in IMAGE or IMAGE_TEXT mode (skip in NONE mode)
         if self.location_mode in ["IMAGE", "IMAGE_TEXT"]:
-            location_ids = self._extract_location_ids_from_scene(scene_description)
-            if location_ids:
-                location_images = self._copy_location_images_to_comfyui(location_ids)
-                all_images.update(location_images)
-                print(f"Added {len(location_images)} location images to stitching process")
-            else:
-                print("No location references found in scene description")
+            location_images = self._copy_location_images_to_comfyui(location_ids)
+            all_images.update(location_images)
+            print(f"Added {len(location_images)} location images to stitching process")
+            if not location_images and self.location_mode == "IMAGE":
+                print("ERROR: No location images copied to ComfyUI!")
+                return {}
         
         print(f"Character mode: {self.character_mode}, Location mode: {self.location_mode}, Total images: {len(all_images)}")
         
@@ -1541,22 +1550,12 @@ class SceneGenerator:
 
         # Replace location references if location data is available and in appropriate mode (skip in NONE mode)
         processed_scene_description = scene_description
-        if locations_data and self.location_mode in ["TEXT", "IMAGE_TEXT"]:
-            processed_scene_description = self._replace_location_references(scene_description, locations_data)
+
+        processed_scene_description = self._replace_location_references(scene_description, location_ids, locations_data)
         
-        # Replace character references with position format (only in IMAGE and IMAGE_TEXT modes, skip in NONE mode)
-        if self.character_mode in ["IMAGE", "IMAGE_TEXT"]:
-            processed_scene_description = self._replace_character_references(processed_scene_description, character_names)
+        processed_scene_description = self._replace_character_references(processed_scene_description, character_names, characters_data)
 
-        text_prompt += f"\nSCENE TEXT-DESCRIPTION:\n Illustrate an exact scenery like {processed_scene_description}.\n"
-
-        # Add character details if in TEXT or IMAGE_TEXT mode (skip in NONE mode)
-        if self.character_mode in ["TEXT", "IMAGE_TEXT"]:
-            character_details = self._get_character_details(character_names, characters_data)
-            if character_details:
-                text_prompt += f"\nCHARACTER TEXT-DESCRIPTION:\n{character_details}"
-
-        text_prompt += self._get_master_end_prompt()
+        text_prompt += f"\n{processed_scene_description}\n"
         
         workflow["33"]["inputs"]["text"] = text_prompt
         workflow["21"]["inputs"]["filename_prefix"] = scene_id
@@ -1735,7 +1734,7 @@ class SceneGenerator:
         except Exception as e:
             print(f"WARNING: Failed to replace latent with previous output: {e}")
 
-    def _generate_scene_image_serial(self, scene_id: str, scene_description: str, character_names: list[str], master_prompt: str, characters_data: dict[str, str], locations_data: dict[str, str] = None, resumable_state=None) -> str | None:
+    def _generate_scene_image_serial(self, scene_id: str, scene_description: str, character_names: list[str], location_ids: list[str], master_prompt: str, characters_data: dict[str, str], locations_data: dict[str, str] = None, resumable_state=None) -> str | None:
         """Generate scene image using serial LoRA mode with intermediate storage."""
         try:
             # Check if resumable and already complete
@@ -1827,11 +1826,11 @@ class SceneGenerator:
                     lora_location_ids = []
                 else:
                     # Normal workflow with character and location images based on modes (skip in NONE mode)
-                    lora_character_names = character_names if self.character_mode in ["IMAGE", "IMAGE_TEXT"] else []
-                    lora_location_ids = self._extract_location_ids_from_scene(scene_description) if self.location_mode in ["IMAGE", "IMAGE_TEXT"] else []
+                    lora_character_names = character_names
+                    lora_location_ids = location_ids
                 
                 # Build the complete workflow with all prompting logic
-                workflow = self._build_dynamic_workflow(scene_id, scene_description, lora_character_names, master_prompt, characters_data, locations_data)
+                workflow = self._build_dynamic_workflow(scene_id, scene_description, lora_character_names, lora_location_ids, master_prompt, characters_data, locations_data)
                 
                 if not workflow:
                     print(f"ERROR: Failed to build workflow for LoRA {i + 1}")
@@ -2048,12 +2047,12 @@ class SceneGenerator:
                 if node.get("class_type") in class_types and input_key in node["inputs"]:
                     node["inputs"][input_key] = value
 
-    def _generate_scene_image(self, scene_id: str, scene_description: str, character_names: list[str], master_prompt: str, characters_data: dict[str, str], locations_data: dict[str, str] = None, resumable_state=None) -> str | None:
+    def _generate_scene_image(self, scene_id: str, scene_description: str, character_names: list[str], location_ids: list[str], master_prompt: str, characters_data: dict[str, str], locations_data: dict[str, str] = None, resumable_state=None) -> str | None:
         """Generate a single scene image using ComfyUI."""
         try:
             # Use serial LoRA mode if enabled
             if USE_LORA and LORA_MODE == "serial":
-                return self._generate_scene_image_serial(scene_id, scene_description, character_names, master_prompt, characters_data, locations_data, resumable_state)
+                return self._generate_scene_image_serial(scene_id, scene_description, character_names, location_ids, master_prompt, characters_data, locations_data, resumable_state)
             
             # Check if resumable and already complete
             if resumable_state and resumable_state.is_scene_complete(scene_id):
@@ -2065,7 +2064,7 @@ class SceneGenerator:
                     print(f"Cached file missing, regenerating: {scene_id}")
             
             print(f"Generating scene: {scene_id} with characters: {', '.join(character_names)}")
-            workflow = self._build_dynamic_workflow(scene_id, scene_description, character_names, master_prompt, characters_data, locations_data)
+            workflow = self._build_dynamic_workflow(scene_id, scene_description, character_names, location_ids, master_prompt, characters_data, locations_data)
             if not workflow:
                 return None
 
@@ -2188,8 +2187,8 @@ class SceneGenerator:
         """Generate images for all scenes."""
         scenes = self._read_scene_data()
         characters = self._read_character_data()
-        # Skip location data loading when mode is NONE
-        locations = self._read_location_data() if self.location_mode in ["TEXT", "IMAGE_TEXT"] else {}
+
+        locations = self._read_location_data()
         master_prompt = self._get_master_prompt()
         
         if not scenes or not master_prompt:
@@ -2201,11 +2200,7 @@ class SceneGenerator:
             print("Character processing disabled (NONE mode)")
         
         print(f"Location mode: {self.location_mode}")
-        if self.location_mode in ["TEXT", "IMAGE_TEXT"] and locations:
-            print(f"Location info enabled: {len(locations)} locations loaded")
-        elif self.location_mode in ["TEXT", "IMAGE_TEXT"]:
-            print("WARNING: Location mode requires location data but none found")
-        elif self.location_mode == "NONE":
+        if self.location_mode == "NONE":
             print("Location processing disabled (NONE mode)")
 
         # Use resumable state if available, otherwise fall back to file-based checking
@@ -2262,12 +2257,15 @@ class SceneGenerator:
             
             character_names = self._extract_characters_from_scene(scene_description)
             valid_characters = [char for char in character_names if char in characters]
+
+            location_ids = self._extract_location_ids_from_scene(scene_description)
+            location_ids = [loc for loc in location_ids if loc in locations]
             
             if not valid_characters:
                 print(f"WARNING: No valid characters found in {scene_id}, skipping...")
                 continue
                 
-            output_path = self._generate_scene_image(scene_id, scene_description, valid_characters, master_prompt, characters, locations, resumable_state)
+            output_path = self._generate_scene_image(scene_id, scene_description, valid_characters, location_ids, master_prompt, characters, locations, resumable_state)
             
             scene_processing_time = time.time() - scene_start_time
             self.processing_times.append(scene_processing_time)
