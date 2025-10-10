@@ -647,9 +647,11 @@ class CharacterManager:
     def _build_meta_summary_system_prompt(self) -> str:
         return (
             f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Summarize the story into 5 distinct plot summaries each with a title, a short summary, and a long summary.\n"
-            f"The long summary should describe the chronology of all events in the plot. There should absolutely no dialogues in the long summary.\n"
             f"Use written grammatically correct and complete short english sentences (6-9 words) that are well-structured with clear subject and predicate."
+            f"The long summary should describe the chronology of all events in the plot.\n"
+            f"Focus on event and actions not on what characters are speaking.\n"
         )
+       
 
     def _build_meta_summary_user_prompt(self, story_content: str) -> str:
         """Extract only dialogue lines from story content using existing regex"""

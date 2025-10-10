@@ -28,8 +28,8 @@ MAX_OBJECTS_PER_LOCATION = 15
 STORY_DESCRIPTION_WORD_MIN = 300
 STORY_DESCRIPTION_WORD_MAX = 600
 
-STORY_DESCRIPTION_CHARACTER_MIN = 7200
-STORY_DESCRIPTION_CHARACTER_MAX = 9600
+STORY_DESCRIPTION_CHARACTER_MIN = WORD_FACTOR * STORY_DESCRIPTION_WORD_MIN
+STORY_DESCRIPTION_CHARACTER_MAX = WORD_FACTOR * STORY_DESCRIPTION_WORD_MAX
 
 STORY_DESCRIPTION_PARTS = 5
 
@@ -778,7 +778,7 @@ def _build_character_summary_prompt() -> str:
     return (
         f"You are a Professional Visual Director and Character Creator and Character Designer and Character Writer and Character Illustrator. Your Job is to Transform it into a continuous paragraph of {CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters, approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words.\n"
         f"It must always include all visual details like color(required, must always be present for every attribute/property), type(required, must always be present for every attribute/property), material(required, must always be present for every attribute/property), pattern, texture, etc. from the original description, preserving all visual attributes, characteristics and postioning relationships.\n"
-        f"Use Comma Separated Partial Sentence, No need for complete sentences."
+        f"Describe features in a way like **wearing a black tight cotton jeans and a white loose cotton t-shirt with a pair of black leather shoes.**\n"
     )
 
 def _build_character_summary_user_prompt(character_name: str, detailed_description: str) -> str:
@@ -791,8 +791,9 @@ def _build_character_summary_user_prompt(character_name: str, detailed_descripti
 def _build_story_summary_prompt() -> str:
     return (
         f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Summarize the story into 5 distinct plot summaries each with a title, a short summary, and a long summary.\n"
-        f"The long summary should describe the chronology of all events in the plot. There should absolutely no dialogues in the long summary.\n"
         f"Use written grammatically correct and complete short english sentences (6-9 words) that are well-structured with clear subject and predicate."
+        f"The long summary should describe the chronology of all events in the plot.\n"
+        f"Focus on event and actions not on what characters are speaking.\n"
     )
        
 
@@ -829,6 +830,7 @@ def _build_location_summary_prompt() -> str:
     return (
         f"You are a Professional Visual Director and Location Creator and Location Designer and Location Writer and Location Illustrator. Your Job is to Transform it into a continuous paragraph of {LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters, approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words.\n"
         f"It must always include all visual details like color(required, must always be present for every attribute/property),position(required, must always be present for every attribute/property),type(required, must always be present for every attribute/property), material(required, must always be present for every attribute/property), pattern, texture, etc. from the original description, preserving all visual attributes, characteristics and postioning relationships.\n"
+        f"Describe objects in a way like **a large brown wooden table at left side of the room with a pair of small red leather shoe placed on top of the table.**\n"
     )
 
 def _build_location_summary_user_prompt(location_id: str, detailed_description: str) -> str:
