@@ -16,7 +16,7 @@ WORKFLOW_SUMMARY_ENABLED = False # Set to True to enable workflow summary printi
 
 # Image resizing configuration (characters only)
 # Character image resize factor: 0.125 (12.5% of original size) - Better aspect ratio for stitching
-CHARACTER_RESIZE_FACTOR = 0.5
+CHARACTER_RESIZE_FACTOR = 1
 
 # Image compression configuration
 # JPEG quality: 1-100 (100 = best quality, larger file; 1 = worst quality, smaller file)
@@ -73,8 +73,8 @@ LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for
 LORAS = [
     {
         "name": "FLUX.1-Turbo-Alpha.safetensors",
-        "strength_model": 2.0,    # Model strength (0.0 - 2.0)
-        "strength_clip": 2.0,     # CLIP strength (0.0 - 2.0)
+        "strength_model": 3.0,    # Model strength (0.0 - 2.0)
+        "strength_clip": 3.0,     # CLIP strength (0.0 - 2.0)
         "bypass_model": False,    # Set to True to bypass model part of this LoRA
         "bypass_clip": False,     # Set to True to bypass CLIP part of this LoRA
         "enabled": True,          # Set to False to disable this LoRA entirely
