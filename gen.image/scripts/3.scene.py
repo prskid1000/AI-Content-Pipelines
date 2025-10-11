@@ -447,7 +447,7 @@ class SceneGenerator:
             with open(self.scene_file, "r", encoding="utf-8") as f:
                 content = f.read().strip()
             # Split by double newlines and process each entry
-            entries = [entry.strip() for entry in content.split('\n\n') if entry.strip()]
+            entries = [entry.strip() for entry in content.split('\n') if entry.strip()]
             for entry in entries:
                 # Handle both formats: (scene_id) and [scene_id]:
                 # First try the new format with parentheses
@@ -469,7 +469,7 @@ class SceneGenerator:
         try:
             with open(self.character_file, "r", encoding="utf-8") as f:
                 content = f.read().strip()
-            entries = [entry.strip() for entry in content.split('\n\n') if entry.strip()]
+            entries = [entry.strip() for entry in content.split('\n') if entry.strip()]
             for entry in entries:
                 match = re.match(r'\(\(([^)]+)\)\):\s*(.+)', entry, re.DOTALL)
                 if match:
@@ -484,7 +484,7 @@ class SceneGenerator:
         try:
             with open(self.location_file, "r", encoding="utf-8") as f:
                 content = f.read().strip()
-            entries = [entry.strip() for entry in content.split('\n\n') if entry.strip()]
+            entries = [entry.strip() for entry in content.split('\n') if entry.strip()]
             for entry in entries:
                 # Match format: {{loc_id}} description...
                 match = re.match(r'\{\{([^}]+)\}\}\s*(.+)', entry, re.DOTALL)
