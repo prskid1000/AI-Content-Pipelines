@@ -225,8 +225,11 @@ _SCENE_CHARS_IN_TEXT_RE = re.compile(r"\(\(([^)]+)\)\)")
 _CHARACTER_LINE_RE = re.compile(r"^\(\(([^)]+)\)\):\s+(.+)$")
 
 # Location patterns: {{loc_1, description}} or {{loc_1}}
-_LOCATION_FULL_RE = re.compile(r"\{\{([^,]+),\s*([^}]+)\}\}")
-_LOCATION_REF_RE = re.compile(r"\{\{([^}]+)\}\}")
+# Full definition: {{loc_X, description}} - description can contain commas but ends at }}
+# We use non-greedy match .*? to capture description up to the closing }}
+_LOCATION_FULL_RE = re.compile(r"\{\{(loc_[^,}]+),\s*(.*?)\}\}")
+# Reference: {{loc_X}} - no comma after loc_X before the closing }}
+_LOCATION_REF_RE = re.compile(r"\{\{(loc_[^,}]+)\}\}(?!\})")
 
 _SCENE_ID_NUMERIC_RE = re.compile(r"^(\d+)\.(\d+)$")
 
