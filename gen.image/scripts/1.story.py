@@ -25,8 +25,8 @@ LOCATION_SUMMARY_CHARACTER_MAX = WORD_FACTOR * LOCATION_SUMMARY_WORD_MAX
 MIN_OBJECTS_PER_LOCATION = 3
 MAX_OBJECTS_PER_LOCATION = 5
 
-STORY_DESCRIPTION_WORD_MIN = 500
-STORY_DESCRIPTION_WORD_MAX = 600
+STORY_DESCRIPTION_WORD_MIN = 600
+STORY_DESCRIPTION_WORD_MAX = 1200
 
 STORY_DESCRIPTION_CHARACTER_MIN = WORD_FACTOR * STORY_DESCRIPTION_WORD_MIN
 STORY_DESCRIPTION_CHARACTER_MAX = WORD_FACTOR * STORY_DESCRIPTION_WORD_MAX
@@ -38,10 +38,10 @@ ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 
 # Model constants for easy switching
-MODEL_STORY_DESCRIPTION = "qwen3-30b-a3b-instruct-2507"  # Model for generating story descriptions
-MODEL_CHARACTER_GENERATION = "qwen3-30b-a3b-instruct-2507"  # Model for character description generation
-MODEL_CHARACTER_SUMMARY = "qwen3-30b-a3b-instruct-2507"  # Model for character summary generation
-MODEL_LOCATION_EXPANSION = "qwen3-30b-a3b-instruct-2507"  # Model for location expansion
+MODEL_STORY_DESCRIPTION = "qwen3-30b-a3b-thinking-2507"  # Model for generating story descriptions
+MODEL_CHARACTER_GENERATION = "qwen3-30b-a3b-thinking-2507"  # Model for character description generation
+MODEL_CHARACTER_SUMMARY = "qwen3-30b-a3b-thinking-2507"  # Model for character summary generation
+MODEL_LOCATION_EXPANSION = "qwen3-30b-a3b-thinking-2507"  # Model for location expansion
 
 
 # Resumable state management
@@ -503,7 +503,8 @@ def _schema_character() -> dict[str, object]:
                                     "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "pattern": {"type": "string", "description": "Solid, striped, plaid, checkered, etc."},
                                     "material": {"type": "string", "description": "Cotton, silk, wool, polyester, linen, etc."},
-                                    "fit": {"type": "string", "enum": ["tight", "fitted", "loose", "oversized"]}
+                                    "fit": {"type": "string", "enum": ["tight", "fitted", "loose", "oversized"]},
+                                    "condition": {"type": "string", "enum": ["pristine", "well_worn", "weathered", "tattered"]}
                                 },
                                 "required": ["type", "color"]
                             },
@@ -514,7 +515,8 @@ def _schema_character() -> dict[str, object]:
                                     "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "pattern": {"type": "string", "description": "Solid, striped, plaid, etc."},
                                     "material": {"type": "string", "description": "Denim, cotton, wool, polyester, etc."},
-                                    "fit": {"type": "string", "enum": ["tight", "fitted", "loose", "baggy"]}
+                                    "fit": {"type": "string", "enum": ["tight", "fitted", "loose", "baggy"]},
+                                    "condition": {"type": "string", "enum": ["pristine", "well_worn", "weathered", "tattered"]}
                                 },
                                 "required": ["type", "color"]
                             },
@@ -523,7 +525,6 @@ def _schema_character() -> dict[str, object]:
                                 "properties": {
                                     "type": {"type": "string", "enum": ["military_uniform", "police_uniform", "medical_scrubs", "chef_uniform", "nurse_uniform", "pilot_uniform", "flight_attendant", "security_guard", "firefighter", "paramedic", "business_suit", "formal_suit", "academic_robe", "judge_robe", "clerical_robe", "lab_coat", "apron", "overalls", "coveralls", "boiler_suit", "cargo_uniform", "tactical_gear", "dress_uniform", "service_uniform", "work_uniform"]},
                                     "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
-                                    "rank_insignia": {"type": "string", "description": "Rank, badges, patches, or insignia if applicable"},
                                     "material": {"type": "string", "description": "Cotton, polyester, wool, etc."},
                                     "condition": {"type": "string", "enum": ["pristine", "well_worn", "weathered", "tattered"]}
                                 },
@@ -535,7 +536,8 @@ def _schema_character() -> dict[str, object]:
                                     "type": {"type": "string", "enum": ["coat", "jacket", "raincoat", "blazer", "overcoat", "pea_coat", "hoodie", "cardigan", "vest", "windbreaker", "bomber_jacket", "leather_jacket", "denim_jacket", "suit_jacket", "sports_jacket"]},
                                     "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "material": {"type": "string", "description": "Leather, wool, denim, polyester, etc."},
-                                    "fit": {"type": "string", "enum": ["tight", "fitted", "loose", "oversized"]}
+                                    "fit": {"type": "string", "enum": ["tight", "fitted", "loose", "oversized"]},
+                                    "condition": {"type": "string", "enum": ["pristine", "well_worn", "weathered", "tattered"]}
                                 }
                             },
                             "footwear": {
@@ -544,7 +546,8 @@ def _schema_character() -> dict[str, object]:
                                     "type": {"type": "string", "enum": ["dress_shoes", "loafers", "oxfords", "sneakers", "boots", "ankle_boots", "work_boots", "hiking_boots", "sandals", "flip_flops", "moccasins", "boat_shoes", "wingtip_shoes", "chelsea_boots", "combat_boots", "running_shoes", "basketball_shoes", "tennis_shoes", "dress_boots", "casual_shoes"]},
                                     "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "material": {"type": "string", "description": "Leather, canvas, suede, rubber, etc."},
-                                    "style": {"type": "string", "description": "Casual, formal, athletic, etc."}
+                                    "style": {"type": "string", "description": "Casual, formal, athletic, etc."},
+                                    "condition": {"type": "string", "enum": ["pristine", "well_worn", "weathered", "tattered"]}
                                 },
                                 "required": ["type", "color"]
                             }
@@ -561,7 +564,8 @@ def _schema_character() -> dict[str, object]:
                             "properties": {
                                 "type": {"type": "string", "description": "Type of accessory (e.g., 'glasses', 'hat', 'watch', 'jewelry', 'bag', 'gloves', 'tie', 'scarf', 'belt', 'piercings')"},
                                 "description": {"type": "string", "description": "Detailed description including color, material, style, and any distinctive features"},
-                                "location": {"type": "string", "description": "Where the accessory is worn (e.g., 'on head', 'around neck', 'on wrist', 'in hand', 'on face')"}
+                                "location": {"type": "string", "description": "Where the accessory is worn (e.g., 'on head', 'around neck', 'on wrist', 'in hand', 'on face')"},
+                                "condition": {"type": "string", "enum": ["pristine", "well_worn", "weathered", "tattered"]}
                             },
                             "required": ["type", "description"]
                         }
@@ -1512,7 +1516,7 @@ def main() -> int:
         try:
             lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v1")
             
-            # Generate story description from content using qwen3-30b-a3b-instruct-2507
+            # Generate story description from content using qwen3-30b-a3b-thinking-2507
             story_desc = _generate_story_summary(content, lm_studio_url, resumable_state)
             
             # Generate structured location descriptions

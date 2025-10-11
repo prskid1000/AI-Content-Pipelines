@@ -29,4 +29,4 @@ DIALOGUE-SCENE FORMAT:
 
 [gender_profession_actor_name] ....dialogue_i.j; start in same line as of [].
 (scene_i.j) {{loc_k, Description of at max 12 words}}, {Weather/Season/Time};
-((gender_profession_actor_name - at max 3 actor, 2 same gender + 1 diffrent gender )){Facial Expression}, {Relative Location}, {Primary Motion-Less Action};start in same line as of ().
+((gender_profession_actor_name - at max 3 actor, 2 same gender + 1 diffrent gender )){Facial Expression}, {Actor's Relative Location (sofa near dinning table, bench, etc...) + Body Posture (sitting, standing, running, bend down looking, etc...)}, {Primary Action};start in same line as of ().
