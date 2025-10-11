@@ -6,41 +6,7 @@ Removed file: D:\.comfyui\ComfyUI\input\male_doctor_watson.jpg
 Removed file: D:\.comfyui\ComfyUI\output\scene_1.1.FLUX1_Turbo_Alphasafetensors_00001_.png
 Removed file: D:\.comfyui\ComfyUI\output\scene_1.5.FLUX1_Turbo_Alphasafetensors_00001_.png
 Removed file: D:\.comfyui\ComfyUI\output\scene_1.6.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_12.3.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_14.1.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_14.2.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_14.3.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_14.4.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_15.1.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_15.2.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_15.3.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_15.4.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_16.1.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_16.2.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_16.3.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_16.4.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_17.1.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_17.2.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_17.3.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_17.4.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_18.1.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_18.2.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_18.3.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_19.1.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_19.2.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_19.3.FLUX1_Turbo_Alphasafetensors_00001_.png
 Removed file: D:\.comfyui\ComfyUI\output\scene_2.6.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_2.7.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_20.1.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_20.2.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_20.3.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_20.4.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_20.5.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_3.1.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_4.6.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_6.3.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_8.4.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_9.3.FLUX1_Turbo_Alphasafetensors_00001_.png
 Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00001_.png
 Removed file: D:\.comfyui\ComfyUI\output\stitched_group_2_00001_.png
 Successfully emptied ComfyUI input and output folders.
@@ -49,7 +15,7 @@ Waiting for ComfyUI to become ready (polling every 15s)...
 [START] Security scan
 [DONE] Security scan
 ## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2025-10-11 05:24:06.407
+** ComfyUI startup time: 2025-10-11 05:32:28.829
 ** Platform: Windows
 ** Python version: 3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]
 ** Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.13.5\python.exe
@@ -58,11 +24,11 @@ Waiting for ComfyUI to become ready (polling every 15s)...
 ** User directory: D:\.comfyui\ComfyUI\user
 ** ComfyUI-Manager config path: D:\.comfyui\ComfyUI\user\default\ComfyUI-Manager\config.ini
 ** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
-ComfyUI not ready yet (attempt 1). Retrying in 15s...
 
 Prestartup times for custom nodes:
-   2.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   1.7 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
 
+ComfyUI not ready yet (attempt 1). Retrying in 15s...
 Checkpoint files will always be loaded safely.
 Total VRAM 12227 MB, total RAM 64957 MB
 pytorch version: 2.10.0.dev20251008+cu130
@@ -77,13 +43,13 @@ ComfyUI-GGUF: Allowing full torch compile
 ### Loading: ComfyUI-Manager (V3.36)
 [ComfyUI-Manager] network_mode: public
 ### ComfyUI Version: v0.3.64-8-gcbee7d33 | Released on '2025-10-08'
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
 ✅ ChatterboxTTS loaded from bundled package
 ✅ ChatterboxVC loaded from bundled package
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
 ✅ F5-TTS loaded from system package
 🎭 Character voices: Found 9 characters, 10 aliases
 ✅ SRT modules loaded from system package
@@ -116,11 +82,11 @@ Universal multi-engine TTS extension for ComfyUI
 Import times for custom nodes:
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
-   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
-   0.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-   0.7 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
-   3.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
-   3.7 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
+   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
+   0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   2.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
+   2.9 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
 
 Context impl SQLiteImpl.
 Will assume non-transactional DDL.
@@ -128,262 +94,16 @@ No target revision found.
 Starting server
 
 To see the GUI go to: http://127.0.0.1:8188
-ComfyUI is ready after 17.6s (attempt 2).
-
-===== START D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-10-11 05:24:22 =====
-Exception in callback _ProactorBasePipeTransport._call_connection_lost()
-handle: <Handle _ProactorBasePipeTransport._call_connection_lost()>
-Traceback (most recent call last):
-  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.13.5\Lib\asyncio\events.py", line 89, in _run
-    self._context.run(self._callback, *self._args)
-    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.13.5\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
-    self._sock.shutdown(socket.SHUT_RDWR)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
-ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
-Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.image\output\tracking
-Found existing checkpoint: D:\.comfyui\gen.image\output\tracking\3.scene.state.json
-Progress: Scenes(86/86)
-Character mode: IMAGE
-Location mode: TEXT
-Validating cache against output/scene directory: ../output/scene
-Scanning output/scene directory for untracked files: ../output/scene
-Scene already tracked: scene_1.2
-Scene already tracked: scene_1.3
-Scene already tracked: scene_1.4
-Scene already tracked: scene_1.7
-Scene already tracked: scene_10.1
-Scene already tracked: scene_10.2
-Scene already tracked: scene_10.3
-Scene already tracked: scene_10.4
-Scene already tracked: scene_11.1
-Scene already tracked: scene_11.2
-Scene already tracked: scene_12.1
-Scene already tracked: scene_12.2
-Scene already tracked: scene_12.3
-Scene already tracked: scene_12.4
-Scene already tracked: scene_13.1
-Scene already tracked: scene_13.2
-Scene already tracked: scene_13.3
-Scene already tracked: scene_13.4
-Scene already tracked: scene_14.2
-Scene already tracked: scene_14.4
-Scene already tracked: scene_15.1
-Scene already tracked: scene_15.2
-Scene already tracked: scene_15.3
-Scene already tracked: scene_15.4
-Scene already tracked: scene_16.1
-Scene already tracked: scene_16.2
-Scene already tracked: scene_16.3
-Scene already tracked: scene_16.4
-Scene already tracked: scene_17.1
-Scene already tracked: scene_17.2
-Scene already tracked: scene_17.4
-Scene already tracked: scene_19.1
-Scene already tracked: scene_19.2
-Scene already tracked: scene_19.3
-Scene already tracked: scene_2.1
-Scene already tracked: scene_2.2
-Scene already tracked: scene_2.3
-Scene already tracked: scene_2.4
-Scene already tracked: scene_2.5
-Scene already tracked: scene_20.1
-Scene already tracked: scene_20.2
-Scene already tracked: scene_20.4
-Scene already tracked: scene_20.5
-Scene already tracked: scene_3.2
-Scene already tracked: scene_3.3
-Scene already tracked: scene_3.4
-Scene already tracked: scene_3.5
-Scene already tracked: scene_4.1
-Scene already tracked: scene_4.2
-Scene already tracked: scene_4.3
-Scene already tracked: scene_4.4
-Scene already tracked: scene_4.5
-Scene already tracked: scene_5.1
-Scene already tracked: scene_5.2
-Scene already tracked: scene_5.3
-Scene already tracked: scene_5.4
-Scene already tracked: scene_6.1
-Scene already tracked: scene_6.2
-Scene already tracked: scene_6.3
-Scene already tracked: scene_6.4
-Scene already tracked: scene_7.1
-Scene already tracked: scene_7.2
-Scene already tracked: scene_8.1
-Scene already tracked: scene_8.2
-Scene already tracked: scene_8.3
-Scene already tracked: scene_8.5
-Scene already tracked: scene_8.6
-Scene already tracked: scene_9.1
-Scene already tracked: scene_9.2
-Scene already tracked: scene_9.3
-Scene already tracked: scene_9.4
-No untracked scenes found in output/scene directory
-Validating 86 completed scenes against output/scene directory...
-Precheck: ✓ scene_1.4 validated in output/scene directory
-Precheck: ✓ scene_1.7 validated in output/scene directory
-Precheck: ✓ scene_2.1 validated in output/scene directory
-Precheck: ✓ scene_2.2 validated in output/scene directory
-Precheck: ✓ scene_2.3 validated in output/scene directory
-Precheck: ✓ scene_2.4 validated in output/scene directory
-Precheck: ✓ scene_3.3 validated in output/scene directory
-Precheck: ✓ scene_3.4 validated in output/scene directory
-Precheck: ✓ scene_3.5 validated in output/scene directory
-Precheck: ✓ scene_4.1 validated in output/scene directory
-Precheck: ✓ scene_4.2 validated in output/scene directory
-Precheck: ✓ scene_4.3 validated in output/scene directory
-Precheck: ✓ scene_4.4 validated in output/scene directory
-Precheck: ✓ scene_4.5 validated in output/scene directory
-Precheck: ✓ scene_5.1 validated in output/scene directory
-Precheck: ✓ scene_5.2 validated in output/scene directory
-Precheck: ✓ scene_5.3 validated in output/scene directory
-Precheck: ✓ scene_5.4 validated in output/scene directory
-Precheck: ✓ scene_6.1 validated in output/scene directory
-Precheck: ✓ scene_6.2 validated in output/scene directory
-Precheck: ✓ scene_6.4 validated in output/scene directory
-Precheck: ✓ scene_7.1 validated in output/scene directory
-Precheck: ✓ scene_7.2 validated in output/scene directory
-Precheck: ✓ scene_8.1 validated in output/scene directory
-Precheck: ✓ scene_8.2 validated in output/scene directory
-Precheck: ✓ scene_8.3 validated in output/scene directory
-Precheck: ✓ scene_8.5 validated in output/scene directory
-Precheck: ✓ scene_8.6 validated in output/scene directory
-Precheck: ✓ scene_9.1 validated in output/scene directory
-Precheck: ✓ scene_9.2 validated in output/scene directory
-Precheck: ✓ scene_9.4 validated in output/scene directory
-Precheck: ✓ scene_10.1 validated in output/scene directory
-Precheck: ✓ scene_10.2 validated in output/scene directory
-Precheck: ✓ scene_10.3 validated in output/scene directory
-Precheck: ✓ scene_10.4 validated in output/scene directory
-Precheck: ✓ scene_11.1 validated in output/scene directory
-Precheck: ✓ scene_11.2 validated in output/scene directory
-Precheck: ✓ scene_12.1 validated in output/scene directory
-Precheck: ✓ scene_12.2 validated in output/scene directory
-Precheck: ✓ scene_12.4 validated in output/scene directory
-Precheck: ✓ scene_13.1 validated in output/scene directory
-Precheck: ✓ scene_13.2 validated in output/scene directory
-Precheck: ✓ scene_13.3 validated in output/scene directory
-Precheck: ✓ scene_13.4 validated in output/scene directory
-Precheck: ✓ scene_3.2 validated in output/scene directory
-Precheck: ✓ scene_1.2 validated in output/scene directory
-Precheck: ✓ scene_1.3 validated in output/scene directory
-Precheck: ✓ scene_2.5 validated in output/scene directory
-Precheck: File missing for scene_1.1 - marking as not completed
-Precheck: File missing for scene_1.5 - marking as not completed
-Precheck: File missing for scene_1.6 - marking as not completed
-Precheck: File missing for scene_2.6 - marking as not completed
-Precheck: File missing for scene_2.7 - marking as not completed
-Precheck: File missing for scene_3.1 - marking as not completed
-Precheck: File missing for scene_4.6 - marking as not completed
-Precheck: ✓ scene_6.3 validated in output/scene directory
-Precheck: File missing for scene_8.4 - marking as not completed
-Precheck: ✓ scene_9.3 validated in output/scene directory
-Precheck: ✓ scene_12.3 validated in output/scene directory
-Precheck: File missing for scene_14.1 - marking as not completed
-Precheck: ✓ scene_14.2 validated in output/scene directory
-Precheck: File missing for scene_14.3 - marking as not completed
-Precheck: ✓ scene_14.4 validated in output/scene directory
-Precheck: ✓ scene_15.1 validated in output/scene directory
-Precheck: ✓ scene_15.2 validated in output/scene directory
-Precheck: ✓ scene_15.3 validated in output/scene directory
-Precheck: ✓ scene_15.4 validated in output/scene directory
-Precheck: ✓ scene_16.1 validated in output/scene directory
-Precheck: ✓ scene_16.2 validated in output/scene directory
-Precheck: ✓ scene_16.3 validated in output/scene directory
-Precheck: ✓ scene_16.4 validated in output/scene directory
-Precheck: ✓ scene_17.1 validated in output/scene directory
-Precheck: ✓ scene_17.2 validated in output/scene directory
-Precheck: File missing for scene_17.3 - marking as not completed
-Precheck: ✓ scene_17.4 validated in output/scene directory
-Precheck: File missing for scene_18.1 - marking as not completed
-Precheck: File missing for scene_18.2 - marking as not completed
-Precheck: File missing for scene_18.3 - marking as not completed
-Precheck: ✓ scene_19.1 validated in output/scene directory
-Precheck: ✓ scene_19.2 validated in output/scene directory
-Precheck: ✓ scene_19.3 validated in output/scene directory
-Precheck: ✓ scene_20.1 validated in output/scene directory
-Precheck: ✓ scene_20.2 validated in output/scene directory
-Precheck: File missing for scene_20.3 - marking as not completed
-Precheck: ✓ scene_20.4 validated in output/scene directory
-Precheck: ✓ scene_20.5 validated in output/scene directory
-Precheck: Cleared LoRA progress for scene_1.1
-Precheck: Cleared LoRA progress for scene_1.5
-Precheck: Cleared LoRA progress for scene_1.6
-Precheck: Cleared LoRA progress for scene_2.6
-Precheck: Cleared LoRA progress for scene_2.7
-Precheck: Cleared LoRA progress for scene_3.1
-Precheck: Cleared LoRA progress for scene_4.6
-Precheck: Cleared LoRA progress for scene_8.4
-Precheck: Cleared LoRA progress for scene_14.1
-Precheck: Cleared LoRA progress for scene_14.3
-Precheck: Cleared LoRA progress for scene_17.3
-Precheck: Cleared LoRA progress for scene_18.1
-Precheck: Cleared LoRA progress for scene_18.2
-Precheck: Cleared LoRA progress for scene_18.3
-Precheck: Cleared LoRA progress for scene_20.3
-Precheck: Cleaned up 15 invalid entries from checkpoint
-Precheck completed: 15 invalid entries removed from checkpoint
-Found 71 completed scenes: ['scene_1.2', 'scene_1.3', 'scene_1.4', 'scene_1.7', 'scene_10.1', 'scene_10.2', 'scene_10.3', 'scene_10.4', 'scene_11.1', 'scene_11.2', 'scene_12.1', 'scene_12.2', 'scene_12.3', 'scene_12.4', 'scene_13.1', 'scene_13.2', 'scene_13.3', 'scene_13.4', 'scene_14.2', 'scene_14.4', 'scene_15.1', 'scene_15.2', 'scene_15.3', 'scene_15.4', 'scene_16.1', 'scene_16.2', 'scene_16.3', 'scene_16.4', 'scene_17.1', 'scene_17.2', 'scene_17.4', 'scene_19.1', 'scene_19.2', 'scene_19.3', 'scene_2.1', 'scene_2.2', 'scene_2.3', 'scene_2.4', 'scene_2.5', 'scene_20.1', 'scene_20.2', 'scene_20.4', 'scene_20.5', 'scene_3.2', 'scene_3.3', 'scene_3.4', 'scene_3.5', 'scene_4.1', 'scene_4.2', 'scene_4.3', 'scene_4.4', 'scene_4.5', 'scene_5.1', 'scene_5.2', 'scene_5.3', 'scene_5.4', 'scene_6.1', 'scene_6.2', 'scene_6.3', 'scene_6.4', 'scene_7.1', 'scene_7.2', 'scene_8.1', 'scene_8.2', 'scene_8.3', 'scene_8.5', 'scene_8.6', 'scene_9.1', 'scene_9.2', 'scene_9.3', 'scene_9.4']
-Processing 15 scenes, skipped 71
-📊 Total scene words: 181
-============================================================
-
-📊 SCENE GENERATION PROGRESS
-====================================================================================================
-🔄 Scene 1/15 - {{loc_1}}, {Sunny Winter Morning};((male_doctor_wa - Processing...
-📊 Estimated time remaining: ~54s (?)
-Generating scene: scene_1.1 with characters: male_doctor_watson, male_detective_holmes (Serial LoRA mode)
-
-Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
-  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
-Serial LoRA mode enabled - will create separate workflow
-Building workflow for serial LoRA mode: scene_1.1
-Compressed male_doctor_watson image: 404.5KB → 21.2KB (94.8% reduction)
-Compressed male_detective_holmes image: 338.4KB → 15.0KB (95.6% reduction)
-Added 2 character images to stitching process
-Character mode: IMAGE, Location mode: TEXT, Total images: 2
-Image stitching: 2 images → 2 groups [1]
-Using cascaded reference conditioning
-Using latent mode with dimensions: 1280x720
-Negative prompt enabled: blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic
-Seed set to: 4045438554
-
-
-
-
-Text prompt: Create a 16K ultra-high-resolution, illustration in the style of Realistic Anime.
-        
-USE, , a medium Victorian living room featuring a light brown polished wooden floorboards beneath dark oak wooden wall lininng  to illustrate the scene, {Sunny Winter Morning};USE, Character in Image 1,  to illustrate the scene{Neutral} {Sitting on sofa}{Reading newspaper};USE, Character in Image 2,  to illustrate the scene{Neutral} {Sitting on sofa}{Reading book};
-
-  Model strength: 2.0
-  CLIP strength: 2.0
-  Seed set to: 71231334
-  Using latent mode with dimensions: 1280x720
-  Using LoRA denoising_strength: 1
-  Steps: 9, Denoising: 1
-got prompt
-  Waiting for LoRA 1 generation to complete...
-Using pytorch attention in VAE
-Using pytorch attention in VAE
-VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
-CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
 FETCH ComfyRegistry Data: 5/99
-clip missing: ['text_projection.weight']
-gguf qtypes: F32 (466), Q8_0 (304), BF16 (10)
-model weight dtype torch.bfloat16, manual cast: None
-model_type FLUX
-Requested to load FluxClipModel_
-loaded completely 9518.8 9319.23095703125 True
-FETCH ComfyRegistry Data: 10/99
-Requested to load AutoencodingEngine
-loaded completely 186.01171112060547 159.87335777282715 True
-loaded completely 9461.675 9319.23095703125 True
-Requested to load Flux
-FETCH ComfyRegistry Data: 15/99
-FETCH ComfyRegistry Data: 20/99
-loaded partially 7376.298961853027 7375.724853515625 0
-Attempting to release mmap (177)
-FETCH ComfyRegistry Data: 25/99
-  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 30/99
- 11%|█         | 1/9 [00:09<01:18,  9.82s/it]FETCH ComfyRegistry Data: 35/99
+ComfyUI is ready after 17.1s (attempt 2).
+
+===== START D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-10-11 05:32:44 =====
+  File "D:\.comfyui\gen.image\scripts\3.scene.py", line 645
+    >>>>>>> 32cf58fbc59aca8c84de2917d140ce5c18b92d8b
+             ^
+SyntaxError: invalid decimal literal
+
+===== END D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-10-11 05:32:44 (exit=1, took=0.04s) =====
+Stopping ComfyUI backend...
+ComfyUI appears stopped (after 1 checks).
+ABORTING: 3.scene.py exited with code 1.
