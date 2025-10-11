@@ -106,7 +106,7 @@ SCRIPT_ARGS = {
     "2.character.py": ["--mode", "flux"],
     "5.timeline.py": ["../input/2.timeline.script.txt"],  # Pass the 2.1.timeline.txt file to 5.timeline.py (relative to gen.audio/scripts/)
     "7.sfx.py": ["--auto-confirm", "y"],  # sfx script auto-confirms by default; passing is harmless
-    "12.youtube.py": ["--video-file", "../../gen.video/output/final.mp4", "--upload-shorts", "--shorts-dir", "../../gen.audio/output/shorts"],
+    "12.youtube.py": ["--video-file", "../../gen.video/output/final.mp4", "--upload-shorts", "--shorts-dir", "../../gen.audio/output"],
 }
 
 
