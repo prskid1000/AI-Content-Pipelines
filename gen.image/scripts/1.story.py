@@ -1219,7 +1219,7 @@ def _generate_story_summary(story_content: str, lm_studio_url: str, resumable_st
             _validate_character_count(summary, STORY_DESCRIPTION_CHARACTER_MIN // STORY_DESCRIPTION_PARTS, STORY_DESCRIPTION_CHARACTER_MAX // STORY_DESCRIPTION_PARTS)
             
             # Add to combined story description
-            story_desc += f"Plot Summary {i+1}: {title}\n{summary}\n\n"
+            story_desc += f"Part {i+1}: {summary}\n"
         
         # Validate total character count
         _validate_character_count(story_desc, STORY_DESCRIPTION_CHARACTER_MIN, STORY_DESCRIPTION_CHARACTER_MAX)
@@ -1336,7 +1336,7 @@ def _validate_and_write_character_summary_file(name_to_summary: dict[str, str], 
     with open(out_path, "w", encoding="utf-8") as f:
         for name in sorted(name_to_summary.keys()):
             summary = _sanitize_single_paragraph(name_to_summary[name])
-            f.write(f"(({name})): {summary}\n\n")
+            f.write(f"(({name})): {summary}\n")
 
     # Re-validate file format and name set
     errors = 0
@@ -1392,7 +1392,7 @@ def write_dialogues_file_from_pairs(pairs, out_path: str) -> int:
             dialogue = d["data"].get("dialogue")
             if not character or not dialogue:
                 continue
-            f.write(f"[{character}] {dialogue}\n\n")
+            f.write(f"[{character}] {dialogue}\n")
             written += 1
     return written
 
@@ -1404,7 +1404,7 @@ def write_locations_file(locations: dict[str, str], out_path: str) -> int:
     with open(out_path, "w", encoding="utf-8") as f:
         for loc_id in sorted(locations.keys()):
             description = locations[loc_id].strip()
-            f.write(f"{{{{{loc_id}}}}} {description}\n\n")
+            f.write(f"{{{{{loc_id}}}}} {description}\n")
             written += 1
     return written
 
@@ -1426,7 +1426,7 @@ def write_scenes_file_from_pairs(pairs, out_path: str, locations: dict[str, str]
             scene_text = _LOCATION_FULL_RE.sub(r'{{\1}}', scene_text)
             
             # Write the scene with simplified location references
-            f.write(f"{scene_text}\n\n")
+            f.write(f"{scene_text}\n")
             written += 1
     return written
 
