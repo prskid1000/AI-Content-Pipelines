@@ -16,7 +16,7 @@ WORKFLOW_SUMMARY_ENABLED = False # Set to True to enable workflow summary printi
 
 # Image resizing configuration (characters only)
 # Character image resize factor: 0.125 (12.5% of original size) - Better aspect ratio for stitching
-CHARACTER_RESIZE_FACTOR = 0.5
+CHARACTER_RESIZE_FACTOR = 1
 
 # Image compression configuration
 # JPEG quality: 1-100 (100 = best quality, larger file; 1 = worst quality, smaller file)
@@ -42,14 +42,14 @@ IMAGE_COMPRESSION_QUALITY = 90
 # Note: LATENT_MODE controls whether location images are ALSO used as latent input (separate from grouping)
 
 # HARDCODED CHARACTER MODE - Change this to switch modes
-ACTIVE_CHARACTER_MODE = "IMAGE"
+ACTIVE_CHARACTER_MODE = "IMAGE_TEXT"
 
 # HARDCODED LOCATION MODE - Change this to switch modes
 ACTIVE_LOCATION_MODE = "TEXT"
 
 WORD_FACTOR = 6
-LOCATION_WORD_LIMIT = 120
-CHARACTER_WORD_LIMIT = 120
+LOCATION_WORD_LIMIT = 300
+CHARACTER_WORD_LIMIT = 300
 
 # Image Resolution Constants
 IMAGE_WIDTH = 1280
@@ -116,7 +116,7 @@ FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 
 ART_STYLE = "Realistic Anime"
 
-USE_SUMMARY_TEXT = True  # Set to True to use summary text
+USE_SUMMARY_TEXT = False  # Set to True to use summary text
 
 class ResumableState:
     """Manages resumable state for expensive scene generation operations."""

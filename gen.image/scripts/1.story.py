@@ -1200,10 +1200,9 @@ def _generate_story_summary(story_content: str, lm_studio_url: str, resumable_st
         story_desc = ""
         
         for i, part in enumerate(parts):
-            title = part.get("title", "").strip()
             summary = part.get("long_summary", "").strip()
             
-            if not title or not summary:
+            if not summary:
                 raise RuntimeError(f"Plot Summary {i+1} missing title or summary")
             
             # Validate each part's character count
