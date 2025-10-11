@@ -10,7 +10,7 @@ from pathlib import Path
 print = partial(_builtins.print, flush=True)
 
 # Model constants for easy switching
-MODEL_TIMING_GENERATION = "qwen3-30b-a3b-instruct-2507"  # Model for timing SFX generation
+MODEL_TIMING_GENERATION = "qwen3-30b-a3b-thinking-2507"  # Model for timing SFX generation
 
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 
