@@ -1,7 +1,7 @@
 TASK: Write a Picture Story in form of DIALOGUE-SCENE divided into 5 PARTS.
 
 CONTENT:
-- Consulting Detective Sherlock Holmes Story [Victorian Drama] -> Sherlock Holmes and the Adventure of Casper Bridge. 
+- Consulting Detective Sherlock Holmes Story [Victorian Drama] -> Sherlock Holmes and the Adventure of Blue Duckling. 
 - Use the narrator(Doctor John Watson himself is the narrator) for atmosphere/background and other detailing.
 - Watson, always learning how to do deduction from Holmes, and his loyal assistant and roommate.
 - Holmes, for him, "everything is elementary" and "uses theory of deduction" to solve cases.
@@ -13,7 +13,7 @@ CONSTRAINTS:
 - Each DIALOGUE_i.j must have its single corresponding SCENE_i.j, and vice-versa. 
 - Each PART_x can span over multiple LOCATION_k. 
 - Each LOCATION_k, will be used in multiple SCENE_i.j, keep description consistent and such that it has all objects needed/mentioned in past/current/future scenes. Repeat {{loc_k}} in each SCENE_i.j  where LOCATION_k used for next time. 
-- Even in same room or place, create a new location when view changes, e.g. in drawing room, loc_i can be some sitting on sofa, and loc_(i+z) can be sitting on dinning table, though drawing has both sofa and dinning table. 
+- Must Always reate a new location(describe independently and completely) when view changes (i.e. new elements added or removed), even in same room or place, e.g. in drawing room, loc_i can be some sitting on sofa, and loc_(i+z) can be sitting on dinning table, though drawing has both sofa and dinning table. 
 
 DIALOGUE-SCENE FORMAT:
 

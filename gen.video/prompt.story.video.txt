@@ -14,7 +14,7 @@ CONSTRAINTS:
 - Each PART_x can span over multiple LOCATION_k. 
 - Each LOCATION_k, will be used in multiple SCENE_i.j, keep description consistent and such that it has all objects needed/mentioned in past/current/future scenes. Repeat {{loc_k}} in each SCENE_i.j  where LOCATION_k used for next time. 
 - MOTION_i.j. can only describe motion of Characters/Objects in only mentioned in SCENE_i.j; It should only have visual words; No sound/smell/touch words can be used.
-- Even in same room or place, create a new location when view changes, e.g. in drawing room, loc_i can be some sitting on sofa, and loc_(i+z) can be sitting on dinning table, though drawing has both sofa and dinning table. 
+- Must Always reate a new location(describe independently and completely) when view changes (i.e. new elements added or removed), even in same room or place, e.g. in drawing room, loc_i can be some sitting on sofa, and loc_(i+z) can be sitting on dinning table, though drawing has both sofa and dinning table. 
 
 DIALOGUE-SCENE FORMAT:
 
