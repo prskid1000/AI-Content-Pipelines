@@ -22,8 +22,8 @@ MODEL_DESCRIPTION_GENERATION = "qwen3-30b-a3b-thinking-2507"  # Model for descri
 
 WORD_FACTOR = 6
 
-STORY_DESCRIPTION_WORD_MIN = 300
-STORY_DESCRIPTION_WORD_MAX = 600
+STORY_DESCRIPTION_WORD_MIN = 120
+STORY_DESCRIPTION_WORD_MAX = 300
 
 STORY_DESCRIPTION_CHARACTER_MIN = WORD_FACTOR * STORY_DESCRIPTION_WORD_MIN
 STORY_DESCRIPTION_CHARACTER_MAX = WORD_FACTOR * STORY_DESCRIPTION_WORD_MAX
@@ -509,7 +509,7 @@ class CharacterManager:
                                         "type": "string",
                                         "minLength": part_min,
                                         "maxLength": part_max,
-                                        "description": f"Detailed summary of this part of the story ({part_min}-{part_max} characters)"
+                                        "description": f"Summarize major/important/notable events and actions of this part of the story ({part_min}-{part_max} characters)"
                                     }
                                 },
                                 "required": ["title", "short_summary", "long_summary"]
@@ -647,9 +647,10 @@ class CharacterManager:
     def _build_meta_summary_system_prompt(self) -> str:
         return (
             f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Summarize the story into 5 distinct plot summaries each with a title, a short summary, and a long summary.\n"
-            f"Use written grammatically correct and complete short english sentences (6-9 words) that are well-structured with clear subject and predicate."
-            f"The long summary should describe the chronology of all events and actions in the plot.\n"
-            f"Focus on event and actions not on what characters are explaining/thinking/discussing/feeling/saying.\n"
+            f"Use written grammatically correct and complete short and precise english sentences (6-9 words) that are well-structured with clear subject and predicate."
+            f"You can only use full stop, comma, apostrophe, and space as special characters."
+            f"The long summary should describe the chronology of all major/important/notable events and actions in the plot.\n"
+            f"Must never output what characters are explaining/thinking/discussing/feeling/saying.\n"
         )
        
 
