@@ -10,7 +10,7 @@ CONSTRAINTS:
 - Each PART_x must be at least 7500 characters and 1200 words.
 - Each SCENE/DIALOGUE must be always at least 30 characters.
 - Each LOCATION_k must be always at max 12 words. 
-- Each DIALOGUE_i.j must have its single corresponding SCENE_i.j and MOTION_i.j.
+- Each DIALOGUE_i.j must have its single corresponding SCENE_i.j and MOTION_i.j, and vice-versa.
 - Each PART_x can span over multiple LOCATION_k. 
 - Each LOCATION_k, will be used in multiple SCENE_i.j, keep description consistent and such that it has all objects needed/mentioned in past/current/future scenes. Repeat {{loc_k}} in each SCENE_i.j  where LOCATION_k used for next time. 
 - MOTION_i.j. can only describe motion of Characters/Objects in only mentioned in SCENE_i.j; It should only have visual words; No sound/smell/touch words can be used.

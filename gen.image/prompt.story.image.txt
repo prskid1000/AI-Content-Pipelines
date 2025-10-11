@@ -10,7 +10,7 @@ CONSTRAINTS:
 - Each PART_x must be at least 7500 characters and 1200 words.
 - Each SCENE/DIALOGUE must be always at least 30 characters.
 - Each LOCATION_k must be always at max 12 words. 
-- Each DIALOGUE_i.j must have its single corresponding SCENE_i.j. 
+- Each DIALOGUE_i.j must have its single corresponding SCENE_i.j, and vice-versa. 
 - Each PART_x can span over multiple LOCATION_k. 
 - Each LOCATION_k, will be used in multiple SCENE_i.j, keep description consistent and such that it has all objects needed/mentioned in past/current/future scenes. Repeat {{loc_k}} in each SCENE_i.j  where LOCATION_k used for next time. 
 - Even in same room or place, create a new location when view changes, e.g. in drawing room, loc_i can be some sitting on sofa, and loc_(i+z) can be sitting on dinning table, though drawing has both sofa and dinning table. 
