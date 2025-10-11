@@ -19,5 +19,5 @@ FORMAT:
 
 ...
 
-[gender_profession_actor_name] ....dialogue in same line as of []
+[gender_profession_actor_name] ....dialogue; start & end in same line as of []
 
