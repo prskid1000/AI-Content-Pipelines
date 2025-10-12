@@ -12,10 +12,14 @@ from pathlib import Path
 WORD_FACTOR = 6
 
 # Character and word count limits (min-max ranges)
-CHARACTER_SUMMARY_WORD_MIN = 60
-CHARACTER_SUMMARY_WORD_MAX = 100
-CHARACTER_SUMMARY_CHARACTER_MIN = WORD_FACTOR * CHARACTER_SUMMARY_WORD_MIN
-CHARACTER_SUMMARY_CHARACTER_MAX = WORD_FACTOR * CHARACTER_SUMMARY_WORD_MAX
+CHARACTER_SUMMARY_WORD_MIN = 75
+CHARACTER_SUMMARY_WORD_MAX = 105
+
+MIN_OBJECTS_PER_ACCESSORY = 0
+MAX_OBJECTS_PER_ACCESSORY = 3
+
+CHARACTER_SUMMARY_CHARACTER_MIN = WORD_FACTOR * CHARACTER_SUMMARY_WORD_MIN + MIN_OBJECTS_PER_ACCESSORY * 12
+CHARACTER_SUMMARY_CHARACTER_MAX = WORD_FACTOR * CHARACTER_SUMMARY_WORD_MAX + MAX_OBJECTS_PER_ACCESSORY * 12
 
 LOCATION_SUMMARY_WORD_MIN = 100
 LOCATION_SUMMARY_WORD_MAX = 300
@@ -25,8 +29,8 @@ LOCATION_SUMMARY_CHARACTER_MAX = WORD_FACTOR * LOCATION_SUMMARY_WORD_MAX
 MIN_OBJECTS_PER_LOCATION = 1
 MAX_OBJECTS_PER_LOCATION = 3
 
-STORY_DESCRIPTION_WORD_MIN = 120
-STORY_DESCRIPTION_WORD_MAX = 300
+STORY_DESCRIPTION_WORD_MIN = 300
+STORY_DESCRIPTION_WORD_MAX = 600
 
 STORY_DESCRIPTION_CHARACTER_MIN = WORD_FACTOR * STORY_DESCRIPTION_WORD_MIN
 STORY_DESCRIPTION_CHARACTER_MAX = WORD_FACTOR * STORY_DESCRIPTION_WORD_MAX
@@ -497,7 +501,7 @@ def _schema_character() -> dict[str, object]:
                             "gender": {"type": "string", "enum": ["male", "female"]},
                             "body_type": {"type": "string", "enum": ["slim", "average", "muscular", "overweight", "obese"]},
                         },
-                        "required": ["head_shape", "skin_tone", "eyes_color", "hair_color", "hair_texture"]
+                        "required": ["head_shape", "skin_tone", "eyes_color", "hair_color", "hair_texture", "age", "gender", "body_type"]
                     },
                     "clothing": {
                         "type": "object",
@@ -505,7 +509,7 @@ def _schema_character() -> dict[str, object]:
                             "tops": {
                                 "type": "object",
                                 "properties": {
-                                    "type": {"type": "string", "enum": ["dress_shirt", "casual_shirt", "t-shirt", "polo_shirt", "sweater", "cardigan", "blazer", "suit_jacket", "hoodie", "tank_top", "turtleneck", "henley", "flannel_shirt", "oxford_shirt", "button_down", "long_sleeve", "short_sleeve", "polo", "crew_neck", "v_neck"]},
+                                    "type": {"type": "string", "enum": ["white_dress_shirt", "blue_dress_shirt", "striped_dress_shirt", "oxford_dress_shirt", "button_down_dress_shirt", "flannel_shirt", "plaid_flannel_shirt", "chambray_shirt", "denim_shirt", "linen_shirt", "hawaiian_shirt", "camp_shirt", "western_shirt", "casual_button_down", "short_sleeve_button_down", "long_sleeve_button_down", "henley_shirt", "baseball_tee", "graphic_tee", "plain_tee", "v_neck_tee", "crew_neck_tee", "pocket_tee", "polo_shirt", "rugby_shirt", "golf_shirt", "pullover_sweater", "crewneck_sweater", "v_neck_sweater", "cardigan_sweater", "zip_cardigan", "turtleneck_sweater", "cable_knit_sweater", "fair_isle_sweater", "hoodie", "zip_hoodie", "pullover_hoodie", "sweatshirt", "crewneck_sweatshirt", "tank_top", "muscle_tank", "athletic_tank", "sleeveless_shirt", "compression_shirt", "athletic_shirt", "running_shirt", "basketball_jersey", "football_jersey", "baseball_jersey", "military_dress_shirt", "military_combat_shirt", "military_fatigue_shirt", "military_blouse", "police_shirt", "police_uniform_shirt", "medical_scrubs_top", "chef_jacket", "chef_coat", "nurse_scrubs_top", "nurse_uniform_top", "pilot_shirt", "pilot_uniform_shirt", "flight_attendant_blouse", "flight_attendant_shirt", "security_shirt", "security_uniform_shirt", "firefighter_shirt", "firefighter_jacket", "paramedic_shirt", "paramedic_jacket", "business_dress_shirt", "formal_dress_shirt", "tuxedo_shirt", "academic_robe", "judge_robe", "clerical_robe", "clerical_shirt", "lab_coat", "apron", "coverall_top", "boiler_suit_top", "tactical_shirt", "tactical_vest_carrier", "service_dress_shirt", "work_shirt", "work_uniform_shirt"]},
                                     "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "pattern": {"type": "string", "description": "Solid, striped, plaid, checkered, etc."},
                                     "material": {"type": "string", "description": "Cotton, silk, wool, polyester, linen, etc."},
@@ -517,7 +521,7 @@ def _schema_character() -> dict[str, object]:
                             "bottoms": {
                                 "type": "object",
                                 "properties": {
-                                    "type": {"type": "string", "enum": ["dress_pants", "casual_pants", "jeans", "shorts", "cargo_pants", "chinos", "khakis", "trousers", "slacks", "corduroy_pants", "denim_shorts", "dress_shorts", "cargo_shorts", "athletic_shorts", "swim_trunks"]},
+                                    "type": {"type": "string", "enum": ["dress_pants", "suit_pants", "formal_trousers", "pleated_dress_pants", "flat_front_dress_pants", "wool_dress_pants", "chinos", "khakis", "casual_chinos", "slim_chinos", "pleated_chinos", "corduroy_pants", "blue_jeans", "black_jeans", "dark_wash_jeans", "light_wash_jeans", "distressed_jeans", "ripped_jeans", "skinny_jeans", "slim_fit_jeans", "straight_leg_jeans", "bootcut_jeans", "relaxed_fit_jeans", "baggy_jeans", "cargo_pants", "tactical_cargo_pants", "utility_pants", "work_pants", "carpenter_pants", "joggers", "sweatpants", "track_pants", "athletic_pants", "running_tights", "compression_pants", "basketball_shorts", "gym_shorts", "running_shorts", "board_shorts", "swim_trunks", "cargo_shorts", "chino_shorts", "denim_shorts", "athletic_shorts", "compression_shorts", "bermuda_shorts", "dress_shorts", "casual_shorts", "military_dress_pants", "military_combat_pants", "military_fatigue_pants", "military_cargo_pants", "police_pants", "police_uniform_pants", "medical_scrubs_pants", "chef_pants", "chef_trousers", "nurse_scrubs_pants", "nurse_uniform_pants", "pilot_pants", "pilot_uniform_pants", "flight_attendant_pants", "flight_attendant_skirt", "security_pants", "security_uniform_pants", "firefighter_pants", "firefighter_bunker_pants", "paramedic_pants", "paramedic_uniform_pants", "business_dress_pants", "formal_dress_pants", "tuxedo_pants", "coverall_pants", "boiler_suit_pants", "service_dress_pants", "work_uniform_pants"]},
                                     "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "pattern": {"type": "string", "description": "Solid, striped, plaid, etc."},
                                     "material": {"type": "string", "description": "Denim, cotton, wool, polyester, etc."},
@@ -526,20 +530,10 @@ def _schema_character() -> dict[str, object]:
                                 },
                                 "required": ["type", "color"]
                             },
-                            "uniform_professional": {
-                                "type": "object",
-                                "properties": {
-                                    "type": {"type": "string", "enum": ["military_uniform", "police_uniform", "medical_scrubs", "chef_uniform", "nurse_uniform", "pilot_uniform", "flight_attendant", "security_guard", "firefighter", "paramedic", "business_suit", "formal_suit", "academic_robe", "judge_robe", "clerical_robe", "lab_coat", "apron", "overalls", "coveralls", "boiler_suit", "cargo_uniform", "tactical_gear", "dress_uniform", "service_uniform", "work_uniform"]},
-                                    "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
-                                    "material": {"type": "string", "description": "Cotton, polyester, wool, etc."},
-                                    "condition": {"type": "string", "enum": ["pristine", "well_worn", "weathered", "tattered"]}
-                                },
-                                "required": ["type", "color"]
-                            },
                             "outerwear": {
                                 "type": "object",
                                 "properties": {
-                                    "type": {"type": "string", "enum": ["coat", "jacket", "raincoat", "blazer", "overcoat", "pea_coat", "hoodie", "cardigan", "vest", "windbreaker", "bomber_jacket", "leather_jacket", "denim_jacket", "suit_jacket", "sports_jacket"]},
+                                    "type": {"type": "string", "enum": ["blazer", "navy_blazer", "sports_blazer", "suit_jacket", "two_button_suit_jacket", "three_button_suit_jacket", "double_breasted_jacket", "dinner_jacket", "tuxedo_jacket", "sport_coat", "tweed_jacket", "wool_coat", "overcoat", "trench_coat", "pea_coat", "duffle_coat", "top_coat", "raincoat", "windbreaker", "anorak", "shell_jacket", "bomber_jacket", "flight_jacket", "varsity_jacket", "letterman_jacket", "leather_jacket", "motorcycle_jacket", "biker_jacket", "suede_jacket", "denim_jacket", "trucker_jacket", "jean_jacket", "field_jacket", "utility_jacket", "safari_jacket", "quilted_jacket", "puffer_jacket", "down_jacket", "insulated_jacket", "parka", "winter_parka", "fleece_jacket", "softshell_jacket", "hardshell_jacket", "rain_jacket", "track_jacket", "athletic_jacket", "running_jacket", "zip_hoodie", "pullover_hoodie", "vest", "puffer_vest", "fleece_vest", "sweater_vest", "suit_vest", "casual_vest", "tactical_vest", "fishing_vest", "photographer_vest", "cardigan", "zip_cardigan", "shawl_collar_cardigan", "military_dress_coat", "military_field_jacket", "military_parka", "military_overcoat", "military_bomber_jacket", "police_jacket", "police_vest", "police_windbreaker", "medical_coat", "medical_lab_coat", "chef_jacket", "nurse_cardigan", "nurse_jacket", "pilot_jacket", "pilot_blazer", "flight_attendant_blazer", "flight_attendant_jacket", "security_jacket", "security_vest", "firefighter_turnout_coat", "firefighter_bunker_coat", "paramedic_jacket", "paramedic_vest", "business_blazer", "formal_coat", "overalls", "coveralls", "boiler_suit", "tactical_jacket", "service_dress_coat", "work_jacket", "work_vest"]},
                                     "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "material": {"type": "string", "description": "Leather, wool, denim, polyester, etc."},
                                     "fit": {"type": "string", "enum": ["tight", "fitted", "loose", "oversized"]},
@@ -549,7 +543,7 @@ def _schema_character() -> dict[str, object]:
                             "footwear": {
                                 "type": "object",
                                 "properties": {
-                                    "type": {"type": "string", "enum": ["dress_shoes", "loafers", "oxfords", "sneakers", "boots", "ankle_boots", "work_boots", "hiking_boots", "sandals", "flip_flops", "moccasins", "boat_shoes", "wingtip_shoes", "chelsea_boots", "combat_boots", "running_shoes", "basketball_shoes", "tennis_shoes", "dress_boots", "casual_shoes"]},
+                                    "type": {"type": "string", "enum": ["oxford_shoes", "cap_toe_oxfords", "plain_toe_oxfords", "wingtip_oxfords", "derby_shoes", "brogue_shoes", "monk_strap_shoes", "loafers", "penny_loafers", "tassel_loafers", "slip_on_loafers", "driving_loafers", "boat_shoes", "deck_shoes", "moccasins", "dress_boots", "chelsea_boots", "chukka_boots", "desert_boots", "ankle_boots", "combat_boots", "military_boots", "work_boots", "steel_toe_boots", "construction_boots", "logger_boots", "timberland_boots", "hiking_boots", "trail_boots", "mountaineering_boots", "cowboy_boots", "western_boots", "riding_boots", "engineer_boots", "motorcycle_boots", "leather_boots", "suede_boots", "sneakers", "athletic_sneakers", "running_shoes", "training_shoes", "cross_training_shoes", "basketball_shoes", "high_top_sneakers", "low_top_sneakers", "canvas_sneakers", "leather_sneakers", "slip_on_sneakers", "tennis_shoes", "court_shoes", "skate_shoes", "casual_shoes", "casual_sneakers", "walking_shoes", "sandals", "sport_sandals", "leather_sandals", "slide_sandals", "flip_flops", "slippers", "espadrilles", "military_combat_boots", "military_dress_shoes", "military_tactical_boots", "military_jungle_boots", "police_boots", "police_dress_shoes", "police_tactical_boots", "medical_clogs", "medical_sneakers", "chef_clogs", "chef_shoes", "nurse_clogs", "nurse_sneakers", "nurse_shoes", "pilot_dress_shoes", "pilot_boots", "flight_attendant_heels", "flight_attendant_flats", "flight_attendant_pumps", "security_boots", "security_shoes", "firefighter_bunker_boots", "firefighter_boots", "paramedic_boots", "paramedic_shoes", "business_dress_shoes", "formal_dress_shoes", "tuxedo_shoes", "patent_leather_shoes", "work_shoes", "safety_boots"]},
                                     "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
                                     "material": {"type": "string", "description": "Leather, canvas, suede, rubber, etc."},
                                     "style": {"type": "string", "description": "Casual, formal, athletic, etc."},
@@ -562,18 +556,18 @@ def _schema_character() -> dict[str, object]:
                     },
                     "accessories": {
                         "type": "array",
-                        "description": "List of at most 3 accessories that are worn by the character",
+                        "description": f"List of at most {MAX_OBJECTS_PER_ACCESSORY} accessories that are worn by the character",
                         "items": {
                             "type": "object",
-                            "minItems": 0,
-                            "maxItems": 3,
+                            "minItems": MIN_OBJECTS_PER_ACCESSORY,
+                            "maxItems": MAX_OBJECTS_PER_ACCESSORY,
                             "properties": {
-                                "type": {"type": "string", "description": "Type of accessory (e.g., 'glasses', 'hat', 'watch', 'jewelry', 'bag', 'gloves', 'tie', 'scarf', 'belt', 'piercings')"},
+                                "type": {"type": "string", "enum": ["eyeglasses", "prescription_glasses", "reading_glasses", "sunglasses", "aviator_sunglasses", "wayfarer_sunglasses", "sport_sunglasses", "safety_glasses", "goggles", "ski_goggles", "baseball_cap", "snapback_cap", "trucker_hat", "dad_hat", "beanie", "knit_cap", "winter_hat", "fedora", "trilby", "panama_hat", "straw_hat", "cowboy_hat", "bucket_hat", "beret", "newsboy_cap", "flat_cap", "top_hat", "bowler_hat", "boater_hat", "military_cap", "balaclava", "bandana", "headband", "sweatband", "watch", "wristwatch", "digital_watch", "analog_watch", "smartwatch", "sports_watch", "diving_watch", "pocket_watch", "tie", "necktie", "silk_tie", "knit_tie", "skinny_tie", "bow_tie", "bolo_tie", "ascot", "cravat", "scarf", "wool_scarf", "silk_scarf", "infinity_scarf", "winter_scarf", "bandana_scarf", "neck_gaiter", "shawl", "belt", "leather_belt", "fabric_belt", "canvas_belt", "dress_belt", "casual_belt", "braided_belt", "webbed_belt", "tactical_belt", "suspenders", "braces", "gloves", "leather_gloves", "winter_gloves", "wool_gloves", "fingerless_gloves", "driving_gloves", "work_gloves", "tactical_gloves", "mittens", "ring", "wedding_ring", "signet_ring", "class_ring", "pinky_ring", "thumb_ring", "necklace", "chain_necklace", "pendant_necklace", "dog_tags", "crucifix_necklace", "locket", "choker", "bracelet", "wristband", "leather_bracelet", "beaded_bracelet", "chain_bracelet", "cuff_bracelet", "bangle", "earrings", "stud_earrings", "hoop_earrings", "drop_earrings", "piercing", "nose_ring", "nose_stud", "eyebrow_piercing", "lip_ring", "ear_gauges", "brooch", "lapel_pin", "tie_clip", "tie_bar", "cufflinks", "collar_stays", "pocket_square", "handkerchief", "badge", "name_tag", "id_badge", "lanyard", "backpack", "messenger_bag", "briefcase", "laptop_bag", "duffel_bag", "tote_bag", "satchel", "fanny_pack", "hip_bag", "crossbody_bag", "sling_bag", "wallet_chain", "keychain", "wrist_strap", "armband", "phone_armband", "tactical_pouch", "holster", "shoulder_holster", "ankle_holster"]},
                                 "description": {"type": "string", "description": "Detailed description including color, material, style, and any distinctive features"},
-                                "location": {"type": "string", "description": "Where the accessory is worn (e.g., 'on head', 'around neck', 'on wrist', 'in hand', 'on face')"},
+                                "location": {"type": "string", "enum": ["on_head", "over_eyes", "on_face", "on_ears", "around_neck", "on_chest", "on_lapel", "around_waist", "on_belt", "on_wrist", "on_hands", "on_fingers", "in_hand", "over_shoulder", "on_back", "on_hip", "on_ankle"]},
                                 "condition": {"type": "string", "enum": ["pristine", "well_worn", "weathered", "tattered"]}
                             },
-                            "required": ["type", "description"]
+                            "required": ["type", "description", "location"]
                         }
                     }
                 },
