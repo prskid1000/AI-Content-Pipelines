@@ -9,7 +9,6 @@ if str(project_root) not in sys.path:
 
 from google.adk.agents import Agent, LoopAgent
 from google.adk.agents.llm_agent import ToolContext
-from google.adk.events.event import EventActions
 
 from google.adk.models.lite_llm import LiteLlm
 
@@ -24,16 +23,17 @@ async def exit_loop(tool_context: ToolContext):
 manager_agent = Agent(
     name="manager",
     model=MODEL,
-    description="Manager Agent. For Dividing tasks into smaller tasks based on available agents and tools, then delegating the tasks to the appropriate agents or tools.",
+    description="Manages user requests by answering directly or delegating tasks to available agents and tools.",
     instruction="""
-    You are a Manager Agent (Professional Agent Management Specialist) who divides tasks into smaller tasks based on available agents and tools, then delegates the tasks to the appropriate agents or tools.
+    You are a Manager Agent responsible for fulfilling user requests efficiently.
+    
+    Your approach:
+        1. Analyze the user's request
+        2. Answer directly if you can, or break into subtasks and delegate to available agents/tools
+        3. Only use agents and tools that actually exist - never call imaginary ones
+        4. When done, unable to proceed, or task is complete, call exit_loop with a summary
 
-    __VERY_IMPORTANT__ Constraints:
-        - You can only call tools and agents that are available. Do not call any imaginary tools or agents.
-        - When you have completed the task, obtained the desired result, or cannot make further progress, you MUST call the exit_loop tool to stop the loop.
-        - If you are not able to divide the task into smaller tasks based on available agents and tools, you MUST call the exit_loop tool.
-        - ALWAYS call exit_loop when done, otherwise the loop will continue indefinitely.
-        - After calling exit_loop, provide a brief summary of what was accomplished.
+    __CRITICAL__: ALWAYS call exit_loop when finished, otherwise the loop continues indefinitely.
     """,
     sub_agents=[],
     tools=[exit_loop])
