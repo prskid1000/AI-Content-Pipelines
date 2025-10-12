@@ -7,16 +7,19 @@ project_root = Path(__file__).parent.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
-from google.adk.agents import Agent, LoopAgent, SequentialAgent
+from google.adk.agents import Agent, LoopAgent
 from google.adk.agents.llm_agent import ToolContext
+from google.adk.events.event import EventActions
 
 from google.adk.models.lite_llm import LiteLlm
 
 MODEL = LiteLlm(model=f"lm_studio/qwen3-30b-a3b-thinking-2507", api_key="sk-0", base_url="http://localhost:1234/v1")
 
-def exit_loop(tool_context: ToolContext):
+async def exit_loop(tool_context: ToolContext):
+    """Exit the loop by setting both escalate flag and end_invocation."""
+    # Set escalate on the event actions
     tool_context.actions.escalate = True
-    return {}
+    return {"status": "exiting loop - escalate flags set"}
 
 manager_agent = Agent(
     name="manager",
@@ -27,19 +30,15 @@ manager_agent = Agent(
 
     __VERY_IMPORTANT__ Constraints:
         - You can only call tools and agents that are available. Do not call any imaginary tools or agents.
-        - If we have got the desired result or not possible to compute the result further or too many repetitions then you need to exit the loop.
-        - If you are not able to divide the task into smaller tasks based on available agents and tools then you need to exit the loop.
+        - When you have completed the task, obtained the desired result, or cannot make further progress, you MUST call the exit_loop tool to stop the loop.
+        - If you are not able to divide the task into smaller tasks based on available agents and tools, you MUST call the exit_loop tool.
+        - ALWAYS call exit_loop when done, otherwise the loop will continue indefinitely.
+        - After calling exit_loop, provide a brief summary of what was accomplished.
     """,
     sub_agents=[],
     tools=[exit_loop])
 
-loop_agent = LoopAgent(
-    name="loop",
-    max_iterations=3,
-    sub_agents=[manager_agent])
-
-# Create sequence_agent with the dynamic result_agent
-root_agent = SequentialAgent(
+root_agent = LoopAgent(
     name="root",
-    sub_agents=[loop_agent]
-)
+    max_iterations=5,  # Increased to test escalate behavior
+    sub_agents=[manager_agent])
