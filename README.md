@@ -44,6 +44,71 @@ Text Story → Audio Pipeline → Image Pipeline → Video Pipeline → YouTube
 - **Image Pipeline** (`gen.image/`) - 6 scripts for character/scene generation  
 - **Video Pipeline** (`gen.video/`) - 3 scripts for animation and compilation
 
+## 📁 Project Structure
+
+```
+.comfyui/
+├── ComfyUI/                    # AI model server
+│   ├── models/                 # AI models (TTS, image, video)
+│   ├── custom_nodes/           # Extensions (TTS, GGUF, animation)
+│   └── output/                 # Generated content
+├── gen.audio/                  # Audio pipeline (13 scripts)
+│   ├── generate.py             # Main orchestrator
+│   ├── input/                  # 1.story.txt, voices/
+│   ├── output/                 # final.wav, final.mp4, thumbnail.png
+│   │   ├── tracking/           # Resumable checkpoints (*.state.json)
+│   │   └── sfx/                # Generated SFX files
+│   ├── scripts/                # Processing scripts
+│   └── workflow/               # ComfyUI workflows
+├── gen.image/                  # Image pipeline (6 scripts)
+│   ├── generate.py             # Main orchestrator
+│   ├── input/                  # Text descriptions
+│   ├── output/                 # characters/, locations/, scene/, lora/
+│   │   └── tracking/           # Resumable checkpoints (*.state.json)
+│   ├── scripts/                # Processing scripts
+│   └── workflow/               # ComfyUI workflows
+└── gen.video/                  # Video pipeline (3 scripts)
+    ├── generate.py             # Main orchestrator
+    ├── input/                  # Scene images
+    ├── output/                 # animation/, final_sd.mp4
+    │   ├── tracking/           # Resumable checkpoints (*.state.json)
+    │   └── frames/             # Extracted frame files
+    ├── scripts/                # Processing scripts
+    └── workflow/               # Animation workflows
+```
+
+## 🚀 Quick Start
+
+### Prerequisites
+1. **ComfyUI** - AI model server for TTS, image, and video generation
+2. **LM Studio** - Local language model (qwen3-30b-a3b-thinking-2507) 
+3. **FFmpeg** - Video/audio processing
+4. **Python Dependencies** - `pip install -r requirements.txt`
+5. **YouTube API** (optional) - For automated uploads
+
+### Running Pipelines
+```bash
+# Audio Pipeline (13 scripts)
+cd gen.audio && python generate.py
+
+# Image Pipeline (6 scripts) 
+cd gen.image && python generate.py
+
+# Video Pipeline (3 scripts)
+cd gen.video && python generate.py
+```
+
+### Resumable Operations
+```bash
+# Individual scripts with resumable processing
+cd gen.image/scripts && python 1.story.py
+cd gen.image/scripts && python 2.character.py --force-start
+cd gen.audio/scripts && python 7.sfx.py --auto-confirm y
+
+# Check progress and resume from interruptions
+# Scripts automatically detect and resume from checkpoints
+```
+
 ## 🎨 Advanced Image Generation Features
 
 ### Latent Input Mode
@@ -151,7 +216,11 @@ LoRA 2: LoadImage(Image 1) → VAEEncode → LoRA2 → Generated Image 2
 LoRA 3: LoadImage(Image 2) → VAEEncode → LoRA3 → Final Image
 ```
 
-## 🔄 Resumable Processing System
+---
+
+# 📋 PIPELINE DOCUMENTATION
+
+## 🔄 Cross-Pipeline Feature: Resumable Processing System
 
 The AI Content Studio features a robust resumable processing system that allows operations to be interrupted and resumed without losing progress. This is particularly valuable for expensive AI generation tasks that can take hours to complete.
 
@@ -163,23 +232,10 @@ The AI Content Studio features a robust resumable processing system that allows 
 - **File Validation**: Cached results are validated to ensure files still exist on disk
 - **Optional Cleanup**: Checkpoint files are preserved by default but can be deleted via `CLEANUP_TRACKING_FILES = True`
 
-#### Supported Scripts
-All major generation scripts now support resumable processing:
-
-**Audio Pipeline:**
-- ✅ `1.character.py` - Character voice assignment and analysis
-- ✅ `2.story.py` - Story audio generation with chunked processing
-- ✅ `5.timeline.py` - SFX timeline generation
-- ✅ `6.timing.py` - SFX timing refinement  
-- ✅ `7.sfx.py` - Sound effect generation
-
-**Image Pipeline:**
-- ✅ `1.story.py` - Character/location generation
-- ✅ `2.character.py` - Character image generation
-- ✅ `3.scene.py` - Scene image generation
-
-**Video Pipeline:**
-- ✅ `2.animate.py` - Video animation generation
+#### Supported Scripts Across All Pipelines
+**Audio Pipeline:** 5 scripts  
+**Image Pipeline:** 4 scripts  
+**Video Pipeline:** 1 script
 
 #### Usage Examples
 ```bash
@@ -205,103 +261,13 @@ python 2.story.py --disable-resumable
 - **Content**: JSON format with progress tracking and cached results
 - **Lifecycle**: Automatically created, updated, and optionally cleaned up based on `CLEANUP_TRACKING_FILES` setting
 
-#### Complete Checkpoint File Inventory
+---
 
-| Pipeline | Checkpoint File | Script | Tracks | Example Structure |
-|----------|----------------|--------|--------|-------------------|
-| **Audio** | `1.character.state.json` | `1.character.py` | Character analysis results | Voice assignments, gender detection |
-| **Audio** | `2.story.state.json` | `2.story.py` | Story chunk processing | Completed chunks, chunk audio files |
-| **Audio** | `5.timeline.state.json` | `5.timeline.py` | SFX timeline generation | Completed timeline entries |
-| **Audio** | `6.timing.state.json` | `6.timing.py` | SFX timing refinement | Timing adjustments, validation |
-| **Audio** | `7.sfx.state.json` | `7.sfx.py` | Sound effect generation | Generated SFX files, metadata |
-| **Image** | `1.story.state.json` | `1.story.py` | Story parsing (LLM operations) | Characters, locations, scenes, rewrites |
-| **Image** | `2.character.state.json` | `2.character.py` | Character image generation | Generated character images |
-| **Image** | `2.location.state.json` | `2.location.py` | Location image generation | Generated location images |
-| **Image** | `3.scene.state.json` | `3.scene.py` | Scene image generation | Generated scene images with stitching |
-| **Video** | `2.animate.state.json` | `2.animate.py` | Video animation generation | Animated video clips |
-
-#### Story Processing Checkpoints
-- **Chunk Progress**: Tracks completion of individual story chunks
-- **File Validation**: Ensures cached audio files still exist before skipping
-- **Final Concatenation**: Tracks completion of final audio assembly
-- **Resume Points**: Can resume from any completed chunk or final concatenation phase
-
-#### Progress Tracking
-- **Real-time Status**: Shows current progress on script startup
-- **Completion Summary**: Displays completed vs. total operations
-- **File Validation**: Ensures cached files still exist before skipping
-- **Force Restart**: `--force-start` flag bypasses existing checkpoints
-
-## 📁 Project Structure
-
-```
-.comfyui/
-├── ComfyUI/                    # AI model server
-│   ├── models/                 # AI models (TTS, image, video)
-│   ├── custom_nodes/           # Extensions (TTS, GGUF, animation)
-│   └── output/                 # Generated content
-├── gen.audio/                  # Audio pipeline (13 scripts)
-│   ├── generate.py             # Main orchestrator
-│   ├── input/                  # 1.story.txt, voices/
-│   ├── output/                 # final.wav, final.mp4, thumbnail.png
-│   │   ├── tracking/           # Resumable checkpoints (*.state.json)
-│   │   └── sfx/                # Generated SFX files
-│   ├── scripts/                # Processing scripts
-│   └── workflow/               # ComfyUI workflows
-├── gen.image/                  # Image pipeline (6 scripts)
-│   ├── generate.py             # Main orchestrator
-│   ├── input/                  # Text descriptions
-│   ├── output/                 # characters/, locations/, scene/, lora/
-│   │   └── tracking/           # Resumable checkpoints (*.state.json)
-│   ├── scripts/                # Processing scripts
-│   └── workflow/               # ComfyUI workflows
-└── gen.video/                  # Video pipeline (3 scripts)
-    ├── generate.py             # Main orchestrator
-    ├── input/                  # Scene images
-    ├── output/                 # animation/, final_sd.mp4
-    │   ├── tracking/           # Resumable checkpoints (*.state.json)
-    │   └── frames/             # Extracted frame files
-    ├── scripts/                # Processing scripts
-    └── workflow/               # Animation workflows
-```
-
-## 🚀 Quick Start
-
-### Prerequisites
-1. **ComfyUI** - AI model server for TTS, image, and video generation
-2. **LM Studio** - Local language model (qwen3-30b-a3b-thinking-2507) 
-3. **FFmpeg** - Video/audio processing
-4. **Python Dependencies** - `pip install -r requirements.txt`
-5. **YouTube API** (optional) - For automated uploads
-
-### Running Pipelines
-```bash
-# Audio Pipeline (13 scripts)
-cd gen.audio && python generate.py
-
-# Image Pipeline (6 scripts) 
-cd gen.image && python generate.py
-
-# Video Pipeline (3 scripts)
-cd gen.video && python generate.py
-```
-
-### Resumable Operations
-```bash
-# Individual scripts with resumable processing
-cd gen.image/scripts && python 1.story.py
-cd gen.image/scripts && python 2.character.py --force-start
-cd gen.audio/scripts && python 7.sfx.py --auto-confirm y
-
-# Check progress and resume from interruptions
-# Scripts automatically detect and resume from checkpoints
-```
-
-## 🎵 Audio Pipeline (13 Scripts)
+## 🎵 AUDIO PIPELINE (gen.audio/)
 
 **Purpose**: Generate narrated stories with sound effects and create YouTube-ready videos
 
-**Resumable Scripts**: `1.character.py`, `2.story.py`, `5.timeline.py`, `6.timing.py`, `7.sfx.py`
+**Total Scripts**: 13 scripts | **Resumable**: 5 scripts | **Status**: All Active
 
 ### Workflow Overview
 ```
@@ -309,52 +275,89 @@ Story Text → Character Analysis → TTS → Transcription → SFX → Mixing �
 ```
 
 ### Complete Script Inventory
-| Script | Purpose | Input Files | Output Files | Dependencies |
-|--------|---------|-------------|--------------|--------------|
-| `1.character.py` | Character voice assignment & analysis | `1.story.txt`, `voices/` | `2.character.txt` | **LM Studio** |
-| `2.story.py` | Generate main story audio | `1.story.txt`, `2.character.txt` | `story.wav` | **ComfyUI** |
-| `3.transcribe.py` | Audio transcription | `story.wav` | `2.story.srt`, `2.story.str.txt` | Whisper |
-| `4.quality.py` | Transcription quality check | `2.story.str.txt` | Quality report | None |
-| `5.timeline.py` | SFX timeline generation | `2.story.str.txt` | `2.timeline.txt` | **LM Studio** |
-| `6.timing.py` | SFX timing refinement | `2.timeline.txt` | `3.timing.txt` | **LM Studio** |
-| `7.sfx.py` | Generate sound effects | `3.timing.txt` | `sfx.wav` | **ComfyUI** |
-| `8.combine.py` | Mix audio (story + SFX) | `story.wav`, `sfx.wav` | `final.wav` | PyTorch/Torchaudio |
-| `9.media.py` | YouTube metadata & thumbnail description | `1.story.txt`, `9.summary.txt` | `10.thumbnail.txt`, `description.txt`, `tags.txt` | **LM Studio** |
-| `10.thumbnail.py` | Generate thumbnail image | `10.thumbnail.txt` | `thumbnail.png` | **ComfyUI** |
-| `11.video.py` | Create final video | `final.wav`, `thumbnail.png` | `final.mp4`, `shorts.v1-v5.mp4` | FFmpeg |
-| `12.youtube.py` | Upload to YouTube | `final.mp4`, `shorts.v1-v5.mp4`, `description.txt`, `tags.txt` | YouTube upload | Google API |
 
-### Audio Pipeline Features
+| # | Script | Purpose | Input Files | Output Files | Dependencies | Resumable |
+|---|--------|---------|-------------|--------------|--------------|-----------|
+| 1 | `1.character.py` | Character voice assignment & analysis | `1.story.txt`, `voices/` | `2.character.txt` | **LM Studio** | ✅ |
+| 2 | `2.story.py` | Generate main story audio | `1.story.txt`, `2.character.txt` | `story.wav` | **ComfyUI** | ✅ |
+| 3 | `3.transcribe.py` | Audio transcription | `story.wav` | `2.story.srt`, `2.story.str.txt` | Whisper | ❌ |
+| 4 | `4.quality.py` | Transcription quality check | `2.story.str.txt` | Quality report | None | ❌ |
+| 5 | `5.timeline.py` | SFX timeline generation | `2.story.str.txt` | `2.timeline.txt` | **LM Studio** | ✅ |
+| 6 | `6.timing.py` | SFX timing refinement | `2.timeline.txt` | `3.timing.txt` | **LM Studio** | ✅ |
+| 7 | `7.sfx.py` | Generate sound effects | `3.timing.txt` | `sfx.wav` | **ComfyUI** | ✅ |
+| 8 | `8.combine.py` | Mix audio (story + SFX) | `story.wav`, `sfx.wav` | `final.wav` | PyTorch/Torchaudio | ❌ |
+| 9 | `9.media.py` | YouTube metadata & thumbnail | `1.story.txt`, `9.summary.txt` | `10.thumbnail.txt`, `description.txt`, `tags.txt` | **LM Studio** | ❌ |
+| 10 | `10.thumbnail.py` | Generate thumbnail image | `10.thumbnail.txt` | `thumbnail.png` | **ComfyUI** | ❌ |
+| 11 | `11.video.py` | Create final video | `final.wav`, `thumbnail.png` | `final.mp4`, `shorts.v1-v5.mp4` | FFmpeg | ❌ |
+| 12 | `12.youtube.py` | Upload to YouTube | `final.mp4`, `shorts.v1-v5.mp4`, `description.txt`, `tags.txt` | YouTube upload | Google API | ❌ |
+
+### Key Features
 - **Character Voice Assignment**: Automatic gender detection and voice selection with resumable processing
-- **Story Audio Generation**: Chunked TTS processing with progress tracking and resumable recovery
-- **TTS Generation**: Multi-character narration with voice consistency
-- **SFX Integration**: AI-generated sound effects with precise timing
-- **Audio Mixing**: Professional-grade audio combination using PyTorch/Torchaudio
-- **YouTube Integration**: Automated upload with metadata generation
+- **Chunked Story Audio**: TTS processing with progress tracking and resumable recovery (5-line chunks)
+- **Multi-Character TTS**: Narration with voice consistency across characters
+- **AI-Generated SFX**: Sound effects with precise timing and resumable generation
+- **Professional Mixing**: Audio combination using PyTorch/Torchaudio
+- **YouTube Integration**: Automated upload with metadata and Shorts generation
+
+### Audio Pipeline File Structure
+
+```
+gen.audio/
+├── generate.py                 # Main orchestrator
+├── input/                      # Input files
+│   ├── 1.story.txt            # Source story text
+│   ├── 2.character.txt        # Character assignments (generated)
+│   ├── 2.story.srt            # SRT transcription (generated)
+│   ├── 2.story.str.txt        # Plain text transcription (generated)
+│   ├── 2.timeline.txt         # SFX timeline (generated)
+│   ├── 3.timing.txt           # Refined SFX timing (generated)
+│   ├── 9.summary.txt          # Story summary (for metadata)
+│   ├── 10.thumbnail.txt       # Thumbnail description (generated)
+│   ├── 10.title.txt           # Video title (generated)
+│   ├── 12.chapters.txt        # Chapter summaries (generated)
+│   └── voices/                # Character voice samples
+│       ├── m_*.wav            # Male voice samples
+│       └── f_*.wav            # Female voice samples
+├── output/                     # Output files
+│   ├── story/                 # Individual chunk files
+│   │   ├── 1_5.wav           # Lines 1-5 audio
+│   │   ├── 6_10.wav          # Lines 6-10 audio
+│   │   └── ...
+│   ├── sfx/                   # Generated sound effects
+│   ├── shorts/                # YouTube Shorts videos
+│   │   ├── shorts.v1.mp4
+│   │   ├── shorts.v2.mp4
+│   │   └── ...
+│   ├── tracking/              # Resumable checkpoints
+│   │   ├── 1.character.state.json
+│   │   ├── 2.story.state.json
+│   │   ├── 5.timeline.state.json
+│   │   ├── 6.timing.state.json
+│   │   └── 7.sfx.state.json
+│   ├── story.wav              # Final story audio
+│   ├── sfx.wav                # Combined SFX audio
+│   ├── final.wav              # Story + SFX mixed
+│   ├── final.mp4              # Final video
+│   ├── thumbnail.png          # Generated thumbnail
+│   ├── description.txt        # YouTube description
+│   └── tags.txt               # YouTube tags
+├── scripts/                    # Processing scripts (13)
+└── workflow/                   # ComfyUI workflows
+    ├── story.json             # TTS workflow
+    ├── sfx.json               # SFX generation workflow
+    └── thumbnail.json         # Thumbnail generation workflow
+```
 
 ### Resumable Story Processing (`2.story.py`)
 
-The story audio generation now supports advanced resumable processing with chunked generation:
+The story audio generation supports advanced resumable processing with chunked generation:
 
 #### Key Features
-- **Chunked Processing**: Splits story into 5-line chunks for manageable processing
-- **Progress Tracking**: Real-time percentage completion with detailed status display
-- **Individual Chunk Output**: Saves each chunk as `output/story/start_line_end_line.wav`
+- **Chunked Processing**: Splits story into 5-line chunks (configurable)
+- **Progress Tracking**: Real-time percentage completion with detailed status
+- **Individual Chunk Output**: Saves each chunk as `output/story/{start}_{end}.wav`
 - **Final Concatenation**: Combines all chunks into final `story.wav`
 - **Checkpoint Recovery**: Resumes from any completed chunk if interrupted
-
-#### Progress Display
-```
-📊 STORY PROCESSING PROGRESS
-================================================================================
-Chunk   Lines       Progress     Status           Output                         
---------------------------------------------------------------------------------
-1       1-5         12.5%        PROCESSING       Generating audio...            
-1       1-5         12.5%        ✅ COMPLETED      1_5.wav                        
-2       6-10        25.0%        PROCESSING       Generating audio...            
-2       6-10        25.0%        ✅ COMPLETED      6_10.wav                       
-3       11-15       37.5%        CACHED           11_15.wav                      
-```
 
 #### CLI Arguments
 ```bash
@@ -371,16 +374,82 @@ python 2.story.py --disable-resumable
 python 2.story.py --chunk-size 3
 ```
 
-#### File Structure
+### Audio Pipeline Configuration Constants
+
+#### Script-Specific Settings
+
+##### `1.character.py` - Character Voice Assignment
+```python
+LANGUAGE = "en"
+REGION = "in"
+MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen3-30b-a3b-thinking-2507"
+CHUNK_SIZE = 50  # Lines per chapter chunk
+GENERATE_TITLE = True
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False
 ```
-gen.audio/output/
-├── story/                      # Individual chunk files
-│   ├── 1_5.wav               # Lines 1-5 audio
-│   ├── 6_10.wav              # Lines 6-10 audio
-│   └── ...
-├── story.wav                  # Final concatenated result
-└── tracking/                  # Checkpoint files
-    └── 2.story.state.json
+
+##### `2.story.py` - Story Audio Generation  
+```python
+CHUNK_SIZE = 5  # Lines per chunk
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False
+WORKFLOW_SUMMARY_ENABLED = False
+comfyui_url = "http://127.0.0.1:8188/"
+```
+
+##### `5.timeline.py` - SFX Timeline Generation
+```python
+MODEL_TIMELINE_GENERATION = "qwen3-30b-a3b-thinking-2507"
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False
+```
+
+##### `6.timing.py` - SFX Timing Refinement
+```python
+MODEL_TIMING_GENERATION = "qwen3-30b-a3b-thinking-2507"
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False
+```
+
+##### `7.sfx.py` - Sound Effects Generation
+```python
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False
+WORKFLOW_SUMMARY_ENABLED = False
+max_workers = 3  # Concurrent processing
+```
+
+##### `9.media.py` - YouTube Metadata
+```python
+MODEL_MEDIA_TAGS = "qwen3-30b-a3b-thinking-2507"
+MODEL_MEDIA_TITLE = "qwen3-30b-a3b-thinking-2507"
+MODEL_DESCRIPTION_GENERATION = "qwen3-30b-a3b-thinking-2507"
+```
+
+##### `10.thumbnail.py` - Thumbnail Generation
+```python
+USE_RANDOM_SEED = True
+USE_TITLE_TEXT = True  # Text overlay
+TITLE_POSITION = "middle"  # "top", "middle", "bottom"
+OUTPUT_WIDTH = 1280
+OUTPUT_HEIGHT = 720
+SHORTS_WIDTH = 1080
+SHORTS_HEIGHT = 1920
+SHORTS_VARIATIONS = 5
+IMAGE_WIDTH = 1280
+IMAGE_HEIGHT = 720
+LATENT_MODE = "LATENT"
+USE_LORA = True
+LORA_MODE = "serial"
+SAMPLING_STEPS = 25
+ART_STYLE = "Realistic Anime"
+```
+
+##### `12.youtube.py` - YouTube Upload
+```python
+YOUTUBE_PRIVACY_STATUS = "private"  # "private", "unlisted", "public"
+YOUTUBE_CATEGORY_ID = "22"  # People & Blogs
 ```
 
 ### Audio Pipeline Detailed Flowchart
@@ -458,11 +527,79 @@ graph TD
     style II fill:#ffebee
 ```
 
-## 🖼️ Image Pipeline
+---
 
-The image pipeline creates character portraits, scene visualizations, and processes audio timeline data for video generation.
+## 🖼️ IMAGE PIPELINE (gen.image/)
 
-**Resumable Scripts**: `1.story.py`, `2.character.py`, `2.location.py`, `3.scene.py`
+**Purpose**: Create character portraits, location backgrounds, and scene visualizations from story text
+
+**Total Scripts**: 7 scripts | **Resumable**: 4 scripts | **Status**: Character generation active
+
+### Workflow Overview
+```
+Story Text → Parse Characters/Locations → Generate Images → Combine into Scenes → Video Sync
+```
+
+### Complete Script Inventory
+
+| # | Script | Purpose | Input Files | Output Files | Dependencies | Resumable |
+|---|--------|---------|-------------|--------------|--------------|-----------|
+| 1 | `1.story.py` | Parse story and extract entities | `1.story.txt`, `9.summary.txt` | `2.character.txt`, `3.character.txt`, `2.location.txt`, `3.location.txt`, `3.scene.txt` | **LM Studio** | ✅ |
+| 2 | `2.character.py` | Generate character portraits | `2.character.txt` | `characters/*.png` | **ComfyUI** | ✅ |
+| 3 | `2.location.py` | Generate location backgrounds | `3.location.txt` | `locations/*.png` | **ComfyUI** | ✅ |
+| 4 | `3.scene.py` | Generate scene compositions | `3.scene.txt`, `characters/*.png`, `locations/*.png` | `scene/*.png` | **ComfyUI** | ✅ |
+| 5 | `4.audio.py` | Process audio timeline for video | `2.timeline.txt`, `1.story.txt`, `3.scene.txt` | `2.timeline.script.txt` | None | ❌ |
+| 6 | `5.video.py` | Create per-scene videos | `scene/*.png`, `2.timeline.script.txt` | `video/*.mp4`, `merged.mp4` | FFmpeg | ❌ |
+| 7 | `6.combine.py` | Merge videos with audio | `merged.mp4`, `final.wav` | `final_sd.mp4` | FFmpeg | ❌ |
+
+### Key Features
+- **LLM Story Parsing**: Extract characters, locations, and scenes from text with resumable processing
+- **Character Generation**: High-quality character portraits with consistent styling (633x950)
+- **Location Generation**: Background images for story locations (1280x720)
+- **Scene Visualization**: Composite scenes with character and location integration
+- **Latent Input Modes**: LATENT (noise) or IMAGE (image-to-image) generation
+- **Serial LoRA Processing**: Independent LoRA application with intermediate storage
+- **Image Stitching**: Automatic combination of multiple images (up to 5)
+- **Timeline Processing**: Audio-visual synchronization for video generation
+
+### Image Pipeline File Structure
+
+```
+gen.image/
+├── generate.py                 # Main orchestrator
+├── input/                      # Input files
+│   ├── 1.story.txt            # Source story text
+│   ├── 9.summary.txt          # Story summary (for parsing)
+│   ├── 2.character.txt        # Character descriptions (generated)
+│   ├── 3.character.txt        # Character summary (generated)
+│   ├── 2.location.txt         # Location descriptions (generated)
+│   ├── 3.location.txt         # Location summary (generated)
+│   ├── 3.scene.txt            # Scene descriptions (generated)
+│   ├── 2.latent.character.face.{size}.png    # Face input (IMAGE mode)
+│   ├── 2.latent.character.body.{size}.png    # Body input (IMAGE mode)
+│   ├── 2.latent.location.{size}.png          # Location input (IMAGE mode)
+│   ├── 3.latent.png           # Scene input (IMAGE mode)
+│   └── 10.latent.png          # Thumbnail input (IMAGE mode)
+├── output/                     # Output files
+│   ├── characters/            # Character portraits (633x950)
+│   ├── locations/             # Location backgrounds (1280x720)
+│   ├── scene/                 # Scene compositions (1280x720)
+│   ├── backgrounds/           # Background intermediate results
+│   ├── lora/                  # LoRA intermediate results
+│   ├── video/                 # Per-scene video clips
+│   ├── tracking/              # Resumable checkpoints
+│   │   ├── 1.story.state.json
+│   │   ├── 2.character.state.json
+│   │   ├── 2.location.state.json
+│   │   └── 3.scene.state.json
+│   ├── merged.mp4             # Combined scene videos
+│   └── final_sd.mp4           # Final video with audio
+├── scripts/                    # Processing scripts (7)
+└── workflow/                   # ComfyUI workflows
+    ├── character.flux.json    # Character generation workflow
+    ├── scene.json             # Scene generation workflow
+    └── location.json          # Location generation workflow
+```
 
 ### Image Pipeline Flowchart
 
@@ -515,146 +652,187 @@ graph TD
     style AA fill:#e8f5e8
 ```
 
-### Complete Image Script Inventory
+### Image Pipeline Configuration Constants
 
-| Script | Purpose | Input Files | Output Files | Dependencies | Resumable |
-|--------|---------|-------------|--------------|--------------|-----------|
-| `1.story.py` | Parse story and extract characters/locations/scenes | `1.story.txt`, `9.summary.txt` | `2.character.txt`, `3.location.txt`, `3.scene.txt` | **LM Studio** | ✅ |
-| `2.character.py` | Generate character portraits | `2.character.txt` | `characters/*.png` | **ComfyUI** | ✅ |
-| `2.location.py` | Generate location background images | `3.location.txt` | `locations/*.png` | **ComfyUI** | ✅ |
-| `3.scene.py` | Generate scene images with characters and locations | `3.scene.txt`, `2.character.txt`, `3.location.txt`, `characters/*.png`, `locations/*.png` | `scene/*.png` | **ComfyUI** | ✅ |
-| `4.audio.py` | Process timeline for video generation | `2.timeline.txt`, `1.story.txt`, `3.scene.txt` | `2.timeline.script.txt` | None | ❌ |
-| `5.video.py` | Create per-scene videos from images | `scene/*.png`, `2.timeline.script.txt` | `video/*.mp4`, `merged.mp4` | FFmpeg | ❌ |
-| `6.combine.py` | Merge videos with audio | `merged.mp4`, `final.wav` | `final_sd.mp4` | FFmpeg | ❌ |
+#### Script-Specific Settings
 
-### Image Pipeline Features
-- **Story Parsing**: LLM-powered extraction of characters, locations, and scenes from text stories
-- **Character Generation**: High-quality character portraits with consistent styling (resumable)
-- **Location Generation**: Background images for story locations (resumable)
-- **Scene Visualization**: Detailed scene images with character and location integration (resumable)
-- **Image Stitching**: Automatic combination of multiple character/location images
-- **Timeline Processing**: Audio-visual synchronization for video generation
-- **Video Compilation**: Per-scene video creation with FFmpeg integration
-- **Latent Input Mode**: Switch between noise generation (LATENT) and image-to-image (IMAGE) for enhanced control
-- **Serial LoRA Processing**: Independent LoRA application with intermediate storage and resumable operations
-- **Multiple Prompt Modes**: Character and location handling with IMAGE_TEXT, TEXT, or IMAGE modes
-
-### Image Pipeline Detailed Flowchart
-
-```mermaid
-graph TD
-    A[1.story.txt] --> B[1.story.py]
-    B --> C[2.character.txt]
-    B --> D[3.scene.txt]
-    B -.-> E[LM Studio]
-    
-    C --> F[2.character.py]
-    F --> G[characters/*.png]
-    F -.-> H[ComfyUI]
-    
-    D --> I[3.scene.py]
-    C --> I
-    G --> I
-    I --> J[scene/*.png]
-    I -.-> H
-    
-    K[2.timeline.txt] --> L[4.audio.py]
-    A --> L
-    D --> L
-    L --> M[2.timeline.script.txt]
-    
-    J --> N[5.video.py]
-    M --> N
-    N --> O[video/*.mp4]
-    N --> P[merged.mp4]
-    N -.-> Q[FFmpeg]
-    
-    P --> R[6.combine.py]
-    S[final.wav] --> R
-    R --> T[final_sd.mp4]
-    R -.-> Q
-    
-    U[Cross-Pipeline Scripts] --> V[Audio Pipeline Scripts]
-    U --> W[YouTube Scripts]
-    
-    style A fill:#e1f5fe
-    style E fill:#fff8e1
-    style H fill:#f3e5f5
-    style Q fill:#e0f2f1
-    style U fill:#fff3e0
-    style V fill:#fff3e0
-    style W fill:#fff3e0
-    style S fill:#e8f5e8
+##### `1.story.py` - Story Parsing
+```python
+WORD_FACTOR = 6
+CHARACTER_SUMMARY_WORD_MIN = 60
+CHARACTER_SUMMARY_WORD_MAX = 120
+LOCATION_SUMMARY_WORD_MIN = 60
+LOCATION_SUMMARY_WORD_MAX = 120
+MODEL_STORY_DESCRIPTION = "qwen3-30b-a3b-thinking-2507"
+MODEL_CHARACTER_GENERATION = "qwen3-30b-a3b-thinking-2507"
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False
+ART_STYLE = "Realistic Anime"
 ```
 
-### Cross-Pipeline Integration
-
-The image pipeline includes references to audio pipeline scripts:
-
-| Script | Purpose | Dependencies |
-|--------|---------|--------------|
-| `../gen.audio/scripts/1.character.py` | Character voice assignment | **LM Studio** |
-| `../gen.audio/scripts/2.story.py` | Story audio generation | **ComfyUI** |
-| `../gen.audio/scripts/3.transcribe.py` | Audio transcription | Whisper |
-| `../gen.audio/scripts/4.quality.py` | Transcription quality check | None |
-| `../gen.audio/scripts/5.timeline.py` | SFX timeline generation | **LM Studio** |
-| `../gen.audio/scripts/6.timing.py` | SFX timing refinement | **LM Studio** |
-| `../gen.audio/scripts/7.sfx.py` | Sound effect generation | **ComfyUI** |
-| `../gen.audio/scripts/8.combine.py` | Audio mixing | PyTorch/Torchaudio |
-| `../gen.audio/scripts/9.media.py` | YouTube metadata & thumbnail description | **LM Studio** |
-| `../gen.audio/scripts/10.thumbnail.py` | Thumbnail generation | **ComfyUI** |
-| `../gen.audio/scripts/12.media.py` | YouTube metadata | **LM Studio** |
-
-## 🎬 Video Pipeline
-
-The video pipeline creates animated content from static scene images using AI animation models.
-
-**Resumable Scripts**: `2.animate.py`
-
-### Video Pipeline Flowchart (All Scripts Including Commented)
-
-```mermaid
-graph TD
-    A[Scene Images] --> B[1.animate.py]
-    E[2.timeline.script.txt] --> B
-    B --> G[animation/*.mp4]
-    B -.-> F[ComfyUI Animation]
-    
-    G --> C[2.combine.py]
-    J[gen.audio/output/final.wav] --> C
-    C --> I[final_sd.mp4]
-    C -.-> H[FFmpeg]
-    
-    K[Cross-Pipeline Scripts] --> L[Image Pipeline Scripts]
-    K --> M[Audio Pipeline Scripts]
-    K --> N[YouTube Scripts]
-    
-    style A fill:#e1f5fe
-    style E fill:#fff3e0
-    style F fill:#f3e5f5
-    style H fill:#e0f2f1
-    style J fill:#e8f5e8
-    style K fill:#ffebee
-    style L fill:#ffebee
-    style M fill:#ffebee
-    style N fill:#ffebee
+##### `2.character.py` - Character Generation
+```python
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False
+VARIATIONS_PER_CHARACTER = 1
+IMAGE_WIDTH = 633
+IMAGE_HEIGHT = 950
+LATENT_MODE = "LATENT"  # or "IMAGE"
+IMAGE_LATENT_SIZE = "medium"  # "small", "medium", "large"
+FACE_ONLY = False  # True: face only, False: full body
+LATENT_DENOISING_STRENGTH = 0.85
+USE_LORA = True
+LORA_MODE = "serial"
+SAMPLING_STEPS = 25
+USE_RANDOM_SEED = True
+ART_STYLE = "Realistic Anime"
 ```
 
-### Complete Video Script Inventory
+##### `2.location.py` - Location Generation
+```python
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False
+VARIATIONS_PER_LOCATION = 1
+IMAGE_WIDTH = 1280
+IMAGE_HEIGHT = 720
+LATENT_MODE = "LATENT"  # or "IMAGE"
+IMAGE_LATENT_SIZE = "large"  # "small", "medium", "large"
+LATENT_DENOISING_STRENGTH = 0.82
+USE_LORA = True
+LORA_MODE = "serial"
+SAMPLING_STEPS = 25
+USE_SUMMARY_TEXT = True
+USE_RANDOM_SEED = True
+ART_STYLE = "Realistic Anime"
+```
 
-| Script | Purpose | Input Files | Output Files | Dependencies | Status | Resumable |
-|--------|---------|-------------|--------------|--------------|--------|-----------|
-| `1.story.py` | Parse story structure | `1.story.txt` | Story analysis | **LM Studio** | Active | ✅ |
-| `2.animate.py` | Animate static scene images | `gen.image/output/scene/*.png`, `2.timeline.script.txt` | `animation/*.mp4` | **ComfyUI** | Active | ✅ |
-| `3.video.py` | Combine animated videos with audio | `animation/*.mp4`, `gen.audio/output/final.wav` | `final_sd.mp4` | FFmpeg | Active | ❌ |
+##### `3.scene.py` - Scene Generation
+```python
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False
+IMAGE_WIDTH = 1280
+IMAGE_HEIGHT = 720
+CHARACTER_RESIZE_FACTOR = 1  # 100% original size
+IMAGE_COMPRESSION_QUALITY = 95
+ACTIVE_CHARACTER_MODE = "IMAGE"  # "IMAGE_TEXT", "TEXT", "IMAGE", "NONE"
+ACTIVE_LOCATION_MODE = "TEXT"   # "IMAGE_TEXT", "TEXT", "IMAGE", "NONE"
+LATENT_MODE = "LATENT"
+LATENT_DENOISING_STRENGTH = 0.90
+IMAGE_STITCH_COUNT = 1  # 1-5 images
+USE_LORA = True
+LORA_MODE = "serial"
+SAMPLING_STEPS = 25
+USE_RANDOM_SEED = True
+ART_STYLE = "Realistic Anime"
+```
 
-### Video Pipeline Features
+### Advanced Image Features
+
+#### Latent Input Modes
+- **LATENT Mode**: Standard noise-based generation from scratch
+- **IMAGE Mode**: Image-to-image generation using existing images as starting point
+- **Dynamic File Paths**: Automatically selects face/body latent inputs based on `FACE_ONLY` setting
+
+#### Serial LoRA Processing
+```python
+LORAS = [
+    {
+        "name": "FLUX.1-Turbo-Alpha.safetensors",
+        "strength_model": 2.0,
+        "strength_clip": 2.0,
+        "bypass_model": False,
+        "bypass_clip": False,
+        "enabled": True,
+        "steps": 6,  # Serial mode only
+        "denoising_strength": 1,  # Serial mode only
+        "save_intermediate": True,
+        "use_only_intermediate": False
+    }
+]
+```
+
+#### Prompt Handling Modes (Scene Script)
+- **IMAGE_TEXT**: Character image + text description
+- **TEXT**: Text description only
+- **IMAGE**: Character image only
+- **NONE**: No character/location reference
+
+---
+
+## 🎬 VIDEO PIPELINE (gen.video/)
+
+**Purpose**: Create animated videos from static scene images using AI animation models
+
+**Total Scripts**: 3 scripts | **Resumable**: 1 script | **Status**: Currently disabled (all scripts commented out)
+
+### Workflow Overview
+```
+Scene Images + Timeline → AI Animation → Combine with Audio → Final Video
+```
+
+### Complete Script Inventory
+
+| # | Script | Purpose | Input Files | Output Files | Dependencies | Resumable |
+|---|--------|---------|-------------|--------------|--------------|-----------|
+| 1 | `1.story.py` | Parse story structure | `1.story.txt` | Story analysis | **LM Studio** | ❌ |
+| 2 | `2.animate.py` | Animate static scene images | `scene/*.png`, `2.timeline.script.txt` | `animation/*.mp4` | **ComfyUI** | ✅ |
+| 3 | `3.video.py` | Combine animated videos with audio | `animation/*.mp4`, `final.wav` | `final_sd.mp4` | FFmpeg | ❌ |
+
+### Key Features
 - **Story Analysis**: Parse and structure story content for animation
-- **Scene Animation**: AI-powered animation of static scene images
-- **Video Compilation**: Combine animated scenes with audio tracks
+- **AI Scene Animation**: Transform static images into animated sequences
 - **Cross-Pipeline Integration**: Seamless integration with audio and image pipelines
+- **Resumable Animation**: Checkpoint-based recovery for long animation tasks
+- **Motion Control**: Configure character, location, and scene motion parameters
 
-### Video Pipeline Detailed Flowchart
+### Video Pipeline File Structure
+
+```
+gen.video/
+├── generate.py                 # Main orchestrator
+├── input/                      # Input files
+│   ├── 1.story.txt            # Source story text
+│   └── 2.motion.txt           # Motion descriptions (optional)
+├── output/                     # Output files
+│   ├── animation/             # Animated video clips
+│   ├── frames/                # Extracted frame files
+│   ├── tracking/              # Resumable checkpoints
+│   │   └── 2.animate.state.json
+│   └── final_sd.mp4           # Final animated video with audio
+├── scripts/                    # Processing scripts (3)
+└── workflow/                   # ComfyUI workflows
+    └── animate.json           # Animation workflow
+```
+
+### Video Pipeline Configuration Constants
+
+#### Script-Specific Settings
+
+##### `2.animate.py` - Video Animation
+```python
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False
+VIDEO_WIDTH = 1024
+VIDEO_HEIGHT = 576
+FRAMES_PER_SECOND = 24
+ENABLE_MOTION = True
+ENABLE_SCENE = True
+ENABLE_LOCATION = True
+ART_STYLE = "Anime"
+comfyui_url = "http://127.0.0.1:8188/"
+```
+
+##### `3.video.py` - Final Video Compilation
+```python
+# Input files
+animation_dir = "../output/animation"
+audio_file = "../../gen.audio/output/final.wav"
+# Output file
+output_file = "../output/final_sd.mp4"
+# Uses FFmpeg for final video assembly
+```
+
+### Video Pipeline Flowchart
 
 ```mermaid
 graph TD
@@ -672,9 +850,8 @@ graph TD
     J --> L[final_sd.mp4]
     J -.-> M[FFmpeg]
     
-    N[Cross-Pipeline Scripts] --> O[Image Pipeline Scripts]
-    N --> P[Audio Pipeline Scripts]
-    N --> Q[YouTube Scripts]
+    N[Cross-Pipeline Integration] --> O[Image Pipeline]
+    N --> P[Audio Pipeline]
     
     style A fill:#e1f5fe
     style D fill:#fff8e1
@@ -684,186 +861,154 @@ graph TD
     style N fill:#ffebee
     style O fill:#ffebee
     style P fill:#ffebee
-    style Q fill:#ffebee
+``` 
+
+---
+
+# 🔗 CROSS-PIPELINE INTEGRATION & SYSTEM CONFIGURATION
+
+## 🔄 Cross-Pipeline Dependencies
+
+The three pipelines are designed to work together seamlessly:
+
+### Pipeline Data Flow
+
+```
+Audio Pipeline          Image Pipeline          Video Pipeline
+==============          ==============          ==============
+1.story.txt    ────┬──→ 1.story.txt    ────┐
+               │    9.summary.txt      │
+               │                       │
+2.character.txt────┐                   │
+               │   └──→ 2.character.py │
+               │        3.character.txt │
+               │                       │
+story.wav      │                       │
+  ↓            │                       │
+2.timeline.txt ├──→ 4.audio.py        │
+  ↓            │    2.timeline.script.txt
+final.wav      │         ↓             │
+               │    5.video.py         │
+               │    merged.mp4         │
+               │         ↓             │
+               └──→ 6.combine.py       │
+                    final_sd.mp4       │
+                                      │
+                    scene/*.png    ───┴──→ 2.animate.py
+                                           animation/*.mp4
+                                                ↓
+                    final.wav    ─────────→ 3.video.py
+                                           final_sd.mp4
 ```
 
-### Cross-Pipeline Integration (Commented)
+### File Dependencies by Pipeline
 
-The video pipeline includes commented references to image and audio pipeline scripts:
+#### Audio → Image
+- `gen.audio/output/final.wav` → `gen.image/scripts/6.combine.py`
+- `gen.audio/input/2.timeline.txt` → `gen.image/scripts/4.audio.py`
 
-| Script | Purpose | Dependencies | Status |
-|--------|---------|--------------|--------|
-| `../gen.image/scripts/1.story.py` | Parse story structure | **LM Studio** | 
-| `../gen.image/scripts/2.character.py` | Generate character portraits | **ComfyUI** | 
-| `../gen.image/scripts/3.scene.py` | Generate scene images | **ComfyUI** | 
-| `../gen.image/scripts/4.audio.py` | Process audio timeline | None | 
-| `../gen.image/scripts/5.video.py` | Create per-scene videos | FFmpeg | 
-| `../gen.image/scripts/6.combine.py` | Merge videos with audio | FFmpeg | 
-| `../gen.audio/scripts/1.character.py` | Character voice assignment | **LM Studio** | 
-| `../gen.audio/scripts/2.story.py` | Story audio generation | **ComfyUI** | 
-| `../gen.audio/scripts/3.transcribe.py` | Audio transcription | Whisper | 
-| `../gen.audio/scripts/4.quality.py` | Transcription quality check | None | 
-| `../gen.audio/scripts/5.timeline.py` | SFX timeline generation | **LM Studio** | 
-| `../gen.audio/scripts/6.timing.py` | SFX timing refinement | **LM Studio** | 
-| `../gen.audio/scripts/7.sfx.py` | Sound effect generation | **ComfyUI** | 
-| `../gen.audio/scripts/8.combine.py` | Audio mixing | PyTorch/Torchaudio | 
-| `../gen.audio/scripts/9.media.py` | YouTube metadata & thumbnail description | **LM Studio** | 
-| `../gen.audio/scripts/10.thumbnail.py` | Thumbnail generation | **ComfyUI** | 
-| `../gen.audio/scripts/12.media.py` | YouTube metadata | **LM Studio** | 
+#### Image → Video
+- `gen.image/output/scene/*.png` → `gen.video/scripts/2.animate.py`
+- `gen.image/input/2.timeline.script.txt` → `gen.video/scripts/2.animate.py`
 
-## ⚙️ Configuration Constants & Settings
+#### Audio → Video
+- `gen.audio/output/final.wav` → `gen.video/scripts/3.video.py`
 
-Each script contains various configuration constants that control behavior, quality, and output settings. Here's a comprehensive breakdown:
+---
 
-### 📂 File Paths & Directory Structure
+## ⚙️ Global Configuration & Settings
 
-#### Audio Pipeline (`gen.audio/`)
+### Service URLs & Endpoints
 
-**Input Directories:**
-- `../input/` - Main input directory
-- `voices/` - Character voice samples (organized by gender: `m_*` for male, `f_*` for female)
-
-**Output Directories:**
-- `../output/` - Main output directory
-- `../output/story/` - Individual story chunk files (`{start_line}_{end_line}.wav`)
-- `../output/sfx/` - Generated sound effects
-- `../output/tracking/` - Resumable checkpoint files (`*.state.json`)
-- `../output/shorts/` - YouTube Shorts videos (`shorts.v1-v5.mp4`)
-- `../../ComfyUI/output/audio/` - ComfyUI audio generation output
-- `../../ComfyUI/output/audio/sfx/` - ComfyUI SFX generation output
-
-**Key Files:**
-- Input: `1.story.txt`, `2.character.txt`, `2.timeline.txt`, `3.timing.txt`, `9.summary.txt`, `10.thumbnail.txt`
-- Output: `story.wav`, `sfx.wav`, `final.wav`, `final.mp4`, `thumbnail.png`, `description.txt`, `tags.txt`
-- Intermediate: `2.story.srt`, `2.story.str.txt`, `2.timeline.script.txt`, `12.chapters.txt`
-
-#### Image Pipeline (`gen.image/`)
-
-**Input Directories:**
-- `../input/` - Main input directory with story and description files
-- `../../ComfyUI/input/` - ComfyUI input folder for workflow execution
-
-**Output Directories:**
-- `../output/characters/` - Character portrait images
-- `../output/locations/` - Location background images
-- `../output/scene/` - Scene visualization images
-- `../output/backgrounds/` - Background generation intermediate results
-- `../output/lora/` - LoRA intermediate results (serial mode)
-- `../output/video/` - Per-scene video clips
-- `../output/tracking/` - Resumable checkpoint files (`*.state.json`)
-- `../../ComfyUI/output/` - ComfyUI generation output
-
-**Key Files:**
-- Input: `1.story.txt`, `9.summary.txt`, `2.character.txt`, `3.character.txt`, `2.location.txt`, `3.location.txt`, `3.scene.txt`
-- Latent Input (IMAGE mode): `2.latent.character.face.{size}.png`, `2.latent.character.body.{size}.png`, `2.latent.location.{size}.png`, `3.latent.png`
-- Output: `characters/*.png`, `locations/*.png`, `scene/*.png`, `merged.mp4`, `final_sd.mp4`
-
-#### Video Pipeline (`gen.video/`)
-
-**Input Directories:**
-- `../../gen.image/output/scene/` - Scene images from image pipeline
-- `../../gen.audio/input/` - Audio timeline files
-- `../../ComfyUI/input/` - ComfyUI input folder
-
-**Output Directories:**
-- `../output/animation/` - Animated video clips
-- `../output/frames/` - Extracted frame files
-- `../output/tracking/` - Resumable checkpoint files (`*.state.json`)
-- `../../ComfyUI/output/` - ComfyUI output folder
-
-**Key Files:**
-- Input: `2.timeline.script.txt`, `3.character.txt`, `3.location.txt`, `2.motion.txt`
-- Output: `animation/*.mp4`, `final_sd.mp4`
-- Workflow: `../workflow/animate.json`
-
-### 🔧 Service URLs & Endpoints
-
-**ComfyUI Configuration:**
+#### ComfyUI Configuration
 ```python
-# Default URL (configurable via environment variable)
-COMFYUI_BASE_URL = "http://127.0.0.1:8188"
-
-# Used in scripts:
-comfyui_url = "http://127.0.0.1:8188/"
+COMFYUI_BASE_URL = "http://127.0.0.1:8188"  # Default URL
 comfyui_output_folder = "../../ComfyUI/output"
 comfyui_input_folder = "../../ComfyUI/input"
 ```
 
-**LM Studio Configuration:**
+#### LM Studio Configuration
 ```python
-# Default URL (configurable via environment variable)
-LM_STUDIO_BASE_URL = "http://127.0.0.1:1234/v1"
-
-# Models endpoint for health checks
+LM_STUDIO_BASE_URL = "http://127.0.0.1:1234/v1"  # Default URL
+LM_STUDIO_MODEL = "qwen3-30b-a3b-thinking-2507"  # Default model
 models_url = "http://127.0.0.1:1234/v1/models"
 ```
 
-**Environment Variables:**
-- `COMFYUI_BASE_URL` - Override default ComfyUI URL
-- `COMFYUI_DIR` - Custom ComfyUI directory path
-- `LM_STUDIO_BASE_URL` - Override default LM Studio URL
-- `LM_STUDIO_CMD` - Custom LM Studio command (default: `lms`)
-- `LM_STUDIO_MODEL` - Model name (default: `qwen3-30b-a3b-thinking-2507`)
-- `PYTHONIOENCODING` - Python encoding (default: `utf-8`)
-- `PYTHONUNBUFFERED` - Python output buffering (default: `1`)
+### Environment Variables
+```bash
+# Service Configuration
+COMFYUI_BASE_URL=http://127.0.0.1:8188
+LM_STUDIO_BASE_URL=http://127.0.0.1:1234/v1
+COMFYUI_DIR=/path/to/ComfyUI
+LM_STUDIO_CMD=lms
 
-## 🔍 Workflow Summary Feature
+# Model Configuration
+LM_STUDIO_MODEL=qwen3-30b-a3b-thinking-2507
+PYTHONIOENCODING=utf-8
+PYTHONUNBUFFERED=1
 
-The `WORKFLOW_SUMMARY_ENABLED` feature provides detailed workflow execution summaries for debugging and monitoring ComfyUI workflow operations. When enabled, scripts will print comprehensive information about workflow structure, node configurations, and execution parameters.
-
-### Feature Overview
-- **Purpose**: Debug and monitor ComfyUI workflow execution
-- **Default State**: `False` (disabled by default)
-- **Usage**: Set to `True` to enable detailed workflow summaries
-- **Performance Impact**: Minimal - only affects logging output
-
-### Scripts Using WORKFLOW_SUMMARY_ENABLED
-
-| Pipeline | Script | Purpose | Workflow Type |
-|----------|--------|---------|---------------|
-| **Audio** | `2.story.py` | Story audio generation | TTS workflow |
-| **Audio** | `7.sfx.py` | Sound effects generation | Audio generation workflow |
-| **Audio** | `10.thumbnail.py` | Thumbnail generation | Image generation workflow |
-| **Image** | `2.character.py` | Character portrait generation | Image generation workflow |
-| **Image** | `3.scene.py` | Scene image generation | Image generation workflow |
-
-### Configuration
-```python
-# Feature flag in each script
-WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
+# YouTube Configuration (Optional)
+YOUTUBE_PRIVACY_STATUS=private
+YOUTUBE_CATEGORY_ID=22
 ```
 
-### Workflow Summary Output
-When enabled, the feature provides detailed information about:
-- **Workflow Structure**: Node connections and data flow
-- **Parameter Values**: All input parameters and their values
-- **Node Configuration**: Detailed settings for each workflow node
-- **Execution Context**: Runtime information and resource usage
-
-### Usage Examples
+### Service Timeouts & Polling
 ```python
-# Enable workflow summaries for debugging
-WORKFLOW_SUMMARY_ENABLED = True
+# Ready check intervals (seconds)
+COMFYUI_READY_CHECK_INTERVAL = 15
+LM_STUDIO_READY_CHECK_INTERVAL = 15
 
-# Disable for production runs (default)
-WORKFLOW_SUMMARY_ENABLED = False
+# Shutdown timeouts (seconds)
+SERVICE_SHUTDOWN_TIMEOUT = 10
+SERVICE_KILL_TIMEOUT = 5
+SERVICE_STOPPED_CHECK_INTERVAL = 3
 ```
 
-### When to Use
-- **Development**: Debugging workflow issues and parameter validation
-- **Troubleshooting**: Investigating generation failures or unexpected results
-- **Optimization**: Analyzing workflow performance and resource usage
-- **Documentation**: Understanding workflow structure and dependencies
+---
 
-### Performance Considerations
-- **Logging Overhead**: Minimal impact on execution time
-- **Output Volume**: Can generate extensive log output
-- **Memory Usage**: Negligible additional memory consumption
-- **Recommended**: Enable only when debugging or troubleshooting
+## 📂 Complete File Inventory
 
-### 🎯 Complete Configuration Constants Reference
+###Checkpoint File Inventory
 
-#### Audio Pipeline Scripts
+| Pipeline | Checkpoint File | Script | Purpose |
+|----------|----------------|--------|---------|
+| **Audio** | `1.character.state.json` | `1.character.py` | Character analysis results |
+| **Audio** | `2.story.state.json` | `2.story.py` | Story chunk processing |
+| **Audio** | `5.timeline.state.json` | `5.timeline.py` | SFX timeline generation |
+| **Audio** | `6.timing.state.json` | `6.timing.py` | SFX timing refinement |
+| **Audio** | `7.sfx.state.json` | `7.sfx.py` | Sound effect generation |
+| **Image** | `1.story.state.json` | `1.story.py` | Story parsing (LLM operations) |
+| **Image** | `2.character.state.json` | `2.character.py` | Character image generation |
+| **Image** | `2.location.state.json` | `2.location.py` | Location image generation |
+| **Image** | `3.scene.state.json` | `3.scene.py` | Scene image generation |
+| **Video** | `2.animate.state.json` | `2.animate.py` | Video animation generation |
+
+---
+
+## 🔍 Advanced Features
+
+### Workflow Summary Feature
+
+The `WORKFLOW_SUMMARY_ENABLED` feature provides detailed workflow execution summaries for debugging ComfyUI operations.
+
+**Scripts Using This Feature:**
+- Audio: `2.story.py`, `7.sfx.py`, `10.thumbnail.py`
+- Image: `2.character.py`, `2.location.py`, `3.scene.py`
+
+**Configuration:**
+```python
+WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable detailed logging
+```
+
+**When to Use:**
+- Development and debugging
+- Troubleshooting generation failures
+- Performance optimization
+- Understanding workflow structure
+
+---
+
+# 🛠️ SYSTEM DEPENDENCIES & SETUP
 
 ##### `1.character.py` - Character Voice Assignment
 ```python
