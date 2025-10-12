@@ -21,13 +21,15 @@ MAX_OBJECTS_PER_ACCESSORY = 3
 CHARACTER_SUMMARY_CHARACTER_MIN = WORD_FACTOR * CHARACTER_SUMMARY_WORD_MIN + MIN_OBJECTS_PER_ACCESSORY * 10
 CHARACTER_SUMMARY_CHARACTER_MAX = WORD_FACTOR * CHARACTER_SUMMARY_WORD_MAX + MAX_OBJECTS_PER_ACCESSORY * 20
 
-LOCATION_SUMMARY_WORD_MIN = 100
-LOCATION_SUMMARY_WORD_MAX = 300
-LOCATION_SUMMARY_CHARACTER_MIN = WORD_FACTOR * LOCATION_SUMMARY_WORD_MIN
-LOCATION_SUMMARY_CHARACTER_MAX = WORD_FACTOR * LOCATION_SUMMARY_WORD_MAX
+LOCATION_SUMMARY_WORD_MIN = 30
+LOCATION_SUMMARY_WORD_MAX = 60
 
-MIN_OBJECTS_PER_LOCATION = 1
-MAX_OBJECTS_PER_LOCATION = 3
+MIN_OBJECTS_PER_LOCATION = 5
+MAX_OBJECTS_PER_LOCATION = 10
+
+LOCATION_SUMMARY_CHARACTER_MIN = WORD_FACTOR * LOCATION_SUMMARY_WORD_MIN + MIN_OBJECTS_PER_LOCATION * 15
+LOCATION_SUMMARY_CHARACTER_MAX = WORD_FACTOR * LOCATION_SUMMARY_WORD_MAX + MAX_OBJECTS_PER_LOCATION * 20
+
 
 STORY_DESCRIPTION_WORD_MIN = 300
 STORY_DESCRIPTION_WORD_MAX = 600
@@ -627,20 +629,20 @@ def _schema_location() -> dict[str, object]:
                     "ground": {
                         "type": "object",
                         "properties": {
-                            "material": {"type": "string", "description": "Material that covers the ground (e.g., 'wood floor', 'grass', 'concrete')"},
+                            "type": {"type": "string", "enum": ["room_floor", "bedroom_floor", "kitchen_floor", "bathroom_floor", "hallway_floor", "basement_floor", "attic_floor", "garage_floor", "office_floor", "store_floor", "warehouse_floor", "factory_floor", "gym_floor", "sports_court", "basketball_court", "tennis_court", "track", "stage_floor", "dance_floor", "footpath", "sidewalk", "walkway", "trail", "path", "boardwalk", "road", "street", "highway", "alley", "driveway", "parking_lot", "plaza", "courtyard", "patio", "deck", "terrace", "balcony", "bridge", "pier", "dock", "lawn", "grass", "meadow", "field", "prairie", "garden", "yard", "park_ground", "playground", "forest_floor", "jungle_floor", "desert_ground", "mountain_ground", "hillside", "valley_floor", "cave_floor", "beach", "shoreline", "riverbank", "pond_edge", "lake_shore", "wetland", "marsh", "swamp", "snow_field", "ice_field", "tundra", "rocky_ground", "cliff_edge", "canyon_floor"]},
+                            "material": {"type": "string", "enum": ["hardwood", "oak", "pine", "maple", "walnut", "bamboo", "parquet", "laminate", "vinyl", "linoleum", "ceramic_tile", "porcelain_tile", "marble", "granite", "slate", "travertine", "stone", "limestone", "sandstone", "flagstone", "brick", "cobblestone", "pavers", "concrete", "polished_concrete", "stained_concrete", "cement", "asphalt", "tarmac", "gravel", "pebbles", "crushed_stone", "dirt", "soil", "clay", "mud", "sand", "carpet", "wool_carpet", "shag_carpet", "berber_carpet", "synthetic_carpet", "rug", "area_rug", "persian_rug", "rubber", "foam", "cork", "epoxy", "resin", "metal", "steel", "aluminum", "grated_metal", "glass", "plexiglass", "plastic", "grass", "natural_grass", "artificial_turf", "moss", "leaves", "straw", "hay", "wood_chips", "mulch", "bark", "tatami", "bamboo_mat", "straw_mat", "ice", "packed_ice", "snow", "packed_snow", "water", "shallow_water", "wet_surface", "rock", "bedrock", "lava_rock"]},
                             "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"}
                         },
-                        "required": ["material", "color"]
+                        "required": ["type", "material", "color"]
                     },
-                    "walls_or_surroundings": {
+                    "surroundings": {
                         "type": "object",
                         "properties": {
-                            "material": {"type": "string", "description": "Material that walls/surroundings are made of (e.g., 'painted walls', 'trees', 'brick')"},
-                            "color": {
-                                "type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"
-                            }
+                            "type": {"type": "string", "enum": ["room_walls", "bedroom_walls", "kitchen_walls", "bathroom_walls", "office_walls", "hallway_walls", "interior_walls", "ceiling", "room_ceiling", "open_ceiling", "vaulted_ceiling", "buildings", "city_buildings", "skyscrapers", "houses", "apartments", "shops", "storefronts", "warehouse_walls", "factory_walls", "barn_walls", "castle_walls", "fortress_walls", "church_walls", "fence", "wooden_fence", "chain_link_fence", "picket_fence", "stone_fence", "hedge", "hedgerow", "wall", "exterior_wall", "brick_wall", "stone_wall", "retaining_wall", "privacy_wall", "trees", "forest", "woods", "jungle", "grove", "tree_line", "bushes", "shrubs", "vegetation", "foliage", "plants", "flowers", "meadow_grass", "tall_grass", "reeds", "bamboo", "mountains", "mountain_range", "hills", "hillside", "cliffs", "cliff_face", "rock_formations", "boulders", "rocks", "rocky_walls", "canyon_walls", "cave_walls", "desert_dunes", "sand_dunes", "beach_cliffs", "sky", "open_sky", "horizon", "distant_horizon", "ocean", "sea", "lake", "river", "stream", "waterfall", "mist", "fog", "clouds", "storm_clouds", "sunset_sky", "night_sky", "city_skyline", "urban_skyline", "countryside", "farmland", "fields", "open_plains", "tundra_expanse", "ice_walls", "glacier", "snow_banks", "snowdrifts"]},
+                            "material": {"type": "string", "enum": ["painted_drywall", "drywall", "plaster", "stucco", "concrete", "bare_concrete", "painted_concrete", "brick", "exposed_brick", "painted_brick", "stone", "natural_stone", "limestone", "sandstone", "granite", "marble", "wood", "wooden_planks", "wood_paneling", "shiplap", "barn_wood", "weathered_wood", "metal", "steel", "corrugated_metal", "aluminum", "sheet_metal", "rusted_metal", "glass", "glass_windows", "curtain_wall_glass", "mirrored_glass", "frosted_glass", "tile", "ceramic_tile", "subway_tile", "wallpaper", "fabric_wallpaper", "vinyl_wallpaper", "fabric", "curtains", "drapes", "canvas", "plastic", "vinyl_siding", "wood_siding", "clapboard", "shingles", "bamboo", "rattan", "wicker", "chain_link", "wire_mesh", "wrought_iron", "trees", "deciduous_trees", "evergreen_trees", "palm_trees", "pine_trees", "oak_trees", "foliage", "leaves", "branches", "bushes", "shrubs", "hedges", "grass", "tall_grass", "wildflowers", "flowers", "vines", "ivy", "moss", "rock", "natural_rock", "sedimentary_rock", "igneous_rock", "metamorphic_rock", "boulders", "cliff_rock", "sandstone_cliff", "limestone_cliff", "ice", "packed_ice", "glacier_ice", "snow", "packed_snow", "sand", "desert_sand", "beach_sand", "earth", "dirt", "soil", "clay", "mud", "water", "ocean_water", "lake_water", "river_water", "mist", "fog", "clouds", "smoke", "haze", "sky", "clear_sky", "cloudy_sky", "overcast", "air", "open_air"]},
+                            "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"}
                         },
-                        "required": ["material", "color"]
+                        "required": ["type", "material", "color"]
                     },
                     "objects": {
                         "type": "array",
@@ -650,18 +652,18 @@ def _schema_location() -> dict[str, object]:
                         "items": {
                             "type": "object",
                             "properties": {
-                                "name": {"type": "string", "description": "What the object is (e.g., 'wooden chair', 'red lamp', 'oak tree')"},
-                                "type": {"type": "string", "enum": ["furniture", "decoration", "plant", "window", "door", "lighting", "natural", "building", "vehicle", "other"]},
+                                "type": {"type": "string", "enum": ["sofa", "couch", "loveseat", "sectional", "armchair", "recliner", "chair", "dining_chair", "office_chair", "folding_chair", "stool", "bar_stool", "bench", "ottoman", "table", "dining_table", "coffee_table", "side_table", "end_table", "desk", "console_table", "nightstand", "bedside_table", "bed", "king_bed", "queen_bed", "twin_bed", "bunk_bed", "crib", "dresser", "chest_of_drawers", "wardrobe", "armoire", "bookshelf", "bookcase", "shelving_unit", "cabinet", "filing_cabinet", "display_cabinet", "tv_stand", "entertainment_center", "counter", "kitchen_counter", "bar", "kitchen_island", "lamp", "table_lamp", "floor_lamp", "desk_lamp", "chandelier", "ceiling_light", "pendant_light", "wall_sconce", "track_lighting", "spotlight", "string_lights", "candle", "lantern", "picture", "painting", "photograph", "poster", "artwork", "sculpture", "statue", "bust", "figurine", "vase", "flowerpot", "planter", "bowl", "basket", "rug", "carpet", "mat", "tapestry", "curtain", "drapes", "blinds", "shades", "pillow", "cushion", "throw_pillow", "blanket", "throw_blanket", "clock", "wall_clock", "grandfather_clock", "mirror", "wall_mirror", "floor_mirror", "window", "bay_window", "picture_window", "skylight", "door", "front_door", "interior_door", "sliding_door", "french_door", "cabinet_door", "plant", "potted_plant", "houseplant", "succulent", "bonsai", "tree", "oak_tree", "pine_tree", "palm_tree", "maple_tree", "birch_tree", "willow_tree", "bush", "shrub", "hedge", "flower", "rose", "tulip", "sunflower", "grass_patch", "fern", "vine", "ivy", "cactus", "fireplace", "mantel", "hearth", "stove", "oven", "refrigerator", "dishwasher", "microwave", "toaster", "coffee_maker", "sink", "bathtub", "shower", "toilet", "washer", "dryer", "air_conditioner", "heater", "radiator", "fan", "ceiling_fan", "tv", "television", "monitor", "computer", "laptop", "keyboard", "mouse", "printer", "speaker", "stereo", "radio", "telephone", "book", "magazine", "newspaper", "document", "box", "crate", "trunk", "suitcase", "bag", "backpack", "briefcase", "umbrella", "coat_rack", "hooks", "towel_rack", "shelf", "ledge", "sign", "billboard", "poster_board", "whiteboard", "chalkboard", "bulletin_board", "car", "sedan", "suv", "truck", "van", "motorcycle", "bicycle", "scooter", "skateboard", "boat", "ship", "bench_outdoor", "picnic_table", "patio_furniture", "swing", "slide", "playground_equipment", "fence_section", "gate", "mailbox", "lamp_post", "street_light", "traffic_light", "fire_hydrant", "trash_can", "recycling_bin", "dumpster", "barrel", "drum", "pallet", "tool", "ladder", "broom", "mop", "shovel", "rake", "hose", "bucket", "watering_can", "rock", "boulder", "stone", "pebble", "log", "branch", "stump", "mushroom", "moss_patch", "pond", "fountain", "birdbath", "birdhouse", "feeder", "flag", "flagpole", "awning", "canopy", "tent", "tarp", "other_object"]},
                                 "color": {"type": "string", "description": "Color with prefix (e.g., 'dark blue', 'light green', 'navy blue')"},
-                                "material": {"type": "string", "description": "What it's made of"},
-                                "size": {"type": "string", "enum": ["tiny", "small", "medium", "large", "huge"]},
+                                "material": {"type": "string", "enum": ["wood", "oak", "pine", "maple", "walnut", "mahogany", "teak", "bamboo", "wicker", "rattan", "particle_board", "plywood", "mdf", "metal", "steel", "iron", "wrought_iron", "aluminum", "brass", "copper", "bronze", "chrome", "stainless_steel", "glass", "tempered_glass", "frosted_glass", "stained_glass", "crystal", "acrylic", "plexiglass", "plastic", "polycarbonate", "pvc", "resin", "fiberglass", "leather", "genuine_leather", "faux_leather", "vinyl", "fabric", "cotton", "linen", "silk", "velvet", "suede", "canvas", "polyester", "microfiber", "wool", "felt", "ceramic", "porcelain", "pottery", "terracotta", "clay", "stone", "marble", "granite", "slate", "limestone", "sandstone", "concrete", "cement", "brick", "tile", "rubber", "foam", "cork", "cardboard", "paper", "canvas_paper", "parchment", "wax", "composite", "laminate", "veneer", "paint", "painted_wood", "painted_metal", "stain", "varnish", "enamel", "organic", "plant_material", "natural_fiber", "bark", "leaves", "grass", "moss", "straw", "hay", "rope", "twine", "jute", "ice", "snow", "water", "liquid", "gel"]},
                                 "position": {"type": "string", "description": "Hierarchical positioning: for large objects use room/scene references (e.g., 'center of room', 'left wall', 'back corner'), for small objects reference large objects (e.g., 'on the wooden table', 'next to the sofa', 'under the window')"},
+                                "size": {"type": "string", "enum": ["tiny", "small", "medium", "large", "huge"]},
+                                "condition": {"type": "string", "enum": ["pristine", "well_worn", "weathered", "tattered"]},
                             },
-                            "required": ["name", "type", "color", "material", "size", "position"]
+                            "required": ["type", "color", "material", "position"]
                         }
                     }
                 },
-                "required": ["place", "ground", "walls_or_surroundings", "objects"]
+                "required": ["place", "ground", "surroundings", "objects"]
             },
             "strict": True
         }
