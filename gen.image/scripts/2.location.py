@@ -72,7 +72,7 @@ LORAS = [
 SAMPLING_STEPS = 25  # Number of sampling steps (higher = better quality, slower)
 
 # Negative Prompt Configuration
-USE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to disable
+USE_NEGATIVE_PROMPT = False  # Set to True to enable negative prompts, False to disable
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
 # Random Seed Configuration
