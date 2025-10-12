@@ -9,7 +9,6 @@ if str(project_root) not in sys.path:
 
 from google.adk.agents import Agent, LoopAgent
 from google.adk.agents.llm_agent import ToolContext
-
 from google.adk.models.lite_llm import LiteLlm
 
 MODEL = LiteLlm(model=f"lm_studio/qwen3-30b-a3b-thinking-2507", api_key="sk-0", base_url="http://localhost:1234/v1")
@@ -24,21 +23,11 @@ manager_agent = Agent(
     name="manager",
     model=MODEL,
     description="Manages user requests by answering directly or delegating tasks to available agents and tools.",
-    instruction="""
-    You are a Manager Agent responsible for fulfilling user requests efficiently.
-    
-    Your approach:
-        1. Analyze the user's request
-        2. Answer directly if you can, or break into subtasks and delegate to available agents/tools
-        3. Only use agents and tools that actually exist - never call imaginary ones
-        4. When done, unable to proceed, or task is complete, call exit_loop with a summary
-
-    __CRITICAL__: ALWAYS call exit_loop when finished, otherwise the loop continues indefinitely.
-    """,
+    instruction="""You are a capable AI agent that accomplishes tasks through reasoning, tool usage, and sub-agent orchestration.""",
     sub_agents=[],
     tools=[exit_loop])
 
 root_agent = LoopAgent(
     name="root",
-    max_iterations=5,  # Increased to test escalate behavior
+    max_iterations=12,
     sub_agents=[manager_agent])
