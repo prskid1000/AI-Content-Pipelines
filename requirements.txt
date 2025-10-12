@@ -28,3 +28,7 @@ google-auth-oauthlib
 # - FFmpeg (for video processing)
 # - ComfyUI (AI workflow engine)
 # - LM Studio (language model inference)
+
+google-genai
+google-adk
+pydub
