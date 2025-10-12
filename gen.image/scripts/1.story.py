@@ -492,7 +492,10 @@ def _schema_character() -> dict[str, object]:
                             "eyes_color": {"type": "string", "enum": ["brown", "blue", "green", "hazel", "gray", "amber", "black", "violet"]},
                             "hair_color": {"type": "string", "enum": ["black", "brown", "blonde", "red", "gray", "white", "auburn", "chestnut", "platinum"]},
                             "hair_texture": {"type": "string", "enum": ["straight", "wavy", "curly", "coily", "kinky"]},
-                            "facial_hair": {"type": "string", "description": "Beard, mustache, goatee, or clean-shaven"}
+                            "facial_hair": {"type": "string", "description": "Beard, mustache, goatee, or clean-shaven"},
+                            "age": {"type": "string", "enum": ["young", "adult", "elderly"]},
+                            "gender": {"type": "string", "enum": ["male", "female"]},
+                            "body_type": {"type": "string", "enum": ["slim", "average", "muscular", "overweight", "obese"]},
                         },
                         "required": ["head_shape", "skin_tone", "eyes_color", "hair_color", "hair_texture"]
                     },
