@@ -9,7 +9,6 @@ if str(project_root) not in sys.path:
 
 from google.adk.agents import Agent, LoopAgent
 from google.adk.agents.llm_agent import ToolContext
-from google.adk.events.event import EventActions
 
 from google.adk.models.lite_llm import LiteLlm
 
