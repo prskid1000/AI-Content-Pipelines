@@ -17,8 +17,26 @@ import os
 import sys
 import subprocess
 import re
+import shutil
 from pathlib import Path
 from typing import List, Optional
+
+
+def find_thumbnail(output_dir: str) -> Optional[str]:
+    """Find a thumbnail image in the output directory.
+    
+    Prefers PNG but falls back to common formats.
+    """
+    candidates = [
+        os.path.join(output_dir, "thumbnail.png"),
+        os.path.join(output_dir, "thumbnail.jpg"),
+        os.path.join(output_dir, "thumbnail.jpeg"),
+        os.path.join(output_dir, "thumbnail.webp"),
+    ]
+    for path in candidates:
+        if os.path.exists(path):
+            return path
+    return None
 
 
 class VideoCombiner:
@@ -27,6 +45,7 @@ class VideoCombiner:
         self.animation_dir = Path("../output/animation")
         self.output_dir = Path("../output")
         self.audio_file = Path("../../gen.audio/output/final.wav")
+        self.thumbnail_dir = Path("../../gen.audio/output")
         
         # Output files
         self.combined_video = self.output_dir / "combined.mp4"
@@ -42,6 +61,34 @@ class VideoCombiner:
                                   capture_output=True, text=True, timeout=10)
             return result.returncode == 0
         except (subprocess.TimeoutExpired, FileNotFoundError):
+            return False
+
+    def _create_thumbnail_video(self, image_path: str, duration: float, output_path: Path) -> bool:
+        """Create a video from a still image using ffmpeg."""
+        ffmpeg_path = shutil.which("ffmpeg")
+        if not ffmpeg_path:
+            print("❌ ffmpeg is not available in PATH. Please install ffmpeg.")
+            return False
+
+        cmd = [
+            ffmpeg_path,
+            "-y",
+            "-loop", "1",
+            "-i", image_path,
+            "-t", f"{duration:.3f}",
+            "-vf", "format=yuv420p",
+            "-c:v", "libx264",
+            str(output_path),
+        ]
+
+        try:
+            subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30)
+            return True
+        except subprocess.CalledProcessError as e:
+            print(f"❌ ffmpeg failed for thumbnail: {e}")
+            return False
+        except subprocess.TimeoutExpired:
+            print("❌ ffmpeg timed out while creating thumbnail video")
             return False
 
     def _get_video_files(self) -> List[Path]:
@@ -108,6 +155,29 @@ class VideoCombiner:
         video_files = self._get_video_files()
         if not video_files:
             return False
+        
+        # Check for thumbnail and prepend if found
+        thumbnail_path = find_thumbnail(str(self.thumbnail_dir))
+        if thumbnail_path:
+            print(f"\n🖼️  Found thumbnail: {os.path.basename(thumbnail_path)}")
+            thumbnail_video_path = self.output_dir / "thumbnail_intro.mp4"
+            thumbnail_duration = 1.0  # 1 second thumbnail intro
+            
+            print(f"🎬 Creating {thumbnail_duration}s thumbnail intro video...")
+            thumbnail_ok = self._create_thumbnail_video(
+                image_path=thumbnail_path,
+                duration=thumbnail_duration,
+                output_path=thumbnail_video_path
+            )
+            
+            if thumbnail_ok:
+                # Prepend thumbnail video to the beginning
+                video_files.insert(0, thumbnail_video_path)
+                print(f"✅ Thumbnail intro added to sequence")
+            else:
+                print(f"⚠️  Failed to create thumbnail video, continuing without it")
+        else:
+            print(f"\n⚠️  No thumbnail found in {self.thumbnail_dir}")
         
         # Create file list for concat
         try:
@@ -230,7 +300,8 @@ class VideoCombiner:
     def cleanup(self) -> None:
         """Clean up temporary files."""
         temp_files = [
-            self.output_dir / "video_list.txt"
+            self.output_dir / "video_list.txt",
+            self.output_dir / "thumbnail_intro.mp4"
         ]
         
         for temp_file in temp_files:
