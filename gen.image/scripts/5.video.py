@@ -12,6 +12,23 @@ def print_flush(*args, **kwargs):
     print(*args, **kwargs)
 
 
+def find_thumbnail(output_dir: str) -> Optional[str]:
+    """Find a thumbnail image in the output directory.
+    
+    Prefers PNG but falls back to common formats.
+    """
+    candidates = [
+        os.path.join(output_dir, "thumbnail.png"),
+        os.path.join(output_dir, "thumbnail.jpg"),
+        os.path.join(output_dir, "thumbnail.jpeg"),
+        os.path.join(output_dir, "thumbnail.webp"),
+    ]
+    for path in candidates:
+        if os.path.exists(path):
+            return path
+    return None
+
+
 class VideoFromScenes:
     """Create per-scene videos from 2.timeline.script.txt which contains both durations and scene information.
 
@@ -27,6 +44,7 @@ class VideoFromScenes:
 
     def __init__(self,
                  durations_file: Optional[str] = None,
+                 thumbnail_dir: Optional[str] = None,
                  scenes_file: Optional[str] = None,
                  scenes_image_dir: Optional[str] = None,
                  output_video_dir: Optional[str] = None,
@@ -40,6 +58,7 @@ class VideoFromScenes:
         script_dir = os.path.dirname(os.path.abspath(__file__))
 
         self.durations_file = durations_file or os.path.normpath(os.path.join(script_dir, "../../gen.audio/input/2.timeline.script.txt"))
+        self.thumbnail_dir = thumbnail_dir or os.path.normpath(os.path.join(script_dir, "../../gen.image/output"))
         # Note: scenes_file parameter kept for backward compatibility but no longer used
         self.scenes_image_dir = scenes_image_dir or os.path.normpath(os.path.join(script_dir, "../output/scene"))
         self.output_video_dir = output_video_dir or os.path.normpath(os.path.join(script_dir, "../output/video"))
@@ -548,6 +567,30 @@ class VideoFromScenes:
                 print_flush(f"     ... and {len(missing_images) - 15} more")
         print_flush(f"   • FPS:               {self.fps}")
         print_flush(f"   • Time:              {elapsed:.2f}s")
+
+        # Add thumbnail as first frame if available
+        thumbnail_path = find_thumbnail(self.thumbnail_dir)
+        if thumbnail_path:
+            print_flush(f"\n🖼️  Found thumbnail: {os.path.basename(thumbnail_path)}")
+            thumbnail_video_path = os.path.join(self.output_video_dir, "thumbnail_intro.mp4")
+            thumbnail_duration = 1.0  # 1 second thumbnail intro
+            
+            print_flush(f"🎬 Creating {thumbnail_duration}s thumbnail intro video...")
+            thumbnail_ok = self.export_video(
+                image_path=thumbnail_path,
+                duration=thumbnail_duration,
+                output_path=thumbnail_video_path
+            )
+            
+            if thumbnail_ok:
+                # Prepend thumbnail video to the beginning
+                scene_video_paths.insert(0, thumbnail_video_path)
+                merged_duration_seconds += thumbnail_duration
+                print_flush(f"✅ Thumbnail intro added to sequence")
+            else:
+                print_flush(f"⚠️  Failed to create thumbnail video, continuing without it")
+        else:
+            print_flush(f"\n⚠️  No thumbnail found in {self.output_root_dir}")
 
         # Merge into a single video in ../output/merged.mp4
         merged_out = os.path.join(self.output_root_dir, "merged.mp4")
