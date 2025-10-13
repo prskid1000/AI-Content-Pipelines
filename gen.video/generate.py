@@ -82,11 +82,13 @@ SCRIPTS = [
 
     #Video
     # "2.animate.py",
-    # "3.video.py",
 
-    # YouTube
+    #Thumbnail
     # "../gen.audio/scripts/9.media.py",
     # "../gen.audio/scripts/10.thumbnail.py",
+
+    # YouTube
+    # "3.video.py",
     # "../gen.audio/scripts/11.video.py",
     # "../gen.audio/scripts/12.youtube.py"
 
