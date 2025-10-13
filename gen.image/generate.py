@@ -78,12 +78,14 @@ SCRIPTS = [
     # "2.character.py",
     # "2.location.py",
     # "3.scene.py",
-    # "5.video.py",
-    # "6.combine.py",
 
-    # YouTube
+    #Thumbnail
     # "../gen.audio/scripts/9.media.py",
     # "../gen.audio/scripts/10.thumbnail.py",
+
+    # YouTube
+    # "5.video.py",
+    # "6.combine.py",
     # "../gen.audio/scripts/11.video.py",
     # "../gen.audio/scripts/12.youtube.py"
 ]

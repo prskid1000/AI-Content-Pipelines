@@ -128,6 +128,8 @@ def create_thumbnail_video(thumbnail_path: str, output_path: str, duration: floa
         "-y",
         "-loop", "1",
         "-i", thumbnail_path,
+        "-f", "lavfi",
+        "-i", "anullsrc=channel_layout=stereo:sample_rate=48000",
         "-t", str(duration),
         "-c:v", "libx264",
         "-profile:v", "high",
@@ -139,9 +141,6 @@ def create_thumbnail_video(thumbnail_path: str, output_path: str, duration: floa
         "-r", "30",
         "-g", "60",
         "-movflags", "+faststart",
-        # Silent audio track
-        "-f", "lavfi",
-        "-i", "anullsrc=channel_layout=stereo:sample_rate=48000",
         "-c:a", "aac",
         "-b:a", "192k",
         "-shortest",
@@ -150,6 +149,8 @@ def create_thumbnail_video(thumbnail_path: str, output_path: str, duration: floa
     
     try:
         result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+        if result.returncode != 0:
+            print(f"  ✗ FFmpeg error: {result.stdout}")
         return result.returncode == 0
     except Exception as e:
         print(f"ERROR: Failed to create thumbnail video: {e}")

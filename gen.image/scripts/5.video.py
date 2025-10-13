@@ -58,7 +58,7 @@ class VideoFromScenes:
         script_dir = os.path.dirname(os.path.abspath(__file__))
 
         self.durations_file = durations_file or os.path.normpath(os.path.join(script_dir, "../../gen.audio/input/2.timeline.script.txt"))
-        self.thumbnail_dir = thumbnail_dir or os.path.normpath(os.path.join(script_dir, "../../gen.image/output"))
+        self.thumbnail_dir = thumbnail_dir or os.path.normpath(os.path.join(script_dir, "../../gen.audio/output"))
         # Note: scenes_file parameter kept for backward compatibility but no longer used
         self.scenes_image_dir = scenes_image_dir or os.path.normpath(os.path.join(script_dir, "../output/scene"))
         self.output_video_dir = output_video_dir or os.path.normpath(os.path.join(script_dir, "../output/video"))
