@@ -1,7 +1,7 @@
 TASK: Write a Video Story in form of DIALOGUE-SCENE-MOTION divided into 5 PARTS.
 
 CONTENT:
-- Consulting Detective Sherlock Holmes Story [Victorian Drama] -> Sherlock Holmes and the Adventure of Casper Bridge. 
+- Consulting Detective Sherlock Holmes Story [Victorian Drama] -> Sherlock Holmes and the Adventure of Amazon Ring. 
 - Use the narrator(Doctor John Watson himself is the narrator) for atmosphere/background and other detailing.
 - Watson, always learning how to do deduction from Holmes, and his loyal assistant and roommate.
 - Holmes, for him, "everything is elementary" and "uses theory of deduction" to solve cases.
@@ -31,3 +31,4 @@ DIALOGUE-SCENE FORMAT:
 [gender_profession_actor_name] ....dialogue_i.j; start & end in same line as of [].
 (scene_i.j) {{loc_k, Description of at max 12 words}}, {Weather/Season/Time};
 ((gender_profession_actor_name - at max 3 actor, 2 same gender + 1 diffrent gender )){Facial Expression}, {Actor's Relative Location (sofa near dinning table, bench, etc...) + Body Posture (sitting, standing, running, bend down looking, etc...)}, {Primary Action};start & end in same line as of ().
+(motion_i.j) ((gender_profession_actor_name - used in scene_i.j)) {can be body movment or other object movment caused by actor}; start & end in same line as of [].
