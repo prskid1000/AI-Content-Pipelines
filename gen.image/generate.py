@@ -96,12 +96,13 @@ NEEDS_LMSTUDIO = {"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py"
 # Centralized non-interactive defaults (only change this file)
 SCRIPT_ARGS = {
     # "1.story.py": ["--bypass-validation"],
-    # "4.audio.py": ["--bypass-validation"],
+    "4.audio.py": ["--bypass-validation"],
     "1.character.py": ["--auto-gender", "m", "--auto-confirm", "y", "--change-settings", "n"],
     "10.thumbnail.py": ["--mode", "flux"],
     "2.character.py": ["--mode", "flux"],
     "5.timeline.py": ["../input/2.timeline.script.txt"],  # Pass the 2.1.timeline.txt file to 5.timeline.py (relative to gen.audio/scripts/)
     "7.sfx.py": ["--auto-confirm", "y"],  # sfx script auto-confirms by default; passing is harmless
+    "11.video.py": ["--video-file", "../../gen.image/output/final_sd.mp4"],
     "12.youtube.py": ["--video-file", "../../gen.image/output/final_sd.mp4", "--upload-shorts", "--shorts-dir", "../../gen.audio/output"],
 }
 
