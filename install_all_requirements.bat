@@ -12,6 +12,17 @@ if not exist ".venv" (
     exit /b 1
 )
 
+REM Install PyTorch first
+echo [0/3] Installing PyTorch (nightly with CUDA 13.0)...
+.venv\Scripts\python.exe -m pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu130
+if errorlevel 1 (
+    echo ERROR: Failed to install PyTorch
+    pause
+    exit /b 1
+)
+echo SUCCESS: PyTorch installed
+echo.
+
 REM Install root requirements.txt
 echo [1/3] Installing root requirements.txt...
 if exist "requirements.txt" (
@@ -60,6 +71,20 @@ for /d %%i in (ComfyUI\custom_nodes\*) do (
         echo.
     )
 )
+
+echo ========================================
+echo Applying compatibility fixes...
+echo ========================================
+echo.
+echo Installing exact versions for librosa compatibility...
+.venv\Scripts\python.exe -m pip install "numba==0.59.1" "numpy==1.26.4" "librosa==0.11.0"
+if errorlevel 1 (
+    echo WARNING: Failed to install compatible versions
+    echo You may encounter issues with TTS Audio Suite
+) else (
+    echo SUCCESS: numba 0.59.1, numpy 1.26.4, librosa 0.11.0 installed
+)
+echo.
 
 echo ========================================
 echo All requirements installation completed!
