@@ -20,7 +20,7 @@ CHARACTER_RESIZE_FACTOR = 1
 
 # Image compression configuration
 # JPEG quality: 1-100 (100 = best quality, larger file; 1 = worst quality, smaller file)
-IMAGE_COMPRESSION_QUALITY = 90
+IMAGE_COMPRESSION_QUALITY = 100
 
 # Character prompt handling modes
 # "IMAGE_TEXT" Send character images + character details appended from characters.txt
@@ -611,7 +611,7 @@ class SceneGenerator:
                 
                 # Only add location details in TEXT and IMAGE_TEXT modes, skip in NONE and IMAGE mode
                 # Only add position description in IMAGE and IMAGE_TEXT modes, skip in NONE and TEXT mode
-                return f"USE{ "," +position_desc if self.location_mode in ['IMAGE', 'IMAGE_TEXT'] else ''}, {locations_data.get(loc_id, '')[:(LOCATION_WORD_LIMIT * WORD_FACTOR)] if self.location_mode in ['TEXT', 'IMAGE_TEXT'] else ''} to illustrate the scene - "
+                return f"{ "Add ," +position_desc if self.location_mode in ['IMAGE', 'IMAGE_TEXT'] else 'ADD Location,'}, { "which should look like," + locations_data.get(loc_id, '')[:(LOCATION_WORD_LIMIT * WORD_FACTOR)] if self.location_mode in ['TEXT', 'IMAGE_TEXT'] else ''} to the illustration - "
             else:
                 # Location not found in the list, keep original
                 return full_match
@@ -640,7 +640,7 @@ class SceneGenerator:
                 position_desc = self._get_position_description(position_in_group, group_number)
 
                 # Only add character details in TEXT and IMAGE_TEXT modes, skip in NONE  and IMAGE mode.Only add position description in IMAGE and IMAGE_TEXT modes, skip in NONE and TEXT mode.
-                return f"\nUSE{ "," +position_desc if self.character_mode in ['IMAGE', 'IMAGE_TEXT'] else ''}, {characters_data[char_name][:(CHARACTER_WORD_LIMIT * WORD_FACTOR)] if self.character_mode in ['TEXT', 'IMAGE_TEXT'] else ''} to illustrate the character - "
+                return f"{ "Add ," +position_desc if self.character_mode in ['IMAGE', 'IMAGE_TEXT'] else 'ADD Character,'}, { "which should look like," + characters_data[char_name][:(CHARACTER_WORD_LIMIT * WORD_FACTOR)] if self.character_mode in ['TEXT', 'IMAGE_TEXT'] else ''} to the illustration - "
             else:
                 # Character not found in the list, keep original
                 return full_match
