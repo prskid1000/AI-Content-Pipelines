@@ -506,40 +506,40 @@ class SceneGenerator:
         """Get position description for character placement."""
         if IMAGE_STITCH_COUNT == 1:
             # When only one character per image, use simpler description
-            return f"Character in Image {group_number}"
+            return f"CHARACTER in Image {group_number}"
         elif IMAGE_STITCH_COUNT == 2:
             if position_in_group == 1:
                 # When two characters per image, use simple description
-                return f"Leftmost Character in Image {group_number}"
+                return f"LEFTMOST CHARACTER in Image {group_number}"
             else:
-                return f"Rightmost Character in Image {group_number}"
+                return f"RIGHTMOST CHARACTER in Image {group_number}"
         elif IMAGE_STITCH_COUNT == 3:
             if position_in_group == 1:
-                return f"Leftmost Character in Image {group_number}"
+                return f"LEFTMOST CHARACTER in Image {group_number}"
             elif position_in_group == 2:
-                return f"Middle Character in Image {group_number}"
+                return f"MIDDLE CHARACTER in Image {group_number}"
             else:
-                return f"Rightmost Character in Image {group_number}"
+                return f"RIGHTMOST CHARACTER in Image {group_number}"
         elif IMAGE_STITCH_COUNT == 4:
             if position_in_group == 1:
-                return f"Leftmost Character in Image {group_number}"
+                return f"LEFTMOST CHARACTER in Image {group_number}"
             elif position_in_group == 2:
-                return f"Middle Left Character in Image {group_number}"
+                return f"MIDDLE LEFT CHARACTER in Image {group_number}"
             elif position_in_group == 3:
-                return f"Middle Right Character in Image {group_number}"
+                return f"MIDDLE RIGHT CHARACTER in Image {group_number}"
             else:
-                return f"Rightmost Character in Image {group_number}"
+                return f"RIGHTMOST CHARACTER in Image {group_number}"
         elif IMAGE_STITCH_COUNT == 5:
             if position_in_group == 1:
-                return f"Leftmost Character in Image {group_number}"
+                return f"LEFTMOST CHARACTER in Image {group_number}"
             elif position_in_group == 2:
-                return f"Middle Left Character in Image {group_number}"
+                return f"MIDDLE LEFT CHARACTER in Image {group_number}"
             elif position_in_group == 3:
-                return f"Middle Right Character in Image {group_number}"
+                return f"MIDDLE RIGHT CHARACTER in Image {group_number}"
             elif position_in_group == 4:
-                return f"Rightmost Character in Image {group_number}"
+                return f"RIGHTMOST CHARACTER in Image {group_number}"
             else:
-                return f"Center Character in Image {group_number}"
+                return f"CENTER CHARACTER in Image {group_number}"
         else:
             # When multiple characters per image, use ordinal position
             ordinal_suffix = self._get_ordinal_suffix(position_in_group)
@@ -549,40 +549,40 @@ class SceneGenerator:
         """Get position description for location placement."""
         if IMAGE_STITCH_COUNT == 1:
             # When only one location per image, use simpler description
-            return f"Location in Image {group_number}"
+            return f"LOCATION in Image {group_number}"
         elif IMAGE_STITCH_COUNT == 2:
             if position_in_group == 1:
                 # When two locations per image, use simple description
-                return f"Leftmost Location in Image {group_number}"
+                return f"LEFTMOST LOCATION in Image {group_number}"
             else:
-                return f"Rightmost Location in Image {group_number}"
+                return f"RIGHTMOST LOCATION in Image {group_number}"
         elif IMAGE_STITCH_COUNT == 3:
             if position_in_group == 1:
-                return f"Leftmost Location in Image {group_number}"
+                return f"LEFTMOST LOCATION in Image {group_number}"
             elif position_in_group == 2:
-                return f"Middle Location in Image {group_number}"
+                return f"MIDDLE LOCATION in Image {group_number}"
             else:
-                return f"Rightmost Location in Image {group_number}"
+                return f"RIGHTMOST LOCATION in Image {group_number}"
         elif IMAGE_STITCH_COUNT == 4:
             if position_in_group == 1:
-                return f"Leftmost Location in Image {group_number}"
+                return f"LEFTMOST LOCATION in Image {group_number}"
             elif position_in_group == 2:
-                return f"Middle Left Location in Image {group_number}"
+                return f"MIDDLE LEFT LOCATION in Image {group_number}"
             elif position_in_group == 3:
-                return f"Middle Right Location in Image {group_number}"
+                return f"MIDDLE RIGHT LOCATION in Image {group_number}"
             else:
-                return f"Rightmost Location in Image {group_number}"
+                return f"RIGHTMOST LOCATION in Image {group_number}"
         elif IMAGE_STITCH_COUNT == 5:
             if position_in_group == 1:
-                return f"Leftmost Location in Image {group_number}"
+                return f"LEFTMOST LOCATION in Image {group_number}"
             elif position_in_group == 2:
-                return f"Middle Left Location in Image {group_number}"
+                return f"MIDDLE LEFT LOCATION in Image {group_number}"
             elif position_in_group == 3:
-                return f"Middle Right Location in Image {group_number}"
+                return f"MIDDLE RIGHT LOCATION in Image {group_number}"
             elif position_in_group == 4:
-                return f"Rightmost Location in Image {group_number}"
+                return f"RIGHTMOST LOCATION in Image {group_number}"
             else:
-                return f"Center Location in Image {group_number}"
+                return f"CENTER LOCATION in Image {group_number}"
         else:
             # When multiple locations per image, use ordinal position
             ordinal_suffix = self._get_ordinal_suffix(position_in_group)
@@ -611,7 +611,7 @@ class SceneGenerator:
                 
                 # Only add location details in TEXT and IMAGE_TEXT modes, skip in NONE and IMAGE mode
                 # Only add position description in IMAGE and IMAGE_TEXT modes, skip in NONE and TEXT mode
-                return f"{ "Add ," +position_desc if self.location_mode in ['IMAGE', 'IMAGE_TEXT'] else 'ADD Location,'}, { "which should look like," + locations_data.get(loc_id, '')[:(LOCATION_WORD_LIMIT * WORD_FACTOR)] if self.location_mode in ['TEXT', 'IMAGE_TEXT'] else ''}, as entirity of the background of the illustration. - "
+                return f"{ "ADD ," +position_desc if self.location_mode in ['IMAGE', 'IMAGE_TEXT'] else 'ADD LOCATION,'} { "which should look like," + locations_data.get(loc_id, '')[:(LOCATION_WORD_LIMIT * WORD_FACTOR)] if self.location_mode in ['TEXT', 'IMAGE_TEXT'] else ''}, as entirity of the background of the illustration. - "
             else:
                 # Location not found in the list, keep original
                 return full_match
@@ -638,9 +638,8 @@ class SceneGenerator:
                 
                 # Create position description using helper method
                 position_desc = self._get_position_description(position_in_group, group_number)
-
                 # Only add character details in TEXT and IMAGE_TEXT modes, skip in NONE  and IMAGE mode.Only add position description in IMAGE and IMAGE_TEXT modes, skip in NONE and TEXT mode.
-                return f"{ "Add ," +position_desc if self.character_mode in ['IMAGE', 'IMAGE_TEXT'] else 'ADD Character,'}, { "which should look like," + characters_data[char_name][:(CHARACTER_WORD_LIMIT * WORD_FACTOR)] if self.character_mode in ['TEXT', 'IMAGE_TEXT'] else ''}, as one of the main characters of the illustration - "
+                return f"\n{ "ADD ," +position_desc if self.character_mode in ['IMAGE', 'IMAGE_TEXT'] else 'ADD CHARACTER,'} { "which should look like," + characters_data[char_name][:(CHARACTER_WORD_LIMIT * WORD_FACTOR)] if self.character_mode in ['TEXT', 'IMAGE_TEXT'] else ''}, as one of the main characters of the illustration. - "
             else:
                 # Character not found in the list, keep original
                 return full_match
