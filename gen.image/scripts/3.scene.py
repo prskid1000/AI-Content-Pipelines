@@ -650,7 +650,7 @@ class SceneGenerator:
 
     def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
-        return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}.
+        return """Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of {ART_STYLE}.
         """.format(ART_STYLE=ART_STYLE)
 
     def _get_seed(self) -> int:
