@@ -12,18 +12,27 @@ from typing import List, Dict, Optional, Tuple
 # Feature flags
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
+WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
 # Video configuration constants
 VIDEO_WIDTH = 1024
 VIDEO_HEIGHT = 576
 FRAMES_PER_SECOND = 24
 
-ENABLE_MOTION = True
-ENABLE_SCENE = True
-ENABLE_LOCATION = True  # Set to True to replace {{loc_1}} with location descriptions from 3.location.txt
+# Prompt format configuration (inline replacement, similar to scene generation)
+# Characters in scene: ((Alice)) -> "\nCharacter which should look like, {description}, as one of the main characters"
+# Locations in scene: {{loc_1}} -> "\nScene which should look like, {description}, as background of the entire illustration"
+# Characters in motion: ((Alice)) {walks} -> "Character which should look like, {description}, as one of the main characters {walks}"
+# Motion: Added as separate "MOTION PROMPT:" section with character descriptions replaced inline
+ENABLE_MOTION = True     # Set to True to add motion prompts from 2.motion.txt (with inline character replacements)
+ENABLE_SCENE = True      # Set to True to include scene descriptions
+ENABLE_LOCATION = True   # Set to True to replace {{loc_1}} with location descriptions from 3.location.txt
+ENABLE_CHARACTER = True  # Set to True to replace ((character)) with character descriptions from 2.character.txt
+ENABLE_CHARACTER_IN_MOTION = True  # Set to True to replace ((character)) with character descriptions from 2.character.txt in motion prompts
 
 ART_STYLE = "Anime"
 
+USE_SUMMARY_TEXT = False  # Set to True to use summary text
 
 class ResumableState:
     """Manages resumable state for expensive video animation operations."""
@@ -166,9 +175,9 @@ class VideoAnimator:
         # Animation workflow file
         self.workflow_file = "../workflow/animate.json"
         # Character data file
-        self.character_file = "../../gen.image/input/3.character.txt"
+        self.character_file = "../../gen.image/input/3.character.txt" if USE_SUMMARY_TEXT else "../../gen.image/input/2.character.txt"
         # Location data file
-        self.location_file = "../../gen.image/input/3.location.txt"
+        self.location_file = "../../gen.image/input/3.location.txt" if USE_SUMMARY_TEXT else "../../gen.image/input/2.location.txt"
         # Motion data file
         self.motion_file = "../input/2.motion.txt"
 
@@ -527,21 +536,14 @@ class VideoAnimator:
         scene_name = parts[0].strip()
         description_part = parts[1].strip()
         
-        # Extract just the visual description (before the first comma with actor)
-        if ", " in description_part:
-            # Find the last ", actor_name = " pattern to separate description from dialogue
-            last_comma_idx = description_part.rfind(", ")
-            if last_comma_idx > 0:
-                # Check if this looks like an actor assignment
-                after_comma = description_part[last_comma_idx + 2:]
-                if " = " in after_comma:
-                    description = description_part[:last_comma_idx].strip()
-                else:
-                    description = description_part
-            else:
-                description = description_part
-        else:
-            description = description_part
+        # Extract just the visual description (before the actor dialogue)
+        # Look for the pattern ";, actor_name = " which separates visual description from dialogue
+        # The visual description ends with ";," before the actor assignment
+        description = description_part
+        match = re.search(r';,\s+\w+\s*=\s+', description_part)
+        if match:
+            # Found the separator, extract only the visual description
+            description = description_part[:match.start() + 1].strip()  # Include the semicolon, exclude the comma
         
         return {
             "scene_name": scene_name,
@@ -551,12 +553,16 @@ class VideoAnimator:
         }
 
     def _read_character_data(self) -> dict[str, str]:
-        """Parse character data from input file."""
+        """Parse character data from input file.
+        
+        Format: Each character on a single line as: ((character_name)): description
+        """
         characters = {}
         try:
             with open(self.character_file, "r", encoding="utf-8") as f:
                 content = f.read().strip()
-            entries = [entry.strip() for entry in content.split('\n\n') if entry.strip()]
+            # Split on single newlines since each character is on one line
+            entries = [entry.strip() for entry in content.split('\n') if entry.strip()]
             for entry in entries:
                 match = re.match(r'\(\(([^)]+)\)\):\s*(.+)', entry, re.DOTALL)
                 if match:
@@ -592,52 +598,94 @@ class VideoAnimator:
         return motions
 
     def _read_location_data(self) -> dict[str, str]:
-        """Parse location data from input file."""
+        """Parse location data from input file.
+        
+        Format: Each location on a single line as: {{loc_id}} description
+        """
         locations = {}
         try:
             with open(self.location_file, "r", encoding="utf-8") as f:
                 content = f.read().strip()
-            entries = [entry.strip() for entry in content.split('\n\n') if entry.strip()]
-            for entry in entries:
+            # Split on single newlines since each location is on one line
+            lines = [line.strip() for line in content.split('\n') if line.strip()]
+            for line in lines:
                 # Match format: {{loc_id}} description...
-                match = re.match(r'\{\{([^}]+)\}\}\s*(.+)', entry, re.DOTALL)
+                match = re.match(r'\{\{([^}]+)\}\}\s*(.+)', line)
                 if match:
                     locations[match.group(1).strip()] = match.group(2).strip()
         except Exception as e:
             print_flush(f"ERROR: Failed to read location data: {e}")
         return locations
 
-    def _get_character_details(self, character_names: list[str], characters_data: dict[str, str]) -> str:
-        """Get character details text for the given character names."""
-        if not character_names or not characters_data:
-            return ""
-        details = [f"{char} WITH {{{characters_data[char]}}}." 
-                  for char in character_names if char in characters_data]
-        return "\n".join(details)
+    def _replace_character_references(self, scene_description: str, characters_data: dict[str, str]) -> str:
+        """Replace ((character_name)) references with character descriptions inline.
+        
+        Format: ((Alice)) -> character which should look like, {detailed description}, as one of the main characters
+        """
+        if not ENABLE_CHARACTER or not characters_data:
+            return scene_description
+        
+        def replace_character_func(match):
+            full_match = match.group(0)
+            char_name = match.group(1).strip()
+            
+            if char_name in characters_data:
+                # Replace with inline character description
+                return f"\nCharacter which should look like, {characters_data[char_name]}, as one of the main characters"
+            else:
+                # Character not found, keep original
+                return full_match
+        
+        # Replace ((character_name)) patterns with descriptions
+        result = re.sub(r'\(\(([^)]+)\)\)', replace_character_func, scene_description)
+        return result
 
     def _replace_location_references(self, scene_description: str, locations_data: dict[str, str]) -> str:
-        """Replace {{loc_id}} references with actual location descriptions."""
+        """Replace {{loc_id}} references with location descriptions inline.
+        
+        Format: {{loc_forest}} -> scene which should look like, {detailed description}, as background
+        """
         if not ENABLE_LOCATION or not locations_data:
             return scene_description
         
         def replace_func(match):
             full_match = match.group(0)
-            # Try to match {{loc_id, description}} or {{loc_id}}
-            if ',' in full_match:
-                # Full format: {{loc_id, description}} - replace with full description from file
-                loc_id = match.group(1).strip()
-                if loc_id in locations_data:
-                    return f"{{{{{locations_data[loc_id]}}}}}"
-                return full_match
+            # Extract loc_id (handle both {{loc_id}} and {{loc_id, description}} formats)
+            content = match.group(1).strip()
+            loc_id = content.split(',')[0].strip() if ',' in content else content
+            
+            if loc_id in locations_data:
+                # Replace with inline location description
+                return f"\nScene which should look like, {locations_data[loc_id]}, as background of the entire illustration"
             else:
-                # Simple reference: {{loc_id}} - replace with description
-                loc_id = match.group(1).strip()
-                if loc_id in locations_data:
-                    return f"{{{{{locations_data[loc_id]}}}}}"
+                # Location not found, keep original
                 return full_match
-        
+
         # Replace {{loc_id}} patterns with location descriptions
         result = re.sub(r'\{\{([^}]+)\}\}', replace_func, scene_description)
+        return result
+
+    def _replace_motion_character_references(self, motion_prompt: str, characters_data: dict[str, str]) -> str:
+        """Replace ((character_name)) references in motion prompts with character descriptions.
+        
+        Format: ((Alice)) {walks} -> Character which should look like, {description}, as one of the main characters {walks}
+        """
+        if not ENABLE_CHARACTER_IN_MOTION or not characters_data:
+            return motion_prompt
+        
+        def replace_motion_char_func(match):
+            full_match = match.group(0)
+            char_name = match.group(1).strip()
+            
+            if char_name in characters_data:
+                # Replace with inline character description for motion
+                return f"Character which looks like, {characters_data[char_name]}, should move like,"
+            else:
+                # Character not found, keep original
+                return full_match
+        
+        # Replace ((character_name)) patterns in motion prompts
+        result = re.sub(r'\(\(([^)]+)\)\)', replace_motion_char_func, motion_prompt)
         return result
 
     def _extract_characters_from_scene(self, scene_description: str) -> list[str]:
@@ -1195,38 +1243,46 @@ class VideoAnimator:
         animation_prompt = self._get_animation_prompt()
         negative_prompt = self._get_negative_prompt()
         
-        # Extract characters from scene description
+        # Extract characters from scene description (for logging)
         character_names = self._extract_characters_from_scene(scene_description)
         
-        
-        # Replace location references if location data is available
+        # Process scene description with inline replacements (similar to 3.scene.py)
         processed_scene_description = scene_description
+        
+        # Step 1: Replace location references with inline descriptions
         if locations_data:
-            processed_scene_description = self._replace_location_references(scene_description, locations_data)
+            processed_scene_description = self._replace_location_references(processed_scene_description, locations_data)
+            print_flush(f"📍 Replaced location references with descriptions")
+        
+        # Step 2: Replace character references with inline descriptions
+        if characters_data:
+            processed_scene_description = self._replace_character_references(processed_scene_description, characters_data)
+            if character_names:
+                print_flush(f"🎭 Replaced character references for: {', '.join(character_names)}")
 
-        # Combine animation prompt with scene description
+        # Combine animation prompt with processed scene description
         full_prompt = f"{animation_prompt}"
 
         if ENABLE_SCENE:
-            full_prompt += f"\n\nSCENE DESCRIPTION:\n{processed_scene_description}"
+            full_prompt += f"\n\n{processed_scene_description}"
         
-        # Add character details if available
-        if character_names and characters_data:
-            character_details = self._get_character_details(character_names, characters_data)
-            if character_details:
-                full_prompt += f"\n\nCHARACTER DESCRIPTION:\n{character_details}"
-                print_flush(f"🎭 Added character details for: {', '.join(character_names)}")
-        
-        # Add motion prompts if available
+        # Add motion prompts if available (with inline character replacements)
         if motion_data and ENABLE_MOTION:
             # Try to find matching motion for this scene
-            # Extract scene ID (remove "scene_" prefix if present)
+            # Extract scene ID (remove "scene_" prefix if present, then remove chunk suffix)
+            # e.g., "scene_1.1_2" -> "1.1_2" -> "1.1" -> "motion_1.1"
             clean_scene_id = self._extract_scene_id(scene_id)
+            clean_scene_id = clean_scene_id.split('_')[0]  # Remove chunk number
             scene_motion_id = f"motion_{clean_scene_id}"
             if scene_motion_id in motion_data:
                 motion_prompt = motion_data[scene_motion_id]
-                full_prompt += f"\n\nMOTION PROMPT:\n{motion_prompt}"
-                print_flush(f"🎬 Added motion prompt for {clean_scene_id}")
+                # Replace character references in motion prompt with descriptions
+                if characters_data:
+                    motion_prompt = self._replace_motion_character_references(motion_prompt, characters_data)
+                    print_flush(f"🎬 Added motion prompt with inline character replacements for {clean_scene_id}")
+                else:
+                    print_flush(f"🎬 Added motion prompt for {clean_scene_id}")
+                full_prompt += f"\n{motion_prompt}"
             else:
                 print_flush(f"⚠️ No motion data found for scene {clean_scene_id} (looking for {scene_motion_id})")
         
@@ -1237,6 +1293,8 @@ class VideoAnimator:
             else:
                 print(f"Duration is not provided for {scene_id}")
                 frame_count = 121  # Default fallback
+
+        print_flush(f"Full prompt: {full_prompt}")
         
         # Update workflow nodes
         # Set positive prompt (node 6)
@@ -1244,8 +1302,9 @@ class VideoAnimator:
         
         # Debug: Show final prompt structure
         print_flush(f"📝 Final animation prompt for {scene_id}:")
-        print_flush(f"   Scene chars: {len(character_names)} found: {character_names}")
+        print_flush(f"   Characters: {len(character_names)} found: {character_names}")
         print_flush(f"   Prompt length: {len(full_prompt)} chars")
+        print_flush(f"   Structure: Art Style + Scene (inline char/loc) + Motion (inline char)")
         
         # Set negative prompt (node 7)
         workflow["7"]["inputs"]["text"] = negative_prompt
@@ -1346,7 +1405,8 @@ class VideoAnimator:
                     continue
 
                 # Print workflow summary
-                self._print_workflow_summary(workflow, f"Animation: {chunk_scene_id}")
+                if WORKFLOW_SUMMARY_ENABLED:
+                    self._print_workflow_summary(workflow, f"Animation: {chunk_scene_id}")
 
                 # Submit to ComfyUI
                 resp = requests.post(f"{self.comfyui_url}prompt", json={"prompt": workflow}, timeout=300)
