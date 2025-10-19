@@ -8,7 +8,7 @@ CONTENT:
 
 CONSTRAINTS:
 - Each PART_x must be at least 7500 characters and 1200 words.
-- Each SCENE/DIALOGUE must be always at least 30 characters.
+- Each DIALOGUE must be always at least 30 characters.
 - Each LOCATION_k must be always at max 12 words. 
 - Each DIALOGUE_i.j must have its single corresponding SCENE_i.j, and vice-versa. 
 - Each PART_x can span over multiple LOCATION_k. 
@@ -17,13 +17,14 @@ CONSTRAINTS:
 
 DIALOGUE-SCENE FORMAT:
 
-[male_doctor_watson] It was calm morning....
-(scene_1.1) {{loc_1, A British, Victorian, Living Room...}}, {Sunny Winter Morning};((male_doctor_watson)){Neutral} {Sitting on sofa}{Reading newspaper};((male_detective_holmes)){Neutral} {Sitting on sofa}{Reading booking};
+[male_doctor_watson] "It was a calm morning....";
+(scene_1.1) {{loc_1, Victorian living room with sofa and fireplace}}, {Weather/Season/Time: sunny winter morning}; ((male_doctor_watson){Face Relative Direction: toward fireplace}{Looking Relative Direction: at newspaper}{Facial Expression: neutral}, {Relative Location: left side of sofa},{Body Facing Relative Direction: toward fireplace},{Body Posture: sitting},{Primary Action: reading};
 
-[male_detective_holmes] Look Watson.... 
-(scene_1.2) {{loc_1}}, {Sunny Winter Morning};((male_doctor_watson)){Neutral} {Sitting on sofa}{Reading newspaper};((male_detective_holmes)){Neutral} {Standing near dinning table}{Drinking water};
+[male_detective_holmes] "Look, Watson....";
+(scene_1.2) {{loc_2, Victorian living room with dinning and fireplace}}, {Weather/Season/Time: sunny winter morning};(male_detective_holmes){Face Relative Direction: toward window}{Looking Relative Direction: at window}{Facial Expression: curious}, {Relative Location: standing near dining table},{Body Facing Relative Direction: toward window},{Body Posture: standing},{Primary Action: drinking water});
 
 ....
 
 [gender_profession_actor_name] ....dialogue_i.j; start & end in same line as of [].
-((gender_profession_actor_name - at max 3 actor, 2 same gender + 1 diffrent gender )){Facial Expression}, {Actor's Relative Location (sofa near dinning table, bench, etc...) + Body Posture (sitting, standing, running, bend down looking, etc...)}, {Primary Action};start & end in same line as of ().
+(scene_i.j) {{loc_k, Description of at max 12 words}}, {Weather/Season/Time: x};
+((gender_profession_actor_name - only one, either dialogue speaker or main subject of dialogue)){Face Relative Direction: x}{Looking Relative Direction: x}{Facial Expression: x}, {Relative Location: x},{Body Facing Relative Direction: x},{Body Posture: x}, {Primary Action: x};start & end in same line as of ().
