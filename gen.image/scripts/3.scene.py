@@ -506,87 +506,87 @@ class SceneGenerator:
         """Get position description for character placement."""
         if IMAGE_STITCH_COUNT == 1:
             # When only one character per image, use simpler description
-            return f"CHARACTER in Image {group_number}, (ignoring background)"
+            return f"CHARACTER in Image {group_number},"
         elif IMAGE_STITCH_COUNT == 2:
             if position_in_group == 1:
                 # When two characters per image, use simple description
-                return f"LEFTMOST CHARACTER in Image {group_number}, (ignoring background)"
+                return f"LEFTMOST CHARACTER in Image {group_number},"
             else:
-                return f"RIGHTMOST CHARACTER in Image {group_number}, (ignoring background)"
+                return f"RIGHTMOST CHARACTER in Image {group_number},"
         elif IMAGE_STITCH_COUNT == 3:
             if position_in_group == 1:
-                return f"LEFTMOST CHARACTER in Image {group_number}, (ignoring background)"
+                return f"LEFTMOST CHARACTER in Image {group_number},"
             elif position_in_group == 2:
-                return f"MIDDLE CHARACTER in Image {group_number}, (ignoring background)"
+                return f"MIDDLE CHARACTER in Image {group_number},"
             else:
-                return f"RIGHTMOST CHARACTER in Image {group_number}, (ignoring background)"
+                return f"RIGHTMOST CHARACTER in Image {group_number},"
         elif IMAGE_STITCH_COUNT == 4:
             if position_in_group == 1:
-                return f"LEFTMOST CHARACTER in Image {group_number}, (ignoring background)"
+                return f"LEFTMOST CHARACTER in Image {group_number},"
             elif position_in_group == 2:
-                return f"MIDDLE LEFT CHARACTER in Image {group_number}, (ignoring background)"
+                return f"MIDDLE LEFT CHARACTER in Image {group_number},"
             elif position_in_group == 3:
-                return f"MIDDLE RIGHT CHARACTER in Image {group_number}, (ignoring background)"
+                return f"MIDDLE RIGHT CHARACTER in Image {group_number},"
             else:
-                return f"RIGHTMOST CHARACTER in Image {group_number}, (ignoring background)"
+                return f"RIGHTMOST CHARACTER in Image {group_number},"
         elif IMAGE_STITCH_COUNT == 5:
             if position_in_group == 1:
-                return f"LEFTMOST CHARACTER in Image {group_number}, (ignoring background)"
+                return f"LEFTMOST CHARACTER in Image {group_number},"
             elif position_in_group == 2:
-                return f"MIDDLE LEFT CHARACTER in Image {group_number}, (ignoring background)"
+                return f"MIDDLE LEFT CHARACTER in Image {group_number},"
             elif position_in_group == 3:
-                return f"MIDDLE RIGHT CHARACTER in Image {group_number}, (ignoring background)"
+                return f"MIDDLE RIGHT CHARACTER in Image {group_number},"
             elif position_in_group == 4:
-                return f"RIGHTMOST CHARACTER in Image {group_number}, (ignoring background)"
+                return f"RIGHTMOST CHARACTER in Image {group_number},"
             else:
-                return f"CENTER CHARACTER in Image {group_number}, (ignoring background)"
+                return f"CENTER CHARACTER in Image {group_number},"
         else:
             # When multiple characters per image, use ordinal position
             ordinal_suffix = self._get_ordinal_suffix(position_in_group)
-            return f"{position_in_group}{ordinal_suffix} Character from Left in Image {group_number}, (ignoring background)"
+            return f"{position_in_group}{ordinal_suffix} Character from Left in Image {group_number},"
 
     def _get_location_position_description(self, position_in_group: int, group_number: int) -> str:
         """Get position description for location placement."""
         if IMAGE_STITCH_COUNT == 1:
             # When only one location per image, use simpler description
-            return f"BACKGROUND in Image {group_number}, (ignoring characters)"
+            return f"SCENE in Image {group_number},"
         elif IMAGE_STITCH_COUNT == 2:
             if position_in_group == 1:
                 # When two locations per image, use simple description
-                return f"LEFTMOST BACKGROUND in Image {group_number}, (ignoring characters)"
+                return f"LEFTMOST SCENE in Image {group_number},"
             else:
-                return f"RIGHTMOST BACKGROUND in Image {group_number}, (ignoring characters)"
+                return f"RIGHTMOST SCENE in Image {group_number},"
         elif IMAGE_STITCH_COUNT == 3:
             if position_in_group == 1:
-                return f"LEFTMOST BACKGROUND in Image {group_number}, (ignoring characters)"
+                return f"LEFTMOST SCENE in Image {group_number},"
             elif position_in_group == 2:
-                return f"MIDDLE BACKGROUND in Image {group_number}, (ignoring characters)"
+                return f"MIDDLE SCENE in Image {group_number},"
             else:
-                return f"RIGHTMOST BACKGROUND in Image {group_number}, (ignoring characters)"
+                return f"RIGHTMOST SCENE in Image {group_number},"
         elif IMAGE_STITCH_COUNT == 4:
             if position_in_group == 1:
-                return f"LEFTMOST BACKGROUND in Image {group_number}, (ignoring characters)"
+                return f"LEFTMOST SCENE in Image {group_number},"
             elif position_in_group == 2:
-                return f"MIDDLE LEFT BACKGROUND in Image {group_number}, (ignoring characters)"
+                return f"MIDDLE LEFT SCENE in Image {group_number},"
             elif position_in_group == 3:
-                return f"MIDDLE RIGHT BACKGROUND in Image {group_number}, (ignoring characters)"
+                return f"MIDDLE RIGHT SCENE in Image {group_number},"
             else:
-                return f"RIGHTMOST BACKGROUND in Image {group_number}, (ignoring characters)"
+                return f"RIGHTMOST SCENE in Image {group_number},"
         elif IMAGE_STITCH_COUNT == 5:
             if position_in_group == 1:
-                return f"LEFTMOST BACKGROUND in Image {group_number}, (ignoring characters)"
+                return f"LEFTMOST SCENE in Image {group_number},"
             elif position_in_group == 2:
-                return f"MIDDLE LEFT BACKGROUND in Image {group_number}, (ignoring characters)"
+                return f"MIDDLE LEFT SCENE in Image {group_number},"
             elif position_in_group == 3:
-                return f"MIDDLE RIGHT BACKGROUND in Image {group_number}, (ignoring characters)"
+                return f"MIDDLE RIGHT SCENE in Image {group_number},"
             elif position_in_group == 4:
-                return f"RIGHTMOST BACKGROUND in Image {group_number}, (ignoring characters)"
+                return f"RIGHTMOST SCENE in Image {group_number},"
             else:
-                return f"CENTER BACKGROUND in Image {group_number}, (ignoring characters)"
+                return f"CENTER SCENE in Image {group_number},"
         else:
             # When multiple locations per image, use ordinal position
             ordinal_suffix = self._get_ordinal_suffix(position_in_group)
-            return f"{position_in_group}{ordinal_suffix} BACKGROUND from Left in Image {group_number}, (ignoring characters)"
+            return f"{position_in_group}{ordinal_suffix} SCENE from Left in Image {group_number},"
 
     def _replace_location_references(self, scene_description: str, location_ids: list[str], locations_data: dict[str, str]) -> str:
         """Replace {{loc_id}} references with position and location descriptions."""
@@ -611,7 +611,7 @@ class SceneGenerator:
                 
                 # Only add location details in TEXT and IMAGE_TEXT modes, skip in NONE and IMAGE mode
                 # Only add position description in IMAGE and IMAGE_TEXT modes, skip in NONE and TEXT mode
-                return f"{ "ADD ," +position_desc if self.location_mode in ['IMAGE', 'IMAGE_TEXT'] else 'ADD BACkGROUND,'} { "which should look like," + locations_data.get(loc_id, '')[:(LOCATION_WORD_LIMIT * WORD_FACTOR)] if self.location_mode in ['TEXT', 'IMAGE_TEXT'] else ''}, as background(non-black or non-white) of the entire illustration(scene). - "
+                return f"{ "ADD ," +position_desc if self.location_mode in ['IMAGE', 'IMAGE_TEXT'] else 'ADD SCENE,'} { "which should look like," + locations_data.get(loc_id, '')[:(LOCATION_WORD_LIMIT * WORD_FACTOR)] if self.location_mode in ['TEXT', 'IMAGE_TEXT'] else ''}, as background of the entire illustration."
             else:
                 # Location not found in the list, keep original
                 return full_match
@@ -639,7 +639,7 @@ class SceneGenerator:
                 # Create position description using helper method
                 position_desc = self._get_position_description(position_in_group, group_number)
                 # Only add character details in TEXT and IMAGE_TEXT modes, skip in NONE  and IMAGE mode.Only add position description in IMAGE and IMAGE_TEXT modes, skip in NONE and TEXT mode.
-                return f"\n{ "ADD ," +position_desc if self.character_mode in ['IMAGE', 'IMAGE_TEXT'] else 'ADD CHARACTER,'} { "which should look like," + characters_data[char_name][:(CHARACTER_WORD_LIMIT * WORD_FACTOR)] if self.character_mode in ['TEXT', 'IMAGE_TEXT'] else ''}, as one of the main characters of the illustration(scene). - "
+                return f"\n{ "ADD ," +position_desc if self.character_mode in ['IMAGE', 'IMAGE_TEXT'] else 'ADD CHARACTER,'} { "which should look like," + characters_data[char_name][:(CHARACTER_WORD_LIMIT * WORD_FACTOR)] if self.character_mode in ['TEXT', 'IMAGE_TEXT'] else ''}, as one of the main characters of the illustration."
             else:
                 # Character not found in the list, keep original
                 return full_match
@@ -650,7 +650,7 @@ class SceneGenerator:
 
     def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
-        return """Create a 16K ultra-high-resolution, illustration(scene) in the style of {ART_STYLE}.
+        return """Create a 16K ultra-high-resolution, illustration in the style of {ART_STYLE}.
         """.format(ART_STYLE=ART_STYLE)
 
     def _get_seed(self) -> int:
