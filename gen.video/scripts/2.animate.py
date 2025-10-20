@@ -1049,7 +1049,7 @@ class VideoAnimator:
             True if successful, False otherwise
         """
         try:
-            frame_duration = 1.0 / FRAMES_PER_SECOND
+            frame_duration = max(0.1, 1.0 / FRAMES_PER_SECOND)
             
             # Step 1: Remove first frame (trim from second frame onwards)
             trimmed_path = os.path.join(self.final_output_dir, f"temp_trimmed_{int(time.time())}.mp4")
