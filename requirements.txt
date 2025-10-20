@@ -16,6 +16,10 @@ torchaudio
 # Audio transcription
 openai-whisper
 
+# Fix numba/librosa compatibility - pin numba to avoid breaking changes
+numba<0.60.0
+librosa>=0.10.2
+
 # Image processing
 Pillow
 

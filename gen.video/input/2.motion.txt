@@ -1,10 +1,85 @@
-(motion_1.1) ((male_doctor_watson)) {Glances at paper, rustling pages slowly}; ((male_detective_holmes)) {Taps fingers lightly against window frame, tilting his head in thought}.
-(motion_1.2) ((male_doctor_watson)) {Sets newspaper upon his knee, fingers still clutching edge}; ((male_detective_holmes)) {Tilts chin toward the distant street, raising brows in subtle emphasis}.
-(motion_1.3) ((male_doctor_watson)) {Gives a small shrug, shifting comfortably on sofa}; ((male_detective_holmes)) {Paces a short distance from window toward fireplace, measured steps echoing faintly}.
-(motion_1.4) ((male_doctor_watson)) {Nods subtly, resting chin upon one hand}; ((male_detective_holmes)) {Moves hand with deliberate precision, pacing one step left, then pausing}.
-(motion_1.5) ((male_doctor_watson)) {Lifts coffee cup, taking a small sip}; ((male_detective_holmes)) {Allows a faint chuckle, tapping pipe stem lightly against mantelpiece}.
-(motion_1.6) ((male_doctor_watson)) {Straightens posture, folding newspaper neatly}; ((male_detective_holmes)) {Turns head sharply toward door as faint sound of carriage wheels approaches outside}.
-(motion_1.7) ((male_doctor_watson)) {Tilts head inquisitively}; ((male_detective_holmes)) {Smiles faintly, eyes glimmering with unspoken deduction}.
-(motion_1.8) ((male_doctor_watson)) {Leans forward upon sofa, gripping armrest}; ((male_detective_holmes)) {Steps slowly toward the door, measured as clockwork}.
-(motion_1.9) ((male_doctor_watson)) {Shakes head softly, lips curving upward}; ((male_detective_holmes)) {Pulls door wide, gesturing toward threshold}.
-(motion_1.10) ((male_doctor_watson)) {Takes two steps toward client, bowing head slightly}; ((male_detective_holmes)) {Extends arm courteously, ushering visitor inward}.
+(motion_1.1) turning pages slowly, occasionally lifting eyes; leaning forward slightly, tracing a line along the window ledge with a gloved fingertip;
+(motion_1.2) raising right hand, gesturing toward footprints; bending slightly, eyebrows arching;
+(motion_1.3) tilting head, resting hand on knee; rotating magnifying glass in hand, smiling faintly;
+(motion_1.4) moving magnifying glass slowly along sill; leaning nearer, adjusting stance;
+(motion_1.5) straightening posture, stepping backward slightly; walking steadily across carpet, setting glass down carefully;
+(motion_1.6) lifting lid of box delicately; bending slightly forward;
+(motion_1.7) raising head suddenly; rotating ring slowly under the light;
+(motion_1.8) bringing glass close to band, turning it slowly; tilting head, narrowing eyes;
+(motion_1.9) raising chin slightly, folding arms; lowering ring carefully, shutting box with thumb;
+(motion_1.10) placing box inside coat pocket; shifting weight from one foot to another;
+(motion_1.11) taking a firm stance; walking lightly, drawing curtain aside;
+(motion_1.12) stretching arm toward doorknob; taking two steps forward quickly;
+(motion_1.13) lifting veil slightly; bowing courteously; leaning a little to the right for better view;
+(motion_1.14) tightening grip on satchel; leaning forward slightly; adjusting stance, looking between them;
+(motion_1.15) pulling envelope slowly from satchel; narrowing eyes, leaning nearer; raising eyebrows slightly;
+(motion_1.16) breaking wax seal gently; folding hands together; tilting head downward slightly;
+(motion_1.17) lifting gaze toward window; eyes scanning pages rapidly; holding breath, fingers trembling faintly;
+(motion_2.1) raising collar against chill; tilting lantern toward cab door; drawing curtain slightly to peer outside;
+(motion_2.2) gesturing with hand toward cab driver; drawing revolver briefly, then concealing it again;
+(motion_2.3) resting hand upon carriage door; turning head slightly, eyes narrowing;
+(motion_2.4) opening box slightly, turning ring under lantern light; folding hands upon cane; fidgeting with satchel clasp;
+(motion_2.5) lowering eyes, hands trembling faintly; resting elbows upon knees; nodding slightly;
+(motion_2.6) extending letter forward; unfolding it neatly; rubbing mist from windowpane;
+(motion_2.7) tilting paper to catch light; adjusting spectacles; biting lip slightly;
+(motion_2.8) raising hands slightly in question; tapping index finger against chin; nodding once faintly;
+(motion_2.9) kneeling briefly, studying keyhole; lifting lantern higher; clutching shawl closer;
+(motion_2.10) turning head to scan shadows; inserting tool delicately into lock; taking half step backward;
+(motion_2.11) lifting lantern slowly side to side; moving carefully, glancing over shoulder; treading lightly between crates;
+(motion_2.12) touching floor delicately with fingertips; bending slightly forward; shaking head faintly;
+(motion_2.13) straightening posture sharply; raising soil to light; taking cautious step forward;
+(motion_2.14) turning pages briskly; glancing repeatedly toward doorway; placing hand against window frame;
+(motion_2.15) spinning slightly; tapping finger on ledger line; leaning forward to read;
+(motion_2.16) clenching fist slightly; snapping ledger shut; sinking slowly onto crate;
+(motion_2.17) walking swiftly toward exit; following close behind; tightening grip on satchel, hurrying after;
+(motion_2.18) glancing back over shoulder; placing lantern carefully down; closing cab door gently;
+(motion_3.1) glancing along shadowed wharf; lifting lantern slowly to survey gloom; tightening shawl about shoulders;
+(motion_3.2) touching print edge with fingertip; bending slightly, peering down; turning head nervously toward water;
+(motion_3.3) straightening quickly; stepping forward with measured stride; raising lantern a little higher;
+(motion_3.4) brushing dust from lettering; tilting head to read; moving lantern closer to wood surface;
+(motion_3.5) drumming fingers lightly on crate top; pressing fingertips together before lips; shifting weight from foot to foot;
+(motion_3.6) cutting wax carefully; scanning shadows along pier; lowering lantern slowly to illuminate chest;
+(motion_3.7) raising idol slowly to lantern light; bending nearer, eyes wide; turning face aside quickly;
+(motion_3.8) raising arm abruptly; lowering idol gently, pressing lid shut; holding satchel tightly to chest;
+(motion_3.9) lowering head slowly; reaching out one hand reassuringly; resting hand gently on shoulder;
+(motion_3.10) lifting head sharply toward sound of footsteps; turning body to face direction; raising lantern higher;
+(motion_3.11) raising revolver slightly; remaining utterly still, eyes fixed ahead; drawing breath silently, clutching post;
+(motion_3.12) slowly removing small pistol; steadying revolver against knee; remaining perfectly still;
+(motion_3.13) advancing slowly toward figure; moving in parallel path a few paces behind; clutching shawl tightly, trembling;
+(motion_3.14) extending arm steadily; lowering weapon slightly but ready; lifting head slowly to reveal faint smile;
+(motion_3.15) flinging parcel into river; lunging forward with sudden stride; extending arm instinctively;
+(motion_3.16) leaning over railing; exhaling slowly, scanning pier; disappearing into fog;
+(motion_3.17) lifting clasp delicately to lantern light; leaning closer for view; taking small step nearer;
+(motion_3.18) slipping clasp into pocket; re-holstering weapon; lifting chin slightly;
+(motion_3.19) turning head slightly; lowering gaze toward rippling water; remaining motionless, veil fluttering lightly in breeze;
+(motion_4.1) shifting weight, folding arms; rotating clasp and ring slowly; leaning forward, hands clasped;
+(motion_4.2) tracing serpent engraving with fingertip; leaning closer; clutching shawl tighter;
+(motion_4.3) bringing magnifier close to ring; leaning forward slightly; clutching satchel tighter;
+(motion_4.4) aligning clasp to ring carefully; tilting head; hands trembling slightly;
+(motion_4.5) lifting small compartment flap; leaning closer; reaching slightly forward;
+(motion_4.6) carefully lifting journal; extending hand with care; folding arms;
+(motion_4.7) striding toward exit; walking in step; catching up;
+(motion_4.8) leaning forward slightly; raising hand to shield eyes; shifting weight nervously;
+(motion_4.9) moving quietly along plank; stepping cautiously behind; clutching shawl;
+(motion_4.10) stepping forward to intercept; raising revolver slightly; shifting weight nervously;
+(motion_4.11) slowly opening chest; leaning slightly forward; watching intently;
+(motion_4.12) kneeling to lift journal; smiling faintly; folding arms;
+(motion_4.13) turning head slightly; lowering gaze toward rippling water; remaining motionless, holding journal tightly;
+(motion_4.14) tilting head, eyes scanning surface; leaning forward slightly; tightening grip on journal;
+(motion_4.15) turning slightly; gazing at water ripples; rocking slightly on feet;
+(motion_4.16) slightly leaning forward; folding arms; lifting chin slightly;
+(motion_4.17) sighing softly; nodding faintly; smiling slightly;
+(motion_4.18) striding toward cab; walking in step; catching up quickly;
+(motion_4.19) straightening posture; sliding journal into coat pocket; smiling slightly, clasping hands;
+(motion_4.20) sliding into cab; closing cab door; settling back into seat;
+(motion_4.21) folding hands; tilting journal slightly to examine; leaning slightly forward, watching;
+(motion_5.1) folding hands; tilting journal to examine; leaning slightly forward;
+(motion_5.2) striding quickly; matching pace, glancing around; walking cautiously;
+(motion_5.3) leaning slightly forward, eyes scanning; raising hand to shield eyes; stepping back slightly;
+(motion_5.4) stepping forward aggressively; raising journal slightly; tightening grip on revolver;
+(motion_5.5) slowly lowering hands; stepping forward slightly; steadying revolver;
+(motion_5.6) lifting items carefully; leaning forward slightly; extending hands cautiously;
+(motion_5.7) placing items in satchel; folding arms; smiling slightly;
+(motion_5.8) placing ring carefully; nodding slightly; sighing with relief;
+(motion_5.9) tilting journal slightly; folding hands on lap; adjusting grip on journal;
+(motion_5.10) gazing through window; folding hands on lap; slightly smiling;

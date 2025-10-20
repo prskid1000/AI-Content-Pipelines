@@ -15,14 +15,13 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
 # Video configuration constants
-VIDEO_WIDTH = 1152
-VIDEO_HEIGHT = 768
+VIDEO_WIDTH = 1024
+VIDEO_HEIGHT = 576
 FRAMES_PER_SECOND = 24
 CHUNK_SIZE = 3
 
-
 # Feature flags
-ENABLE_SCENE = True # Set to True to add scene prompts from 3.scene.txt
+ENABLE_SCENE = False # Set to True to add scene prompts from 3.scene.txt
 ENABLE_LOCATION_IN_SCENE = False # Set to True to add location prompts from 3.location.txt
 ENABLE_CHARACTER_IN_MOTION = False # Set to True to add character prompts from 2.character.txt in motion prompts
 
@@ -1218,6 +1217,10 @@ class VideoAnimator:
         """Get the negative prompt for animation."""
         return "worst quality, low quality, blurry, distortion, artifacts, noisy,logo,text, words, letters, writing, caption, subtitle, title, label, watermark, text, extra limbs, extra fingers, bad anatomy, poorly drawn face, asymmetrical features, plastic texture, uncanny valley"
 
+    def _get_positive_prompt(self) -> str:
+        """Get the negative prompt for animation."""
+        return "Shot taken with Fixed Camera Position, Camera Angle and Camera Focus."
+
     def _load_base_workflow(self) -> dict:
         """Load the base animation workflow."""
         try:
@@ -1258,7 +1261,7 @@ class VideoAnimator:
 
         # Get prompts
         negative_prompt = self._get_negative_prompt()
-        positive_prompt = scene_description
+        positive_prompt = self._get_positive_prompt() + "\n" + scene_description
 
         if ENABLE_SCENE:
             if locations_data:

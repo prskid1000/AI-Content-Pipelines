@@ -20,15 +20,16 @@ DIALOGUE-SCENE-MOTION FORMAT:
 
 [male_doctor_watson] "It was a calm morning....";
 (scene_1.1) {{loc_1, Victorian living room with sofa and fireplace}}, {Weather/Season/Time: sunny winter morning}; ((male_doctor_watson){Face Relative Direction: toward fireplace}{Looking Relative Direction: at newspaper}{Facial Expression: neutral}, {Relative Location: left side of sofa},{Body Facing Relative Direction: toward fireplace},{Body Posture: sitting},{Primary Action: reading};
-(motion_1.1) ((male_doctor_watson)) {turning newspaper pages slowly};
+(motion_1.1) newspaper moving, turning face, talking.
 
 [male_detective_holmes] "Look, Watson....";
 (scene_1.2) {{loc_2, Victorian living room with dinning and fireplace}}, {Weather/Season/Time: sunny winter morning};(male_detective_holmes){Face Relative Direction: toward window}{Looking Relative Direction: at window}{Facial Expression: curious}, {Relative Location: standing near dining table},{Body Facing Relative Direction: toward window},{Body Posture: standing},{Primary Action: drinking water});
 (motion_1.2) ((male_detective_holmes)) {pointing finger toward window};
+(motion_1.1) talking, drinking water.
 
 ....
 
 [gender_profession_actor_name] ....dialogue_i.j; start & end in same line as of [].
 (scene_i.j) {{loc_k, Description of at max 12 words}}, {Weather/Season/Time: x};
 ((gender_profession_actor_name - only one, either dialogue speaker or main subject of dialogue)){Face Relative Direction: x}{Looking Relative Direction: x}{Facial Expression: x}, {Relative Location: x},{Body Facing Relative Direction: x},{Body Posture: x}, {Primary Action: x};start & end in same line as of ().
-(motion_i.j) ((gender_profession_actor_name - used in scene_i.j)) {can be body movment or other object movment caused by actor}; start & end in same line as of [].
+(motion_i.j) Sequence of ACTION WORDS, relevant to the scene, without Subject or Actor.
