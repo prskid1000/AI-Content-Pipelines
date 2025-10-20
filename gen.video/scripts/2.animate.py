@@ -15,19 +15,17 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
 # Video configuration constants
-VIDEO_WIDTH = 1024
-VIDEO_HEIGHT = 576
+VIDEO_WIDTH = 1280
+VIDEO_HEIGHT = 720
 FRAMES_PER_SECOND = 24
+CHUNK_SIZE = 5
 
 # Prompt format configuration (inline replacement, similar to scene generation)
-# Characters in scene: ((Alice)) -> "\nCharacter which should look like, {description}, as one of the main characters"
 # Locations in scene: {{loc_1}} -> "\nScene which should look like, {description}, as background of the entire illustration"
 # Characters in motion: ((Alice)) {walks} -> "Character which should look like, {description}, as one of the main characters {walks}"
 # Motion: Added as separate "MOTION PROMPT:" section with character descriptions replaced inline
 ENABLE_MOTION = True     # Set to True to add motion prompts from 2.motion.txt (with inline character replacements)
-ENABLE_SCENE = True      # Set to True to include scene descriptions
 ENABLE_LOCATION = True   # Set to True to replace {{loc_1}} with location descriptions from 3.location.txt
-ENABLE_CHARACTER = True  # Set to True to replace ((character)) with character descriptions from 2.character.txt
 ENABLE_CHARACTER_IN_MOTION = True  # Set to True to replace ((character)) with character descriptions from 2.character.txt in motion prompts
 
 ART_STYLE = "Anime"
@@ -65,6 +63,10 @@ class ResumableState:
             "videos": {
                 "completed": [],
                 "results": {}
+            },
+            "chunks": {
+                "completed": [],
+                "results": {}
             }
         }
     
@@ -91,6 +93,23 @@ class ResumableState:
             self.state["videos"]["completed"].append(scene_name)
         self._save_state()
     
+    def is_chunk_complete(self, chunk_id: str) -> bool:
+        """Check if a chunk is complete."""
+        return chunk_id in self.state.get("chunks", {}).get("completed", [])
+    
+    def get_chunk_result(self, chunk_id: str) -> dict:
+        """Get chunk result."""
+        return self.state.get("chunks", {}).get("results", {}).get(chunk_id, {})
+    
+    def set_chunk_result(self, chunk_id: str, result: dict):
+        """Set chunk result and mark as complete."""
+        if "chunks" not in self.state:
+            self.state["chunks"] = {"completed": [], "results": {}}
+        self.state["chunks"]["results"][chunk_id] = result
+        if chunk_id not in self.state["chunks"]["completed"]:
+            self.state["chunks"]["completed"].append(chunk_id)
+        self._save_state()
+    
     def cleanup(self):
         """Clean up tracking files based on configuration setting."""
         try:
@@ -103,13 +122,14 @@ class ResumableState:
             print(f"WARNING: Error in cleanup: {ex}")
     
     def validate_and_cleanup_results(self) -> int:
-        """Validate that all completed video files actually exist and clean up missing entries.
+        """Validate that all completed video/chunk files actually exist and clean up missing entries.
         
         Returns:
             int: Number of entries cleaned up (removed from completed list)
         """
         cleaned_count = 0
         videos_to_remove = []
+        chunks_to_remove = []
         
         # Check each completed video
         for scene_name in self.state["videos"]["completed"]:
@@ -131,12 +151,32 @@ class ResumableState:
                 videos_to_remove.append(scene_name)
                 cleaned_count += 1
         
-        # Remove invalid entries
+        # Check each completed chunk
+        chunks_state = self.state.get("chunks", {})
+        for chunk_id in chunks_state.get("completed", []):
+            result = chunks_state.get("results", {}).get(chunk_id, {})
+            file_path = result.get('path')
+            
+            # Check if chunk file actually exists
+            if not file_path or not os.path.exists(file_path):
+                print(f"Precheck: Chunk file missing for {chunk_id} - marking as not completed")
+                chunks_to_remove.append(chunk_id)
+                cleaned_count += 1
+        
+        # Remove invalid video entries
         for scene_name in videos_to_remove:
             if scene_name in self.state["videos"]["completed"]:
                 self.state["videos"]["completed"].remove(scene_name)
             if scene_name in self.state["videos"]["results"]:
                 del self.state["videos"]["results"][scene_name]
+        
+        # Remove invalid chunk entries
+        if "chunks" in self.state:
+            for chunk_id in chunks_to_remove:
+                if chunk_id in self.state["chunks"]["completed"]:
+                    self.state["chunks"]["completed"].remove(chunk_id)
+                if chunk_id in self.state["chunks"]["results"]:
+                    del self.state["chunks"]["results"][chunk_id]
         
         # Save cleaned state if any changes were made
         if cleaned_count > 0:
@@ -150,7 +190,10 @@ class ResumableState:
         completed = len(self.state["videos"]["completed"])
         total = len(self.state["videos"]["results"]) + len([k for k in self.state["videos"]["results"].keys() if k not in self.state["videos"]["completed"]])
         
-        return f"Progress: Videos({completed}/{total})"
+        chunks_completed = len(self.state.get("chunks", {}).get("completed", []))
+        chunks_total = len(self.state.get("chunks", {}).get("results", {}))
+        
+        return f"Progress: Videos({completed}/{total}), Chunks({chunks_completed}/{chunks_total})"
 
 
 def print_flush(*args, **kwargs):
@@ -617,29 +660,6 @@ class VideoAnimator:
             print_flush(f"ERROR: Failed to read location data: {e}")
         return locations
 
-    def _replace_character_references(self, scene_description: str, characters_data: dict[str, str]) -> str:
-        """Replace ((character_name)) references with character descriptions inline.
-        
-        Format: ((Alice)) -> character which should look like, {detailed description}, as one of the main characters
-        """
-        if not ENABLE_CHARACTER or not characters_data:
-            return scene_description
-        
-        def replace_character_func(match):
-            full_match = match.group(0)
-            char_name = match.group(1).strip()
-            
-            if char_name in characters_data:
-                # Replace with inline character description
-                return f"\nCharacter which should look like, {characters_data[char_name]}, as one of the main characters"
-            else:
-                # Character not found, keep original
-                return full_match
-        
-        # Replace ((character_name)) patterns with descriptions
-        result = re.sub(r'\(\(([^)]+)\)\)', replace_character_func, scene_description)
-        return result
-
     def _replace_location_references(self, scene_description: str, locations_data: dict[str, str]) -> str:
         """Replace {{loc_id}} references with location descriptions inline.
         
@@ -656,7 +676,7 @@ class VideoAnimator:
             
             if loc_id in locations_data:
                 # Replace with inline location description
-                return f"\nScene which should look like, {locations_data[loc_id]}, as background of the entire illustration"
+                return f"\nScene should look like, {locations_data[loc_id]}, as background of the entire illustration."
             else:
                 # Location not found, keep original
                 return full_match
@@ -679,7 +699,7 @@ class VideoAnimator:
             
             if char_name in characters_data:
                 # Replace with inline character description for motion
-                return f"Character which looks like, {characters_data[char_name]}, should move like,"
+                return f"\nCharacter which looks like, {characters_data[char_name]}, should move like,"
             else:
                 # Character not found, keep original
                 return full_match
@@ -751,7 +771,7 @@ class VideoAnimator:
             List of (chunk_filename, frame_count) tuples
         """
         total_frames = self._calculate_frame_count(duration)
-        max_frames_per_chunk = 8 * FRAMES_PER_SECOND + 1
+        max_frames_per_chunk = CHUNK_SIZE * FRAMES_PER_SECOND + 1
         
         if total_frames <= max_frames_per_chunk:
             # Single video
@@ -1253,21 +1273,12 @@ class VideoAnimator:
         if locations_data:
             processed_scene_description = self._replace_location_references(processed_scene_description, locations_data)
             print_flush(f"📍 Replaced location references with descriptions")
-        
-        # Step 2: Replace character references with inline descriptions
-        if characters_data:
-            processed_scene_description = self._replace_character_references(processed_scene_description, characters_data)
-            if character_names:
-                print_flush(f"🎭 Replaced character references for: {', '.join(character_names)}")
 
         # Combine animation prompt with processed scene description
-        full_prompt = f"{animation_prompt}"
-
-        if ENABLE_SCENE:
-            full_prompt += f"\n\n{processed_scene_description}"
+        full_prompt = f"{animation_prompt}\n{processed_scene_description}"
         
         # Add motion prompts if available (with inline character replacements)
-        if motion_data and ENABLE_MOTION:
+        if motion_data:
             # Try to find matching motion for this scene
             # Extract scene ID (remove "scene_" prefix if present, then remove chunk suffix)
             # e.g., "scene_1.1_2" -> "1.1_2" -> "1.1" -> "motion_1.1"
@@ -1299,13 +1310,6 @@ class VideoAnimator:
         # Update workflow nodes
         # Set positive prompt (node 6)
         workflow["6"]["inputs"]["text"] = full_prompt
-        
-        # Debug: Show final prompt structure
-        print_flush(f"📝 Final animation prompt for {scene_id}:")
-        print_flush(f"   Characters: {len(character_names)} found: {character_names}")
-        print_flush(f"   Prompt length: {len(full_prompt)} chars")
-        print_flush(f"   Structure: Art Style + Scene (inline char/loc) + Motion (inline char)")
-        
         # Set negative prompt (node 7)
         workflow["7"]["inputs"]["text"] = negative_prompt
         
@@ -1372,6 +1376,21 @@ class VideoAnimator:
             
             for chunk_idx, (chunk_suffix, chunk_frames) in enumerate(chunks):
                 chunk_scene_id = f"{scene_id}{chunk_suffix}"
+                
+                # Check if this chunk is already complete
+                if resumable_state and resumable_state.is_chunk_complete(chunk_scene_id):
+                    cached_chunk = resumable_state.get_chunk_result(chunk_scene_id)
+                    if cached_chunk and cached_chunk.get('path'):
+                        chunk_path = cached_chunk['path']
+                        if os.path.exists(chunk_path):
+                            print(f"✅ Using cached chunk: {chunk_scene_id}")
+                            generated_videos.append(chunk_path)
+                            # Update current input image for next chunk continuity
+                            current_input_image = cached_chunk.get('last_frame_filename', image_filename)
+                            continue
+                        else:
+                            print(f"⚠️ Cached chunk file missing, regenerating: {chunk_scene_id}")
+                
                 print(f"Generating chunk: {chunk_scene_id} ({chunk_frames} frames)")
                 
                 # For subsequent chunks, use the last frame of the previous chunk as input
@@ -1443,6 +1462,20 @@ class VideoAnimator:
                 shutil.copy2(generated_video, final_path)
                 print(f"Saved video: {final_path}")
                 generated_videos.append(final_path)
+                
+                # Save chunk to checkpoint
+                if resumable_state:
+                    chunk_result = {
+                        'path': final_path,
+                        'chunk_id': chunk_scene_id,
+                        'scene_id': scene_id,
+                        'chunk_idx': chunk_idx,
+                        'chunk_suffix': chunk_suffix,
+                        'frame_count': chunk_frames,
+                        'last_frame_filename': current_input_image
+                    }
+                    resumable_state.set_chunk_result(chunk_scene_id, chunk_result)
+                    print(f"💾 Checkpoint saved for chunk: {chunk_scene_id}")
             
             # Note: Frame files are preserved in output/frames/ for debugging and inspection
             

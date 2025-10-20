@@ -1,4 +1,4 @@
 @echo off
 cd /d %~dp0
-python ComfyUI\main.py --cpu --listen
+python ComfyUI\main.py --cpu --listen --disable-mmap
 pause
