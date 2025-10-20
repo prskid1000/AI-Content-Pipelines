@@ -672,7 +672,7 @@ class VideoAnimator:
             
             if loc_id in locations_data:
                 # Replace with inline location description
-                return f"\SCENE, {locations_data[loc_id]}, as background of the entire illustration."
+                return f"\nSCENE, {locations_data[loc_id]}, as background of the entire illustration."
             else:
                 # Location not found, keep original
                 return full_match
@@ -695,7 +695,7 @@ class VideoAnimator:
             
             if char_name in characters_data:
                 # Replace with inline character description for motion
-                return f"\CHARACTER, {char_name}, which looks like, {characters_data[char_name]},"
+                return f"\nCHARACTER, {char_name}, which looks like, {characters_data[char_name]},"
             else:
                 # Character not found, keep original
                 return full_match
