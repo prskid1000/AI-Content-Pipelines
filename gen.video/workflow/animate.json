@@ -94,7 +94,7 @@
       "filename_prefix": "ltxv-base",
       "format": "video/h264-mp4",
       "pix_fmt": "yuv420p",
-      "crf": 0,
+      "crf": 1,
       "save_metadata": true,
       "trim_to_audio": false,
       "pingpong": false,
@@ -117,7 +117,7 @@
       "optional_cond_indices": "0",
       "strength": 1,
       "crop": "center",
-      "crf": 0,
+      "crf": 1,
       "blur": 0,
       "model": [
         "1891",
