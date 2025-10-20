@@ -16,19 +16,15 @@ WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary print
 
 # Video configuration constants
 VIDEO_WIDTH = 1280
-VIDEO_HEIGHT = 720
+VIDEO_HEIGHT = 736
 FRAMES_PER_SECOND = 24
 CHUNK_SIZE = 5
 
-# Prompt format configuration (inline replacement, similar to scene generation)
-# Locations in scene: {{loc_1}} -> "\nScene which should look like, {description}, as background of the entire illustration"
-# Characters in motion: ((Alice)) {walks} -> "Character which should look like, {description}, as one of the main characters {walks}"
-# Motion: Added as separate "MOTION PROMPT:" section with character descriptions replaced inline
-ENABLE_MOTION = True     # Set to True to add motion prompts from 2.motion.txt (with inline character replacements)
-ENABLE_LOCATION = True   # Set to True to replace {{loc_1}} with location descriptions from 3.location.txt
-ENABLE_CHARACTER_IN_MOTION = True  # Set to True to replace ((character)) with character descriptions from 2.character.txt in motion prompts
 
-ART_STYLE = "Anime"
+# Feature flags
+ENABLE_SCENE = True # Set to True to add scene prompts from 3.scene.txt
+ENABLE_LOCATION_SCENE = True # Set to True to add location prompts from 3.location.txt
+ENABLE_CHARACTER_IN_MOTION = True # Set to True to add character prompts from 2.character.txt in motion prompts
 
 USE_SUMMARY_TEXT = False  # Set to True to use summary text
 
@@ -665,7 +661,7 @@ class VideoAnimator:
         
         Format: {{loc_forest}} -> scene which should look like, {detailed description}, as background
         """
-        if not ENABLE_LOCATION or not locations_data:
+        if not ENABLE_LOCATION_SCENE or not locations_data:
             return scene_description
         
         def replace_func(match):
@@ -676,7 +672,7 @@ class VideoAnimator:
             
             if loc_id in locations_data:
                 # Replace with inline location description
-                return f"\nScene should look like, {locations_data[loc_id]}, as background of the entire illustration."
+                return f"\SCENE, {locations_data[loc_id]}, as background of the entire illustration."
             else:
                 # Location not found, keep original
                 return full_match
@@ -699,7 +695,7 @@ class VideoAnimator:
             
             if char_name in characters_data:
                 # Replace with inline character description for motion
-                return f"\nCharacter which looks like, {characters_data[char_name]}, should move like,"
+                return f"\CHARACTER, {char_name}, which looks like, {characters_data[char_name]},"
             else:
                 # Character not found, keep original
                 return full_match
@@ -838,41 +834,35 @@ class VideoAnimator:
             print(f"❌ Error copying saved frames: {e}")
 
     def _find_last_saved_frame(self, scene_id: str, chunk_suffix: str = "") -> Optional[str]:
-        """Find the last saved frame from ComfyUI output for a specific scene and chunk.
-        
-        Args:
-            scene_id: The scene ID (e.g., "scene_1.1")
-            chunk_suffix: The chunk suffix (e.g., "_1", "_2", etc.)
-            
-        Returns:
-            Path to the last saved frame, or None if not found
-        """
+        """Find the last saved frame from ComfyUI output for a specific scene and chunk."""
         try:
-            frame_prefix = f"{scene_id}{chunk_suffix}_frame"
+            frame_prefix = f"{scene_id}{chunk_suffix}.frame_"
+            print(f"🔍 Frame prefix: {frame_prefix}")
             
-            if not os.path.isdir(self.comfyui_output_folder):
+            if not os.path.isdir(self.frames_output_dir):
+                print(f"❌ Frames directory not found: {self.frames_output_dir}")
                 return None
             
-            # Find all frames with the prefix
+            # Find all matching frames and extract frame numbers
             matching_frames = []
-            for root, _, files in os.walk(self.comfyui_output_folder):
+            for root, _, files in os.walk(self.frames_output_dir):
                 for name in files:
                     if name.startswith(frame_prefix) and name.endswith('.png'):
-                        full_path = os.path.join(root, name)
-                        try:
-                            mtime = os.path.getmtime(full_path)
-                            matching_frames.append((full_path, mtime))
-                        except OSError:
-                            continue
+                        frame_match = re.search(r'.frame_(\d+)\.png$', name)
+                        if frame_match:
+                            frame_number = int(frame_match.group(1))
+                            full_path = os.path.join(root, name)
+                            matching_frames.append((full_path, frame_number))
             
             if not matching_frames:
                 return None
+
+            print(f"🔍 Matching frames: {len(matching_frames)}")
             
-            # Sort by modification time and get the latest
-            matching_frames.sort(key=lambda x: x[1], reverse=True)
-            latest_frame = matching_frames[0][0]
-            
-            return latest_frame
+            # Get the frame with highest number
+            latest_frame = max(matching_frames, key=lambda x: x[1])
+            print_flush(f"🔍 Found last frame: {os.path.basename(latest_frame[0])} (frame #{latest_frame[1]})")
+            return latest_frame[0]
             
         except Exception as e:
             print(f"❌ Error finding last saved frame: {e}")
@@ -1224,10 +1214,6 @@ class VideoAnimator:
             return full_path
         return None
 
-    def _get_animation_prompt(self) -> str:
-        """Get the master animation prompt."""
-        return """ Use the style of {ART_STYLE}.""".format(ART_STYLE=ART_STYLE)
-
     def _get_negative_prompt(self) -> str:
         """Get the negative prompt for animation."""
         return "worst quality, low quality, blurry, distortion, artifacts, noisy,logo,text, words, letters, writing, caption, subtitle, title, label, watermark, text, extra limbs, extra fingers, bad anatomy, poorly drawn face, asymmetrical features, plastic texture, uncanny valley"
@@ -1253,37 +1239,44 @@ class VideoAnimator:
             print(f"ERROR: Failed to copy image {image_path}: {e}")
             return None
 
-    def _build_animation_workflow(self, scene_id: str, scene_description: str, image_filename: str, duration: float = None, characters_data: dict[str, str] = None, motion_data: dict[str, str] = None, locations_data: dict[str, str] = None, frame_count: int = None) -> dict:
-        """Build animation workflow with scene image and description."""
+    def _build_animation_workflow(self, chunk_scene_id: str, scene_description: str, image_filename: str, duration: float = None, characters_data: dict[str, str] = None, motion_data: dict[str, str] = None, locations_data: dict[str, str] = None, frame_count: int = None) -> dict:
+        """Build animation workflow with scene image and description.
+        
+        Args:
+            chunk_scene_id: The chunk scene ID (e.g., "scene_1.1" or "scene_1.1_2" for chunk 2)
+            scene_description: Visual description of the scene
+            image_filename: Input image filename in ComfyUI input folder
+            duration: Duration of video in seconds
+            characters_data: Character descriptions for inline replacement
+            motion_data: Motion prompts for scenes
+            locations_data: Location descriptions for inline replacement
+            frame_count: Number of frames to generate (overrides duration)
+        """
         workflow = self._load_base_workflow()
         if not workflow:
             return {}
 
         # Get prompts
-        animation_prompt = self._get_animation_prompt()
         negative_prompt = self._get_negative_prompt()
-        
-        # Extract characters from scene description (for logging)
-        character_names = self._extract_characters_from_scene(scene_description)
-        
-        # Process scene description with inline replacements (similar to 3.scene.py)
-        processed_scene_description = scene_description
-        
-        # Step 1: Replace location references with inline descriptions
-        if locations_data:
-            processed_scene_description = self._replace_location_references(processed_scene_description, locations_data)
-            print_flush(f"📍 Replaced location references with descriptions")
+        positive_prompt = scene_description
 
-        # Combine animation prompt with processed scene description
-        full_prompt = f"{animation_prompt}\n{processed_scene_description}"
+        if ENABLE_SCENE:
+            if locations_data:
+                positive_prompt = self._replace_location_references(positive_prompt, locations_data)
+                print_flush(f"📍 Replaced location references with descriptions")
         
         # Add motion prompts if available (with inline character replacements)
         if motion_data:
             # Try to find matching motion for this scene
             # Extract scene ID (remove "scene_" prefix if present, then remove chunk suffix)
             # e.g., "scene_1.1_2" -> "1.1_2" -> "1.1" -> "motion_1.1"
-            clean_scene_id = self._extract_scene_id(scene_id)
-            clean_scene_id = clean_scene_id.split('_')[0]  # Remove chunk number
+            # or "scene_1_1_2" -> "1_1_2" -> "1_1" -> "motion_1_1"
+            clean_scene_id = self._extract_scene_id(chunk_scene_id)
+            # Remove only the LAST underscore+number (chunk suffix) if it exists
+            # This handles both dot and underscore scene IDs correctly
+            if '_' in clean_scene_id and clean_scene_id.split('_')[-1].isdigit():
+                # Has chunk suffix, remove it
+                clean_scene_id = clean_scene_id.rsplit('_', 1)[0]
             scene_motion_id = f"motion_{clean_scene_id}"
             if scene_motion_id in motion_data:
                 motion_prompt = motion_data[scene_motion_id]
@@ -1293,7 +1286,7 @@ class VideoAnimator:
                     print_flush(f"🎬 Added motion prompt with inline character replacements for {clean_scene_id}")
                 else:
                     print_flush(f"🎬 Added motion prompt for {clean_scene_id}")
-                full_prompt += f"\n{motion_prompt}"
+                positive_prompt  += f"\n{motion_prompt}"
             else:
                 print_flush(f"⚠️ No motion data found for scene {clean_scene_id} (looking for {scene_motion_id})")
         
@@ -1302,14 +1295,14 @@ class VideoAnimator:
             if duration is not None:
                 frame_count = self._calculate_frame_count(duration)
             else:
-                print(f"Duration is not provided for {scene_id}")
+                print(f"Duration is not provided for {chunk_scene_id}")
                 frame_count = 121  # Default fallback
 
-        print_flush(f"Full prompt: {full_prompt}")
+        print_flush(f"Full prompt: {positive_prompt}")
         
         # Update workflow nodes
         # Set positive prompt (node 6)
-        workflow["6"]["inputs"]["text"] = full_prompt
+        workflow["6"]["inputs"]["text"] = positive_prompt
         # Set negative prompt (node 7)
         workflow["7"]["inputs"]["text"] = negative_prompt
         
@@ -1317,10 +1310,10 @@ class VideoAnimator:
         workflow["1206"]["inputs"]["image"] = image_filename
         
         # Set output filename prefix (node 1336)
-        workflow["1336"]["inputs"]["filename_prefix"] = f"{scene_id}_animate"
+        workflow["1336"]["inputs"]["filename_prefix"] = f"{chunk_scene_id}_animate"
         
         # Set save image filename prefix (node 2000)
-        workflow["2000"]["inputs"]["filename_prefix"] = f"{scene_id}_frame"
+        workflow["2000"]["inputs"]["filename_prefix"] = f"{chunk_scene_id}_frame"
         
         # Update video dimensions and frame settings
         if "1241" in workflow:  # LTXVConditioning node
@@ -1386,7 +1379,26 @@ class VideoAnimator:
                             print(f"✅ Using cached chunk: {chunk_scene_id}")
                             generated_videos.append(chunk_path)
                             # Update current input image for next chunk continuity
-                            current_input_image = cached_chunk.get('last_frame_filename', image_filename)
+                            cached_frame = cached_chunk.get('last_frame_filename', image_filename)
+                            # Verify the cached frame file exists in ComfyUI input folder
+                            cached_frame_path = os.path.join(self.comfyui_input_folder, cached_frame)
+                            if os.path.exists(cached_frame_path):
+                                current_input_image = cached_frame
+                                print_flush(f"🔄 Cached chunk continuity: will use {cached_frame} for next chunk")
+                            else:
+                                # Frame file missing, try to find it from saved frames
+                                print_flush(f"⚠️ Cached frame file missing: {cached_frame}, will search for last saved frame")
+                                last_saved_frame = self._find_last_saved_frame(scene_id, chunk_suffix)
+                                if last_saved_frame:
+                                    # Copy to input folder
+                                    last_frame_filename = f"{chunk_scene_id}_last_frame.png"
+                                    comfyui_frame_path = os.path.join(self.comfyui_input_folder, last_frame_filename)
+                                    shutil.copy2(last_saved_frame, comfyui_frame_path)
+                                    current_input_image = last_frame_filename
+                                    print_flush(f"🔄 Recovered cached chunk continuity: using {last_frame_filename}")
+                                else:
+                                    current_input_image = image_filename
+                                    print_flush(f"⚠️ Could not recover continuity, will use original image")
                             continue
                         else:
                             print(f"⚠️ Cached chunk file missing, regenerating: {chunk_scene_id}")
@@ -1638,11 +1650,11 @@ class VideoAnimator:
             print_flush("⚠️ No motion data found - animations will use basic motion prompts only")
         
         # Read location data
-        locations_data = self._read_location_data() if ENABLE_LOCATION else {}
-        if ENABLE_LOCATION and locations_data:
+        locations_data = self._read_location_data()
+        if locations_data:
             print_flush(f"📍 Loaded {len(locations_data)} location descriptions")
-        elif ENABLE_LOCATION:
-            print_flush("⚠️ Location info enabled but no location data found")
+        else:
+            print_flush("⚠️ No location data found")
         
         if len(durations) != len(scenes):
             print_flush(f"⚠️ Count mismatch: timeline entries={len(durations)} vs scenes={len(scenes)}. Proceeding with min count.")
@@ -1652,9 +1664,6 @@ class VideoAnimator:
         if not combined_scenes:
             print_flush("❌ Failed to combine scenes or scenes appear non-contiguously.")
             return {}
-
-        # Get available scene images
-        scene_images = self._get_available_scene_images()
         
         # Find scenes that have both description and image
         available_scenes = {}
@@ -1947,6 +1956,12 @@ class VideoAnimator:
         elif node_type == "VAELoader":
             print(f"{indent}🔄 VAE: {node_inputs.get('vae_name', 'N/A')}")
             
+        elif node_type == "VAEDecodeTiled":
+            print(f"{indent}🔲 Tile Size: {node_inputs.get('tile_size', 'N/A')}")
+            print(f"{indent}🔗 Overlap: {node_inputs.get('overlap', 'N/A')}")
+            print(f"{indent}⏱️ Temporal Size: {node_inputs.get('temporal_size', 'N/A')}")
+            print(f"{indent}🔗 Temporal Overlap: {node_inputs.get('temporal_overlap', 'N/A')}")
+            
         elif node_type == "CLIPLoader":
             print(f"{indent}📖 Type: CLIPLoader")
             print(f"{indent}📁 Clip: {node_inputs.get('clip_name', 'N/A')}")
@@ -1955,7 +1970,7 @@ class VideoAnimator:
             
         # Show any other relevant parameters
         for key, value in node_inputs.items():
-            if key not in ['model', 'clip', 'vae', 'pixels', 'samples', 'image', 'text', 'lora_name', 'strength_model', 'strength_clip', 'model_name', 'device', 'width', 'height', 'num_frames', 'strength', 'crop', 'crf', 'blur', 'frame_rate', 'skip_steps_sigma_threshold', 'cfg_star_rescale', 'noise_seed', 'string', 'timestep', 'scale', 'sampler_name', 'loop_count', 'filename_prefix', 'format', 'pix_fmt', 'vae_name', 'clip_name', 'type']:
+            if key not in ['model', 'clip', 'vae', 'pixels', 'samples', 'image', 'text', 'lora_name', 'strength_model', 'strength_clip', 'model_name', 'device', 'width', 'height', 'num_frames', 'strength', 'crop', 'crf', 'blur', 'frame_rate', 'skip_steps_sigma_threshold', 'cfg_star_rescale', 'noise_seed', 'string', 'timestep', 'scale', 'sampler_name', 'loop_count', 'filename_prefix', 'format', 'pix_fmt', 'vae_name', 'clip_name', 'type', 'tile_size', 'overlap', 'temporal_size', 'temporal_overlap']:
                 if isinstance(value, (str, int, float, bool)) and len(str(value)) < 50:
                     print(f"{indent}⚙️ {key}: {value}")
 

@@ -80,11 +80,15 @@
       "vae": [
         "1892",
         0
-      ]
+      ],
+      "tile_size": 512,
+      "overlap": 32,
+      "temporal_size": 8,
+      "temporal_overlap": 4
     },
-    "class_type": "VAEDecode",
+    "class_type": "VAEDecodeTiled",
     "_meta": {
-      "title": "VAE Decode"
+      "title": "VAE Decode (Tiled)"
     }
   },
   "1336": {

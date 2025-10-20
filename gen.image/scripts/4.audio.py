@@ -319,10 +319,6 @@ class AudioTimelineProcessor:
                         scene_id = scene_info.get('scene_id', 'unknown')
                         scene_text = scene_info.get('text', '')
                         
-                        # Remove any ((...)) markers from scene text
-                        if scene_text:
-                            scene_text = re.sub(r'\(\([^)]*\)\)\s*', '', scene_text).strip()
-                        
                         actor_name = story_entry['character']
                         dialogue_text = story_entry['dialogue']
                         
