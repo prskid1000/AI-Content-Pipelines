@@ -14,7 +14,7 @@
   },
   "7": {
     "inputs": {
-      "text": "low quality, worst quality, deformed, distorted, disfigured, motion smear, motion artifacts, fused fingers, bad anatomy, weird hand, ugly",
+      "text": "low quality, worst quality, deformed, distorted, disfigured, motion smear, motion artifacts, fused fingers, bad anatomy, weird hand, ugly, worst quality, inconsistent motion, blurry, jittery, distorted",
       "clip": [
         "38",
         0
@@ -73,7 +73,7 @@
   },
   "1335": {
     "inputs": {
-      "samples": [
+      "latents": [
         "1338",
         0
       ],
@@ -81,14 +81,14 @@
         "1892",
         0
       ],
-      "tile_size": 512,
-      "overlap": 32,
-      "temporal_size": 8,
-      "temporal_overlap": 4
+      "horizontal_tiles": 5,
+      "vertical_tiles": 3,
+      "overlap": 2,
+      "last_frame_fix": false
     },
-    "class_type": "VAEDecodeTiled",
+    "class_type": "LTXVTiledVAEDecode",
     "_meta": {
-      "title": "VAE Decode (Tiled)"
+      "title": "LTXVTiledVAEDecode"
     }
   },
   "1336": {
@@ -119,9 +119,9 @@
       "height": 832,
       "num_frames": 97,
       "optional_cond_indices": "0",
-      "strength": 0.8,
+      "strength": 1,
       "crop": "center",
-      "crf": 30,
+      "crf": 0,
       "blur": 0,
       "model": [
         "1891",

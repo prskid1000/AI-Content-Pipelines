@@ -15,16 +15,16 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
 # Video configuration constants
-VIDEO_WIDTH = 1280
-VIDEO_HEIGHT = 736
+VIDEO_WIDTH = 1152
+VIDEO_HEIGHT = 768
 FRAMES_PER_SECOND = 24
 CHUNK_SIZE = 5
 
 
 # Feature flags
 ENABLE_SCENE = True # Set to True to add scene prompts from 3.scene.txt
-ENABLE_LOCATION_SCENE = True # Set to True to add location prompts from 3.location.txt
-ENABLE_CHARACTER_IN_MOTION = True # Set to True to add character prompts from 2.character.txt in motion prompts
+ENABLE_LOCATION_IN_SCENE = False # Set to True to add location prompts from 3.location.txt
+ENABLE_CHARACTER_IN_MOTION = False # Set to True to add character prompts from 2.character.txt in motion prompts
 
 USE_SUMMARY_TEXT = False  # Set to True to use summary text
 
@@ -661,7 +661,7 @@ class VideoAnimator:
         
         Format: {{loc_forest}} -> scene which should look like, {detailed description}, as background
         """
-        if not ENABLE_LOCATION_SCENE or not locations_data:
+        if not ENABLE_LOCATION_IN_SCENE or not locations_data:
             return scene_description
         
         def replace_func(match):
@@ -672,7 +672,7 @@ class VideoAnimator:
             
             if loc_id in locations_data:
                 # Replace with inline location description
-                return f"\SCENE, {locations_data[loc_id]}, as background of the entire illustration."
+                return f"\nSCENE, {locations_data[loc_id]}, as background of the entire illustration."
             else:
                 # Location not found, keep original
                 return full_match
@@ -695,7 +695,7 @@ class VideoAnimator:
             
             if char_name in characters_data:
                 # Replace with inline character description for motion
-                return f"\CHARACTER, {char_name}, which looks like, {characters_data[char_name]},"
+                return f"\nCHARACTER, {char_name}, which looks like, {characters_data[char_name]},"
             else:
                 # Character not found, keep original
                 return full_match
@@ -1049,7 +1049,7 @@ class VideoAnimator:
             True if successful, False otherwise
         """
         try:
-            frame_duration = 1.0 / FRAMES_PER_SECOND
+            frame_duration = max(0.1, 1.0 / FRAMES_PER_SECOND)
             
             # Step 1: Remove first frame (trim from second frame onwards)
             trimmed_path = os.path.join(self.final_output_dir, f"temp_trimmed_{int(time.time())}.mp4")
