@@ -18,7 +18,7 @@ WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary print
 VIDEO_WIDTH = 1152
 VIDEO_HEIGHT = 768
 FRAMES_PER_SECOND = 24
-CHUNK_SIZE = 5
+CHUNK_SIZE = 3
 
 
 # Feature flags
