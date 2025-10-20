@@ -81,9 +81,9 @@
         "1892",
         0
       ],
-      "horizontal_tiles": 5,
+      "horizontal_tiles": 3,
       "vertical_tiles": 3,
-      "overlap": 2,
+      "overlap": 1,
       "last_frame_fix": false
     },
     "class_type": "LTXVTiledVAEDecode",
