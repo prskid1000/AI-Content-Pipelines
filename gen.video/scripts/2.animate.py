@@ -1213,6 +1213,44 @@ class VideoAnimator:
             return full_path
         return None
 
+    def _find_guide_images_for_scene(self, scene_name: str, scene_id: str) -> List[str]:
+        """Find all guide images for a scene (scene_X.X, scene_X.X_p2, scene_X.X_p3, etc.)"""
+        guide_images = []
+        
+        # Primary image
+        primary_image = self._find_image_for_scene(scene_name, scene_id)
+        if primary_image:
+            guide_images.append(primary_image)
+        
+        # Additional guide images with _p2, _p3, etc.
+        part_num = 2
+        while True:
+            part_filename = f"scene_{scene_id}_p{part_num}.png"
+            part_path = os.path.join(self.scene_images_dir, part_filename)
+            if os.path.exists(part_path):
+                guide_images.append(part_path)
+                part_num += 1
+            else:
+                break
+        
+        return guide_images
+
+    def _calculate_guide_frame_indices(self, num_guides: int, total_frames: int) -> List[int]:
+        """Calculate evenly distributed frame indices for guide images.
+        Returns frame indices where 0 is first frame and -1 is last frame."""
+        if num_guides == 1:
+            return [0]
+        elif num_guides == 2:
+            return [0, -1]
+        else:
+            # Distribute evenly: first, middle(s), last
+            indices = [0]
+            for i in range(1, num_guides - 1):
+                frame_idx = int((total_frames - 1) * i / (num_guides - 1))
+                indices.append(frame_idx)
+            indices.append(-1)
+            return indices
+
     def _get_negative_prompt(self) -> str:
         """Get the negative prompt for animation."""
         return "worst quality, low quality, blurry, distortion, artifacts, noisy,logo,text, words, letters, writing, caption, subtitle, title, label, watermark, text, extra limbs, extra fingers, bad anatomy, poorly drawn face, asymmetrical features, plastic texture, uncanny valley"
@@ -1242,7 +1280,7 @@ class VideoAnimator:
             print(f"ERROR: Failed to copy image {image_path}: {e}")
             return None
 
-    def _build_animation_workflow(self, chunk_scene_id: str, scene_description: str, image_filename: str, duration: float = None, characters_data: dict[str, str] = None, motion_data: dict[str, str] = None, locations_data: dict[str, str] = None, frame_count: int = None) -> dict:
+    def _build_animation_workflow(self, chunk_scene_id: str, scene_description: str, image_filename: str, duration: float = None, characters_data: dict[str, str] = None, motion_data: dict[str, str] = None, locations_data: dict[str, str] = None, frame_count: int = None, guide_images_paths: List[str] = None) -> dict:
         """Build animation workflow with scene image and description.
         
         Args:
@@ -1304,13 +1342,13 @@ class VideoAnimator:
         print_flush(f"Full prompt: {positive_prompt}")
         
         # Update workflow nodes
-        # Set positive prompt (node 6)
-        workflow["6"]["inputs"]["text"] = positive_prompt
-        # Set negative prompt (node 7)
-        workflow["7"]["inputs"]["text"] = negative_prompt
+        # Set positive prompt (node 3)
+        workflow["3"]["inputs"]["text"] = positive_prompt
+        # Set negative prompt (node 4)
+        workflow["4"]["inputs"]["text"] = negative_prompt
         
-        # Set input image (node 1206)
-        workflow["1206"]["inputs"]["image"] = image_filename
+        # Set input image (node 14)
+        workflow["14"]["inputs"]["image"] = image_filename
         
         # Set output filename prefix (node 1336)
         workflow["1336"]["inputs"]["filename_prefix"] = f"{chunk_scene_id}_animate"
@@ -1319,18 +1357,112 @@ class VideoAnimator:
         workflow["2000"]["inputs"]["filename_prefix"] = f"{chunk_scene_id}_frame"
         
         # Update video dimensions and frame settings
-        if "1241" in workflow:  # LTXVConditioning node
-            workflow["1241"]["inputs"]["frame_rate"] = float(FRAMES_PER_SECOND)
+        if "6" in workflow:  # LTXVConditioning node
+            workflow["6"]["inputs"]["frame_rate"] = float(FRAMES_PER_SECOND)
         
         if "1336" in workflow:  # Video Combine node
             workflow["1336"]["inputs"]["frame_rate"] = FRAMES_PER_SECOND
         
-        if "1338" in workflow:  # LTXVBaseSampler node
-            workflow["1338"]["inputs"]["width"] = VIDEO_WIDTH
-            workflow["1338"]["inputs"]["height"] = VIDEO_HEIGHT
-            workflow["1338"]["inputs"]["num_frames"] = frame_count
+        if "16" in workflow:  # EmptyLTXVLatentVideo node
+            workflow["16"]["inputs"]["width"] = VIDEO_WIDTH
+            workflow["16"]["inputs"]["height"] = VIDEO_HEIGHT
+            workflow["16"]["inputs"]["length"] = frame_count
+        
+        # Handle multi-image setup if guide_images_paths provided
+        if guide_images_paths and len(guide_images_paths) > 1:
+            self._setup_multi_image_workflow(workflow, guide_images_paths, frame_count, chunk_scene_id)
+        else:
+            # Single image setup - use existing node 17 (LTXVAddGuide)
+            workflow["17"]["inputs"]["frame_idx"] = 0
+            workflow["17"]["inputs"]["strength"] = 1.0
         
         return workflow
+
+    def _setup_multi_image_workflow(self, workflow: dict, guide_images_paths: List[str], frame_count: int, chunk_scene_id: str):
+        """Setup multi-image workflow with dynamic LTXVAddGuide nodes."""
+        # Calculate frame indices for guide images
+        frame_indices = self._calculate_guide_frame_indices(len(guide_images_paths), frame_count)
+        
+        # Node IDs for dynamic nodes
+        base_preprocess_id = 3000
+        base_guide_id = 4000
+        
+        # Copy guide images to ComfyUI input folder and create preprocessing nodes
+        load_image_ids = []
+        for i, guide_path in enumerate(guide_images_paths):
+            # Copy image to ComfyUI input folder
+            guide_filename = f"{chunk_scene_id}_guide_{i+1}.png"
+            comfyui_guide_path = os.path.join(self.comfyui_input_folder, guide_filename)
+            shutil.copy2(guide_path, comfyui_guide_path)
+            
+            # Create LoadImage node for this guide
+            load_image_id = str(base_preprocess_id + i + 100)  # Start from 3100
+            workflow[load_image_id] = {
+                "inputs": {"image": guide_filename},
+                "class_type": "LoadImage",
+                "_meta": {"title": "Load Image"}
+            }
+            load_image_ids.append(load_image_id)
+            
+            # Create LTXVPreprocess node
+            preprocess_id = str(base_preprocess_id + i)
+            workflow[preprocess_id] = {
+                "inputs": {
+                    "img_compression": 35,
+                    "image": [load_image_id, 0]
+                },
+                "class_type": "LTXVPreprocess",
+                "_meta": {"title": "LTXVPreprocess"}
+            }
+        
+        # Create LTXVAddGuide chain
+        for i, (guide_path, frame_idx) in enumerate(zip(guide_images_paths, frame_indices)):
+            guide_id = str(base_guide_id + i)
+            preprocess_id = str(base_preprocess_id + i)
+            
+            if i == 0:
+                # First guide connects to EmptyLTXVLatentVideo and LTXVConditioning
+                workflow[guide_id] = {
+                    "inputs": {
+                        "frame_idx": frame_idx,
+                        "strength": 1.0,
+                        "positive": ["3", 0],
+                        "negative": ["4", 0],
+                        "vae": ["24", 0],
+                        "latent": ["16", 0],
+                        "image": [preprocess_id, 0]
+                    },
+                    "class_type": "LTXVAddGuide",
+                    "_meta": {"title": "LTXVAddGuide"}
+                }
+            else:
+                # Subsequent guides chain from previous guide
+                prev_guide_id = str(base_guide_id + i - 1)
+                workflow[guide_id] = {
+                    "inputs": {
+                        "frame_idx": frame_idx,
+                        "strength": 1.0,
+                        "positive": [prev_guide_id, 0],
+                        "negative": [prev_guide_id, 1],
+                        "vae": ["24", 0],
+                        "latent": [prev_guide_id, 2],
+                        "image": [preprocess_id, 0]
+                    },
+                    "class_type": "LTXVAddGuide",
+                    "_meta": {"title": "LTXVAddGuide"}
+                }
+        
+        # Update LTXVConditioning to connect to first guide
+        workflow["6"]["inputs"]["positive"] = [str(base_guide_id), 0]
+        workflow["6"]["inputs"]["negative"] = [str(base_guide_id), 1]
+        
+        # Final guide output connects to SamplerCustom
+        final_guide_id = str(base_guide_id + len(guide_images_paths) - 1)
+        workflow["9"]["inputs"]["positive"] = [final_guide_id, 0]
+        workflow["9"]["inputs"]["negative"] = [final_guide_id, 1]
+        workflow["9"]["inputs"]["latent_image"] = [final_guide_id, 2]
+        
+        print_flush(f"🎬 Multi-image setup: {len(guide_images_paths)} guide images with frame indices {frame_indices}")
 
     def _generate_video(self, scene_id: str, scene_description: str, image_path: str, duration: float = None, characters_data: dict[str, str] = None, motion_data: dict[str, str] = None, locations_data: dict[str, str] = None, resumable_state=None) -> List[str] | None:
         """Generate video(s) from a scene image using ComfyUI with frame continuity between chunks.
@@ -1408,6 +1540,20 @@ class VideoAnimator:
                 
                 print(f"Generating chunk: {chunk_scene_id} ({chunk_frames} frames)")
                 
+                # Detect guide images for initial chunk only
+                guide_images_paths = None
+                if chunk_idx == 0:
+                    # Extract scene_id from chunk_scene_id (remove chunk suffix)
+                    clean_scene_id = scene_id
+                    if '_' in clean_scene_id and clean_scene_id.split('_')[-1].isdigit():
+                        clean_scene_id = clean_scene_id.rsplit('_', 1)[0]
+                    
+                    guide_images_paths = self._find_guide_images_for_scene(scene_id, clean_scene_id)
+                    if guide_images_paths:
+                        print_flush(f"🎬 Found {len(guide_images_paths)} guide images for {chunk_scene_id}")
+                    else:
+                        print_flush(f"🎬 No additional guide images found for {chunk_scene_id}")
+                
                 # For subsequent chunks, use the last frame of the previous chunk as input
                 if chunk_idx > 0 and generated_videos:
                     # Try to find the last saved frame from the previous chunk
@@ -1433,7 +1579,7 @@ class VideoAnimator:
                         current_input_image = image_filename
                 
                 # Build workflow for this chunk
-                workflow = self._build_animation_workflow(chunk_scene_id, scene_description, current_input_image, duration, characters_data, motion_data, locations_data, chunk_frames)
+                workflow = self._build_animation_workflow(chunk_scene_id, scene_description, current_input_image, duration, characters_data, motion_data, locations_data, chunk_frames, guide_images_paths)
                 if not workflow:
                     print(f"ERROR: Failed to build workflow for {chunk_scene_id}")
                     continue
