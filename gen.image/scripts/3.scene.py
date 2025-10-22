@@ -650,7 +650,8 @@ class SceneGenerator:
 
     def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
-        return """Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of {ART_STYLE}, with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens.
+        return """Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of {ART_STYLE}, 
+        with shot taken with camera placed at very large distance(at least 21 meters away) and ultra wide angle(160 degrees) lens such that entire room, street, or space visible.
         """.format(ART_STYLE=ART_STYLE)
 
     def _get_seed(self) -> int:
