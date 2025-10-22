@@ -20,9 +20,9 @@ WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary print
 # Variation Configuration
 VARIATIONS_PER_CHARACTER = 1  # Number of variations to generate per character (in addition to original)
 
-# Image Resolution Constants
-IMAGE_WIDTH = 633
-IMAGE_HEIGHT = 950
+# Image Resolution Constants 633x950
+IMAGE_WIDTH = 320
+IMAGE_HEIGHT = 640
 
 # Latent Input Mode Configuration
 LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
@@ -30,7 +30,7 @@ IMAGE_LATENT_SIZE = "medium"
 LATENT_DENOISING_STRENGTH = 0.85  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # LoRA Configuration
-USE_LORA = True  # Set to False to disable LoRA usage in workflow
+USE_LORA = False  # Set to False to disable LoRA usage in workflow
 LORA_MODE = "serial"  # "serial" for independent LoRA application, "chained" for traditional chaining
 
 # LoRA Configuration
