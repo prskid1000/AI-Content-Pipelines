@@ -52,8 +52,8 @@ LOCATION_WORD_LIMIT = 230
 CHARACTER_WORD_LIMIT = 140
 
 # Image Resolution Constants
-IMAGE_WIDTH = 1280
-IMAGE_HEIGHT = 720
+IMAGE_WIDTH = 1024
+IMAGE_HEIGHT = 576
 
 # Latent Input Mode Configuration
 LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
@@ -650,7 +650,7 @@ class SceneGenerator:
 
     def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
-        return """Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of {ART_STYLE}.
+        return """Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of {ART_STYLE}, with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens.
         """.format(ART_STYLE=ART_STYLE)
 
     def _get_seed(self) -> int:
