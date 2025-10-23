@@ -15,8 +15,8 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
 # Video configuration constants
-VIDEO_WIDTH = 1024
-VIDEO_HEIGHT = 576
+VIDEO_WIDTH = 768
+VIDEO_HEIGHT = 512
 FRAMES_PER_SECOND = 24
 CHUNK_SIZE = 3
 
@@ -26,6 +26,9 @@ ENABLE_LOCATION_IN_SCENE = False # Set to True to add location prompts from 3.lo
 ENABLE_CHARACTER_IN_MOTION = False # Set to True to add character prompts from 2.character.txt in motion prompts
 
 USE_SUMMARY_TEXT = False  # Set to True to use summary text
+
+PROMPT_MAX_LENGTH = 200
+ALLOW_SPECIAL_CHARACTERS = False
 
 class ResumableState:
     """Manages resumable state for expensive video animation operations."""
@@ -1263,12 +1266,11 @@ class VideoAnimator:
 
         # Get prompts
         negative_prompt = self._get_negative_prompt()
-        positive_prompt = self._get_positive_prompt() + "\n" + scene_description
+        positive_prompt = self._get_positive_prompt() + "\n" + (scene_description if ENABLE_SCENE else "")
 
-        if ENABLE_SCENE:
-            if locations_data:
-                positive_prompt = self._replace_location_references(positive_prompt, locations_data)
-                print_flush(f"📍 Replaced location references with descriptions")
+        if locations_data:
+            positive_prompt = self._replace_location_references(positive_prompt, locations_data)
+            print_flush(f"📍 Replaced location references with descriptions")
         
         # Add motion prompts if available (with inline character replacements)
         if motion_data:
@@ -1301,40 +1303,40 @@ class VideoAnimator:
                 frame_count = self._calculate_frame_count(duration)
             else:
                 print(f"Duration is not provided for {chunk_scene_id}")
-                frame_count = 121  # Default fallback
+                frame_count = 97  # Default fallback for Hunyuan
+
+        if not ALLOW_SPECIAL_CHARACTERS:
+        # Remove ALL special characters - keep only letters, numbers, and spaces
+            positive_prompt = re.sub(r'[^\w\s]', '', positive_prompt)  # Keep only alphanumeric and spaces
+            positive_prompt = re.sub(r'\s+', ' ', positive_prompt).strip()  # Normalize whitespace
+        
+        # Limit prompt length to 200 characters
+        if len(positive_prompt) > PROMPT_MAX_LENGTH:
+            positive_prompt = positive_prompt[:PROMPT_MAX_LENGTH] + "..."
+            print_flush(f"⚠️ Prompt truncated to {PROMPT_MAX_LENGTH} characters")
 
         print_flush(f"Full prompt: {positive_prompt}")
         
-        # Update workflow nodes
-        # Set positive prompt (node 3)
-        workflow["3"]["inputs"]["text"] = positive_prompt
-        # Set negative prompt (node 4)
-        workflow["4"]["inputs"]["text"] = negative_prompt
+        # Update workflow nodes for Hunyuan
+        # Set positive prompt (node 7 - TextEncodeHunyuanVideo_ImageToVideo)
+        workflow["7"]["inputs"]["prompt"] = positive_prompt
         
-        # Set input image (node 14)
-        workflow["14"]["inputs"]["image"] = image_filename
+        # Set input image (node 8)
+        workflow["8"]["inputs"]["image"] = image_filename
         
-        # Set output filename prefix (node 1336)
-        workflow["1336"]["inputs"]["filename_prefix"] = f"{chunk_scene_id}_animate"
+        # Set output filename prefix (node 36 - VHS_VideoCombine)
+        workflow["36"]["inputs"]["filename_prefix"] = f"{chunk_scene_id}_animate"
         
-        # Set save image filename prefix (node 2000)
-        workflow["2000"]["inputs"]["filename_prefix"] = f"{chunk_scene_id}_frame"
+        # Set save image filename prefix (node 37 - SaveImage)
+        workflow["37"]["inputs"]["filename_prefix"] = f"{chunk_scene_id}_frame"
         
-        # Update video dimensions and frame settings
-        if "6" in workflow:  # LTXVConditioning node
-            workflow["6"]["inputs"]["frame_rate"] = float(FRAMES_PER_SECOND)
+        # Update video dimensions and frame settings for HunyuanImageToVideo (node 4)
+        workflow["4"]["inputs"]["width"] = VIDEO_WIDTH
+        workflow["4"]["inputs"]["height"] = VIDEO_HEIGHT
+        workflow["4"]["inputs"]["length"] = frame_count
         
-        if "1336" in workflow:  # Video Combine node
-            workflow["1336"]["inputs"]["frame_rate"] = FRAMES_PER_SECOND
-        
-        if "16" in workflow:  # EmptyLTXVLatentVideo node
-            workflow["16"]["inputs"]["width"] = VIDEO_WIDTH
-            workflow["16"]["inputs"]["height"] = VIDEO_HEIGHT
-            workflow["16"]["inputs"]["length"] = frame_count
-        
-        # Single image setup - use existing node 17 (LTXVAddGuide)
-        workflow["17"]["inputs"]["frame_idx"] = 0
-        workflow["17"]["inputs"]["strength"] = 1.0
+        # Update video combine settings (node 36)
+        workflow["36"]["inputs"]["frame_rate"] = FRAMES_PER_SECOND
         
         return workflow
 
@@ -1801,33 +1803,40 @@ class VideoAnimator:
         """Print a comprehensive workflow summary showing the flow to sampler inputs."""
         print(f"\n🔗 WORKFLOW SUMMARY: {title}")
         
-        # Find the main sampler node (LTXVBaseSampler)
+        # Find the main sampler node (SamplerCustomAdvanced for Hunyuan)
         sampler_node = None
         sampler_id = None
         for node_id, node in workflow.items():
-            if node.get("class_type") == "LTXVBaseSampler":
+            if node.get("class_type") == "SamplerCustomAdvanced":
                 sampler_node = node
                 sampler_id = node_id
                 break
         
         if sampler_node:
             inputs = sampler_node.get("inputs", {})
-            print(f"   📊 LTXVBaseSampler({sampler_id}) - Core Parameters:")
-            print(f"      📐 Dimensions: {inputs.get('width', 'N/A')}x{inputs.get('height', 'N/A')}")
-            print(f"      🎬 Frames: {inputs.get('num_frames', 'N/A')}")
-            print(f"      💪 Strength: {inputs.get('strength', 'N/A')}")
-            print(f"      🎯 Crop: {inputs.get('crop', 'N/A')}")
-            print(f"      📊 CRF: {inputs.get('crf', 'N/A')}")
-            print(f"      🔄 Blur: {inputs.get('blur', 'N/A')}")
+            print(f"   📊 SamplerCustomAdvanced({sampler_id}) - Core Parameters:")
+            print(f"      🎲 Noise: Connected")
+            print(f"      🎯 Guider: Connected")
+            print(f"      🎲 Sampler: Connected")
+            print(f"      📊 Sigmas: Connected")
+            print(f"      🖼️ Latent Image: Connected")
             
             # Trace input flows
-            self._trace_input_flow(workflow, "model", inputs.get("model", [None, 0])[0], inputs.get("model", [None, 0])[1], sampler_id)
-            self._trace_input_flow(workflow, "vae", inputs.get("vae", [None, 0])[0], inputs.get("vae", [None, 0])[1], sampler_id)
+            self._trace_input_flow(workflow, "noise", inputs.get("noise", [None, 0])[0], inputs.get("noise", [None, 0])[1], sampler_id)
             self._trace_input_flow(workflow, "guider", inputs.get("guider", [None, 0])[0], inputs.get("guider", [None, 0])[1], sampler_id)
             self._trace_input_flow(workflow, "sampler", inputs.get("sampler", [None, 0])[0], inputs.get("sampler", [None, 0])[1], sampler_id)
             self._trace_input_flow(workflow, "sigmas", inputs.get("sigmas", [None, 0])[0], inputs.get("sigmas", [None, 0])[1], sampler_id)
-            self._trace_input_flow(workflow, "noise", inputs.get("noise", [None, 0])[0], inputs.get("noise", [None, 0])[1], sampler_id)
-            self._trace_input_flow(workflow, "optional_cond_images", inputs.get("optional_cond_images", [None, 0])[0], inputs.get("optional_cond_images", [None, 0])[1], sampler_id)
+            self._trace_input_flow(workflow, "latent_image", inputs.get("latent_image", [None, 0])[0], inputs.get("latent_image", [None, 0])[1], sampler_id)
+        
+        # Also show HunyuanImageToVideo node details
+        if "4" in workflow:
+            hunyuan_node = workflow["4"]
+            hunyuan_inputs = hunyuan_node.get("inputs", {})
+            print(f"\n   🎬 HunyuanImageToVideo(4) - Core Parameters:")
+            print(f"      📐 Dimensions: {hunyuan_inputs.get('width', 'N/A')}x{hunyuan_inputs.get('height', 'N/A')}")
+            print(f"      🎬 Length: {hunyuan_inputs.get('length', 'N/A')}")
+            print(f"      📦 Batch Size: {hunyuan_inputs.get('batch_size', 'N/A')}")
+            print(f"      🎯 Guidance Type: {hunyuan_inputs.get('guidance_type', 'N/A')}")
         
         print("   " + "="*50)
     
@@ -1911,47 +1920,60 @@ class VideoAnimator:
     
     def _show_node_parameters(self, node_type: str, node_inputs: dict, indent: str) -> None:
         """Show relevant parameters for a node type."""
-        if node_type == "UnetLoaderGGUF":
+        if node_type == "UNETLoader":
             print(f"{indent}🤖 Model: {node_inputs.get('unet_name', 'N/A')}")
-            print(f"{indent}📱 Device: {node_inputs.get('device', 'cuda')}")
+            print(f"{indent}📱 Weight Type: {node_inputs.get('weight_dtype', 'N/A')}")
             
-        elif node_type == "LoraLoader":
-            print(f"{indent}🎨 LoRA: {node_inputs.get('lora_name', 'N/A')}")
-            print(f"{indent}💪 Model Strength: {node_inputs.get('strength_model', 'N/A')}")
-            print(f"{indent}📝 CLIP Strength: {node_inputs.get('strength_clip', 'N/A')}")
+        elif node_type == "DualCLIPLoader":
+            print(f"{indent}📖 CLIP 1: {node_inputs.get('clip_name1', 'N/A')}")
+            print(f"{indent}📖 CLIP 2: {node_inputs.get('clip_name2', 'N/A')}")
+            print(f"{indent}⚙️ Type: {node_inputs.get('type', 'N/A')}")
+            print(f"{indent}📱 Device: {node_inputs.get('device', 'N/A')}")
             
-        elif node_type == "CLIPTextEncode":
-            text = node_inputs.get("text", "")
-            if len(text) > 80:
-                text = text[:80] + "..."
-            print(f"{indent}📝 Text: {text}")
+        elif node_type == "CLIPVisionLoader":
+            print(f"{indent}👁️ Vision Model: {node_inputs.get('clip_name', 'N/A')}")
+            
+        elif node_type == "HunyuanImageToVideo":
+            print(f"{indent}📐 Dimensions: {node_inputs.get('width', 'N/A')}x{node_inputs.get('height', 'N/A')}")
+            print(f"{indent}🎬 Length: {node_inputs.get('length', 'N/A')}")
+            print(f"{indent}📦 Batch Size: {node_inputs.get('batch_size', 'N/A')}")
+            print(f"{indent}🎯 Guidance Type: {node_inputs.get('guidance_type', 'N/A')}")
+            
+        elif node_type == "TextEncodeHunyuanVideo_ImageToVideo":
+            prompt = node_inputs.get("prompt", "")
+            if len(prompt) > 80:
+                prompt = prompt[:80] + "..."
+            print(f"{indent}📝 Prompt: {prompt}")
+            print(f"{indent}🖼️ Image Interleave: {node_inputs.get('image_interleave', 'N/A')}")
+            
+        elif node_type == "CLIPVisionEncode":
+            print(f"{indent}✂️ Crop: {node_inputs.get('crop', 'N/A')}")
             
         elif node_type == "LoadImage":
             print(f"{indent}🖼️ Image: {node_inputs.get('image', 'N/A')}")
             
-        elif node_type == "LTXVConditioning":
-            print(f"{indent}🎬 Frame Rate: {node_inputs.get('frame_rate', 'N/A')}")
+        elif node_type == "ModelSamplingSD3":
+            print(f"{indent}📊 Shift: {node_inputs.get('shift', 'N/A')}")
             
-        elif node_type == "STGGuiderAdvanced":
-            print(f"{indent}🎯 CFG Threshold: {node_inputs.get('skip_steps_sigma_threshold', 'N/A')}")
-            print(f"{indent}🔄 CFG Rescale: {node_inputs.get('cfg_star_rescale', 'N/A')}")
+        elif node_type == "FluxGuidance":
+            print(f"{indent}🎯 Guidance: {node_inputs.get('guidance', 'N/A')}")
+            
+        elif node_type == "BasicGuider":
+            print(f"{indent}🎯 Guider: Connected")
             
         elif node_type == "RandomNoise":
             print(f"{indent}🎲 Noise Seed: {node_inputs.get('noise_seed', 'N/A')}")
             
-        elif node_type == "StringToFloatList":
-            print(f"{indent}📝 String: {node_inputs.get('string', 'N/A')}")
-            
-        elif node_type == "FloatToSigmas":
-            print(f"{indent}📊 Float List: Connected")
-            
-        elif node_type == "Set VAE Decoder Noise":
-            print(f"{indent}⏰ Timestep: {node_inputs.get('timestep', 'N/A')}")
-            print(f"{indent}📏 Scale: {node_inputs.get('scale', 'N/A')}")
-            print(f"{indent}🌱 Seed: {node_inputs.get('seed', 'N/A')}")
-            
         elif node_type == "KSamplerSelect":
             print(f"{indent}🎲 Sampler: {node_inputs.get('sampler_name', 'N/A')}")
+            
+        elif node_type == "BasicScheduler":
+            print(f"{indent}📅 Scheduler: {node_inputs.get('scheduler', 'N/A')}")
+            print(f"{indent}📊 Steps: {node_inputs.get('steps', 'N/A')}")
+            print(f"{indent}🔄 Denoise: {node_inputs.get('denoise', 'N/A')}")
+            
+        elif node_type == "SamplerCustomAdvanced":
+            print(f"{indent}🎲 Advanced Sampler: Connected")
             
         elif node_type == "VHS_VideoCombine":
             print(f"{indent}🎬 Frame Rate: {node_inputs.get('frame_rate', 'N/A')}")
@@ -1973,15 +1995,15 @@ class VideoAnimator:
             print(f"{indent}⏱️ Temporal Size: {node_inputs.get('temporal_size', 'N/A')}")
             print(f"{indent}🔗 Temporal Overlap: {node_inputs.get('temporal_overlap', 'N/A')}")
             
-        elif node_type == "CLIPLoader":
-            print(f"{indent}📖 Type: CLIPLoader")
-            print(f"{indent}📁 Clip: {node_inputs.get('clip_name', 'N/A')}")
-            print(f"{indent}⚙️ type: {node_inputs.get('type', 'N/A')}")
-            print(f"{indent}⚙️ device: {node_inputs.get('device', 'N/A')}")
+        elif node_type == "UnloadModel":
+            print(f"{indent}🗑️ Unload Model: Connected")
+            
+        elif node_type == "UnloadAllModels":
+            print(f"{indent}🗑️ Unload All Models: Connected")
             
         # Show any other relevant parameters
         for key, value in node_inputs.items():
-            if key not in ['model', 'clip', 'vae', 'pixels', 'samples', 'image', 'text', 'lora_name', 'strength_model', 'strength_clip', 'model_name', 'device', 'width', 'height', 'num_frames', 'strength', 'crop', 'crf', 'blur', 'frame_rate', 'skip_steps_sigma_threshold', 'cfg_star_rescale', 'noise_seed', 'string', 'timestep', 'scale', 'sampler_name', 'loop_count', 'filename_prefix', 'format', 'pix_fmt', 'vae_name', 'clip_name', 'type', 'tile_size', 'overlap', 'temporal_size', 'temporal_overlap']:
+            if key not in ['model', 'clip', 'vae', 'pixels', 'samples', 'image', 'text', 'lora_name', 'strength_model', 'strength_clip', 'model_name', 'device', 'width', 'height', 'num_frames', 'strength', 'crop', 'crf', 'blur', 'frame_rate', 'skip_steps_sigma_threshold', 'cfg_star_rescale', 'noise_seed', 'string', 'timestep', 'scale', 'sampler_name', 'loop_count', 'filename_prefix', 'format', 'pix_fmt', 'vae_name', 'clip_name', 'type', 'tile_size', 'overlap', 'temporal_size', 'temporal_overlap', 'clip_name1', 'clip_name2', 'clip_vision', 'clip_vision_output', 'prompt', 'image_interleave', 'guidance_type', 'start_image', 'positive', 'negative', 'shift', 'guidance', 'conditioning', 'noise', 'guider', 'sampler', 'sigmas', 'latent_image', 'value', 'scheduler', 'steps', 'denoise', 'unet_name', 'weight_dtype', 'tile_size', 'overlap', 'temporal_size', 'temporal_overlap', 'samples', 'frame_rate', 'loop_count', 'filename_prefix', 'format', 'pix_fmt', 'crf', 'save_metadata', 'pingpong', 'save_output', 'images']:
                 if isinstance(value, (str, int, float, bool)) and len(str(value)) < 50:
                     print(f"{indent}⚙️ {key}: {value}")
 
