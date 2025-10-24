@@ -88,7 +88,7 @@ echo.
 
 REM Install PyTorch first
 echo [0/3] Installing Xformers (nightly with CUDA 12.9)...
-.venv\Scripts\python.exe -m ip3 install -U xformers --index-url https://download.pytorch.org/whl/cu129
+.venv\Scripts\python.exe -m pip3 install -U xformers --index-url https://download.pytorch.org/whl/cu129
 if errorlevel 1 (
     echo ERROR: Failed to install Xformers
     pause
@@ -96,6 +96,18 @@ if errorlevel 1 (
 )
 echo SUCCESS: Xformers installed
 echo.
+
+REM Install PyTorch first
+echo [0/3] Installing Triton
+.venv\Scripts\python.exe -m pip3 install triton-windows
+if errorlevel 1 (
+    echo ERROR: Failed to install Triton
+    pause
+    exit /b 1
+)
+echo SUCCESS: Triton installed
+echo.
+
 
 echo ========================================
 echo All requirements installation completed!
