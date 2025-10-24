@@ -203,10 +203,10 @@
   },
   "31": {
     "inputs": {
-      "tile_size": 96,
+      "tile_size": 128,
       "overlap": 64,
-      "temporal_size": 64,
-      "temporal_overlap": 8,
+      "temporal_size": 36,
+      "temporal_overlap": 12,
       "samples": [
         "29",
         0
@@ -269,7 +269,7 @@
     "inputs": {
       "speedup": "Original (1x)",
       "enable_custom_speed": true,
-      "custom_speed": 1.6,
+      "custom_speed": 2.1,
       "noise": [
         "15",
         0
