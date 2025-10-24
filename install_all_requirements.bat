@@ -14,7 +14,7 @@ if not exist ".venv" (
 
 REM Install PyTorch first
 echo [0/3] Installing PyTorch (nightly with CUDA 12.9)...
-.venv\Scripts\python.exe -m pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu129
+.venv\Scripts\python.exe -m pip install torch==2.8.0 torchvision==0.23.0 torchaudio==2.8.0 --index-url https://download.pytorch.org/whl/cu129
 if errorlevel 1 (
     echo ERROR: Failed to install PyTorch
     pause
