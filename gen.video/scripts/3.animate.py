@@ -15,8 +15,8 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
 # Video configuration constants
-VIDEO_WIDTH = 630
-VIDEO_HEIGHT = 320
+VIDEO_WIDTH = 608
+VIDEO_HEIGHT = 352
 FRAMES_PER_SECOND = 24
 #Duration of each chunk in seconds
 CHUNK_SIZE = 3
