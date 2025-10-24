@@ -1,6 +1,10 @@
-39%: The Vanishing Gem
-SHORT_SUMMARY : 🌞 Holmes deduces clues from Watson's boots as Commander Ellery reports the theft of the Blue Water sapphire.
-33%: Clay and Denial
-SHORT_SUMMARY : 🕵️‍♂️ Holmes uncovers deceit through Finch's clay-stained boots and conflicting testimonies, leading to a tense confrontation aboard the Dauntless.
-29%: The Sapphire's Revelation
-SHORT_SUMMARY : 🔍 Holmes exposes Lieutenant Graves' theft using red clay evidence, with Watson beside him as they retrieve the Blue Water sapphire.
+20%: First Encounter
+SHORT_SUMMARY : A lady drops ring at Baker Street night., 2.3 words: 'Feminine traits revealed', 1.
+40%: Amazon Letter
+SHORT_SUMMARY : Letter from Amazon soil in London., 3 words: 'Red laterite ink', 1.
+60%: Docks Investigation
+SHORT_SUMMARY : Fresh soil tracks at London docks., 3 words: 'Red dust found', 1.
+80%: Secret Link
+SHORT_SUMMARY : Clasp matching serpent emblem., 2 words: 'Emralds align', 1.
+100%: Final Resolution
+SHORT_SUMMARY : Impostor exposed, ring safe., 2 words: 'Ring secured', 1.',

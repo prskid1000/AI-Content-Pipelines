@@ -216,7 +216,24 @@ IMPORTANT: Only describe motions for objects, characters, and elements that are 
                 "strict": True
             }
         }
-    
+
+    def _build_system_prompt(self) -> str:
+        return """Generate cinematic motion descriptions for video AI from dialogue, scene context, and image.
+
+RULES:
+1. ONLY describe motions for elements VISIBLE in the image - no hallucinations
+2. Identify subjects by descriptors ("seated figure", "person by window") - NO proper nouns (names/places/brands)
+3. Specify actions with body parts + velocity + quality: "tilting head 30° gradually", "gripping armrest firmly"
+4. Layer 2-4 simultaneous actions: primary movement + micro-gestures (eye shifts, finger movements, breathing)
+5. Match motions to dialogue emotion: tension→rigid posture, sadness→slumped shoulders, focus→leaning forward
+6. Use semicolons between subjects; commas within subject actions
+
+EXAMPLES:
+"seated figure leaning back, arms crossing tightly, eyes narrowing; while standing figure pacing 3-step intervals near window, hand gesturing outward in wide arc"
+"one person typing rapidly, shoulders hunched forward, gaze fixed on screen; other standing behind, arms folded at chest, head tilting right as reading over shoulder"
+
+OUTPUT: Single fluid description under 50 words, present tense, weaving multiple subjects cohesively."""
+
     def call_lm_studio_api(self, prompt: str, image_path: str = None) -> str:
         """Call LM Studio API to generate motion for a single scene with optional image input"""
         try:
@@ -252,22 +269,7 @@ IMPORTANT: Only describe motions for objects, characters, and elements that are 
                     {
                         "role": "system",
                         "content": 
-"""You are a Motion Description generator for Video Generation AI Models.
-
-CRITICAL RULES:
-- ONLY describe motions for objects, characters, and elements that are ACTUALLY VISIBLE in the provided image.
-- Carefully examine the image to identify what is present: characters, objects, furniture, props, etc.
-- Do NOT invent or describe motions for objects that are not visible in the image.
-- Focus on body movements, gestures, facial expressions, and object interactions that match the dialogue context.
-- Keep descriptions under 50 words, concrete, specific, and in present tense.
-- Describe what characters are doing, how they move, their posture, and interactions based on what they're saying.
-- Include subtle movements like eye movements, hand gestures, breathing, etc. that reflect the emotional tone of the dialogue.
-- Be descriptive about the quality of movement (slow, quick, deliberate, nervous, etc.) that matches the dialogue's emotional context.
-- Consider the character's emotional state and speaking style when describing their movements.
-- Use the provided image to understand the visual context and generate appropriate motions for ONLY what is actually present.
-- Return only JSON matching the schema.
-
-OUTPUT: JSON with motion_description field only. Only use English Language for Input, Thinking, and Output\n/no_think"""
+f"{self._build_system_prompt()}\nOnly use English Language for Input, Thinking, and Output\n/no_think"
                     },
                     {
                         "role": "user",

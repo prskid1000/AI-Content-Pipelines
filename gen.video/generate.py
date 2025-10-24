@@ -81,7 +81,7 @@ SCRIPTS = [
     # "../gen.image/scripts/3.scene.py",
 
     #Video
-    "2.motion.py",
+    # "2.motion.py",
     # "3.animate.py",
 
     #Thumbnail

@@ -1,136 +1,234 @@
-5.790000: It was a calm winter morning and the faint golden light of the sun filtered into our sitting room at Baker Street,
-4.510000: illuminating the quiet chaos of books, newspapers and Holmes' chemical apparatus.
-2.560000: I had been attempting to follow an article in the Times,
-5.690000: while Holmes, with his customary detachment, perused a slim monograph on rare gemstones.
-2.870000: Hmm, look Watson, hmm.
-8.180000: Here lies an instructive example, an account of a jewel thief who failed because he ignored the simplest observation.
-3.600000: You never cease to find lessons in these reports, Holmes,
-5.950000: yet what intrigues me is how you manage to reduce matters of the most bewildering complexity to mere trifles.
-1.950000: Elementary, my dear Watson.
-6.380000: A man must train his eyes to see and his mind to connect what others discard.
-1.740000: ..
-2.240000: Complexity is but the mask of ignorance.
-3.560000: And yet, I confess, I am still struggling with that art.
-3.420000: Every time I attempt to emulate you, I fall into error.
-4.620000: That is precisely why I persist in your education, Watson.
-4.020000: Wysh is not contouring, it is discipline.
-6.950000: Now observe, your boots carry faint traces of the reddish clay from yesterday's walk by the serpentine.
-4.310000: You did not notice it yourself, yet it speaks clearly to me.
-5.240000: By Jove, Holmes, I had not the slightest notion. You astound me every time.
-4.440000: And so, when a true mystery presents itself,
-3.020000: the practice of noticing will serve us well.
-1.740000: ..
-1.390000: Ah! Listen!
-4.850000: That is Mrs. Hudson's tread. She brings us a visitor.
-3.480000: A gentleman to see you, Mr. Holmes, says it's urgent.
-6.260000: The visitor entered, a tall naval officer with weather-beaten features and a look of suppressed anxiety.
-5.130000: His uniform was impeccable, yet his gloved hands trembled slightly as he removed his cap.
-2.930000: Mr. Holmes, Dr. Watson, forgive the intrusion.
-1.610000: I am Commander James M. Watson.
-1.370000: I am the artillery of Her Majesty's Navy.
-5.580000: I come on a matter of the gravest urgency concerning a jewel known as the Blue Water.
-4.890000: Blue Water? I have heard whispers of that name. Pray enlighten us, Commander.
-2.890000: The Blue Water is no ordinary jewel, gentlemen.
-7.430000: It is a sapphire of extraordinary size and purity, long kept as a naval trust.
-4.390000: Yesterday, from a locked compartment aboard my ship, it vanished.
-2.120000: I am ruined if it is not recovered.
-1.340000: ..
-2.670000: Holmes and I were seated in a handsome cab with Commander Illery.
-4.970000: See, the frost of that winter morning clung to the windows as we rattled toward the docks by the Thames.
-3.290000: I confess, my imagination was fired by the prospect.
-5.470000: A jewel of incalculable worth, a theft upon a naval vessel, and Holmes in his element.
-1.120000: ..
-5.130000: Gentlemen, this is the Dauntless, my ship, and the scene of this deplorable theft.
-1.440000: Remarkable, Holmes!
-5.850000: The sheer order of a naval deck, yet within such order, a crime of the first magnitude.
-4.780000: Okay, and that, Watson, is the paradox which interests me.
-8.810000: A theft amidst perfect vigilance suggests either extraordinary cunning or internal collusion.
-6.350000: I fear as much. The Blue Water was kept in the Captain's cabin, in a steel box with double locks.
-5.970000: Only I and the First Lieutenant had keys. Yet the box was found forced open this morning.
-3.850000: But surely, Holmes, that suggests a most limited field of suspects.
-5.430000: Commander Illery ushered us below deck, into the Captain's quarters, where the theft had occurred.
-6.470000: The cabin was orderly, almost austere, yet its every detail invited scrutiny under Holmes' searching gaze.
-5.880000: A crude instrument used, and in haste, this was no professional cracksman.
-6.400000: Note the rough scoring here, Watson, and the fragment of metal still lodged in the keyhole.
-3.440000: By heavens, Holmes, you perceive all this from a mere glance.
-6.180000: A not a glance, Watson, an accumulation of small certainties.
-6.460000: Observe the dust displaced on the carpet, scarcely disturbed elsewhere, but heavily pressed here.
-2.730000: Someone note to ply his tool.
-4.120000: Then the thief must have acted in the night, when silence covered his efforts.
-6.820000: Just so. Yet why here, and why now? That is what we must uncover.
-3.440000: Commander, who had access to this cabin?
-5.570000: Only myself, the first lieutenant, and occasionally the ship's steward when bringing supplies.
-2.420000: No one else would dare.
-5.160000: Commander Illery, pained with strain, wasted no time in summoning the two men under suspicion,
-4.340000: Lieutenant Graves, his second-in-command, and the ship's steward, Mr. Finch.
-4.840000: Holmes suggested that the mess hall would provide sufficient space and privacy for the examination.
-6.600000: With measured dread, we made our way along the polished corridors of the vessel until we emerged into that long chamber
-2.040000: where officers took their meals.
-6.650000: Mr. Holmes, this is Lieutenant Graves, and here, Steward Finch, gentlemen, you will answer Mr. Mr.
-2.080000: Holmes, directly and fully.
-4.450000: Please be seated. I am less concerned with rank than with truths.
+3.600000: It was one of those grey London mornings when the city lay under a shroud of fog
+4.550000: and the air carried that peculiar stillness which precedes the stir of human life.
+2.640000: Holmes and I had been in a rare season of quietude,
+5.170000: though such peace never lasts long when one shares quarters with the world's only consulting detective.
+1.600000: ..
+5.220000: Observe, Watson, our nocturnal visitor has been most careless.
+5.840000: The marks upon this sill tell me she stood here for some moments before deciding to knock.
+3.340000: She homes, you are certain the visitor was a lady?
 1.640000: ..
-5.280000: Narrating, I noted the contrast. The lieutenant, with an officer's stiff bearing and narrowed eyes,
-5.480000: and the steward, pale, twitching, visibly ill at ease, hums, with his piercing gaze,
-3.880000: seemed to weigh both men as one might examine specimens in a cabinet.
-7.540000: Lieutenant Graves, let us begin. At what hour did you last see the jewels secure in the captain's safe?
-6.440000: Shortly after the evening round, sir. I verified the locks myself at half-past nine. The safe was undisturbed. Ah!
-2.180000: ...
-2.850000: Steward Finch, when were you last in the cabin?
-5.170000: I? I brought wine for the captain's table at supper, sir. That was all. I never touched the safe.
-1.790000: The man seemed shaken.
-3.440000: Though whether from guilt or fear of authority, I could not tell.
-8.800000: Tell me, Finch, why do your boots bear traces of reddish clay, when we stand upon damp cobble and salt-stained planks?
-3.790000: I went ashore yesterday, sir. Only briefly.
-11.740000: Briefly? And yet the clay clings thickly. Not the trace of a fleeting step, but the imprint of a prolonged errand. Where precisely did you go?
-2.300000: To, to fetch tobacco, sir.
-0.990000: Near Coving Garden.
-6.850000: And you, Lieutenant? Did you observe Finch absent from the ship yesterday?
-2.860000: No, sir. To my knowledge, he never left.
-3.200000: That's false. I went ashore. I swear it.
-1.180000: ..
-11.880000: Enough. The contradiction itself is valuable. Watson, note how truth resists alignment. The clay upon Finch's boots, the denial of Graves.
-3.320000: One of them conceals more than he admits.
-12.720000: The interrogation aboard the Dauntless left my mind in turmoil. Finch's trembling denials, the Lieutenant's stiff refusals, and Holmes's quiet absorption all seemed to form pieces of a puzzle whose outline I could barely perceive.
-10.280000: When, late in the afternoon, Holmes suddenly declared that we must return ashore at once, I pressed him for an explanation. But he offered only that enigmatic smile which told me nothing and promised everything.
-3.130000: Habs, may I not at least know where we hasten?
-14.720000: Patience, Watson. The clay upon Finch's boots was not of Coving Garden, nor of the Thames docks. It was from a garden soil unique to this quarter, red with iron. A careless slip betrayed him.
-2.940000: Then you believe Finch lied about his errand?
-2.680000: We entered the dim stairwell of the Nodging House.
-1.010000: You really we?
-5.500000: The air smelled of boiled cabbage and damp plaster, while the groan of old boards echoed beneath our seats.
-0.000000: 
-6.700000: We walked down the steps. Holmes, with noiseless tread, led us upward until we reached a door faintly marked with the Steward's name.
-8.940000: Ha! ha! Here lies the heart of our matter. Observe, Watson, the wooden box locked yet light in the hand.
-2.770000: Could it contain the blue water itself?
-8.660000: Not so heavy, nor merely papers, perhaps correspondence. Yet even scraps of ink may speak louder than gems.
-2.920000: Here, letters in a foreign language.
-0.890000: The hand of the Lord.
-7.740000: Italian. And see, this seal of a pawnbroker in Clerkenwell. The Steward was entangled in debt.
-3.850000: Debt! Then perhaps he stole the gem to settle his obligations.
-13.250000: Too crude for that. The forced lock. The clumsy entry. These do not speak of a desperate debtor. They speak of a decoy. The true hand is more disciplined.
-2.120000: Then you believe Finch is but a pawn?
-5.400000: That very evening, Holmes led us to Clerkenwell, where gas lamps glowed feebly upon shuttered shops.
-8.510000: At the corner stood the pawnbroker's establishment, mentioned in Finch's papers. Holmes, with quiet instructions, stationed us in shadow while he himself vanished inside.
-12.210000: Narrating, the minutes dragged. I felt my pulse quicken with every passing sound, until at last the shop-door creaked and a tall figure in naval greatcoat slipped within. Holmes's snare was closing.
-2.500000: Graves, by heaven, it is he!
-9.410000: In all the adventures I shared with my friend Mr. Sherlock Holmes, few rivaled the tension of that fog-drenched night in Clerkenwell when Lieutenant Graves slipped into the pawnbroker's shop.
-5.660000: Bearing that fateful parcel, I felt the very air quiver with the weight of justice about to descend.
-9.420000: Watson, observe! The parcel's bulk, its manner of unfolding. Yes, there! The blue water gleams at last!
-2.140000: By heavens, it is the sapphire!
-2.970000: Now, Commander, your moment!
-3.640000: I will confront your lieutenant and reclaim your honour!
-4.460000: Graves, you vile traitor! You dared betray the trust of the navy!
-3.730000: Ay, I only meant to hold it as collateral. The debts, my honour, was lost already.
-14.190000: Hours later, safe within the familiar warmth of Baker Street, I pressed Holmes for a full account. The fire crackled in the grade, and the sapphire itself lay upon the table, casting a faint blue radiance, as if mocking the fog and shadows of the night's adventure.
-3.850000: Holmes, you must explain how you unravelled the tangle so swiftly.
-22.240000: It was all, my dear Watson, a matter of exclusion. The lock upon the safe was forced with crude haste, clearly to suggest a common thief. Yet Graves possessed both the knowledge and the opportunity. He contrived to leave false traces, and seized upon Finch's debts to deflect suspicion.
-2.530000: The red clay was the pivot.
-9.390000: Finch, indeed, bore it upon his boots. But it was not from Govent Garden, as he claimed. It belonged to the very street where he lodged.
-8.530000: Why, he lodged! The act, coupled with Graves's denial of Finch's absence, revealed collusion of silence and deceit.
-2.540000: Then Finch was guilty of weakness, not of theft?
+6.680000: Indisputably. The narrow breadth of the heel, the slight inward turn,
+5.800000: and the impression of a high in step, feminine traits. Watson!
+1.040000: ..
+6.660000: Moreover, the sole bears traces of a rare soil, laterite, rich with iron and red clay,
+3.520000: found only in certain valleys of the Amazon basin.
+6.650000: You astonish me, Holmes. Are you implying that a woman from South America visited Baker Street in the dead of night?
+4.610000: Indeed. And she left in haste, dropping this token of her errand.
+2.390000: Hmm. A ring. Hmm.
+4.890000: A remarkable one. Note the carving upon its surface.
+6.100000: A serpent entwined around a tree, its eyes two small emeralds.
+4.120000: The craftsmanship suggests Amazonian origin
+3.400000: Likely a relic of an indigenous tribe
+3.810000: See this faint inscription upon the inner band?
+1.950000: The letters sing Latin
+1.060000: Vincorum codis
+1.000000: Bond of the heart
+1.850000: What could such words mean?
+4.230000: Perhaps, Watson, a matter of passion and peril
+3.620000: In my experience, such tokens seldom travel alone
+2.600000: They carry secrets heavier than gold
+4.070000: But if she left it unintentionally, she must return for it.
+4.550000: Exactly. And when she does, we shall be ready to receive her.
+0.760000: But—ah! what’s this?
+1.000000: ..
+2.660000: Mr. Sherlock Holmes?
+2.020000: ...
+4.390000: Pray, madam. Enter. You are expected.
+3.070000: Mr. Holmes, I have come to seek your aid.
+4.520000: .....
+4.540000: It concerns my father's disappearance in the forests of the Amazon
+4.090000: and this ring which was sent to me with no explanation.
+5.250000: Indeed, the Amazon again, Watson. The plot thickens.
+5.710000: And thus began one of the strangest cases that ever engaged Holmes' extraordinary powers,
+2.320000: the affair of the Amazon Ring.
+3.380000: By the time the afternoon lamps flicker alive in Baker Street,
+3.840000: the fog had thickened into a yellowish haze that wrapped the city in uneasy silence.
+2.630000: Holmes, after an hour's intense reading of the lady's letter,
+4.740000: had declared that the matter required immediate inquiry at a certain riverside warehouse.
+2.450000: Watson, bring your revolver.
+3.330000: The situation promises complication,
+3.980000: and I should not wish to meet danger unprepared.
+2.280000: ...
+3.190000: Holmes, you speak as though Peril already walks beside us.
+2.730000: When a mystery begins with soil from the Amazon,
+9.900000: on and an anonymous letter written in half-burned park. I never exclude danger, my dear fellow.
+8.680000: Come, our cab awaits. Miss de Alvarado, your letter spoke of your father's expedition to
+8.920000: the Rio Negro. He disappeared three years ago, did he not? Yes, Mr. Holmes. He led a small team
+2.880000: seeking ancient ruins along the upper Amazon.
+6.020000: .......
+2.850000: Only fragments of his notes return to London,
+3.030000: this ring among them delivered by an unknown sailor
+1.410000: who vanished the next day.
+3.120000: The handwriting differs from your father's.
+2.230000: Yet the ink see here, Watson,
+2.440000: contains particles of red laterite,
+2.320000: identical to those on the ring.
+4.480000: Whoever wrote this must have handled that same soil.
+4.210000: But how could Amazon soil appear upon paper in London?
+6.020000: Ha ha, my dear Watson, that is precisely the question we are about to answer.
+8.960000: There exists, along the Thames, a warehouse belonging to a trading company once engaged in South American ventures.
+3.590000: Mr. Alvarado's letter bears their watermark.
+3.000000: We shall see what remains within.
 1.080000: ..
-6.540000: Precisely. Graves preyed upon Finch's desperation, using his room and debts as camouflage.
-8.490000: Yet the lieutenant's own arrogance led him to the pawnbroker, where his hands betrayed him with the sapphire itself.
-3.930000: And so the Bluewater is safe again, thanks to your science of deduction.
-0.480000: .
+3.080000: This place looks abandoned, Holmes, yet the lock appears new.
+1.240000: ..
+4.460000: New locks upon old doors are always worth one's curiosity.
+4.520000: .....
+6.290000: Observe the footprints, what's unfresh and layered with the same reddish dust we found this morning.
+2.030000: Then someone has been here recently.
+7.900000: Precisely. And this soil note, its moist texture was not carried by mere accident.
+1.300000: ..
+7.200000: It has been recently unbacked, suggesting a shipment from abroad. We must find the manifest.
+1.360000: ..
+6.960000: Here we are. Shipment from Manaus, dated two weeks ago. Destination, London docks,
+1.200000: consignee unknown.
+1.520000: ..
+1.200000: But what is this?
+1.820000: ..
+1.320000: Property of E.
+1.640000: ..
+2.110000: D. Alvarado.
+2.380000: Miss, your father's name.
+1.560000: Good heavens, Holmes.
+2.130000: If a father's name is still used in trade,
+2.300000: someone must be posing as him, or worse.
+1.650000: Indeed, Watson.
+1.890000: We face an imposter,
+1.940000: one who traffics in relics
+2.190000: that should have remained buried.
+2.050000: We shall confront this phantom
+1.870000: at the docks before dawn.
+3.120000: And thus began the second act of our strange pursuit,
+2.620000: the trail of red soil leading us from the quay,
+1.160000: key of Baker Street,
+2.150000: to the misty heart of London's river trade.
+1.420000: Tabwees ratted to a halt
+2.040000: before the labyrinth of London's docks.
+2.020000: A heavy fog drifted from the river,
+2.000000: swallowing every sound and shape
+1.760000: until even the lamplight appeared
+2.280000: as blurred halos in the murk.
+1.240000: Holmes descended first,
+1.760000: his lean figure half lost
+1.920000: against the spectrum masts and cranes
+2.430000: that loomed like gallows in the mist.
+3.770000: Observe, Watson, these tracks upon the planks.
+4.440000: Two men passed here within the hour, burdened by weight.
+4.950000: The soil residue is again that same crimson dust.
+2.880000: The same dust? Beyond question.
+3.690000: Then the imposter used these docks to land his cargo from the Amazon.
+2.150000: Exactly, my dear fellow.
+5.270000: And these crates, note their stenciling, manas, export, company.
+6.460000: company. The link to Brazil is complete. Then these shipments were addressed to her
+4.480000: father's name. But what purpose could compel someone to masquerade as Professor de Alvarado?
+7.360000: The answer, Watson, lies likely in those smaller chests near the gangway. Their locks are sealed
+9.140000: with fresh wax. An artless precaution against thrying eyes just gains eyes. Aha! See here
+3.430000: Here specimens of red clay packed with primitive ornaments.
+6.450000: Our adversary smuggles relics, Watson, contraband torn from Amazonian graves.
+1.420000: ..
+3.210000: Good heavens, Holmes, the theft of sacred artefacts!
+1.230000: This explains the ring.
+2.370000: It must have been part of such a collection.
+7.270000: Then my father's name has been used to desecrate the very land he sought to preserve.
+6.910000: Oh, mister! Holmes, how shall I bear such shame?
+6.570000: Courage, madam. Truth absorbs all honest hearts. The guilty will soon reveal themselves.
+0.900000: The...
+3.510000: Someone approaches there, along the starboard gangway.
+3.630000: Remain quiet. Let the phantom declare itself.
+3.220000: There, by the lantern, a figure moving.
+0.080000: moving.
+1.760000: ..
+1.720000: Stand where you are.
+1.730000: You are known to us.
+2.200000: You are too late, Mr. Holmes.
+2.290000: The river carries secrets no man may recover.
+2.380000: The parcel gone into the Thames.
+2.930000: Yet not all is lost, Watson.
+0.870000: Observe.
+1.080000: ..
+3.290000: The man dropped this in his haste.
+6.190000: A clasp of South American design, englazed with the same serpent emblem as upon the ring.
+4.180000: The chain of evidence tightens, my dear Watson.
+9.070000: And so beneath this ghostly fog, we gained our first tangible link to the man who dared to traffic in the mysteries of the Amazon.
+7.340000: Watson, it is now evident that these two pieces, the ring and the clasp, are inseparable.
+8.830000: Their connection is symbolic and functional, a guide left by those who held knowledge of the Amazon's hidden relics.
+5.020000: Then the serpent motif is more than ornamentation. It is a signpost left by your father, Miss
+0.680000: de Alvarado.
+1.100000: ..
+6.700000: Precisely, Watson. Note how the twin emeralds align with openings in the clasp. Together
+6.670000: they form a secret lock known only to the rightful heir. This is no ordinary ornament.
+8.410000: It conceals knowledge. Observe. The clasp clicks into place. Inside lies a hidden compartment.
+1.240000: ..
+14.170000: Exactly! These instructions were meant for those he trusted. The serpent mark is both warning and guidance. Whoever possesses this key knows the path he charted along the Amazon.
+6.850000: Then the imposter sought to exploit your father's name for profit and secrecy. The ring and journal are the true keys to his legacy.
+8.080000: sea. To the docks again, Watson. The serpent mark leads to the imposter's lair. Today the secret
+7.510000: shall be unveiled. There. Do you see the boat drifting slowly, Watson? Our adversary returns,
+6.750000: unaware that we are watching. Observe his stance, Watson. The serpent mark on his vest gives him
+8.040000: away. He is our imposter. Open the chest. The ring, the clasp, and the journal belong to
+7.160000: Miss de Alvarado. Your theft ends now. My father's work saved. Thank you, Mr. Holmes.
+4.700000: As the sunlight glinted off the river, I observed Holmes surveying the docks with his usual
+6.360000: intensity, noting every shadow, every glint of metal. The imposter subdued. Yet the weight of
+2.310000: of the Amazon's mysteries seem to linger upon us still,
+2.650000: like the mist that clung stubbornly to the water.
+3.340000: Notice, Watson, that even in triumph,
+2.230000: a detective must observe.
+2.760000: The river reveals nothing yet.
+1.190000: Everything.
+2.660000: The slightest disturbance is a clue
+2.080000: to intentions unseen.
+2.680000: ...
+2.360000: Holmes, now that the imposter is exposed,
+1.250000: can we truly rest,
+2.790000: knowing these artifacts were touched by human greed?
+17.960000: ..................
+5.880000: And so, beneath the tear-mourning sky, the Amazon ring's secret returned to its rightful
+4.620000: keeper, an imposter unmasked, and Holmes once more reminded me that deduction, patience,
+2.230000: and observation triumph over deception.
+1.320000: Come, Watson.
+2.210000: The docks have yielded their secret,
+2.550000: yet the adventure is not concluded.
+1.350000: We must return
+2.870000: and analyze these artifacts in detail.
+2.830000: Knowledge alone can safeguard them
+1.580000: against future theft.
+1.920000: ..
+2.180000: Chanteed, Holmes, why what?
+2.520000: Ching Ma, each case confirms your maxim.
+0.980000: Observation reveals
+1.890000: what the eye alone cannot discern.
+1.450000: And now the serpent mark
+0.880000: has led us to victory,
+2.560000: though I suspect its lessons are far from finished.
+2.800000: The serpent mark revealed the path.
+0.560000: Watson!
+1.060000: ..
+5.190000: Knowledge, patience and deduction have preserved the Amazon's secret.
+7.010000: Let us now return and ensure the artifacts and their story remain safe.
+4.730000: And so as the cab rolled away from the docks, I felt a mixture of relief and awe.
+2.770000: Hones had once more deciphered the threads of human deceit,
+3.450000: Revealing not only the imposter but the wisdom hidden in a serpent's secret mark,
+4.300000: Ford, I've wondered what further adventures lay in the shadow of this victory.
+2.510000: The cab guided us through London streets.
+2.390000: Yet a sense of anticipation clung like fog.
+2.050000: Holmes dripped the ring and journal tightly,
+2.860000: as though they alone could unlock the final puzzle.
+2.360000: Watson, the imposter is nearby.
+2.370000: Our next step is his hideout.
+2.650000: The serpent mark will guide us.
+2.410000: The alley seems deserted, Holmes.
+1.870000: Yet I sense he watches us from shadow.
+2.320000: You, you have no right to interfere.
+1.100000: ..
+0.890000: Open your hands.
+4.490000: The chest, the ring, the journal, all belong to Miss Del Verado.
+4.380000: .....
+3.680000: Now, Watson, we recover all stolen artifacts.
+3.270000: The Amazon Green's secret must returned.
+1.490000: Elementary, Watson.
+3.260000: Deduction revealed the thief and the treasure.
+3.180000: Each piece now tells its rightful story.
+6.900000: story. The Amazon ring is safe, the imposter neutralized and Miss de Alvarado's inheritance
+9.340000: preserved. Elementary, Watson. Observation and patience preserve knowledge. Justice is served
+7.040000: and the legacy remains. And so, with the imposter unmasked, the Amazon ring secured and the journal
+5.340000: returned, a chapter of adventure and human folly closed, leaving us prepared for the next case.
+0.380000: .

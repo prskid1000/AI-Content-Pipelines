@@ -1,6 +1,381 @@
-Workflow runner started. Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
+Workflow runner started. Python executable: D:\.comfyui\.venv\Scripts\python.exe
 Working directory: D:\.comfyui\gen.video
 Emptying ComfyUI input and output folders...
 Successfully emptied ComfyUI input and output folders.
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
+[START] Security scan
+[DONE] Security scan
+## ComfyUI-Manager: installing dependencies done.
+** ComfyUI startup time: 2025-10-24 13:17:32.270
+** Platform: Windows
+** Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
+** Python executable: D:\.comfyui\.venv\Scripts\python.exe
+** ComfyUI Path: D:\.comfyui\ComfyUI
+** ComfyUI Base Folder Path: D:\.comfyui\ComfyUI
+** User directory: D:\.comfyui\ComfyUI\user
+** ComfyUI-Manager config path: D:\.comfyui\ComfyUI\user\default\ComfyUI-Manager\config.ini
+** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
+ComfyUI not ready yet (attempt 1). Retrying in 15s...
+
+Prestartup times for custom nodes:
+   2.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+
+Checkpoint files will always be loaded safely.
+Total VRAM 12227 MB, total RAM 64957 MB
+pytorch version: 2.10.0.dev20251013+cu130
+Set vram state to: LOW_VRAM
+Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
+Using pytorch attention
+Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
+ComfyUI version: 0.3.64
+ComfyUI frontend version: 1.27.10
+[Prompt Server] web root: D:\.comfyui\.venv\Lib\site-packages\comfyui_frontend_package\static
+ComfyUI-GGUF: Allowing full torch compile
+### Loading: ComfyUI-Manager (V3.36)
+[ComfyUI-Manager] network_mode: public
+### ComfyUI Version: v0.3.64-23-gd68ece73 | Released on '2025-10-12'
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
+✅ ChatterboxTTS loaded from bundled package
+✅ ChatterboxVC loaded from bundled package
+✅ F5-TTS loaded from system package
+🎭 Character voices: Found 70 characters, 4 aliases
+✅ SRT modules loaded from system package
+🔧 Registering TTS Audio Suite nodes...
+======================================================================
+🚀 TTS Audio Suite v4.2.1
+Universal multi-engine TTS extension for ComfyUI
+⚠️ No local ChatterBox models found - will download from Hugging Face
+💡 Tip: First generation will download models (~1GB)
+   Models will be saved locally for future use
+✅ TTS Audio Suite v4.2.1 loaded with 16 nodes:
+   • ⚙️ ChatterBox TTS Engine
+   • ⚙️ F5 TTS Engine
+   • ⚙️ RVC Engine
+   • 🌊 Audio Wave Analyzer
+   • 🎙️ Voice Capture
+   • 🎤 TTS Text
+   • 🎭 Character Voices
+   • 🎭 Load RVC Character Model
+   • 👄 F5-TTS Speech Editor
+   • 📺 TTS SRT
+   • 🔄 Voice Changer
+   • 🔧 Audio Analyzer Options
+   • 🔧 F5-TTS Edit Options
+   • 🔧 RVC Pitch Extraction Options
+   • 🤐 Noise or Vocal Removal
+   • 🥪 Merge Audio
+======================================================================
+
+Import times for custom nodes:
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-Unload-Model
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\Comfyui_TTP_Toolset
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
+   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
+   0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   2.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
+   4.4 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
+
+Context impl SQLiteImpl.
+Will assume non-transactional DDL.
+No target revision found.
+Starting server
+
+To see the GUI go to: http://127.0.0.1:8188
+FETCH ComfyRegistry Data: 5/101
+ComfyUI is ready after 17.1s (attempt 2).
+
+===== START D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-10-24 13:17:47 =====
+Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.image\output\tracking
+Found existing checkpoint: D:\.comfyui\gen.image\output\tracking\3.scene.state.json
+Progress: Scenes(85/85)
+Character mode: IMAGE_TEXT
+Location mode: TEXT
+Validating cache against output/scene directory: ../output/scene
+Scanning output/scene directory for untracked files: ../output/scene
+Scene already tracked: scene_1.10
+Scene already tracked: scene_1.11
+Scene already tracked: scene_1.12
+Scene already tracked: scene_1.13
+Scene already tracked: scene_1.14
+Scene already tracked: scene_1.15
+Scene already tracked: scene_1.16
+Scene already tracked: scene_1.17
+Scene already tracked: scene_1.2
+Scene already tracked: scene_1.3
+Scene already tracked: scene_1.4
+Scene already tracked: scene_1.5
+Scene already tracked: scene_1.6
+Scene already tracked: scene_1.7
+Scene already tracked: scene_1.8
+Scene already tracked: scene_1.9
+Scene already tracked: scene_2.1
+Scene already tracked: scene_2.10
+Scene already tracked: scene_2.11
+Scene already tracked: scene_2.12
+Scene already tracked: scene_2.13
+Scene already tracked: scene_2.14
+Scene already tracked: scene_2.15
+Scene already tracked: scene_2.16
+Scene already tracked: scene_2.17
+Scene already tracked: scene_2.18
+Scene already tracked: scene_2.2
+Scene already tracked: scene_2.3
+Scene already tracked: scene_2.4
+Scene already tracked: scene_2.5
+Scene already tracked: scene_2.6
+Scene already tracked: scene_2.7
+Scene already tracked: scene_2.8
+Scene already tracked: scene_2.9
+Scene already tracked: scene_3.1
+Scene already tracked: scene_3.10
+Scene already tracked: scene_3.11
+Scene already tracked: scene_3.12
+Scene already tracked: scene_3.13
+Scene already tracked: scene_3.14
+Scene already tracked: scene_3.15
+Scene already tracked: scene_3.16
+Scene already tracked: scene_3.17
+Scene already tracked: scene_3.18
+Scene already tracked: scene_3.19
+Scene already tracked: scene_3.2
+Scene already tracked: scene_3.3
+Scene already tracked: scene_3.4
+Scene already tracked: scene_3.5
+Scene already tracked: scene_3.6
+Scene already tracked: scene_3.7
+Scene already tracked: scene_3.8
+Scene already tracked: scene_3.9
+Scene already tracked: scene_4.1
+Scene already tracked: scene_4.10
+Scene already tracked: scene_4.11
+Scene already tracked: scene_4.12
+Scene already tracked: scene_4.13
+Scene already tracked: scene_4.14
+Scene already tracked: scene_4.15
+Scene already tracked: scene_4.16
+Scene already tracked: scene_4.17
+Scene already tracked: scene_4.18
+Scene already tracked: scene_4.19
+Scene already tracked: scene_4.2
+Scene already tracked: scene_4.20
+Scene already tracked: scene_4.21
+Scene already tracked: scene_4.3
+Scene already tracked: scene_4.4
+Scene already tracked: scene_4.5
+Scene already tracked: scene_4.6
+Scene already tracked: scene_4.7
+Scene already tracked: scene_4.8
+Scene already tracked: scene_4.9
+Scene already tracked: scene_5.1
+Scene already tracked: scene_5.10
+Scene already tracked: scene_5.2
+Scene already tracked: scene_5.3
+Scene already tracked: scene_5.4
+Scene already tracked: scene_5.5
+Scene already tracked: scene_5.6
+Scene already tracked: scene_5.7
+Scene already tracked: scene_5.8
+Scene already tracked: scene_5.9
+No untracked scenes found in output/scene directory
+Validating 85 completed scenes against output/scene directory...
+Precheck: File missing for scene_1.1 - marking as not completed
+Precheck: ✓ scene_1.2 validated in output/scene directory
+Precheck: ✓ scene_1.5 validated in output/scene directory
+Precheck: ✓ scene_1.6 validated in output/scene directory
+Precheck: ✓ scene_1.7 validated in output/scene directory
+Precheck: ✓ scene_1.8 validated in output/scene directory
+Precheck: ✓ scene_1.9 validated in output/scene directory
+Precheck: ✓ scene_1.10 validated in output/scene directory
+Precheck: ✓ scene_1.11 validated in output/scene directory
+Precheck: ✓ scene_1.13 validated in output/scene directory
+Precheck: ✓ scene_1.3 validated in output/scene directory
+Precheck: ✓ scene_1.4 validated in output/scene directory
+Precheck: ✓ scene_1.14 validated in output/scene directory
+Precheck: ✓ scene_1.15 validated in output/scene directory
+Precheck: ✓ scene_1.16 validated in output/scene directory
+Precheck: ✓ scene_1.17 validated in output/scene directory
+Precheck: ✓ scene_2.1 validated in output/scene directory
+Precheck: ✓ scene_2.2 validated in output/scene directory
+Precheck: ✓ scene_2.3 validated in output/scene directory
+Precheck: ✓ scene_2.5 validated in output/scene directory
+Precheck: ✓ scene_2.6 validated in output/scene directory
+Precheck: ✓ scene_2.10 validated in output/scene directory
+Precheck: ✓ scene_2.11 validated in output/scene directory
+Precheck: ✓ scene_2.13 validated in output/scene directory
+Precheck: ✓ scene_2.15 validated in output/scene directory
+Precheck: ✓ scene_2.16 validated in output/scene directory
+Precheck: ✓ scene_3.1 validated in output/scene directory
+Precheck: ✓ scene_3.5 validated in output/scene directory
+Precheck: ✓ scene_3.6 validated in output/scene directory
+Precheck: ✓ scene_3.7 validated in output/scene directory
+Precheck: ✓ scene_3.9 validated in output/scene directory
+Precheck: ✓ scene_3.10 validated in output/scene directory
+Precheck: ✓ scene_3.11 validated in output/scene directory
+Precheck: ✓ scene_3.13 validated in output/scene directory
+Precheck: ✓ scene_3.15 validated in output/scene directory
+Precheck: ✓ scene_3.16 validated in output/scene directory
+Precheck: ✓ scene_3.19 validated in output/scene directory
+Precheck: ✓ scene_4.5 validated in output/scene directory
+Precheck: ✓ scene_4.6 validated in output/scene directory
+Precheck: ✓ scene_4.8 validated in output/scene directory
+Precheck: ✓ scene_4.10 validated in output/scene directory
+Precheck: ✓ scene_4.11 validated in output/scene directory
+Precheck: ✓ scene_4.12 validated in output/scene directory
+Precheck: ✓ scene_4.13 validated in output/scene directory
+Precheck: ✓ scene_4.15 validated in output/scene directory
+Precheck: ✓ scene_4.17 validated in output/scene directory
+Precheck: ✓ scene_4.18 validated in output/scene directory
+Precheck: ✓ scene_4.19 validated in output/scene directory
+Precheck: ✓ scene_1.12 validated in output/scene directory
+Precheck: ✓ scene_2.7 validated in output/scene directory
+Precheck: ✓ scene_2.8 validated in output/scene directory
+Precheck: ✓ scene_2.9 validated in output/scene directory
+Precheck: ✓ scene_2.12 validated in output/scene directory
+Precheck: ✓ scene_2.17 validated in output/scene directory
+Precheck: ✓ scene_3.12 validated in output/scene directory
+Precheck: ✓ scene_4.7 validated in output/scene directory
+Precheck: ✓ scene_4.9 validated in output/scene directory
+Precheck: ✓ scene_4.20 validated in output/scene directory
+Precheck: ✓ scene_4.21 validated in output/scene directory
+Precheck: ✓ scene_5.1 validated in output/scene directory
+Precheck: ✓ scene_5.2 validated in output/scene directory
+Precheck: ✓ scene_5.3 validated in output/scene directory
+Precheck: ✓ scene_5.4 validated in output/scene directory
+Precheck: ✓ scene_5.5 validated in output/scene directory
+Precheck: ✓ scene_5.6 validated in output/scene directory
+Precheck: ✓ scene_5.8 validated in output/scene directory
+Precheck: ✓ scene_5.10 validated in output/scene directory
+Precheck: ✓ scene_2.14 validated in output/scene directory
+Precheck: ✓ scene_2.18 validated in output/scene directory
+Precheck: ✓ scene_3.2 validated in output/scene directory
+Precheck: ✓ scene_3.3 validated in output/scene directory
+Precheck: ✓ scene_3.8 validated in output/scene directory
+Precheck: ✓ scene_3.14 validated in output/scene directory
+Precheck: ✓ scene_4.1 validated in output/scene directory
+Precheck: ✓ scene_4.3 validated in output/scene directory
+Precheck: ✓ scene_4.4 validated in output/scene directory
+Precheck: ✓ scene_5.7 validated in output/scene directory
+Precheck: ✓ scene_4.2 validated in output/scene directory
+Precheck: ✓ scene_4.14 validated in output/scene directory
+Precheck: ✓ scene_5.9 validated in output/scene directory
+Precheck: ✓ scene_2.4 validated in output/scene directory
+Precheck: ✓ scene_3.4 validated in output/scene directory
+Precheck: ✓ scene_3.17 validated in output/scene directory
+Precheck: ✓ scene_3.18 validated in output/scene directory
+Precheck: ✓ scene_4.16 validated in output/scene directory
+Precheck: Cleared LoRA progress for scene_1.1
+Precheck: Cleaned up 1 invalid entries from checkpoint
+Precheck completed: 1 invalid entries removed from checkpoint
+Found 84 completed scenes: ['scene_1.10', 'scene_1.11', 'scene_1.12', 'scene_1.13', 'scene_1.14', 'scene_1.15', 'scene_1.16', 'scene_1.17', 'scene_1.2', 'scene_1.3', 'scene_1.4', 'scene_1.5', 'scene_1.6', 'scene_1.7', 'scene_1.8', 'scene_1.9', 'scene_2.1', 'scene_2.10', 'scene_2.11', 'scene_2.12', 'scene_2.13', 'scene_2.14', 'scene_2.15', 'scene_2.16', 'scene_2.17', 'scene_2.18', 'scene_2.2', 'scene_2.3', 'scene_2.4', 'scene_2.5', 'scene_2.6', 'scene_2.7', 'scene_2.8', 'scene_2.9', 'scene_3.1', 'scene_3.10', 'scene_3.11', 'scene_3.12', 'scene_3.13', 'scene_3.14', 'scene_3.15', 'scene_3.16', 'scene_3.17', 'scene_3.18', 'scene_3.19', 'scene_3.2', 'scene_3.3', 'scene_3.4', 'scene_3.5', 'scene_3.6', 'scene_3.7', 'scene_3.8', 'scene_3.9', 'scene_4.1', 'scene_4.10', 'scene_4.11', 'scene_4.12', 'scene_4.13', 'scene_4.14', 'scene_4.15', 'scene_4.16', 'scene_4.17', 'scene_4.18', 'scene_4.19', 'scene_4.2', 'scene_4.20', 'scene_4.21', 'scene_4.3', 'scene_4.4', 'scene_4.5', 'scene_4.6', 'scene_4.7', 'scene_4.8', 'scene_4.9', 'scene_5.1', 'scene_5.10', 'scene_5.2', 'scene_5.3', 'scene_5.4', 'scene_5.5', 'scene_5.6', 'scene_5.7', 'scene_5.8', 'scene_5.9']
+Processing 1 scenes, skipped 84
+📊 Total scene words: 26
+============================================================
+
+📊 SCENE GENERATION PROGRESS
+====================================================================================================
+🔄 Scene 1/1 - {{loc_1}}, {Cold Winter Morning}; ((male_doctor_wa - Processing...
+📊 Estimated time remaining: ~8s (?)
+Generating scene: scene_1.1 with characters: male_doctor_watson, male_detective_holmes (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_1.1
+Compressed male_doctor_watson image: 97.2KB → 48.8KB (49.8% reduction)
+Compressed male_detective_holmes image: 96.4KB → 46.3KB (52.0% reduction)
+Added 2 character images to stitching process
+Character mode: IMAGE_TEXT, Location mode: TEXT, Total images: 2
+Image stitching: 2 images → 1 groups [2]
+Using single reference conditioning
+Using latent mode with dimensions: 1024x576
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 2061241822
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        
+ADD SCENE, which should look like,Place: (Type: British Victoriana Living Room, Size: medium), Ground: (Type: marsh, Material: stone, Color: grey), Surroundings: (Type: room_ceiling, Material: wood, Color: light brown), Objects: [(Type: fireplace, Color: white, marble, Material: stone, Position: center), (Type: curtain, Color: dark blue, Material: fabric, Position: left wall), (Type: bookshelf, Color: brown wood, Material: wood, Position: right wall), (Type: rug, Color: red, persian patterns , Material: fiberglass, Position: floor center), (Type: armchair, Color: dark brown, Material: leather, Position: hearth left side), (Type: armchair, Color: dark brown, Material: leather, Position: hearth right side)], as background of the entire illustration., {Cold Winter Morning}; 
+ADD ,LEFTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: square, Skin Tone: pale, Eyes Color: blue, Hair Color: brown, Hair Texture: straight, Age: adult, Gender: male, Body Type: average), Clothing: (Tops: (Type: button_down_dress_shirt, Color: black), Bottoms: (Type: track_pants, Color: gray), Footwear: (Type: boat_shoes, Color: white)), Accessories: [(Type: pocket_watch, Location: over_eyes, Color: gold), (Type: sunglasses, Location: over_eyes, Color: dark), (Type: ring, Location: over_eyes, Color: blue)], as one of the main characters of the illustration.{Neutral}, {Sitting on armchair near fireplace}{Reading the morning newspaper}; 
+ADD ,MIDDLE CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: pale, Eyes Color: blue, Hair Color: gray, Hair Texture: straight, Age: adult, Gender: male, Body Type: slim), Clothing: (Tops: (Type: tuxedo_shirt, Color: black, Pattern: solid, Material: wool, Fit: tight, Condition: well_worn), Bottoms: (Type: slim_chinos, Color: black, Pattern: none, Material: linen, Fit: tight, Condition: well_worn), Footwear: (Type: brogue_shoes, Color: brown, Pattern: solid, Condition: well_worn), Outerwear: (Type: military_dress_coat, Color: black, Pattern: none, Material: wool, Fit: loose)), Accessories: [(Type: watch, Location: on_wrist, Color: silver, Condition: well_worn), (Type: pocket_square, Location: in_hand, Color: brown, Condition: well_worn), (Type: cufflinks, Location: on_chest, Color: black, Condition: well_worn)], as one of the main characters of the illustration.{Calm}, {Standing by the window}{Examining footprints on the sill with a magnifying glass};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 2297653520
+  Using latent mode with dimensions: 1024x576
+  Using LoRA denoising_strength: 1
+  Steps: 9, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Using pytorch attention in VAE
+Using pytorch attention in VAE
+VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
+Requested to load FluxClipModel_
+loaded completely 9.5367431640625e+25 9319.23095703125 True
+CLIP/text encoder model load device: cpu, offload device: cpu, current: cpu, dtype: torch.float16
+clip missing: ['text_projection.weight']
+FETCH ComfyRegistry Data: 10/101
+model weight dtype torch.float8_e4m3fn, manual cast: torch.bfloat16
+model_type FLUX
+FETCH ComfyRegistry Data: 15/101
+Requested to load FluxClipModel_
+loaded completely 9.5367431640625e+25 9319.23095703125 True
+FETCH ComfyRegistry Data: 20/101
+FETCH ComfyRegistry Data: 25/101
+FETCH ComfyRegistry Data: 30/101
+Requested to load AutoencodingEngine
+loaded completely 3271.7255859375 159.87335777282715 True
+Requested to load Flux
+FETCH ComfyRegistry Data: 35/101
+loaded partially 7697.487961853027 7697.420959472656 155
+  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 40/101
+FETCH ComfyRegistry Data: 45/101
+ 11%|█         | 1/9 [00:08<01:04,  8.10s/it]FETCH ComfyRegistry Data: 50/101
+ 22%|██▏       | 2/9 [00:15<00:55,  7.96s/it]FETCH ComfyRegistry Data: 55/101
+ 33%|███▎      | 3/9 [00:23<00:46,  7.70s/it]FETCH ComfyRegistry Data: 60/101
+FETCH ComfyRegistry Data: 65/101
+ 44%|████▍     | 4/9 [00:31<00:38,  7.77s/it]FETCH ComfyRegistry Data: 70/101
+ 56%|█████▌    | 5/9 [00:38<00:30,  7.57s/it]FETCH ComfyRegistry Data: 75/101
+ 67%|██████▋   | 6/9 [00:45<00:22,  7.40s/it]FETCH ComfyRegistry Data: 80/101
+FETCH ComfyRegistry Data: 85/101
+ 78%|███████▊  | 7/9 [00:52<00:14,  7.34s/it]FETCH ComfyRegistry Data: 90/101
+ 89%|████████▉ | 8/9 [00:59<00:07,  7.22s/it]FETCH ComfyRegistry Data: 95/101
+100%|██████████| 9/9 [01:06<00:00,  7.12s/it]100%|██████████| 9/9 [01:06<00:00,  7.40s/it]
+Requested to load AutoencodingEngine
+loaded completely 196.6123046875 159.87335777282715 True
+Prompt executed in 103.72 seconds
+FETCH ComfyRegistry Data: 100/101
+FETCH ComfyRegistry Data [DONE]
+[ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
+FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json  Saved LoRA result: ../output/lora\scene_1.1.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/scene\scene_1.1.png
+  Preserved LoRA progress for completed scene
+✅ Scene 1/1 - {{loc_1}}, {Cold Winter Morning}; ((male_doctor_wa - Completed in 1.8m
+📊 Estimated time remaining: ~0s (?)
+[OK] Generated: scene_1.1
+
+Generated 1 scenes in 106.19s:
+  scene_1.1: ../output/scene\scene_1.1.png
+All operations completed successfully
+Final progress: Progress: Scenes(85/85)
+All operations completed successfully - tracking files preserved
+
+===== END D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-10-24 13:19:34 (exit=0, took=106.39s) =====
+Stopping ComfyUI backend...
+ComfyUI still responding; waiting for shutdown...
+ComfyUI appears stopped (after 2 checks).
+
+Log time stats: writes=0.000s, flushes=0.000s, total=0.000s (~0.00% of runtime)
+
+All scripts completed successfully.

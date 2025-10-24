@@ -1,408 +1,702 @@
-00:00:00,000 --> 00:00:05,790
-It was a calm winter morning and the faint golden light of the sun filtered into our sitting room at Baker Street,
+00:00:00,000 --> 00:00:03,600
+It was one of those grey London mornings when the city lay under a shroud of fog
 
-00:00:05,790 --> 00:00:10,300
-illuminating the quiet chaos of books, newspapers and Holmes' chemical apparatus.
+00:00:03,600 --> 00:00:08,150
+and the air carried that peculiar stillness which precedes the stir of human life.
 
-00:00:10,300 --> 00:00:12,859
-I had been attempting to follow an article in the Times,
+00:00:08,150 --> 00:00:10,789
+Holmes and I had been in a rare season of quietude,
 
-00:00:12,859 --> 00:00:18,549
-while Holmes, with his customary detachment, perused a slim monograph on rare gemstones.
+00:00:10,789 --> 00:00:15,960
+though such peace never lasts long when one shares quarters with the world's only consulting detective.
 
-00:00:18,549 --> 00:00:21,420
-Hmm, look Watson, hmm.
-
-00:00:21,420 --> 00:00:29,600
-Here lies an instructive example, an account of a jewel thief who failed because he ignored the simplest observation.
-
-00:00:29,600 --> 00:00:33,200
-You never cease to find lessons in these reports, Holmes,
-
-00:00:33,200 --> 00:00:39,150
-yet what intrigues me is how you manage to reduce matters of the most bewildering complexity to mere trifles.
-
-00:00:39,150 --> 00:00:41,100
-Elementary, my dear Watson.
-
-00:00:41,100 --> 00:00:47,479
-A man must train his eyes to see and his mind to connect what others discard.
-
-00:00:47,479 --> 00:00:49,219
+00:00:15,960 --> 00:00:17,560
 ..
 
-00:00:49,219 --> 00:00:51,460
-Complexity is but the mask of ignorance.
+00:00:17,560 --> 00:00:22,780
+Observe, Watson, our nocturnal visitor has been most careless.
 
-00:00:51,460 --> 00:00:55,019
-And yet, I confess, I am still struggling with that art.
+00:00:22,780 --> 00:00:28,620
+The marks upon this sill tell me she stood here for some moments before deciding to knock.
 
-00:00:55,019 --> 00:00:58,439
-Every time I attempt to emulate you, I fall into error.
+00:00:28,620 --> 00:00:31,960
+She homes, you are certain the visitor was a lady?
 
-00:00:58,439 --> 00:01:03,060
-That is precisely why I persist in your education, Watson.
-
-00:01:03,060 --> 00:01:07,079
-Wysh is not contouring, it is discipline.
-
-00:01:07,079 --> 00:01:14,030
-Now observe, your boots carry faint traces of the reddish clay from yesterday's walk by the serpentine.
-
-00:01:14,030 --> 00:01:18,340
-You did not notice it yourself, yet it speaks clearly to me.
-
-00:01:18,340 --> 00:01:23,580
-By Jove, Holmes, I had not the slightest notion. You astound me every time.
-
-00:01:23,580 --> 00:01:28,019
-And so, when a true mystery presents itself,
-
-00:01:28,019 --> 00:01:31,040
-the practice of noticing will serve us well.
-
-00:01:31,040 --> 00:01:32,780
+00:00:31,960 --> 00:00:33,599
 ..
 
-00:01:32,780 --> 00:01:34,170
-Ah! Listen!
+00:00:33,599 --> 00:00:40,280
+Indisputably. The narrow breadth of the heel, the slight inward turn,
 
-00:01:34,170 --> 00:01:39,019
-That is Mrs. Hudson's tread. She brings us a visitor.
+00:00:40,280 --> 00:00:46,079
+and the impression of a high in step, feminine traits. Watson!
 
-00:01:39,019 --> 00:01:42,500
-A gentleman to see you, Mr. Holmes, says it's urgent.
-
-00:01:42,500 --> 00:01:48,759
-The visitor entered, a tall naval officer with weather-beaten features and a look of suppressed anxiety.
-
-00:01:48,759 --> 00:01:53,890
-His uniform was impeccable, yet his gloved hands trembled slightly as he removed his cap.
-
-00:01:53,890 --> 00:01:56,819
-Mr. Holmes, Dr. Watson, forgive the intrusion.
-
-00:01:56,819 --> 00:01:58,430
-I am Commander James M. Watson.
-
-00:01:58,430 --> 00:01:59,800
-I am the artillery of Her Majesty's Navy.
-
-00:01:59,800 --> 00:02:05,379
-I come on a matter of the gravest urgency concerning a jewel known as the Blue Water.
-
-00:02:05,379 --> 00:02:10,269
-Blue Water? I have heard whispers of that name. Pray enlighten us, Commander.
-
-00:02:10,269 --> 00:02:13,159
-The Blue Water is no ordinary jewel, gentlemen.
-
-00:02:13,159 --> 00:02:20,590
-It is a sapphire of extraordinary size and purity, long kept as a naval trust.
-
-00:02:20,590 --> 00:02:24,980
-Yesterday, from a locked compartment aboard my ship, it vanished.
-
-00:02:24,980 --> 00:02:27,099
-I am ruined if it is not recovered.
-
-00:02:27,099 --> 00:02:28,439
+00:00:46,079 --> 00:00:47,119
 ..
 
-00:02:28,439 --> 00:02:31,110
-Holmes and I were seated in a handsome cab with Commander Illery.
+00:00:47,119 --> 00:00:53,780
+Moreover, the sole bears traces of a rare soil, laterite, rich with iron and red clay,
 
-00:02:31,110 --> 00:02:36,079
-See, the frost of that winter morning clung to the windows as we rattled toward the docks by the Thames.
+00:00:53,780 --> 00:00:57,299
+found only in certain valleys of the Amazon basin.
 
-00:02:36,079 --> 00:02:39,370
-I confess, my imagination was fired by the prospect.
+00:00:57,299 --> 00:01:03,949
+You astonish me, Holmes. Are you implying that a woman from South America visited Baker Street in the dead of night?
 
-00:02:39,370 --> 00:02:44,840
-A jewel of incalculable worth, a theft upon a naval vessel, and Holmes in his element.
+00:01:03,949 --> 00:01:08,560
+Indeed. And she left in haste, dropping this token of her errand.
 
-00:02:44,840 --> 00:02:45,959
+00:01:08,560 --> 00:01:10,949
+Hmm. A ring. Hmm.
+
+00:01:10,949 --> 00:01:15,840
+A remarkable one. Note the carving upon its surface.
+
+00:01:15,840 --> 00:01:21,939
+A serpent entwined around a tree, its eyes two small emeralds.
+
+00:01:21,939 --> 00:01:26,060
+The craftsmanship suggests Amazonian origin
+
+00:01:26,060 --> 00:01:29,459
+Likely a relic of an indigenous tribe
+
+00:01:29,459 --> 00:01:33,270
+See this faint inscription upon the inner band?
+
+00:01:33,270 --> 00:01:35,219
+The letters sing Latin
+
+00:01:35,219 --> 00:01:36,280
+Vincorum codis
+
+00:01:36,280 --> 00:01:37,280
+Bond of the heart
+
+00:01:37,280 --> 00:01:39,129
+What could such words mean?
+
+00:01:39,129 --> 00:01:43,359
+Perhaps, Watson, a matter of passion and peril
+
+00:01:43,359 --> 00:01:46,980
+In my experience, such tokens seldom travel alone
+
+00:01:46,980 --> 00:01:49,579
+They carry secrets heavier than gold
+
+00:01:49,579 --> 00:01:53,649
+But if she left it unintentionally, she must return for it.
+
+00:01:53,649 --> 00:01:58,199
+Exactly. And when she does, we shall be ready to receive her.
+
+00:01:58,199 --> 00:01:58,959
+But...
+
+00:01:58,959 --> 00:01:59,960
 ..
 
-00:02:45,959 --> 00:02:51,090
-Gentlemen, this is the Dauntless, my ship, and the scene of this deplorable theft.
+00:01:59,960 --> 00:02:02,620
+Mr. Sherlock Holmes?
 
-00:02:51,090 --> 00:02:52,530
-Remarkable, Holmes!
-
-00:02:52,530 --> 00:02:58,379
-The sheer order of a naval deck, yet within such order, a crime of the first magnitude.
-
-00:02:58,379 --> 00:03:03,159
-Okay, and that, Watson, is the paradox which interests me.
-
-00:03:03,159 --> 00:03:11,969
-A theft amidst perfect vigilance suggests either extraordinary cunning or internal collusion.
-
-00:03:11,969 --> 00:03:18,319
-I fear as much. The Blue Water was kept in the Captain's cabin, in a steel box with double locks.
-
-00:03:18,319 --> 00:03:24,290
-Only I and the First Lieutenant had keys. Yet the box was found forced open this morning.
-
-00:03:24,290 --> 00:03:28,139
-But surely, Holmes, that suggests a most limited field of suspects.
-
-00:03:28,139 --> 00:03:33,569
-Commander Illery ushered us below deck, into the Captain's quarters, where the theft had occurred.
-
-00:03:33,569 --> 00:03:40,040
-The cabin was orderly, almost austere, yet its every detail invited scrutiny under Holmes' searching gaze.
-
-00:03:40,040 --> 00:03:45,920
-A crude instrument used, and in haste, this was no professional cracksman.
-
-00:03:45,920 --> 00:03:52,319
-Note the rough scoring here, Watson, and the fragment of metal still lodged in the keyhole.
-
-00:03:52,319 --> 00:03:55,759
-By heavens, Holmes, you perceive all this from a mere glance.
-
-00:03:55,759 --> 00:04:01,939
-A not a glance, Watson, an accumulation of small certainties.
-
-00:04:01,939 --> 00:04:08,399
-Observe the dust displaced on the carpet, scarcely disturbed elsewhere, but heavily pressed here.
-
-00:04:08,399 --> 00:04:11,129
-Someone note to ply his tool.
-
-00:04:11,129 --> 00:04:15,250
-Then the thief must have acted in the night, when silence covered his efforts.
-
-00:04:15,250 --> 00:04:22,069
-Just so. Yet why here, and why now? That is what we must uncover.
-
-00:04:22,069 --> 00:04:25,509
-Commander, who had access to this cabin?
-
-00:04:25,509 --> 00:04:31,079
-Only myself, the first lieutenant, and occasionally the ship's steward when bringing supplies.
-
-00:04:31,079 --> 00:04:33,500
-No one else would dare.
-
-00:04:33,500 --> 00:04:38,659
-Commander Illery, pained with strain, wasted no time in summoning the two men under suspicion,
-
-00:04:38,659 --> 00:04:43,000
-Lieutenant Graves, his second-in-command, and the ship's steward, Mr. Finch.
-
-00:04:43,000 --> 00:04:47,840
-Holmes suggested that the mess hall would provide sufficient space and privacy for the examination.
-
-00:04:47,840 --> 00:04:54,439
-With measured dread, we made our way along the polished corridors of the vessel until we emerged into that long chamber
-
-00:04:54,439 --> 00:04:56,480
-where officers took their meals.
-
-00:04:56,480 --> 00:05:03,129
-Mr. Holmes, this is Lieutenant Graves, and here, Steward Finch, gentlemen, you will answer Mr. Mr.
-
-00:05:03,129 --> 00:05:05,210
-Holmes, directly and fully.
-
-00:05:05,210 --> 00:05:09,660
-Please be seated. I am less concerned with rank than with truths.
-
-00:05:09,660 --> 00:05:11,300
-..
-
-00:05:11,300 --> 00:05:16,580
-Narrating, I noted the contrast. The lieutenant, with an officer's stiff bearing and narrowed eyes,
-
-00:05:16,580 --> 00:05:22,060
-and the steward, pale, twitching, visibly ill at ease, hums, with his piercing gaze,
-
-00:05:22,060 --> 00:05:25,939
-seemed to weigh both men as one might examine specimens in a cabinet.
-
-00:05:25,939 --> 00:05:33,480
-Lieutenant Graves, let us begin. At what hour did you last see the jewels secure in the captain's safe?
-
-00:05:33,480 --> 00:05:39,920
-Shortly after the evening round, sir. I verified the locks myself at half-past nine. The safe was undisturbed. Ah!
-
-00:05:39,920 --> 00:05:42,100
+00:02:02,620 --> 00:02:04,639
 ...
 
-00:05:42,100 --> 00:05:44,950
-Steward Finch, when were you last in the cabin?
+00:02:04,639 --> 00:02:09,030
+Pray, madam. Enter. You are expected.
 
-00:05:44,950 --> 00:05:50,120
-I? I brought wine for the captain's table at supper, sir. That was all. I never touched the safe.
+00:02:09,030 --> 00:02:12,099
+Mr. Holmes, I have come to seek your aid.
 
-00:05:50,120 --> 00:05:51,909
-The man seemed shaken.
+00:02:12,099 --> 00:02:16,620
+.....
 
-00:05:51,909 --> 00:05:55,350
-Though whether from guilt or fear of authority, I could not tell.
+00:02:16,620 --> 00:02:21,159
+It concerns my father's disappearance in the forests of the Amazon
 
-00:05:55,350 --> 00:06:04,149
-Tell me, Finch, why do your boots bear traces of reddish clay, when we stand upon damp cobble and salt-stained planks?
+00:02:21,159 --> 00:02:25,250
+and this ring which was sent to me with no explanation.
 
-00:06:04,149 --> 00:06:07,939
-I went ashore yesterday, sir. Only briefly.
+00:02:25,250 --> 00:02:30,500
+Indeed, the Amazon again, Watson. The plot thickens.
 
-00:06:07,939 --> 00:06:19,680
-Briefly? And yet the clay clings thickly. Not the trace of a fleeting step, but the imprint of a prolonged errand. Where precisely did you go?
+00:02:30,500 --> 00:02:36,209
+And thus began one of the strangest cases that ever engaged Holmes' extraordinary powers,
 
-00:06:19,680 --> 00:06:21,980
-To, to fetch tobacco, sir.
+00:02:36,209 --> 00:02:38,530
+the affair, Hour of the Amazon Ring.
 
-00:06:21,980 --> 00:06:22,970
-Near Coving Garden.
+00:02:38,530 --> 00:02:41,909
+By the time the afternoon lamps flicker alive in Baker Street,
 
-00:06:22,970 --> 00:06:29,820
-And you, Lieutenant? Did you observe Finch absent from the ship yesterday?
+00:02:41,909 --> 00:02:45,750
+the fog had thickened into a yellowish haze that wrapped the city in uneasy silence.
 
-00:06:29,820 --> 00:06:32,680
-No, sir. To my knowledge, he never left.
+00:02:45,750 --> 00:02:48,379
+Holmes, after an hour's intense reading of the lady's letter,
 
-00:06:32,680 --> 00:06:35,879
-That's false. I went ashore. I swear it.
+00:02:48,379 --> 00:02:53,120
+had declared that the matter required immediate inquiry at a certain riverside warehouse.
 
-00:06:35,879 --> 00:06:37,060
+00:02:53,120 --> 00:02:55,569
+Watson, bring your revolver.
+
+00:02:55,569 --> 00:02:58,899
+The situation promises complication,
+
+00:02:58,899 --> 00:03:02,879
+and I should not wish to meet danger unprepared.
+
+00:03:02,879 --> 00:03:05,159
+...
+
+00:03:05,159 --> 00:03:08,349
+Holmes, you speak as though Peril already walks beside us.
+
+00:03:08,349 --> 00:03:11,080
+When a mystery begins with soil from the Amazon,
+
+00:03:11,080 --> 00:03:20,980
+on and an anonymous letter written in half-burned park. I never exclude danger, my dear fellow.
+
+00:03:20,980 --> 00:03:29,659
+Come, our cab awaits. Miss de Alvarado, your letter spoke of your father's expedition to
+
+00:03:29,659 --> 00:03:38,580
+the Rio Negro. He disappeared three years ago, did he not? Yes, Mr. Holmes. He led a small team
+
+00:03:38,580 --> 00:03:41,460
+seeking ancient ruins along the upper Amazon.
+
+00:03:41,460 --> 00:03:47,480
+.......
+
+00:03:47,480 --> 00:03:50,329
+Only fragments of his notes return to London,
+
+00:03:50,329 --> 00:03:53,360
+this ring among them delivered by an unknown sailor
+
+00:03:53,360 --> 00:03:54,769
+who vanished the next day.
+
+00:03:54,769 --> 00:03:57,889
+The handwriting differs from your father's.
+
+00:03:57,889 --> 00:04:00,120
+Yet the ink see here, Watson,
+
+00:04:00,120 --> 00:04:02,560
+contains particles of red laterite,
+
+00:04:02,560 --> 00:04:04,879
+identical to those on the ring.
+
+00:04:04,879 --> 00:04:09,360
+Whoever wrote this must have handled that same soil.
+
+00:04:09,360 --> 00:04:13,569
+But how could Amazon soil appear upon paper in London?
+
+00:04:13,569 --> 00:04:19,590
+Ha ha, my dear Watson, that is precisely the question we are about to answer.
+
+00:04:19,590 --> 00:04:28,550
+There exists, along the Thames, a warehouse belonging to a trading company once engaged in South American ventures.
+
+00:04:28,550 --> 00:04:32,139
+Mr. Alvarado's letter bears their watermark.
+
+00:04:32,139 --> 00:04:35,139
+We shall see what remains within.
+
+00:04:35,139 --> 00:04:36,219
 ..
 
-00:06:37,060 --> 00:06:48,939
-Enough. The contradiction itself is valuable. Watson, note how truth resists alignment. The clay upon Finch's boots, the denial of Graves.
+00:04:36,219 --> 00:04:39,300
+This place looks abandoned, Holmes, yet the lock appears new.
 
-00:06:48,939 --> 00:06:52,259
-One of them conceals more than he admits.
-
-00:06:52,259 --> 00:07:04,980
-The interrogation aboard the Dauntless left my mind in turmoil. Finch's trembling denials, the Lieutenant's stiff refusals, and Holmes's quiet absorption all seemed to form pieces of a puzzle whose outline I could barely perceive.
-
-00:07:04,980 --> 00:07:15,259
-When, late in the afternoon, Holmes suddenly declared that we must return ashore at once, I pressed him for an explanation. But he offered only that enigmatic smile which told me nothing and promised everything.
-
-00:07:15,259 --> 00:07:18,389
-Habs, may I not at least know where we hasten?
-
-00:07:18,389 --> 00:07:33,110
-Patience, Watson. The clay upon Finch's boots was not of Coving Garden, nor of the Thames docks. It was from a garden soil unique to this quarter, red with iron. A careless slip betrayed him.
-
-00:07:33,110 --> 00:07:36,050
-Then you believe Finch lied about his errand?
-
-00:07:36,050 --> 00:07:38,730
-We entered the dim stairwell of the Nodging House.
-
-00:07:38,730 --> 00:07:39,740
-You really we?
-
-00:07:39,740 --> 00:07:45,240
-The air smelled of boiled cabbage and damp plaster, while the groan of old boards echoed beneath our seats.
-
-00:07:45,240 --> 00:07:45,240
-
-
-00:07:45,240 --> 00:07:51,939
-We walked down the steps. Holmes, with noiseless tread, led us upward until we reached a door faintly marked with the Steward's name.
-
-00:07:51,939 --> 00:08:00,879
-Ha! ha! Here lies the heart of our matter. Observe, Watson, the wooden box locked yet light in the hand.
-
-00:08:00,879 --> 00:08:03,649
-Could it contain the blue water itself?
-
-00:08:03,649 --> 00:08:12,310
-Not so heavy, nor merely papers, perhaps correspondence. Yet even scraps of ink may speak louder than gems.
-
-00:08:12,310 --> 00:08:15,230
-Here, letters in a foreign language.
-
-00:08:15,230 --> 00:08:16,120
-The hand of the Lord.
-
-00:08:16,120 --> 00:08:23,860
-Italian. And see, this seal of a pawnbroker in Clerkenwell. The Steward was entangled in debt.
-
-00:08:23,860 --> 00:08:27,709
-Debt! Then perhaps he stole the gem to settle his obligations.
-
-00:08:27,709 --> 00:08:40,960
-Too crude for that. The forced lock. The clumsy entry. These do not speak of a desperate debtor. They speak of a decoy. The true hand is more disciplined.
-
-00:08:40,960 --> 00:08:43,080
-Then you believe Finch is but a pawn?
-
-00:08:43,080 --> 00:08:48,480
-That very evening, Holmes led us to Clerkenwell, where gas lamps glowed feebly upon shuttered shops.
-
-00:08:48,480 --> 00:08:56,990
-At the corner stood the pawnbroker's establishment, mentioned in Finch's papers. Holmes, with quiet instructions, stationed us in shadow while he himself vanished inside.
-
-00:08:56,990 --> 00:09:09,200
-Narrating, the minutes dragged. I felt my pulse quicken with every passing sound, until at last the shop-door creaked and a tall figure in naval greatcoat slipped within. Holmes's snare was closing.
-
-00:09:09,200 --> 00:09:11,700
-Graves, by heaven, it is he!
-
-00:09:11,700 --> 00:09:21,110
-In all the adventures I shared with my friend Mr. Sherlock Holmes, few rivaled the tension of that fog-drenched night in Clerkenwell when Lieutenant Graves slipped into the pawnbroker's shop.
-
-00:09:21,110 --> 00:09:26,769
-Bearing that fateful parcel, I felt the very air quiver with the weight of justice about to descend.
-
-00:09:26,769 --> 00:09:36,190
-Watson, observe! The parcel's bulk, its manner of unfolding. Yes, there! The blue water gleams at last!
-
-00:09:36,190 --> 00:09:38,330
-By heavens, it is the sapphire!
-
-00:09:38,330 --> 00:09:41,299
-Now, Commander, your moment!
-
-00:09:41,299 --> 00:09:44,940
-I will confront your lieutenant and reclaim your honour!
-
-00:09:44,940 --> 00:09:49,399
-Graves, you vile traitor! You dared betray the trust of the navy!
-
-00:09:49,399 --> 00:09:53,129
-Ay, I only meant to hold it as collateral. The debts, my honour, was lost already.
-
-00:09:53,129 --> 00:10:07,320
-Hours later, safe within the familiar warmth of Baker Street, I pressed Holmes for a full account. The fire crackled in the grade, and the sapphire itself lay upon the table, casting a faint blue radiance, as if mocking the fog and shadows of the night's adventure.
-
-00:10:07,320 --> 00:10:11,170
-Holmes, you must explain how you unravelled the tangle so swiftly.
-
-00:10:11,170 --> 00:10:33,410
-It was all, my dear Watson, a matter of exclusion. The lock upon the safe was forced with crude haste, clearly to suggest a common thief. Yet Graves possessed both the knowledge and the opportunity. He contrived to leave false traces, and seized upon Finch's debts to deflect suspicion.
-
-00:10:33,410 --> 00:10:35,940
-The red clay was the pivot.
-
-00:10:35,940 --> 00:10:45,329
-Finch, indeed, bore it upon his boots. But it was not from Govent Garden, as he claimed. It belonged to the very street where he lodged.
-
-00:10:45,329 --> 00:10:53,859
-Why, he lodged! The act, coupled with Graves's denial of Finch's absence, revealed collusion of silence and deceit.
-
-00:10:53,859 --> 00:10:56,399
-Then Finch was guilty of weakness, not of theft?
-
-00:10:56,399 --> 00:10:57,480
+00:04:39,300 --> 00:04:40,539
 ..
 
-00:10:57,480 --> 00:11:04,019
-Precisely. Graves preyed upon Finch's desperation, using his room and debts as camouflage.
+00:04:40,539 --> 00:04:45,000
+New locks upon old doors are always worth one's curiosity.
 
-00:11:04,019 --> 00:11:12,509
-Yet the lieutenant's own arrogance led him to the pawnbroker, where his hands betrayed him with the sapphire itself.
+00:04:45,000 --> 00:04:49,520
+.....
 
-00:11:12,509 --> 00:11:16,440
-And so the Bluewater is safe again, thanks to your science of deduction.
+00:04:49,520 --> 00:04:55,810
+Observe the footprints, what's unfresh and layered with the same reddish dust we found this morning.
 
-00:11:16,440 --> 00:11:16,919
+00:04:55,810 --> 00:04:57,839
+Then someone has been here recently.
+
+00:04:57,839 --> 00:05:05,740
+Precisely. And this soil note, its moist texture was not carried by mere accident.
+
+00:05:05,740 --> 00:05:07,039
+..
+
+00:05:07,039 --> 00:05:14,240
+It has been recently unbacked, suggesting a shipment from abroad. We must find the manifest.
+
+00:05:14,240 --> 00:05:15,599
+..
+
+00:05:15,599 --> 00:05:22,560
+Here we are. Shipment from Manaus, dated two weeks ago. Destination, London docks,
+
+00:05:22,560 --> 00:05:23,759
+consignee unknown.
+
+00:05:23,759 --> 00:05:25,280
+..
+
+00:05:25,280 --> 00:05:26,480
+But what is this?
+
+00:05:26,480 --> 00:05:28,300
+..
+
+00:05:28,300 --> 00:05:29,620
+Property of E.
+
+00:05:29,620 --> 00:05:31,259
+..
+
+00:05:31,259 --> 00:05:33,370
+D. Alvarado.
+
+00:05:33,370 --> 00:05:35,750
+Miss, your father's name.
+
+00:05:35,750 --> 00:05:37,310
+Good heavens, Holmes.
+
+00:05:37,310 --> 00:05:39,439
+If a father's name is still used in trade,
+
+00:05:39,439 --> 00:05:41,740
+someone must be posing as him, or worse.
+
+00:05:41,740 --> 00:05:43,389
+Indeed, Watson.
+
+00:05:43,389 --> 00:05:45,279
+We face an imposter,
+
+00:05:45,279 --> 00:05:47,220
+one who traffics in relics
+
+00:05:47,220 --> 00:05:49,410
+that should have remained buried.
+
+00:05:49,410 --> 00:05:51,459
+We shall confront this phantom
+
+00:05:51,459 --> 00:05:53,330
+at the docks before dawn.
+
+00:05:53,330 --> 00:05:56,449
+And thus began the second act of our strange pursuit,
+
+00:05:56,449 --> 00:05:59,069
+the trail of red soil leading us from the quay,
+
+00:05:59,069 --> 00:06:00,230
+key of Baker Street,
+
+00:06:00,230 --> 00:06:02,379
+to the misty heart of London's river trade.
+
+00:06:02,379 --> 00:06:03,800
+Tabwees ratted to a halt
+
+00:06:03,800 --> 00:06:05,840
+before the labyrinth of London's docks.
+
+00:06:05,840 --> 00:06:07,860
+A heavy fog drifted from the river,
+
+00:06:07,860 --> 00:06:09,860
+swallowing every sound and shape
+
+00:06:09,860 --> 00:06:11,620
+until even the lamplight appeared
+
+00:06:11,620 --> 00:06:13,899
+as blurred halos in the murk.
+
+00:06:13,899 --> 00:06:15,139
+Holmes descended first,
+
+00:06:15,139 --> 00:06:16,899
+his lean figure half lost
+
+00:06:16,899 --> 00:06:18,819
+against the spectrum masts and cranes
+
+00:06:18,819 --> 00:06:21,250
+that loomed like gallows in the mist.
+
+00:06:21,250 --> 00:06:25,019
+Observe, Watson, these tracks upon the planks.
+
+00:06:25,019 --> 00:06:29,459
+Two men passed here within the hour, burdened by weight.
+
+00:06:29,459 --> 00:06:34,409
+The soil residue is again that same crimson dust.
+
+00:06:34,409 --> 00:06:37,289
+The same dust? Beyond question.
+
+00:06:37,289 --> 00:06:40,980
+Then the imposter used these docks to land his cargo from the Amazon.
+
+00:06:40,980 --> 00:06:43,129
+Exactly, my dear fellow.
+
+00:06:43,129 --> 00:06:48,399
+And these crates, note their stenciling, manas, export, company.
+
+00:06:48,399 --> 00:06:54,860
+company. The link to Brazil is complete. Then these shipments were addressed to her
+
+00:06:54,860 --> 00:06:59,340
+father's name. But what purpose could compel someone to masquerade as Professor de Aguardo?
+
+00:06:59,340 --> 00:07:06,699
+The answer, Watson, lies likely in those smaller chests near the gangway. Their locks are sealed
+
+00:07:06,699 --> 00:07:15,839
+with fresh wax. An artless precaution against thrying eyes just gains eyes. Aha! See here
+
+00:07:15,839 --> 00:07:19,269
+Here specimens of red clay packed with primitive ornaments.
+
+00:07:19,269 --> 00:07:25,720
+Our adversary smuggles relics, Watson, contraband torn from Amazonian graves.
+
+00:07:25,720 --> 00:07:27,139
+..
+
+00:07:27,139 --> 00:07:30,350
+Good heavens, Holmes, the theft of sacred artefacts!
+
+00:07:30,350 --> 00:07:31,580
+This explains the ring.
+
+00:07:31,580 --> 00:07:33,950
+It must have been part of such a collection.
+
+00:07:33,950 --> 00:07:41,220
+Then my father's name has been used to desecrate the very land he sought to preserve.
+
+00:07:41,220 --> 00:07:48,129
+Oh, mister! Holmes, how shall I bear such shame?
+
+00:07:48,129 --> 00:07:54,699
+Courage, madam. Truth absorbs all honest hearts. The guilty will soon reveal themselves.
+
+00:07:54,699 --> 00:07:55,600
+The...
+
+00:07:55,600 --> 00:07:59,110
+Someone approaches there, along the starboard gangway.
+
+00:07:59,110 --> 00:08:02,740
+Remain quiet. Let the phantom declare itself.
+
+00:08:02,740 --> 00:08:05,959
+There, by the lantern, a figure moving.
+
+00:08:05,959 --> 00:08:06,040
+moving.
+
+00:08:06,040 --> 00:08:07,800
+..
+
+00:08:07,800 --> 00:08:09,519
+Stand where you are.
+
+00:08:09,519 --> 00:08:11,250
+You are known to us.
+
+00:08:11,250 --> 00:08:13,449
+You are too late, Mr. Holmes.
+
+00:08:13,449 --> 00:08:15,740
+The river carries secrets no man may recover.
+
+00:08:15,740 --> 00:08:18,120
+The parcel gone into the Thames.
+
+00:08:18,120 --> 00:08:21,050
+Yet not all is lost, Watson.
+
+00:08:21,050 --> 00:08:21,920
+Observe.
+
+00:08:21,920 --> 00:08:23,000
+..
+
+00:08:23,000 --> 00:08:26,289
+The man dropped this in his haste.
+
+00:08:26,289 --> 00:08:32,480
+A clasp of South American design, englazed with the same serpent emblem as upon the ring.
+
+00:08:32,480 --> 00:08:36,660
+The chain of evidence tightens, my dear Watson.
+
+00:08:36,660 --> 00:08:45,730
+And so beneath this ghostly fog, we gained our first tangible link to the man who dared to traffic in the mysteries of the Amazon.
+
+00:08:45,730 --> 00:08:53,069
+Watson, it is now evident that these two pieces, the ring and the clasp, are inseparable.
+
+00:08:53,069 --> 00:09:01,899
+Their connection is symbolic and functional, a guide left by those who held knowledge of the Amazon's hidden relics.
+
+00:09:01,899 --> 00:09:06,919
+Then the serpent motif is more than ornamentation. It is a signpost left by your father, Miss
+
+00:09:06,919 --> 00:09:07,600
+the Alvarado.
+
+00:09:07,600 --> 00:09:08,700
+..
+
+00:09:08,700 --> 00:09:15,399
+Precisely, Watson. Note how the twin emeralds align with openings in the clasp. Together
+
+00:09:15,399 --> 00:09:22,069
+they form a secret lock known only to the rightful heir. This is no ordinary ornament.
+
+00:09:22,069 --> 00:09:30,480
+It conceals knowledge. Observe. The clasp clicks into place. Inside lies a hidden compartment.
+
+00:09:30,480 --> 00:09:31,720
+..
+
+00:09:31,720 --> 00:09:45,890
+Exactly! These instructions were meant for those he trusted. The serpent mark is both warning and guidance. Whoever possesses this key knows the path he charted along the Amazon.
+
+00:09:45,890 --> 00:09:52,740
+Then the imposter sought to exploit your father's name for profit and secrecy. The ring and journal are the true keys to his legacy.
+
+00:09:52,740 --> 00:10:00,820
+sea. To the docks again, Watson. The serpent mark leads to the imposter's lair. Today the secret
+
+00:10:00,820 --> 00:10:08,329
+shall be unveiled. There. Do you see the boat drifting slowly, Watson? Our adversary returns,
+
+00:10:08,329 --> 00:10:15,080
+unaware that we are watching. Observe his stance, Watson. The serpent mark on his vest gives him
+
+00:10:15,080 --> 00:10:23,120
+away. He is our imposter. Open the chest. The ring, the clasp, and the journal belong to
+
+00:10:23,120 --> 00:10:30,279
+Miss de Alvarado. Your theft ends now. My father's work saved. Thank you, Mr. Holmes.
+
+00:10:30,279 --> 00:10:34,980
+As the sunlight glinted off the river, I observed Holmes surveying the docks with his usual
+
+00:10:34,980 --> 00:10:41,340
+intensity, noting every shadow, every glint of metal. The imposter subdued. Yet the weight of
+
+00:10:41,340 --> 00:10:43,650
+of the Amazon's mysteries seem to linger upon us still,
+
+00:10:43,650 --> 00:10:46,299
+like the mist that clung stubbornly to the water.
+
+00:10:46,299 --> 00:10:49,639
+Notice, Watson, that even in triumph,
+
+00:10:49,639 --> 00:10:51,869
+a detective must observe.
+
+00:10:51,869 --> 00:10:54,629
+The river reveals nothing yet.
+
+00:10:54,629 --> 00:10:55,820
+Everything.
+
+00:10:55,820 --> 00:10:58,480
+The slightest disturbance is a clue
+
+00:10:58,480 --> 00:11:00,559
+to intentions unseen.
+
+00:11:00,559 --> 00:11:03,240
+...
+
+00:11:03,240 --> 00:11:05,600
+Holmes, now that the imposter is exposed,
+
+00:11:05,600 --> 00:11:06,849
+can we truly rest,
+
+00:11:06,849 --> 00:11:09,639
+knowing these artifacts were touched by human greed?
+
+00:11:09,639 --> 00:11:27,600
+..................
+
+00:11:27,600 --> 00:11:33,480
+And so, beneath the tear-mourning sky, the Amazon ring's secret returned to its rightful
+
+00:11:33,480 --> 00:11:38,100
+keeper, an imposter unmasked, and Holmes once more reminded me that deduction, patience,
+
+00:11:38,100 --> 00:11:40,329
+and observation triumph over deception.
+
+00:11:40,329 --> 00:11:41,649
+Come, Watson.
+
+00:11:41,649 --> 00:11:43,860
+The docks have yielded their secret,
+
+00:11:43,860 --> 00:11:46,410
+yet the adventure is not concluded.
+
+00:11:46,410 --> 00:11:47,759
+We must return
+
+00:11:47,759 --> 00:11:50,629
+and analyze these artifacts in detail.
+
+00:11:50,629 --> 00:11:53,460
+Knowledge alone can safeguard them
+
+00:11:53,460 --> 00:11:55,039
+against future theft.
+
+00:11:55,039 --> 00:11:56,960
+..
+
+00:11:56,960 --> 00:11:59,139
+Chanteed, Holmes, why what?
+
+00:11:59,139 --> 00:12:01,659
+Ching Ma, each case confirms your maxim.
+
+00:12:01,659 --> 00:12:02,639
+Observation reveals
+
+00:12:02,639 --> 00:12:04,529
+what the eye alone cannot discern.
+
+00:12:04,529 --> 00:12:05,980
+And now the serpent mark
+
+00:12:05,980 --> 00:12:06,860
+has led us to victory,
+
+00:12:06,860 --> 00:12:09,420
+though I suspect its lessons are far from finished.
+
+00:12:09,420 --> 00:12:12,220
+The serpent mark revealed the path.
+
+00:12:12,220 --> 00:12:12,779
+Watson!
+
+00:12:12,779 --> 00:12:13,840
+..
+
+00:12:13,840 --> 00:12:19,029
+Knowledge, patience and deduction have preserved the Amazon's secret.
+
+00:12:19,029 --> 00:12:26,039
+Let us now return and ensure the artifacts and their story remain safe.
+
+00:12:26,039 --> 00:12:30,769
+And so as the cab rolled away from the docks, I felt a mixture of relief and awe.
+
+00:12:30,769 --> 00:12:33,539
+Hones had once more deciphered the threads of human deceit,
+
+00:12:33,539 --> 00:12:36,990
+Revealing not only the imposter but the wisdom hidden in a serpent's secret mark,
+
+00:12:36,990 --> 00:12:41,289
+Ford, I've wondered what further adventures lay in the shadow of this victory.
+
+00:12:41,289 --> 00:12:43,799
+The cab guided us through London streets.
+
+00:12:43,799 --> 00:12:46,190
+Yet a sense of anticipation clung like fog.
+
+00:12:46,190 --> 00:12:48,240
+Holmes dripped the ring and journal tightly,
+
+00:12:48,240 --> 00:12:51,100
+as though they alone could unlock the final puzzle.
+
+00:12:51,100 --> 00:12:53,460
+Watson, the imposter is nearby.
+
+00:12:53,460 --> 00:12:55,829
+Our next step is his hideout.
+
+00:12:55,829 --> 00:12:58,480
+The serpent mark will guide us.
+
+00:12:58,480 --> 00:13:00,890
+The alley seems deserted, Holmes.
+
+00:13:00,890 --> 00:13:02,759
+Yet I sense he watches us from shadow.
+
+00:13:02,759 --> 00:13:05,080
+You, you have no right to interfere.
+
+00:13:05,080 --> 00:13:06,179
+..
+
+00:13:06,179 --> 00:13:07,069
+Open your hands.
+
+00:13:07,069 --> 00:13:11,559
+The chest, the ring, the journal, all belong to Miss Del Verado.
+
+00:13:11,559 --> 00:13:15,940
+.....
+
+00:13:15,940 --> 00:13:19,620
+Now, Watson, we recover all stolen artifacts.
+
+00:13:19,620 --> 00:13:22,889
+The Amazon Green's secret must return.
+
+00:13:22,889 --> 00:13:24,379
+Elementary, Watson.
+
+00:13:24,379 --> 00:13:27,639
+Deduction revealed the thief and the treasure.
+
+00:13:27,639 --> 00:13:30,820
+Each piece now tells its rightful story.
+
+00:13:30,820 --> 00:13:37,720
+story. The Amazon ring is safe, the imposter neutralized and Miss de Alvarado's inheritance
+
+00:13:37,720 --> 00:13:47,059
+preserved. Elementary, Watson. Observation and patience preserve knowledge. Justice is served
+
+00:13:47,059 --> 00:13:54,100
+and the legacy remains. And so, with the imposter unmasked, the Amazon ring secured and the journal
+
+00:13:54,100 --> 00:13:59,440
+returned, a chapter of adventure and human folly closed, leaving us prepared for the next case.
+
+00:13:59,440 --> 00:13:59,820
 .
 

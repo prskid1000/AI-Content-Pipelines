@@ -1,85 +1,85 @@
-(motion_1.1) turning pages slowly, occasionally lifting eyes; leaning forward slightly, tracing a line along the window ledge with a gloved fingertip;
-(motion_1.2) raising right hand, gesturing toward footprints; bending slightly, eyebrows arching;
-(motion_1.3) tilting head, resting hand on knee; rotating magnifying glass in hand, smiling faintly;
-(motion_1.4) moving magnifying glass slowly along sill; leaning nearer, adjusting stance;
-(motion_1.5) straightening posture, stepping backward slightly; walking steadily across carpet, setting glass down carefully;
-(motion_1.6) lifting lid of box delicately; bending slightly forward;
-(motion_1.7) raising head suddenly; rotating ring slowly under the light;
-(motion_1.8) bringing glass close to band, turning it slowly; tilting head, narrowing eyes;
-(motion_1.9) raising chin slightly, folding arms; lowering ring carefully, shutting box with thumb;
-(motion_1.10) placing box inside coat pocket; shifting weight from one foot to another;
-(motion_1.11) taking a firm stance; walking lightly, drawing curtain aside;
-(motion_1.12) stretching arm toward doorknob; taking two steps forward quickly;
-(motion_1.13) lifting veil slightly; bowing courteously; leaning a little to the right for better view;
-(motion_1.14) tightening grip on satchel; leaning forward slightly; adjusting stance, looking between them;
-(motion_1.15) pulling envelope slowly from satchel; narrowing eyes, leaning nearer; raising eyebrows slightly;
-(motion_1.16) breaking wax seal gently; folding hands together; tilting head downward slightly;
-(motion_1.17) lifting gaze toward window; eyes scanning pages rapidly; holding breath, fingers trembling faintly;
-(motion_2.1) raising collar against chill; tilting lantern toward cab door; drawing curtain slightly to peer outside;
-(motion_2.2) gesturing with hand toward cab driver; drawing revolver briefly, then concealing it again;
-(motion_2.3) resting hand upon carriage door; turning head slightly, eyes narrowing;
-(motion_2.4) opening box slightly, turning ring under lantern light; folding hands upon cane; fidgeting with satchel clasp;
-(motion_2.5) lowering eyes, hands trembling faintly; resting elbows upon knees; nodding slightly;
-(motion_2.6) extending letter forward; unfolding it neatly; rubbing mist from windowpane;
-(motion_2.7) tilting paper to catch light; adjusting spectacles; biting lip slightly;
-(motion_2.8) raising hands slightly in question; tapping index finger against chin; nodding once faintly;
-(motion_2.9) kneeling briefly, studying keyhole; lifting lantern higher; clutching shawl closer;
-(motion_2.10) turning head to scan shadows; inserting tool delicately into lock; taking half step backward;
-(motion_2.11) lifting lantern slowly side to side; moving carefully, glancing over shoulder; treading lightly between crates;
-(motion_2.12) touching floor delicately with fingertips; bending slightly forward; shaking head faintly;
-(motion_2.13) straightening posture sharply; raising soil to light; taking cautious step forward;
-(motion_2.14) turning pages briskly; glancing repeatedly toward doorway; placing hand against window frame;
-(motion_2.15) spinning slightly; tapping finger on ledger line; leaning forward to read;
-(motion_2.16) clenching fist slightly; snapping ledger shut; sinking slowly onto crate;
-(motion_2.17) walking swiftly toward exit; following close behind; tightening grip on satchel, hurrying after;
-(motion_2.18) glancing back over shoulder; placing lantern carefully down; closing cab door gently;
-(motion_3.1) glancing along shadowed wharf; lifting lantern slowly to survey gloom; tightening shawl about shoulders;
-(motion_3.2) touching print edge with fingertip; bending slightly, peering down; turning head nervously toward water;
-(motion_3.3) straightening quickly; stepping forward with measured stride; raising lantern a little higher;
-(motion_3.4) brushing dust from lettering; tilting head to read; moving lantern closer to wood surface;
-(motion_3.5) drumming fingers lightly on crate top; pressing fingertips together before lips; shifting weight from foot to foot;
-(motion_3.6) cutting wax carefully; scanning shadows along pier; lowering lantern slowly to illuminate chest;
-(motion_3.7) raising idol slowly to lantern light; bending nearer, eyes wide; turning face aside quickly;
-(motion_3.8) raising arm abruptly; lowering idol gently, pressing lid shut; holding satchel tightly to chest;
-(motion_3.9) lowering head slowly; reaching out one hand reassuringly; resting hand gently on shoulder;
-(motion_3.10) lifting head sharply toward sound of footsteps; turning body to face direction; raising lantern higher;
-(motion_3.11) raising revolver slightly; remaining utterly still, eyes fixed ahead; drawing breath silently, clutching post;
-(motion_3.12) slowly removing small pistol; steadying revolver against knee; remaining perfectly still;
-(motion_3.13) advancing slowly toward figure; moving in parallel path a few paces behind; clutching shawl tightly, trembling;
-(motion_3.14) extending arm steadily; lowering weapon slightly but ready; lifting head slowly to reveal faint smile;
-(motion_3.15) flinging parcel into river; lunging forward with sudden stride; extending arm instinctively;
-(motion_3.16) leaning over railing; exhaling slowly, scanning pier; disappearing into fog;
-(motion_3.17) lifting clasp delicately to lantern light; leaning closer for view; taking small step nearer;
-(motion_3.18) slipping clasp into pocket; re-holstering weapon; lifting chin slightly;
-(motion_3.19) turning head slightly; lowering gaze toward rippling water; remaining motionless, veil fluttering lightly in breeze;
-(motion_4.1) shifting weight, folding arms; rotating clasp and ring slowly; leaning forward, hands clasped;
-(motion_4.2) tracing serpent engraving with fingertip; leaning closer; clutching shawl tighter;
-(motion_4.3) bringing magnifier close to ring; leaning forward slightly; clutching satchel tighter;
-(motion_4.4) aligning clasp to ring carefully; tilting head; hands trembling slightly;
-(motion_4.5) lifting small compartment flap; leaning closer; reaching slightly forward;
-(motion_4.6) carefully lifting journal; extending hand with care; folding arms;
-(motion_4.7) striding toward exit; walking in step; catching up;
-(motion_4.8) leaning forward slightly; raising hand to shield eyes; shifting weight nervously;
-(motion_4.9) moving quietly along plank; stepping cautiously behind; clutching shawl;
-(motion_4.10) stepping forward to intercept; raising revolver slightly; shifting weight nervously;
-(motion_4.11) slowly opening chest; leaning slightly forward; watching intently;
-(motion_4.12) kneeling to lift journal; smiling faintly; folding arms;
-(motion_4.13) turning head slightly; lowering gaze toward rippling water; remaining motionless, holding journal tightly;
-(motion_4.14) tilting head, eyes scanning surface; leaning forward slightly; tightening grip on journal;
-(motion_4.15) turning slightly; gazing at water ripples; rocking slightly on feet;
-(motion_4.16) slightly leaning forward; folding arms; lifting chin slightly;
-(motion_4.17) sighing softly; nodding faintly; smiling slightly;
-(motion_4.18) striding toward cab; walking in step; catching up quickly;
-(motion_4.19) straightening posture; sliding journal into coat pocket; smiling slightly, clasping hands;
-(motion_4.20) sliding into cab; closing cab door; settling back into seat;
-(motion_4.21) folding hands; tilting journal slightly to examine; leaning slightly forward, watching;
-(motion_5.1) folding hands; tilting journal to examine; leaning slightly forward;
-(motion_5.2) striding quickly; matching pace, glancing around; walking cautiously;
-(motion_5.3) leaning slightly forward, eyes scanning; raising hand to shield eyes; stepping back slightly;
-(motion_5.4) stepping forward aggressively; raising journal slightly; tightening grip on revolver;
-(motion_5.5) slowly lowering hands; stepping forward slightly; steadying revolver;
-(motion_5.6) lifting items carefully; leaning forward slightly; extending hands cautiously;
-(motion_5.7) placing items in satchel; folding arms; smiling slightly;
-(motion_5.8) placing ring carefully; nodding slightly; sighing with relief;
-(motion_5.9) tilting journal slightly; folding hands on lap; adjusting grip on journal;
-(motion_5.10) gazing through window; folding hands on lap; slightly smiling;
+(motion_1.1) Seated figure leans slightly forward, head tilted as eyes scan newspaper; while standing figure holds magnifying glass up to light, footprints visible on sill beneath
+(motion_1.2) male detective holmes seated, hand resting on armrest; male doctor watson leaning forward with newspaper, eyes scanning; coffee cups steaming gently between them
+(motion_1.3) seated figure holding magnifying glass with steady hands; while standing figure leaning slightly forward, arms crossed at chest
+(motion_1.4) male detective holmes stands beside window, examining sill closely with focused gaze; male doctor watson stands nearby, observing intently with hands clasped behind back
+(motion_1.5) person_by_window standing beside fireplace with hands behind back, head slightly tilted upward; seated figure crossing room toward mantel, placing glass upon table; another person leaning forward, arms at sides, eyes focused on standing figure.
+(motion_1.6) male_detective_holmes stands beside table, opening velvet box with steady hand; male_doctor_watson steps closer, peering inside box curiously as Holmes closes it.
+(motion_1.7) male_doctor_watson leaning forward with a start, arms slightly tense; male_detective_holmes tilting head back while inspecting ring closely between fingers
+(motion_1.8) male_detective_holmes
+(motion_1.9) male_doctor_watson resting hand on table, fingers tapping lightly; while male_detective_holmes placing ring back in box, lids closing gently.
+(motion_1.10) male_detective_holmes standing with hand in pocket, looking thoughtfully; male_doctor_watson watching closely by hearth
+(motion_1.11) standing figures, both facing forward; male figure leaning slightly backward with hands at sides, appearing calm yet attentive, while male figure closer to window leans forward subtly, hand on chin thoughtfully
+(motion_1.12) two figures walking side by side on a cobblestone path; one figure leans slightly forward with hands clasped together, while the other gestures calmly as they converse.
+(motion_1.13) female standing with hand on hip, slightly leaning forward; male in suit standing upright, arms relaxed at sides
+(motion_1.14) female_lady_unknown leaning slightly forward with clenched satchel, eyes shifting anxiously; male_detective_holmes seated calmly with clasped hands, gaze fixed on her; male_doctor_watson standing by mantel, arms relaxed at chest, head tilting slightly as observing
+(motion_1.15) Seated woman leans forward slightly into armchair, opening satchel with one hand while holding envelope in other; male detective leans back in chair, watching intently with arms on seat edge.
+(motion_1.16) Seated man leans forward, hands gently resting on knees as he examines a document; nearby person sits upright, head slightly tilted to watch Holmes attentively.
+(motion_1.17) man seated couple leans slightly forward, both hands resting on knees; man's eyes shift between woman and surroundings while woman smiles softly with head tilting subtly to the side.
+(motion_2.1) (male_doctor_watson) stands with lantern held lowly near chest; adjusts coat collar slowly as looking off to side; (female_lady_unknown) walks briskly towards Watson, satchel in hand, shoulders slightly hunched.
+(motion_2.2) standing figure holing out overcoat pocket, hand gripping revolver with firm grip; seated figure looking toward standing companion, head slightly tilted as listening; car in background starting engine and slowly moving forward
+(motion_2.3) male_detective_holmes standing with hands at sides, gazing down foggy street; male_doctor_watson facing Holmes, arms crossed behind back
+(motion_2.4) Seated figure in formal black suit leans slightly forward; person beside wearing dark blouse rests hands gently on lap; seated figure with light brown hair shifts legs rhythmically.
+(motion_2.5) female_lady_unknown speaking softly with head slightly lowered, looking down at satchel; male_detective_holmes holding ring between fingers, leaning forward attentively towards her; male_doctor_watson leaning slightly forward while listening intently
+(motion_2.6) female_lady_unknown standing with hands at her sides, eyes shifting restlessly; male_detective_holmes leaning forward slightly, arms crossed over chest, lips moving silently as scanning letter; female_doctor_watson glancing back and forth between the two men, head tilted slightly to one side while looking out fogged window
+(motion_2.7) (male character), dressed sharply, stands still, gaze directed slightly forward; (female character) smiles, hand adjusting hair casually while standing next to male figure;
+(motion_2.8) man1 resting hand under chin with slight frown; man2 sitting upright with hands clasped behind back, head slightly tilted forward; woman leaning toward man1, arm resting on bench edge
+(motion_2.9) The man dressed in a black suit holds up his watch with a slight tilt of his head; beside him stands another person in casual attire, looking on with hands at their sides.
+(motion_2.10) man man standing with hands behind back, head slightly tilted forward, eyes focused ahead; while woman stands nearby, body facing him, head turned slightly to the side, lips moving softly in conversation.
+(motion_2.11) man person with short hair is walking slowly towards the camera, slightly tilting head to one side; nearby figure stands still, facing forward while holding hands behind their back.
+(motion_2.12) male_detective_holmes stands upright, hands clasped at chest; female_lady_unknown gestures with both hands to her mouth as she speaks animatedly; male_doctor_watson leans slightly forward, eyes focused on something off-screen.
+(motion_2.13) man standing upright with arms relaxed at sides; woman moving closer to man, looking at his hand with a fearful expression
+(motion_2.14) (male_detective_holmes) leaning slightly forward with hands at sides; (female_lady_unknown) standing still by window, peering outside with a worried expression; (male_doctor_watson) standing close to female, looking around room carefully)
+(motion_2.15) seated figure leaning slightly back while tapping fingers on desk; seated opposite, another person gesturing with hand near face
+(motion_2.16) standing man leaning slightly forward with hands clasped behind his back; seated woman tilting head subtly to the side while looking towards him; window reveals darkened landscape outside
+(motion_2.17) male_figure standing by door, hands adjusting cuffs; female_figure beside him, right hand raised showing peace sign; both figures appear composed yet alert.
+(motion_2.18) The male figure in dark coat stands with hands loosely at his sides, posture slightly angled towards a wooden crate beside him. Nearby, another man leans forward slightly; arms relaxed but same, eyes cast to the left as if considering their next move.
+(motion_3.1) The male figure stands confidently on a dimly lit pier, leaning slightly forward with hands clasped behind his back; female figure stands with feet shoulder-width apart, weight evenly distributed between both feet.
+(motion_3.2) male_detective_holmes stands upright, hands clasped behind his back with a determined posture; male_doctor_watson leans forward slightly towards the floorboards, head tilted as he closely inspects tracks; female_lady_unknown stands with crossed arms, gazing toward river lights, lips pursed in concern.
+(motion_3.3) Seated figure leaning slightly forward, hands resting on lap; while male by window tilting head subtly to one side as speaking; female behind him, hand gesturing gently upward then lowering
+(motion_3.4) male_detective_holmes stands beside crate, hand tracing stenciled letters with steady precision; female_lady_unknown holds lantern close to crates, eyes scanning marks carefully, leaning forward slightly; male_doctor_watson gestures towards crates with right hand while smiling, standing next to Holmes
+(motion_3.5) male_character standing upright, eyes wide with concern; female_character maintaining confident stance, hands gently at sides
+(motion_3.6) Both characters stand still; Holmes adjusts collar, hands at hips with slight tension; Watson shifts weight, legs apart; lady leans forward slightly, hand near hip, eyes fixed on Holmes
+(motion_3.7) Seated figure leaning slightly forward, eyes wide with surprise; while standing figures stand with crossed arms, one tapping foot lightly; another turns head slowly to the side
+(motion_3.8) man man on the left stands with hands behind his back, eyes shifting slightly; while the person by window leans forward, arms relaxed, gazing to the side
+(motion_3.9) seated female character holding hands with male character, arms slightly bent, gaze steady; while male character leans forward, hand lightly resting on her upper arm, mouth moving softly
+(motion_3.10) seated figure crossing arms firmly; while standing figure pointing forward with a determined hand gesture
+(motion_3.11) man male figure leans casually with hands in pockets; woman stands facing forward, head tilting slightly to smile warmly;
+(motion_3.12) seated figure on left, legs crossed casually; leaning head slightly forward, right hand gesturing a slow arc, gaze meeting unseen partner's eyes; seated figure to the right, legs spread wide in relaxed stance, hands resting gently between knees; looking up briefly before returning focus straight ahead
+(motion_3.13) Male figure stands calmly, hands in pockets; female figure leans slightly forward with open palms up, eyes wide
+(motion_3.14) three figures stand side by side; central figure leans slightly forward, hands clasped neatly at waist, gaze steady. left man turns head subtly rightward with fingers tapping wristwatch slowly, right hand relaxed near belt. right man shifts weight slightly as he looks around casually.
+(motion_3.15) seated figure leaning forward, head tilting right with eyes widening; while standing figure gesturing with open palm, hand rising slowly, fingers extended, mouth forming an 'o'; then both figures, hands resting on knees, shoulders squared, gaze fixed at each other, breaths shallow and fast.
+(motion_3.16) seated figure leaning back slightly with hands behind head; while standing figure straightening up slowly from crouch position, arms relaxed by sides
+(motion_3.17) seated figure leaning back slightly with hands clasped behind neck; male detective bending forward to pick up clasp from ground, eyes focused on object as he bends;
+(motion_3.18) Male figure turns right to face companions; pocketing a South-American clasp engraved with serpent emblem as he speaks. Female companion stands near crate, nodding slowly while turning head slightly in agreement.
+(motion_3.19) Male figure leaning slightly forward, hand resting on rail as watching; female companion standing still, eyes scanning calm waters, while male detective beside them shifts weight from one front foot to the back.
+(motion_4.1) man person by the suitcase sitting; leaning slightly forward while observing; male figure adjusting shirt buttons, eyes focused on his hands
+(motion_4.2) seated figure in formal attire seated confidently with legs crossed; while opposite figure leans forward slightly, gripping armrests tightly, gaze fixed on companion; female figure leans into cab window, mouth slightly open as if speaking or reacting.
+(motion_4.3) male detective Holmes seated at desk, examining a ring with magnifying glass; male doctor Watson standing near fireplace observing Holmes's actions closely; female unknown lady in armchair, uneasily fidgeting with satchel on lap while looking towards Holmes.}
+(motion_4.4) male_detective_holmes
+(motion_4.5) male_detective_holmes leaning forward gently; male_doctor_watson smiling broadly while pointing upwards; female_lady_unknown waving with right hand, palm facing outwards}
+(motion_4.6) female_lady_unknown reaches toward her journal, turning pages gently; male_detective_holmes hands over his journal while observing her reaction; male_doctor_watson stands near the desk, watching both with a book in hand
+(motion_4.7) man male figure strides confidently forward with briefcase in hand; his right arm swings loosely by his side while left arm remains slightly bent at shoulder. The female companion walks briskly behind him, her gaze fixed ahead as she carries a small brown bag in both hands.
+(motion_4.8) male detective Holmes standing on pier, scanning water with eyes focused; female lady unknown near crates holding satchel tightly, shoulders slightly hunched; male doctor Watson standing vigilantly behind Holmes, gaze fixed ahead.
+(motion_4.9) seated figure leaning forward slightly with hands clasped neatly; standing pair standing still, male with arm at side, female with hands near waist; nearby shadowed figure inside cargo boat, partially obscured by ropes and tarpaulin.
+(motion_4.10) Male character on dock leaning slightly forward, hands by sides; while male figure to his right turns head slowly leftward, adjusting glasses.
+(motion_4.11) seated figure leaning forward slightly, hands resting on lap; while standing figures maintain relaxed postures; one hand lightly tapping on knee
+(motion_4.12) female_lady_unknown leaning forward with a broad smile; male_detective_holmes holding his hands together while standing upright.
+(motion_4.13) seated figure with hands resting on knees, head slightly tilted as listening intently; while standing figures lean forward marginally, hands adjusting pockets, gaze fixed in the same direction
+(motion_4.14) male_detective_holmes standing near pier railing, scanning water with intent gaze; male_doctor_watson attentively following Holmes's lead along riverbank; female_lady_unknown holding journal open, eyes wide in curiosity as she looks towards Holmes and Watson
+(motion_4.15) male_doctor_watson leaning slightly forward, hands clasped behind back, eyes scanning water; male_detective_holmes standing straight with hands in pockets, mouth slightly open as if speaking; female_lady_unknown clenching journal tightly to chest, head tilted downward, shoulders hunched.
+(motion_4.16) male_detective_holmes standing confidently with hands clasped behind back; male_doctor_watson standing nearby, gazing at Holmes intently, mouth slightly agpec, nodding slowly; female_lady_unknown walking toward the riverbank, holding journal close to chest, gaze fixed on the horizon.
+(motion_4.17) male_doctor_watson leaning slightly back with hands behind his back; male_detective_holmes holding recovered ring securely while looking at Watson, standing close together beside the woman; female_lady_unknown gripping a small green object in moment she notices something off-camera.
+(motion_4.18) The male detective Holmes walks purposefully toward a cab, carrying his ring and journal; Watson adjusts his coat as they follow Holmes's lead, while behind them, the female lady maintains her pace with a satchel in main focus.
+(motion_4.19) seated figure with bobbed hair adjusting brown boots, leaning slightly forward; while standing male by scooter, hands at sides, gaze directed toward seated figure; other standing male adjusts glasses and glances at female companion, mouth moving as if in conversation
+(motion_4.20) Seated figure leans slightly forward with hands resting on lap, eyes focused ahead; female companion stands upright, hands at sides, looking toward male figure
+(motion_4.21) Doctor Watson sits with hands folded on his lap; Holmes leans slightly forward, holding a journal open with one hand while the other rests lightly on his knee. Female unknown leans in journal against her chest as she looks over at Watson, eyes bright.
+(motion_5.1) female figure seated beside male by window, head turning slightly to gesture; while male figure seated opposite, hands clasped neatly on lap, gaze directed straight ahead.
+(motion_5.2) male_detective_holmes walks down alley, holding ring and journal; male_doctor_watson follows behind him, hand near revolver, eyes focused forward; female_lady_unknown walks alongside them with apprehensive posture, clutching satchel, head slightly lowered
+(motion_5.3) female_lady_unknown talking animatedly with hands gesturing widely; male_doctor_holmes listening intently, slight tilt to head as focusing on conversation
+(motion_5.4) seated figure leaning back slightly with arms crossed; standing pair facing each other calmly, male in black jacket tilting head forward slowly while male in grey shirt shifts feet lightly
+(motion_5.5) seated figure leaning forward with arms crossed tightly; person by window slightly nodding head left-right, eyes scanning room, finger tapping lightly on knee
+(motion_5.6) seated figure leaning forward, hands clasped together tightly; while standing man on left giving a thumbs-up gesture confidently with right hand raised, gaze fixed towards the center. Woman by window reaches out gently to adjust an artifact in her hand
+(motion_5.7) male_detective_holmes leaning forward slightly with hands at his sides, inspecting ring closely; male_doctor_watson standing beside him, eyes wide as reading journal intently
+(motion_5.8) The male detective leans back slightly with a pleased expression as he places the Amazon ring on the desk. His hand rests gently on his armrest while observing something in distance; the doctor stands nearby with contented hands folded, head subtly nodding; the woman beside them appears joyful and animatedly gestures toward her open journal.
+(motion_5.9) seated man sitting straight with hands clasped on table; woman seated relaxedly, legs crossed, arms resting gently
+(motion_5.10) seated figure seated calmly with hands folded; while standing figure stands beside them, arms relaxed by sides
