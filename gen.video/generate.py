@@ -81,7 +81,7 @@ SCRIPTS = [
     # "../gen.image/scripts/3.scene.py",
 
     #Video
-    # "2.motiom.py",
+    "2.motion.py",
     # "3.animate.py",
 
     #Thumbnail
@@ -97,8 +97,8 @@ SCRIPTS = [
 
 SCRIPTS_DIR = "scripts"
 
-NEEDS_COMFYUI = {"2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py", "2.animate.py", "2.location.py"}
-NEEDS_LMSTUDIO = {"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py", "9.media.py"}
+NEEDS_COMFYUI = {"2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py", "3.animate.py", "2.location.py"}
+NEEDS_LMSTUDIO = {"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py", "9.media.py", "2.motion.py"}
 
 # Centralized non-interactive defaults (only change this file)
 SCRIPT_ARGS = {
