@@ -22,8 +22,8 @@
   },
   "4": {
     "inputs": {
-      "width": 528,
-      "height": 352,
+      "width": 656,
+      "height": 368,
       "length": 73,
       "batch_size": 1,
       "guidance_type": "v2 (replace)",
@@ -100,7 +100,7 @@
   },
   "12": {
     "inputs": {
-      "shift": 7,
+      "shift": 16,
       "model": [
         "35",
         0
@@ -113,7 +113,7 @@
   },
   "13": {
     "inputs": {
-      "guidance": 6,
+      "guidance": 12,
       "conditioning": [
         "4",
         0
@@ -161,7 +161,7 @@
   "17": {
     "inputs": {
       "scheduler": "simple",
-      "steps": 15,
+      "steps": 20,
       "denoise": 1,
       "model": [
         "35",
@@ -267,9 +267,6 @@
   },
   "42": {
     "inputs": {
-      "speedup": "Original (1x)",
-      "enable_custom_speed": true,
-      "custom_speed": 2.1,
       "noise": [
         "15",
         0
@@ -291,9 +288,9 @@
         1
       ]
     },
-    "class_type": "TeaCacheHunyuanVideoSampler",
+    "class_type": "SamplerCustomAdvanced",
     "_meta": {
-      "title": "TTP_TeaCache HunyuanVideo Sampler"
+      "title": "SamplerCustomAdvanced"
     }
   }
 }
