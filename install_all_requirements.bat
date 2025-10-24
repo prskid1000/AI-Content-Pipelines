@@ -13,8 +13,8 @@ if not exist ".venv" (
 )
 
 REM Install PyTorch first
-echo [0/3] Installing PyTorch (nightly with CUDA 13.0)...
-.venv\Scripts\python.exe -m pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu130
+echo [0/3] Installing PyTorch (nightly with CUDA 12.9)...
+.venv\Scripts\python.exe -m pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu129
 if errorlevel 1 (
     echo ERROR: Failed to install PyTorch
     pause
@@ -84,6 +84,17 @@ if errorlevel 1 (
 ) else (
     echo SUCCESS: numba 0.59.1, numpy 1.26.4, librosa 0.11.0 installed
 )
+echo.
+
+REM Install PyTorch first
+echo [0/3] Installing Xformers (nightly with CUDA 12.9)...
+.venv\Scripts\python.exe -m ip3 install -U xformers --index-url https://download.pytorch.org/whl/cu129
+if errorlevel 1 (
+    echo ERROR: Failed to install Xformers
+    pause
+    exit /b 1
+)
+echo SUCCESS: Xformers installed
 echo.
 
 echo ========================================
