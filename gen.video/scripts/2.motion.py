@@ -98,6 +98,9 @@ class MotionGenerator:
         self.model = model
         self.use_json_schema = use_json_schema
         
+        # Scene image path configuration
+        self.scene_image_base_path = "../../gen.image/output/scene"
+        
         # Time estimation tracking
         self.processing_times = []
         self.start_time = None
@@ -163,7 +166,7 @@ class MotionGenerator:
                             scene_content = scene_line[scene_match.end():].strip()
                             
                             # Check if corresponding scene image exists
-                            scene_image_path = f"../output/scene/scene_{scene_number}.png"
+                            scene_image_path = f"{self.scene_image_base_path}/scene_{scene_number}.png"
                             if os.path.exists(scene_image_path):
                                 scenes.append({
                                     'scene_number': scene_number,
@@ -189,10 +192,11 @@ class MotionGenerator:
     
     def create_prompt_for_single_scene(self, scene: Dict[str, Any]) -> str:
         """Create the prompt for a single scene with dialogue"""
-        prompt = f"""SCENE: {scene['scene_number']}
-DIALOGUE: {scene['dialogue']}
+        prompt = f"""DIALOGUE: {scene['dialogue']}
+
 SCENE DESCRIPTION: {scene['scene_content']}
-IMAGE: {scene['image_path']}"""
+
+IMPORTANT: Only describe motions for objects, characters, and elements that are ACTUALLY VISIBLE in the provided image. Do not invent or describe motions for objects that are not present in the image."""
         return prompt
 
     def _build_response_format(self) -> Dict[str, Any]:
@@ -250,15 +254,17 @@ IMAGE: {scene['image_path']}"""
                         "content": 
 """You are a Motion Description generator for Video Generation AI Models.
 
-RULES:
-- Generate detailed, specific motion descriptions for characters and objects in the scene.
+CRITICAL RULES:
+- ONLY describe motions for objects, characters, and elements that are ACTUALLY VISIBLE in the provided image.
+- Carefully examine the image to identify what is present: characters, objects, furniture, props, etc.
+- Do NOT invent or describe motions for objects that are not visible in the image.
 - Focus on body movements, gestures, facial expressions, and object interactions that match the dialogue context.
 - Keep descriptions under 50 words, concrete, specific, and in present tense.
 - Describe what characters are doing, how they move, their posture, and interactions based on what they're saying.
 - Include subtle movements like eye movements, hand gestures, breathing, etc. that reflect the emotional tone of the dialogue.
 - Be descriptive about the quality of movement (slow, quick, deliberate, nervous, etc.) that matches the dialogue's emotional context.
 - Consider the character's emotional state and speaking style when describing their movements.
-- Use the provided image to understand the visual context and generate appropriate motions.
+- Use the provided image to understand the visual context and generate appropriate motions for ONLY what is actually present.
 - Return only JSON matching the schema.
 
 OUTPUT: JSON with motion_description field only. Only use English Language for Input, Thinking, and Output\n/no_think"""
@@ -492,8 +498,8 @@ OUTPUT: JSON with motion_description field only. Only use English Language for I
         print("=" * 100)
         
         for i, scene in enumerate(scenes):
-            # Create unique key for this scene
-            scene_key = f"{scene['scene_number']}:{scene['dialogue'][:50]}"
+            # Create unique key for this scene with scene_ prefix
+            scene_key = f"scene_{scene['scene_number']}:{scene['dialogue'][:50]}"
             
             # Check if resumable and already complete
             if resumable_state and resumable_state.is_motion_entry_complete(scene_key):
