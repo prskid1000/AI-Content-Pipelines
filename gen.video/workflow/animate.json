@@ -267,6 +267,9 @@
   },
   "42": {
     "inputs": {
+      "speedup": "Original (1x)",
+      "enable_custom_speed": true,
+      "custom_speed": 1.6,
       "noise": [
         "15",
         0
@@ -288,9 +291,9 @@
         1
       ]
     },
-    "class_type": "SamplerCustomAdvanced",
+    "class_type": "TeaCacheHunyuanVideoSampler",
     "_meta": {
-      "title": "SamplerCustomAdvanced"
+      "title": "TTP_TeaCache HunyuanVideo Sampler"
     }
   }
 }

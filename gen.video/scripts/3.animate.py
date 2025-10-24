@@ -1803,18 +1803,16 @@ class VideoAnimator:
         """Print a comprehensive workflow summary showing the flow to sampler inputs."""
         print(f"\n🔗 WORKFLOW SUMMARY: {title}")
         
-        # Find the main sampler node (SamplerCustomAdvanced for Hunyuan)
+        # Find the main sampler node (TeaCacheHunyuanVideoSampler at node 42)
         sampler_node = None
         sampler_id = None
-        for node_id, node in workflow.items():
-            if node.get("class_type") == "SamplerCustomAdvanced":
-                sampler_node = node
-                sampler_id = node_id
-                break
+        if "42" in workflow and workflow["42"].get("class_type") == "TeaCacheHunyuanVideoSampler":
+            sampler_node = workflow["42"]
+            sampler_id = "42"
         
         if sampler_node:
             inputs = sampler_node.get("inputs", {})
-            print(f"   📊 SamplerCustomAdvanced({sampler_id}) - Core Parameters:")
+            print(f"   📊 TeaCacheHunyuanVideoSampler({sampler_id}) - Core Parameters:")
             print(f"      🎲 Noise: Connected")
             print(f"      🎯 Guider: Connected")
             print(f"      🎲 Sampler: Connected")
@@ -1975,6 +1973,11 @@ class VideoAnimator:
         elif node_type == "SamplerCustomAdvanced":
             print(f"{indent}🎲 Advanced Sampler: Connected")
             
+        elif node_type == "TeaCacheHunyuanVideoSampler":
+            print(f"{indent}⚡ Speedup: {node_inputs.get('speedup', 'N/A')}")
+            print(f"{indent}🔧 Custom Speed: {node_inputs.get('custom_speed', 'N/A')}")
+            print(f"{indent}✅ Enable Custom Speed: {node_inputs.get('enable_custom_speed', 'N/A')}")
+            
         elif node_type == "VHS_VideoCombine":
             print(f"{indent}🎬 Frame Rate: {node_inputs.get('frame_rate', 'N/A')}")
             print(f"{indent}🔄 Loop Count: {node_inputs.get('loop_count', 'N/A')}")
@@ -2003,7 +2006,7 @@ class VideoAnimator:
             
         # Show any other relevant parameters
         for key, value in node_inputs.items():
-            if key not in ['model', 'clip', 'vae', 'pixels', 'samples', 'image', 'text', 'lora_name', 'strength_model', 'strength_clip', 'model_name', 'device', 'width', 'height', 'num_frames', 'strength', 'crop', 'crf', 'blur', 'frame_rate', 'skip_steps_sigma_threshold', 'cfg_star_rescale', 'noise_seed', 'string', 'timestep', 'scale', 'sampler_name', 'loop_count', 'filename_prefix', 'format', 'pix_fmt', 'vae_name', 'clip_name', 'type', 'tile_size', 'overlap', 'temporal_size', 'temporal_overlap', 'clip_name1', 'clip_name2', 'clip_vision', 'clip_vision_output', 'prompt', 'image_interleave', 'guidance_type', 'start_image', 'positive', 'negative', 'shift', 'guidance', 'conditioning', 'noise', 'guider', 'sampler', 'sigmas', 'latent_image', 'value', 'scheduler', 'steps', 'denoise', 'unet_name', 'weight_dtype', 'tile_size', 'overlap', 'temporal_size', 'temporal_overlap', 'samples', 'frame_rate', 'loop_count', 'filename_prefix', 'format', 'pix_fmt', 'crf', 'save_metadata', 'pingpong', 'save_output', 'images']:
+            if key not in ['model', 'clip', 'vae', 'pixels', 'samples', 'image', 'text', 'lora_name', 'strength_model', 'strength_clip', 'model_name', 'device', 'width', 'height', 'num_frames', 'strength', 'crop', 'crf', 'blur', 'frame_rate', 'skip_steps_sigma_threshold', 'cfg_star_rescale', 'noise_seed', 'string', 'timestep', 'scale', 'sampler_name', 'loop_count', 'filename_prefix', 'format', 'pix_fmt', 'vae_name', 'clip_name', 'type', 'tile_size', 'overlap', 'temporal_size', 'temporal_overlap', 'clip_name1', 'clip_name2', 'clip_vision', 'clip_vision_output', 'prompt', 'image_interleave', 'guidance_type', 'start_image', 'positive', 'negative', 'shift', 'guidance', 'conditioning', 'noise', 'guider', 'sampler', 'sigmas', 'latent_image', 'value', 'scheduler', 'steps', 'denoise', 'unet_name', 'weight_dtype', 'tile_size', 'overlap', 'temporal_size', 'temporal_overlap', 'samples', 'frame_rate', 'loop_count', 'filename_prefix', 'format', 'pix_fmt', 'crf', 'save_metadata', 'pingpong', 'save_output', 'images', 'speedup', 'enable_custom_speed', 'custom_speed']:
                 if isinstance(value, (str, int, float, bool)) and len(str(value)) < 50:
                     print(f"{indent}⚙️ {key}: {value}")
 
