@@ -1,13 +1,19 @@
 Workflow runner started. Python executable: D:\.comfyui\.venv\Scripts\python.exe
 Working directory: D:\.comfyui\gen.video
 Emptying ComfyUI input and output folders...
+Removed directory: D:\.comfyui\ComfyUI\input\3d
+Removed file: D:\.comfyui\ComfyUI\input\male_detective_holmes.jpg
+Removed file: D:\.comfyui\ComfyUI\input\male_doctor_watson.jpg
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00001_.png
 Successfully emptied ComfyUI input and output folders.
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
 [START] Security scan
 [DONE] Security scan
 ## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2025-10-24 13:17:32.270
+** ComfyUI startup time: 2025-10-24 13:40:01.601
 ** Platform: Windows
 ** Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
 ** Python executable: D:\.comfyui\.venv\Scripts\python.exe
@@ -19,7 +25,7 @@ Waiting for ComfyUI to become ready (polling every 15s)...
 ComfyUI not ready yet (attempt 1). Retrying in 15s...
 
 Prestartup times for custom nodes:
-   2.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   2.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
 
 Checkpoint files will always be loaded safely.
 Total VRAM 12227 MB, total RAM 64957 MB
@@ -38,8 +44,8 @@ ComfyUI-GGUF: Allowing full torch compile
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
 ✅ ChatterboxTTS loaded from bundled package
 ✅ ChatterboxVC loaded from bundled package
 ✅ F5-TTS loaded from system package
@@ -73,14 +79,14 @@ Universal multi-engine TTS extension for ComfyUI
 
 Import times for custom nodes:
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-Unload-Model
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\Comfyui_TTP_Toolset
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-Unload-Model
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
    0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
-   0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-   2.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
-   4.4 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
+   0.4 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   1.7 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
+   3.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
 
 Context impl SQLiteImpl.
 Will assume non-transactional DDL.
@@ -91,7 +97,15 @@ To see the GUI go to: http://127.0.0.1:8188
 FETCH ComfyRegistry Data: 5/101
 ComfyUI is ready after 17.1s (attempt 2).
 
-===== START D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-10-24 13:17:47 =====
+===== START D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-10-24 13:40:17 =====
+Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
 Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.image\output\tracking
 Found existing checkpoint: D:\.comfyui\gen.image\output\tracking\3.scene.state.json
 Progress: Scenes(85/85)
@@ -185,7 +199,6 @@ Scene already tracked: scene_5.8
 Scene already tracked: scene_5.9
 No untracked scenes found in output/scene directory
 Validating 85 completed scenes against output/scene directory...
-Precheck: File missing for scene_1.1 - marking as not completed
 Precheck: ✓ scene_1.2 validated in output/scene directory
 Precheck: ✓ scene_1.5 validated in output/scene directory
 Precheck: ✓ scene_1.6 validated in output/scene directory
@@ -270,6 +283,7 @@ Precheck: ✓ scene_3.4 validated in output/scene directory
 Precheck: ✓ scene_3.17 validated in output/scene directory
 Precheck: ✓ scene_3.18 validated in output/scene directory
 Precheck: ✓ scene_4.16 validated in output/scene directory
+Precheck: File missing for scene_1.1 - marking as not completed
 Precheck: Cleared LoRA progress for scene_1.1
 Precheck: Cleaned up 1 invalid entries from checkpoint
 Precheck completed: 1 invalid entries removed from checkpoint
@@ -296,7 +310,7 @@ Image stitching: 2 images → 1 groups [2]
 Using single reference conditioning
 Using latent mode with dimensions: 1024x576
 Negative prompt disabled - using ConditioningZeroOut
-Seed set to: 2061241822
+Seed set to: 61519829
 
 
 
@@ -310,7 +324,7 @@ ADD ,MIDDLE CHARACTER in Image 1, which should look like,Face: (Head Shape: oval
 
   Model strength: 3.0
   CLIP strength: 3.0
-  Seed set to: 2297653520
+  Seed set to: 1659414290
   Using latent mode with dimensions: 1024x576
   Using LoRA denoising_strength: 1
   Steps: 9, Denoising: 1
@@ -322,8 +336,8 @@ VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
 Requested to load FluxClipModel_
 loaded completely 9.5367431640625e+25 9319.23095703125 True
 CLIP/text encoder model load device: cpu, offload device: cpu, current: cpu, dtype: torch.float16
-clip missing: ['text_projection.weight']
 FETCH ComfyRegistry Data: 10/101
+clip missing: ['text_projection.weight']
 model weight dtype torch.float8_e4m3fn, manual cast: torch.bfloat16
 model_type FLUX
 FETCH ComfyRegistry Data: 15/101
@@ -339,39 +353,36 @@ FETCH ComfyRegistry Data: 35/101
 loaded partially 7697.487961853027 7697.420959472656 155
   0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 40/101
 FETCH ComfyRegistry Data: 45/101
- 11%|█         | 1/9 [00:08<01:04,  8.10s/it]FETCH ComfyRegistry Data: 50/101
- 22%|██▏       | 2/9 [00:15<00:55,  7.96s/it]FETCH ComfyRegistry Data: 55/101
- 33%|███▎      | 3/9 [00:23<00:46,  7.70s/it]FETCH ComfyRegistry Data: 60/101
-FETCH ComfyRegistry Data: 65/101
- 44%|████▍     | 4/9 [00:31<00:38,  7.77s/it]FETCH ComfyRegistry Data: 70/101
- 56%|█████▌    | 5/9 [00:38<00:30,  7.57s/it]FETCH ComfyRegistry Data: 75/101
- 67%|██████▋   | 6/9 [00:45<00:22,  7.40s/it]FETCH ComfyRegistry Data: 80/101
-FETCH ComfyRegistry Data: 85/101
- 78%|███████▊  | 7/9 [00:52<00:14,  7.34s/it]FETCH ComfyRegistry Data: 90/101
- 89%|████████▉ | 8/9 [00:59<00:07,  7.22s/it]FETCH ComfyRegistry Data: 95/101
-100%|██████████| 9/9 [01:06<00:00,  7.12s/it]100%|██████████| 9/9 [01:06<00:00,  7.40s/it]
+ 11%|█         | 1/9 [00:07<01:01,  7.65s/it]FETCH ComfyRegistry Data: 50/101
+ 22%|██▏       | 2/9 [00:14<00:50,  7.23s/it]FETCH ComfyRegistry Data: 55/101
+ 33%|███▎      | 3/9 [00:21<00:42,  7.05s/it]FETCH ComfyRegistry Data: 60/101
+ 44%|████▍     | 4/9 [00:28<00:34,  6.98s/it]FETCH ComfyRegistry Data: 65/101
+FETCH ComfyRegistry Data: 70/101
+ 56%|█████▌    | 5/9 [00:35<00:27,  6.92s/it]FETCH ComfyRegistry Data: 75/101
+ 67%|██████▋   | 6/9 [00:42<00:20,  6.94s/it]FETCH ComfyRegistry Data: 80/101
+ 78%|███████▊  | 7/9 [00:48<00:13,  6.93s/it]FETCH ComfyRegistry Data: 85/101
+ 89%|████████▉ | 8/9 [00:56<00:06,  6.98s/it]FETCH ComfyRegistry Data: 90/101
+FETCH ComfyRegistry Data: 95/101
+100%|██████████| 9/9 [01:02<00:00,  6.95s/it]100%|██████████| 9/9 [01:02<00:00,  7.00s/it]
 Requested to load AutoencodingEngine
 loaded completely 196.6123046875 159.87335777282715 True
-Prompt executed in 103.72 seconds
-FETCH ComfyRegistry Data: 100/101
-FETCH ComfyRegistry Data [DONE]
-[ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
-FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json  Saved LoRA result: ../output/lora\scene_1.1.FLUX1_Turbo_Alphasafetensors.png
+Prompt executed in 97.40 seconds
+  Saved LoRA result: ../output/lora\scene_1.1.FLUX1_Turbo_Alphasafetensors.png
   LoRA 1 completed successfully
   Saved LoRA progress: 1/1 completed
 Saved: ../output/scene\scene_1.1.png
   Preserved LoRA progress for completed scene
-✅ Scene 1/1 - {{loc_1}}, {Cold Winter Morning}; ((male_doctor_wa - Completed in 1.8m
+✅ Scene 1/1 - {{loc_1}}, {Cold Winter Morning}; ((male_doctor_wa - Completed in 1.7m
 📊 Estimated time remaining: ~0s (?)
 [OK] Generated: scene_1.1
 
-Generated 1 scenes in 106.19s:
+Generated 1 scenes in 100.16s:
   scene_1.1: ../output/scene\scene_1.1.png
 All operations completed successfully
 Final progress: Progress: Scenes(85/85)
 All operations completed successfully - tracking files preserved
 
-===== END D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-10-24 13:19:34 (exit=0, took=106.39s) =====
+===== END D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-10-24 13:41:57 (exit=0, took=100.34s) =====
 Stopping ComfyUI backend...
 ComfyUI still responding; waiting for shutdown...
 ComfyUI appears stopped (after 2 checks).
