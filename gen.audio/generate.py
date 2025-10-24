@@ -88,13 +88,9 @@ SCRIPTS_DIR = "scripts"
 NEEDS_COMFYUI = {"2.story.py", "7.sfx.py", "10.thumbnail.py"}
 NEEDS_LMSTUDIO = {"1.character.py", "5.timeline.py", "6.timing.py", "9.media.py"}
 
- 
-
 # Centralized non-interactive defaults (only change this file)
 SCRIPT_ARGS = {
     "1.character.py": ["--auto-gender", "m", "--auto-confirm", "y", "--change-settings", "n"],
-    "10.thumbnail.py": ["--mode", "flux"],
-    "2.character.py": ["--mode", "flux"],
     "12.youtube.py": ["--video-file", "../output/final.mp4", "--upload-shorts"],
     # "7.sfx.py": ["--auto-confirm", "y"],  # sfx script auto-confirms by default; passing is harmless
 }
@@ -185,7 +181,7 @@ def start_comfyui(working_dir: str, log_handle) -> subprocess.Popen:
         env = os.environ.copy()
         env.setdefault("PYTHONIOENCODING", "utf-8")
         proc = subprocess.Popen(
-            [sys.executable, "main.py"],
+            [sys.executable, "main.py", "--lowvram"],
             cwd=comfy_dir,
             stdout=log_handle,
             stderr=log_handle,
@@ -196,7 +192,7 @@ def start_comfyui(working_dir: str, log_handle) -> subprocess.Popen:
     else:
         # Non-Windows fallback
         proc = subprocess.Popen(
-            [sys.executable, "main.py"],
+            [sys.executable, "main.py", "--lowvram"],
             cwd=comfy_dir,
             stdout=log_handle,
             stderr=log_handle,

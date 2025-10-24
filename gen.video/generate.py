@@ -104,8 +104,6 @@ SCRIPT_ARGS = {
     # "1.story.py": ["--bypass-validation"],
     # "4.audio.py": ["--bypass-validation"],
     "1.character.py": ["--auto-gender", "m", "--auto-confirm", "y", "--change-settings", "n"],
-    "10.thumbnail.py": ["--mode", "flux"],
-    "2.character.py": ["--mode", "flux"],
     "5.timeline.py": ["../input/2.timeline.script.txt"],  # Pass the 2.1.timeline.txt file to 5.timeline.py (relative to gen.audio/scripts/)
     "7.sfx.py": ["--auto-confirm", "y"],  # sfx script auto-confirms by default; passing is harmless
     "11.video.py": ["--video-file", "../../gen.video/output/final.mp4"],
@@ -198,7 +196,7 @@ def start_comfyui(working_dir: str, log_handle) -> subprocess.Popen:
         env = os.environ.copy()
         env.setdefault("PYTHONIOENCODING", "utf-8")
         proc = subprocess.Popen(
-            [sys.executable, "main.py"],
+            [sys.executable, "main.py", "--lowvram"],
             cwd=comfy_dir,
             stdout=log_handle,
             stderr=log_handle,
@@ -209,7 +207,7 @@ def start_comfyui(working_dir: str, log_handle) -> subprocess.Popen:
     else:
         # Non-Windows fallback
         proc = subprocess.Popen(
-            [sys.executable, "main.py"],
+            [sys.executable, "main.py", "--lowvram"],
             cwd=comfy_dir,
             stdout=log_handle,
             stderr=log_handle,

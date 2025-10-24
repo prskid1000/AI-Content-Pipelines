@@ -26,7 +26,7 @@ WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary print
 
 # Controls text generation method:
 # - True: use text overlay after image generation (generates 1 image: thumbnail.png)
-# - False: let Flux generate text in the image itself (generates 5 versions: thumbnail.flux.v1-v5.png)
+# - False: let Flux generate text in the image itself (generates 5 versions: thumbnail.v1-v5.png)
 USE_TITLE_TEXT = True
 
 # Controls where the title band + text appears: "top", "middle", or "bottom"
@@ -350,9 +350,8 @@ class ResumableState:
         return f"Progress: Thumbnails({completed}/{total})"
 
 class ThumbnailProcessor:
-    def __init__(self, comfyui_url: str = "http://127.0.0.1:8188/", mode: str = "diffusion"):
+    def __init__(self, comfyui_url: str = "http://127.0.0.1:8188/"):
         self.comfyui_url = comfyui_url
-        self.mode = (mode or "diffusion").strip().lower()
         # ComfyUI saves images under this folder
         self.comfyui_output_folder = "../../ComfyUI/output"
         # Final destination inside this repo
@@ -374,10 +373,9 @@ class ThumbnailProcessor:
                     print(f"Removed: {file}")
 
     def _load_thumbnail_workflow(self) -> dict:
-        filename = "thumbnail.flux.json" if self.mode == "flux" else "thumbnail.json"
-        workflow_path = Path(f"../workflow/{filename}")
+        workflow_path = Path("../workflow/thumbnail.json")
         if not workflow_path.exists():
-            raise FileNotFoundError(f"'../workflow/{filename}' not found.")
+            raise FileNotFoundError("'../workflow/thumbnail.json' not found.")
         with open(workflow_path, "r", encoding="utf-8") as f:
             workflow = json.load(f)
         
@@ -1843,8 +1841,7 @@ def read_prompt_from_file(filename: str = "../input/10.thumbnail.txt") -> str | 
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Generate a thumbnail using diffusion (default) or flux workflow.")
-    parser.add_argument("--mode", "-m", choices=["diffusion", "flux"], default="diffusion", help="Select workflow: diffusion (default) or flux")
+    parser = argparse.ArgumentParser(description="Generate a thumbnail using Flux workflow.")
     parser.add_argument("--force", "-f", action="store_true", help="Force regeneration of all thumbnails")
     parser.add_argument("--force-start", action="store_true", help="Force start from beginning, ignoring any existing checkpoint files")
     args = parser.parse_args()
@@ -1855,7 +1852,7 @@ if __name__ == "__main__":
 
     prompt =  "SCENE DESCRIPTION:" + prompt
 
-    processor = ThumbnailProcessor(mode=args.mode)
+    processor = ThumbnailProcessor()
 
     # Initialize resumable state if enabled
     resumable_state = None

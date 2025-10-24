@@ -332,9 +332,8 @@ class ResumableState:
 
 
 class LocationGenerator:
-    def __init__(self, comfyui_url: str = "http://127.0.0.1:8188/", mode: str = "flux"):
+    def __init__(self, comfyui_url: str = "http://127.0.0.1:8188/"):
         self.comfyui_url = comfyui_url
-        self.mode = (mode or "flux").strip().lower()
         # ComfyUI saves images under this folder
         self.comfyui_output_folder = "../../ComfyUI/output"
         # Final destination inside this repo
@@ -343,8 +342,8 @@ class LocationGenerator:
         self.input_file = "../input/3.location.txt" if USE_SUMMARY_TEXT else "../input/2.location.txt"
         # Latent image input file path
         self.latent_image_path = f"../input/2.latent.location.{IMAGE_LATENT_SIZE}.png"
-        # Dynamic workflow file selection based on mode - use character workflow
-        self.workflow_file = "../workflow/character.flux.json" if self.mode == "flux" else "../workflow/character.json"
+        # Always use Flux workflow - use character workflow
+        self.workflow_file = "../workflow/character_location.json"
 
         # Create output directories
         os.makedirs(self.final_output_dir, exist_ok=True)
@@ -383,7 +382,7 @@ class LocationGenerator:
             with open(self.workflow_file, "r", encoding="utf-8") as f:
                 workflow = json.load(f)
             
-            print(f"Loaded {self.mode} workflow from: {self.workflow_file}")
+            print(f"Loaded Flux workflow from: {self.workflow_file}")
             
             # Validate LoRA configuration
             if not self._validate_lora_config():
@@ -1908,15 +1907,14 @@ class LocationGenerator:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Generate location images using flux (default) or diffusion workflow.")
-    parser.add_argument("--mode", "-m", choices=["flux", "diffusion"], default="flux", help="Select workflow: flux (default) or diffusion")
+    parser = argparse.ArgumentParser(description="Generate location images using Flux workflow.")
     parser.add_argument("--force", "-f", action="store_true", help="Force regeneration of all locations")
     parser.add_argument("--list-completed", "-l", action="store_true", help="List completed locations")
     parser.add_argument("--force-start", action="store_true",
                        help="Force start from beginning, ignoring any existing checkpoint files")
     args = parser.parse_args()
     
-    generator = LocationGenerator(mode=args.mode)
+    generator = LocationGenerator()
     
     if args.list_completed:
         completed = generator._get_completed_locations()
@@ -1942,7 +1940,7 @@ def main() -> int:
     elapsed = time.time() - start_time
     
     if results:
-        print(f"\nGenerated {len(results)} location images in {elapsed:.2f}s using {args.mode} mode:")
+        print(f"\nGenerated {len(results)} location images in {elapsed:.2f}s using Flux mode:")
         for name, path in results.items():
             print(f"  {name}: {path}")
         
