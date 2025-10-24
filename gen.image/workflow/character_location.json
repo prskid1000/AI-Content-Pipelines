@@ -117,11 +117,12 @@
   },
   "41": {
     "inputs": {
-      "unet_name": "flux1-kontext-dev-Q8_0.gguf"
+      "unet_name": "flux1-kontext-dev-fp8-e4m3fn.safetensors",
+      "weight_dtype": "fp8_e4m3fn"
     },
-    "class_type": "UnetLoaderGGUF",
+    "class_type": "UNETLoader",
     "_meta": {
-      "title": "Unet Loader (GGUF)"
+      "title": "Load Diffusion Model"
     }
   }
 }
