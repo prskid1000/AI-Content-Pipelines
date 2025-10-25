@@ -81,7 +81,7 @@
     "inputs": {
       "filename_prefix": "ComfyUI",
       "images": [
-        "20",
+        "42",
         0
       ]
     },
@@ -123,6 +123,20 @@
     "class_type": "UNETLoader",
     "_meta": {
       "title": "Load Diffusion Model"
+    }
+  },
+  "42": {
+    "inputs": {
+      "upscale_method": "nearest-exact",
+      "scale_by": 4.0,
+      "image": [
+        "20",
+        0
+      ]
+    },
+    "class_type": "ImageScaleBy",
+    "_meta": {
+      "title": "Upscale Image By"
     }
   }
 }
