@@ -52,8 +52,8 @@ LOCATION_WORD_LIMIT = 230
 CHARACTER_WORD_LIMIT = 140
 
 # Image Resolution Constants
-IMAGE_WIDTH = 1024
-IMAGE_HEIGHT = 576
+IMAGE_WIDTH = 1280
+IMAGE_HEIGHT = 800
 
 # Latent Input Mode Configuration
 LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
