@@ -22,8 +22,8 @@
   },
   "4": {
     "inputs": {
-      "width": 512,
-      "height": 320,
+      "width": 768,
+      "height": 480,
       "length": 81,
       "batch_size": 1,
       "guidance_type": "v2 (replace)",
