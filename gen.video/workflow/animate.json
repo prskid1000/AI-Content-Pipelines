@@ -223,8 +223,8 @@
   },
   "35": {
     "inputs": {
-      "unet_name": "hunyuan_video_I2V_720_fixed_fp8_e4m3fn.safetensors",
-      "weight_dtype": "fp8_e4m3fn"
+      "unet_name": "hunyuan_video_I2V_720_fixed_bf16.safetensors",
+      "weight_dtype": "default"
     },
     "class_type": "UNETLoader",
     "_meta": {
