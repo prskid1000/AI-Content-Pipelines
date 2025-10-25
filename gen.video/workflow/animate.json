@@ -173,34 +173,7 @@
       "title": "BasicScheduler"
     }
   },
-  "27": {
-    "inputs": {
-      "value": [
-        "7",
-        0
-      ],
-      "model": [
-        "1",
-        0
-      ]
-    },
-    "class_type": "UnloadModel",
-    "_meta": {
-      "title": "UnloadModel"
-    }
-  },
-  "29": {
-    "inputs": {
-      "value": [
-        "42",
-        0
-      ]
-    },
-    "class_type": "UnloadAllModels",
-    "_meta": {
-      "title": "UnloadAllModels"
-    }
-  },
+
   "31": {
     "inputs": {
       "tile_size": 128,
@@ -208,7 +181,7 @@
       "temporal_size": 36,
       "temporal_overlap": 12,
       "samples": [
-        "29",
+        "42",
         0
       ],
       "vae": [

@@ -4,14 +4,74 @@ Emptying ComfyUI input and output folders...
 Removed file: D:\.comfyui\ComfyUI\input\female_lady_unknown.jpg
 Removed file: D:\.comfyui\ComfyUI\input\male_detective_holmes.jpg
 Removed file: D:\.comfyui\ComfyUI\input\male_doctor_watson.jpg
-Removed file: D:\.comfyui\ComfyUI\input\unknown_male_shadow.jpg
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.10.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.11.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.12.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.13.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.14.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.15.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.16.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.17.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.7.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.8.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.9.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_2.1.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_2.10.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_2.11.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_2.12.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_2.13.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_2.14.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_2.15.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_2.16.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_2.17.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_2.18.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_2.2.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_2.3.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_2.4.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_2.5.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_2.6.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_2.7.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_2.8.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_2.9.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_3.1.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_3.2.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_3.3.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00002_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00003_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00004_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00005_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00006_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00007_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00008_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00009_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00010_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00011_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00012_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00013_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00014_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00015_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00016_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00017_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00018_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00019_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00020_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00021_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00022_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00023_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00024_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00025_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00026_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00027_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00028_.png
 Successfully emptied ComfyUI input and output folders.
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
 [START] Security scan
 [DONE] Security scan
 ## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2025-10-25 17:19:33.694
+** ComfyUI startup time: 2025-10-25 18:20:20.094
 ** Platform: Windows
 ** Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
 ** Python executable: D:\.comfyui\.venv\Scripts\python.exe
@@ -23,7 +83,7 @@ Waiting for ComfyUI to become ready (polling every 15s)...
 ComfyUI not ready yet (attempt 1). Retrying in 15s...
 
 Prestartup times for custom nodes:
-   2.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   2.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
 
 Checkpoint files will always be loaded safely.
 Total VRAM 12227 MB, total RAM 64957 MB
@@ -31,3 +91,684 @@ pytorch version: 2.8.0+cu129
 Set vram state to: NORMAL_VRAM
 Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
 Using pytorch attention
+Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
+ComfyUI version: 0.3.64
+ComfyUI frontend version: 1.27.10
+[Prompt Server] web root: D:\.comfyui\.venv\Lib\site-packages\comfyui_frontend_package\static
+ComfyUI-GGUF: Allowing full torch compile
+### Loading: ComfyUI-Manager (V3.36)
+[ComfyUI-Manager] network_mode: public
+### ComfyUI Version: v0.3.64-23-gd68ece73 | Released on '2025-10-12'
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+✅ ChatterboxTTS loaded from bundled package
+✅ ChatterboxVC loaded from bundled package
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
+✅ F5-TTS loaded from system package
+🎭 Character voices: Found 70 characters, 4 aliases
+✅ SRT modules loaded from system package
+🔧 Registering TTS Audio Suite nodes...
+======================================================================
+🚀 TTS Audio Suite v4.2.1
+Universal multi-engine TTS extension for ComfyUI
+⚠️ No local ChatterBox models found - will download from Hugging Face
+💡 Tip: First generation will download models (~1GB)
+   Models will be saved locally for future use
+✅ TTS Audio Suite v4.2.1 loaded with 16 nodes:
+   • ⚙️ ChatterBox TTS Engine
+   • ⚙️ F5 TTS Engine
+   • ⚙️ RVC Engine
+   • 🌊 Audio Wave Analyzer
+   • 🎙️ Voice Capture
+   • 🎤 TTS Text
+   • 🎭 Character Voices
+   • 🎭 Load RVC Character Model
+   • 👄 F5-TTS Speech Editor
+   • 📺 TTS SRT
+   • 🔄 Voice Changer
+   • 🔧 Audio Analyzer Options
+   • 🔧 F5-TTS Edit Options
+   • 🔧 RVC Pitch Extraction Options
+   • 🤐 Noise or Vocal Removal
+   • 🥪 Merge Audio
+======================================================================
+
+Import times for custom nodes:
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\Comfyui_TTP_Toolset
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-Unload-Model
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
+   0.4 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
+   0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   2.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
+   4.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
+
+Context impl SQLiteImpl.
+Will assume non-transactional DDL.
+No target revision found.
+Starting server
+
+To see the GUI go to: http://127.0.0.1:8188
+ComfyUI is ready after 17.1s (attempt 2).
+
+===== START D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-10-25 18:20:35 =====
+Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.image\output\tracking
+Found existing checkpoint: D:\.comfyui\gen.image\output\tracking\3.scene.state.json
+Progress: Scenes(38/38)
+Character mode: IMAGE_TEXT
+Location mode: TEXT
+Validating cache against output/scene directory: ../output/scene
+Scanning output/scene directory for untracked files: ../output/scene
+Scene already tracked: scene_1.1
+Scene already tracked: scene_1.10
+Scene already tracked: scene_1.11
+Scene already tracked: scene_1.12
+Scene already tracked: scene_1.13
+Scene already tracked: scene_1.14
+Scene already tracked: scene_1.15
+Scene already tracked: scene_1.16
+Scene already tracked: scene_1.2
+Scene already tracked: scene_1.3
+Scene already tracked: scene_1.4
+Scene already tracked: scene_1.5
+Scene already tracked: scene_1.6
+Scene already tracked: scene_1.7
+Scene already tracked: scene_1.8
+Scene already tracked: scene_1.9
+Scene already tracked: scene_2.1
+Scene already tracked: scene_2.10
+Scene already tracked: scene_2.11
+Scene already tracked: scene_2.13
+Scene already tracked: scene_2.15
+Scene already tracked: scene_2.16
+Scene already tracked: scene_2.18
+Scene already tracked: scene_2.2
+Scene already tracked: scene_2.3
+Scene already tracked: scene_2.5
+Scene already tracked: scene_2.6
+Scene already tracked: scene_2.7
+Scene already tracked: scene_2.8
+Scene already tracked: scene_2.9
+Scene already tracked: scene_3.2
+No untracked scenes found in output/scene directory
+Validating 38 completed scenes against output/scene directory...
+Precheck: ✓ scene_1.1 validated in output/scene directory
+Precheck: ✓ scene_1.3 validated in output/scene directory
+Precheck: ✓ scene_1.4 validated in output/scene directory
+Precheck: ✓ scene_1.5 validated in output/scene directory
+Precheck: ✓ scene_1.6 validated in output/scene directory
+Precheck: ✓ scene_1.2 validated in output/scene directory
+Precheck: ✓ scene_1.7 validated in output/scene directory
+Precheck: ✓ scene_1.8 validated in output/scene directory
+Precheck: ✓ scene_1.9 validated in output/scene directory
+Precheck: ✓ scene_1.10 validated in output/scene directory
+Precheck: ✓ scene_1.11 validated in output/scene directory
+Precheck: ✓ scene_1.12 validated in output/scene directory
+Precheck: ✓ scene_1.13 validated in output/scene directory
+Precheck: ✓ scene_1.14 validated in output/scene directory
+Precheck: ✓ scene_1.15 validated in output/scene directory
+Precheck: ✓ scene_1.16 validated in output/scene directory
+Precheck: File missing for scene_1.17 - marking as not completed
+Precheck: ✓ scene_2.1 validated in output/scene directory
+Precheck: ✓ scene_2.2 validated in output/scene directory
+Precheck: ✓ scene_2.3 validated in output/scene directory
+Precheck: File missing for scene_2.4 - marking as not completed
+Precheck: ✓ scene_2.5 validated in output/scene directory
+Precheck: ✓ scene_2.6 validated in output/scene directory
+Precheck: ✓ scene_2.7 validated in output/scene directory
+Precheck: ✓ scene_2.8 validated in output/scene directory
+Precheck: ✓ scene_2.9 validated in output/scene directory
+Precheck: ✓ scene_2.10 validated in output/scene directory
+Precheck: ✓ scene_2.11 validated in output/scene directory
+Precheck: File missing for scene_2.12 - marking as not completed
+Precheck: ✓ scene_2.13 validated in output/scene directory
+Precheck: File missing for scene_2.14 - marking as not completed
+Precheck: ✓ scene_2.15 validated in output/scene directory
+Precheck: ✓ scene_2.16 validated in output/scene directory
+Precheck: File missing for scene_2.17 - marking as not completed
+Precheck: ✓ scene_2.18 validated in output/scene directory
+Precheck: File missing for scene_3.1 - marking as not completed
+Precheck: ✓ scene_3.2 validated in output/scene directory
+Precheck: File missing for scene_3.3 - marking as not completed
+Precheck: Cleared LoRA progress for scene_1.17
+Precheck: Cleared LoRA progress for scene_2.4
+Precheck: Cleared LoRA progress for scene_2.12
+Precheck: Cleared LoRA progress for scene_2.14
+Precheck: Cleared LoRA progress for scene_2.17
+Precheck: Cleared LoRA progress for scene_3.1
+Precheck: Cleared LoRA progress for scene_3.3
+Precheck: Cleaned up 7 invalid entries from checkpoint
+Precheck completed: 7 invalid entries removed from checkpoint
+Found 31 completed scenes: ['scene_1.1', 'scene_1.10', 'scene_1.11', 'scene_1.12', 'scene_1.13', 'scene_1.14', 'scene_1.15', 'scene_1.16', 'scene_1.2', 'scene_1.3', 'scene_1.4', 'scene_1.5', 'scene_1.6', 'scene_1.7', 'scene_1.8', 'scene_1.9', 'scene_2.1', 'scene_2.10', 'scene_2.11', 'scene_2.13', 'scene_2.15', 'scene_2.16', 'scene_2.18', 'scene_2.2', 'scene_2.3', 'scene_2.5', 'scene_2.6', 'scene_2.7', 'scene_2.8', 'scene_2.9', 'scene_3.2']
+Processing 54 scenes, skipped 31
+📊 Total scene words: 1,162
+============================================================
+
+📊 SCENE GENERATION PROGRESS
+====================================================================================================
+🔄 Scene 1/54 - {{loc_4}}, {Late Morning Fog}; ((male_doctor_watso - Processing...
+📊 Estimated time remaining: ~5.8m (?)
+Generating scene: scene_1.17 with characters: male_doctor_watson, male_detective_holmes, female_lady_unknown (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_1.17
+Compressed male_doctor_watson image: 97.2KB → 48.8KB (49.8% reduction)
+Compressed male_detective_holmes image: 96.4KB → 46.3KB (52.0% reduction)
+Compressed female_lady_unknown image: 98.6KB → 53.1KB (46.2% reduction)
+Added 3 character images to stitching process
+Character mode: IMAGE_TEXT, Location mode: TEXT, Total images: 3
+Image stitching: 3 images → 1 groups []
+Using single reference conditioning
+Using latent mode with dimensions: 1280x800
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 2233096025
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        
+ADD SCENE, which should look like,Place: (Type: Room, Size: large), Ground: (Type: field, Material: wood_chips, Color: brown}, ), Surroundings: (Type: mountain_range, Material: rock, Color: gray), Objects: [(Type: fireplace, Color: black, Material: stone, Position: central, Size: large), (Type: armchair, Color: brown, Material: wood, Position: opposite fireplce, Size: medium), (Type: mantel, Color: white, Material: marble, Position: side_fireplace, Size: medium), (Type: scooter, Color: black, Material: metal, Position: near mantel, size:, Size: small), (Type: book, Color: brown, Material: paper, Position: on mantel, Size: small), (Type: crate, Color: gray, Material: wood, Position: opposite armchair, Size: large)], as background of the entire illustration., {Late Morning Fog}; 
+ADD ,LEFTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: square, Skin Tone: pale, Eyes Color: blue, Hair Color: brown, Hair Texture: straight, Age: adult, Gender: male, Body Type: average), Clothing: (Tops: (Type: button_down_dress_shirt, Color: black), Bottoms: (Type: track_pants, Color: gray), Footwear: (Type: boat_shoes, Color: white)), Accessories: [(Type: pocket_watch, Location: over_eyes, Color: gold), (Type: sunglasses, Location: over_eyes, Color: dark), (Type: ring, Location: over_eyes, Color: blue)], as one of the main characters of the illustration.{Reflective}, {Standing by mantel}{Watching fire burn low}; 
+ADD ,MIDDLE CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: pale, Eyes Color: blue, Hair Color: gray, Hair Texture: straight, Age: adult, Gender: male, Body Type: slim), Clothing: (Tops: (Type: tuxedo_shirt, Color: black, Pattern: solid, Material: wool, Fit: tight, Condition: well_worn), Bottoms: (Type: slim_chinos, Color: black, Pattern: none, Material: linen, Fit: tight, Condition: well_worn), Footwear: (Type: brogue_shoes, Color: brown, Pattern: solid, Condition: well_worn), Outerwear: (Type: military_dress_coat, Color: black, Pattern: none, Material: wool, Fit: loose)), Accessories: [(Type: watch, Location: on_wrist, Color: silver, Condition: well_worn), (Type: pocket_square, Location: in_hand, Color: brown, Condition: well_worn), (Type: cufflinks, Location: on_chest, Color: black, Condition: well_worn)], as one of the main characters of the illustration.{Serious}, {Seated near lady}{Reading letter}; 
+ADD ,RIGHTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: fair, Eyes Color: brown, Hair Color: black, Hair Texture: straight, Age: young, Gender: female, Body Type: slim), Clothing: (Tops: (Type: long_sleeve_button_down, Color: white), Bottoms: (Type: skinny_jeans, Color: blue), Footwear: (Type: leather_boots, Color: brown)), Accessories: [(Type: ring, Location: on_wrist, Color: green), (Type: keychain, Location: on_hip, Color: gold)], as one of the main characters of the illustration.{Tense}, {Hands clasped tightly}{Waiting for Holmes’s words};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 1429528585
+  Using latent mode with dimensions: 1280x800
+  Using LoRA denoising_strength: 1
+  Steps: 9, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Using pytorch attention in VAE
+Using pytorch attention in VAE
+VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
+CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
+FETCH ComfyRegistry Data: 5/102
+clip missing: ['text_projection.weight']
+model weight dtype torch.float8_e4m3fn, manual cast: torch.bfloat16
+model_type FLUX
+FETCH ComfyRegistry Data: 10/102
+Requested to load FluxClipModel_
+loaded completely 9518.8 9319.23095703125 True
+Requested to load AutoencodingEngine
+FETCH ComfyRegistry Data: 15/102
+0 models unloaded.
+loaded partially 128.0 127.999755859375 0
+Requested to load Flux
+FETCH ComfyRegistry Data: 20/102
+loaded partially 6243.194961853027 6243.109375 195
+  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 25/102
+ 11%|█         | 1/9 [00:09<01:17,  9.63s/it]FETCH ComfyRegistry Data: 30/102
+FETCH ComfyRegistry Data: 35/102
+ 22%|██▏       | 2/9 [00:18<01:04,  9.21s/it]FETCH ComfyRegistry Data: 40/102
+FETCH ComfyRegistry Data: 45/102
+ 33%|███▎      | 3/9 [00:27<00:54,  9.09s/it]FETCH ComfyRegistry Data: 50/102
+ 44%|████▍     | 4/9 [00:36<00:45,  9.03s/it]FETCH ComfyRegistry Data: 55/102
+ 56%|█████▌    | 5/9 [00:45<00:35,  9.00s/it]FETCH ComfyRegistry Data: 60/102
+FETCH ComfyRegistry Data: 65/102
+ 67%|██████▋   | 6/9 [00:54<00:26,  8.98s/it]FETCH ComfyRegistry Data: 70/102
+FETCH ComfyRegistry Data: 75/102
+ 78%|███████▊  | 7/9 [01:03<00:17,  8.97s/it]FETCH ComfyRegistry Data: 80/102
+ 89%|████████▉ | 8/9 [01:12<00:08,  8.97s/it]FETCH ComfyRegistry Data: 85/102
+FETCH ComfyRegistry Data: 90/102
+100%|██████████| 9/9 [01:21<00:00,  8.96s/it]100%|██████████| 9/9 [01:21<00:00,  9.02s/it]
+Requested to load AutoencodingEngine
+loaded completely 183.4306640625 159.87335777282715 True
+Prompt executed in 102.89 seconds
+  Saved LoRA result: ../output/lora\scene_1.17.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/scene\scene_1.17.png
+  Preserved LoRA progress for completed scene
+✅ Scene 1/54 - {{loc_4}}, {Late Morning Fog}; ((male_doctor_watso - Completed in 1.8m
+📊 Estimated time remaining: ~1.5h (?)
+[OK] Generated: scene_1.17
+🔄 Scene 2/54 - {{loc_6}}, {Cold Evening Fog}; ((male_detective_ho - Processing...
+📊 Estimated time remaining: ~1.5h (?)
+Generating scene: scene_2.4 with characters: male_detective_holmes, male_doctor_watson, female_lady_unknown (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_2.4
+Compressed male_detective_holmes image: 96.4KB → 46.3KB (52.0% reduction)
+Compressed male_doctor_watson image: 97.2KB → 48.8KB (49.8% reduction)
+Compressed female_lady_unknown image: 98.6KB → 53.1KB (46.2% reduction)
+Added 3 character images to stitching process
+Character mode: IMAGE_TEXT, Location mode: TEXT, Total images: 3
+Image stitching: 3 images → 1 groups []
+Using single reference conditioning
+Using latent mode with dimensions: 1280x800
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 1332802433
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        
+ADD SCENE, which should look like,Place: (Type: Interior, Size: small, Style: vintage), Ground: (Type: wetland, Material: wood_chips, Color: grey), Surroundings: (Type: fog, Material: air, Color: white), Objects: [(Type: lantern, Color: yellow, Material: glass, Position: ceiling), (Type: window, Color: black, Material: glass, Position: side wall), (Type: cabinet, Color: brown, Material: wood, Position: back left), (Type: sliding_door, Color: silver, Material: metal, Position: front), (Type: sedan, Color: violet, Material: velvet, Position: mid), (Type: pallet, Color: grey, Material: wood, Position: back right), (Type: sliding_door, Color: silver, Material: metal, Position: front), (Type: cabinet, Color: brown,, Material: wood, Position:  back left), (Type: pallet, Color: grey, Material: wood, Position: back right), (Type: window, Color: black, Material: glass, Position: side wall)], as background of the entire illustration., {Cold Evening Fog}; 
+ADD ,LEFTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: pale, Eyes Color: blue, Hair Color: gray, Hair Texture: straight, Age: adult, Gender: male, Body Type: slim), Clothing: (Tops: (Type: tuxedo_shirt, Color: black, Pattern: solid, Material: wool, Fit: tight, Condition: well_worn), Bottoms: (Type: slim_chinos, Color: black, Pattern: none, Material: linen, Fit: tight, Condition: well_worn), Footwear: (Type: brogue_shoes, Color: brown, Pattern: solid, Condition: well_worn), Outerwear: (Type: military_dress_coat, Color: black, Pattern: none, Material: wool, Fit: loose)), Accessories: [(Type: watch, Location: on_wrist, Color: silver, Condition: well_worn), (Type: pocket_square, Location: in_hand, Color: brown, Condition: well_worn), (Type: cufflinks, Location: on_chest, Color: black, Condition: well_worn)], as one of the main characters of the illustration.{Focused}, {Sitting opposite Watson}{Holding the velvet box on lap}; 
+ADD ,MIDDLE CHARACTER in Image 1, which should look like,Face: (Head Shape: square, Skin Tone: pale, Eyes Color: blue, Hair Color: brown, Hair Texture: straight, Age: adult, Gender: male, Body Type: average), Clothing: (Tops: (Type: button_down_dress_shirt, Color: black), Bottoms: (Type: track_pants, Color: gray), Footwear: (Type: boat_shoes, Color: white)), Accessories: [(Type: pocket_watch, Location: over_eyes, Color: gold), (Type: sunglasses, Location: over_eyes, Color: dark), (Type: ring, Location: over_eyes, Color: blue)], as one of the main characters of the illustration.{Thoughtful}, {Sitting beside lady}{Looking toward Holmes}; 
+ADD ,RIGHTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: fair, Eyes Color: brown, Hair Color: black, Hair Texture: straight, Age: young, Gender: female, Body Type: slim), Clothing: (Tops: (Type: long_sleeve_button_down, Color: white), Bottoms: (Type: skinny_jeans, Color: blue), Footwear: (Type: leather_boots, Color: brown)), Accessories: [(Type: ring, Location: on_wrist, Color: green), (Type: keychain, Location: on_hip, Color: gold)], as one of the main characters of the illustration.{Uneasy}, {Sitting upright}{Clutching satchel on knees};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 2938318271
+  Using latent mode with dimensions: 1280x800
+  Using LoRA denoising_strength: 1
+  Steps: 9, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+FETCH ComfyRegistry Data: 95/102
+loaded completely 9460.675 9319.23095703125 True
+Requested to load AutoencodingEngine
+FETCH ComfyRegistry Data: 100/102
+0 models unloaded.
+loaded partially 128.0 127.999755859375 0
+Requested to load Flux
+FETCH ComfyRegistry Data [DONE]
+[ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
+FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
+[ComfyUI-Manager] All startup tasks have been completed.
+loaded partially 6241.194961853027 6241.046875 195
+  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:09<01:16,  9.51s/it] 22%|██▏       | 2/9 [00:18<01:04,  9.19s/it] 33%|███▎      | 3/9 [00:27<00:54,  9.09s/it] 44%|████▍     | 4/9 [00:36<00:45,  9.05s/it] 56%|█████▌    | 5/9 [00:45<00:36,  9.02s/it] 67%|██████▋   | 6/9 [00:54<00:27,  9.00s/it] 78%|███████▊  | 7/9 [01:03<00:17,  8.99s/it] 89%|████████▉ | 8/9 [01:12<00:08,  8.99s/it]100%|██████████| 9/9 [01:21<00:00,  8.98s/it]100%|██████████| 9/9 [01:21<00:00,  9.03s/it]
+Requested to load AutoencodingEngine
+loaded completely 183.4306640625 159.87335777282715 True
+Prompt executed in 94.18 seconds
+  Saved LoRA result: ../output/lora\scene_2.4.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/scene\scene_2.4.png
+  Preserved LoRA progress for completed scene
+✅ Scene 2/54 - {{loc_6}}, {Cold Evening Fog}; ((male_detective_ho - Completed in 1.6m
+📊 Estimated time remaining: ~1.3h (?)
+[OK] Generated: scene_2.4
+🔄 Scene 3/54 - {{loc_8}}, {Fog Seeping Indoors, Evening}; ((male_ - Processing...
+📊 Estimated time remaining: ~1.3h (?)
+Generating scene: scene_2.12 with characters: male_detective_holmes, male_doctor_watson, female_lady_unknown (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_2.12
+Compressed male_detective_holmes image: 96.4KB → 46.3KB (52.0% reduction)
+Compressed male_doctor_watson image: 97.2KB → 48.8KB (49.8% reduction)
+Compressed female_lady_unknown image: 98.6KB → 53.1KB (46.2% reduction)
+Added 3 character images to stitching process
+Character mode: IMAGE_TEXT, Location mode: TEXT, Total images: 3
+Image stitching: 3 images → 1 groups []
+Using single reference conditioning
+Using latent mode with dimensions: 1280x800
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 2263144413
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        
+ADD SCENE, which should look like,Place: (Type: warehouse, Size: large), Ground: (Type: snow_field, Material: wood_chips, Color: #2a3b46), Surroundings: (Type: picket_fence, Material: oak_trees, Color: #509d17), Objects: [(Type: crate, Color: #c8ac8f, Material: wood, Position: floor_centered, Size: large), (Type: rock, Color: #e3b2a5, Material: cork, Position: crate_edge, Size: medium), (Type: window, Color: #c0d6f7, Material: glass, Position: wall_top, Size: small), (Type: stool, Color: #b4e5a8, Material: wood, Position: floor_centered_offset_left, Size: medium), (Type: speaker, Color: #30d7f6, Material: metal, Position: wall_bottom_right, Size: small), (Type: bush, Color:  #9a2851, Material: wicker, Position: floor_centered_offset_right, Size: medium), (Type: candle, Color: #f4d703, Material: glass, Position: stool_top, Size: small), (Type: shelving_unit, Color: #a1b896, Material: wood, Position: wall_centered_right, Size: large), (Type: filing_cabinet, Color: #4d5c72, Material: metal, Position:  wall_bottom_left, Condition: tattered), (Type: bucket, Color: #91a603, Material: metal, Position: floor_centered_offset_upward, Size: small)], as background of the entire illustration., {Fog Seeping Indoors, Evening}; 
+ADD ,LEFTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: pale, Eyes Color: blue, Hair Color: gray, Hair Texture: straight, Age: adult, Gender: male, Body Type: slim), Clothing: (Tops: (Type: tuxedo_shirt, Color: black, Pattern: solid, Material: wool, Fit: tight, Condition: well_worn), Bottoms: (Type: slim_chinos, Color: black, Pattern: none, Material: linen, Fit: tight, Condition: well_worn), Footwear: (Type: brogue_shoes, Color: brown, Pattern: solid, Condition: well_worn), Outerwear: (Type: military_dress_coat, Color: black, Pattern: none, Material: wool, Fit: loose)), Accessories: [(Type: watch, Location: on_wrist, Color: silver, Condition: well_worn), (Type: pocket_square, Location: in_hand, Color: brown, Condition: well_worn), (Type: cufflinks, Location: on_chest, Color: black, Condition: well_worn)], as one of the main characters of the illustration.{Keen}, {Crouching near floor}{Inspecting footprints}; 
+ADD ,MIDDLE CHARACTER in Image 1, which should look like,Face: (Head Shape: square, Skin Tone: pale, Eyes Color: blue, Hair Color: brown, Hair Texture: straight, Age: adult, Gender: male, Body Type: average), Clothing: (Tops: (Type: button_down_dress_shirt, Color: black), Bottoms: (Type: track_pants, Color: gray), Footwear: (Type: boat_shoes, Color: white)), Accessories: [(Type: pocket_watch, Location: over_eyes, Color: gold), (Type: sunglasses, Location: over_eyes, Color: dark), (Type: ring, Location: over_eyes, Color: blue)], as one of the main characters of the illustration.{Attentive}, {Standing nearby}{Leaning over}; 
+ADD ,RIGHTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: fair, Eyes Color: brown, Hair Color: black, Hair Texture: straight, Age: young, Gender: female, Body Type: slim), Clothing: (Tops: (Type: long_sleeve_button_down, Color: white), Bottoms: (Type: skinny_jeans, Color: blue), Footwear: (Type: leather_boots, Color: brown)), Accessories: [(Type: ring, Location: on_wrist, Color: green), (Type: keychain, Location: on_hip, Color: gold)], as one of the main characters of the illustration.{Appalled}, {Standing back}{Hands covering mouth};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 2415529502
+  Using latent mode with dimensions: 1280x800
+  Using LoRA denoising_strength: 1
+  Steps: 9, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely 9460.675 9319.23095703125 True
+Requested to load Flux
+loaded partially 6241.194961853027 6241.046875 195
+  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:09<01:13,  9.13s/it] 22%|██▏       | 2/9 [00:18<01:03,  9.10s/it] 33%|███▎      | 3/9 [00:27<00:54,  9.09s/it] 44%|████▍     | 4/9 [00:36<00:45,  9.09s/it] 56%|█████▌    | 5/9 [00:45<00:36,  9.08s/it] 67%|██████▋   | 6/9 [00:54<00:27,  9.10s/it] 78%|███████▊  | 7/9 [01:03<00:18,  9.10s/it] 89%|████████▉ | 8/9 [01:12<00:09,  9.11s/it]100%|██████████| 9/9 [01:21<00:00,  9.10s/it]100%|██████████| 9/9 [01:21<00:00,  9.10s/it]
+Requested to load AutoencodingEngine
+loaded completely 183.4306640625 159.87335777282715 True
+Prompt executed in 93.19 seconds
+  Saved LoRA result: ../output/lora\scene_2.12.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/scene\scene_2.12.png
+  Preserved LoRA progress for completed scene
+✅ Scene 3/54 - {{loc_8}}, {Fog Seeping Indoors, Evening}; ((male_ - Completed in 1.6m
+📊 Estimated time remaining: ~1.4h (~)
+[OK] Generated: scene_2.12
+🔄 Scene 4/54 - {{loc_9}}, {Evening Mist Rising}; ((male_detective - Processing...
+📊 Estimated time remaining: ~1.4h (~)
+Generating scene: scene_2.14 with characters: male_detective_holmes, male_doctor_watson, female_lady_unknown (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_2.14
+Compressed male_detective_holmes image: 96.4KB → 46.3KB (52.0% reduction)
+Compressed male_doctor_watson image: 97.2KB → 48.8KB (49.8% reduction)
+Compressed female_lady_unknown image: 98.6KB → 53.1KB (46.2% reduction)
+Added 3 character images to stitching process
+Character mode: IMAGE_TEXT, Location mode: TEXT, Total images: 3
+Image stitching: 3 images → 1 groups []
+Using single reference conditioning
+Using latent mode with dimensions: 1280x800
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 1269148845
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        
+ADD SCENE, which should look like,Place: (Type: Warehouse Office, Size: small, Style: dusty old warehouse office), Ground: (Type: bathroom_floor, Material: concrete, Color: grey), Surroundings: (Type: warehouse_walls, Material: brick, Color: brown), Objects: [(Type: desk, Color: dark_brown, Material: wood, Position: centered, Size: large), (Type: ledge, Color: grey, Material: paper, Position: left side of desk, Size: medium), (Type: crate, Color: brown, Material: wood, Position: right edge of room, Size: large), (Type: lamp, Color: yellow, Material: glass, Position: top center on crate, Size: small), (Type: window, Color: clear glass , Material: glass, Position: front wall facing Thames, size: small)], as background of the entire illustration., {Evening Mist Rising}; 
+ADD ,LEFTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: pale, Eyes Color: blue, Hair Color: gray, Hair Texture: straight, Age: adult, Gender: male, Body Type: slim), Clothing: (Tops: (Type: tuxedo_shirt, Color: black, Pattern: solid, Material: wool, Fit: tight, Condition: well_worn), Bottoms: (Type: slim_chinos, Color: black, Pattern: none, Material: linen, Fit: tight, Condition: well_worn), Footwear: (Type: brogue_shoes, Color: brown, Pattern: solid, Condition: well_worn), Outerwear: (Type: military_dress_coat, Color: black, Pattern: none, Material: wool, Fit: loose)), Accessories: [(Type: watch, Location: on_wrist, Color: silver, Condition: well_worn), (Type: pocket_square, Location: in_hand, Color: brown, Condition: well_worn), (Type: cufflinks, Location: on_chest, Color: black, Condition: well_worn)], as one of the main characters of the illustration.{Purposeful}, {Standing at desk}{Flipping through ledger pages}; 
+ADD ,MIDDLE CHARACTER in Image 1, which should look like,Face: (Head Shape: square, Skin Tone: pale, Eyes Color: blue, Hair Color: brown, Hair Texture: straight, Age: adult, Gender: male, Body Type: average), Clothing: (Tops: (Type: button_down_dress_shirt, Color: black), Bottoms: (Type: track_pants, Color: gray), Footwear: (Type: boat_shoes, Color: white)), Accessories: [(Type: pocket_watch, Location: over_eyes, Color: gold), (Type: sunglasses, Location: over_eyes, Color: dark), (Type: ring, Location: over_eyes, Color: blue)], as one of the main characters of the illustration.{Alert}, {Standing near door}{Watching corridor}; 
+ADD ,RIGHTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: fair, Eyes Color: brown, Hair Color: black, Hair Texture: straight, Age: young, Gender: female, Body Type: slim), Clothing: (Tops: (Type: long_sleeve_button_down, Color: white), Bottoms: (Type: skinny_jeans, Color: blue), Footwear: (Type: leather_boots, Color: brown)), Accessories: [(Type: ring, Location: on_wrist, Color: green), (Type: keychain, Location: on_hip, Color: gold)], as one of the main characters of the illustration.{Uneasy}, {Standing by window}{Peering outside};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 1192583693
+  Using latent mode with dimensions: 1280x800
+  Using LoRA denoising_strength: 1
+  Steps: 9, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely 9460.675 9319.23095703125 True
+Requested to load Flux
+loaded partially 6241.194961853027 6241.046875 195
+  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:09<01:14,  9.34s/it] 22%|██▏       | 2/9 [00:18<01:03,  9.11s/it] 33%|███▎      | 3/9 [00:27<00:54,  9.05s/it] 44%|████▍     | 4/9 [00:36<00:45,  9.01s/it] 56%|█████▌    | 5/9 [00:45<00:35,  8.98s/it] 67%|██████▋   | 6/9 [00:54<00:26,  8.97s/it] 78%|███████▊  | 7/9 [01:03<00:17,  8.97s/it] 89%|████████▉ | 8/9 [01:12<00:08,  8.97s/it]100%|██████████| 9/9 [01:20<00:00,  8.96s/it]100%|██████████| 9/9 [01:20<00:00,  9.00s/it]
+Requested to load AutoencodingEngine
+loaded completely 183.4306640625 159.87335777282715 True
+Prompt executed in 91.95 seconds
+  Saved LoRA result: ../output/lora\scene_2.14.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/scene\scene_2.14.png
+  Preserved LoRA progress for completed scene
+✅ Scene 4/54 - {{loc_9}}, {Evening Mist Rising}; ((male_detective - Completed in 1.6m
+📊 Estimated time remaining: ~1.3h (~)
+[OK] Generated: scene_2.14
+🔄 Scene 5/54 - {{loc_9}}, {Evening Mist Rising}; ((male_detective - Processing...
+📊 Estimated time remaining: ~1.3h (~)
+Generating scene: scene_2.17 with characters: male_detective_holmes, male_doctor_watson, female_lady_unknown (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_2.17
+Compressed male_detective_holmes image: 96.4KB → 46.3KB (52.0% reduction)
+Compressed male_doctor_watson image: 97.2KB → 48.8KB (49.8% reduction)
+Compressed female_lady_unknown image: 98.6KB → 53.1KB (46.2% reduction)
+Added 3 character images to stitching process
+Character mode: IMAGE_TEXT, Location mode: TEXT, Total images: 3
+Image stitching: 3 images → 1 groups []
+Using single reference conditioning
+Using latent mode with dimensions: 1280x800
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 3118495451
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        
+ADD SCENE, which should look like,Place: (Type: Warehouse Office, Size: small, Style: dusty old warehouse office), Ground: (Type: bathroom_floor, Material: concrete, Color: grey), Surroundings: (Type: warehouse_walls, Material: brick, Color: brown), Objects: [(Type: desk, Color: dark_brown, Material: wood, Position: centered, Size: large), (Type: ledge, Color: grey, Material: paper, Position: left side of desk, Size: medium), (Type: crate, Color: brown, Material: wood, Position: right edge of room, Size: large), (Type: lamp, Color: yellow, Material: glass, Position: top center on crate, Size: small), (Type: window, Color: clear glass , Material: glass, Position: front wall facing Thames, size: small)], as background of the entire illustration., {Evening Mist Rising}; 
+ADD ,LEFTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: pale, Eyes Color: blue, Hair Color: gray, Hair Texture: straight, Age: adult, Gender: male, Body Type: slim), Clothing: (Tops: (Type: tuxedo_shirt, Color: black, Pattern: solid, Material: wool, Fit: tight, Condition: well_worn), Bottoms: (Type: slim_chinos, Color: black, Pattern: none, Material: linen, Fit: tight, Condition: well_worn), Footwear: (Type: brogue_shoes, Color: brown, Pattern: solid, Condition: well_worn), Outerwear: (Type: military_dress_coat, Color: black, Pattern: none, Material: wool, Fit: loose)), Accessories: [(Type: watch, Location: on_wrist, Color: silver, Condition: well_worn), (Type: pocket_square, Location: in_hand, Color: brown, Condition: well_worn), (Type: cufflinks, Location: on_chest, Color: black, Condition: well_worn)], as one of the main characters of the illustration.{Determined}, {Turning toward door}{Pocketing ledger}; 
+ADD ,MIDDLE CHARACTER in Image 1, which should look like,Face: (Head Shape: square, Skin Tone: pale, Eyes Color: blue, Hair Color: brown, Hair Texture: straight, Age: adult, Gender: male, Body Type: average), Clothing: (Tops: (Type: button_down_dress_shirt, Color: black), Bottoms: (Type: track_pants, Color: gray), Footwear: (Type: boat_shoes, Color: white)), Accessories: [(Type: pocket_watch, Location: over_eyes, Color: gold), (Type: sunglasses, Location: over_eyes, Color: dark), (Type: ring, Location: over_eyes, Color: blue)], as one of the main characters of the illustration.{Ready}, {Nodding once}{Following Holmes}; 
+ADD ,RIGHTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: fair, Eyes Color: brown, Hair Color: black, Hair Texture: straight, Age: young, Gender: female, Body Type: slim), Clothing: (Tops: (Type: long_sleeve_button_down, Color: white), Bottoms: (Type: skinny_jeans, Color: blue), Footwear: (Type: leather_boots, Color: brown)), Accessories: [(Type: ring, Location: on_wrist, Color: green), (Type: keychain, Location: on_hip, Color: gold)], as one of the main characters of the illustration.{Fearful}, {Rising from crate}{Gathering satchel};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 2748293837
+  Using latent mode with dimensions: 1280x800
+  Using LoRA denoising_strength: 1
+  Steps: 9, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely 9460.675 9319.23095703125 True
+Requested to load Flux
+loaded partially 6241.194961853027 6241.046875 195
+  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:08<01:11,  8.98s/it] 22%|██▏       | 2/9 [00:17<01:02,  8.95s/it] 33%|███▎      | 3/9 [00:26<00:53,  8.94s/it] 44%|████▍     | 4/9 [00:35<00:44,  8.94s/it] 56%|█████▌    | 5/9 [00:44<00:35,  8.94s/it] 67%|██████▋   | 6/9 [00:53<00:26,  8.94s/it] 78%|███████▊  | 7/9 [01:02<00:17,  8.94s/it] 89%|████████▉ | 8/9 [01:11<00:08,  8.94s/it]100%|██████████| 9/9 [01:20<00:00,  8.93s/it]100%|██████████| 9/9 [01:20<00:00,  8.94s/it]
+Requested to load AutoencodingEngine
+loaded completely 183.4306640625 159.87335777282715 True
+Prompt executed in 90.99 seconds
+  Saved LoRA result: ../output/lora\scene_2.17.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/scene\scene_2.17.png
+  Preserved LoRA progress for completed scene
+✅ Scene 5/54 - {{loc_9}}, {Evening Mist Rising}; ((male_detective - Completed in 1.6m
+📊 Estimated time remaining: ~1.4h (✓)
+[OK] Generated: scene_2.17
+🔄 Scene 6/54 - {{loc_11}}, {Deep Night, Cold Wind}; ((male_doctor - Processing...
+📊 Estimated time remaining: ~1.4h (✓)
+Generating scene: scene_3.1 with characters: male_doctor_watson, male_detective_holmes, female_lady_unknown (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_3.1
+Compressed male_doctor_watson image: 97.2KB → 48.8KB (49.8% reduction)
+Compressed male_detective_holmes image: 96.4KB → 46.3KB (52.0% reduction)
+Compressed female_lady_unknown image: 98.6KB → 53.1KB (46.2% reduction)
+Added 3 character images to stitching process
+Character mode: IMAGE_TEXT, Location mode: TEXT, Total images: 3
+Image stitching: 3 images → 1 groups []
+Using single reference conditioning
+Using latent mode with dimensions: 1280x800
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 1023288514
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        
+ADD SCENE, which should look like,Place: (Type: dock, Size: small, Style: victorian), Ground: (Type: wetland, Material: wood_chips, Color: dark_brown), Surroundings: (Type: fog, Material: mist, Color: light_gray), Objects: [(Type: crate, Color: brown, Material: wood, Position: middle, Size: large), (Type: barrel, Color: black, Material: metal, Position: right, Size: medium), (Type: pillow, Color: gray, Material: fabric, Position: left, Size: small), (Type: lantern, Color: yellow,, Material: glass, Position: top, Size: medium), (Type: front_door, Color: brown, Material: wood, Position: right, bottom, Size: large), (Type: ship, Color: dark_brown, Material: metal, Position: center, top, Size: medium)], as background of the entire illustration., {Deep Night, Cold Wind}; 
+ADD ,LEFTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: square, Skin Tone: pale, Eyes Color: blue, Hair Color: brown, Hair Texture: straight, Age: adult, Gender: male, Body Type: average), Clothing: (Tops: (Type: button_down_dress_shirt, Color: black), Bottoms: (Type: track_pants, Color: gray), Footwear: (Type: boat_shoes, Color: white)), Accessories: [(Type: pocket_watch, Location: over_eyes, Color: gold), (Type: sunglasses, Location: over_eyes, Color: dark), (Type: ring, Location: over_eyes, Color: blue)], as one of the main characters of the illustration.{Alert}, {Standing beside cab}{Adjusting revolver in pocket}; 
+ADD ,MIDDLE CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: pale, Eyes Color: blue, Hair Color: gray, Hair Texture: straight, Age: adult, Gender: male, Body Type: slim), Clothing: (Tops: (Type: tuxedo_shirt, Color: black, Pattern: solid, Material: wool, Fit: tight, Condition: well_worn), Bottoms: (Type: slim_chinos, Color: black, Pattern: none, Material: linen, Fit: tight, Condition: well_worn), Footwear: (Type: brogue_shoes, Color: brown, Pattern: solid, Condition: well_worn), Outerwear: (Type: military_dress_coat, Color: black, Pattern: none, Material: wool, Fit: loose)), Accessories: [(Type: watch, Location: on_wrist, Color: silver, Condition: well_worn), (Type: pocket_square, Location: in_hand, Color: brown, Condition: well_worn), (Type: cufflinks, Location: on_chest, Color: black, Condition: well_worn)], as one of the main characters of the illustration.{Composed}, {Stepping toward pier edge}{Holding lantern high}; 
+ADD ,RIGHTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: fair, Eyes Color: brown, Hair Color: black, Hair Texture: straight, Age: young, Gender: female, Body Type: slim), Clothing: (Tops: (Type: long_sleeve_button_down, Color: white), Bottoms: (Type: skinny_jeans, Color: blue), Footwear: (Type: leather_boots, Color: brown)), Accessories: [(Type: ring, Location: on_wrist, Color: green), (Type: keychain, Location: on_hip, Color: gold)], as one of the main characters of the illustration.{Anxious}, {Standing near cab door}{Drawing shawl closer};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 3896137142
+  Using latent mode with dimensions: 1280x800
+  Using LoRA denoising_strength: 1
+  Steps: 9, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely 9460.675 9319.23095703125 True
+Requested to load AutoencodingEngine
+0 models unloaded.
+loaded partially 128.0 127.999755859375 0
+Requested to load Flux
+loaded partially 6241.194961853027 6241.046875 195
+  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:09<01:13,  9.22s/it] 22%|██▏       | 2/9 [00:18<01:03,  9.10s/it] 33%|███▎      | 3/9 [00:27<00:54,  9.05s/it] 44%|████▍     | 4/9 [00:36<00:45,  9.01s/it] 56%|█████▌    | 5/9 [00:45<00:35,  9.00s/it] 67%|██████▋   | 6/9 [00:54<00:27,  9.00s/it] 78%|███████▊  | 7/9 [01:03<00:18,  9.00s/it] 89%|████████▉ | 8/9 [01:12<00:08,  9.00s/it]100%|██████████| 9/9 [01:21<00:00,  8.99s/it]100%|██████████| 9/9 [01:21<00:00,  9.01s/it]
+Requested to load AutoencodingEngine
+loaded completely 183.4306640625 159.87335777282715 True
+Prompt executed in 93.52 seconds
+  Saved LoRA result: ../output/lora\scene_3.1.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/scene\scene_3.1.png
+  Preserved LoRA progress for completed scene
+✅ Scene 6/54 - {{loc_11}}, {Deep Night, Cold Wind}; ((male_doctor - Completed in 1.6m
+📊 Estimated time remaining: ~1.3h (✓)
+[OK] Generated: scene_3.1
+🔄 Scene 7/54 - {{loc_11}}, {Deep Night, Cold Wind}; ((male_doctor - Processing...
+📊 Estimated time remaining: ~1.3h (✓)
+Generating scene: scene_3.3 with characters: male_doctor_watson, male_detective_holmes, female_lady_unknown (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_3.3
+Compressed male_doctor_watson image: 97.2KB → 48.8KB (49.8% reduction)
+Compressed male_detective_holmes image: 96.4KB → 46.3KB (52.0% reduction)
+Compressed female_lady_unknown image: 98.6KB → 53.1KB (46.2% reduction)
+Added 3 character images to stitching process
+Character mode: IMAGE_TEXT, Location mode: TEXT, Total images: 3
+Image stitching: 3 images → 1 groups []
+Using single reference conditioning
+Using latent mode with dimensions: 1280x800
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 4170915862
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        
+ADD SCENE, which should look like,Place: (Type: dock, Size: small, Style: victorian), Ground: (Type: wetland, Material: wood_chips, Color: dark_brown), Surroundings: (Type: fog, Material: mist, Color: light_gray), Objects: [(Type: crate, Color: brown, Material: wood, Position: middle, Size: large), (Type: barrel, Color: black, Material: metal, Position: right, Size: medium), (Type: pillow, Color: gray, Material: fabric, Position: left, Size: small), (Type: lantern, Color: yellow,, Material: glass, Position: top, Size: medium), (Type: front_door, Color: brown, Material: wood, Position: right, bottom, Size: large), (Type: ship, Color: dark_brown, Material: metal, Position: center, top, Size: medium)], as background of the entire illustration., {Deep Night, Cold Wind}; 
+ADD ,LEFTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: square, Skin Tone: pale, Eyes Color: blue, Hair Color: brown, Hair Texture: straight, Age: adult, Gender: male, Body Type: average), Clothing: (Tops: (Type: button_down_dress_shirt, Color: black), Bottoms: (Type: track_pants, Color: gray), Footwear: (Type: boat_shoes, Color: white)), Accessories: [(Type: pocket_watch, Location: over_eyes, Color: gold), (Type: sunglasses, Location: over_eyes, Color: dark), (Type: ring, Location: over_eyes, Color: blue)], as one of the main characters of the illustration.{Resolved}, {Standing upright}{Pointing along pier}; 
+ADD ,MIDDLE CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: pale, Eyes Color: blue, Hair Color: gray, Hair Texture: straight, Age: adult, Gender: male, Body Type: slim), Clothing: (Tops: (Type: tuxedo_shirt, Color: black, Pattern: solid, Material: wool, Fit: tight, Condition: well_worn), Bottoms: (Type: slim_chinos, Color: black, Pattern: none, Material: linen, Fit: tight, Condition: well_worn), Footwear: (Type: brogue_shoes, Color: brown, Pattern: solid, Condition: well_worn), Outerwear: (Type: military_dress_coat, Color: black, Pattern: none, Material: wool, Fit: loose)), Accessories: [(Type: watch, Location: on_wrist, Color: silver, Condition: well_worn), (Type: pocket_square, Location: in_hand, Color: brown, Condition: well_worn), (Type: cufflinks, Location: on_chest, Color: black, Condition: well_worn)], as one of the main characters of the illustration.{Calm}, {Rising to feet}{Following line of footprints}; 
+ADD ,RIGHTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: fair, Eyes Color: brown, Hair Color: black, Hair Texture: straight, Age: young, Gender: female, Body Type: slim), Clothing: (Tops: (Type: long_sleeve_button_down, Color: white), Bottoms: (Type: skinny_jeans, Color: blue), Footwear: (Type: leather_boots, Color: brown)), Accessories: [(Type: ring, Location: on_wrist, Color: green), (Type: keychain, Location: on_hip, Color: gold)], as one of the main characters of the illustration.{Apprehensive}, {Remaining behind}{Holding lantern Holmes handed her};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 4097697227
+  Using latent mode with dimensions: 1280x800
+  Using LoRA denoising_strength: 1
+  Steps: 9, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely 9460.675 9319.23095703125 True
+Requested to load Flux
+loaded partially 6241.194961853027 6241.046875 195
+  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:09<01:14,  9.30s/it] 22%|██▏       | 2/9 [00:18<01:03,  9.11s/it] 33%|███▎      | 3/9 [00:27<00:54,  9.05s/it] 44%|████▍     | 4/9 [00:36<00:45,  9.01s/it] 56%|█████▌    | 5/9 [00:45<00:36,  9.01s/it] 67%|██████▋   | 6/9 [00:54<00:27,  9.01s/it] 78%|███████▊  | 7/9 [01:03<00:18,  9.00s/it] 89%|████████▉ | 8/9 [01:12<00:08,  8.99s/it]100%|██████████| 9/9 [01:21<00:00,  8.98s/it]100%|██████████| 9/9 [01:21<00:00,  9.02s/it]
+Requested to load AutoencodingEngine
+loaded completely 183.4306640625 159.87335777282715 True
+Prompt executed in 91.61 seconds
+  Saved LoRA result: ../output/lora\scene_3.3.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/scene\scene_3.3.png
+  Preserved LoRA progress for completed scene
+✅ Scene 7/54 - {{loc_11}}, {Deep Night, Cold Wind}; ((male_doctor - Completed in 1.6m
+📊 Estimated time remaining: ~1.2h (✓)
+[OK] Generated: scene_3.3
+🔄 Scene 8/54 - {{loc_12}}, {Night Fog Thickening}; ((male_detecti - Processing...
+📊 Estimated time remaining: ~1.2h (✓)
+Generating scene: scene_3.4 with characters: male_detective_holmes, male_doctor_watson, female_lady_unknown (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_3.4
+Compressed male_detective_holmes image: 96.4KB → 46.3KB (52.0% reduction)
+Compressed male_doctor_watson image: 97.2KB → 48.8KB (49.8% reduction)
+Compressed female_lady_unknown image: 98.6KB → 53.1KB (46.2% reduction)
+Added 3 character images to stitching process
+Character mode: IMAGE_TEXT, Location mode: TEXT, Total images: 3
+Image stitching: 3 images → 1 groups []
+Using single reference conditioning
+Using latent mode with dimensions: 1280x800
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 2126083736
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        
+ADD SCENE, which should look like,Place: (Type: wooden_pier_section, Size: large), Ground: (Type: driveway, Material: sandstone, Color: brown), Surroundings: (Type: fog, Material: mist, Color: gray), Objects: [(Type: crate, Color: wooden_brown, Material: wood, Position: left_45%, Size: large), (Type: rose, Color: blackish, Material: cotton, Position: right_70%, Size: medium), (Type: hooks, Color: iron_black, Material: metal, Position: top_left_25%, size:, Size: small), (Type: stump, Color: faded_trade, Material: paper, Position: crates_top, Size: medium), (Type: sofa, Color: wooden_brown, Material: wood, Position: middle_50%, Size: small)], as background of the entire illustration., {Night Fog Thickening}; 
+ADD ,LEFTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: pale, Eyes Color: blue, Hair Color: gray, Hair Texture: straight, Age: adult, Gender: male, Body Type: slim), Clothing: (Tops: (Type: tuxedo_shirt, Color: black, Pattern: solid, Material: wool, Fit: tight, Condition: well_worn), Bottoms: (Type: slim_chinos, Color: black, Pattern: none, Material: linen, Fit: tight, Condition: well_worn), Footwear: (Type: brogue_shoes, Color: brown, Pattern: solid, Condition: well_worn), Outerwear: (Type: military_dress_coat, Color: black, Pattern: none, Material: wool, Fit: loose)), Accessories: [(Type: watch, Location: on_wrist, Color: silver, Condition: well_worn), (Type: pocket_square, Location: in_hand, Color: brown, Condition: well_worn), (Type: cufflinks, Location: on_chest, Color: black, Condition: well_worn)], as one of the main characters of the illustration.{Analytical}, {Standing beside crate}{Tracing letters with gloved hand}; 
+ADD ,MIDDLE CHARACTER in Image 1, which should look like,Face: (Head Shape: square, Skin Tone: pale, Eyes Color: blue, Hair Color: brown, Hair Texture: straight, Age: adult, Gender: male, Body Type: average), Clothing: (Tops: (Type: button_down_dress_shirt, Color: black), Bottoms: (Type: track_pants, Color: gray), Footwear: (Type: boat_shoes, Color: white)), Accessories: [(Type: pocket_watch, Location: over_eyes, Color: gold), (Type: sunglasses, Location: over_eyes, Color: dark), (Type: ring, Location: over_eyes, Color: blue)], as one of the main characters of the illustration.{Attentive}, {Standing opposite}{Observing markings}; 
+ADD ,RIGHTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: fair, Eyes Color: brown, Hair Color: black, Hair Texture: straight, Age: young, Gender: female, Body Type: slim), Clothing: (Tops: (Type: long_sleeve_button_down, Color: white), Bottoms: (Type: skinny_jeans, Color: blue), Footwear: (Type: leather_boots, Color: brown)), Accessories: [(Type: ring, Location: on_wrist, Color: green), (Type: keychain, Location: on_hip, Color: gold)], as one of the main characters of the illustration.{Cautious}, {Standing between them}{Holding lantern near labels};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 2340168771
+  Using latent mode with dimensions: 1280x800
+  Using LoRA denoising_strength: 1
+  Steps: 9, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely 9460.675 9319.23095703125 True
+Requested to load AutoencodingEngine
+0 models unloaded.
+loaded partially 128.0 127.999755859375 0
+Requested to load Flux
+loaded partially 6241.194961853027 6241.046875 195
+  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:09<01:12,  9.10s/it] 22%|██▏       | 2/9 [00:18<01:03,  9.03s/it] 33%|███▎      | 3/9 [00:27<00:54,  9.02s/it] 44%|████▍     | 4/9 [00:36<00:45,  9.00s/it] 56%|█████▌    | 5/9 [00:45<00:35,  9.00s/it] 67%|██████▋   | 6/9 [00:54<00:26,  9.00s/it] 78%|███████▊  | 7/9 [01:03<00:18,  9.00s/it] 89%|████████▉ | 8/9 [01:12<00:08,  9.00s/it]100%|██████████| 9/9 [01:21<00:00,  8.99s/it]100%|██████████| 9/9 [01:21<00:00,  9.00s/it]
+Requested to load AutoencodingEngine
+loaded completely 183.4306640625 159.87335777282715 True
+Prompt executed in 92.69 seconds
+  Saved LoRA result: ../output/lora\scene_3.4.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/scene\scene_3.4.png
+  Preserved LoRA progress for completed scene
+✅ Scene 8/54 - {{loc_12}}, {Night Fog Thickening}; ((male_detecti - Completed in 1.6m
+📊 Estimated time remaining: ~1.2h (✓)
+[OK] Generated: scene_3.4
+🔄 Scene 9/54 - {{loc_12}}, {Night Fog Thickening}; ((male_doctor_ - Processing...
+📊 Estimated time remaining: ~1.2h (✓)
+Generating scene: scene_3.5 with characters: male_doctor_watson, male_detective_holmes, female_lady_unknown (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_3.5
+Compressed male_doctor_watson image: 97.2KB → 48.8KB (49.8% reduction)
+Compressed male_detective_holmes image: 96.4KB → 46.3KB (52.0% reduction)
+Compressed female_lady_unknown image: 98.6KB → 53.1KB (46.2% reduction)
+Added 3 character images to stitching process
+Character mode: IMAGE_TEXT, Location mode: TEXT, Total images: 3
+Image stitching: 3 images → 1 groups []
+Using single reference conditioning
+Using latent mode with dimensions: 1280x800
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 1780406617
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        
+ADD SCENE, which should look like,Place: (Type: wooden_pier_section, Size: large), Ground: (Type: driveway, Material: sandstone, Color: brown), Surroundings: (Type: fog, Material: mist, Color: gray), Objects: [(Type: crate, Color: wooden_brown, Material: wood, Position: left_45%, Size: large), (Type: rose, Color: blackish, Material: cotton, Position: right_70%, Size: medium), (Type: hooks, Color: iron_black, Material: metal, Position: top_left_25%, size:, Size: small), (Type: stump, Color: faded_trade, Material: paper, Position: crates_top, Size: medium), (Type: sofa, Color: wooden_brown, Material: wood, Position: middle_50%, Size: small)], as background of the entire illustration., {Night Fog Thickening}; 
+ADD ,LEFTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: square, Skin Tone: pale, Eyes Color: blue, Hair Color: brown, Hair Texture: straight, Age: adult, Gender: male, Body Type: average), Clothing: (Tops: (Type: button_down_dress_shirt, Color: black), Bottoms: (Type: track_pants, Color: gray), Footwear: (Type: boat_shoes, Color: white)), Accessories: [(Type: pocket_watch, Location: over_eyes, Color: gold), (Type: sunglasses, Location: over_eyes, Color: dark), (Type: ring, Location: over_eyes, Color: blue)], as one of the main characters of the illustration.{Perplexed}, {Resting hand on crate}{Looking at Holmes}; 
+ADD ,MIDDLE CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: pale, Eyes Color: blue, Hair Color: gray, Hair Texture: straight, Age: adult, Gender: male, Body Type: slim), Clothing: (Tops: (Type: tuxedo_shirt, Color: black, Pattern: solid, Material: wool, Fit: tight, Condition: well_worn), Bottoms: (Type: slim_chinos, Color: black, Pattern: none, Material: linen, Fit: tight, Condition: well_worn), Footwear: (Type: brogue_shoes, Color: brown, Pattern: solid, Condition: well_worn), Outerwear: (Type: military_dress_coat, Color: black, Pattern: none, Material: wool, Fit: loose)), Accessories: [(Type: watch, Location: on_wrist, Color: silver, Condition: well_worn), (Type: pocket_square, Location: in_hand, Color: brown, Condition: well_worn), (Type: cufflinks, Location: on_chest, Color: black, Condition: well_worn)], as one of the main characters of the illustration.{Thoughtful}, {Standing beside him}{Eyes half-closed in calculation}; 
+ADD ,RIGHTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: fair, Eyes Color: brown, Hair Color: black, Hair Texture: straight, Age: young, Gender: female, Body Type: slim), Clothing: (Tops: (Type: long_sleeve_button_down, Color: white), Bottoms: (Type: skinny_jeans, Color: blue), Footwear: (Type: leather_boots, Color: brown)), Accessories: [(Type: ring, Location: on_wrist, Color: green), (Type: keychain, Location: on_hip, Color: gold)], as one of the main characters of the illustration.{Silent}, {Standing slightly aside}{Watching both men};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 2515015787
+  Using latent mode with dimensions: 1280x800
+  Using LoRA denoising_strength: 1
+  Steps: 9, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely 9460.675 9319.23095703125 True
+Requested to load AutoencodingEngine
+0 models unloaded.
+loaded partially 128.0 127.999755859375 0
+Requested to load Flux
+loaded partially 6241.194961853027 6241.046875 195
+  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:09<01:14,  9.34s/it] 22%|██▏       | 2/9 [00:18<01:03,  9.14s/it]
+===== END D:\.comfyui\gen.image\scripts\3.scene.py @ 2025-10-25 18:34:00 (exit=3221225786, took=805.17s) =====
+Stopping ComfyUI backend...

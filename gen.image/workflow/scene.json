@@ -130,8 +130,8 @@
   },
   "41": {
     "inputs": {
-      "unet_name": "flux1-kontext-dev-fp8-e4m3fn.safetensors",
-      "weight_dtype": "fp8_e4m3fn"
+      "unet_name": "flux1-kontext-dev.safetensors",
+      "weight_dtype": "default"
     },
     "class_type": "UNETLoader",
     "_meta": {
