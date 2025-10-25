@@ -22,8 +22,8 @@
   },
   "4": {
     "inputs": {
-      "width": 608,
-      "height": 352,
+      "width": 512,
+      "height": 320,
       "length": 81,
       "batch_size": 1,
       "guidance_type": "v2 (replace)",
@@ -65,7 +65,7 @@
   "7": {
     "inputs": {
       "prompt": "placeholder_positive_prompt",
-      "image_interleave": 1,
+      "image_interleave": 5,
       "clip": [
         "1",
         0
@@ -100,7 +100,7 @@
   },
   "12": {
     "inputs": {
-      "shift": 12,
+      "shift": 16,
       "model": [
         "35",
         0
@@ -113,7 +113,7 @@
   },
   "13": {
     "inputs": {
-      "guidance": 6,
+      "guidance": 12,
       "conditioning": [
         "4",
         0
@@ -243,7 +243,7 @@
       "pingpong": false,
       "save_output": true,
       "images": [
-        "31",
+        "43",
         0
       ]
     },
@@ -256,7 +256,7 @@
     "inputs": {
       "filename_prefix": "ComfyUI",
       "images": [
-        "31",
+        "43",
         0
       ]
     },
@@ -291,6 +291,20 @@
     "class_type": "SamplerCustomAdvanced",
     "_meta": {
       "title": "SamplerCustomAdvanced"
+    }
+  },
+  "43": {
+    "inputs": {
+      "upscale_method": "nearest-exact",
+      "scale_by": 4.0,
+      "image": [
+        "31",
+        0
+      ]
+    },
+    "class_type": "ImageScaleBy",
+    "_meta": {
+      "title": "Upscale Image By"
     }
   }
 }

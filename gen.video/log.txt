@@ -1,14 +1,17 @@
 Workflow runner started. Python executable: D:\.comfyui\.venv\Scripts\python.exe
 Working directory: D:\.comfyui\gen.video
 Emptying ComfyUI input and output folders...
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.1.png
+Removed file: D:\.comfyui\ComfyUI\input\female_lady_unknown.jpg
+Removed file: D:\.comfyui\ComfyUI\input\male_detective_holmes.jpg
+Removed file: D:\.comfyui\ComfyUI\input\male_doctor_watson.jpg
+Removed file: D:\.comfyui\ComfyUI\input\unknown_male_shadow.jpg
 Successfully emptied ComfyUI input and output folders.
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
 [START] Security scan
 [DONE] Security scan
 ## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2025-10-24 21:30:04.465
+** ComfyUI startup time: 2025-10-25 17:19:33.694
 ** Platform: Windows
 ** Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
 ** Python executable: D:\.comfyui\.venv\Scripts\python.exe
@@ -20,7 +23,7 @@ Waiting for ComfyUI to become ready (polling every 15s)...
 ComfyUI not ready yet (attempt 1). Retrying in 15s...
 
 Prestartup times for custom nodes:
-   2.3 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   2.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
 
 Checkpoint files will always be loaded safely.
 Total VRAM 12227 MB, total RAM 64957 MB
@@ -28,247 +31,3 @@ pytorch version: 2.8.0+cu129
 Set vram state to: NORMAL_VRAM
 Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
 Using pytorch attention
-Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
-ComfyUI version: 0.3.64
-ComfyUI frontend version: 1.27.10
-[Prompt Server] web root: D:\.comfyui\.venv\Lib\site-packages\comfyui_frontend_package\static
-ComfyUI-GGUF: Allowing full torch compile
-### Loading: ComfyUI-Manager (V3.36)
-[ComfyUI-Manager] network_mode: public
-### ComfyUI Version: v0.3.64-23-gd68ece73 | Released on '2025-10-12'
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
-✅ ChatterboxTTS loaded from bundled package
-✅ ChatterboxVC loaded from bundled package
-✅ F5-TTS loaded from system package
-🎭 Character voices: Found 70 characters, 4 aliases
-✅ SRT modules loaded from system package
-🔧 Registering TTS Audio Suite nodes...
-======================================================================
-🚀 TTS Audio Suite v4.2.1
-Universal multi-engine TTS extension for ComfyUI
-⚠️ No local ChatterBox models found - will download from Hugging Face
-💡 Tip: First generation will download models (~1GB)
-   Models will be saved locally for future use
-✅ TTS Audio Suite v4.2.1 loaded with 16 nodes:
-   • ⚙️ ChatterBox TTS Engine
-   • ⚙️ F5 TTS Engine
-   • ⚙️ RVC Engine
-   • 🌊 Audio Wave Analyzer
-   • 🎙️ Voice Capture
-   • 🎤 TTS Text
-   • 🎭 Character Voices
-   • 🎭 Load RVC Character Model
-   • 👄 F5-TTS Speech Editor
-   • 📺 TTS SRT
-   • 🔄 Voice Changer
-   • 🔧 Audio Analyzer Options
-   • 🔧 F5-TTS Edit Options
-   • 🔧 RVC Pitch Extraction Options
-   • 🤐 Noise or Vocal Removal
-   • 🥪 Merge Audio
-======================================================================
-
-Import times for custom nodes:
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\Comfyui_TTP_Toolset
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-Unload-Model
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
-   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
-   0.4 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-   2.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
-   3.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
-
-Context impl SQLiteImpl.
-Will assume non-transactional DDL.
-No target revision found.
-Starting server
-
-To see the GUI go to: http://127.0.0.1:8188
-FETCH ComfyRegistry Data: 5/101
-ComfyUI is ready after 17.1s (attempt 2).
-
-===== START D:\.comfyui\gen.video\scripts\3.animate.py @ 2025-10-24 21:30:20 =====
-Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.video\output\tracking
-No existing checkpoint found - starting fresh
-🎬 Starting scene animation process...
-📁 Timeline:  ../../gen.audio/input/2.timeline.script.txt
-🖼️  Images:    ../../gen.image/output/scene
-🎥 Output:    ../output/animation
-🔇 Silence segment 5: using scene_1.2 duration 1.600s
-🔇 Silence segment 9: using scene_1.4 duration 1.640s
-🔇 Silence segment 12: using scene_1.4 duration 1.040s
-🔇 Silence segment 33: using scene_1.13 duration 1.000s
-🔇 Silence segment 35: using scene_1.14 duration 2.020s
-🔇 Silence segment 38: using scene_1.15 duration 4.520s
-🔇 Silence segment 51: using scene_2.3 duration 2.280s
-🔇 Silence segment 58: using scene_2.6 duration 6.020s
-🔇 Silence segment 72: using scene_2.10 duration 1.080s
-🔇 Silence segment 74: using scene_2.11 duration 1.240s
-🔇 Silence segment 76: using scene_2.12 duration 4.520s
-🔇 Silence segment 80: using scene_2.14 duration 1.300s
-🔇 Silence segment 82: using scene_2.15 duration 1.360s
-🔇 Silence segment 85: using scene_2.15 duration 1.520s
-🔇 Silence segment 87: using scene_2.15 duration 1.820s
-🔇 Silence segment 89: using scene_2.15 duration 1.640s
-🔇 Silence segment 128: using scene_3.8 duration 1.420s
-🔇 Silence segment 140: using scene_3.14 duration 1.760s
-🔇 Silence segment 148: using scene_3.17 duration 1.080s
-🔇 Silence segment 157: using scene_4.3 duration 1.100s
-🔇 Silence segment 161: using scene_4.5 duration 1.240s
-🔇 Silence segment 179: using scene_4.14 duration 2.680s
-🔇 Silence segment 183: using scene_4.16 duration 17.960s
-🔇 Silence segment 194: using scene_4.18 duration 1.920s
-🔇 Silence segment 204: using scene_4.19 duration 1.060s
-🔇 Silence segment 221: using scene_5.4 duration 1.100s
-🔇 Silence segment 224: using scene_5.4 duration 4.380s
-🔇 Silence segment 234: using scene_5.9 duration 0.380s
-📋 Loaded 234 timeline entries from ../../gen.audio/input/2.timeline.script.txt
-📖 Loaded 4 character descriptions
-🎬 Loaded 85 motion prompts
-📍 Loaded 26 location descriptions
-🔗 Combined 234 timeline entries into 79 unique scenes
-📋 scene_1.1: 10.790s (3 segments)
-📋 scene_1.2: 11.990s (3 segments)
-📋 scene_1.3: 5.840s (1 segments)
-📋 scene_1.4: 25.160s (6 segments)
-📋 scene_1.5: 3.520s (1 segments)
-📋 scene_1.6: 6.650s (1 segments)
-📋 scene_1.7: 4.610s (1 segments)
-📋 scene_1.8: 20.900s (5 segments)
-📋 scene_1.9: 7.820s (4 segments)
-📋 scene_1.10: 9.700s (3 segments)
-📋 scene_1.11: 2.600s (1 segments)
-📋 scene_1.12: 8.620s (2 segments)
-📋 scene_1.13: 1.760s (2 segments)
-📋 scene_1.14: 4.680s (2 segments)
-📋 scene_1.15: 16.520s (4 segments)
-📋 scene_1.16: 4.090s (1 segments)
-📋 scene_1.17: 10.960s (2 segments)
-📋 scene_2.1: 12.170s (4 segments)
-📋 scene_2.2: 10.520s (3 segments)
-📋 scene_2.3: 6.260s (2 segments)
-📋 scene_2.4: 15.820s (3 segments)
-📋 scene_2.5: 8.680s (1 segments)
-📋 scene_2.6: 23.700s (5 segments)
-📋 scene_2.7: 11.520s (5 segments)
-📋 scene_2.8: 4.480s (1 segments)
-📋 scene_2.9: 22.780s (4 segments)
-📋 scene_2.10: 4.080s (2 segments)
-📋 scene_2.11: 4.320s (2 segments)
-📋 scene_2.12: 8.980s (2 segments)
-📋 scene_2.13: 6.290s (1 segments)
-📋 scene_2.14: 11.230s (3 segments)
-📋 scene_2.15: 26.330s (10 segments)
-📋 scene_2.16: 6.070s (3 segments)
-📋 scene_2.17: 12.020s (6 segments)
-📋 scene_2.18: 8.770s (4 segments)
-📋 scene_3.1: 18.590s (10 segments)
-📋 scene_3.2: 10.640s (3 segments)
-📋 scene_3.3: 7.830s (2 segments)
-📋 scene_3.4: 11.110s (3 segments)
-📋 scene_3.5: 6.460s (1 segments)
-📋 scene_3.6: 11.840s (2 segments)
-📋 scene_3.7: 12.570s (2 segments)
-📋 scene_3.8: 12.310s (4 segments)
-📋 scene_3.9: 9.640s (2 segments)
-📋 scene_3.10: 6.910s (1 segments)
-📋 scene_3.11: 7.470s (2 segments)
-📋 scene_3.12: 3.510s (1 segments)
-📋 scene_3.13: 3.630s (1 segments)
-📋 scene_3.14: 6.780s (4 segments)
-📋 scene_3.15: 3.930s (2 segments)
-📋 scene_3.16: 2.290s (1 segments)
-📋 scene_3.17: 7.260s (4 segments)
-📋 scene_3.18: 9.480s (2 segments)
-📋 scene_3.19: 4.180s (1 segments)
-📋 scene_4.1: 16.410s (2 segments)
-📋 scene_4.2: 13.850s (2 segments)
-📋 scene_4.3: 15.150s (4 segments)
-📋 scene_4.5: 9.650s (2 segments)
-📋 scene_4.6: 14.170s (1 segments)
-📋 scene_4.7: 14.930s (2 segments)
-📋 scene_4.8: 7.510s (1 segments)
-📋 scene_4.9: 6.750s (1 segments)
-📋 scene_4.10: 8.040s (1 segments)
-📋 scene_4.12: 20.530s (4 segments)
-📋 scene_4.13: 14.830s (6 segments)
-📋 scene_4.14: 8.370s (4 segments)
-📋 scene_4.16: 31.250s (4 segments)
-📋 scene_4.17: 15.360s (7 segments)
-📋 scene_4.18: 13.400s (8 segments)
-📋 scene_4.19: 12.170s (5 segments)
-📋 scene_4.20: 17.960s (4 segments)
-📋 scene_4.21: 11.250s (4 segments)
-📋 scene_5.1: 7.590s (3 segments)
-📋 scene_5.2: 5.060s (2 segments)
-📋 scene_5.3: 1.870s (1 segments)
-📋 scene_5.4: 28.060s (10 segments)
-📋 scene_5.7: 6.900s (1 segments)
-📋 scene_5.8: 9.340s (1 segments)
-📋 scene_5.9: 12.760s (3 segments)
-Processing 79 unique scenes, skipped 0
-📊 Total video words: 1,655
-📊 Total video duration: 839.8 seconds (14.0 minutes)
-============================================================
-
-📊 VIDEO ANIMATION PROGRESS
-========================================================================================================================
-🔄 Scene 1/79 - {{loc_1}}, {Cold Winter Morning}; ((male_doctor_wa (10.79s) - Processing...
-📊 Estimated time remaining: ~7.0h (?)
-Generating video for scene: scene_1.1
-Duration: 10.79s, Frames: 258
-Video chunks: 4
-Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_1.1.png
-Generating chunk: scene_1.1_1 (73 frames)
-📍 Replaced location references with descriptions
-🎬 Added motion prompt with inline character replacements for 1.1
-⚠️ Prompt truncated to 200 characters
-Full prompt: Shot taken with Fixed Camera Position Camera Angle and Camera Focus Seated figure leans slightly forward head tilted as eyes scan newspaper while standing figure holds magnifying glass up to light foo...
-got prompt
-Waiting for video generation completion (prompt_id: 995e4bf5-17d9-4f5d-9557-cf74c1ee5af4)...
-Using pytorch attention in VAE
-Using pytorch attention in VAE
-VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
-missing clip vision: ['visual_projection.weight']
-Requested to load CLIPVisionModelProjection
-loaded completely 9518.8 621.916015625 True
-Using scaled fp8: fp8 matrix mult: False, scale input: False
-CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
-FETCH ComfyRegistry Data: 10/101
-clip missing: ['text_projection.weight']
-Requested to load HunyuanVideoClipModel_
-loaded completely 8833.75703125 7894.8529052734375 True
-FETCH ComfyRegistry Data: 15/101
-Requested to load AutoencoderKL
-loaded completely 936.9041183471679 470.1210079193115 True
-model weight dtype torch.float8_e4m3fn, manual cast: torch.bfloat16
-model_type FLOW
-Requested to load HunyuanVideo
-FETCH ComfyRegistry Data: 20/101
-loaded partially 7985.579 7985.550842285156 0
-FETCH ComfyRegistry Data: 25/101
-  0%|          | 0/20 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 30/101
-FETCH ComfyRegistry Data: 35/101
-FETCH ComfyRegistry Data: 40/101
-  5%|▌         | 1/20 [00:17<05:27, 17.25s/it]FETCH ComfyRegistry Data: 45/101
-FETCH ComfyRegistry Data: 50/101
-FETCH ComfyRegistry Data: 55/101
- 10%|█         | 2/20 [00:34<05:05, 16.99s/it]FETCH ComfyRegistry Data: 60/101
-FETCH ComfyRegistry Data: 65/101
-FETCH ComfyRegistry Data: 70/101
- 15%|█▌        | 3/20 [00:50<04:47, 16.93s/it]FETCH ComfyRegistry Data: 75/101
-FETCH ComfyRegistry Data: 80/101
-FETCH ComfyRegistry Data: 85/101
- 20%|██        | 4/20 [01:07<04:29, 16.87s/it]FETCH ComfyRegistry Data: 90/101
-FETCH ComfyRegistry Data: 95/101
-FETCH ComfyRegistry Data: 100/101
-FETCH ComfyRegistry Data [DONE]
-[ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
-FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
-[ComfyUI-Manager] All startup tasks have been completed.
- 25%|██▌       | 5/20 [01:24<04:13, 16.91s/it] 30%|███       | 6/20 [01:41<03:57, 16.94s/it]
