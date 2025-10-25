@@ -15,11 +15,11 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
 # Video configuration constants
-VIDEO_WIDTH = 608
-VIDEO_HEIGHT = 352
-FRAMES_PER_SECOND = 24
+VIDEO_WIDTH = 592
+VIDEO_HEIGHT = 336
+FRAMES_PER_SECOND = 16
 #Duration of each chunk in seconds
-CHUNK_SIZE = 3
+CHUNK_SIZE = 5
 
 # Feature flags
 ENABLE_SCENE = False # Set to True to add scene prompts from 3.scene.txt
@@ -28,7 +28,7 @@ ENABLE_CHARACTER_IN_MOTION = False # Set to True to add character prompts from 2
 
 USE_SUMMARY_TEXT = False  # Set to True to use summary text
 
-PROMPT_MAX_LENGTH = 200
+PROMPT_MAX_LENGTH = 512
 ALLOW_SPECIAL_CHARACTERS = False
 
 class ResumableState:
@@ -1804,16 +1804,16 @@ class VideoAnimator:
         """Print a comprehensive workflow summary showing the flow to sampler inputs."""
         print(f"\n🔗 WORKFLOW SUMMARY: {title}")
         
-        # Find the main sampler node (TeaCacheHunyuanVideoSampler at node 42)
+        # Find the main sampler node (SamplerCustomAdvanced at node 57)
         sampler_node = None
         sampler_id = None
-        if "42" in workflow and workflow["42"].get("class_type") == "TeaCacheHunyuanVideoSampler":
-            sampler_node = workflow["42"]
-            sampler_id = "42"
+        if "57" in workflow and workflow["57"].get("class_type") == "SamplerCustomAdvanced":
+            sampler_node = workflow["57"]
+            sampler_id = "57"
         
         if sampler_node:
             inputs = sampler_node.get("inputs", {})
-            print(f"   📊 TeaCacheHunyuanVideoSampler({sampler_id}) - Core Parameters:")
+            print(f"   📊 SamplerCustomAdvanced({sampler_id}) - Core Parameters:")
             print(f"      🎲 Noise: Connected")
             print(f"      🎯 Guider: Connected")
             print(f"      🎲 Sampler: Connected")
@@ -1973,11 +1973,11 @@ class VideoAnimator:
             
         elif node_type == "SamplerCustomAdvanced":
             print(f"{indent}🎲 Advanced Sampler: Connected")
-            
-        elif node_type == "TeaCacheHunyuanVideoSampler":
-            print(f"{indent}⚡ Speedup: {node_inputs.get('speedup', 'N/A')}")
-            print(f"{indent}🔧 Custom Speed: {node_inputs.get('custom_speed', 'N/A')}")
-            print(f"{indent}✅ Enable Custom Speed: {node_inputs.get('enable_custom_speed', 'N/A')}")
+            print(f"{indent}📊 Noise: Connected")
+            print(f"{indent}🎯 Guider: Connected")
+            print(f"{indent}🎲 Sampler: Connected")
+            print(f"{indent}📊 Sigmas: Connected")
+            print(f"{indent}🖼️ Latent Image: Connected")
             
         elif node_type == "VHS_VideoCombine":
             print(f"{indent}🎬 Frame Rate: {node_inputs.get('frame_rate', 'N/A')}")
