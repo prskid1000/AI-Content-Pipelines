@@ -161,7 +161,7 @@
   "17": {
     "inputs": {
       "scheduler": "simple",
-      "steps": 20,
+      "steps": 15,
       "denoise": 1,
       "model": [
         "35",
