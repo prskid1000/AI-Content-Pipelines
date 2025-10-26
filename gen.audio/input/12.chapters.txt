@@ -1,10 +1,10 @@
-20%: First Encounter
-SHORT_SUMMARY : A lady drops ring at Baker Street night., 2.3 words: 'Feminine traits revealed', 1.
-40%: Amazon Letter
-SHORT_SUMMARY : Letter from Amazon soil in London., 3 words: 'Red laterite ink', 1.
-60%: Docks Investigation
-SHORT_SUMMARY : Fresh soil tracks at London docks., 3 words: 'Red dust found', 1.
-80%: Secret Link
-SHORT_SUMMARY : Clasp matching serpent emblem., 2 words: 'Emralds align', 1.
-100%: Final Resolution
-SHORT_SUMMARY : Impostor exposed, ring safe., 2 words: 'Ring secured', 1.',
+20%: The Prince Charming's masquer
+SHORT_SUMMARY : A lady seeks Sherlock Holmes' assistance to protect her niece.
+40%: The Savoy's Theatre
+SHORT_SUMMARY : Holmes consults theatre company at Savoy for prince Charming.
+60%: The Embankment's stair
+SHORT_SUMMARY : Holmes identifies thief in river stairs using chalk marks and soap.
+80%: The Prince Charming's plot
+SHORT_SUMMARY : Holmes confronts prince in Holland House ball, reveals ledger.
+100%: The Colonels's watch
+SHORT_SUMMARY : Holmes pins colonel wrists, secure his cane broken into fine wire.

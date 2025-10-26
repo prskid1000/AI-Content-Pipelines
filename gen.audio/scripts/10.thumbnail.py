@@ -469,8 +469,8 @@ class ThumbnailProcessor:
         print(f"Applying {len(enabled_loras)} LoRAs in chained mode...")
         
         # Get initial model and clip connections
-        model_input = self._find_node_by_class(workflow, "UnetLoaderGGUF") or ["1", 0]
-        clip_input = self._find_node_by_class(workflow, ["DualCLIPLoader", "TripleCLIPLoader"]) or ["2", 0]
+        model_input = self._find_node_by_class(workflow, ["UNETLoader", "UnetLoaderGGUF"]) or ["41", 0]
+        clip_input = self._find_node_by_class(workflow, ["DualCLIPLoader", "TripleCLIPLoader"]) or ["10", 0]
         
         last_model_output = model_input
         last_clip_output = clip_input
@@ -1332,8 +1332,8 @@ class ThumbnailProcessor:
         lora_node_id = f"lora_{lora_index}"
         
         # Get initial model and clip connections
-        model_input = self._find_node_by_class(workflow, "UnetLoaderGGUF") or ["1", 0]
-        clip_input = self._find_node_by_class(workflow, ["DualCLIPLoader", "TripleCLIPLoader"]) or ["2", 0]
+        model_input = self._find_node_by_class(workflow, ["UNETLoader", "UnetLoaderGGUF"]) or ["41", 0]
+        clip_input = self._find_node_by_class(workflow, ["DualCLIPLoader", "TripleCLIPLoader"]) or ["10", 0]
         
         # Create LoRA node inputs
         lora_inputs = {

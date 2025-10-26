@@ -1,4 +1,4 @@
-Workflow runner started. Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
+Workflow runner started. Python executable: D:\.comfyui\.venv\Scripts\python.exe
 Working directory: D:\.comfyui\gen.audio
 Emptying ComfyUI input and output folders for audio generation...
 Successfully emptied ComfyUI input and output folders.
@@ -8,321 +8,39 @@ Success! Server is now running on port 1234
 Waiting for LM Studio to become ready (polling every 15s)...
 LM Studio is ready after 0.0s (attempt 1).
 
-===== START D:\.comfyui\gen.audio\scripts\1.character.py @ 2025-10-05 12:54:13 =====
-Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.audio\output\tracking
-Found existing checkpoint: D:\.comfyui\gen.audio\output\tracking\1.character.state.json
-Progress: Voices(✓) Chapters(0/0) Meta(✗) Title(✗)
-=== VOICE REGION AND LANGUAGE SELECTION ===
-Available regions: in
-Available languages: ba, en, hi
-Current region: in, Current language: en
-[AUTO] Using --change-settings='n'
-=== STORY PREPROCESSING ===
-Found 4 unique characters: male_male_visitor, male_detective_holmes, female_mistress_mary_morstan, male_doctor_watson
-
-Available male voices: alok_en, bala_en, gaurav_en, himanshu_en, indrajeet_en, nikhil_en, ramesh_en, sarang_en, sid_en, yuvraj_en
-Available female voices: aisha_en, ayesha_en, deshna_en, henna_en, koku_en, maya_en, mona_en, mridula_en, paavni_en, vidya_en
-Using cached character voice assignments from checkpoint
-
-=== CHAPTER ANALYSIS AND SUMMARIZATION ===
-📊 Story Statistics:
-   📏 Total characters (excluding [names]): 42,902
-   📝 Total words: 6,803
-   📄 Total lines: 152
-
-Story split into 4 chapters of ~50 lines each
-
-Processing Chapter 1/4 (33.3% of story)...
-   Lines 1-50 (14,271 chars)
-✅ Chapter 1 generated:
-   📖 Title: Fog and Poison
-   📝 Summary words: 471 (target: 500)
-   📏 Summary characters: 3398
-   🔸 Short summary words: 16 (target: 20)
-   ⏱️  Generation time: 23.51s
-
-Processing Chapter 2/4 (35.1% of story)...
-   Lines 51-100 (15,052 chars)
-✅ Chapter 2 generated:
-   📖 Title: Hidden痕迹
-   📝 Summary words: 1 (target: 500)
-   📏 Summary characters: 774
-   🔸 Short summary words: 2 (target: 20)
-   ⏱️  Generation time: 19.11s
-
-Processing Chapter 3/4 (30.3% of story)...
-   Lines 101-150 (13,006 chars)
-✅ Chapter 3 generated:
-   📖 Title: Observation
-   📝 Summary words: 565 (target: 500)
-   📏 Summary characters: 4158
-   🔸 Short summary words: 18 (target: 20)
-   ⏱️  Generation time: 24.27s
-
-Processing Chapter 4/4 (1.3% of story)...
-   Lines 151-152 (568 chars)
-✅ Chapter 4 generated:
-   📖 Title: Reason's Light
-   📝 Summary words: 295 (target: 500)
-   📏 Summary characters: 1878
-   🔸 Short summary words: 10 (target: 20)
-   ⏱️  Generation time: 10.32s
-📄 Chapters saved to: ../input\12.chapters.txt
-
-📚 CHAPTER BREAKDOWN
-==========================================================================================
-%    Chapter Title                  Words    Short    Status  
-------------------------------------------------------------------------------------------
- 33% Fog and Poison                 471      16       ✅ OK    
- 35% Hidden痕迹                       1        2        ✅ OK    
- 30% Observation                    565      18       ✅ OK    
-  1% Reason's Light                 295      10       ✅ OK    
-------------------------------------------------------------------------------------------
-TOT  4/4 chapters generated         -        -        DONE    
-==========================================================================================
-
-=== GENERATING META-SUMMARY ===
-🔄 Re-summarizing 4 part summaries into comprehensive overview...
-📝 Meta-summary statistics:
-   🎯 Words: 4 (target: 1000-1200)
-   📏 Characters: 2699
-   ⏱️  Generation time: 53.27s
-⚠️  Meta-summary word count outside target range (1000-1200)
-✅ Meta-summary generated successfully
-📄 Final summary saved to: ../input\9.summary.txt
-
-📊 SUMMARY STATISTICS TABLE
-==========================================================================================
-Part Input Lines  Input Words  Input Chars  Output Words  Output Chars  Status  
-------------------------------------------------------------------------------------------
-1    50           0            0            471           3398          ✅ OK    
-2    50           0            0            1             774           ✅ OK    
-3    50           0            0            565           4158          ✅ OK    
-4    2            0            0            295           1878          ✅ OK    
-------------------------------------------------------------------------------------------
-PARTS 152          0            0            2000          -             PARTS   
-FINAL -            -            -            4             2699          META    
-==========================================================================================
-📑 Parts processed: 4
-✅ Successful: 4
-❌ Failed: 0
-
-=== GENERATING STORY TITLE ===
-✅ Story title generated:
-   📖 Title: 雾中之毒
-   ⏱️  Generation time: 4.35s
-📄 Story title saved to: ../input\10.title.txt
-
-🎉 Chapter analysis completed!
-📊 Successfully generated 4 chapters
-❌ Failed: 0 chapters
-
-📚 Generated 4 chapter summaries
-All operations completed successfully
-Final progress: Progress: Voices(✓) Chapters(4/4) Meta(✓) Title(✓)
-All operations completed successfully - tracking files preserved
-
-==================================================
-⏱️  TIMING SUMMARY
-==================================================
-⚙️  Setup time: 0.000 seconds
-📖 Story reading time: 0.001 seconds
-👥 Character preprocessing time: 137.842 seconds
-⏱️  Total execution time: 137.852 seconds (2.298 minutes)
-==================================================
-
-===== END D:\.comfyui\gen.audio\scripts\1.character.py @ 2025-10-05 12:56:31 (exit=0, took=138.01s) =====
-Stopping LM Studio backend via lms CLI...
-Command: lms server stop
-Unloading all models from LM Studio...
-Command: lms unload --all
-Unloading "qwen3-30b-a3b-instruct-2507"...
-Unloaded 1 model.
-Stopped the server on port 1234.
-LM Studio appears stopped (after 1 checks).
-Starting ComfyUI backend using Windows cmd style...
-Waiting for ComfyUI to become ready (polling every 15s)...
-[START] Security scan
-[DONE] Security scan
-## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2025-10-05 12:56:34.716
-** Platform: Windows
-** Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
-** Python executable: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\python.exe
-** ComfyUI Path: D:\.comfyui\ComfyUI
-** ComfyUI Base Folder Path: D:\.comfyui\ComfyUI
-** User directory: D:\.comfyui\ComfyUI\user
-** ComfyUI-Manager config path: D:\.comfyui\ComfyUI\user\default\ComfyUI-Manager\config.ini
-** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
-ComfyUI not ready yet (attempt 1). Retrying in 15s...
-
-Prestartup times for custom nodes:
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\rgthree-comfy
-   3.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-
-Checkpoint files will always be loaded safely.
-Total VRAM 12227 MB, total RAM 64957 MB
-pytorch version: 2.8.0+cu129
-Set vram state to: NORMAL_VRAM
-Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
-Using pytorch attention
-Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
-ComfyUI version: 0.3.60
-ComfyUI frontend version: 1.26.13
-[Prompt Server] web root: C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\Lib\site-packages\comfyui_frontend_package\static
-ComfyUI-GGUF: Allowing full torch compile
-### Loading: ComfyUI-Impact-Pack (V8.22.2)
-[Impact Pack] Wildcards loading done.
-### Loading: ComfyUI-Manager (V3.36)
-[ComfyUI-Manager] network_mode: public
-### ComfyUI Version: v0.3.60-34-g39fd106d | Released on '2025-09-28'
-
-[32mInitializing ControlAltAI Nodes[0m
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
-
-[92m[rgthree-comfy] Loaded 48 magnificent nodes. 🎉[0m
-
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
-✅ ChatterboxTTS loaded from bundled package
-✅ ChatterboxVC loaded from bundled package
-JAX version 0.7.1 available.
-ComfyUI not ready yet (attempt 2). Retrying in 15s...
-✅ F5-TTS loaded from system package
-🎭 Character voices: Found 61 characters, 6 aliases
-✅ SRT modules loaded from system package
-🔧 Registering TTS Audio Suite nodes...
-======================================================================
-🚀 TTS Audio Suite v4.2.1
-Universal multi-engine TTS extension for ComfyUI
-⚠️ No local ChatterBox models found - will download from Hugging Face
-💡 Tip: First generation will download models (~1GB)
-   Models will be saved locally for future use
-✅ TTS Audio Suite v4.2.1 loaded with 16 nodes:
-   • ⚙️ ChatterBox TTS Engine
-   • ⚙️ F5 TTS Engine
-   • ⚙️ RVC Engine
-   • 🌊 Audio Wave Analyzer
-   • 🎙️ Voice Capture
-   • 🎤 TTS Text
-   • 🎭 Character Voices
-   • 🎭 Load RVC Character Model
-   • 👄 F5-TTS Speech Editor
-   • 📺 TTS SRT
-   • 🔄 Voice Changer
-   • 🔧 Audio Analyzer Options
-   • 🔧 F5-TTS Edit Options
-   • 🔧 RVC Pitch Extraction Options
-   • 🤐 Noise or Vocal Removal
-   • 🥪 Merge Audio
-======================================================================
-
-Import times for custom nodes:
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
-   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\rgthree-comfy
-   0.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
-   0.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-impact-pack
-   0.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-   3.3 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
-   4.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
-
-Context impl SQLiteImpl.
-Will assume non-transactional DDL.
-No target revision found.
-Starting server
-
-To see the GUI go to: http://127.0.0.1:8188
-FETCH ComfyRegistry Data: 5/99
-FETCH ComfyRegistry Data: 10/99
-FETCH ComfyRegistry Data: 15/99
-ComfyUI is ready after 34.1s (attempt 3).
-
-===== START D:\.comfyui\gen.audio\scripts\2.story.py @ 2025-10-05 12:57:06 =====
-✅ Resumable mode enabled (use --disable-resumable to disable)
-Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.audio\output\tracking
-No existing checkpoint found - starting fresh
-Processing story...
-Processing story in chunks...
-📊 Story contains 6,803 words
-Story split into 31 chunks of 5 lines each
-
-📊 STORY PROCESSING PROGRESS
-====================================================================================================
-🎵 Chunk 1 (1-5) - 3.5% complete - Processing...
-📊 Estimated time remaining: ~34.0m (?)
-Generating audio for chunk 1 (lines 1-5)...
-Chunk length: 1601 characters
-Sending workflow to ComfyUI...
-got prompt
-Response status: 200
-Response JSON: {'prompt_id': 'c8b9a620-c015-4587-8e1f-01f54c495b6a', 'number': 0, 'node_errors': {}}
-Workflow sent successfully, prompt_id: c8b9a620-c015-4587-8e1f-01f54c495b6a
-Waiting for audio generation to complete...
-⚙️ ChatterBox Engine: Configured for English on auto
-   Settings: exaggeration=0.8, temperature=1.0000000000000002, cfg_weight=0.2
-🎤 TTS Text: Starting chatterbox generation
-C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\Lib\site-packages\torchaudio\_backend\utils.py:213: UserWarning: In 2.9, this function's implementation will be changed to use torchaudio.load_with_torchcodec` under the hood. Some parameters like ``normalize``, ``format``, ``buffer_size``, and ``backend`` will be ignored. We recommend that you port your code to rely directly on TorchCodec's decoder instead: https://docs.pytorch.org/torchcodec/stable/generated/torchcodec.decoders.AudioDecoder.html#torchcodec.decoders.AudioDecoder.
-  warnings.warn(
-🎤 TTS Text: Using voice reference from folder (narrator)
-🔧 Creating new chatterbox engine instance
-C:\Users\prith\.pyenv\pyenv-win\versions\3.12.10\Lib\site-packages\torchaudio\_backend\utils.py:337: UserWarning: In 2.9, this function's implementation will be changed to use torchaudio.save_with_torchcodec` under the hood. Some parameters like format, encoding, bits_per_sample, buffer_size, and ``backend`` will be ignored. We recommend that you port your code to rely directly on TorchCodec's encoder instead: https://docs.pytorch.org/torchcodec/stable/generated/torchcodec.encoders.AudioEncoder
-  warnings.warn(
-🎭 ChatterBox: Character switching mode - found characters: alok_en, ramesh_en
-🎭 Using character voice for 'alok_en'
-🎭 Using character voice for 'ramesh_en'
-🔄 Loading base ChatterBox model 'English' for generation
-📦 Loading English ChatterBox model from HuggingFace
-📦 Loading ChatterBox model for English from ResembleAI/chatterbox
-📦 Loading local ChatterBox models from: C:\Users\prith\.cache\huggingface\hub\models--ResembleAI--chatterbox\snapshots\05e904af2b5c7f8e482687a9d7336c5c824467d9
-📁 Loading ve from pt format
-📁 Loading t3_cfg from pt format
-FETCH ComfyRegistry Data: 20/99
-FETCH ComfyRegistry Data: 25/99
-input frame rate=25
-📁 Loading s3gen from pt format
-loaded PerthNet (Implicit) at step 250,000
-✅ Successfully loaded all local ChatterBox models
-🌍 Loading ChatterBox model 'English' for language 'en' (5 segments)
-🎤 Generating ChatterBox segment 1/5 chunk 1/4 for 'alok_en' (lang: en)...
-FETCH ComfyRegistry Data: 30/99
-Sampling:   0%|          | 0/1000 [00:00<?, ?it/s]Sampling:   0%|          | 1/1000 [00:00<02:57,  5.63it/s]Sampling:   0%|          | 3/1000 [00:00<01:37, 10.25it/s]Sampling:   1%|          | 6/1000 [00:00<01:10, 14.12it/s]Sampling:   1%|          | 8/1000 [00:00<01:42,  9.68it/s]Sampling:   1%|          | 11/1000 [00:00<01:17, 12.84it/s]Sampling:   1%|▏         | 13/1000 [00:01<01:10, 13.94it/s]Sampling:   2%|▏         | 16/1000 [00:01<00:57, 17.20it/s]Sampling:   2%|▏         | 19/1000 [00:01<00:51, 19.12it/s]Sampling:   2%|▏         | 22/1000 [00:01<00:55, 17.67it/s]Sampling:   2%|▏         | 24/1000 [00:01<00:57, 17.09it/s]Sampling:   3%|▎         | 26/1000 [00:01<00:58, 16.76it/s]Sampling:   3%|▎         | 30/1000 [00:01<00:46, 21.01it/s]Sampling:   3%|▎         | 34/1000 [00:01<00:39, 24.65it/s]Sampling:   4%|▍         | 38/1000 [00:02<00:35, 26.74it/s]Sampling:   4%|▍         | 41/1000 [00:02<00:37, 25.34it/s]Sampling:   4%|▍         | 44/1000 [00:02<00:36, 26.18it/s]Sampling:   5%|▍         | 48/1000 [00:02<00:32, 29.08it/s]Sampling:   5%|▌         | 52/1000 [00:02<00:30, 31.55it/s]Sampling:   6%|▌         | 56/1000 [00:02<00:29, 32.02it/s]Sampling:   6%|▌         | 60/1000 [00:02<00:30, 30.59it/s]Sampling:   6%|▋         | 64/1000 [00:02<00:31, 30.06it/s]Sampling:   7%|▋         | 68/1000 [00:03<00:32, 28.31it/s]Sampling:   7%|▋         | 71/1000 [00:03<00:35, 26.48it/s]Sampling:   8%|▊         | 75/1000 [00:03<00:32, 28.15it/s]Sampling:   8%|▊         | 78/1000 [00:03<00:36, 25.55it/s]Sampling:   8%|▊         | 78/1000 [00:03<00:41, 22.12it/s]
-FETCH ComfyRegistry Data: 35/99
-🎤 Generating ChatterBox segment 1/5 chunk 2/4 for 'alok_en' (lang: en)...
-Sampling:   0%|          | 0/1000 [00:00<?, ?it/s]Sampling:   0%|          | 4/1000 [00:00<00:34, 28.77it/s]Sampling:   1%|          | 7/1000 [00:00<00:44, 22.54it/s]Sampling:   1%|          | 11/1000 [00:00<00:35, 27.69it/s]Sampling:   2%|▏         | 15/1000 [00:00<00:35, 28.12it/s]Sampling:   2%|▏         | 18/1000 [00:00<00:41, 23.55it/s]Sampling:   2%|▏         | 21/1000 [00:00<00:44, 21.82it/s]Sampling:   2%|▎         | 25/1000 [00:01<00:40, 24.22it/s]Sampling:   3%|▎         | 28/1000 [00:01<00:40, 24.14it/s]Sampling:   3%|▎         | 31/1000 [00:01<00:42, 22.84it/s]Sampling:   3%|▎         | 34/1000 [00:01<00:41, 23.54it/s]Sampling:   4%|▎         | 37/1000 [00:01<00:42, 22.65it/s]Sampling:   4%|▍         | 40/1000 [00:01<00:43, 21.85it/s]Sampling:   4%|▍         | 44/1000 [00:01<00:42, 22.65it/s]Sampling:   5%|▍         | 47/1000 [00:01<00:39, 23.95it/s]Sampling:   5%|▌         | 50/1000 [00:02<00:41, 22.91it/s]Sampling:   5%|▌         | 53/1000 [00:02<00:43, 21.60it/s]Sampling:   6%|▌         | 56/1000 [00:02<00:42, 22.01it/s]Sampling:   6%|▌         | 60/1000 [00:02<00:37, 25.34it/s]Sampling:   6%|▋         | 64/1000 [00:02<00:34, 27.49it/s]Sampling:   7%|▋         | 68/1000 [00:02<00:31, 29.83it/s]Sampling:   7%|▋         | 72/1000 [00:02<00:30, 30.06it/s]Sampling:   8%|▊         | 76/1000 [00:03<00:29, 31.16it/s]Sampling:   8%|▊         | 80/1000 [00:03<00:34, 26.63it/s]Sampling:   8%|▊         | 84/1000 [00:03<00:32, 27.99it/s]Sampling:   9%|▉         | 88/1000 [00:03<00:30, 30.22it/s]Sampling:   9%|▉         | 90/1000 [00:03<00:35, 25.80it/s]
-FETCH ComfyRegistry Data: 40/99
-🎤 Generating ChatterBox segment 1/5 chunk 3/4 for 'alok_en' (lang: en)...
-Sampling:   0%|          | 0/1000 [00:00<?, ?it/s]Sampling:   0%|          | 3/1000 [00:00<00:33, 29.41it/s]Sampling:   1%|          | 6/1000 [00:00<00:33, 29.66it/s]Sampling:   1%|          | 10/1000 [00:00<00:31, 30.96it/s]Sampling:   1%|▏         | 14/1000 [00:00<00:30, 31.82it/s]Sampling:   2%|▏         | 18/1000 [00:00<00:29, 33.30it/s]Sampling:   2%|▏         | 22/1000 [00:00<00:29, 32.74it/s]Sampling:   3%|▎         | 26/1000 [00:00<00:32, 29.92it/s]Sampling:   3%|▎         | 30/1000 [00:01<00:34, 27.94it/s]Sampling:   3%|▎         | 33/1000 [00:01<00:34, 27.93it/s]Sampling:   4%|▎         | 37/1000 [00:01<00:31, 30.38it/s]Sampling:   4%|▍         | 41/1000 [00:01<00:34, 28.05it/s]Sampling:   4%|▍         | 45/1000 [00:01<00:30, 30.87it/s]Sampling:   5%|▌         | 50/1000 [00:01<00:27, 33.97it/s]Sampling:   6%|▌         | 55/1000 [00:01<00:26, 36.00it/s]Sampling:   6%|▌         | 59/1000 [00:01<00:27, 34.84it/s]Sampling:   6%|▋         | 63/1000 [00:01<00:28, 32.51it/s]Sampling:   7%|▋         | 68/1000 [00:02<00:26, 35.43it/s]Sampling:   7%|▋         | 73/1000 [00:02<00:24, 37.61it/s]Sampling:   8%|▊         | 78/1000 [00:02<00:23, 39.46it/s]Sampling:   8%|▊         | 83/1000 [00:02<00:22, 40.01it/s]Sampling:   9%|▉         | 88/1000 [00:02<00:22, 40.51it/s]Sampling:   9%|▉         | 93/1000 [00:02<00:22, 40.04it/s]Sampling:  10%|▉         | 98/1000 [00:02<00:23, 38.58it/s]Sampling:  10%|█         | 102/1000 [00:02<00:24, 35.94it/s]Sampling:  11%|█         | 107/1000 [00:03<00:23, 37.57it/s]Sampling:  11%|█         | 112/1000 [00:03<00:22, 39.34it/s]Sampling:  12%|█▏        | 117/1000 [00:03<00:21, 40.53it/s]Sampling:  12%|█▏        | 122/1000 [00:03<00:21, 40.16it/s]Sampling:  13%|█▎        | 127/1000 [00:03<00:22, 39.18it/s]Sampling:  13%|█▎        | 132/1000 [00:03<00:21, 40.26it/s]Sampling:  14%|█▎        | 137/1000 [00:03<00:21, 40.23it/s]Sampling:  14%|█▍        | 142/1000 [00:04<00:28, 29.62it/s]Sampling:  15%|█▍        | 146/1000 [00:04<00:33, 25.41it/s]Sampling:  15%|█▍        | 149/1000 [00:04<00:34, 24.56it/s]Sampling:  15%|█▌        | 153/1000 [00:04<00:31, 26.70it/s]Sampling:  16%|█▌        | 157/1000 [00:04<00:32, 26.28it/s]Sampling:  16%|█▌        | 160/1000 [00:04<00:32, 25.80it/s]FETCH ComfyRegistry Data: 45/99
-Sampling:  16%|█▋        | 163/1000 [00:04<00:31, 26.34it/s]Sampling:  17%|█▋        | 167/1000 [00:05<00:30, 27.72it/s]Sampling:  17%|█▋        | 170/1000 [00:05<00:31, 26.11it/s]Sampling:  17%|█▋        | 173/1000 [00:05<00:31, 26.10it/s]Sampling:  18%|█▊        | 176/1000 [00:05<00:36, 22.59it/s]Sampling:  18%|█▊        | 179/1000 [00:05<00:40, 20.43it/s]Sampling:  18%|█▊        | 183/1000 [00:05<00:36, 22.64it/s]Sampling:  19%|█▊        | 186/1000 [00:05<00:33, 23.99it/s]Sampling:  19%|█▉        | 189/1000 [00:06<00:34, 23.47it/s]Sampling:  19%|█▉        | 192/1000 [00:06<00:36, 22.41it/s]Sampling:  20%|█▉        | 195/1000 [00:06<00:39, 20.37it/s]Sampling:  20%|█▉        | 198/1000 [00:06<00:40, 19.69it/s]Sampling:  20%|██        | 201/1000 [00:06<00:41, 19.48it/s]Sampling:  20%|██        | 205/1000 [00:06<00:34, 22.79it/s]Sampling:  21%|██        | 208/1000 [00:06<00:33, 23.92it/s]Sampling:  21%|██        | 211/1000 [00:07<00:32, 24.30it/s]Sampling:  21%|██▏       | 214/1000 [00:07<00:37, 21.11it/s]Sampling:  22%|██▏       | 217/1000 [00:07<00:36, 21.52it/s]Sampling:  22%|██▏       | 219/1000 [00:07<00:26, 29.03it/s]
-🎤 Generating ChatterBox segment 1/5 chunk 4/4 for 'alok_en' (lang: en)...
-Sampling:   0%|          | 0/1000 [00:00<?, ?it/s]Sampling:   0%|          | 2/1000 [00:00<01:06, 15.06it/s]Sampling:   1%|          | 7/1000 [00:00<00:32, 30.19it/s]Sampling:   1%|          | 12/1000 [00:00<00:27, 35.67it/s]Sampling:   2%|▏         | 17/1000 [00:00<00:25, 38.68it/s]Sampling:   2%|▏         | 22/1000 [00:00<00:24, 40.08it/s]Sampling:   3%|▎         | 27/1000 [00:00<00:28, 33.64it/s]Sampling:   3%|▎         | 31/1000 [00:01<00:35, 27.13it/s]Sampling:   3%|▎         | 34/1000 [00:01<00:38, 24.89it/s]FETCH ComfyRegistry Data: 50/99
-Sampling:   4%|▍         | 39/1000 [00:01<00:35, 26.97it/s]Sampling:   4%|▍         | 42/1000 [00:01<00:41, 23.17it/s]Sampling:   4%|▍         | 45/1000 [00:01<00:46, 20.52it/s]Sampling:   5%|▍         | 48/1000 [00:01<00:50, 18.78it/s]Sampling:   5%|▌         | 50/1000 [00:02<00:52, 18.18it/s]Sampling:   5%|▌         | 54/1000 [00:02<00:42, 22.09it/s]Sampling:   6%|▌         | 58/1000 [00:02<00:38, 24.69it/s]Sampling:   6%|▋         | 63/1000 [00:02<00:31, 29.43it/s]Sampling:   7%|▋         | 67/1000 [00:02<00:29, 31.16it/s]Sampling:   7%|▋         | 72/1000 [00:02<00:27, 34.22it/s]Sampling:   8%|▊         | 76/1000 [00:02<00:25, 35.70it/s]Sampling:   8%|▊         | 80/1000 [00:02<00:25, 35.56it/s]Sampling:   8%|▊         | 84/1000 [00:02<00:25, 35.39it/s]Sampling:   9%|▉         | 88/1000 [00:03<00:27, 33.21it/s]Sampling:   9%|▉         | 92/1000 [00:03<00:27, 33.01it/s]Sampling:  10%|▉         | 97/1000 [00:03<00:25, 35.29it/s]Sampling:  10%|█         | 101/1000 [00:03<00:24, 36.44it/s]Sampling:  11%|█         | 106/1000 [00:03<00:23, 37.95it/s]Sampling:  11%|█         | 111/1000 [00:03<00:22, 39.48it/s]Sampling:  12%|█▏        | 115/1000 [00:03<00:23, 38.09it/s]Sampling:  12%|█▏        | 119/1000 [00:03<00:24, 35.37it/s]Sampling:  12%|█▏        | 123/1000 [00:04<00:25, 34.85it/s]Sampling:  13%|█▎        | 127/1000 [00:04<00:25, 34.14it/s]Sampling:  13%|█▎        | 131/1000 [00:04<00:25, 34.41it/s]Sampling:  14%|█▎        | 135/1000 [00:04<00:25, 34.56it/s]Sampling:  14%|█▍        | 140/1000 [00:04<00:23, 36.69it/s]Sampling:  14%|█▍        | 145/1000 [00:04<00:22, 38.42it/s]Sampling:  15%|█▌        | 150/1000 [00:04<00:21, 38.76it/s]Sampling:  15%|█▌        | 154/1000 [00:04<00:22, 37.70it/s]Sampling:  16%|█▌        | 158/1000 [00:05<00:24, 34.81it/s]Sampling:  16%|█▌        | 162/1000 [00:05<00:24, 34.72it/s]Sampling:  17%|█▋        | 166/1000 [00:05<00:23, 34.91it/s]Sampling:  17%|█▋        | 170/1000 [00:05<00:26, 31.58it/s]Sampling:  17%|█▋        | 174/1000 [00:05<00:25, 31.78it/s]Sampling:  18%|█▊        | 178/1000 [00:05<00:25, 32.65it/s]Sampling:  18%|█▊        | 182/1000 [00:05<00:24, 33.13it/s]Sampling:  19%|█▊        | 186/1000 [00:05<00:23, 33.94it/s]Sampling:  19%|█▉        | 190/1000 [00:05<00:23, 34.54it/s]Sampling:  19%|█▉        | 194/1000 [00:06<00:23, 34.89it/s]Sampling:  20%|█▉        | 198/1000 [00:06<00:23, 33.68it/s]Sampling:  20%|██        | 202/1000 [00:06<00:22, 34.71it/s]Sampling:  21%|██        | 206/1000 [00:06<00:22, 35.01it/s]Sampling:  21%|██        | 210/1000 [00:06<00:22, 35.22it/s]Sampling:  21%|██▏       | 214/1000 [00:06<00:21, 35.95it/s]Sampling:  22%|██▏       | 219/1000 [00:06<00:20, 37.63it/s]Sampling:  22%|██▏       | 224/1000 [00:06<00:20, 38.52it/s]Sampling:  23%|██▎       | 228/1000 [00:06<00:20, 38.40it/s]Sampling:  23%|██▎       | 233/1000 [00:07<00:19, 39.39it/s]Sampling:  23%|██▎       | 233/1000 [00:07<00:23, 32.76it/s]
-FETCH ComfyRegistry Data: 55/99
-🎤 Generating ChatterBox segment 2/5 chunk 1/2 for 'ramesh_en' (lang: en)...
-Sampling:   0%|          | 0/1000 [00:00<?, ?it/s]Sampling:   0%|          | 3/1000 [00:00<00:42, 23.27it/s]Sampling:   1%|          | 6/1000 [00:00<00:41, 24.14it/s]Sampling:   1%|          | 9/1000 [00:00<00:40, 24.62it/s]Sampling:   1%|          | 12/1000 [00:00<00:45, 21.48it/s]Sampling:   2%|▏         | 15/1000 [00:00<00:41, 23.86it/s]Sampling:   2%|▏         | 18/1000 [00:00<00:38, 25.20it/s]Sampling:   2%|▏         | 23/1000 [00:00<00:31, 30.93it/s]Sampling:   3%|▎         | 28/1000 [00:01<00:29, 32.53it/s]Sampling:   3%|▎         | 32/1000 [00:01<00:32, 30.04it/s]Sampling:   4%|▎         | 36/1000 [00:01<00:31, 30.33it/s]Sampling:   4%|▍         | 40/1000 [00:01<00:32, 29.25it/s]Sampling:   4%|▍         | 44/1000 [00:01<00:31, 29.89it/s]Sampling:   5%|▍         | 48/1000 [00:01<00:31, 30.06it/s]Sampling:   5%|▌         | 52/1000 [00:01<00:31, 30.11it/s]Sampling:   6%|▌         | 56/1000 [00:01<00:30, 30.94it/s]Sampling:   6%|▌         | 60/1000 [00:02<00:30, 30.46it/s]Sampling:   6%|▋         | 64/1000 [00:02<00:34, 26.77it/s]Sampling:   7%|▋         | 68/1000 [00:02<00:32, 28.82it/s]Sampling:   7%|▋         | 72/1000 [00:02<00:30, 30.81it/s]Sampling:   8%|▊         | 76/1000 [00:02<00:30, 30.38it/s]Sampling:   8%|▊         | 81/1000 [00:02<00:27, 33.52it/s]Sampling:   9%|▊         | 86/1000 [00:02<00:25, 35.86it/s]Sampling:   9%|▉         | 91/1000 [00:02<00:24, 37.84it/s]Sampling:  10%|▉         | 95/1000 [00:03<00:25, 35.19it/s]Sampling:  10%|▉         | 99/1000 [00:03<00:29, 30.70it/s]
-🎤 Generating ChatterBox segment 2/5 chunk 2/2 for 'ramesh_en' (lang: en)...
-Sampling:   0%|          | 0/1000 [00:00<?, ?it/s]Sampling:   0%|          | 4/1000 [00:00<00:28, 35.40it/s]Sampling:   1%|          | 9/1000 [00:00<00:26, 38.01it/s]Sampling:   1%|▏         | 13/1000 [00:00<00:26, 36.58it/s]FETCH ComfyRegistry Data: 60/99
-Sampling:   2%|▏         | 17/1000 [00:00<00:37, 25.97it/s]Sampling:   2%|▏         | 20/1000 [00:00<00:42, 23.21it/s]Sampling:   2%|▏         | 23/1000 [00:00<00:45, 21.50it/s]Sampling:   3%|▎         | 26/1000 [00:01<00:47, 20.58it/s]Sampling:   3%|▎         | 31/1000 [00:01<00:37, 26.11it/s]Sampling:   4%|▎         | 36/1000 [00:01<00:31, 30.44it/s]Sampling:   4%|▍         | 40/1000 [00:01<00:34, 27.76it/s]Sampling:   4%|▍         | 43/1000 [00:01<00:39, 24.20it/s]Sampling:   5%|▍         | 47/1000 [00:01<00:34, 27.34it/s]Sampling:   5%|▌         | 51/1000 [00:01<00:31, 30.25it/s]Sampling:   6%|▌         | 55/1000 [00:01<00:29, 32.53it/s]Sampling:   6%|▌         | 60/1000 [00:02<00:26, 35.10it/s]Sampling:   6%|▋         | 64/1000 [00:02<00:25, 36.05it/s]Sampling:   7%|▋         | 69/1000 [00:02<00:24, 37.49it/s]Sampling:   7%|▋         | 74/1000 [00:02<00:23, 39.06it/s]Sampling:   8%|▊         | 79/1000 [00:02<00:22, 40.10it/s]Sampling:   8%|▊         | 84/1000 [00:02<00:25, 35.66it/s]Sampling:   9%|▉         | 88/1000 [00:02<00:25, 35.84it/s]Sampling:   9%|▉         | 93/1000 [00:02<00:24, 37.21it/s]Sampling:  10%|▉         | 98/1000 [00:03<00:23, 38.69it/s]Sampling:  10%|█         | 103/1000 [00:03<00:22, 39.47it/s]Sampling:  11%|█         | 108/1000 [00:03<00:22, 40.32it/s]Sampling:  11%|█▏        | 113/1000 [00:03<00:23, 38.51it/s]Sampling:  12%|█▏        | 118/1000 [00:03<00:22, 39.93it/s]Sampling:  12%|█▏        | 123/1000 [00:03<00:22, 39.11it/s]Sampling:  13%|█▎        | 127/1000 [00:03<00:22, 39.13it/s]Sampling:  13%|█▎        | 132/1000 [00:03<00:21, 39.70it/s]Sampling:  14%|█▎        | 137/1000 [00:04<00:21, 40.61it/s]Sampling:  14%|█▍        | 142/1000 [00:04<00:20, 41.00it/s]Sampling:  15%|█▍        | 147/1000 [00:04<00:21, 39.70it/s]Sampling:  15%|█▌        | 152/1000 [00:04<00:21, 40.18it/s]Sampling:  16%|█▌        | 157/1000 [00:04<00:21, 40.10it/s]Sampling:  16%|█▌        | 162/1000 [00:04<00:20, 40.19it/s]Sampling:  17%|█▋        | 167/1000 [00:04<00:24, 34.68it/s]Sampling:  17%|█▋        | 171/1000 [00:04<00:24, 33.47it/s]Sampling:  18%|█▊        | 176/1000 [00:05<00:23, 35.75it/s]Sampling:  18%|█▊        | 181/1000 [00:05<00:21, 37.59it/s]Sampling:  19%|█▊        | 186/1000 [00:05<00:20, 39.05it/s]Sampling:  19%|█▉        | 190/1000 [00:05<00:22, 35.52it/s]Sampling:  20%|█▉        | 195/1000 [00:05<00:21, 36.94it/s]Sampling:  20%|██        | 200/1000 [00:05<00:20, 38.10it/s]Sampling:  20%|██        | 204/1000 [00:05<00:20, 38.51it/s]Sampling:  21%|██        | 209/1000 [00:05<00:20, 39.17it/s]Sampling:  21%|██▏       | 214/1000 [00:06<00:19, 39.52it/s]FETCH ComfyRegistry Data: 65/99
-Sampling:  22%|██▏       | 218/1000 [00:06<00:20, 37.67it/s]Sampling:  22%|██▏       | 222/1000 [00:06<00:20, 38.18it/s]Sampling:  23%|██▎       | 227/1000 [00:06<00:19, 39.66it/s]Sampling:  23%|██▎       | 232/1000 [00:06<00:19, 40.21it/s]Sampling:  24%|██▎       | 237/1000 [00:06<00:18, 40.31it/s]Sampling:  24%|██▍       | 241/1000 [00:06<00:21, 35.66it/s]
-🎤 Generating ChatterBox segment 3/5 chunk 1/4 for 'alok_en' (lang: en)...
-Sampling:   0%|          | 0/1000 [00:00<?, ?it/s]Sampling:   0%|          | 2/1000 [00:00<00:57, 17.24it/s]Sampling:   0%|          | 4/1000 [00:00<00:56, 17.69it/s]Sampling:   1%|          | 6/1000 [00:00<00:55, 17.98it/s]Sampling:   1%|          | 8/1000 [00:00<00:55, 18.00it/s]Sampling:   1%|          | 10/1000 [00:00<00:55, 17.80it/s]Sampling:   1%|          | 12/1000 [00:00<00:55, 17.93it/s]Sampling:   1%|▏         | 14/1000 [00:00<00:54, 18.01it/s]Sampling:   2%|▏         | 16/1000 [00:00<00:54, 18.01it/s]Sampling:   2%|▏         | 18/1000 [00:01<00:54, 17.94it/s]Sampling:   2%|▏         | 20/1000 [00:01<00:56, 17.36it/s]Sampling:   2%|▏         | 22/1000 [00:01<00:56, 17.42it/s]Sampling:   2%|▏         | 24/1000 [00:01<00:57, 16.87it/s]Sampling:   3%|▎         | 26/1000 [00:01<00:56, 17.34it/s]Sampling:   3%|▎         | 30/1000 [00:01<00:41, 23.11it/s]Sampling:   3%|▎         | 34/1000 [00:01<00:36, 26.79it/s]Sampling:   4%|▍         | 38/1000 [00:01<00:36, 26.05it/s]Sampling:   4%|▍         | 41/1000 [00:02<00:44, 21.76it/s]Sampling:   4%|▍         | 44/1000 [00:02<00:46, 20.45it/s]Sampling:   5%|▍         | 47/1000 [00:02<00:48, 19.50it/s]Sampling:   5%|▍         | 47/1000 [00:02<00:48, 19.60it/s]
-🎤 Generating ChatterBox segment 3/5 chunk 2/4 for 'alok_en' (lang: en)...
-Sampling:   0%|          | 0/1000 [00:00<?, ?it/s]Sampling:   0%|          | 4/1000 [00:00<00:29, 34.19it/s]Sampling:   1%|          | 8/1000 [00:00<00:42, 23.57it/s]Sampling:   1%|          | 11/1000 [00:00<00:49, 19.79it/s]Sampling:   1%|▏         | 14/1000 [00:00<00:53, 18.34it/s]Sampling:   2%|▏         | 16/1000 [00:00<00:55, 17.76it/s]Sampling:   2%|▏         | 18/1000 [00:00<00:57, 17.22it/s]Sampling:   2%|▏         | 20/1000 [00:01<00:58, 16.76it/s]Sampling:   2%|▏         | 22/1000 [00:01<00:58, 16.80it/s]Sampling:   2%|▎         | 25/1000 [00:01<00:54, 17.82it/s]Sampling:   3%|▎         | 28/1000 [00:01<00:51, 18.75it/s]Sampling:   3%|▎         | 30/1000 [00:01<00:50, 19.03it/s]Sampling:   3%|▎         | 33/1000 [00:01<00:48, 19.80it/s]FETCH ComfyRegistry Data: 70/99
-Sampling:   4%|▎         | 36/1000 [00:01<00:46, 20.69it/s]Sampling:   4%|▍         | 39/1000 [00:01<00:45, 21.11it/s]Sampling:   4%|▍         | 42/1000 [00:02<00:43, 22.01it/s]Sampling:   4%|▍         | 45/1000 [00:02<00:41, 23.08it/s]Sampling:   5%|▍         | 48/1000 [00:02<00:39, 24.02it/s]Sampling:   5%|▌         | 51/1000 [00:02<00:38, 24.93it/s]Sampling:   5%|▌         | 54/1000 [00:02<00:37, 25.27it/s]Sampling:   6%|▌         | 57/1000 [00:02<00:38, 24.75it/s]Sampling:   6%|▌         | 60/1000 [00:02<00:38, 24.26it/s]Sampling:   6%|▋         | 63/1000 [00:02<00:37, 24.66it/s]Sampling:   7%|▋         | 66/1000 [00:03<00:35, 26.02it/s]Sampling:   7%|▋         | 70/1000 [00:03<00:33, 27.37it/s]Sampling:   7%|▋         | 73/1000 [00:03<00:33, 27.59it/s]Sampling:   8%|▊         | 76/1000 [00:03<00:32, 28.12it/s]Sampling:   8%|▊         | 79/1000 [00:03<00:34, 26.72it/s]Sampling:   8%|▊         | 82/1000 [00:03<00:34, 26.24it/s]Sampling:   8%|▊         | 85/1000 [00:03<00:33, 27.18it/s]Sampling:   9%|▉         | 89/1000 [00:03<00:30, 29.98it/s]Sampling:   9%|▉         | 93/1000 [00:03<00:29, 30.75it/s]Sampling:  10%|▉         | 97/1000 [00:04<00:28, 31.31it/s]Sampling:  10%|▉         | 98/1000 [00:04<00:37, 23.79it/s]
-🎤 Generating ChatterBox segment 3/5 chunk 3/4 for 'alok_en' (lang: en)...
-Sampling:   0%|          | 0/1000 [00:00<?, ?it/s]Sampling:   0%|          | 2/1000 [00:00<01:07, 14.72it/s]Sampling:   0%|          | 4/1000 [00:00<00:57, 17.34it/s]Sampling:   1%|          | 7/1000 [00:00<00:52, 18.89it/s]Sampling:   1%|          | 10/1000 [00:00<00:49, 20.18it/s]Sampling:   1%|▏         | 13/1000 [00:00<00:51, 19.14it/s]Sampling:   2%|▏         | 16/1000 [00:00<00:47, 20.52it/s]Sampling:   2%|▏         | 19/1000 [00:00<00:43, 22.50it/s]Sampling:   2%|▏         | 22/1000 [00:01<00:42, 23.03it/s]Sampling:   2%|▎         | 25/1000 [00:01<00:42, 23.05it/s]Sampling:   3%|▎         | 28/1000 [00:01<00:41, 23.46it/s]Sampling:   3%|▎         | 31/1000 [00:01<00:39, 24.58it/s]Sampling:   3%|▎         | 34/1000 [00:01<00:37, 25.81it/s]Sampling:   4%|▎         | 37/1000 [00:01<00:36, 26.41it/s]Sampling:   4%|▍         | 40/1000 [00:01<00:36, 26.38it/s]Sampling:   4%|▍         | 43/1000 [00:01<00:37, 25.19it/s]Sampling:   5%|▍         | 46/1000 [00:01<00:36, 26.43it/s]Sampling:   5%|▍         | 49/1000 [00:02<00:37, 25.17it/s]Sampling:   5%|▌         | 52/1000 [00:02<00:36, 25.64it/s]Sampling:   6%|▌         | 56/1000 [00:02<00:33, 27.92it/s]Sampling:   6%|▌         | 60/1000 [00:02<00:32, 28.62it/s]FETCH ComfyRegistry Data: 75/99
-Sampling:   6%|▋         | 64/1000 [00:02<00:29, 31.33it/s]Sampling:   7%|▋         | 69/1000 [00:02<00:27, 34.14it/s]Sampling:   7%|▋         | 74/1000 [00:02<00:25, 36.32it/s]Sampling:   8%|▊         | 79/1000 [00:02<00:24, 38.07it/s]Sampling:   8%|▊         | 83/1000 [00:03<00:25, 36.41it/s]Sampling:   9%|▊         | 87/1000 [00:03<00:24, 37.31it/s]Sampling:   9%|▉         | 92/1000 [00:03<00:23, 38.36it/s]Sampling:  10%|▉         | 96/1000 [00:03<00:24, 37.30it/s]Sampling:  10%|█         | 100/1000 [00:03<00:24, 36.27it/s]Sampling:  10%|█         | 100/1000 [00:03<00:31, 28.46it/s]
-🎤 Generating ChatterBox segment 3/5 chunk 4/4 for 'alok_en' (lang: en)...
-Sampling:   0%|          | 0/1000 [00:00<?, ?it/s]Sampling:   0%|          | 3/1000 [00:00<02:25,  6.88it/s]Sampling:   0%|          | 4/1000 [00:00<03:34,  4.64it/s]Sampling:   0%|          | 5/1000 [00:00<03:08,  5.27it/s]Sampling:   1%|          | 9/1000 [00:01<01:26, 11.49it/s]Sampling:   1%|          | 11/1000 [00:01<01:17, 12.74it/s]Sampling:   1%|▏         | 13/1000 [00:01<01:12, 13.57it/s]Sampling:   2%|▏         | 15/1000 [00:01<01:09, 14.25it/s]Sampling:   2%|▏         | 19/1000 [00:01<00:49, 19.69it/s]Sampling:   2%|▏         | 22/1000 [00:01<00:52, 18.73it/s]Sampling:   3%|▎         | 26/1000 [00:01<00:42, 23.14it/s]Sampling:   3%|▎         | 30/1000 [00:01<00:37, 26.01it/s]Sampling:   3%|▎         | 34/1000 [00:02<00:33, 28.77it/s]Sampling:   4%|▍         | 38/1000 [00:02<00:36, 26.24it/s]Sampling:   4%|▍         | 41/1000 [00:02<00:36, 26.38it/s]Sampling:   4%|▍         | 44/1000 [00:02<00:35, 26.94it/s]Sampling:   5%|▍         | 47/1000 [00:02<00:37, 25.13it/s]Sampling:   5%|▌         | 50/1000 [00:02<00:38, 24.98it/s]Sampling:   5%|▌         | 53/1000 [00:02<00:36, 25.92it/s]Sampling:   6%|▌         | 57/1000 [00:02<00:33, 28.13it/s]Sampling:   6%|▌         | 61/1000 [00:03<00:32, 29.18it/s]Sampling:   6%|▋         | 64/1000 [00:03<00:39, 23.68it/s]Sampling:   6%|▋         | 64/1000 [00:03<00:47, 19.64it/s]
-FETCH ComfyRegistry Data: 80/99
-🎤 Generating ChatterBox segment 4/5 chunk 1/4 for 'ramesh_en' (lang: en)...
-Sampling:   0%|          | 0/1000 [00:00<?, ?it/s]Sampling:   0%|          | 4/1000 [00:00<00:27, 36.86it/s]Sampling:   1%|          | 8/1000 [00:00<00:40, 24.73it/s]Sampling:   1%|▏         | 13/1000 [00:00<00:31, 30.95it/s]Sampling:   2%|▏         | 18/1000 [00:00<00:28, 34.42it/s]Sampling:   2%|▏         | 22/1000 [00:00<00:27, 35.47it/s]Sampling:   3%|▎         | 26/1000 [00:00<00:28, 34.15it/s]Sampling:   3%|▎         | 30/1000 [00:00<00:30, 32.19it/s]Sampling:   3%|▎         | 34/1000 [00:01<00:29, 33.16it/s]Sampling:   4%|▍         | 38/1000 [00:01<00:33, 29.02it/s]Sampling:   4%|▍         | 42/1000 [00:01<00:31, 30.27it/s]Sampling:   5%|▍         | 46/1000 [00:01<00:31, 30.18it/s]Sampling:   5%|▌         | 50/1000 [00:01<00:30, 30.89it/s]Sampling:   5%|▌         | 54/1000 [00:01<00:31, 30.35it/s]Sampling:   6%|▌         | 58/1000 [00:01<00:29, 31.94it/s]Sampling:   6%|▌         | 62/1000 [00:01<00:28, 32.82it/s]Sampling:   7%|▋         | 66/1000 [00:02<00:28, 33.29it/s]Sampling:   7%|▋         | 70/1000 [00:02<00:27, 34.25it/s]Sampling:   7%|▋         | 74/1000 [00:02<00:26, 35.20it/s]Sampling:   8%|▊         | 78/1000 [00:02<00:25, 36.12it/s]Sampling:   8%|▊         | 82/1000 [00:02<00:24, 36.79it/s]Sampling:   9%|▊         | 86/1000 [00:02<00:26, 34.61it/s]Sampling:   9%|▉         | 90/1000 [00:02<00:26, 34.10it/s]Sampling:   9%|▉         | 94/1000 [00:02<00:25, 35.30it/s]Sampling:  10%|▉         | 98/1000 [00:02<00:24, 36.29it/s]Sampling:  10%|█         | 102/1000 [00:03<00:25, 35.74it/s]Sampling:  11%|█         | 106/1000 [00:03<00:24, 36.41it/s]Sampling:  11%|█         | 110/1000 [00:03<00:24, 36.70it/s]Sampling:  11%|█▏        | 114/1000 [00:03<00:25, 35.15it/s]Sampling:  12%|█▏        | 118/1000 [00:03<00:28, 31.08it/s]Sampling:  12%|█▏        | 122/1000 [00:03<00:28, 31.13it/s]Sampling:  13%|█▎        | 126/1000 [00:03<00:28, 30.25it/s]Sampling:  13%|█▎        | 130/1000 [00:03<00:28, 30.75it/s]FETCH ComfyRegistry Data: 85/99
-Sampling:  13%|█▎        | 134/1000 [00:04<00:28, 30.59it/s]Sampling:  14%|█▍        | 138/1000 [00:04<00:28, 30.42it/s]Sampling:  14%|█▍        | 142/1000 [00:04<00:27, 31.02it/s]Sampling:  15%|█▍        | 146/1000 [00:04<00:27, 31.31it/s]Sampling:  15%|█▌        | 150/1000 [00:04<00:27, 31.03it/s]Sampling:  15%|█▌        | 151/1000 [00:04<00:26, 32.52it/s]
-🎤 Generating ChatterBox segment 4/5 chunk 2/4 for 'ramesh_en' (lang: en)...
-Sampling:   0%|          | 0/1000 [00:00<?, ?it/s]Sampling:   0%|          | 4/1000 [00:00<00:25, 39.61it/s]Sampling:   1%|          | 8/1000 [00:00<00:29, 33.38it/s]Sampling:   1%|          | 12/1000 [00:00<00:28, 34.15it/s]Sampling:   2%|▏         | 16/1000 [00:00<00:28, 34.99it/s]Sampling:   2%|▏         | 20/1000 [00:00<00:27, 35.69it/s]Sampling:   2%|▏         | 24/1000 [00:00<00:26, 36.25it/s]Sampling:   3%|▎         | 28/1000 [00:00<00:26, 36.83it/s]Sampling:   3%|▎         | 32/1000 [00:00<00:27, 34.85it/s]Sampling:   4%|▎         | 36/1000 [00:01<00:27, 34.92it/s]Sampling:   4%|▍         | 40/1000 [00:01<00:28, 34.14it/s]Sampling:   4%|▍         | 44/1000 [00:01<00:27, 34.43it/s]Sampling:   5%|▍         | 48/1000 [00:01<00:27, 34.63it/s]Sampling:   5%|▌         | 52/1000 [00:01<00:27, 34.76it/s]Sampling:   6%|▌         | 56/1000 [00:01<00:26, 35.90it/s]Sampling:   6%|▌         | 61/1000 [00:01<00:25, 36.72it/s]Sampling:   6%|▋         | 65/1000 [00:01<00:25, 37.20it/s]Sampling:   7%|▋         | 70/1000 [00:01<00:23, 39.01it/s]Sampling:   7%|▋         | 74/1000 [00:02<00:24, 38.08it/s]Sampling:   8%|▊         | 78/1000 [00:02<00:33, 27.71it/s]
-===== END D:\.comfyui\gen.audio\scripts\2.story.py @ 2025-10-05 12:58:26 (exit=3221225786, took=79.26s) =====
-Stopping ComfyUI backend...
+===== START D:\.comfyui\gen.audio\scripts\9.media.py @ 2025-10-26 18:15:44 =====
+🖼️ Generating thumbnail prompt...
+Characters: 250
+Words: 34
+⚠️ WARNING: Word count (34) is outside the 300-350 word limit
+✅ Thumbnail prompt generated: ../input/10.thumbnail.txt
+📝 Generating YouTube description...
+🔍 Reading diffusion text...
+✅ Read 2146 characters from diffusion file
+📖 Reading title...
+✅ Title: The Midnight Secret in Baker Street
+⏱️ Calculating audio duration...
+✅ Total duration: 57:11 (3431.7s)
+🎯 Generating title line...
+✅ Title line: The Midnight Secret in Baker Street | Mystery Audiobook
+🪝 Generating hook...
+✅ Hook: ⚠️ Duchess Violet arrives at Baker Street requesting help for Lady Beatrice Ravenscar; the Duchess presents a slipper charm & letter threatening scandal with midnight rendezvous. Holmes examines evidence identifying villainy in theatrical tinsels: powder tin from cheap milliner, glue common French make rare sold London except to costumiers; confetti flour trampled swept by thief.
+Holmes seeks Mr. Lionel Vale of the company who Prince Charming has fluttered foolish hearts in higher boxes; asks w…
+📋 Generating bullet points...
+✅ Generated 5 bullet points
+📚 Generating chapters from file...
+✅ Generated 5 chapters
+   00:00 - The Prince Charming's masquer
+   34:19 - The Savoy's Theatre
+   22:52 - The Embankment's stair
+   11:26 - The Prince Charming's plot
+   00:00 - The Colonels's watch
+📢 Generating CTAs...
+✅ Generated 3 CTAs
+🏷️ Generating hashtags...
+✅ Hashtags: #SherlockHolmes #AudioDrama #MysteryStory #VictorianLondon #DetectiveFiction #ClassicLiterature #Audiobook #CrimeMystery #221BBakerStreet #DrWatson #ConanDoyle #Suspense #FullAudiobook #VictorianMystery #Case
+📝 Rendering final description...
+✅ Description rendered (2511 characters)
+💾 Saving description to ../output/description.txt...
+✅ Description saved
+🏷️ Generating YouTube tags...
