@@ -13,6 +13,11 @@ print = partial(_builtins.print, flush=True)
 # Model constants for easy switching
 MODEL_MOTION_GENERATION = "qwen2.5-vl-7b-instruct"  # Vision model for motion generation
 
+# Motion description word limits
+MOTION_DESCRIPTION_MIN_WORDS = 120  # Minimum words in motion description
+MOTION_DESCRIPTION_MAX_WORDS = 360  # Maximum words in motion description
+WORD_FACTOR = 6
+
 # Feature flags
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
@@ -209,7 +214,12 @@ IMPORTANT: Only describe motions for objects, characters, and elements that are 
                     "type": "object",
                     "additionalProperties": False,
                     "properties": {
-                        "motion_description": {"type": "string"}
+                        "motion_description": {
+                            "minLength": WORD_FACTOR * MOTION_DESCRIPTION_MIN_WORDS,
+                            "maxLength": WORD_FACTOR * MOTION_DESCRIPTION_MAX_WORDS,
+                            "type": "string",
+                            "description": f"Motion description of objects, characters, and elements that are ACTUALLY VISIBLE in the provided image."
+                        }
                     },
                     "required": ["motion_description"]
                 },
@@ -218,21 +228,20 @@ IMPORTANT: Only describe motions for objects, characters, and elements that are 
         }
 
     def _build_system_prompt(self) -> str:
-        return """Generate cinematic motion descriptions for video AI from dialogue, scene context, and image.
+        return f"""Generate simple, generic motion descriptions for video AI.
 
 RULES:
-1. ONLY describe motions for elements VISIBLE in the image - no hallucinations
-2. Identify subjects by descriptors ("seated figure", "person by window") - NO proper nouns (names/places/brands)
-3. Specify actions with body parts + velocity + quality: "tilting head 30° gradually", "gripping armrest firmly"
-4. Layer 2-4 simultaneous actions: primary movement + micro-gestures (eye shifts, finger movements, breathing)
-5. Match motions to dialogue emotion: tension→rigid posture, sadness→slumped shoulders, focus→leaning forward
-6. Use semicolons between subjects; commas within subject actions
+1. Only describe motions for elements VISIBLE in the image
+2. Use generic language - no positional references (no "left", "right", "behind")
+3. Describe natural movements: head turns, hand gestures, body shifts, background movements
+4. Match dialogue emotion through subtle body language and gestures
 
 EXAMPLES:
-"seated figure leaning back, arms crossing tightly, eyes narrowing; while standing figure pacing 3-step intervals near window, hand gesturing outward in wide arc"
-"one person typing rapidly, shoulders hunched forward, gaze fixed on screen; other standing behind, arms folded at chest, head tilting right as reading over shoulder"
+"people talking, turning heads, making hand gestures; trees outside swaying gently"
+"people nodding, shifting weight, gesturing; curtains moving slightly"
+"people moving heads and hands naturally; tree branches moving in wind"
 
-OUTPUT: Single fluid description under 50 words, present tense, weaving multiple subjects cohesively."""
+OUTPUT: Single description in present tense. Using short s"""
 
     def call_lm_studio_api(self, prompt: str, image_path: str = None) -> str:
         """Call LM Studio API to generate motion for a single scene with optional image input"""
