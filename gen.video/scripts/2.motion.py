@@ -14,8 +14,8 @@ print = partial(_builtins.print, flush=True)
 MODEL_MOTION_GENERATION = "qwen2.5-vl-7b-instruct"  # Vision model for motion generation
 
 # Motion description word limits
-MOTION_DESCRIPTION_MIN_WORDS = 120  # Minimum words in motion description
-MOTION_DESCRIPTION_MAX_WORDS = 360  # Maximum words in motion description
+MOTION_DESCRIPTION_MIN_WORDS = 60  # Minimum words in motion description
+MOTION_DESCRIPTION_MAX_WORDS = 120  # Maximum words in motion description
 WORD_FACTOR = 6
 
 # Feature flags
@@ -228,20 +228,14 @@ IMPORTANT: Only describe motions for objects, characters, and elements that are 
         }
 
     def _build_system_prompt(self) -> str:
-        return f"""Generate simple, generic motion descriptions for video AI.
-
+        return f"""Generate simple, generic motion+scene descriptions for video AI.
 RULES:
-1. Only describe motions for elements VISIBLE in the image
-2. Use generic language - no positional references (no "left", "right", "behind")
-3. Describe natural movements: head turns, hand gestures, body shifts, background movements
-4. Match dialogue emotion through subtle body language and gestures
+- Only describe motions for elements VISIBLE in the image, not based on dialogue or scene description.
+- Give the scene description in short, concise, and general terms.
+- Give generic descriptions of motions, not specific to any one character or object.
+- **IMPORTANT**: Use placeholders like "the person", "man with white hair", "woman with brown hair", "man sitting on a chair", "woman standing", "a blue vase on a table", "a red chair in the corner", etc. instead of proper nouns or names.
 
-EXAMPLES:
-"people talking, turning heads, making hand gestures; trees outside swaying gently"
-"people nodding, shifting weight, gesturing; curtains moving slightly"
-"people moving heads and hands naturally; tree branches moving in wind"
-
-OUTPUT: Single description in present tense. Using short s"""
+OUTPUT: Single a single paragraph of accurate and concise generalized motion+scene descriptions."""
 
     def call_lm_studio_api(self, prompt: str, image_path: str = None) -> str:
         """Call LM Studio API to generate motion for a single scene with optional image input"""
