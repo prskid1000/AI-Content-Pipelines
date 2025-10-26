@@ -34,6 +34,29 @@ class DiffusionPromptGenerator:
         with open(path, "w", encoding="utf-8") as f:
             f.write(content)
 
+    def _schema_prompt(self) -> Dict[str, object]:
+        return {
+            "type": "json_schema",
+            "json_schema": {
+                "name": "diffusion_prompt",
+                "schema": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "description": "Image generation prompt for thumbnail",
+                    "properties": {
+                        "prompt": {
+                            "type": "string",
+                            "minLength": 150,
+                            "maxLength": 250,
+                            "description": "Single continuous paragraph with 300-350 words describing the thumbnail scene"
+                        }
+                    },
+                    "required": ["prompt"],
+                },
+                "strict": True,
+            },
+        }
+
     def _build_system_prompt(self) -> str:
         return """You are a visual director CREATIVELY generating one Image Generation Model Prompt for Thumbnail within the word limit of 300-350 words from the following story summary.
         
@@ -46,13 +69,14 @@ class DiffusionPromptGenerator:
          - background elements like weather, time period indicators, and contextual details
          - all object positions using directional terms (left wall, center focus, far background)
          - precise material descriptions for textures and surfaces (dark oak, brass fittings, weathered leather)
-
-        Ensure every element supports the story and maintains spatial clarity and visual coherence. Output must be a CREATIVELY generated single continuous paragraph within the word limit of 300-350 words without line breaks."""
+         - Ensure every element supports the story and maintains spatial clarity and visual coherence.
+         
+         Output must be a CREATIVELY generated single continuous paragraph within the word limit of 300-350 words without line breaks."""
 
     def _build_user_prompt(self, story_desc: str) -> str:
         return f"""STORY SUMMARY: {story_desc}"""
 
-    def _call_lm_studio(self, system_prompt: str, user_prompt: str) -> str:
+    def _call_lm_studio(self, system_prompt: str, user_prompt: str, response_format: Dict[str, object] | None = None) -> str:
         headers = {"Content-Type": "application/json"}
         payload = {
             "model": self.model,
@@ -63,6 +87,8 @@ class DiffusionPromptGenerator:
             "temperature": 1,
             "stream": False,
         }
+        if response_format is not None:
+            payload["response_format"] = response_format
 
         resp = requests.post(f"{self.lm_studio_url}/chat/completions", headers=headers, json=payload)
         if resp.status_code != 200:
@@ -73,14 +99,20 @@ class DiffusionPromptGenerator:
         content = data["choices"][0]["message"]["content"]
         return content
 
+    def _parse_structured_response(self, content: str) -> Dict[str, object] | None:
+        text = content.strip()
+        if text.startswith("```"):
+            m = re.search(r"```(?:json)?\s*([\s\S]*?)\s*```", text, flags=re.IGNORECASE)
+            if m:
+                text = m.group(1).strip()
+        try:
+            return json.loads(text)
+        except Exception:
+            return None
+
     def _sanitize_single_paragraph(self, text: str) -> str:
         if not text:
             return ""
-        # Strip code fences if any
-        if text.startswith("```"):
-            m = re.search(r"```(?:[a-zA-Z]+)?\s*([\s\S]*?)\s*```", text)
-            if m:
-                text = m.group(1)
         # Collapse newlines/tabs and excessive whitespace
         text = re.sub(r"[\r\n\t]+", " ", text)
         text = re.sub(r"\s+", " ", text)
@@ -96,8 +128,13 @@ class DiffusionPromptGenerator:
         user_prompt = self._build_user_prompt(story_desc)
 
         try:
-            raw = self._call_lm_studio(system_prompt, user_prompt)
-            prompt = self._sanitize_single_paragraph(raw)
+            raw = self._call_lm_studio(system_prompt, user_prompt, response_format=self._schema_prompt())
+            data = self._parse_structured_response(raw)
+            
+            if not data or "prompt" not in data:
+                raise RuntimeError("Invalid structured response from LM Studio")
+            
+            prompt = self._sanitize_single_paragraph(str(data["prompt"]))
             if not prompt:
                 raise RuntimeError("Empty prompt generated")
         except Exception as e:
@@ -107,8 +144,12 @@ class DiffusionPromptGenerator:
         # Ensure no line breaks
         prompt = self._sanitize_single_paragraph(prompt)
 
-        print(f"Length: {len(prompt)}")
-        print(f"Tokens: {len(prompt.split())}")
+        word_count = len(prompt.split())
+        print(f"Characters: {len(prompt)}")
+        print(f"Words: {word_count}")
+        
+        if word_count < 300 or word_count > 350:
+            print(f"⚠️ WARNING: Word count ({word_count}) is outside the 300-350 word limit")
 
         out_path = self.output_file
         self._write_text(out_path, prompt)
