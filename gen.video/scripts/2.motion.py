@@ -14,8 +14,8 @@ print = partial(_builtins.print, flush=True)
 MODEL_MOTION_GENERATION = "qwen2.5-vl-7b-instruct"  # Vision model for motion generation
 
 # Motion description word limits
-MOTION_DESCRIPTION_MIN_WORDS = 60  # Minimum words in motion description
-MOTION_DESCRIPTION_MAX_WORDS = 120  # Maximum words in motion description
+MOTION_DESCRIPTION_MIN_WORDS = 30  # Minimum words in motion description
+MOTION_DESCRIPTION_MAX_WORDS = 300  # Maximum words in motion description
 WORD_FACTOR = 6
 
 # Feature flags

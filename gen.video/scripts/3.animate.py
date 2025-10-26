@@ -1267,11 +1267,7 @@ class VideoAnimator:
 
         # Get prompts
         negative_prompt = self._get_negative_prompt()
-        positive_prompt = self._get_positive_prompt() + "\n" + (scene_description if ENABLE_SCENE else "")
-
-        if locations_data:
-            positive_prompt = self._replace_location_references(positive_prompt, locations_data)
-            print_flush(f"📍 Replaced location references with descriptions")
+        positive_prompt = self._get_positive_prompt()
         
         # Add motion prompts if available (with inline character replacements)
         if motion_data:
@@ -1297,6 +1293,13 @@ class VideoAnimator:
                 positive_prompt  += f"\n{motion_prompt}"
             else:
                 print_flush(f"⚠️ No motion data found for scene {clean_scene_id} (looking for {scene_motion_id})")
+
+        if ENABLE_SCENE:
+            positive_prompt += f"\n{scene_description}"
+
+        if locations_data:
+            positive_prompt = self._replace_location_references(scene_description, locations_data)
+            print_flush(f"📍 Replaced location references with descriptions")
         
         # Use provided frame count or calculate from duration
         if frame_count is None:
