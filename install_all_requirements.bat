@@ -97,17 +97,6 @@ if errorlevel 1 (
 echo SUCCESS: Triton installed
 echo.
 
-REM Install PyTorch first
-echo [0/3] Installing Xformers
-.venv\Scripts\python.exe -m pip3 install xformers
-if errorlevel 1 (
-    echo ERROR: Failed to install Xformers
-    pause
-    exit /b 1
-)
-echo SUCCESS: Xformers installed
-echo.
-
 echo ========================================
 echo All requirements installation completed!
 echo ========================================
