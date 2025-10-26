@@ -141,7 +141,7 @@
   "42": {
     "inputs": {
       "upscale_method": "nearest-exact",
-      "scale_by": 4.0,
+      "scale_by": 1.0,
       "image": [
         "20",
         0
