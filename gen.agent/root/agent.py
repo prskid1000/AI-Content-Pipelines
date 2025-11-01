@@ -11,7 +11,7 @@ from google.adk.agents import Agent, LoopAgent
 from google.adk.agents.llm_agent import ToolContext
 from google.adk.models.lite_llm import LiteLlm
 
-MODEL = LiteLlm(model=f"lm_studio/qwen3-30b-a3b-thinking-2507", api_key="sk-0", base_url="http://localhost:1234/v1")
+MODEL = LiteLlm(model=f"lm_studio/qwen3-vl-30b-a3b-instruct", api_key="sk-0", base_url="http://localhost:1234/v1")
 
 async def exit_loop(tool_context: ToolContext):
     """Exit the loop by setting both escalate flag and end_invocation."""

@@ -17,7 +17,7 @@ The AI Content Studio is built on a modular pipeline architecture with three mai
 
 ### Core Services
 - **ComfyUI** (Port 8188) - AI model inference server for TTS, image generation, and video animation
-- **LM Studio** (Port 1234) - Local language model (qwen3-30b-a3b-thinking-2507) for text processing and content analysis
+- **LM Studio** (Port 1234) - Local language model (qwen3-vl-30b-a3b-instruct) for text processing and content analysis
 - **FFmpeg** - Video/audio processing and compilation
 - **Whisper** - Audio transcription
 
@@ -133,7 +133,7 @@ Text Story → Audio Pipeline → Image Pipeline → Video Pipeline → YouTube
 
 ### Prerequisites
 1. **ComfyUI** - AI model server for TTS, image, and video generation
-2. **LM Studio** - Local language model (qwen3-30b-a3b-thinking-2507) 
+2. **LM Studio** - Local language model (qwen3-vl-30b-a3b-instruct) 
 3. **FFmpeg** - Video/audio processing
 4. **Python Dependencies** - `pip install -r requirements.txt`
 5. **YouTube API** (optional) - For automated uploads
@@ -434,7 +434,7 @@ python 2.story.py --chunk-size 3
 ```python
 LANGUAGE = "en"
 REGION = "in"
-MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen3-30b-a3b-thinking-2507"
+MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen3-vl-30b-a3b-instruct"
 CHUNK_SIZE = 50  # Lines per chapter chunk
 GENERATE_TITLE = True
 ENABLE_RESUMABLE_MODE = True
@@ -452,14 +452,14 @@ comfyui_url = "http://127.0.0.1:8188/"
 
 ##### `5.timeline.py` - SFX Timeline Generation
 ```python
-MODEL_TIMELINE_GENERATION = "qwen3-30b-a3b-thinking-2507"
+MODEL_TIMELINE_GENERATION = "qwen3-vl-30b-a3b-instruct"
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False
 ```
 
 ##### `6.timing.py` - SFX Timing Refinement
 ```python
-MODEL_TIMING_GENERATION = "qwen3-30b-a3b-thinking-2507"
+MODEL_TIMING_GENERATION = "qwen3-vl-30b-a3b-instruct"
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False
 ```
@@ -474,9 +474,9 @@ max_workers = 3  # Concurrent processing
 
 ##### `9.media.py` - YouTube Metadata
 ```python
-MODEL_MEDIA_TAGS = "qwen3-30b-a3b-thinking-2507"
-MODEL_MEDIA_TITLE = "qwen3-30b-a3b-thinking-2507"
-MODEL_DESCRIPTION_GENERATION = "qwen3-30b-a3b-thinking-2507"
+MODEL_MEDIA_TAGS = "qwen3-vl-30b-a3b-instruct"
+MODEL_MEDIA_TITLE = "qwen3-vl-30b-a3b-instruct"
+MODEL_DESCRIPTION_GENERATION = "qwen3-vl-30b-a3b-instruct"
 ```
 
 ##### `10.thumbnail.py` - Thumbnail Generation
@@ -714,8 +714,8 @@ CHARACTER_SUMMARY_WORD_MIN = 60
 CHARACTER_SUMMARY_WORD_MAX = 120
 LOCATION_SUMMARY_WORD_MIN = 60
 LOCATION_SUMMARY_WORD_MAX = 120
-MODEL_STORY_DESCRIPTION = "qwen3-30b-a3b-thinking-2507"
-MODEL_CHARACTER_GENERATION = "qwen3-30b-a3b-thinking-2507"
+MODEL_STORY_DESCRIPTION = "qwen3-vl-30b-a3b-instruct"
+MODEL_CHARACTER_GENERATION = "qwen3-vl-30b-a3b-instruct"
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False
 ART_STYLE = "Realistic Anime"
@@ -1004,7 +1004,7 @@ comfyui_input_folder = "../../ComfyUI/input"
 #### LM Studio Configuration
 ```python
 LM_STUDIO_BASE_URL = "http://127.0.0.1:1234/v1"  # Default URL
-LM_STUDIO_MODEL = "qwen3-30b-a3b-thinking-2507"  # Default model
+LM_STUDIO_MODEL = "qwen3-vl-30b-a3b-instruct"  # Default model
 models_url = "http://127.0.0.1:1234/v1/models"
 ```
 
@@ -1017,7 +1017,7 @@ COMFYUI_DIR=/path/to/ComfyUI
 LM_STUDIO_CMD=lms
 
 # Model Configuration
-LM_STUDIO_MODEL=qwen3-30b-a3b-thinking-2507
+LM_STUDIO_MODEL=qwen3-vl-30b-a3b-instruct
 PYTHONIOENCODING=utf-8
 PYTHONUNBUFFERED=1
 
@@ -1091,10 +1091,10 @@ LANGUAGE = "en"
 REGION = "in"
 
 # Model Configuration
-MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen3-30b-a3b-thinking-2507"
-MODEL_CHARACTER_TITLE_GENERATION = "qwen3-30b-a3b-thinking-2507"
-MODEL_CHARACTER_META_SUMMARY = "qwen3-30b-a3b-thinking-2507"
-MODEL_DESCRIPTION_GENERATION = "qwen3-30b-a3b-thinking-2507"
+MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen3-vl-30b-a3b-instruct"
+MODEL_CHARACTER_TITLE_GENERATION = "qwen3-vl-30b-a3b-instruct"
+MODEL_CHARACTER_META_SUMMARY = "qwen3-vl-30b-a3b-instruct"
+MODEL_DESCRIPTION_GENERATION = "qwen3-vl-30b-a3b-instruct"
 
 # Story Processing
 CHUNK_SIZE = 50  # Lines per chapter chunk
@@ -1164,7 +1164,7 @@ transcription_file = "../input/2.story.str.txt"
 ##### `5.timeline.py` - SFX Timeline Generation
 ```python
 # Model Configuration
-MODEL_TIMELINE_GENERATION = "qwen3-30b-a3b-thinking-2507"
+MODEL_TIMELINE_GENERATION = "qwen3-vl-30b-a3b-instruct"
 
 # Feature Flags
 ENABLE_RESUMABLE_MODE = True
@@ -1179,7 +1179,7 @@ checkpoint_dir = "../output/tracking"
 ##### `6.timing.py` - SFX Timing Refinement
 ```python
 # Model Configuration
-MODEL_TIMING_GENERATION = "qwen3-30b-a3b-thinking-2507"
+MODEL_TIMING_GENERATION = "qwen3-vl-30b-a3b-instruct"
 
 # Feature Flags
 ENABLE_RESUMABLE_MODE = True
@@ -1222,11 +1222,11 @@ final_output_path = "../output/final.wav"
 ##### `9.media.py` - YouTube Metadata Generation
 ```python
 # Model Configuration
-MODEL_MEDIA_TAGS = "qwen3-30b-a3b-thinking-2507"
-MODEL_MEDIA_TITLE = "qwen3-30b-a3b-thinking-2507"
-MODEL_MEDIA_HOOK = "qwen3-30b-a3b-thinking-2507"
-MODEL_MEDIA_BULLETS = "qwen3-30b-a3b-thinking-2507"
-MODEL_DESCRIPTION_GENERATION = "qwen3-30b-a3b-thinking-2507"
+MODEL_MEDIA_TAGS = "qwen3-vl-30b-a3b-instruct"
+MODEL_MEDIA_TITLE = "qwen3-vl-30b-a3b-instruct"
+MODEL_MEDIA_HOOK = "qwen3-vl-30b-a3b-instruct"
+MODEL_MEDIA_BULLETS = "qwen3-vl-30b-a3b-instruct"
+MODEL_DESCRIPTION_GENERATION = "qwen3-vl-30b-a3b-instruct"
 
 # File Paths
 story_file = "../input/1.story.txt"
@@ -1357,10 +1357,10 @@ ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False
 
 # Model Configuration
-MODEL_STORY_DESCRIPTION = "qwen3-30b-a3b-thinking-2507"
-MODEL_CHARACTER_GENERATION = "qwen3-30b-a3b-thinking-2507"
-MODEL_CHARACTER_SUMMARY = "qwen3-30b-a3b-thinking-2507"
-MODEL_LOCATION_EXPANSION = "qwen3-30b-a3b-thinking-2507"
+MODEL_STORY_DESCRIPTION = "qwen3-vl-30b-a3b-instruct"
+MODEL_CHARACTER_GENERATION = "qwen3-vl-30b-a3b-instruct"
+MODEL_CHARACTER_SUMMARY = "qwen3-vl-30b-a3b-instruct"
+MODEL_LOCATION_EXPANSION = "qwen3-vl-30b-a3b-instruct"
 
 ART_STYLE = "Realistic Anime"
 
@@ -1817,7 +1817,7 @@ COMFYUI_DIR=/path/to/ComfyUI
 LM_STUDIO_CMD=lms
 
 # Model Configuration
-LM_STUDIO_MODEL=qwen3-30b-a3b-thinking-2507
+LM_STUDIO_MODEL=qwen3-vl-30b-a3b-instruct
 PYTHONIOENCODING=utf-8
 PYTHONUNBUFFERED=1
 
@@ -1844,7 +1844,7 @@ YOUTUBE_CATEGORY_ID=22
 
 #### LM Studio
 - **Purpose**: Local language model for text processing and content analysis
-- **Model**: qwen3-30b-a3b-thinking-2507 (default)
+- **Model**: qwen3-vl-30b-a3b-instruct (default)
 - **Port**: 1234 (default)
 - **Required For**:
   - **Audio Pipeline**: `1.character.py` (character analysis), `5.timeline.py` (SFX descriptions), `6.timing.py` (timing refinement), `9.media.py` (thumbnail prompts & metadata), `12.youtube.py` (YouTube upload)
@@ -1898,7 +1898,7 @@ YOUTUBE_CATEGORY_ID=22
 
 ### Prerequisites
 1. Install ComfyUI and required custom nodes
-2. Install LM Studio and load qwen3-30b-a3b-thinking-2507 model
+2. Install LM Studio and load qwen3-vl-30b-a3b-instruct model
 3. Install FFmpeg
 4. Install Python dependencies: `pip install -r requirements.txt`
 5. Set up YouTube API credentials (optional)
@@ -1909,7 +1909,7 @@ The AI Content Studio requires several AI models for different generation tasks.
 
 ### LM Studio Models (Language Processing)
 
-#### Primary Model: qwen3-30b-a3b-thinking-2507
+#### Primary Model: qwen3-vl-30b-a3b-instruct
 - **Format**: GGUF (recommended for LM Studio)
 - **Size**: ~8GB (Q4_K_M quantization)
 - **Download Sources**:
@@ -2542,7 +2542,7 @@ Where `{size}` can be "small", "medium", or "large" based on `IMAGE_LATENT_SIZE`
 - `LM_STUDIO_CMD` - Custom LM Studio command (overrides default lms)
 
 #### Model Configuration
-- `LM_STUDIO_MODEL` - Model name (default: qwen3-30b-a3b-thinking-2507)
+- `LM_STUDIO_MODEL` - Model name (default: qwen3-vl-30b-a3b-instruct)
 - `PYTHONIOENCODING` - Python encoding (default: utf-8)
 - `PYTHONUNBUFFERED` - Python output buffering (default: 1)
 
@@ -2794,7 +2794,7 @@ This is a modular system designed for easy extension. Each script is self-contai
 - **YouTube**: `description.txt`, `tags.txt` (enhanced metadata generation)
 
 ### Model Configuration
-- **LM Studio Model**: `qwen3-30b-a3b-thinking-2507` (14B parameter language model)
+- **LM Studio Model**: `qwen3-vl-30b-a3b-instruct` (14B parameter language model)
 - **Image Models**: FLUX.1, SD 3.5, HiDream, Qwen Image (GGUF format)
 - **Video Models**: LTX Video, Wan 2.1/2.2 (GGUF format)
 - **LoRA**: FLUX.1-Turbo-Alpha (primary LoRA for all scripts)

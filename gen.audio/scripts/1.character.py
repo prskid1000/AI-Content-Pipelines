@@ -15,10 +15,10 @@ LANGUAGE = "en"
 REGION = "in"
 
 # Model constants for easy switching
-MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen3-30b-a3b-thinking-2507"  # Model for chapter summarization
-MODEL_CHARACTER_TITLE_GENERATION = "qwen3-30b-a3b-thinking-2507"  # Model for story title generation
-MODEL_CHARACTER_META_SUMMARY = "qwen3-30b-a3b-thinking-2507"  # Model for meta-summary generation
-MODEL_DESCRIPTION_GENERATION = "qwen3-30b-a3b-thinking-2507"  # Model for description generation
+MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen3-vl-30b-a3b-instruct"  # Model for chapter summarization
+MODEL_CHARACTER_TITLE_GENERATION = "qwen3-vl-30b-a3b-instruct"  # Model for story title generation
+MODEL_CHARACTER_META_SUMMARY = "qwen3-vl-30b-a3b-instruct"  # Model for meta-summary generation
+MODEL_DESCRIPTION_GENERATION = "qwen3-vl-30b-a3b-instruct"  # Model for description generation
 
 WORD_FACTOR = 6
 
