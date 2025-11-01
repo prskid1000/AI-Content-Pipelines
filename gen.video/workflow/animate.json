@@ -1,155 +1,48 @@
 {
-  "1": {
+  "3": {
     "inputs": {
-      "clip_name1": "clip_l.safetensors",
-      "clip_name2": "llava_llama3_fp8_scaled.safetensors",
-      "type": "hunyuan_video",
-      "device": "default"
+      "text": "placeholder_positive_prompt",
+      "clip": [
+        "38",
+        0
+      ]
     },
-    "class_type": "DualCLIPLoader",
+    "class_type": "CLIPTextEncode",
     "_meta": {
-      "title": "DualCLIPLoader"
-    }
-  },
-  "2": {
-    "inputs": {
-      "clip_name": "llava_llama3_vision.safetensors"
-    },
-    "class_type": "CLIPVisionLoader",
-    "_meta": {
-      "title": "Load CLIP Vision"
+      "title": "CLIP Text Encode (Positive Prompt)"
     }
   },
   "4": {
     "inputs": {
-      "width": 768,
-      "height": 480,
-      "length": 81,
-      "batch_size": 1,
-      "guidance_type": "v2 (replace)",
-      "positive": [
-        "7",
-        0
-      ],
-      "vae": [
-        "9",
-        0
-      ],
-      "start_image": [
-        "8",
+      "text": "placeholder_negative_prompt",
+      "clip": [
+        "38",
         0
       ]
     },
-    "class_type": "HunyuanImageToVideo",
+    "class_type": "CLIPTextEncode",
     "_meta": {
-      "title": "HunyuanImageToVideo"
+      "title": "CLIP Text Encode (Negative Prompt)"
     }
   },
-  "5": {
+  "6": {
     "inputs": {
-      "crop": "none",
-      "clip_vision": [
-        "2",
+      "frame_rate": 24,
+      "positive": [
+        "17",
         0
       ],
-      "image": [
-        "8",
-        0
+      "negative": [
+        "17",
+        1
       ]
     },
-    "class_type": "CLIPVisionEncode",
+    "class_type": "LTXVConditioning",
     "_meta": {
-      "title": "CLIP Vision Encode"
+      "title": "LTXVConditioning"
     }
   },
   "7": {
-    "inputs": {
-      "prompt": "placeholder_positive_prompt",
-      "image_interleave": 5,
-      "clip": [
-        "1",
-        0
-      ],
-      "clip_vision_output": [
-        "5",
-        0
-      ]
-    },
-    "class_type": "TextEncodeHunyuanVideo_ImageToVideo",
-    "_meta": {
-      "title": "TextEncodeHunyuanVideo_ImageToVideo"
-    }
-  },
-  "8": {
-    "inputs": {
-      "image": "scene_1.1.png"
-    },
-    "class_type": "LoadImage",
-    "_meta": {
-      "title": "Load Image"
-    }
-  },
-  "9": {
-    "inputs": {
-      "vae_name": "hunyuan_video_vae_bf16.safetensors"
-    },
-    "class_type": "VAELoader",
-    "_meta": {
-      "title": "Load VAE"
-    }
-  },
-  "12": {
-    "inputs": {
-      "shift": 16,
-      "model": [
-        "35",
-        0
-      ]
-    },
-    "class_type": "ModelSamplingSD3",
-    "_meta": {
-      "title": "ModelSamplingSD3"
-    }
-  },
-  "13": {
-    "inputs": {
-      "guidance": 12,
-      "conditioning": [
-        "4",
-        0
-      ]
-    },
-    "class_type": "FluxGuidance",
-    "_meta": {
-      "title": "FluxGuidance"
-    }
-  },
-  "14": {
-    "inputs": {
-      "model": [
-        "12",
-        0
-      ],
-      "conditioning": [
-        "13",
-        0
-      ]
-    },
-    "class_type": "BasicGuider",
-    "_meta": {
-      "title": "BasicGuider"
-    }
-  },
-  "15": {
-    "inputs": {
-      "noise_seed": 1
-    },
-    "class_type": "RandomNoise",
-    "_meta": {
-      "title": "RandomNoise"
-    }
-  },
-  "16": {
     "inputs": {
       "sampler_name": "euler"
     },
@@ -158,65 +51,192 @@
       "title": "KSamplerSelect"
     }
   },
-  "17": {
+  "8": {
     "inputs": {
-      "scheduler": "simple",
-      "steps": 15,
-      "denoise": 1,
-      "model": [
-        "35",
-        0
+      "steps": 9,
+      "max_shift": 2.05,
+      "base_shift": 0.95,
+      "stretch": true,
+      "terminal": 0.1,
+      "latent": [
+        "17",
+        2
       ]
     },
-    "class_type": "BasicScheduler",
+    "class_type": "LTXVScheduler",
     "_meta": {
-      "title": "BasicScheduler"
+      "title": "LTXVScheduler"
     }
   },
-
-  "31": {
+  "9": {
     "inputs": {
-      "tile_size": 128,
-      "overlap": 64,
-      "temporal_size": 36,
-      "temporal_overlap": 12,
-      "samples": [
-        "42",
+      "add_noise": true,
+      "noise_seed": 0,
+      "cfg": 3,
+      "model": [
+        "1891",
         0
       ],
-      "vae": [
+      "positive": [
+        "6",
+        0
+      ],
+      "negative": [
+        "6",
+        1
+      ],
+      "sampler": [
+        "7",
+        0
+      ],
+      "sigmas": [
+        "8",
+        0
+      ],
+      "latent_image": [
+        "17",
+        2
+      ]
+    },
+    "class_type": "SamplerCustom",
+    "_meta": {
+      "title": "SamplerCustom"
+    }
+  },
+  "10": {
+    "inputs": {
+      "positive": [
+        "6",
+        0
+      ],
+      "negative": [
+        "6",
+        1
+      ],
+      "latent": [
         "9",
         0
       ]
     },
-    "class_type": "VAEDecodeTiled",
+    "class_type": "LTXVCropGuides",
     "_meta": {
-      "title": "VAE Decode (Tiled)"
+      "title": "LTXVCropGuides"
     }
   },
-  "35": {
+  "11": {
     "inputs": {
-      "unet_name": "hunyuan_video_I2V_720_fixed_bf16.safetensors",
-      "weight_dtype": "default"
+      "samples": [
+        "10",
+        2
+      ],
+      "vae": [
+        "24",
+        0
+      ]
     },
-    "class_type": "UNETLoader",
+    "class_type": "VAEDecode",
     "_meta": {
-      "title": "Load Diffusion Model"
+      "title": "VAE Decode"
     }
   },
-  "36": {
+  "14": {
     "inputs": {
-      "frame_rate": 16,
+      "image": "scene_1.1.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "15": {
+    "inputs": {
+      "img_compression": 35,
+      "image": [
+        "14",
+        0
+      ]
+    },
+    "class_type": "LTXVPreprocess",
+    "_meta": {
+      "title": "LTXVPreprocess"
+    }
+  },
+  "16": {
+    "inputs": {
+      "width": 1024,
+      "height": 576,
+      "length": 97,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLTXVLatentVideo",
+    "_meta": {
+      "title": "EmptyLTXVLatentVideo"
+    }
+  },
+  "17": {
+    "inputs": {
+      "frame_idx": 0,
+      "strength": 1,
+      "positive": [
+        "3",
+        0
+      ],
+      "negative": [
+        "4",
+        0
+      ],
+      "vae": [
+        "24",
+        0
+      ],
+      "latent": [
+        "16",
+        0
+      ],
+      "image": [
+        "15",
+        0
+      ]
+    },
+    "class_type": "LTXVAddGuide",
+    "_meta": {
+      "title": "LTXVAddGuide"
+    }
+  },
+  "38": {
+    "inputs": {
+      "clip_name": "t5xxl_fp16.safetensors",
+      "type": "ltxv",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Load CLIP"
+    }
+  },
+  "24": {
+    "inputs": {
+      "vae_name": "LTXV-13B-0.9.8-distilled-VAE.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE"
+    }
+  },
+  "1336": {
+    "inputs": {
+      "frame_rate": 24,
       "loop_count": 0,
-      "filename_prefix": "AnimateDiff",
-      "format": "video/h265-mp4",
-      "pix_fmt": "yuv420p10le",
-      "crf": 0,
+      "filename_prefix": "ltxv-base",
+      "format": "video/h264-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 1,
       "save_metadata": true,
+      "trim_to_audio": false,
       "pingpong": false,
       "save_output": true,
       "images": [
-        "43",
+        "11",
         0
       ]
     },
@@ -225,59 +245,26 @@
       "title": "Video Combine 🎥🅥🅗🅢"
     }
   },
-  "37": {
+  "1891": {
     "inputs": {
-      "filename_prefix": "ComfyUI",
+      "unet_name": "LTXV-13B-0.9.8-distilled-Q8_0.gguf"
+    },
+    "class_type": "UnetLoaderGGUF",
+    "_meta": {
+      "title": "Unet Loader (GGUF)"
+    }
+  },
+  "2000": {
+    "inputs": {
+      "filename_prefix": "",
       "images": [
-        "43",
+        "11",
         0
       ]
     },
     "class_type": "SaveImage",
     "_meta": {
       "title": "Save Image"
-    }
-  },
-  "42": {
-    "inputs": {
-      "noise": [
-        "15",
-        0
-      ],
-      "guider": [
-        "14",
-        0
-      ],
-      "sampler": [
-        "16",
-        0
-      ],
-      "sigmas": [
-        "17",
-        0
-      ],
-      "latent_image": [
-        "4",
-        1
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "43": {
-    "inputs": {
-      "upscale_method": "nearest-exact",
-      "scale_by": 4.0,
-      "image": [
-        "31",
-        0
-      ]
-    },
-    "class_type": "ImageScaleBy",
-    "_meta": {
-      "title": "Upscale Image By"
     }
   }
 }
