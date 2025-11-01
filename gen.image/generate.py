@@ -10,6 +10,8 @@ import urllib.request
 import urllib.error
 from urllib.parse import urlparse, urljoin
 import atexit
+import hashlib
+import json
 
 
 # Simple global log timing stats
@@ -115,6 +117,186 @@ def resolve_comfyui_dir(base_dir: str) -> str:
     if alt and os.path.exists(os.path.join(alt, "main.py")):
         return alt
     return candidate
+
+
+def calculate_file_hash(filepath: str) -> str:
+    """Calculate SHA-256 hash of a file."""
+    hasher = hashlib.sha256()
+    try:
+        with open(filepath, 'rb') as f:
+            for chunk in iter(lambda: f.read(4096), b''):
+                hasher.update(chunk)
+        return hasher.hexdigest()
+    except Exception as ex:
+        raise RuntimeError(f"Failed to hash file {filepath}: {ex}")
+
+
+def check_and_clean_tracking_if_files_changed(
+    base_dir: str, 
+    log_handle,
+    tracked_files: list[tuple[str, str]],  # List of (file_path, hash_key) tuples
+    tracking_json_file: str,
+    output_dir: str = None  # Output directory to clear if files changed (defaults to tracking dir parent)
+) -> bool:
+    """
+    Check if any tracked file has changed and delete output directory if it has.
+    
+    Args:
+        base_dir: Base directory for relative paths
+        log_handle: Log file handle
+        tracked_files: List of tuples (relative_file_path, hash_key) to track
+        tracking_json_file: Path to tracking JSON file
+        output_dir: Output directory to clear if files changed (defaults to tracking dir parent)
+    
+    Returns:
+        bool: True if successful, False on error
+    """
+    if not tracked_files:
+        log_handle.write("No files to track. Skipping tracking check.\n")
+        log_handle.flush()
+        return True
+    
+    # Calculate current hashes for all tracked files
+    current_hashes = {}
+    for rel_path, hash_key in tracked_files:
+        file_path = os.path.join(base_dir, rel_path) if not os.path.isabs(rel_path) else rel_path
+        
+        # Skip if file doesn't exist
+        if not os.path.exists(file_path):
+            log_handle.write(f"Tracked file not found: {rel_path}. Skipping.\n")
+            log_handle.flush()
+            continue
+        
+        try:
+            current_hashes[hash_key] = calculate_file_hash(file_path)
+        except RuntimeError as ex:
+            log_handle.write(f"ERROR: {ex}\n")
+            log_handle.flush()
+            return False
+    
+    # If no files were hashed successfully, nothing to do
+    if not current_hashes:
+        log_handle.write("No valid tracked files found. Skipping tracking check.\n")
+        log_handle.flush()
+        return True
+    
+    tracking_dir = os.path.dirname(tracking_json_file)
+    
+    # Determine output directory to clear
+    if output_dir is None:
+        # Default to parent of tracking directory (e.g., output/)
+        output_dir = os.path.dirname(tracking_dir)
+    
+    # If tracking directory doesn't exist, create it with tracking JSON
+    if not os.path.exists(tracking_dir):
+        os.makedirs(tracking_dir, exist_ok=True)
+        tracking_data = {
+            "file_hashes": current_hashes,
+            "last_checked": time.time(),
+            "tracked_files": {key: rel_path for rel_path, key in tracked_files}
+        }
+        try:
+            with open(tracking_json_file, 'w', encoding='utf-8') as f:
+                json.dump(tracking_data, f, indent=2)
+            log_handle.write("Tracking directory created with file hashes.\n")
+        except Exception as ex:
+            log_handle.write(f"WARNING: Failed to save tracking JSON: {ex}\n")
+        log_handle.flush()
+        return True
+    
+    # Check if tracking JSON exists
+    if not os.path.exists(tracking_json_file):
+        # No tracking JSON means old tracking format, delete output and recreate
+        log_handle.write("No tracking JSON found. Deleting old output format.\n")
+        try:
+            shutil.rmtree(output_dir)
+            os.makedirs(tracking_dir, exist_ok=True)
+            tracking_data = {
+                "file_hashes": current_hashes,
+                "last_checked": time.time(),
+                "tracked_files": {key: rel_path for rel_path, key in tracked_files}
+            }
+            with open(tracking_json_file, 'w', encoding='utf-8') as f:
+                json.dump(tracking_data, f, indent=2)
+            log_handle.write("Output directory recreated with file hashes.\n")
+        except Exception as ex:
+            log_handle.write(f"WARNING: Failed to recreate output: {ex}\n")
+            log_handle.flush()
+            return False
+        log_handle.flush()
+        return True
+    
+    # Read stored tracking JSON
+    try:
+        with open(tracking_json_file, 'r', encoding='utf-8') as f:
+            tracking_data = json.load(f)
+        stored_hashes = tracking_data.get("file_hashes", {})
+    except Exception as ex:
+        log_handle.write(f"WARNING: Failed to read tracking JSON: {ex}. Deleting output.\n")
+        log_handle.flush()
+        try:
+            shutil.rmtree(output_dir)
+            os.makedirs(tracking_dir, exist_ok=True)
+            tracking_data = {
+                "file_hashes": current_hashes,
+                "last_checked": time.time(),
+                "tracked_files": {key: rel_path for rel_path, key in tracked_files}
+            }
+            with open(tracking_json_file, 'w', encoding='utf-8') as f:
+                json.dump(tracking_data, f, indent=2)
+        except Exception:
+            pass
+        return False
+    
+    # Compare hashes
+    hashes_changed = False
+    for hash_key, current_hash in current_hashes.items():
+        stored_hash = stored_hashes.get(hash_key, "")
+        if stored_hash != current_hash:
+            hashes_changed = True
+            log_handle.write(f"File hash changed for key '{hash_key}': {stored_hash[:16]}... -> {current_hash[:16]}...\n")
+            break
+    
+    if hashes_changed:
+        # File content has changed, delete entire output directory
+        try:
+            shutil.rmtree(output_dir)
+            os.makedirs(tracking_dir, exist_ok=True)
+            tracking_data = {
+                "file_hashes": current_hashes,
+                "last_checked": time.time(),
+                "tracked_files": {key: rel_path for rel_path, key in tracked_files}
+            }
+            with open(tracking_json_file, 'w', encoding='utf-8') as f:
+                json.dump(tracking_data, f, indent=2)
+            log_handle.write(
+                f"Tracked file content changed. "
+                f"Deleted and recreated output directory: {output_dir}\n"
+            )
+        except Exception as ex:
+            log_handle.write(f"WARNING: Failed to delete output directory: {ex}\n")
+            log_handle.flush()
+            return False
+    else:
+        log_handle.write("All tracked files unchanged. Preserving output directory.\n")
+    
+    log_handle.flush()
+    return True
+
+
+def check_and_clean_tracking_if_story_changed(base_dir: str, log_handle) -> bool:
+    """Check if 1.story.txt has changed and delete output directory if it has."""
+    tracking_dir = os.path.join(base_dir, "output", "tracking")
+    tracking_json_file = os.path.join(tracking_dir, "generate.state.json")
+    
+    # Track the story file
+    tracked_files = [
+        ("input/1.story.txt", "story_file")
+    ]
+    
+    return check_and_clean_tracking_if_files_changed(
+        base_dir, log_handle, tracked_files, tracking_json_file
+    )
 
 
 def empty_comfyui_folders(base_dir: str, log_handle) -> bool:
@@ -555,6 +737,9 @@ def main() -> int:
 
         # Empty ComfyUI folders as pre-step
         empty_comfyui_folders(base_dir, log)
+
+        # Check if story file changed and clean tracking directory if needed
+        check_and_clean_tracking_if_story_changed(base_dir, log)
 
         # Manage services across scripts: keep running across consecutive needs
         comfy_proc = None
