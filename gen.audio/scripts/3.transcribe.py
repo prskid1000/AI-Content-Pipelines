@@ -3,11 +3,93 @@ import re
 import whisper
 import time
 import math
+import json
+import argparse
 from functools import partial
 import builtins as _builtins
+from pathlib import Path
 print = partial(_builtins.print, flush=True)
 
- 
+# Feature flags
+ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
+CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
+
+# Resumable state management
+class ResumableState:
+    """Manages resumable state for transcription operations."""
+    
+    def __init__(self, checkpoint_dir: str, script_name: str, force_start: bool = False):
+        self.checkpoint_dir = Path(checkpoint_dir)
+        self.checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        self.state_file = self.checkpoint_dir / f"{script_name}.state.json"
+        
+        # If force_start is True, remove existing checkpoint and start fresh
+        if force_start and self.state_file.exists():
+            try:
+                self.state_file.unlink()
+                print("Force start enabled - removed existing checkpoint")
+            except Exception as ex:
+                print(f"WARNING: Failed to remove checkpoint for force start: {ex}")
+        
+        self.state = self._load_state()
+    
+    def _load_state(self) -> dict:
+        """Load state from checkpoint file."""
+        if self.state_file.exists():
+            try:
+                with open(self.state_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as ex:
+                print(f"WARNING: Failed to load checkpoint state: {ex}")
+        return {
+            "transcription": {"completed": False, "result": None},
+            "metadata": {"start_time": time.time(), "last_update": time.time()}
+        }
+    
+    def _save_state(self):
+        """Save current state to checkpoint file."""
+        try:
+            self.state["metadata"]["last_update"] = time.time()
+            with open(self.state_file, 'w', encoding='utf-8') as f:
+                json.dump(self.state, f, indent=2, ensure_ascii=False)
+        except Exception as ex:
+            print(f"WARNING: Failed to save checkpoint state: {ex}")
+    
+    def is_transcription_complete(self) -> bool:
+        """Check if transcription is complete."""
+        return self.state["transcription"]["completed"]
+    
+    def get_transcription_result(self) -> dict | None:
+        """Get cached transcription result if available."""
+        return self.state["transcription"]["result"]
+    
+    def set_transcription_complete(self, total_duration: float, segment_count: int):
+        """Mark transcription as complete and save result."""
+        self.state["transcription"]["completed"] = True
+        self.state["transcription"]["result"] = {
+            "total_duration": total_duration,
+            "segment_count": segment_count
+        }
+        self._save_state()
+    
+    def cleanup(self):
+        """Clean up tracking files based on configuration setting."""
+        try:
+            if CLEANUP_TRACKING_FILES and self.state_file.exists():
+                self.state_file.unlink()
+                print("All operations completed successfully - tracking files cleaned up")
+            else:
+                print("All operations completed successfully - tracking files preserved")
+        except Exception as ex:
+            print(f"WARNING: Error in cleanup: {ex}")
+    
+    def get_progress_summary(self) -> str:
+        """Get a summary of current progress."""
+        if self.state["transcription"]["completed"]:
+            result = self.state["transcription"]["result"]
+            if result:
+                return f"Progress: Transcription Complete ({result.get('segment_count', 0)} segments, {result.get('total_duration', 0):.3f}s)"
+        return "Progress: Transcription Pending"
 
 def format_timestamp(seconds):
     """Convert seconds to SRT timestamp format (HH:MM:SS,mmm)"""
@@ -163,9 +245,21 @@ def generate_files(segments, srt_file, text_file, timeline_file):
     
     return total_duration
 
-def transcribe_audio(audio_path, srt_file, text_file, timeline_file, model_name="large"):
+def transcribe_audio(audio_path, srt_file, text_file, timeline_file, model_name="large", resumable_state=None):
     """Transcribe audio and generate all output files"""
     try:
+        # Check if transcription is already complete (resumable mode)
+        if resumable_state and resumable_state.is_transcription_complete():
+            cached_result = resumable_state.get_transcription_result()
+            if cached_result:
+                # Check if output files exist
+                if os.path.exists(srt_file) and os.path.exists(text_file) and os.path.exists(timeline_file):
+                    print("Using cached transcription from checkpoint")
+                    print(f"All output files exist - skipping transcription")
+                    return True, cached_result["total_duration"], cached_result["segment_count"]
+                else:
+                    print("Output files missing despite checkpoint - will re-transcribe")
+        
         print(f"Loading Whisper model: {model_name}")
         model = whisper.load_model(model_name)
         
@@ -194,6 +288,11 @@ def transcribe_audio(audio_path, srt_file, text_file, timeline_file, model_name=
         
         # Generate all files
         total_duration = generate_files(processed_segments, srt_file, text_file, timeline_file)
+        
+        # Save to checkpoint if resumable mode enabled
+        if resumable_state:
+            resumable_state.set_transcription_complete(total_duration, segment_count)
+        
         return True, total_duration, segment_count
         
     except Exception as e:
@@ -204,9 +303,17 @@ def transcribe_audio(audio_path, srt_file, text_file, timeline_file, model_name=
 
 def main():
     """Main function to transcribe story.wav and generate three output files"""
+    parser = argparse.ArgumentParser(description="Transcribe audio file using Whisper")
+    parser.add_argument("audio_file", nargs="?", default="../output/story.wav",
+                       help="Path to audio file (default: ../output/story.wav)")
+    parser.add_argument("--force-start", action="store_true",
+                       help="Force start from beginning, ignoring any existing checkpoint files")
+    
+    args = parser.parse_args()
+    
     start_time = time.time()
     
-    audio_file = "../output/story.wav"
+    audio_file = args.audio_file
     srt_file = "../input/2.story.srt"
     text_file = "../input/2.story.str.txt"
     timeline_file = "../input/2.timeline.txt"
@@ -220,12 +327,26 @@ def main():
     
     print(f"Using audio file: {audio_file}")
     
+    # Initialize resumable state if enabled
+    resumable_state = None
+    if ENABLE_RESUMABLE_MODE:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        checkpoint_dir = os.path.normpath(os.path.join(base_dir, "../output/tracking"))
+        script_name = Path(__file__).stem  # Automatically get script name without .py extension
+        resumable_state = ResumableState(checkpoint_dir, script_name, args.force_start)
+        print(f"Resumable mode enabled - checkpoint directory: {checkpoint_dir}")
+        if resumable_state.state_file.exists():
+            print(f"Found existing checkpoint: {resumable_state.state_file}")
+            print(resumable_state.get_progress_summary())
+        else:
+            print("No existing checkpoint found - starting fresh")
+    
     print("Starting audio transcription with OpenAI Whisper...")
     print("=" * 50)
     
     # Time the transcription process
     transcription_start = time.time()
-    result = transcribe_audio(audio_file, srt_file, text_file, timeline_file)
+    result = transcribe_audio(audio_file, srt_file, text_file, timeline_file, resumable_state=resumable_state)
     transcription_time = time.time() - transcription_start
     
     if result[0]:  # success
@@ -245,6 +366,12 @@ def main():
         print(f"  • Number of segments: {segment_count}")
         
         print(f"\n💡 To analyze transcription quality, run: python quality.py")
+        
+        # Clean up checkpoint files if resumable mode was used and everything completed successfully
+        if resumable_state:
+            print("All operations completed successfully")
+            print("Final progress:", resumable_state.get_progress_summary())
+            resumable_state.cleanup()
     else:
         print("\nTranscription failed!")
     

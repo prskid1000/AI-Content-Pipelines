@@ -332,7 +332,7 @@ Story Text → Character Analysis → TTS → Transcription → SFX → Mixing �
 |---|--------|---------|-------------|--------------|--------------|-----------|
 | 1 | `1.character.py` | Character voice assignment & analysis | `1.story.txt`, `voices/` | `2.character.txt` | **LM Studio** | ✅ |
 | 2 | `2.story.py` | Generate main story audio | `1.story.txt`, `2.character.txt` | `story.wav` | **ComfyUI** | ✅ |
-| 3 | `3.transcribe.py` | Audio transcription | `story.wav` | `2.story.srt`, `2.story.str.txt` | Whisper | ❌ |
+| 3 | `3.transcribe.py` | Audio transcription | `story.wav` | `2.story.srt`, `2.story.str.txt` | Whisper | ✅ |
 | 4 | `4.quality.py` | Transcription quality check | `2.story.str.txt` | Quality report | None | ❌ |
 | 5 | `5.timeline.py` | SFX timeline generation | `2.story.str.txt` | `2.timeline.txt` | **LM Studio** | ✅ |
 | 6 | `6.timing.py` | SFX timing refinement | `2.timeline.txt` | `3.timing.txt` | **LM Studio** | ✅ |
@@ -1144,11 +1144,18 @@ character_file = "../input/2.character.txt"
 
 ##### `3.transcribe.py` - Audio Transcription
 ```python
+# Feature Flags
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False
+
 # Input/Output Files
 audio_file = "../output/story.wav"
 srt_output = "../input/2.story.srt"
 text_output = "../input/2.story.str.txt"
 timeline_file = "../input/2.timeline.txt"
+
+# Checkpoint Configuration
+checkpoint_dir = "../output/tracking"
 
 # Uses Whisper for transcription
 ```
@@ -2756,9 +2763,9 @@ This is a modular system designed for easy extension. Each script is self-contai
 ### Key Features & Capabilities
 
 #### Resumable Processing System
-- **Total Resumable Scripts**: 10 across all pipelines
+- **Total Resumable Scripts**: 11 across all pipelines
 - **Checkpoint Location**: `../output/tracking/` in each pipeline
-- **Checkpoint Files**: 10 distinct `.state.json` files tracking progress
+- **Checkpoint Files**: 11 distinct `.state.json` files tracking progress
 - **File Validation**: Automatic validation of cached results before skipping
 - **Force Restart**: `--force-start` flag available on all resumable scripts
 - **Cleanup Option**: `CLEANUP_TRACKING_FILES` configuration flag
@@ -2790,7 +2797,7 @@ This is a modular system designed for easy extension. Each script is self-contai
 - **Audio**: `story.wav`, `sfx.wav`, `final.wav`, `final.mp4`, `thumbnail.png`, `shorts.v1-v5.mp4` (YouTube Shorts)
 - **Image**: `characters/*.png`, `locations/*.png` (NEW), `scene/*.png`, `lora/*.png` (extensive LoRA results)
 - **Video**: `animation/*.mp4`, `final_sd.mp4`
-- **Tracking**: 10 checkpoint files across 3 pipelines
+- **Tracking**: 11 checkpoint files across 3 pipelines
 - **YouTube**: `description.txt`, `tags.txt` (enhanced metadata generation)
 
 ### Model Configuration
