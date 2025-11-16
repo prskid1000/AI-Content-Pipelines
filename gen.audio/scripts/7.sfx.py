@@ -683,10 +683,85 @@ class DirectTimelineProcessor:
         # Create unique key for this entry
         file_key = f"{i}_{entry['description']}_{duration}"
         
+        # Check if file already exists in output folder (skip regeneration)
+        output_filename = f"{filename}.flac"
+        output_file_path = os.path.join(self.final_output_folder, output_filename)
+        
+        # Check for exact match first
+        if os.path.exists(output_file_path):
+            # File already exists, check if we can use it
+            comfyui_file_path = os.path.join(self.output_folder, output_filename)
+            # Prefer ComfyUI output folder file if it exists, otherwise use the output folder file
+            if os.path.exists(comfyui_file_path):
+                found_path = comfyui_file_path
+            else:
+                found_path = output_file_path
+            
+            result = {
+                'file': found_path,
+                'output_file': output_file_path,
+                'order_index': i,
+                'duration': duration,
+                'description': entry['description']
+            }
+            
+            # Update resumable state if enabled
+            if resumable_state:
+                resumable_state.set_audio_file_info(file_key, result)
+            
+            entry_type = "Silence" if self.is_silence_entry(entry['description']) else "SFX"
+            print(f"⏭️  Skipping {entry_type} ({duration}s) - File already exists: {output_filename}")
+            return result
+        
+        # Check for files that start with the filename pattern (ComfyUI may add suffixes)
+        if os.path.exists(self.final_output_folder):
+            matching_files = [f for f in os.listdir(self.final_output_folder) 
+                            if f.startswith(filename) and f.endswith('.flac')]
+            if matching_files:
+                # Use the most recently modified file
+                matching_files.sort(key=lambda x: os.path.getmtime(os.path.join(self.final_output_folder, x)), reverse=True)
+                found_output_file = os.path.join(self.final_output_folder, matching_files[0])
+                
+                # Check ComfyUI folder for matching file
+                comfyui_matching = None
+                if os.path.exists(self.output_folder):
+                    comfyui_matching = [f for f in os.listdir(self.output_folder) 
+                                      if f.startswith(filename) and f.endswith('.flac')]
+                    if comfyui_matching:
+                        comfyui_matching.sort(key=lambda x: os.path.getmtime(os.path.join(self.output_folder, x)), reverse=True)
+                        found_path = os.path.join(self.output_folder, comfyui_matching[0])
+                    else:
+                        found_path = found_output_file
+                else:
+                    found_path = found_output_file
+                
+                result = {
+                    'file': found_path,
+                    'output_file': found_output_file,
+                    'order_index': i,
+                    'duration': duration,
+                    'description': entry['description']
+                }
+                
+                # Update resumable state if enabled
+                if resumable_state:
+                    resumable_state.set_audio_file_info(file_key, result)
+                
+                entry_type = "Silence" if self.is_silence_entry(entry['description']) else "SFX"
+                print(f"⏭️  Skipping {entry_type} ({duration}s) - File already exists: {matching_files[0]}")
+                return result
+        
         # Check if resumable and already complete
         if resumable_state and resumable_state.is_audio_file_complete(file_key):
             cached_info = resumable_state.get_audio_file_info(file_key)
-            if cached_info and os.path.exists(cached_info.get('file', '')):
+            # Check both the main file and output file paths
+            main_file_exists = cached_info and os.path.exists(cached_info.get('file', ''))
+            output_file_exists = cached_info and os.path.exists(cached_info.get('output_file', ''))
+            
+            if main_file_exists or output_file_exists:
+                # If output file exists, use it; otherwise use main file
+                if output_file_exists:
+                    cached_info['file'] = cached_info.get('output_file')
                 print(f"Using cached audio file: {entry['description']} ({duration}s)")
                 return cached_info
             elif cached_info:

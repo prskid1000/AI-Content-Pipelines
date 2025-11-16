@@ -1148,6 +1148,16 @@ class CharacterGenerator:
     def _generate_character_image_serial(self, character_name: str, description: str, resumable_state=None, variation_suffix: str = "") -> str | None:
         """Generate character image using serial LoRA mode with intermediate storage."""
         try:
+            # Check if character file already exists
+            if variation_suffix:
+                character_filename = f"{character_name}_{variation_suffix}.png"
+            else:
+                character_filename = f"{character_name}.png"
+            character_output_path = os.path.join(self.final_output_dir, character_filename)
+            if os.path.exists(character_output_path):
+                print(f"⏭️  Skipping character - File already exists: {character_filename}")
+                return character_output_path
+            
             # Check if resumable and already complete
             if resumable_state:
                 if variation_suffix:

@@ -1103,6 +1103,13 @@ class ThumbnailProcessor:
     def _generate_thumbnail_serial(self, prompt_text: str, shorts: bool = False, variation_number: str = "", resumable_state=None) -> str | None:
         """Generate thumbnail using serial LoRA mode with intermediate storage."""
         try:
+            # Check if thumbnail file already exists
+            thumbnail_filename = f"thumbnail{".shorts" if shorts else ""}{variation_number}.png"
+            thumbnail_output_path = os.path.join(self.final_output_dir, thumbnail_filename)
+            if os.path.exists(thumbnail_output_path):
+                print(f"⏭️  Skipping thumbnail - File already exists: {thumbnail_filename}")
+                return thumbnail_output_path
+            
             print(f"Generating thumbnail (Serial LoRA mode)")
             
             enabled_loras = [lora for lora in LORAS if lora.get("enabled", True)]

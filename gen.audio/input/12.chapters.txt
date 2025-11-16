@@ -1,10 +1,10 @@
-20%: The Prince Charming's masquer
-SHORT_SUMMARY : A lady seeks Sherlock Holmes' assistance to protect her niece.
-40%: The Savoy's Theatre
-SHORT_SUMMARY : Holmes consults theatre company at Savoy for prince Charming.
-60%: The Embankment's stair
-SHORT_SUMMARY : Holmes identifies thief in river stairs using chalk marks and soap.
-80%: The Prince Charming's plot
-SHORT_SUMMARY : Holmes confronts prince in Holland House ball, reveals ledger.
-100%: The Colonels's watch
-SHORT_SUMMARY : Holmes pins colonel wrists, secure his cane broken into fine wire.
+20%: The Parrot's Arrival
+SHORT_SUMMARY : Captain Harrington seeks Holmes' help with a parrot causing threats.
+40%: The Investigation Begins
+SHORT_SUMMARY : Holmes investigates Kimbu's repeated phrase for clues about murder.
+60%: Confrontation at Blackfriars
+SHORT_SUMMARY : Holmes and Watson confront Lieutenant-Colonel Ashcombe at his warehouse.
+80%: The Final Confession
+SHORT_SUMMARY : Holmes reveals a second intruder is an accomplice of Ashcombe.
+100%: Justice Served
+SHORT_SUMMARY : Ashcombe is arrested; Kimbu returns home safely with its true purpose fulfilled.

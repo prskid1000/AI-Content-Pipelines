@@ -1144,6 +1144,16 @@ class LocationGenerator:
     def _generate_location_image_serial(self, location_name: str, description: str, resumable_state=None, variation_suffix: str = "") -> str | None:
         """Generate location image using serial LoRA mode with intermediate storage."""
         try:
+            # Check if location file already exists
+            if variation_suffix:
+                location_filename = f"{location_name}_{variation_suffix}.png"
+            else:
+                location_filename = f"{location_name}.png"
+            location_output_path = os.path.join(self.final_output_dir, location_filename)
+            if os.path.exists(location_output_path):
+                print(f"⏭️  Skipping location - File already exists: {location_filename}")
+                return location_output_path
+            
             # Check if resumable and already complete
             if resumable_state:
                 if variation_suffix:

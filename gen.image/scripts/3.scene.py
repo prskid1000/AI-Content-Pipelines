@@ -1739,6 +1739,13 @@ class SceneGenerator:
     def _generate_scene_image_serial(self, scene_id: str, scene_description: str, character_names: list[str], location_ids: list[str], master_prompt: str, characters_data: dict[str, str], locations_data: dict[str, str] = None, resumable_state=None) -> str | None:
         """Generate scene image using serial LoRA mode with intermediate storage."""
         try:
+            # Check if scene file already exists
+            scene_filename = f"{scene_id}.png"
+            scene_output_path = os.path.join(self.final_output_dir, scene_filename)
+            if os.path.exists(scene_output_path):
+                print(f"⏭️  Skipping scene - File already exists: {scene_filename}")
+                return scene_output_path
+            
             # Check if resumable and already complete
             if resumable_state and resumable_state.is_scene_complete(scene_id):
                 cached_result = resumable_state.get_scene_result(scene_id)

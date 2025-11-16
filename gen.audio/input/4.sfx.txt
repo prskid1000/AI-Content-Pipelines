@@ -1,9 +1,172 @@
-97.647: Silence
-2.07: 
-1040.028: Silence
-1.2: 
-505.613: Silence
-1.0: Holmes'whistle
-1106.55: Silence
-1.25: faint crackle
-676.322: Silence
+102.745: Silence
+1.2: Sharp metallic bell rap, rapid and loud, with short resonance.
+4.134: Silence
+1.0: High-pitched, sharp vocal exclamation, short duration
+2.835: Silence
+3.0: Rapid footfalls on stairs, sharp and echoing with urgency.
+13.831: Silence
+1.2: A sudden door slam with sharp resonance.
+10.82: Silence
+1.2: Soft creak of wood under hand pressure
+146.235: Silence
+1.0: Soft metallic tap on a wire cage, faint resonance
+2.858: Silence
+1.8: A deep, raspy bird vocalization with a guttural timbre.
+1.038: Silence
+4.427: Eerie, clear syllables echo with prolonged resonance.
+1.0: Silence
+3.127: Low-frequency hum with distant, echoing resonance
+14.528: Silence
+1.2: Soft thud of paper sliding under a door
+208.166: Silence
+2.5: Low-pitched, echoing vocal resonance with reverberation in enclosed space.
+14.18: Silence
+3.5: Fog-laden wind gusts press against glass with low-frequency resonance
+16.576: Silence
+1.2: Soft rustling of feathers at low frequency
+35.286: Silence
+2.0: Faint creaking of wooden floorboards underfoot
+28.229: Silence
+1.117: A high-pitched, gentle bird whistle with a brief reverb.
+1.0: Silence
+1.117: Two sharp, high-pitched hops on a rigid surface
+5.335: Silence
+1.2: Metallic creaking of horns pressing against a metal cage.
+72.239: Silence
+1.5: Sharp, rapid tapping on glass surface
+68.771: Silence
+1.8: Wings flapping rapidly against metal bars, high-pitched scraping sound.
+51.705: Silence
+1.8: Occasional high-frequency rustling of wings
+4.304: Silence
+1.2: Quiet footfall approaching from outside the door
+3.363: Silence
+2.5: Soft, cautious footsteps with a subtle predatory rhythm, each step muffled by deliberate masking.
+28.797: Silence
+1.0: A brief, high-pitched metallic click of a door latch.
+21.435: Silence
+1.2: Door forcefully bursting open with sharp creak and crash
+29.214: Silence
+1.5: A soft click followed by a sustained hissing flame ignition sound.
+1.886: Silence
+1.2: Sudden intense high-frequency white light burst with sharp crescendo.
+2.826: Silence
+2.8: A sudden thud of impact, followed by heavy breathing and a muffled struggle on hard ground.
+2.667: Silence
+1.5: Scraping metal and heavy thud of body impacting metal cage
+11.925: Silence
+1.8: wooden crash and thud of side table overturning
+2.286: Silence
+2.5: High-pitched shriek followed by rapid wing flaps at high frequency.
+33.696: Silence
+2.5: Struggling sounds with muffled thuds and strained breathing
+83.218: Silence
+3.083: footsteps on wooden floor, low amplitude, steady pace
+1.484: Metallic scraping sound from a blade touching metal bars
+77.115: Silence
+2.22: A high-pitched electronic tone with rapid, irregular pulses and rising urgency.
+132.59: Silence
+1.2: Soft metallic clinking as metal cage is placed on wood surface
+8.463: Silence
+1.0: Light tapping sound on metal cage surface
+3.646: Silence
+2.5: Guttural, low-pitched vocalizations with rough timbre, sustained amplitude.
+112.363: Silence
+1.0: Metallic tap on metal cage, high-pitched ping
+5.828: Silence
+2.1: High-pitched wing flaps, rapid and irregular, with sharp staccato bursts.
+70.612: Silence
+1.8: Rustling paper, sharp snap of telegram seal breaking
+52.75: Silence
+1.8: High-pitched parrot screech with rapid, erratic percussive hops on a wooden perch.
+46.916: Silence
+2.5: Strong gusty wind blowing with low-frequency whooshing
+85.884: Silence
+2.5: Shrill bird cries, rhythmic groaning of pulleys, distant shouting
+59.53: Silence
+2.0: Metallic scrape of a revolver being drawn, muffled footsteps on wood.
+19.254: Silence
+1.8: Faint metallic resonance with dry wooden scraping and soft rustling
+3.214: Silence
+3.5: Faint metallic scent of blood in air, no audible sound
+12.298: Silence
+1.8: Soft metallic clattering echoes from distant corner.
+1.277: Silence
+1.8: Rapid footfalls on hard surface, varying pitch and amplitude
+4.014: Silence
+1.8: A sharp scraping sound as metal grates against wood, followed by silence.
+5.782: Silence
+2.5: Footsteps echo on hard surface, faint ambient hum
+43.884: Silence
+1.8: Soft crunching of dry earth under heavy boots
+33.209: Silence
+3.0: Violent wing flaps and high-pitched shrieks in a confined space
+18.8: Silence
+1.0: Metallic clink, sharp and brief, from revolver under coat
+7.683: Silence
+1.2: A sharp gunshot echo with high pitch and sudden amplitude.
+2.99: Silence
+1.8: Deafening gunshot echo, wood splintering at high frequency
+15.183: Silence
+2.1: Footsteps scuffing on stone floor, rapid breathing
+2.9: Silence
+1.2: Metallic high-pitched ricochet echo with rapid decay near Harrington.
+2.34: Silence
+2.5: High-pitched screech reverberates through enclosed space, echoing off hard surfaces.
+5.5: Silence
+1.2: Metallic scrape and clatter of a weapon twisting in grasp
+3.464: Silence
+1.8: A sharp gunshot echo with high pitch crackle and metallic reverberation.
+3.401: Silence
+1.8: A sharp thud followed by heavy breathing
+11.168: Silence
+1.8: Sharp grip sound, flesh and bone pressure, muffled wrist adjustment noise
+1.356: Silence
+1.107: Metallic clatter of a revolver hitting the ground with sharp resonance.
+1.0: Silence
+1.908: Low-pitched groan with labored breaths, intermittent struggling sounds.
+1.263: Silence
+2.5: Metallic clang of cage dropping, followed by thud of bodies colliding in tackle
+20.721: Silence
+1.8: Rope creaks under tension, faint friction sound as it tightens.
+19.006: Silence
+4.5: Low-pitched guttural speech echoes with reverberation in a large empty space.
+51.754: Silence
+3.0: distant seagull cries, rhythmic wave lapping, muffled human chatter
+13.846: Silence
+3.5: Foghorn echoes faintly, distant water lap
+15.07: Silence
+1.5: Sharp footfalls on gravel with rhythmic crunching sounds
+7.324: Silence
+1.2: Soft high-pitched chirps, intermittent, contrasting sharply
+105.495: Silence
+2.0: Footsteps on hard surface, rapid rhythm, varying amplitude
+102.833: Silence
+3.5: Tapping sound from wooden purging inside a cage, followed by clattering carriage sounds outside, then a ticking clock
+1.611: Silence
+1.5: A soft, resonant chime sounds at a quarter-hour interval.
+3.339: Silence
+2.5: High-pitched, irregular scratching on metal at low volume
+61.267: Silence
+2.0: Faint crunching sound of red dyed laterite clay underfoot
+2.371: Silence
+3.2: A gritty, low-frequency hum of industrial machinery mixed with the hiss and crackle of urban pollution.
+7.539: Silence
+1.2: A sharp metallic clatter as a knife impacts a hard surface.
+16.333: Silence
+1.5: Sharp metallic click of a revolver being cocked
+43.432: Silence
+1.2: A dull thud as the body hits the floor, followed by silence.
+11.34: Silence
+1.2: Sharp metallic scrape of a knife being picked up from stone
+38.75: Silence
+2.5: A low-frequency hum with a calm, steady pitch
+127.802: Silence
+3.0: Soft crackling of fire with faint pops from burning wood
+7.211: Silence
+3.0: Soft, low-frequency hum vibrating subtly
+4.018: Silence
+1.0: High-pitched chirp, brief, sharp attack, rapid decay, 1000 Hz
+13.18: Silence
+1.0: High-pitched chirp, short duration, clear timbre
+52.56: Silence

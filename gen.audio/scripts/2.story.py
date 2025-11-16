@@ -446,6 +446,13 @@ class StoryProcessor:
     def generate_chunk_audio(self, chunk_text, chunk_number, start_line, end_line):
         """Generate audio for a single chunk and save to output/story/start_line_end_line.wav"""
         try:
+            # Check if chunk file already exists
+            chunk_filename = f"{start_line}_{end_line}.wav"
+            chunk_output_path = os.path.join(self.chunk_output_dir, chunk_filename)
+            if os.path.exists(chunk_output_path):
+                print(f"⏭️  Skipping chunk {chunk_number} ({start_line}-{end_line}) - File already exists: {chunk_filename}")
+                return chunk_output_path
+            
             print(f"Generating audio for chunk {chunk_number} (lines {start_line}-{end_line})...")
             print(f"Chunk length: {len(chunk_text)} characters")
             
