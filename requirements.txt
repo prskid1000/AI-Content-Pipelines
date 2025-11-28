@@ -8,6 +8,7 @@ requests
 pydub
 pathlib2
 futures
+ffmpeg
 
 # AI/ML frameworks
 torch
