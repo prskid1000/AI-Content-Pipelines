@@ -36,4 +36,4 @@ google-auth-oauthlib
 google-genai
 google-adk
 pydub
-xformers
+# xformers
