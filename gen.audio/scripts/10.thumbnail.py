@@ -106,7 +106,7 @@ SAMPLING_STEPS = 25  # Number of sampling steps (higher = better quality, slower
 USE_NEGATIVE_PROMPT = False  # Set to True to enable negative prompts, False to disable
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
-ART_STYLE = "Realistic Anime"
+ART_STYLE = "Professional News Broadcast"
 
 class ResumableState:
     """Manages resumable state for expensive thumbnail generation operations."""
@@ -1835,8 +1835,10 @@ class ThumbnailProcessor:
 
     def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
-        return """Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of {ART_STYLE}, 
-        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        return """Create a professional news broadcast thumbnail in realistic style, 
+        high-resolution image suitable for YouTube/Social media, with clean modern design, 
+        news studio background or relevant news imagery, professional lighting, 
+        clear composition for maximum visual impact.
         """.format(ART_STYLE=ART_STYLE)
         
 def read_prompt_from_file(filename: str = "../input/10.thumbnail.txt") -> str | None:

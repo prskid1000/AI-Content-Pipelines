@@ -58,23 +58,23 @@ class DiffusionPromptGenerator:
         }
 
     def _build_system_prompt(self) -> str:
-        return """You are a visual director CREATIVELY generating one Image Generation Model Prompt for Thumbnail within the word limit of 300-350 words from the following story summary.
+        return """You are a visual director CREATIVELY generating one Image Generation Model Prompt for Thumbnail within the word limit of 300-350 words from the following news summary.
         
         CONSTRAINTS: 
          - highly specific spatial and material details, and technical quality flags. 
-         - Include: main character(s) with detailed physical descriptions and clothing positioned specifically in the scene (center-left, background-right, etc.)
-         - the central object or narrative focus placed precisely in the composition with detailed condition and appearance
-         - the setting environment with exact spatial descriptions of furniture, walls, windows, and atmospheric elements
-         - secondary characters positioned clearly with actions and props
-         - background elements like weather, time period indicators, and contextual details
+         - Include: news anchors or reporters with detailed physical descriptions and attire positioned specifically in the scene (center-left, background-right, etc.)
+         - the central news focus or breaking story element placed precisely in the composition with detailed condition and appearance
+         - the broadcast environment with exact spatial descriptions of news desks, monitors, cameras, and atmospheric elements
+         - secondary crew or on-screen elements positioned clearly with actions and props
+         - background elements like news tickers, time indicators, and contextual details
          - all object positions using directional terms (left wall, center focus, far background)
-         - precise material descriptions for textures and surfaces (dark oak, brass fittings, weathered leather)
-         - Ensure every element supports the story and maintains spatial clarity and visual coherence.
+         - precise material descriptions for textures and surfaces (polished mahogany, LED screens, modern glass)
+         - Ensure every element supports the news broadcast and maintains spatial clarity and visual coherence.
          
          Output must be a CREATIVELY generated single continuous paragraph within the word limit of 300-350 words without line breaks."""
 
     def _build_user_prompt(self, story_desc: str) -> str:
-        return f"""STORY SUMMARY: {story_desc}"""
+        return f"""NEWS SUMMARY: {story_desc}"""
 
     def _call_lm_studio(self, system_prompt: str, user_prompt: str, response_format: Dict[str, object] | None = None) -> str:
         headers = {"Content-Type": "application/json"}
@@ -121,7 +121,7 @@ class DiffusionPromptGenerator:
     def generate_and_save(self) -> str | None:
         story_desc = self._read_text(self.input_file)
         if not story_desc:
-            print("ERROR: No story description found in 9.summary.txt")
+            print("ERROR: No news summary found in 9.summary.txt")
             return None
 
         system_prompt = self._build_system_prompt()
@@ -334,29 +334,29 @@ class YouTubeDescriptionGenerator:
                     "maxLength": 500,
                     "minLength": 475,
                     "properties": {
-                        "core_sherlock_holmes_terms": {
+                        "core_news_terms": {
                             "type": "array",
                             "items": {"type": "string"},
                             "minItems": 15,
-                            "maxItems": 10,
-                            "description": "Core Sherlock Holmes Story terms"
+                            "maxItems": 15,
+                            "description": "Core news broadcast terms"
                         },
                         "audience_targeting": {
                             "type": "array",
                             "items": {"type": "string"},
                             "minItems": 30,
                             "maxItems": 30,
-                            "description": "Tags targeting mystery fans, audiobook listeners, commuters"
+                            "description": "Tags targeting news viewers, current events followers, global/local news enthusiasts"
                         },
-                        "story_specific_elements": {
+                        "news_specific_elements": {
                             "type": "array",
                             "items": {"type": "string"},
                             "minItems": 15,
                             "maxItems": 15,
-                            "description": "Story-specific plot and character elements"
+                            "description": "News-specific topics and event elements"
                         }
                     },
-                    "required": ["core_sherlock_holmes_terms", "audience_targeting", "audio_format_appeal", "story_specific_elements"],
+                    "required": ["core_news_terms", "audience_targeting", "news_specific_elements"],
                 },
                 "strict": True,
             },
@@ -364,15 +364,15 @@ class YouTubeDescriptionGenerator:
 
     def _gen_tags_initial(self, title: str, summary: str) -> List[str]:
         sys = (
-            "TASK: Using the story title and summary, create 60 YouTube tags for an audio story channel.\n"
+            "TASK: Using the news title and summary, create 60 YouTube tags for a news broadcast channel.\n"
             "- No repeated words across all tags.\n"
-            "- Include story-specific characters/plot elements.\n"
-            "- Target: mystery fans, audiobook listeners, commuters.\n"
+            "- Include news-specific topics/events/elements.\n"
+            "- Target: news viewers, current events followers, global/local news enthusiasts.\n"
             "- Mix popular + niche terms for discovery.\n"
             "- Two/One word tags only.\n\n"
-            "- core_sherlock_holmes_terms: 15 tags (Sherlock Holmes, Watson, detective, mystery, etc.)\n"
-            "- audience_targeting: 20 tags (audiobook, podcast, commute, bedtime story, etc.)\n"
-            "- story_specific_elements: 15 tags (specific plot points, characters, locations from the story)\n\n"
+            "- core_news_terms: 15 tags (breaking news, global news, local news, current affairs, etc.)\n"
+            "- audience_targeting: 20 tags (news update, live broadcast, daily news, world events, etc.)\n"
+            "- news_specific_elements: 15 tags (specific topics like sports, science, atrocity stories from the news)\n\n"
             "Return JSON with the four arrays as specified in the schema; no commentary."
         )
         payload = {"title": title, "summary": summary}
@@ -381,7 +381,7 @@ class YouTubeDescriptionGenerator:
         
         # Combine all tag categories into a single list
         all_tags = []
-        for category in ["core_sherlock_holmes_terms", "audience_targeting", "audio_format_appeal", "story_specific_elements"]:
+        for category in ["core_news_terms", "audience_targeting", "news_specific_elements"]:
             category_tags = obj.get(category, [])
             all_tags.extend([str(t).strip() for t in category_tags if str(t).strip()])
         
@@ -572,7 +572,7 @@ class YouTubeDescriptionGenerator:
         sys = (
             "You are a YouTube content editor. Generate a title and genre/content type label for YouTube.\n"
             "The title should start with an emoji and be engaging.\n"
-            "The genre should be a concise content type/genre label (e.g., 'Mystery Audiobook', 'Detective Story', 'Audio Drama').\n"
+            "The genre should be a concise content type/genre label (e.g., 'Breaking News', 'News Update', 'Current Affairs').\n"
             "Keep both concise and appropriate to the summary."
         )
         payload = {"title": title, "summary": summary}
@@ -611,17 +611,17 @@ class YouTubeDescriptionGenerator:
     def _gen_ctas(self) -> List[str]:
         # Return fixed CTAs (no LLM call)
         return [
-            "👍 Like this episode if you loved the mystery!",
-            "🔔 Subscribe for more classic-style mysteries, full-length audiobooks, and immersive soundscapes.",
-            "💬 Tell us your theories in the comments below!",
+            "👍 Like and share if this news impacted you!",
+            "🔔 Subscribe for daily news updates, breaking stories, and in-depth analysis.",
+            "💬 Share your thoughts on this story in the comments below!",
         ]
 
     def _gen_hashtags(self, summary: str) -> str:
         # Return fixed hashtags (no LLM call)
         return (
-            "#SherlockHolmes #AudioDrama #MysteryStory #VictorianLondon #DetectiveFiction #ClassicLiterature "
-            "#Audiobook #CrimeMystery #221BBakerStreet #DrWatson #ConanDoyle #Suspense #FullAudiobook "
-            "#VictorianMystery #Case"
+            "#BreakingNews #NewsUpdate #GlobalNews #LocalNews #CurrentAffairs #WorldEvents "
+            "#DailyNews #LiveBroadcast #NewsBroadcast #SportsNews #ScienceNews #AtrocityStories "
+            "#NewsAlert #Headlines #NewsChannel #BroadcastNews #NewsReport"
         )
 
     def generate_and_save(self) -> str | None:
@@ -633,7 +633,7 @@ class YouTubeDescriptionGenerator:
         print(f"✅ Read {len(diffusion_text)} characters from diffusion file")
 
         print("📖 Reading title...")
-        title = self._read_text(self.title_file) or "Untitled Story"
+        title = self._read_text(self.title_file) or "Untitled News"
         print(f"✅ Title: {title}")
 
         print("⏱️ Calculating audio duration...")

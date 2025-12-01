@@ -646,11 +646,11 @@ class CharacterManager:
 
     def _build_meta_summary_system_prompt(self) -> str:
         return (
-            f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Summarize the story into 5 distinct plot summaries each with a title, a short summary, and a long summary.\n"
+            f"You are a Professional News Director and Content Creator specializing in news broadcasting. Your Job is to Summarize the news content into 5 distinct news segments each with a title, a short summary, and a long summary.\n"
             f"Use written grammatically correct and complete short and precise english sentences (6-9 words) that are well-structured with clear subject and predicate."
             f"You can only use full stop, comma, apostrophe, and space as special characters."
-            f"The long summary should describe the chronology of all major/important/notable events and actions in the plot.\n"
-            f"Must never output what characters are explaining/thinking/discussing/feeling/saying.\n"
+            f"The long summary should describe the chronology of all major/important/notable events and developments in the news.\n"
+            f"Must never output what reporters are explaining/thinking/discussing/feeling/saying.\n"
         )
        
 
@@ -666,7 +666,7 @@ class CharacterManager:
         
         dialogue_content = '\n'.join(dialogue_lines)
         return (
-            f"Story content: {dialogue_content}"
+            f"News content: {dialogue_content}"
         )
 
     def _generate_meta_summary(self, story_content: str) -> dict:
@@ -725,31 +725,31 @@ class CharacterManager:
         return meta_summary_data
 
     def _build_story_title_system_prompt(self) -> str:
-        """Build system prompt for story title generation"""
-        return """You are a creative title generator specializing in compelling story titles. Based on the comprehensive story summary provided, generate a captivating and memorable title that captures the essence, theme, and intrigue of the story.
+        """Build system prompt for news episode title generation"""
+        return """You are a creative title generator specializing in compelling news episode titles. Based on the comprehensive news summary provided, generate a captivating and memorable title that captures the essence, theme, and intrigue of the news content.
 
 REQUIREMENTS:
 - Create a title that is engaging and memorable
 - Should be 3-8 words long
-- Capture the main theme, genre, or central conflict
+- Capture the main theme, genre, or central news topics
 - Avoid spoilers while being intriguing
-- Consider the story's tone, setting, and main characters
-- Make it suitable for audiobook/story content
+- Consider the news's tone, global/local impact, and main stories
+- Make it suitable for news broadcast/audio content
 - Should work well for YouTube/social media sharing
-- Consider classic literature style if applicable
+- Consider breaking news style if applicable
 
 EXAMPLES OF GOOD TITLES:
-- "The Adventure of the Copper Beeches"
-- "Murder on the Orient Express" 
-- "The Case of the Missing Heir"
-- "Shadows in Baker Street"
-- "The Mystery of Thornfield Manor"
+- "Global Crisis Unfolds"
+- "Breaking: Major Political Shakeup" 
+- "Sports Triumph and Tragedy"
+- "Science Breakthroughs of the Week"
+- "Atrocities That Shocked the World"
 
-Generate a JSON response with a "title" field containing your suggested story title. Focus on creating something that would intrigue potential listeners and capture the story's essence without giving away the plot."""
+Generate a JSON response with a "title" field containing your suggested news episode title. Focus on creating something that would intrigue potential viewers and capture the news's essence without giving away all details."""
 
     def _build_story_title_user_prompt(self, story_summary: str) -> str:
-        """Build user prompt with story data for title generation"""
-        return f"""STORY SUMMARY:
+        """Build user prompt with news data for title generation"""
+        return f"""NEWS SUMMARY:
 {story_summary}"""
 
     def generate_story_title(self, story_summary: str, output_dir: str = "../input", resumable_state: ResumableState | None = None) -> str:
