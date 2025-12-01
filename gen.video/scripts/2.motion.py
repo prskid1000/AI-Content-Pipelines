@@ -133,19 +133,19 @@ class MotionGenerator:
             return None
         
     def read_story_content(self, filename="../input/1.story.txt") -> str:
-        """Read story content from file"""
+        """Read news content from file"""
         try:
             with open(filename, 'r', encoding='utf-8') as f:
                 return f.read()
         except FileNotFoundError:
-            print(f"Error: Story file '{filename}' not found.")
+            print(f"Error: News file '{filename}' not found.")
             return None
         except Exception as e:
-            print(f"Error reading story file: {e}")
+            print(f"Error reading news file: {e}")
             return None
     
     def parse_story_scenes(self, content: str) -> List[Dict[str, Any]]:
-        """Parse story content into structured scene entries with dialogue"""
+        """Parse news content into structured scene entries with dialogue"""
         scenes = []
         lines = content.strip().split('\n')
         
@@ -192,7 +192,7 @@ class MotionGenerator:
             else:
                 i += 1
         
-        print(f"📋 Parsed {len(scenes)} story scenes with dialogue and corresponding images")
+        print(f"📋 Parsed {len(scenes)} news scenes with dialogue and corresponding images")
         return scenes
     
     def create_prompt_for_single_scene(self, scene: Dict[str, Any]) -> str:
@@ -228,14 +228,14 @@ IMPORTANT: Only describe motions for objects, characters, and elements that are 
         }
 
     def _build_system_prompt(self) -> str:
-        return f"""Generate simple, generic motion+scene descriptions for video AI.
+        return f"""Generate motion descriptions for news broadcast video AI.
 RULES:
 - Only describe motions for elements VISIBLE in the image, not based on dialogue or scene description.
-- Give the scene description in short, concise, and general terms.
+- Give the scene description in short, concise, and general terms appropriate for news broadcasts.
 - Give generic descriptions of motions, not specific to any one character or object.
-- **IMPORTANT**: Use placeholders like "the person", "man with white hair", "woman with brown hair", "man sitting on a chair", "woman standing", "a blue vase on a table", "a red chair in the corner", etc. instead of proper nouns or names.
+- **IMPORTANT**: Use placeholders like "the news anchor", "the reporter", "the camera operator", "the news desk", "the studio lights", "the teleprompter", "the broadcast monitor", etc. instead of proper nouns or names.
 
-OUTPUT: Single a single paragraph of accurate and concise generalized motion+scene descriptions."""
+OUTPUT: Single a single paragraph of accurate and concise generalized motion+scene descriptions for news broadcast footage."""
 
     def call_lm_studio_api(self, prompt: str, image_path: str = None) -> str:
         """Call LM Studio API to generate motion for a single scene with optional image input"""
@@ -475,23 +475,23 @@ f"{self._build_system_prompt()}\nOnly use English Language for Input, Thinking, 
         """Main processing function - process each scene individually"""
         print("🚀 Starting Motion Generation...")
         
-        print(f"📁 Reading story from: {story_filename}")
+        print(f"📁 Reading news from: {story_filename}")
         
-        # Read story content and calculate total words for ETA calculations
+        # Read news content and calculate total words for ETA calculations
         content = self.read_story_content(story_filename)
         if content is None:
             return False
         
-        # Parse story scenes
+        # Parse news scenes
         scenes = self.parse_story_scenes(content)
         if not scenes:
-            print("❌ No valid story scenes found")
+            print("❌ No valid news scenes found")
             return False
         
         # Calculate total words for ETA calculations
         self.total_scene_words = sum(len(scene['scene_content'].split()) + len(scene['dialogue'].split()) for scene in scenes)
-        print(f"📊 Found {len(scenes)} story scenes")
-        print(f"📊 Story contains {self.total_scene_words:,} words")
+        print(f"📊 Found {len(scenes)} news scenes")
+        print(f"📊 News contains {self.total_scene_words:,} words")
         
         # Initialize start time for time estimation
         self.start_time = time.time()
@@ -594,9 +594,9 @@ def main():
     import sys
     import argparse
     
-    parser = argparse.ArgumentParser(description="Generate motion descriptions for story scenes")
+    parser = argparse.ArgumentParser(description="Generate motion descriptions for news scenes")
     parser.add_argument("story_file", nargs="?", default="../input/1.story.txt",
-                       help="Path to story file (default: ../input/1.story.txt)")
+                       help="Path to news file (default: ../input/1.story.txt)")
     parser.add_argument("--force-start", action="store_true",
                        help="Force start from beginning, ignoring any existing checkpoint files")
 
@@ -604,8 +604,8 @@ def main():
         
     # Check if story file exists
     if not os.path.exists(args.story_file):
-        print(f"❌ Story file '{args.story_file}' not found")
-        print("Usage: python 5.motion.py [story_file] [--force-start]")
+        print(f"❌ News file '{args.story_file}' not found")
+        print("Usage: python 2.motion.py [news_file] [--force-start]")
         return 1
     
     # Initialize resumable state if enabled

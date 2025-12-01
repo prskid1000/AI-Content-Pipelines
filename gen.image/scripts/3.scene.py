@@ -114,7 +114,7 @@ FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 
 # Location Information Configuration (now handled by ACTIVE_LOCATION_MODE above)
 
-ART_STYLE = "Realistic Anime"
+ART_STYLE = "Photorealistic"
 
 USE_SUMMARY_TEXT = False  # Set to True to use summary text
 

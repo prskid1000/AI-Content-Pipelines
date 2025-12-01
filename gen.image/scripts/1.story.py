@@ -44,7 +44,7 @@ ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 
 # Model constants for easy switching
-MODEL_STORY_DESCRIPTION = "qwen3-vl-30b-a3b-instruct"  # Model for generating story descriptions
+MODEL_NEWS_DESCRIPTION = "qwen3-vl-30b-a3b-instruct"  # Model for generating news descriptions
 MODEL_CHARACTER_GENERATION = "qwen3-vl-30b-a3b-instruct"  # Model for character description generation
 MODEL_CHARACTER_SUMMARY = "qwen3-vl-30b-a3b-instruct"  # Model for character summary generation
 MODEL_LOCATION_EXPANSION = "qwen3-vl-30b-a3b-instruct"  # Model for location expansion
@@ -734,19 +734,19 @@ def _schema_story_summary() -> dict[str, object]:
 
 def _build_character_system_prompt() -> str:
     return (
-        f"You are a Professional Visual Director and Character Creator and Character Designer and Character Writer and Character Illustrator. Your Job is to Create detailed visual-only attributes and characteristics for the character based its role in story for AI image generation.\n"
+        f"You are a Professional Visual Director and News Presenter Creator and News Presenter Designer and News Presenter Writer and News Presenter Illustrator. Your Job is to Create detailed visual-only attributes and characteristics for the news presenter based on their role in the news broadcast for AI image generation.\n"
         f"Each value should be short and precise i.e do not use long phrases or sentences."
     )
 
 def _build_character_user_prompt(story_desc: str, character_name: str, all_characters: dict[str, str]) -> str:
     return (
-        f"Story: {story_desc}\n"
-        f"Character: {character_name}\n"
+        f"News broadcast: {story_desc}\n"
+        f"News presenter: {character_name}\n"
     )
 
 def _build_character_summary_prompt() -> str:
     return (
-        f"You are a Professional Visual Director and Character Creator and Character Designer and Character Writer and Character Illustrator. Your Job is to Transform it into a continuous paragraph of {CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters, approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words.\n"
+        f"You are a Professional Visual Director and News Presenter Creator and News Presenter Designer and News Presenter Writer and News Presenter Illustrator. Your Job is to Transform it into a continuous paragraph of {CHARACTER_SUMMARY_CHARACTER_MIN}-{CHARACTER_SUMMARY_CHARACTER_MAX} characters, approximately {CHARACTER_SUMMARY_WORD_MIN}-{CHARACTER_SUMMARY_WORD_MAX} words.\n"
         f"It must always include all visual details like color(required, must always be present for every attribute/property), type(required, must always be present for every attribute/property), material(required, must always be present for every attribute/property), pattern, texture, etc. from the original description, preserving all visual attributes, characteristics and postioning relationships.\n"
         f"Describe features in a way like **a black tight cotton jeans and a white loose cotton t-shirt with a pair of black leather shoes.**\n"
     )
@@ -760,11 +760,11 @@ def _build_character_summary_user_prompt(character_name: str, detailed_descripti
 
 def _build_story_summary_prompt() -> str:
     return (
-        f"You are a Professional Visual Director and Story Creator and Story Designer and Story Writer and Story Illustrator. Your Job is to Summarize the story into 5 distinct plot summaries each with a title, a short summary, and a long summary.\n"
+        f"You are a Professional Visual Director and News Creator and News Designer and News Writer and News Illustrator. Your Job is to Summarize the news into 5 distinct news segments each with a title, a short summary, and a long summary.\n"
         f"Use written grammatically correct and complete short and precise english sentences (6-9 words) that are well-structured with clear subject and predicate."
         f"You can only use full stop, comma, apostrophe, and space as special characters."
-        f"The long summary should describe the chronology of all major/important/notable events and actions in the plot.\n"
-        f"Must never output what characters are explaining/thinking/discussing/feeling/saying.\n"
+        f"The long summary should describe the chronology of all major/important/notable events and developments in the news.\n"
+        f"Must never output what reporters are explaining/thinking/discussing/feeling/saying.\n"
     )
        
 
@@ -782,12 +782,12 @@ def _build_story_summary_user_prompt(story_content: str) -> str:
     
     dialogue_content = '\n'.join(dialogue_lines)
     return (
-        f"Story content: {dialogue_content}"
+        f"News content: {dialogue_content}"
     )
 
 def _build_location_system_prompt() -> str:
     return (
-        f"You are a Professional Visual Director and Location Creator and Location Designer and Location Writer and Location Illustrator.Your Job is to Create a detailed location that includes at max{MAX_OBJECTS_PER_LOCATION} most relevant objects(excluding any direct/in-direct references to characters/actors) that can be seen in such type of location, postioning large objects relative to the room, medium objects relative to large ones, small items relative to medium objects.\n"
+        f"You are a Professional Visual Director and News Setting Creator and News Setting Designer and News Setting Writer and News Setting Illustrator.Your Job is to Create a detailed news setting that includes at max{MAX_OBJECTS_PER_LOCATION} most relevant objects(excluding any direct/in-direct references to presenters/reporters) that can be seen in such type of news setting, postioning large objects relative to the room, medium objects relative to large ones, small items relative to medium objects.\n"
         f"Each value should be short and precise i.e do not use long phrases or sentences."
     )
 
@@ -800,7 +800,7 @@ def _build_location_user_prompt(story_desc: str, location_id: str, all_locations
 
 def _build_location_summary_prompt() -> str:
     return (
-        f"You are a Professional Visual Director and Location Creator and Location Designer and Location Writer and Location Illustrator. Your Job is to Transform it into a continuous paragraph of {LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters, approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words.\n"
+        f"You are a Professional Visual Director and News Setting Creator and News Setting Designer and News Setting Writer and News Setting Illustrator. Your Job is to Transform it into a continuous paragraph of {LOCATION_SUMMARY_CHARACTER_MIN}-{LOCATION_SUMMARY_CHARACTER_MAX} characters, approximately {LOCATION_SUMMARY_WORD_MIN}-{LOCATION_SUMMARY_WORD_MAX} words.\n"
         f"It must always include all visual details like color(required, must always be present for every attribute/property),position(required, must always be present for every attribute/property),type(required, must always be present for every attribute/property), material(required, must always be present for every attribute/property), pattern, texture, etc. from the original description, preserving all visual attributes, characteristics and postioning relationships.\n"
         f"Describe objects in a way like **a large brown wooden table at left side of the room with a pair of small red leather shoe placed on top of the table.**\n"
     )
@@ -1186,7 +1186,7 @@ def _generate_story_summary(story_content: str, lm_studio_url: str, resumable_st
     
     try:
         # Use model constant for story description generation
-        model = MODEL_STORY_DESCRIPTION
+        model = MODEL_NEWS_DESCRIPTION
         # Call with structured output using the story description schema
         raw = _call_lm_studio(prompt, user_prompt, lm_studio_url, model, _schema_story_summary())
         structured_data = _parse_structured_response(raw)
