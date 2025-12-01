@@ -265,12 +265,19 @@ class StoryProcessor:
                 return node
         return None
     
+    def clean_text(self, text):
+        """Remove all special characters except [, ], comma, space, newline, period"""
+        import re
+        # Keep letters, numbers, [, ], comma, period, space, newline
+        cleaned = re.sub(r'[^a-zA-Z0-9\[\],.\s\n]', '', text)
+        return cleaned
+    
     def update_workflow_text(self, workflow, story_text):
         """Update the text prompt in the workflow"""
         # Find the PrimitiveStringMultiline node and update its text
         node = self.find_node_by_type(workflow, 'PrimitiveStringMultiline')
         if node:
-            node['inputs']['value'] = story_text
+            node['inputs']['value'] = self.clean_text(story_text)
         return workflow
     
     def _print_workflow_summary(self, workflow: dict, title: str) -> None:
