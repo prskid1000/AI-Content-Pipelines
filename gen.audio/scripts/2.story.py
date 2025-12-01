@@ -12,7 +12,7 @@ from pathlib import Path
 print = partial(_builtins.print, flush=True)
 
 # Configuration constants
-CHUNK_SIZE = 5  # Number of dialogues/lines per chunk
+CHUNK_SIZE = 15  # Number of dialogues/lines per chunk
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
