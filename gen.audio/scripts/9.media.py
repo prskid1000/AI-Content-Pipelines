@@ -70,6 +70,7 @@ class DiffusionPromptGenerator:
          - all object positions using directional terms (left wall, center focus, far background)
          - precise material descriptions for textures and surfaces (polished mahogany, LED screens, modern glass)
          - Ensure every element supports the news broadcast and maintains spatial clarity and visual coherence.
+         - Keep hands hidden or out of frame. Use old male anchor with short gray hair
          
          Output must be a CREATIVELY generated single continuous paragraph within the word limit of 300-350 words without line breaks."""
 

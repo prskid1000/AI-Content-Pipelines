@@ -1838,7 +1838,7 @@ class ThumbnailProcessor:
         return """Create a professional news broadcast thumbnail in realistic style, 
         high-resolution image suitable for YouTube/Social media, with clean modern design, 
         news studio background or relevant news imagery, professional lighting, 
-        clear composition for maximum visual impact. Keep hands hidden or out of frame. Use old male anchor with short gray hair. 
+        clear composition for maximum visual impact. 
         """.format(ART_STYLE=ART_STYLE)
         
 def read_prompt_from_file(filename: str = "../input/10.thumbnail.txt") -> str | None:

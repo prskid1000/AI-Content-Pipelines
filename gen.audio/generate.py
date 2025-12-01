@@ -82,7 +82,7 @@ SCRIPTS = [
     "11.video.py",
 
     #YouTube
-    "12.youtube.py"
+    # "12.youtube.py"
 ]
 
 SCRIPTS_DIR = "scripts"
