@@ -15,6 +15,11 @@ MODEL_MEDIA_TITLE = "qwen3-vl-30b-a3b-instruct"  # Model for generating YouTube 
 MODEL_MEDIA_HOOK = "qwen3-vl-30b-a3b-instruct"  # Model for generating YouTube hooks
 MODEL_MEDIA_BULLETS = "qwen3-vl-30b-a3b-instruct"  # Model for generating YouTube bullet points
 MODEL_DESCRIPTION_GENERATION = "qwen3-vl-30b-a3b-instruct"  # Model for description generation
+
+WORD_FACTOR = 6  # Approximate factor to convert words to characters
+THUMBNAIL_CHARACTER_MIN = 300 * WORD_FACTOR
+THUMBNAIL_CHARACTER_MAX = 350 * WORD_FACTOR
+
 class DiffusionPromptGenerator:
     def __init__(self, lm_studio_url: str = "http://localhost:1234/v1", model: str = MODEL_DESCRIPTION_GENERATION):
         self.lm_studio_url = lm_studio_url
@@ -46,9 +51,9 @@ class DiffusionPromptGenerator:
                     "properties": {
                         "prompt": {
                             "type": "string",
-                            "minLength": 350,
-                            "maxLength": 500,
-                            "description": "Single continuous paragraph with 300-350 words describing the thumbnail scene"
+                            "minLength": THUMBNAIL_CHARACTER_MIN,
+                            "maxLength": THUMBNAIL_CHARACTER_MAX,
+                            "description": f"Single continuous paragraph with {THUMBNAIL_CHARACTER_MIN}-{THUMBNAIL_CHARACTER_MAX} characters describing the thumbnail scene"
                         }
                     },
                     "required": ["prompt"],
@@ -71,7 +76,7 @@ class DiffusionPromptGenerator:
          - precise material descriptions for textures and surfaces (dark oak, brass fittings, weathered leather)
          - Ensure every element supports the story and maintains spatial clarity and visual coherence.
          
-         Output must be a CREATIVELY generated single continuous paragraph within the word limit of 300-350 words without line breaks."""
+         Output must be a CREATIVELY generated single continuous paragraph within the word limit of {THUMBNAIL_CHARACTER_MIN}-{THUMBNAIL_CHARACTER_MAX} characters without line breaks.""".format(THUMBNAIL_CHARACTER_MIN=THUMBNAIL_CHARACTER_MIN, THUMBNAIL_CHARACTER_MAX=THUMBNAIL_CHARACTER_MAX)
 
     def _build_user_prompt(self, story_desc: str) -> str:
         return f"""STORY SUMMARY: {story_desc}"""
@@ -148,8 +153,8 @@ class DiffusionPromptGenerator:
         print(f"Characters: {len(prompt)}")
         print(f"Words: {word_count}")
         
-        if word_count < 300 or word_count > 350:
-            print(f"⚠️ WARNING: Word count ({word_count}) is outside the 300-350 word limit")
+        if word_count < (THUMBNAIL_CHARACTER_MIN // WORD_FACTOR) or word_count > (THUMBNAIL_CHARACTER_MAX // WORD_FACTOR):
+            print(f"⚠️ WARNING: Word count ({word_count}) is outside the expected range of {THUMBNAIL_CHARACTER_MIN // WORD_FACTOR} to {THUMBNAIL_CHARACTER_MAX // WORD_FACTOR} words.")
 
         out_path = self.output_file
         self._write_text(out_path, prompt)
@@ -166,7 +171,7 @@ class YouTubeDescriptionGenerator:
         chapters_file: str = "../input/12.chapters.txt",
         output_file: str = "../output/description.txt",
         tags_output_file: str = "../output/tags.txt",
-        num_chapters: int = 8,
+        num_chapters: int = 12,
         hook_char_limit: int = 500,
     ) -> None:
         self.lm_studio_url = lm_studio_url
