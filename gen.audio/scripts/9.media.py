@@ -17,8 +17,8 @@ MODEL_MEDIA_BULLETS = "qwen3-vl-30b-a3b-instruct"  # Model for generating YouTub
 MODEL_DESCRIPTION_GENERATION = "qwen3-vl-30b-a3b-instruct"  # Model for description generation
 
 WORD_FACTOR = 6  # Approximate factor to convert words to characters
-THUMBNAIL_CHARACTER_MIN = 300 * WORD_FACTOR
-THUMBNAIL_CHARACTER_MAX = 350 * WORD_FACTOR
+THUMBNAIL_CHARACTER_MIN = 200 * WORD_FACTOR
+THUMBNAIL_CHARACTER_MAX = 250 * WORD_FACTOR
 
 class DiffusionPromptGenerator:
     def __init__(self, lm_studio_url: str = "http://localhost:1234/v1", model: str = MODEL_DESCRIPTION_GENERATION):
