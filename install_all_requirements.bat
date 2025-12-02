@@ -102,7 +102,7 @@ powershell -Command "if (!(Get-Command choco -ErrorAction SilentlyContinue)) { S
 echo.
 
 REM Install ffmpeg
-choco install ffmpeg-full --version=7.1.1
+choco install ffmpeg-shared --version=7.1.1
 echo.
 
 echo ========================================
