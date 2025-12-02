@@ -46,8 +46,8 @@ class DiffusionPromptGenerator:
                     "properties": {
                         "prompt": {
                             "type": "string",
-                            "minLength": 150,
-                            "maxLength": 250,
+                            "minLength": 350,
+                            "maxLength": 500,
                             "description": "Single continuous paragraph with 300-350 words describing the thumbnail scene"
                         }
                     },
