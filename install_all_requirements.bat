@@ -97,6 +97,14 @@ if errorlevel 1 (
 echo SUCCESS: Triton installed
 echo.
 
+REM Check and install Chocolatey if not present
+powershell -Command "if (!(Get-Command choco -ErrorAction SilentlyContinue)) { Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) }"
+echo.
+
+REM Install ffmpeg
+choco install ffmpeg-full --version=7.1.1
+echo.
+
 echo ========================================
 echo All requirements installation completed!
 echo ========================================
