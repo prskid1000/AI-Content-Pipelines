@@ -12,7 +12,7 @@ from pathlib import Path
 print = partial(_builtins.print, flush=True)
 
 # Configuration constants
-CHUNK_SIZE = 5  # Number of dialogues/lines per chunk
+CHUNK_SIZE = 15  # Number of dialogues/lines per chunk
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
@@ -265,19 +265,12 @@ class StoryProcessor:
                 return node
         return None
     
-    def clean_text(self, text):
-        """Remove all special characters except [, ], comma, space, newline, period"""
-        import re
-        # Keep letters, numbers, [, ], comma, period, space, newline
-        cleaned = re.sub(r'[^a-zA-Z0-9\[\],.\s\n]', '', text)
-        return cleaned
-    
     def update_workflow_text(self, workflow, story_text):
         """Update the text prompt in the workflow"""
         # Find the PrimitiveStringMultiline node and update its text
         node = self.find_node_by_type(workflow, 'PrimitiveStringMultiline')
         if node:
-            node['inputs']['value'] = self.clean_text(story_text)
+            node['inputs']['value'] = story_text
         return workflow
     
     def _print_workflow_summary(self, workflow: dict, title: str) -> None:
