@@ -63,7 +63,7 @@ class DiffusionPromptGenerator:
         CONSTRAINTS: 
          - highly specific spatial and material details, and technical quality flags. 
          - Include: news anchors or reporters with detailed physical descriptions and attire positioned specifically in the scene (center-left, background-right, etc.)
-         - Mention: keep hands, and fingers out of frame or hidden by suitable props.
+         - Exclude: any text, logos, watermarks, or branding elements, hands, fingers, or distorted anatomy.
          - the central news focus or breaking story element placed precisely in the composition with detailed condition and appearance
          - the broadcast environment with exact spatial descriptions of news desks, monitors, cameras, and atmospheric elements
          - secondary crew or on-screen elements positioned clearly with actions and props
