@@ -62,11 +62,11 @@ class DiffusionPromptGenerator:
         
         CONSTRAINTS: 
          - highly specific spatial and material details, and technical quality flags. 
-         - Include: main character(s) with detailed physical descriptions and clothing positioned specifically in the scene (center-left, background-right, etc.)
-         - the central object or narrative focus placed precisely in the composition with detailed condition and appearance
-         - the setting environment with exact spatial descriptions of furniture, walls, windows, and atmospheric elements
-         - secondary characters positioned clearly with actions and props
-         - background elements like weather, time period indicators, and contextual details
+         - Include: MALE news anchors or reporters,whose hands always under desk, with detailed physical descriptions and attire positioned specifically in the scene (center-left, background-right, etc.).
+         - the central news focus or breaking story element placed precisely in the composition with detailed condition and appearance
+         - the broadcast environment with exact spatial descriptions of news desks, monitors, cameras, and atmospheric elements
+         - secondary crew or on-screen elements positioned clearly with actions and props
+         - background elements like news tickers, time indicators, and contextual details
          - all object positions using directional terms (left wall, center focus, far background)
          - precise material descriptions for textures and surfaces (dark oak, brass fittings, weathered leather)
          - Ensure every element supports the story and maintains spatial clarity and visual coherence.
