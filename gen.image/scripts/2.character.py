@@ -81,6 +81,11 @@ FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 
 ART_STYLE = "Realistic Anime"
 
+EXTRA_PROMPT_PHRASES = [
+    "Must keep character's both hands separate from each other and visible.",
+    "No textual elements. Just use logos/icons if needed.",
+]
+
 # Text overlay settings for character names
 USE_CHARACTER_NAME_OVERLAY = False  # Set to False to disable name overlay
 CHARACTER_NAME_FONT_SCALE = 1
@@ -972,9 +977,9 @@ class CharacterGenerator:
     def _update_workflow_prompt(self, workflow: dict, character_name: str, description: str) -> dict:
         """Update the workflow with character-specific prompt."""
         if FACE_ONLY:
-            prompt = f"Create a 16K ultra-high-resolution, Dressed Face and upto Shoulders Visible, Illustration in the style of {ART_STYLE} in which face(eyes, nose, mouth, skin, shoulders), precisely and accurately matching character with description and fine-level detailing, and any part not cropped or hidden.\n\n Character Description = {description}. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style. All Colourings, Styles, Shapes, Textures, Lightings and Detailing, must be **exactly same/ identical/as it is** in the character text-description. Must use Black Background."
+            prompt = f"Create a 16K ultra-high-resolution, Dressed Face and upto Shoulders Visible, Illustration in the style of {ART_STYLE} in which face(eyes, nose, mouth, skin, shoulders), precisely and accurately matching character with description and fine-level detailing, and any part not cropped or hidden.\n\n Character Description = {description}. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style. All Colourings, Styles, Shapes, Textures, Lightings and Detailing, must be **exactly same/ identical/as it is** in the character text-description. Must use Black Background." + "\n __NOTE__:" + " ".join(EXTRA_PROMPT_PHRASES)
         else:
-            prompt = f"Create a 16K ultra-high-resolution, Full DressedBody Visible, Illustration in the style of {ART_STYLE} in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description and fine-level detailing, and any part not cropped or hidden.\n\n Character Description = {description}. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style. All Colourings, Styles, Shapes, Textures, Lightings and Detailing, must be **exactly same/ identical/as it is** in the character text-description. Must use Black Background."
+            prompt = f"Create a 16K ultra-high-resolution, Full DressedBody Visible, Illustration in the style of {ART_STYLE} in which torso, limbs, hands, feet, face(eyes, nose, mouth, skin), clothes, ornaments, props, precisely and accurately matching character with description and fine-level detailing, and any part not cropped or hidden.\n\n Character Description = {description}. Strictly, Accurately, Precisely, always must Follow {ART_STYLE} Style. All Colourings, Styles, Shapes, Textures, Lightings and Detailing, must be **exactly same/ identical/as it is** in the character text-description. Must use Black Background." + "\n __NOTE__:" + " ".join(EXTRA_PROMPT_PHRASES)
         self._update_node_connections(workflow, ["CLIPTextEncode", "CLIP Text Encode (Prompt)"], "text", prompt)
         return workflow
 

@@ -108,6 +108,10 @@ NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, p
 
 ART_STYLE = "Realistic Anime"
 
+EXTRA_PROMPT_PHRASES = [
+    "Must keep character's both hands separate from each other and visible.",
+]
+
 class ResumableState:
     """Manages resumable state for expensive thumbnail generation operations."""
     
@@ -1837,7 +1841,7 @@ class ThumbnailProcessor:
         """Get the master prompt content."""
         return """Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of {ART_STYLE}, 
         with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
-        """.format(ART_STYLE=ART_STYLE)
+        """.format(ART_STYLE=ART_STYLE) + "\n __NOTE__:" + " ".join(EXTRA_PROMPT_PHRASES)
         
 def read_prompt_from_file(filename: str = "../input/10.thumbnail.txt") -> str | None:
     try:
