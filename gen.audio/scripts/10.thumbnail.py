@@ -110,6 +110,7 @@ ART_STYLE = "Professional News Broadcast"
 
 EXTRA_PROMPT_PHRASES = [
     "Must keep character's both hands separate from each other and visible.",
+    "No textual elements. Just use logos/icons if needed.",
 ]
 
 class ResumableState:
