@@ -1,30 +1,35 @@
-TASK: Write a Picture Story in form of DIALOGUE-SCENE divided into 5 PARTS.
+## TASK: Write a News Broadcast in form of DIALOGUE-SCENE.
 
-CONTENT:
-- Consulting Detective Sherlock Holmes Story [Victorian Drama] -> Sherlock Holmes and the Adventure of Blue Duckling. 
-- Use the narrator(Doctor John Watson himself is the narrator) for atmosphere/background and other detailing.
-- Watson, always learning how to do deduction from Holmes, and his loyal assistant and roommate.
-- Holmes, for him, "everything is elementary" and "uses theory of deduction" to solve cases.
+## CONTENT:
+- Get all content from live search data and do analysis.
+- Do not just present facts. Be like actual reporter/anchor presenting news.
+- TOPIC: Sherlock Holmes and the Adventure of Blue Duckling.
 
-CONSTRAINTS:
-- Each PART_x must be at least 7500 characters and 1200 words.
+## CONSTRAINTS:
 - Each DIALOGUE must be always at least 30 characters.
-- Each LOCATION_k must be always at max 12 words. 
-- Each DIALOGUE_i.j must have its single corresponding SCENE_i.j, and vice-versa. 
-- Each PART_x can span over multiple LOCATION_k. 
-- Each LOCATION_k, will be used in multiple SCENE_i.j, keep description consistent and such that it has all objects needed/mentioned in past/current/future scenes. Repeat {{loc_k}} in each SCENE_i.j  where LOCATION_k used for next time. 
-- Must Always reate a new location(describe independently and completely) when view changes (i.e. new elements added or removed), even in same room or place, e.g. in drawing room, loc_i can be some sitting on sofa, and loc_(i+z) can be sitting on dinning table, though drawing has both sofa and dinning table. 
+- Each LOCATION_k must be always at max 12 words.
+- Each DIALOGUE_i must have its single corresponding SCENE_i, and vice-versa.
+- The broadcast can span over multiple LOCATION_k.
+- Each LOCATION_k will be used in multiple SCENE_i, keep description consistent and such that it has all objects needed/mentioned in past/current/future scenes. Repeat {{loc_k}} in each SCENE_i where LOCATION_k used for next time.
+- **Must always create a new location (describe independently and completely) when the news topic/visual changes (i.e. discussing different aspects of the story, showing different related images).**
+- **SCENES and LOCATIONS must ONLY show images/visuals directly related to the news content being discussed.**
+- LENGTH: Must be at least 7500 characters and 1200 words.
+- Do NOT place Citations with dialogue lines.
 
-DIALOGUE-SCENE FORMAT:
+## DIALOGUE-SCENE FORMAT:
 
-[male_doctor_watson] "It was a calm morning....";
-(scene_1.1) {{loc_1, Victorian living room with sofa and fireplace}}, {Weather/Season/Time: sunny winter morning}; ((male_doctor_watson){Face Relative Direction: toward fireplace}{Looking Relative Direction: at newspaper}{Facial Expression: neutral}, {Relative Location: left side of sofa},{Body Facing Relative Direction: toward fireplace},{Body Posture: sitting},{Primary Action: reading};
+[narrator] "Breaking news this evening about a dramatic fall in the Indian Rupee...";
+(scene_1) {{loc_1, Stock market trading floor with digital screens and traders}}, {Primary Focus: red declining graphs on large digital screens};
 
-[male_detective_holmes] "Look, Watson....";
-(scene_1.2) {{loc_2, Victorian living room with dinning and fireplace}}, {Weather/Season/Time: sunny winter morning};(male_detective_holmes){Face Relative Direction: toward window}{Looking Relative Direction: at window}{Facial Expression: curious}, {Relative Location: standing near dining table},{Body Facing Relative Direction: toward window},{Body Posture: standing},{Primary Action: drinking water});
+[narrator] "The rupee has fallen to an unprecedented ninety against the dollar...";
+(scene_2) {{loc_1, Stock market trading floor with digital screens and traders}}, {Primary Focus: close-up of USD-INR exchange rate display showing 90};
 
-....
+[narrator] "Meanwhile, gold prices have surged as investors seek safe havens...";
+(scene_3) {{loc_2, Gold bullion vault with stacked bars and security}}, {Primary Focus: gleaming gold bars arranged in rows};
 
-[gender_profession_actor_name] ....dialogue_i.j; start & end in same line as of [].
-(scene_i.j) {{loc_k, Description of at max 12 words}}, {Weather/Season/Time: x};
-((gender_profession_actor_name - only one, either dialogue speaker or main subject of dialogue)){Face Relative Direction: x}{Looking Relative Direction: x}{Facial Expression: x}, {Relative Location: x},{Body Facing Relative Direction: x},{Body Posture: x}, {Primary Action: x};start & end in same line as of ().
+[narrator] "Financial experts predict continued volatility in currency markets...";
+(scene_4) {{loc_3, Economic graph charts showing downward rupee trend lines}}, {Primary Focus: arrow pointing downward on rupee chart};
+
+...
+[narrator] ....dialogue_i; start & end in same line as of [].
+(scene_i) {{loc_k, Description of at max 12 words}}, {Weather/Season/Time: x}, {Primary Focus: what specific element/action is shown};
