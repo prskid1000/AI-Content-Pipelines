@@ -1840,11 +1840,9 @@ class ThumbnailProcessor:
 
     def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
-        return """Create a professional news broadcast thumbnail in {ART_STYLE} style, 
-        high-resolution image suitable for YouTube/Social media, with clean modern design, 
-        news studio background or relevant news imagery, professional lighting, 
-        clear composition for maximum visual impact. 
-        """.format(ART_STYLE=ART_STYLE) + " " + " ".join(EXTRA_PROMPT_PHRASES)
+        return """Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of {ART_STYLE}, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        """.format(ART_STYLE=ART_STYLE) + "\n __NOTE__:" + " ".join(EXTRA_PROMPT_PHRASES)
         
 def read_prompt_from_file(filename: str = "../input/10.thumbnail.txt") -> str | None:
     try:
