@@ -108,6 +108,10 @@ NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, p
 
 ART_STYLE = "Professional News Broadcast"
 
+EXTRA_PROMPT_PHRASES = [
+    "Must keep character's both hands separate from each other and visible.",
+]
+
 class ResumableState:
     """Manages resumable state for expensive thumbnail generation operations."""
     
@@ -1835,11 +1839,11 @@ class ThumbnailProcessor:
 
     def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
-        return """Create a professional news broadcast thumbnail in realistic style, 
+        return """Create a professional news broadcast thumbnail in {ART_STYLE} style, 
         high-resolution image suitable for YouTube/Social media, with clean modern design, 
         news studio background or relevant news imagery, professional lighting, 
         clear composition for maximum visual impact. 
-        """.format(ART_STYLE=ART_STYLE)
+        """.format(ART_STYLE=ART_STYLE) + " " + " ".join(EXTRA_PROMPT_PHRASES)
         
 def read_prompt_from_file(filename: str = "../input/10.thumbnail.txt") -> str | None:
     try:
