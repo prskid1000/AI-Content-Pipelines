@@ -1,10 +1,10 @@
-20%: The Parrot's Arrival
-SHORT_SUMMARY : Captain Harrington seeks Holmes' help with a parrot causing threats.
-40%: The Investigation Begins
-SHORT_SUMMARY : Holmes investigates Kimbu's repeated phrase for clues about murder.
-60%: Confrontation at Blackfriars
-SHORT_SUMMARY : Holmes and Watson confront Lieutenant-Colonel Ashcombe at his warehouse.
-80%: The Final Confession
-SHORT_SUMMARY : Holmes reveals a second intruder is an accomplice of Ashcombe.
-100%: Justice Served
-SHORT_SUMMARY : Ashcombe is arrested; Kimbu returns home safely with its true purpose fulfilled.
+20%: Rupee Hits ₹90.43 per Dollar
+SHORT_SUMMARY : Indian Rupee hits record low at ₹90.43 to US dollar in December 2025.
+40%: Foreign Capital Flight from In
+SHORT_SUMMARY : FPIs withdrew funds from Indian markets due to U.S. policy shifts.
+60%: India's Trade Relations with U
+SHORT_SUMMARY : Stalled India-U.S. trade talks weaken export expectations and lower Rupee value.
+80%: RBI's Limited Intervention in
+SHORT_SUMMARY : Reserve Bank of India refrained from strong market intervention.
+100%: Implications Across Indian
+SHORT_SUMMARY : Weaker Rupee increases costs for imports and consumers in India.

@@ -1,2316 +1,342 @@
-00:00:00,000 --> 00:00:03,610
-It was a humid and rather languid summer afternoon in London,
+00:00:00,000 --> 00:00:05,459
+Good evening. Welcome to Market Pulse tonight. I'm your anchor and today we bring you a major
 
-00:00:03,610 --> 00:00:08,160
-the sort that made the curtains of our Baker Street rooms hang heavy and motionless,
+00:00:05,459 --> 00:00:09,539
+development rippling across India's economy. The Indian rupee has plunged past the historic
 
-00:00:08,160 --> 00:00:10,269
-as if exhausted by their own weight.
+00:00:09,539 --> 00:00:15,050
+minute per US dollar mark. This plunge isn't just a number. It signals turbulence for businesses,
 
-00:00:10,269 --> 00:00:13,960
-I found myself seated opposite my friend, Mr. Sherlock Holmes,
+00:00:15,050 --> 00:00:19,359
+for consumers, for ordinary citizens. So let's dive into what this means, why it happened and
 
-00:00:13,960 --> 00:00:17,379
-who was engrossed in a monograph on African tribal poisons
+00:00:19,359 --> 00:00:24,420
+what could be coming next. First, the facts. On Wednesday and Thursday, December 2025,
 
-00:00:17,379 --> 00:00:21,050
-that had arrived from the Royal Colonial Society only the previous night.
+00:00:24,420 --> 00:00:29,750
+the rupee breached the psychological barrier of 90 per US dollar for the first time ever.
 
-00:00:21,050 --> 00:00:23,350
-Though accustomed to his wide range of interests,
+00:00:29,750 --> 00:00:37,670
+At one point, it touched an intraday low of 90.33 and subsequent session saw it slide further, reaching around 90.41 and 90.43.
 
-00:00:23,350 --> 00:00:26,120
-I could not ignore the curiosity that uncoiled within me
+00:00:37,670 --> 00:00:39,369
+Why, some reports are here.
 
-00:00:26,120 --> 00:00:28,620
-each time he delved into yet another obscure subject.
+00:00:39,369 --> 00:00:45,629
+Oh, the rupee closed at about 90.19 per dollar, a dramatic fall that reflects deepening pressure on the currency.
 
-00:00:28,620 --> 00:00:32,500
-Perhaps, I thought, he was preparing for some unknown investigation.
+00:00:45,629 --> 00:00:46,939
+That's a part of me.
 
-00:00:32,500 --> 00:00:35,210
-Or perhaps, given his peculiar temperament,
+00:00:46,939 --> 00:00:48,310
+The slide hasn't come overnight, though.
 
-00:00:35,210 --> 00:00:39,609
-he simply wished to guard his restless mind from the creeping threat of boredom.
+00:00:48,310 --> 00:00:48,769
+Whoa!
 
-00:00:39,609 --> 00:00:41,710
-Hmm, Watson, hmm.
+00:00:48,769 --> 00:00:50,820
+This depreciation is part of a broader trend.
 
-00:00:41,710 --> 00:00:48,329
-You are gazing as though I had transformed into some curious exotic exhibit at the British Museum.
+00:00:50,820 --> 00:00:57,340
+Over 2025, the rupee has slipped roughly 5% against the US dollar, making it one of Asia's worst-performing currencies this year.
 
-00:00:48,329 --> 00:00:52,060
-If there is a question lingering in that mind of yours,
+00:00:57,340 --> 00:00:58,299
+Contextualizing.
 
-00:00:52,060 --> 00:00:55,179
-you might do me the kindness of voicing it
+00:00:58,299 --> 00:01:01,719
+not long ago, many wouldn't have imagined a rupee to dollar rate crossing 90.
 
-00:00:55,179 --> 00:00:59,340
-instead of letting it rattle about like an unsecured carriage wheel.
-
-00:00:59,340 --> 00:01:00,539
+00:01:01,719 --> 00:01:02,780
 ..
 
-00:01:00,539 --> 00:01:01,579
-Holmes, you misjudge me.
+00:01:02,780 --> 00:01:07,250
+But for decades now, the rupee's value has eroded gradually, shaped by economic shifts,
 
-00:01:01,579 --> 00:01:06,200
-I was simply wondering why you find yourself buried in treatises on African toxins.
+00:01:07,250 --> 00:01:12,099
+global pressures and internal challenges. So, what caused this steep fall? And this
 
-00:01:06,200 --> 00:01:10,400
-I confess the subject seems a trifle remote from our usual London affairs.
+00:01:12,099 --> 00:01:16,039
+points to a handful of critical factors. First, foreign capital flight. In recent weeks,
 
-00:01:10,400 --> 00:01:12,450
-Remote, yes.
+00:01:16,039 --> 00:01:20,159
+there's been a steady outflow of funds from Indian equities. Foreign portfolio investors,
 
-00:01:12,450 --> 00:01:14,969
-Irrelevant, certainly not.
+00:01:20,159 --> 00:01:25,319
+FBIs, have been pulling out, spooked by durable uncertainties, rising US yields,
 
-00:01:14,969 --> 00:01:21,019
-Knowledge, my dear Watson, is never remote to the mind that knows how to classify it.
+00:01:25,319 --> 00:01:29,560
+unchanging risk perceptions. Simultaneously domestic demand for
 
-00:01:21,019 --> 00:01:28,620
-The universe is a vast cabinet of curiosities, and one never knows which drawer may be required at any moment.
+00:01:29,560 --> 00:01:34,140
+dollars surged. Importers, especially in sectors like oil, metals, electronics are
 
-00:01:28,620 --> 00:01:34,400
-Is still, Holmes. One might assume a peaceful afternoon could be spent without fear of sudden intrigue.
+00:01:34,140 --> 00:01:37,040
+scrambling to secure dollars amid uncertainty, increasing demand pressure
 
-00:01:34,400 --> 00:01:39,560
-Assume nothing, Watson. Peace is merely the interval before the next disturbance.
+00:01:37,040 --> 00:01:41,920
+on USD and pushing INR down. Second, uncertainty over international trade and
 
-00:01:39,560 --> 00:01:45,659
-Holmes had barely concluded this remark when the sudden and sharp rap of the downstairs bell jolted.
+00:01:41,920 --> 00:01:46,599
+tariffs. The stalled trade negotiations between India and the US along with
 
-00:01:45,659 --> 00:01:47,240
-the stillness of our rooms.
+00:01:46,599 --> 00:01:51,140
+steep US along with steep US. Delifts and Indian goods have sapped confidence in
 
-00:01:47,240 --> 00:01:51,170
-Mrs. Hudson's surprised exclamation drifted upward,
+00:01:51,140 --> 00:01:54,840
+India's export prospects. That weighs on foreign investment sentiment and by
 
-00:01:51,170 --> 00:01:55,409
-followed by the rapid footsteps of someone ascending the stairs with urgent purpose.
+00:01:54,840 --> 00:01:56,120
+by extension on the rupee.
 
-00:01:55,409 --> 00:01:56,980
-Holmes raised a single eyebrow,
+00:01:56,120 --> 00:02:00,959
+As one market commentary puts it, exporters are delaying conversions, hoping for a weaker
 
-00:01:56,980 --> 00:02:01,760
-a subtle gesture I had come to interpret as the confirmation of his own prophetic remark.
+00:02:00,959 --> 00:02:05,439
+rupee, while importers waste to convert sooner, a dynamic that drives instability.
 
-00:02:01,760 --> 00:02:02,819
+00:02:05,439 --> 00:02:09,410
+Third, lack of aggressive intervention from the Reserve Bank of India RBI.
+
+00:02:09,410 --> 00:02:13,719
+While historically the RBI has stepped in to defend certain levels, this time its restraint,
+
+00:02:13,719 --> 00:02:17,139
+reportedly choosing selective smoothing of volatility rather than holding a firm line,
+
+00:02:17,139 --> 00:02:19,400
+has allowed market dynamics to drive the currency lower.
+
+00:02:19,400 --> 00:02:23,379
+And fourth, the cumulative effect of global macroeconomic shifts.
+
+00:02:23,379 --> 00:02:29,349
+Strong US oil demand, rising US interest rates, global risk-cost sentiment,
+
+00:02:29,349 --> 00:02:32,259
+which have made emerging market currencies like the rupee more vulnerable.
+
+00:02:32,259 --> 00:02:36,579
+So we have a perfect storm, capital outflows, import-driven demand for dollars,
+
+00:02:36,579 --> 00:02:39,550
+trade uncertainty and limited central bank cushioning.
+
+00:02:39,550 --> 00:02:41,490
+But what does this mean for Indians?
+
+00:02:41,490 --> 00:02:43,329
+From the common man to businesses.
+
+00:02:43,329 --> 00:02:47,240
+In practical terms, in practical terms, the impact could be wide and deep.
+
+00:02:47,240 --> 00:02:51,759
+For starters, imports are going to get costlier. Everything imported, fuel, electronics, critical
+
+00:02:51,759 --> 00:02:56,110
+raw materials, medical equipment, technology becomes more expensive as the rupee weakens.
+
+00:02:56,110 --> 00:03:01,659
+That cost often passes on to consumers. This in turn fuels inflation. As the cost of essential
+
+00:03:01,659 --> 00:03:06,000
+imports rises, the ripple effect can push up prices of goods and services from petrol to
+
+00:03:06,000 --> 00:03:10,409
+smartphones to consumer electronics to hospital equipment. Ordinary households may feel the pinch.
+
+00:03:10,409 --> 00:03:15,060
+For people planning foreign travel, overseas education or foreign denominated loans,
+
+00:03:15,060 --> 00:03:18,599
+loans, the pain is more immediate. Students studying abroad now face higher costs when
+
+00:03:18,599 --> 00:03:22,879
+converting rubies to dollars. Tuition, living expenses, EMIs and foreign currency loans
+
+00:03:22,879 --> 00:03:28,949
+all get more expensive. For businesses dependent on imported raw materials, manufacturing units,
+
+00:03:28,949 --> 00:03:34,000
+pharma companies, pharma companies, tech firms, the cost base may expand, potentially squeezing
+
+00:03:34,000 --> 00:03:37,910
+margins or forcing higher prices. For import heavy sectors like electronics or chemicals,
+
+00:03:37,910 --> 00:03:41,759
+this could spell trouble. On the fixed side, a weaker rupee could give a boost to exports
+
+00:03:41,759 --> 00:03:45,379
+exports and remittances. For export-oriented firms, particularly those in reference price
+
+00:03:45,379 --> 00:03:50,259
+industries like IT services, manufacturing for overseas clients, their revenues in dollars now
+
+00:03:50,259 --> 00:03:55,879
+convert to more rupees, which might improve profitability. Similarly, remittances from
+
+00:03:55,879 --> 00:03:59,500
+Indians working abroad may be more valuable, potentially increasing inflows and helping
+
+00:03:59,500 --> 00:04:03,400
+households dependent on dollars. But at this moment, the immediate sentiment is of concern
+
+00:04:03,400 --> 00:04:08,639
+and anxiety. Many ordinary citizens and small businesses may only see rising costs and shrinking
+
+00:04:08,639 --> 00:04:12,139
+shrinking value of savings. What about the bigger picture? The economy and the markets?
+
+00:04:12,139 --> 00:04:17,100
+For one, domestic equity markets have responded nervously. The foreign rupee typically dampens
+
+00:04:17,100 --> 00:04:21,100
+investor confidence. Foreign investors pull out, domestic investors grow cautious, and
+
+00:04:21,100 --> 00:04:26,040
+equities may slump under pressure. At the same time, macroeconomic fundamentals remain
+
+00:04:26,040 --> 00:04:30,519
+nuanced. Despite this currency weakness, some analysts assert that the rupee remains undervalued,
+
+00:04:30,519 --> 00:04:35,779
+suggesting the slide may be more about external pressure than domestic decay. Indeed, as both
+
+00:04:35,779 --> 00:04:37,909
+quote by officials, the economy still shows strength.
+
+00:04:37,909 --> 00:04:39,990
+But the gap between dollar demand and dollar supply,
+
+00:04:39,990 --> 00:04:44,159
+driven by trade dynamics and foreign flows, is what's tilting the balance.
+
+00:04:44,159 --> 00:04:46,539
+Looking ahead, what could come next?
+
+00:04:46,539 --> 00:04:49,779
+Many analysts caution that the slide may not stop at 90,
+
+00:04:49,779 --> 00:04:52,939
+with speculative trading already rising and hedging costs surging in forward markets.
+
+00:04:52,939 --> 00:04:59,420
+Some forecasts suggest the rupee could test 90.90.91.naughty.90.naught per dollar
+
+00:04:59,420 --> 00:05:00,819
+if current dynamics persist.
+
+00:05:00,819 --> 00:05:05,899
+The upcoming meetings of the Monetary Policy Committee, MPC, IMPC,
+
+00:05:05,899 --> 00:05:08,560
+of global interest rate decisions especially in the US,
+
+00:05:08,560 --> 00:05:12,189
+and progress or lack thereof in international trade negotiations,
+
+00:05:12,189 --> 00:05:14,529
+especially between India and the US,
+
+00:05:14,529 --> 00:05:17,750
+will likely play a big role in determining where the rupee goes from here.
+
+00:05:17,750 --> 00:05:20,189
+Hmm, for now, hmm.
+
+00:05:20,189 --> 00:05:23,750
+The mood among policymakers seems to be one of caution mixed with resolve,
+
+00:05:23,750 --> 00:05:25,139
+intervening selectively.
+
+00:05:25,139 --> 00:05:26,240
+Oh, oh.
+
+00:05:26,240 --> 00:05:28,950
+But allowing some degree of currency flexibility.
+
+00:05:28,950 --> 00:05:30,620
+Ha ha ha ha ha.
+
+00:05:30,620 --> 00:05:34,669
+So what should citizens, businesses and investors do now?
+
+00:05:34,669 --> 00:05:41,079
+Ordinary households be prepared for potential price hikes, especially for goods that rely heavily on imports.
+
+00:05:41,079 --> 00:05:49,759
+If you have any dollar denominated obligations, education abroad, travel, loans, re-evaluate plans or consider hedging now.
+
+00:05:49,759 --> 00:05:50,839
 ..
 
-00:02:02,819 --> 00:02:07,740
-You see, Watson, one must never tempt fate by speaking of peaceful afternoons.
+00:05:50,839 --> 00:05:55,210
+Poor businesses, especially import heavy ones, review supply chains, Laskari, Koo.
 
-00:02:07,740 --> 00:02:10,949
-A moment later, our visitor burst into the room.
+00:05:55,210 --> 00:05:59,220
+Renegocie a contract if possible or look for alternative sourcing.
 
-00:02:10,949 --> 00:02:14,740
-A tall, somewhat angular gentleman with the complexion of a man
+00:05:59,220 --> 00:06:00,800
+Exporters may find opportunity,
 
-00:02:14,740 --> 00:02:16,930
-recently returned from warmer climates.
+00:06:00,800 --> 00:06:02,860
+but they must also watch global demand
 
-00:02:16,930 --> 00:02:19,000
-His attire bore traces of hurried travel
+00:06:02,860 --> 00:06:04,610
+and foreign exchange hedging costs.
 
-00:02:19,000 --> 00:02:20,370
-and in his trembling hands,
+00:06:04,610 --> 00:06:08,509
+For investors, this may call for caution in equities,
 
-00:02:20,370 --> 00:02:22,360
-he clutched a small wooden travel cage
+00:06:08,509 --> 00:06:10,519
+especially in sectors dependent on imports
 
-00:02:22,360 --> 00:02:23,750
-draped in a silk cloth.
+00:06:10,519 --> 00:06:11,459
+or foreign raw materials.
 
-00:02:23,750 --> 00:02:24,790
-Even through the fabric,
-
-00:02:24,790 --> 00:02:26,360
-I could sense the faint shifting
-
-00:02:26,360 --> 00:02:27,949
-of something alive within.
-
-00:02:27,949 --> 00:02:31,360
-Mr. Holmes, thank heavens you are in.
-
-00:02:31,360 --> 00:02:33,740
-I was told that if any man in London
-
-00:02:33,740 --> 00:02:34,909
-could prevent a catastrophe,
-
-00:02:34,909 --> 00:02:36,060
-it would be you.
-
-00:02:36,060 --> 00:02:37,319
-I beg of you,
-
-00:02:37,319 --> 00:02:39,330
-accept my apologies for the intrusion,
-
-00:02:39,330 --> 00:02:42,509
-but I have had no peace these past 48 hours.
-
-00:02:42,509 --> 00:02:44,490
-Pray calm yourself, sir.
-
-00:02:44,490 --> 00:02:46,009
-Whom's at your service?
-
-00:02:46,009 --> 00:02:50,199
-And this is my friend and chronicler, Dr. Karnicler.
-
-00:02:50,199 --> 00:02:52,379
-...
-
-00:02:52,379 --> 00:02:58,319
-John Watson, may I ask your name and the cause of this evident distress?
-
-00:02:58,319 --> 00:02:59,360
+00:06:11,459 --> 00:06:12,880
 ..
 
-00:02:59,360 --> 00:03:04,209
-My name is Captain Reginald Harrington of the colonial forces stationed on the Gold Coast.
+00:06:12,880 --> 00:06:14,600
+On the flip side, export-oriented firms
 
-00:03:04,209 --> 00:03:09,659
-And this, this cursed creature has brought nothing but misery since I left Africa.
+00:06:14,600 --> 00:06:15,980
+or companies with dollar-earning businesses
 
-00:03:09,659 --> 00:03:10,820
-..
+00:06:15,980 --> 00:06:17,670
+may gain a relative advantage.
 
-00:03:10,820 --> 00:03:12,819
-The captain removed the silk cloth from the cage,
+00:06:17,670 --> 00:06:20,300
+In short, a slide of the repeated 90 per dollar
 
-00:03:12,819 --> 00:03:26,840
-...............
+00:06:20,300 --> 00:06:22,139
+marks a critical inflection point,
 
-00:03:26,840 --> 00:03:34,379
-This is Kimboo, an African grey-breasted parrot, a gift or rather an inheritance of sorts from
+00:06:22,139 --> 00:06:24,279
+one that cool, reshape costs,
 
-00:03:34,379 --> 00:03:37,719
-a local chieftain who died under violent circumstances.
+00:06:24,279 --> 00:06:26,019
+business dynamics, savings,
 
-00:03:37,719 --> 00:03:44,840
-Before his death, he pressed the bird into my hands and muttered something about it being the key to the injustice.
+00:06:26,019 --> 00:06:27,649
+and economic sentiment across India.
 
-00:03:44,840 --> 00:03:49,960
-Since my return to London, I have been followed, threatened and nearly run down at the docks.
+00:06:27,649 --> 00:06:30,080
+As always, the coming days and weeks will be crucial.
 
-00:03:49,960 --> 00:03:57,000
-And last night, someone attempted to break into my residence, ignoring all valuables and searching only for this bird.
+00:06:30,080 --> 00:06:31,230
+Will the currency stabilize?
 
-00:03:57,000 --> 00:03:58,199
-..
+00:06:31,230 --> 00:06:34,529
+Or will policy response from the RBIO government bring confidence back?
 
-00:03:58,199 --> 00:04:03,180
-Fascinating! And what, pray tell, does the bird do that commands such a determined pursuit?
+00:06:34,529 --> 00:06:37,970
+Or will global headwinds continue to batter the rupee's value?
 
-00:04:03,180 --> 00:04:09,159
-suit? It speaks, Mr. Holmes, or rather it repeats a phrase in the chieftain's native language.
+00:06:37,970 --> 00:06:39,879
+For now, we stay on watch.
 
-00:04:09,159 --> 00:04:14,919
-The locals believed the bird had witnessed a crime. I dismissed it as superstition until the threats
-
-00:04:14,919 --> 00:04:20,639
-began. Holmes leaned forward, his piercing grey eyes glinting with unmistakable interest, the
-
-00:04:20,639 --> 00:04:25,259
-fingers of his steeple hands pressing together with the impatience of a mind already assembling
-
-00:04:25,259 --> 00:04:26,350
-assembling possibilities.
-
-00:04:26,350 --> 00:04:29,220
-Watson, observe the plumage.
-
-00:04:29,220 --> 00:04:31,550
-No ordinary African parrot.
-
-00:04:31,550 --> 00:04:36,370
-Its species is known for remarkable mimicry.
-
-00:04:36,370 --> 00:04:39,990
-Captain, repeat the phrase it utters.
-
-00:04:39,990 --> 00:04:42,019
-I cannot, Mr. Holmes.
-
-00:04:42,019 --> 00:04:45,689
-The language is unfamiliar and the pronunciation eludes me.
-
-00:04:45,689 --> 00:04:47,450
-But perhaps, Kimu?
-
-00:04:47,450 --> 00:04:49,950
-The captain tapped the cage gently.
-
-00:04:49,950 --> 00:04:54,560
-The parrot fluffed its feathers, glanced suspiciously around the room, and then croaked a guttural
-
-00:04:54,560 --> 00:04:59,620
-series of syllables, each pronounced with eerie clarity. The sound lingered with an unsettling
-
-00:04:59,620 --> 00:05:04,080
-effect, as though conveying some grave warning rather than a mere echo of human speech.
-
-00:05:04,080 --> 00:05:07,600
-Holmes, I cannot fathom what that means. Have you any notion?
-
-00:05:07,600 --> 00:05:16,159
-Several, Watson, though none yet verified. Captain Harrington, when precisely did the threats begin?
-
-00:05:16,159 --> 00:05:21,399
-Two nights after my ship docked, at first, anonymous notes slipped under my door,
-
-00:05:21,399 --> 00:05:23,639
-then whispered warnings on the street,
-
-00:05:23,639 --> 00:05:26,689
-and last evening the attempted break-in.
-
-00:05:26,689 --> 00:05:31,970
-I have every reason to believe someone is desperate to silence this bird.
-
-00:05:31,970 --> 00:05:36,039
-Or retrieve what the bird represents.
-
-00:05:36,039 --> 00:05:38,850
-The thief ignored other valuables, you say?
-
-00:05:38,850 --> 00:05:42,730
-Then this is no random intimidation.
-
-00:05:42,730 --> 00:05:49,079
-This is a targeted pursuit driven by knowledge or fear of what the parrot knows.
-
-00:05:49,079 --> 00:05:55,300
-I observed Holmes rise from his chair and move toward the window with the graceful precision of a whoop.
-
-00:05:55,300 --> 00:05:55,590
-Hmm.
-
-00:05:55,590 --> 00:05:56,529
-Anting feeling.
-
-00:05:56,529 --> 00:05:57,080
-Hmm.
-
-00:05:57,080 --> 00:06:00,210
-He opened the curtain slightly and scanned the street below.
-
-00:06:00,210 --> 00:06:01,050
-Watson.
-
-00:06:01,050 --> 00:06:01,480
-Hmm.
-
-00:06:01,480 --> 00:06:08,409
-Do you note the black mustached fellow leaning against the lamppost on the opposite side of the street?
-
-00:06:08,409 --> 00:06:08,810
-Hmm.
-
-00:06:08,810 --> 00:06:09,379
-No?
-
-00:06:09,379 --> 00:06:10,120
-Hmm.
-
-00:06:10,120 --> 00:06:11,439
-Observe carefully.
-
-00:06:11,439 --> 00:06:16,540
-His boots bear fresh mud, inconsistent with London's pavements,
-
-00:06:16,540 --> 00:06:20,779
-and his coat shows the red dust of the western docks.
-
-00:06:20,779 --> 00:06:25,879
-He has looked up at our windows three times since the captain entered.
-
-00:06:25,879 --> 00:06:29,680
-Holmes, I swear the man seems inconspicuous to my eyes.
-
-00:06:29,680 --> 00:06:33,250
-Naturally. Observation, Watson, is seeing.
-
-00:06:33,250 --> 00:06:35,990
-Deduction is understanding what one sees.
-
-00:06:35,990 --> 00:06:40,990
-You must train your mind not merely to look, but to perceive.
-
-00:06:40,990 --> 00:06:44,289
-I promise you, Holmes, I am always trying.
-
-00:06:44,289 --> 00:06:46,310
-A commendable effort.
-
-00:06:46,310 --> 00:06:54,029
-Now, Captain Harrington, has anyone besides yourself handled this parrot since your departure from Africa?
-
-00:06:54,029 --> 00:06:59,919
-Only the chieftain's son, shortly before he passed, and a merchant at the docks who helped secure the cage.
-
-00:06:59,919 --> 00:07:02,930
-But neither could have instigated all this.
-
-00:07:02,930 --> 00:07:08,519
-We shall see. Tell me of the chieftain. You said he died violently?
-
-00:07:08,519 --> 00:07:09,639
-..
-
-00:07:09,639 --> 00:07:15,519
-Yes, an ambush. His tent was raided. Many believed he was murdered by a rival tribe.
-
-00:07:15,519 --> 00:07:19,389
-Others whispered of white traders seeking to control ivory roots.
-
-00:07:19,389 --> 00:07:22,490
-But before he died, he insisted Kimbo had seen the two-killer.
-
-00:07:22,490 --> 00:07:26,689
-He was half delirious, but intensely insistent.
-
-00:07:26,689 --> 00:07:31,720
-A witness, but not a human one. Remarkable.
-
-00:07:31,720 --> 00:07:35,519
-Holmes turned to me with that rare electric spark of excitement,
-
-00:07:35,519 --> 00:07:39,399
-which indicated that a case worthy of his intellect had at last arrived.
-
-00:07:39,399 --> 00:07:43,939
-Watson, I believe our peaceful afternoon has concluded.
-
-00:07:43,939 --> 00:07:49,800
-Captain Harrington, allow me to assure you, you have come to the correct place.
-
-00:07:49,800 --> 00:07:52,259
-But you must not return home tonight.
-
-00:07:52,259 --> 00:07:53,379
-..
-
-00:07:53,379 --> 00:07:54,730
-Then where shall I go?
-
-00:07:54,730 --> 00:07:58,810
-You will remain here at Baker Street.
-
-00:07:58,810 --> 00:08:00,899
-Watson and I shall keep watch.
-
-00:08:00,899 --> 00:08:06,519
-Watch, whoever pursues this bird will not abandon their efforts quietly.
-
-00:08:06,519 --> 00:08:07,879
-..
-
-00:08:07,879 --> 00:08:11,359
-Holmes, you cannot mean to invite danger into our chambers?
-
-00:08:11,359 --> 00:08:14,759
-Watson, danger is already waiting outside
-
-00:08:14,759 --> 00:08:20,660
-and it would be inhospitable to keep it lingering in the street
-
-00:08:20,660 --> 00:08:25,509
-or better to confront it on ground we control.
-
-00:08:25,509 --> 00:08:28,720
-Holmes then approached the cage and addressed the parrot directly.
-
-00:08:28,720 --> 00:08:34,319
-Now then, my feathered informant, let us hear your secret again.
-
-00:08:34,319 --> 00:08:38,879
-Speak, Kimbul, and let us unmask the shadow that follows you.
-
-00:08:38,879 --> 00:08:41,500
-...
-
-00:08:41,500 --> 00:08:44,500
-The parrot stared at Holmes with an uncanny intensity,
-
-00:08:44,500 --> 00:08:46,440
-then repeated the strange phrase,
-
-00:08:46,440 --> 00:08:50,069
-its voice resonating through the room like a cryptic prophecy.
-
-00:08:50,069 --> 00:08:53,100
-And at that moment, though I did not yet understand why,
-
-00:08:53,100 --> 00:08:58,179
-a chill crept up my spine, warning me that this case would draw us deep into a perilous mystery
-
-00:08:58,179 --> 00:09:03,240
-tree that stretched far beyond the borders of London. The evening deepened into one of those
-
-00:09:03,240 --> 00:09:07,860
-heavy London nights where the fog presses against the windowpane, unease like a living creature,
-
-00:09:07,860 --> 00:09:13,159
-who, muffling the outside world until it seems a distant dream, Holmes had extinguished all but
-
-00:09:13,159 --> 00:09:18,190
-one lamp, allowing shadows to settle along the edges of the room in silent, watchful folds.
-
-00:09:18,190 --> 00:09:22,860
-Captain Harrington sat stiffly on the sofa, his very eyes flickering toward the cage each time
-
-00:09:22,860 --> 00:09:27,159
-the parrot shifted its weight or rustled its feathers. As for myself, I could not deny a
-
-00:09:27,159 --> 00:09:31,559
-drawing apprehension, though I attempted to conceal it beneath the surface of calm professionalism
-
-00:09:31,559 --> 00:09:33,339
-expected of a medical man.
-
-00:09:33,339 --> 00:09:37,470
-Watson, I trust you have loaded your service revolver.
-
-00:09:37,470 --> 00:09:42,279
-I suspect we shall need a deterrent, though ideally not a fatal one.
-
-00:09:42,279 --> 00:09:46,579
-Holmes, the pistol is prepared, though I sincerely hope its presence proves unnecessary.
-
-00:09:46,579 --> 00:09:51,750
-Hope, Watson, is a luxury one may carry in one's inside pocket.
-
-00:09:51,750 --> 00:09:54,360
-Prudence, however, I keep hosted.
-
-00:09:54,360 --> 00:09:58,930
-stood. Holmes moved with his characteristic quiet precision, checking the locks on the windows,
-
-00:09:58,930 --> 00:10:03,690
-the latches on the doors, and even the faint tracks of footprints upon our wooden floorboards,
-
-00:10:03,690 --> 00:10:08,659
-although I could hardly imagine how such details would assist him considering that no one had yet
-
-00:10:08,659 --> 00:10:14,120
-entered. Still, his thoroughness was oddly reassuring. Mr. Holmes, I cannot shake the
-
-00:10:14,120 --> 00:10:19,279
-fear that Kimball's presence here puts you both in danger. I did not intend to entangle you in
-
-00:10:19,279 --> 00:10:20,350
-in a colonial feud.
-
-00:10:20,350 --> 00:10:22,940
-Captain Harrington, I assure you,
-
-00:10:22,940 --> 00:10:25,980
-danger is an old acquaintance of ours.
-
-00:10:25,980 --> 00:10:27,379
-It visits frequently
-
-00:10:27,379 --> 00:10:30,320
-and seldom requires an invitation.
-
-00:10:30,320 --> 00:10:32,509
-The parrot let out a soft whistle,
-
-00:10:32,509 --> 00:10:34,389
-then hopped twice on its perch.
-
-00:10:34,389 --> 00:10:35,940
-Its beady eyes glimmered
-
-00:10:35,940 --> 00:10:37,480
-with that same inexplicable intelligence
-
-00:10:37,480 --> 00:10:39,259
-that had unsettled me earlier.
-
-00:10:39,259 --> 00:10:40,710
-Horns leaned toward the cage,
-
-00:10:40,710 --> 00:10:42,879
-observing the bird with a scientist's fascination
-
-00:10:42,879 --> 00:10:45,539
-mixed with the detector's sharp suspicion.
-
-00:10:45,539 --> 00:10:48,240
-Watson, do you recall the phrase
-
-00:10:48,240 --> 00:10:49,610
-it spoke earlier?
-
-00:10:49,610 --> 00:10:52,120
-Holmes, the sounds were so foreign to my ear
-
-00:10:52,120 --> 00:10:54,299
-that I fear I could not replicate a single
-
-00:10:54,299 --> 00:10:55,169
-syllable.
-
-00:10:55,169 --> 00:10:58,240
-Just so. Yet the pattern of intonation
-
-00:10:58,240 --> 00:11:00,250
-was unmistakably deliberate.
-
-00:11:00,250 --> 00:11:01,980
-There is information
-
-00:11:01,980 --> 00:11:04,440
-encoded there. Not a mere
-
-00:11:04,440 --> 00:11:06,620
-mimicry, but a recounting.
-
-00:11:06,620 --> 00:11:08,240
-And that is what
-
-00:11:08,240 --> 00:11:10,000
-our adversary fears.
-
-00:11:10,000 --> 00:11:12,220
-Holmes, surely you do not
-
-00:11:12,220 --> 00:11:14,549
-believe the parrot actually witnessed a murder?
-
-00:11:14,549 --> 00:11:15,179
-Believe?
-
-00:11:15,179 --> 00:11:16,679
-No, Watson.
-
-00:11:16,679 --> 00:11:17,740
-..
-
-00:11:17,740 --> 00:11:18,450
-Deduce?
-
-00:11:18,450 --> 00:11:19,529
-Yes.
-
-00:11:19,529 --> 00:11:24,279
-The bird is a recorder, an observer, a living phonograph of the bush.
-
-00:11:24,279 --> 00:11:29,069
-If the chieftain died in its presence, whatever words were last spoken,
-
-00:11:29,069 --> 00:11:34,629
-whatever argument transpired, those may be preserved in this creature's memory.
-
-00:11:34,629 --> 00:11:37,930
-Mr. Holmes, the chieftain's dying words were frantic.
-
-00:11:37,930 --> 00:11:42,500
-He spoke of betrayal, of a secret hidden in plain sight.
-
-00:11:42,500 --> 00:11:46,100
-I thought it the ramblings of a delirious man.
-
-00:11:46,100 --> 00:11:47,419
-..
-
-00:11:47,419 --> 00:11:52,180
-Delirium may veil truth, Captain, but it does not negate it.
-
-00:11:52,180 --> 00:11:55,289
-A sudden tapping at the window started Harrington,
-
-00:11:55,289 --> 00:11:59,230
-who leapt to his feet with the agitation of a man long pursued.
-
-00:11:59,230 --> 00:12:01,829
-Holmes, however, merely gestured for quiet,
-
-00:12:01,829 --> 00:12:04,740
-his expression sharpening like a blade being honed.
-
-00:12:04,740 --> 00:12:07,519
-Watson, step slightly to the left.
-
-00:12:07,519 --> 00:12:09,519
-Captain, do not approach the window.
-
-00:12:09,519 --> 00:12:10,940
-..
-
-00:12:10,940 --> 00:12:13,579
-Our guest below seems restless.
-
-00:12:13,579 --> 00:12:16,879
-Forcing myself to steady my nerves, I shifted position.
-
-00:12:16,879 --> 00:12:20,289
-Holmes slipped silently to the curtain and parted it but a fraction.
-
-00:12:20,289 --> 00:12:25,299
-He observed for a long moment, then allowed the drape to fall back into place.
-
-00:12:25,299 --> 00:12:29,320
-Our lamppost friend is still at his post.
-
-00:12:29,320 --> 00:12:34,960
-And now, accompanied by another, the situation escalates.
-
-00:12:34,960 --> 00:12:37,240
-...
-
-00:12:37,240 --> 00:12:39,819
-Holmes, are they merely watching or preparing?
-
-00:12:39,819 --> 00:12:45,960
-Both. A man who watches too long will eventually act to justify his vigilance.
-
-00:12:45,960 --> 00:12:47,200
-..
-
-00:12:47,200 --> 00:12:51,000
-Holmes, if they mean to retrieve the bird, then we must.
-
-00:12:51,000 --> 00:12:53,700
-We shall do nothing hasty, Captain.
-
-00:12:53,700 --> 00:12:56,379
-The game of pursuit and concealment is won.
-
-00:12:56,379 --> 00:12:58,889
-I prefer to play on my own terms.
-
-00:12:58,889 --> 00:13:02,840
-It was then that Kimboo suddenly erupted into a flurry of agitation,
-
-00:13:02,840 --> 00:13:05,150
-wings thrashing against the bars of the cage.
-
-00:13:05,150 --> 00:13:07,940
-The parrot's eyes darted widely about the room
-
-00:13:07,940 --> 00:13:11,060
-as though sensing some unseen presence creeping closer.
-
-00:13:11,060 --> 00:13:13,230
-Ah, the mood shifts.
-
-00:13:13,230 --> 00:13:14,279
-Soup!
-
-00:13:14,279 --> 00:13:16,409
-Holmes, what does this mean?
-
-00:13:16,409 --> 00:13:20,740
-It means, Watson, that Kimboo is accustomed to danger
-
-00:13:20,740 --> 00:13:23,700
-and recognizes when it draws near.
-
-00:13:23,700 --> 00:13:26,059
-I moved instinctively closer to Harrington
-
-00:13:26,059 --> 00:13:28,829
-who seemed ready to bolt at the slightest provocation.
-
-00:13:28,829 --> 00:13:31,019
-Holmes, however, remained notably calm
-
-00:13:31,019 --> 00:13:33,650
-as he crossed the room and extinguished the last lamp.
-
-00:13:33,650 --> 00:13:35,919
-The chamber fell into near total darkness
-
-00:13:35,919 --> 00:13:38,799
-with only the faint shimmering glow of the street lamps
-
-00:13:38,799 --> 00:13:40,579
-filtering through the fog outside.
-
-00:13:40,579 --> 00:13:41,470
-Sink!
-
-00:13:41,470 --> 00:13:43,740
-Gentlemen, stand still.
-
-00:13:43,740 --> 00:13:45,779
-Allow your eyes to adjust.
-
-00:13:45,779 --> 00:13:49,899
-A dark room is less inviting to trespassers
-
-00:13:49,899 --> 00:13:54,069
-and far more revealing to those who know how to listen.
-
-00:13:54,069 --> 00:13:56,380
-Several dance minutes passed in silence,
-
-00:13:56,380 --> 00:13:58,620
-broken only by the occasional rustle of wings
-
-00:13:58,620 --> 00:14:00,279
-as Kimbu shifted nervously.
-
-00:14:00,279 --> 00:14:05,210
-Then from somewhere just beyond our door came the unmistakable sound of a quiet footfall.
-
-00:14:05,210 --> 00:14:11,139
-Not the polite step of Mrs. Hudson, but the careful predatory tread of someone attempting to mask their presence.
-
-00:14:11,139 --> 00:14:16,779
-My pulse quickened and I cast a glance toward Holmes, though the dimness rendered him little more than a silhouette.
-
-00:14:16,779 --> 00:14:18,059
-..
-
-00:14:18,059 --> 00:14:22,910
-Watson, revolver ready, but do not fire unless absolutely necessary.
-
-00:14:22,910 --> 00:14:28,419
-A wounded intruder answers more questions than a dead one.
-
-00:14:28,419 --> 00:14:29,919
-Understood, Holmes.
-
-00:14:29,919 --> 00:14:32,299
-Dear God, they've come for me.
-
-00:14:32,299 --> 00:14:33,400
-..
-
-00:14:33,400 --> 00:14:36,720
-Silence, Captain. Your fear is louder than your voice.
-
-00:14:36,720 --> 00:14:38,100
-..
-
-00:14:38,100 --> 00:14:40,029
-The door latch gave a subtle metallic click.
-
-00:14:40,029 --> 00:14:45,509
-Slow, deliberate, a gloved hand formed a shadow against the glass panel above the handle.
-
-00:14:45,509 --> 00:14:50,580
-Holmes moved like a phantom, placing himself to the side of the entryway, invisible to anyone entering.
-
-00:14:50,580 --> 00:14:55,599
-Watson, the moment they cross the threshold, illuminates the room.
-
-00:14:55,599 --> 00:14:58,080
-Harrington, remain behind me.
-
-00:14:58,080 --> 00:15:00,279
-...
-
-00:15:00,279 --> 00:15:02,920
-Before I could reply, the intruder forced the door open.
-
-00:15:02,920 --> 00:15:07,420
-A hooded figure slipped inside, his movements swift, practiced and utterly silent.
-
-00:15:07,420 --> 00:15:10,490
-Another shadow loomed behind him, obscured in the corridor.
-
-00:15:10,490 --> 00:15:13,539
-They scanned the darkness as though attempting to locate the cage.
-
-00:15:13,539 --> 00:15:17,240
-The bird, it must be here. Find it before he wakes.
-
-00:15:17,240 --> 00:15:23,170
-I nearly laughed aloud at the absurdity of their assumption that Holmes would be asleep during such.
-
-00:15:23,170 --> 00:15:27,919
-A moment, but I contained myself, waiting for the signal.
-
-00:15:27,919 --> 00:15:31,329
-Hmm. Now, Watson. Hmm.
-
-00:15:31,329 --> 00:15:33,039
-I started the gas lamp.
-
-00:15:33,039 --> 00:15:37,759
-The room erupted into sudden brightness and the intruder's recoil as though seared by its radiance.
-
-00:15:37,759 --> 00:15:42,200
-Gone, one attempted to flee but Holmes seized him with astonishing speed, forcing him to the ground.
-
-00:15:42,200 --> 00:15:46,490
-Second intruder, the one from the corridor, made a desperate grab for the pallet's cage.
-
-00:15:46,490 --> 00:15:48,759
-Stop. Step away from the bird.
-
-00:15:48,759 --> 00:15:52,039
-Out of my way, doctor. The bird speaks death.
-
-00:15:52,039 --> 00:15:54,000
-..
-
-00:15:54,000 --> 00:15:55,240
-Watson, restrain him.
-
-00:15:55,240 --> 00:16:00,580
-him. I lunged forward, knocking the man off balance. He stumbled, overturning a side table
-
-00:16:00,580 --> 00:16:06,139
-with a clash. Kimu shrieked violently, flapping its wings in terror. We cannot let the creature
-
-00:16:06,139 --> 00:16:12,850
-live. It knows. It knows. Knows what, my good fellow? And whom does it incriminate?
-
-00:16:12,850 --> 00:16:19,860
-You cannot make me speak. You cannot. Hones was already upon him, pinning his arm behind his back
-
-00:16:19,860 --> 00:16:21,220
-with precise efficiency.
-
-00:16:21,220 --> 00:16:23,490
-Harrington, trembling but determined,
-
-00:16:23,490 --> 00:16:25,889
-stepped forward as though ready to assist.
-
-00:16:25,889 --> 00:16:28,259
-Holmes, is he one of the traders?
-
-00:16:28,259 --> 00:16:29,759
-I recognize the accent.
-
-00:16:29,759 --> 00:16:31,859
-These men followed us in Africa.
-
-00:16:31,859 --> 00:16:33,549
-Indeed, Captain.
-
-00:16:33,549 --> 00:16:35,899
-Quite the persistent sort.
-
-00:16:35,899 --> 00:16:38,000
-Dow! I am Mew!
-
-00:16:38,000 --> 00:16:40,500
-The first intruder struggled beneath Holmes' grip
-
-00:16:40,500 --> 00:16:41,930
-but was firmly subdued.
-
-00:16:41,930 --> 00:16:44,659
-The second glared at me with wild, fevered eyes
-
-00:16:44,659 --> 00:16:46,659
-that practically glowed with desperation.
-
-00:16:46,659 --> 00:16:53,139
-If the bird repeats the chieftain's final accusation, we are doomed. All of us.
-
-00:16:53,139 --> 00:16:57,240
-.....
-
-00:16:57,240 --> 00:17:01,819
-Fascinating. So the chieftain named his murderer, did he?
-
-00:17:01,819 --> 00:17:06,039
-Never. I said nothing of the sort. I...
-
-00:17:06,039 --> 00:17:09,380
-On the contrary. You said quite enough.
-
-00:17:09,380 --> 00:17:13,380
-Holmes turned to me, his expression filled with that unmistakable spark of triumph.
-
-00:17:13,380 --> 00:17:19,799
-triumph. Watson, I believe our case has found its first solid footing. Bind them securely.
-
-00:17:19,799 --> 00:17:25,279
-There is much to learn, and dawn will bring no shortage of revelations.
-
-00:17:25,279 --> 00:17:26,600
-..
-
-00:17:26,600 --> 00:17:33,490
-And indeed, as I tied the intruders with my medical bandages, the sturdiest material at hand,
-
-00:17:33,490 --> 00:17:37,539
-I could not help but feel that we had only scratched the surface of a far deeper and
-
-00:17:37,539 --> 00:17:41,960
-darker secret. Kimball groped softly from his cage, as though confirming the unsettling truth
-
-00:17:41,960 --> 00:17:43,929
-that more danger yet lay ahead.
-
-00:17:43,929 --> 00:17:47,700
-At the first dew of dawn crept through the fog like a timid intruder
-
-00:17:47,700 --> 00:17:49,599
-seeking permission to enter Londo.
-
-00:17:49,599 --> 00:17:53,699
-And its pale light softened the outlines of Baker Street,
-
-00:17:53,699 --> 00:17:56,779
-dimly illuminating the aftermath of the previous night's chaos.
-
-00:17:56,779 --> 00:17:59,819
-Our two mysterious assailants sat bound to sturdy chairs
-
-00:17:59,819 --> 00:18:01,240
-in the corner of our sitting room,
-
-00:18:01,240 --> 00:18:03,509
-glowering beneath their lowered brows.
-
-00:18:03,509 --> 00:18:06,630
-Captain Harrington paced near the hearth with restless energy,
-
-00:18:06,630 --> 00:18:08,740
-lancing periodically at the parrot's cage
-
-00:18:08,740 --> 00:18:11,559
-as though expecting it to erupt into further calamity.
-
-00:18:11,559 --> 00:18:14,980
-Holmes, in stark contrast to all of us, appeared invigorated.
-
-00:18:14,980 --> 00:18:17,619
-The night's events had clearly sharpened his intellect,
-
-00:18:17,619 --> 00:18:20,409
-like the whetstone that awakens a dormant blade.
-
-00:18:20,409 --> 00:18:23,829
-Watson, kindly pour yourself a cup of coffee.
-
-00:18:23,829 --> 00:18:27,329
-You appear as though sleep has become a stranger to you.
-
-00:18:27,329 --> 00:18:30,650
-Holmes, after wrestling ruffians, guarding exotic birds,
-
-00:18:30,650 --> 00:18:34,420
-and anticipating further danger, I must say rest did not come easily.
-
-00:18:34,420 --> 00:18:35,460
-..
-
-00:18:35,460 --> 00:18:38,380
-Nonsense, Watson. You performed admirably.
-
-00:18:38,380 --> 00:18:46,670
-A lesser man might have fainted during last night's excitement, yet here you stand, only slightly bedraggled.
-
-00:18:46,670 --> 00:18:51,740
-I appreciate the compliment, though I suspect it is delivered with your customary irony.
-
-00:18:51,740 --> 00:18:58,380
-Not at all. Even iron gates require hinges. You keep our endeavours balanced.
-
-00:18:58,380 --> 00:19:04,480
-Harrington approached Holmes with a determined expression, his military posture stiff or tinged with vulnerability.
-
-00:19:04,480 --> 00:19:07,420
-Mr. Holmes, we must question them.
-
-00:19:07,420 --> 00:19:09,420
-Surely they will reveal who sent them
-
-00:19:09,420 --> 00:19:12,779
-and what they seek to prevent the world from learning.
-
-00:19:12,779 --> 00:19:14,529
-Patience, Captain.
-
-00:19:14,529 --> 00:19:18,480
-A hurried interrogation yields tangled answers.
-
-00:19:18,480 --> 00:19:20,740
-A careful one unravels truth.
-
-00:19:20,740 --> 00:19:22,660
-..
-
-00:19:22,660 --> 00:19:25,579
-The parrot, Kimboo, voiced the sharp squawk,
-
-00:19:25,579 --> 00:19:27,660
-a sound halfway between alarm and impatience
-
-00:19:27,660 --> 00:19:30,090
-as though objecting to the delay of its own tale.
-
-00:19:30,090 --> 00:19:31,480
-Holmes turned toward the cage
-
-00:19:31,480 --> 00:19:34,210
-with the air of a conductor addressing his soloist.
-
-00:19:34,210 --> 00:19:40,369
-Kim Boo has a part to play, but its performance must be properly orchestrated.
-
-00:19:40,369 --> 00:19:43,360
-Holmes crossed to the corner where the two captives remained.
-
-00:19:43,360 --> 00:19:48,690
-He studied their faces, rough, weather-beaten, and marked with the unmistakable signs of colonial hardship.
-
-00:19:48,690 --> 00:19:54,659
-Their clothing bore traces of red dust, and one man's boots betrayed recent exposure to African soil.
-
-00:19:54,659 --> 00:19:57,980
-Gentlemen, you arrived in London less than a week ago.
-
-00:19:57,980 --> 00:20:05,079
-judging from your attire and the distinctive dust on your boots dust native to the region
-
-00:20:05,079 --> 00:20:12,180
-near the Volta river basin you were very recently on the gold coast you know nothing detective
-
-00:20:12,180 --> 00:20:20,859
-you cannot prove where we come from I do not prove I deduce and deduction requires only what
-
-00:20:20,859 --> 00:20:27,400
-is evident to any man with eyes and intellect in equal proportion unfortunately you appear in
-
-00:20:27,400 --> 00:20:28,650
-in short supply of both.
-
-00:20:28,650 --> 00:20:30,860
-I could not suppress a small smile.
-
-00:20:30,860 --> 00:20:33,000
-Holmes delivered such barbs with a precision
-
-00:20:33,000 --> 00:20:34,179
-that rivaled his vai.
-
-00:20:34,179 --> 00:20:34,610
-Hmm.
-
-00:20:34,610 --> 00:20:35,340
-Or Lin Bao.
-
-00:20:35,340 --> 00:20:35,960
-Hmm.
-
-00:20:35,960 --> 00:20:39,510
-Now, let us discuss matters plainly.
-
-00:20:39,510 --> 00:20:40,710
-We will say nothing.
-
-00:20:40,710 --> 00:20:41,860
-Nothing at all.
-
-00:20:41,860 --> 00:20:43,570
-You already have.
-
-00:20:43,570 --> 00:20:46,150
-Last night, in your desperation,
-
-00:20:46,150 --> 00:20:49,929
-you uttered the most damning clue of all,
-
-00:20:49,929 --> 00:20:53,000
-that the parrot knows the truth of a murder.
-
-00:20:53,000 --> 00:20:56,140
-I require no confession from you.
-
-00:20:56,140 --> 00:21:02,110
-The bird speaks nonsense, nonsense and curses.
-
-00:21:02,110 --> 00:21:07,909
-Curses? No. Linguistic fragments of a dying tongue? Quite possibly.
-
-00:21:07,909 --> 00:21:11,630
-Holmes moved to his desk and retrieved a thick leather-bound volume,
-
-00:21:11,630 --> 00:21:15,200
-a dictionary of regional Africa, and dialects,
-
-00:21:15,200 --> 00:21:20,179
-the hassle of which he had apparently studied with great interest over the years.
-
-00:21:20,179 --> 00:21:21,659
-Harrington looked astonished.
-
-00:21:21,659 --> 00:21:25,789
-Holmes, I had no idea you were so familiar with those languages.
-
-00:21:25,789 --> 00:21:30,030
-A detective never knows which tongue might whisper the final clue.
-
-00:21:30,030 --> 00:21:32,680
-Watson, bring the cage closer.
-
-00:21:32,680 --> 00:21:35,070
-I lifted Kimbu's cage with care,
-
-00:21:35,070 --> 00:21:39,529
-though the bird's sharp gaze made me feel as though I were being judged for every movement.
-
-00:21:39,529 --> 00:21:42,090
-As I positioned the cage on the table before Holmes,
-
-00:21:42,090 --> 00:21:44,960
-Kimbu ruffled his feathers with a haughty sort of dignity.
-
-00:21:44,960 --> 00:21:49,549
-Now then, Kimbu, let us hear what you have stored away.
-
-00:21:49,549 --> 00:21:51,759
-Holmes tapped lightly on the cage.
-
-00:21:51,759 --> 00:21:54,259
-Kimbu straightened and uttered a low, rhythmic phrase,
-
-00:21:54,259 --> 00:21:57,130
-the same guttural sequence we had heard the previous day,
-
-00:21:57,130 --> 00:21:59,289
-though now with more force and urgency.
-
-00:21:59,289 --> 00:22:01,650
-Holmes repeated the sounds under his breath,
-
-00:22:01,650 --> 00:22:03,730
-comparing them to the entries in the dictionary.
-
-00:22:03,730 --> 00:22:05,299
-Watson, listen closely.
-
-00:22:05,299 --> 00:22:06,319
-..
-
-00:22:06,319 --> 00:22:09,869
-These syllables correspond to a dialect used in the northern territories,
-
-00:22:09,869 --> 00:22:12,839
-rarely spoken outside certain chieftain plans.
-
-00:22:12,839 --> 00:22:14,559
-..
-
-00:22:14,559 --> 00:22:16,519
-Can you translate it, Holmes?
-
-00:22:16,519 --> 00:22:17,869
-Almost.
-
-00:22:17,869 --> 00:22:21,859
-The phrase is fragmented, but the structure is unmistakable.
-
-00:22:21,859 --> 00:22:27,099
-It sounds like he who comes with white hands brings death
-
-00:22:27,099 --> 00:22:32,380
-Or possibly the white-handed man kills the chief
-
-00:22:32,380 --> 00:22:33,440
-..
-
-00:22:33,440 --> 00:22:36,400
-White-handed? You mean a foreigner? A European?
-
-00:22:36,400 --> 00:22:37,819
-..
-
-00:22:37,819 --> 00:22:38,619
-Precisely
-
-00:22:38,619 --> 00:22:42,579
-And the phrase is repeated with remarkable consistency
-
-00:22:42,579 --> 00:22:46,480
-Suggesting it was spoken at a moment of urgency
-
-00:22:46,480 --> 00:22:51,269
-Likely during or immediately before the chieftain's death
-
-00:22:51,269 --> 00:22:55,299
-Lies! The bird lies! Parrots do not know truth.
-
-00:22:55,299 --> 00:22:56,460
-..
-
-00:22:56,460 --> 00:23:00,639
-Parrots know what they hear, and they repeat what haunts them.
-
-00:23:00,639 --> 00:23:08,380
-This bird was present during the murder or, at the very least, near enough to hear the accusation.
-
-00:23:08,380 --> 00:23:15,480
-Holmes leaned closer to the captives. For a moment, silence stretched thin and taut across the room like the string of Holmes's violin.
-
-00:23:15,480 --> 00:23:22,329
-Tell me, who among the colonial traders is known by the name White Hand?
-
-00:23:22,329 --> 00:23:25,779
-A nickname perhaps? A moniker used by locals?
-
-00:23:25,779 --> 00:23:26,920
-..
-
-00:23:26,920 --> 00:23:28,880
-We, we know no such man.
-
-00:23:28,880 --> 00:23:32,799
-Another lie. Your reaction is too swift, too rehearsed.
-
-00:23:32,799 --> 00:23:35,940
-I will ask again, who bears that name?
-
-00:23:35,940 --> 00:23:40,660
-You think us fools, detective? You think we will betray our employers so easily?
-
-00:23:40,660 --> 00:23:47,039
-I do not require your cooperation. The evidence will reveal itself in due course.
-
-00:23:47,039 --> 00:23:48,420
-..
-
-00:23:48,420 --> 00:23:50,940
-Holmes returned to the parrot and tapped the cage again.
-
-00:23:50,940 --> 00:23:55,110
-Kimbo repeated the phrase, then added another set of syllables I had not heard before.
-
-00:23:55,110 --> 00:23:59,410
-Harsher, more clipped, delivered with a strange trembling of the bird's wings.
-
-00:23:59,410 --> 00:24:03,079
-Ah, there is more, there is more.
-
-00:24:03,079 --> 00:24:08,839
-The second phrase, yes, it resembles the local word for ivory and perhaps river.
-
-00:24:08,839 --> 00:24:17,119
-hand betrayal homes could he be naming a location a route more likely describing
-
-00:24:17,119 --> 00:24:22,799
-an illicit trade operation one that someone wished to keep hidden perhaps
-
-00:24:22,799 --> 00:24:27,900
-even from the chieftain himself the captive stiffened confirming Holmes's
-
-00:24:27,900 --> 00:24:31,440
-suspicion without uttering a single word Holmes observed them with the detached
-
-00:24:31,440 --> 00:24:37,920
-calm of a surgeon watching involuntary reflexes there it is your guilt betrays
-
-00:24:37,920 --> 00:24:44,480
-You understand nothing of the politics of the Gold Coast, Detective. Nothing.
-
-00:24:44,480 --> 00:24:53,720
-On the contrary. I understand that greed knows no language barriers and murder recognizes no borders.
-
-00:24:53,720 --> 00:24:58,900
-Combats. Just then, Mrs. Hudson entered, clutching her telegram in her flustered hands.
-
-00:24:58,900 --> 00:25:04,640
-Mr. Holmes, this arrived for you just now. The boy said it came from the foreign office. Urgent.
-
-00:25:04,640 --> 00:25:07,730
-Thank you, Mrs. Hudson.
-
-00:25:07,730 --> 00:25:12,509
-Holmes snapped open the telegram with swift fingers, scanned its contents,
-
-00:25:12,509 --> 00:25:15,759
-and his expression hardened like wet clay left in the sun.
-
-00:25:15,759 --> 00:25:17,859
-Gentlemen, we have confirmation.
-
-00:25:17,859 --> 00:25:18,980
-..
-
-00:25:18,980 --> 00:25:23,809
-The Foreign Office reports that a lieutenant, Colonel Rupert Ashcombe,
-
-00:25:23,809 --> 00:25:30,779
-known among the locals as the White Hand, arrived in London two days before Captain Harrington.
-
-00:25:30,779 --> 00:25:36,610
-He is wanted for questioning in connection with unauthorized ivory operations.
-
-00:25:36,610 --> 00:25:41,550
-Ashcombe. Impossible. He was respected. Decorated.
-
-00:25:41,550 --> 00:25:45,019
-Decorations have often concealed darker stains.
-
-00:25:45,019 --> 00:25:46,279
-..
-
-00:25:46,279 --> 00:25:51,559
-It appears we now know the identity of the man our intruders serve.
-
-00:25:51,559 --> 00:25:52,660
-..
-
-00:25:52,660 --> 00:25:55,680
-You know nothing. You cannot reach him. He is protected.
-
-00:25:55,680 --> 00:25:57,080
-..
-
-00:25:57,080 --> 00:26:02,590
-Protected, perhaps, but not invisible, and certainly not innocent.
-
-00:26:02,590 --> 00:26:05,860
-The parrot screeched loudly, hobbing back and forth on its perch.
-
-00:26:05,860 --> 00:26:06,639
-And you!
-
-00:26:06,639 --> 00:26:10,880
-As though urging us to move without delay, Holmes stroked his chin thoughtfully.
-
-00:26:10,880 --> 00:26:13,079
-And that's la, fully...
-
-00:26:13,079 --> 00:26:15,610
-Watson, Hannington, prepare yourselves.
-
-00:26:15,610 --> 00:26:19,579
-The time has come to confront Lieutenant Colonel Ashcombe.
-
-00:26:19,579 --> 00:26:24,920
-The final act of this drama will not unfold here in Baker Street.
-
-00:26:24,920 --> 00:26:27,620
-...
-
-00:26:27,620 --> 00:26:31,920
-No, it will unfold wherever Ashcombe hides his secrets.
-
-00:26:31,920 --> 00:26:35,740
-And though I could not yet foresee the dangers awaiting us,
-
-00:26:35,740 --> 00:26:39,289
-I felt the unmistakable thrill of the chase warming my blood.
-
-00:26:39,289 --> 00:26:44,210
-The mystery had deepened, and Holmes, with the parrot Kimboo as our unlikely guide,
-
-00:26:44,210 --> 00:26:46,840
-was ready to pursue its darkest thread.
-
-00:26:46,840 --> 00:26:51,000
-London's midday fog had thinned by the time we reached Blattfriars Wharf,
-
-00:26:51,000 --> 00:26:55,480
-yet a chill wind swept across the river with the insistence of an unwelcome reminder
-
-00:26:55,480 --> 00:26:59,599
-that danger lingered close. Holmes strode ahead of Captain Harrington and myself
-
-00:26:59,599 --> 00:27:04,539
-with purposeful haste, his long coat billowing like a banner heralding the charge of a lone
-
-00:27:04,539 --> 00:27:09,940
-general. Himmu, the African parrot, accompanied us within a larger travel gauge, pursed indignantly
-
-00:27:09,940 --> 00:27:14,250
-and occasionally muttering the ominous fragments it had recited in Baker Street.
-
-00:27:14,250 --> 00:27:19,440
-That creature's uncanny repetition felt increasingly like the refrain of a prophecy,
-
-00:27:19,440 --> 00:27:21,910
-drawing us nearer to its fulfillment.
-
-00:27:21,910 --> 00:27:25,700
-Watson, keep a sharp eye on our surroundings.
-
-00:27:25,700 --> 00:27:31,610
-Ashkund is not the sort to sit idly when his schemes are threatened.
-
-00:27:31,610 --> 00:27:34,599
-Holmes, I dare say that after last night's encounter,
-
-00:27:34,599 --> 00:27:38,000
-I am unlikely to miss even the rustling of a rat.
-
-00:27:38,000 --> 00:27:41,019
-Even rats can be deceiving, Watson.
-
-00:27:41,019 --> 00:27:43,059
-Many a villain is passed unnoticed
-
-00:27:43,059 --> 00:27:49,039
-because he disguised himself less as a predator and more as a pest.
-
-00:27:49,039 --> 00:27:54,400
-Harrington carried the cage with both hands, his military bearing stiffened with anxiety.
-
-00:27:54,400 --> 00:27:57,429
-Mr. Holmes, are you certain Ashkoomba is here?
-
-00:27:57,429 --> 00:28:00,720
-The foreign officer said he was staying at a club near Whitehall.
-
-00:28:00,720 --> 00:28:01,780
-..
-
-00:28:01,780 --> 00:28:08,119
-Men whose hands are stained with betrayal seldom linger in respectable places.
-
-00:28:08,119 --> 00:28:13,659
-Trust me, Captain, the docks conceal more truth than London's parlours ever will.
-
-00:28:13,659 --> 00:28:19,360
-The wharf was a sprawling mess of crates, tar-stained ropes and the pungent scent of the thimbs.
-
-00:28:19,360 --> 00:28:23,880
-Labourers shouted, pulleys droned, gulls circled overhead with shrill cries,
-
-00:28:23,880 --> 00:28:27,329
-the kind of commotion in which a fugitive might vanish entirely,
-
-00:28:27,329 --> 00:28:30,069
-or from which an ambush might easily spring.
-
-00:28:30,069 --> 00:28:34,130
-There, the warehouse marked with the ivory emblem.
-
-00:28:34,130 --> 00:28:37,059
-Discretion was never Ashcombe's strong suit.
-
-00:28:37,059 --> 00:28:38,220
-..
-
-00:28:38,220 --> 00:28:41,820
-Holmes pointed toward a large structure of soot-blackened brick.
-
-00:28:41,820 --> 00:28:46,420
-Its faded signage depicted a tusk-like shape partially obscured by grime,
-
-00:28:46,420 --> 00:28:50,469
-even from a distance. A sense of illicit secrecy emanated from it.
-
-00:28:50,469 --> 00:28:54,700
-Harrington's jaw tightened as the sight stirred some painful recognition.
-
-00:28:54,700 --> 00:29:00,619
-That symbol, Holmes, Holmes. That's the mark used by the traders suspected of smuggling ivory
-
-00:29:00,619 --> 00:29:04,579
-along the Volta. I encountered it years ago during an inquiry.
-
-00:29:04,579 --> 00:29:06,179
-..
-
-00:29:06,179 --> 00:29:12,200
-Precisely. Ashcombe believes himself clever, but his confidence is merely arrogance in disguise.
-
-00:29:12,200 --> 00:29:17,279
-guys. The three of us approached cautiously. The warehouse doors were ajar, allowing a thin
-
-00:29:17,279 --> 00:29:21,640
-beam of sunlight to pierce the otherwise murky interior. Combs motioned for silence as he stepped
-
-00:29:21,640 --> 00:29:26,389
-inside. I followed, revolver in hand, while Harrington drawed the cage with measured steps.
-
-00:29:26,389 --> 00:29:31,119
-Watson, remain alert. If Ashcombe is here, he will not greet us with hospitality.
-
-00:29:31,119 --> 00:29:32,220
-..
-
-00:29:32,220 --> 00:29:37,359
-The interior of the warehouse was dim, with rows of crates stacked like the rows of some crude
-
-00:29:37,359 --> 00:29:42,319
-cathedral lit only by flickering shafts of dusty light. The air carried the bitter smell of
-
-00:29:42,319 --> 00:29:46,679
-preservatives, wood shalings and something else, something metallic, though faint.
-
-00:29:46,679 --> 00:29:53,829
-Holmes, do you smell that? It's iron. Blood, Watson. Very faint, but unmistakable.
-
-00:29:53,829 --> 00:30:01,299
-Blood? Whose blood? Possibly the blood of anyone who has gotten too close to Ashkum's secrets.
-
-00:30:01,299 --> 00:30:04,019
-...
-
-00:30:04,019 --> 00:30:07,440
-As the horn queued, a soft clatter echoed in the far corner,
-
-00:30:07,440 --> 00:30:09,710
-followed by the scurrying of hurried footsteps.
-
-00:30:09,710 --> 00:30:12,139
-Holmes dashed forward with feline spiffness,
-
-00:30:12,139 --> 00:30:17,490
-brushing aside a crate and revealing a narrow passageway leading deeper into the warehouse.
-
-00:30:17,490 --> 00:30:20,730
-Come, the quarry flees.
-
-00:30:20,730 --> 00:30:24,259
-We pursued him into a low-lit corridor lined with more crates,
-
-00:30:24,259 --> 00:30:26,199
-some marked with official stamps,
-
-00:30:26,199 --> 00:30:28,640
-others bearing illicit symbols of trade networks.
-
-00:30:28,640 --> 00:30:32,650
-works, Harrington nearly tripped on a discarded length of rope but recovered quickly.
-
-00:30:32,650 --> 00:30:37,400
-Holmes, the markings. Some of these grades came directly from Ashanti territories.
-
-00:30:37,400 --> 00:30:39,019
-..
-
-00:30:39,019 --> 00:30:42,260
-Precisely why Ashkoon cannot allow us to leave?
-
-00:30:42,260 --> 00:30:46,720
-Suddenly, a voice rang out from the shadows ahead, smooth, commanding,
-
-00:30:46,720 --> 00:30:50,049
-tinged with the confidence of a man accustomed to unquestioned authority.
-
-00:30:50,049 --> 00:30:55,099
-Mr. Holmes, you have a talent for meddling where your presence is neither wanted nor wise.
-
-00:30:55,099 --> 00:31:03,929
-A figure emerged from behind a crate, tall, impeccably dressed, with silvering temples and a cold smile that suggested both charm and cruelty.
-
-00:31:03,929 --> 00:31:13,720
-His boots bore the same red dust stains Holmes had previously noted, a telltale sign of recent travel to the very African territories at the heart of this affair.
-
-00:31:13,720 --> 00:31:21,980
-Lieutenant Colonel Rupert Ashcombe, or rather the White Hand, as you are known to those whose trust you exploited.
-
-00:31:21,980 --> 00:31:25,880
-A childish nickname by superstitious natives, nothing more.
-
-00:31:25,880 --> 00:31:29,900
-On the contrary, it is a title earned and won.
-
-00:31:29,900 --> 00:31:32,960
-The chieftain spoke as he lay dying.
-
-00:31:32,960 --> 00:31:33,980
-..
-
-00:31:33,980 --> 00:31:37,809
-Nonsense! You cannot expect me to tremble before the ravings of a dying man.
-
-00:31:37,809 --> 00:31:42,070
-Kimu, as though recognizing the man's voice with instinctive dread,
-
-00:31:42,070 --> 00:31:46,000
-had flapped violently within the cage, shrieking its haunting phrase.
-
-00:31:46,000 --> 00:31:48,389
-Harrington struggled to maintain his grip.
-
-00:31:48,389 --> 00:31:50,519
-Holmes, the bird, it's terrified of him.
-
-00:31:50,519 --> 00:31:56,420
-An honest witness will often display more courage than a deceitful man.
-
-00:31:56,420 --> 00:31:57,740
-..
-
-00:31:57,740 --> 00:32:01,200
-Holmes, I invite you to leave immediately. That verdict was never meant to survive.
-
-00:32:01,200 --> 00:32:08,470
-As Ashcombe stepped closer, I noticed the glint of a revolver conceded beneath his coat, its barrel catching a sliver of light.
-
-00:32:08,470 --> 00:32:11,420
-Watson, to your left. He's reaching for the weapon.
-
-00:32:11,420 --> 00:32:14,750
-Before I could react, Ashcombe drew the revolver and fired.
-
-00:32:14,750 --> 00:32:20,329
-The shot rang out with deafening force, splintering a crate inches from my head.
-
-00:32:20,329 --> 00:32:23,000
-Holmes, he means to kill us.
-
-00:32:23,000 --> 00:32:25,450
-Watson, flank him.
-
-00:32:25,450 --> 00:32:29,170
-Ashcombe, for God's sake, stand down.
-
-00:32:29,170 --> 00:32:32,610
-Oh, I warned you, Harrington. Some secrets are worth any price.
-
-00:32:32,610 --> 00:32:37,869
-Holmes leapt sideways with remarkable agility, closing the distance between himself and Ashcombe.
-
-00:32:37,869 --> 00:32:41,710
-Another shot fired, ricocheting dangerously close to Harrington.
-
-00:32:41,710 --> 00:32:46,759
-Kimbu screeched with such ferocity that the warehouse seemed to echo with the chieftain's dying accusation.
-
-00:32:46,759 --> 00:32:47,760
-..
-
-00:32:47,760 --> 00:32:49,269
-Watson, now.
-
-00:32:49,269 --> 00:32:53,389
-I lunged forward, grabbing Ashkum's weapon hand and wrenching it aside.
-
-00:32:53,389 --> 00:32:58,529
-The revolver discharged a final time, the bullet embedding itself harmlessly in the wooden floor.
-
-00:32:58,529 --> 00:33:04,920
-Though Ashkum fought with surprising strength, delivering a brutal blow to my ribs that sent me stumbling backward.
-
-00:33:04,920 --> 00:33:08,440
-You fools! You have no idea what this bird knows.
-
-00:33:08,440 --> 00:33:12,970
-On the contrary, Ashkum, I know precisely what it knows.
-
-00:33:12,970 --> 00:33:15,759
-Holmes seized Ashkum's arm with expert precision,
-
-00:33:15,759 --> 00:33:18,240
-whisking it until the revolver clattered to the ground.
-
-00:33:18,240 --> 00:33:21,230
-The colonel droned in pain but continued to struggle.
-
-00:33:21,230 --> 00:33:25,650
-Harrington dropped the cage and rushed to assist, tackling Ashkum around the waist.
-
-00:33:25,650 --> 00:33:28,960
-You murdered him. You murdered the chieftain.
-
-00:33:28,960 --> 00:33:30,000
-..
-
-00:33:30,000 --> 00:33:31,799
-He would have exposed everything. I had no choice.
-
-00:33:31,799 --> 00:33:33,059
-..
-
-00:33:33,059 --> 00:33:39,659
-There is always a choice. Yours was greed and the blood of an innocent man stains your hands.
-
-00:33:39,659 --> 00:33:43,119
-With combined effort, we pinned Ashkum to the ground.
-
-00:33:43,119 --> 00:33:48,150
-Hong secured his arms behind his back with a length of rope scavenged from a nearby crate.
-
-00:33:48,150 --> 00:33:54,750
-The defeated Colonel lay gasping, his once imperious expression replaced by the hollow gaze of a man whose empire had crumbled.
-
-00:33:54,750 --> 00:33:57,970
-Holmes, if you only knew what fortune lies in those crates, what power!
-
-00:33:57,970 --> 00:34:03,920
-Fortune built upon suffering is no fortune at all. It is theft and murder.
-
-00:34:03,920 --> 00:34:04,940
-..
-
-00:34:04,940 --> 00:34:13,059
-Kimball, trembling but alive, spoke again in its guttural dialect, the chieftain's dying words reverberating through the warehouse with haunting authority.
-
-00:34:13,059 --> 00:34:15,239
-The final phrase rang out like a verdict.
-
-00:34:15,239 --> 00:34:19,190
-There, Watson, the bird delivers its testimony.
-
-00:34:19,190 --> 00:34:23,420
-Holmes, thank you. I thought this darkness would follow me to the grave.
-
-00:34:23,420 --> 00:34:28,039
-Justice may travel slowly, Captain, but it arrives eventually.
-
-00:34:28,039 --> 00:34:33,550
-Holmes stood, straightened his coat, and glanced down at Ashcombe with a final, measured gaze.
-
-00:34:33,550 --> 00:34:39,860
-Watson, alert, Inspector Lestrade, and ensure the Foreign Office receives a detailed account.
-
-00:34:39,860 --> 00:34:47,619
-count. This warehouse is a trove of evidence, enough to unravel the entire ivory conspiracy.
-
-00:34:47,619 --> 00:34:48,960
-..
-
-00:34:48,960 --> 00:34:56,039
-At one's homes. And have someone collect this courageous bird. Kimbo has honoured the memory
-
-00:34:56,039 --> 00:35:00,599
-of its master with remarkable fidelity. Zee stepped into the light of the now
-
-00:35:00,599 --> 00:35:05,840
-bustling wharf. I felt the palpable weight of the morning settle into my bones. Fatigue,
-
-00:35:05,840 --> 00:35:11,219
-relief and the unmistakable awe that always followed, one of Holmes' triumphs.
-
-00:35:11,219 --> 00:35:14,989
-The case was far from concluded in the courts, but the truth had been unveiled,
-
-00:35:14,989 --> 00:35:18,409
-and Kimbu, perched proudly now, seemed almost triumphant.
-
-00:35:18,409 --> 00:35:23,699
-The fog had returned by the time Holmes and I left Blackfriars Wharf with Ashcombe safely in
-
-00:35:23,699 --> 00:35:30,159
-Lestrade. Hmm, ease custody. Hmm, yet I felt as though a different fog, that of disbelief and
-
-00:35:30,159 --> 00:35:34,220
-and lingering dread still clung stubbornly wide to the morning's events.
-
-00:35:34,220 --> 00:35:37,220
-Holmes seemed invigorated rather than exhausted,
-
-00:35:37,220 --> 00:35:39,400
-and his sharp stride along the embankment
-
-00:35:39,400 --> 00:35:43,409
-betrayed a mind still racing through layers of deduction and consequence.
-
-00:35:43,409 --> 00:35:45,539
-Imbo, now returned to a cupboard carrier,
-
-00:35:45,539 --> 00:35:48,699
-made occasional soft chirps that contrasted sharply
-
-00:35:48,699 --> 00:35:51,489
-with the anguished cries it had uttered in the warehouse.
-
-00:35:51,489 --> 00:35:55,840
-It seemed calmer, as though the shadow looming over its memory had been lifted.
-
-00:35:55,840 --> 00:36:02,280
-Watson, I trust your ribs are intact despite Ashcombe's less than gentle greeting?
-
-00:36:02,280 --> 00:36:03,460
-..
-
-00:36:03,460 --> 00:36:07,470
-Tender, but functional. I've suffered worse in service at my one.
-
-00:36:07,470 --> 00:36:13,519
-Good. You'll need to be in full command of your faculties for the remainder of this matter.
-
-00:36:13,519 --> 00:36:15,360
-..
-
-00:36:15,360 --> 00:36:21,550
-Holmes, pray tell. What remains? Ashcombe is arrested. His smuggling operations will be dismantled.
-
-00:36:21,550 --> 00:36:23,940
-The bird has fulfilled its remarkable purpose.
-
-00:36:23,940 --> 00:36:32,380
-us. Hone stalked beneath a lamplight, a faint glow casting precise angles onto his hawk-like profile.
-
-00:36:32,380 --> 00:36:41,440
-Come now, Watson, surely you do not believe that a man as calculating as Ashcombe operates without
-
-00:36:41,440 --> 00:36:51,000
-contingencies? You suspect accomplices? Suspect? No, I am certain. The question is not whether
-
-00:36:51,000 --> 00:36:56,820
-whether they exist but how deeply entwined they are with the Foreign Office and how eager
-
-00:36:56,820 --> 00:36:59,359
-they are to silence the final witness.
-
-00:36:59,359 --> 00:37:00,390
-The witness?
-
-00:37:00,390 --> 00:37:01,300
-You mean Kimboo?
-
-00:37:01,300 --> 00:37:02,579
-..
-
-00:37:02,579 --> 00:37:03,260
-Precisely.
-
-00:37:03,260 --> 00:37:10,000
-A parrot may not be able to provide a legal deposition in court, but its ability to mimic
-
-00:37:10,000 --> 00:37:15,810
-the chieftain's dying confession renders it dangerously inconvenient to the guilty.
-
-00:37:15,810 --> 00:37:18,539
-Holmes, are you suggesting they are still being watched?
-
-00:37:18,539 --> 00:37:28,239
-Watson, I am suggesting we have been watched since the moment Kimbu first uttered the tribal accusation in Baker Street.
-
-00:37:28,239 --> 00:37:29,300
-..
-
-00:37:29,300 --> 00:37:32,579
-Shiva crawled along my spine despite the thick wool of my coat.
-
-00:37:32,579 --> 00:37:35,849
-Holmes resumed his brisk pace and I struggled to keep up.
-
-00:37:35,849 --> 00:37:40,309
-We shall return to Baker Street. There we will set the final trap.
-
-00:37:40,309 --> 00:37:43,000
-The journey back was fraught with unease.
-
-00:37:43,000 --> 00:37:47,130
-I found myself, checking each passing handsome cab, each shadow doorway,
-
-00:37:47,130 --> 00:37:51,250
-imagining hidden enemies lurking within the very heartbeat of London streets.
-
-00:37:51,250 --> 00:37:54,780
-It was only once we reached the familiar cobblestones of Baker Street
-
-00:37:54,780 --> 00:37:58,719
-that a semblance of safety returned, though Holmes seemed no more at ease than before.
-
-00:37:58,719 --> 00:37:59,820
-..
-
-00:37:59,820 --> 00:38:03,369
-Upstairs, Watson, and keep your revolver within reach.
-
-00:38:03,369 --> 00:38:06,140
-Holmes, is an attack truly imminent?
-
-00:38:06,140 --> 00:38:11,760
-If my calculations are correct, the accomplice will arrive within the hour.
-
-00:38:11,760 --> 00:38:15,670
-scope, but fear not, we shall be prepared.
-
-00:38:15,670 --> 00:38:19,860
-Once inside our sitting room, Holmes instructed me to place the parrot's cage atop the table
-
-00:38:19,860 --> 00:38:23,639
-near the window. He then drew the curtains halfway, allowing only
-
-00:38:23,639 --> 00:38:27,470
-partial visibility of the room from outside. Watson,
-
-00:38:27,470 --> 00:38:31,599
-position yourself behind the lacquered screen. I shall assume
-
-00:38:31,599 --> 00:38:36,060
-an attitude of contemplation here by the fireplace.
-
-00:38:36,060 --> 00:38:38,539
-The intruder will aim for me first.
-
-00:38:38,539 --> 00:38:42,819
-Holmes, surely this is unnecessary. We could inform Lestrade.
-
-00:38:42,819 --> 00:38:43,280
-Tee-lo!
-
-00:38:43,280 --> 00:38:45,060
-..
-
-00:38:45,060 --> 00:38:53,159
-Lestrade, my dear fellow, he's undoubtedly occupied cataloguing every illicit item within that warehouse.
-
-00:38:53,159 --> 00:38:57,360
-By the time he arrived, our adversary would have vanished,
-
-00:38:57,360 --> 00:39:02,000
-leaving behind nothing but a broken window and a missing bird.
-
-00:39:02,000 --> 00:39:03,440
-..
-
-00:39:03,440 --> 00:39:04,000
-The Legdalli.
-
-00:39:04,000 --> 00:39:07,260
-With reluctance, I hid behind the screen, revolver drawn.
-
-00:39:07,260 --> 00:39:11,960
-on. Holmes sat in his armchair with casual poise, yet I could tell his senses were attuned to every
-
-00:39:11,960 --> 00:39:17,039
-whisper and movement in the air. For many tense minutes, nothing occurred. Kimu shifted restlessly
-
-00:39:17,039 --> 00:39:22,219
-in its cage, tapping the wooden purge. Outside, a carriage clattered by. Then another. The clock
-
-00:39:22,219 --> 00:39:26,850
-on the mantoo chimed the quarter hour. Patience, Watson. The web is set.
-
-00:39:26,850 --> 00:39:32,219
-Suddenly, a faint scratching noise emanated from the window latch. Hum stiffened ever so slightly.
-
-00:39:32,219 --> 00:39:33,400
-I dare not read.
-
-00:39:33,400 --> 00:39:34,419
-..
-
-00:39:34,419 --> 00:39:35,869
-The window lifted silently.
-
-00:39:35,869 --> 00:39:41,400
-A gloved hand appeared, followed by the silhouette of a figure clad in dark clothing and a mask.
-
-00:39:41,400 --> 00:39:44,269
-The intruder moved with the position of a trained operative.
-
-00:39:44,269 --> 00:39:47,680
-Not a common thief, but someone accustomed to infiltration.
-
-00:39:47,680 --> 00:39:49,489
-The bird. Where's the bird?
-
-00:39:49,489 --> 00:39:52,690
-Good evening. I believe you are seeking Kimbu.
-
-00:39:52,690 --> 00:39:56,579
-Kohn spoke with such calm that the intruder momentarily froze.
-
-00:39:56,579 --> 00:39:59,569
-Then, with a swift lunge, the man produced a knife.
-
-00:39:59,569 --> 00:40:02,579
-Sherlock Holmes, you leave me no choice.
-
-00:40:02,579 --> 00:40:03,919
-..
-
-00:40:03,919 --> 00:40:07,699
-Before he could reach Holmes, I emerged from hiding, revolver raised.
-
-00:40:07,699 --> 00:40:09,809
-Drop the weapon this instant.
-
-00:40:09,809 --> 00:40:12,230
-Another step and the bird dies.
-
-00:40:12,230 --> 00:40:15,449
-You overestimate your advantage, sir.
-
-00:40:15,449 --> 00:40:19,789
-You see, you have made three critical errors already.
-
-00:40:19,789 --> 00:40:21,619
-What are you talking about?
-
-00:40:21,619 --> 00:40:22,659
-..
-
-00:40:22,659 --> 00:40:26,039
-First, you approached the window without checking the street.
-
-00:40:26,039 --> 00:40:30,150
-Which informed me you act under time constraints.
-
-00:40:30,150 --> 00:40:35,380
-Second, your boots carry residue of red dyed laterite clay.
-
-00:40:35,380 --> 00:40:39,840
-The same we found in Ashcombe's warehouse but mixed with London soot.
-
-00:40:39,840 --> 00:40:42,750
-Meaning you have visited that location today.
-
-00:40:42,750 --> 00:40:44,940
-And third...
-
-00:40:44,940 --> 00:40:50,010
-Tones' hand shot out, knocking the knife from the intruder's draught with surgical precision.
-
-00:40:50,010 --> 00:40:52,340
-The robe staggered backward, stunned.
-
-00:40:52,340 --> 00:40:59,250
-You failed to anticipate that Watson's sense of duty rarely allows him to miss an opportunity to S.
-
-00:40:59,250 --> 00:41:02,440
-Hmm. Ave my life. Hmm.
-
-00:41:02,440 --> 00:41:03,700
-..
-
-00:41:03,700 --> 00:41:06,970
-I moved swiftly and pressed the revolver to the intruder's chest.
-
-00:41:06,970 --> 00:41:09,480
-Surrender now. You are outmatched.
-
-00:41:09,480 --> 00:41:10,600
-..
-
-00:41:10,600 --> 00:41:12,930
-You fools have no idea who I serve.
-
-00:41:12,930 --> 00:41:16,519
-On the contrary, I know exactly who you serve.
-
-00:41:16,519 --> 00:41:25,650
-The emblem sewn into your cuff, partially torn yet still visible, is from a private regiment operated under Ashcombe's patronage.
-
-00:41:25,650 --> 00:41:30,840
-You are the lieutenant he appointed to oversee the smuggling shipments.
-
-00:41:30,840 --> 00:41:34,019
-Holmes, you should never have interfered.
-
-00:41:34,019 --> 00:41:39,639
-And you should never have underestimated the consequences of murdering an African chieftain.
-
-00:41:39,639 --> 00:41:42,099
-...
-
-00:41:42,099 --> 00:41:46,820
-They drew a lunge suddenly, attempting to break past me, but Holmes intercepted him.
-
-00:41:46,820 --> 00:41:51,380
-With a swift blow to the temple, the masked man collapsed to the floor, unconscious.
-
-00:41:51,380 --> 00:41:57,320
-A most inelegant attempt. Watson, if you would be so kind as to restrain him.
-
-00:41:57,320 --> 00:41:59,740
-...
-
-00:41:59,740 --> 00:42:05,219
-I bound the man's wrists while Holmes retrieved the fallen knife, examining it with clinical detail.
-
-00:42:05,219 --> 00:42:12,130
-A ceremonial dagger, a shanty in design but crudely modified for stealth.
-
-00:42:12,130 --> 00:42:16,779
-This confirms he sought not merely to silence the bird,
-
-00:42:16,779 --> 00:42:22,420
-but to steal an artifact that might incriminate the entire network.
-
-00:42:22,420 --> 00:42:23,820
-..
-
-00:42:23,820 --> 00:42:26,000
-Holmes, is the danger finally past?
-
-00:42:26,000 --> 00:42:30,219
-Yes, Watson. The final accomplice has revealed himself.
-
-00:42:30,219 --> 00:42:37,389
-With Ashcombe in custody and his lieutenant apprehended, the conspiracy is broken.
-
-00:42:37,389 --> 00:42:41,590
-Kimball chirped, then repeated the chieftain's final words once more.
-
-00:42:41,590 --> 00:42:44,489
-But this time, the tone sounded almost peaceful.
-
-00:42:44,489 --> 00:42:47,779
-The burden of its memory seemed at last to lift.
-
-00:42:47,779 --> 00:42:52,530
-Watson, observe the creature carefully. You may learn something.
-
-00:42:52,530 --> 00:42:55,360
-Holmes, what lesson could I possibly glean from a parrot?
-
-00:42:55,360 --> 00:43:03,260
-it. The virtue of unwavering truth, even when reduced to mimicry, the bird never altered a
-
-00:43:03,260 --> 00:43:10,860
-single syllable of its testimony. Many humans could aspire to such honesty. You surprise me
-
-00:43:10,860 --> 00:43:17,859
-with your sentiment. Nonsense. I speak only of the facts. Arrington arrived, shoddy thereafter,
-
-00:43:17,859 --> 00:43:22,739
-breathless from the haste with which he had come, when he saw the bound intruder on our floor and
-
-00:43:22,739 --> 00:43:26,190
-and Kimbu unharmed, his shoulders sad with profound relief.
-
-00:43:26,190 --> 00:43:28,730
-Holmes, I cannot thank you enough.
-
-00:43:28,730 --> 00:43:30,480
-You have avenged the chieftain.
-
-00:43:30,480 --> 00:43:32,760
-His memory, it will not be lost.
-
-00:43:32,760 --> 00:43:33,820
-..
-
-00:43:33,820 --> 00:43:37,460
-Ensure the proper authorities handle the aftermath
-
-00:43:37,460 --> 00:43:42,119
-and see that Kimbu is returned to those who cherished him.
-
-00:43:42,119 --> 00:43:46,340
-Of course, the tribe will want to honor him for his service.
-
-00:43:46,340 --> 00:43:47,419
-..
-
-00:43:47,419 --> 00:43:50,960
-After the intruder was taken away and Harrington departed with solemn gratitude,
-
-00:43:50,960 --> 00:43:53,149
-Holmes finally allowed himself to relax.
-
-00:43:53,149 --> 00:43:54,720
-He settled into his armchair,
-
-00:43:54,720 --> 00:43:57,359
-steepling his fingers as he gazed into the fire.
-
-00:43:57,359 --> 00:44:00,650
-Holmes, must every case end with such peril?
-
-00:44:00,650 --> 00:44:05,019
-Peril, Watson, is merely the cost of confronting the truth.
-
-00:44:05,019 --> 00:44:09,900
-But I dare say this particular case possessed a curious charm.
-
-00:44:09,900 --> 00:44:11,000
-..
-
-00:44:11,000 --> 00:44:13,590
-Charm? Holmes, we were nearly killed.
-
-00:44:13,590 --> 00:44:17,860
-Ah, yes, but consider the intellectual elegance.
-
-00:44:17,860 --> 00:44:22,409
-A parrot bearing the dying words of a murdered chieftain.
-
-00:44:22,409 --> 00:44:28,569
-A conspiracy unraveled through logic, observation and an avian witness.
-
-00:44:28,569 --> 00:44:34,539
-Few detectives can claim such unusual companions in the pursuit of justice.
-
-00:44:34,539 --> 00:44:35,660
-..
-
-00:44:35,660 --> 00:44:38,519
-Holmes, only you would raise a case for its oddity.
-
-00:44:38,519 --> 00:44:42,230
-My dear Watson, oddity is often the hallmark of truth.
-
-00:44:42,230 --> 00:44:45,760
-The world disguises its crimes in conventional clothing.
-
-00:44:45,760 --> 00:44:51,039
-building, when something appears unique, that is when one should look most closely.
-
-00:44:51,039 --> 00:44:55,860
-I sat opposite him, watching the fire flicker against the familiar clutter of our sitting
-
-00:44:55,860 --> 00:45:01,140
-room, the chemical vials, the scattered monographs, the violin resting quietly atop its table.
-
-00:45:01,140 --> 00:45:05,989
-Peace had returned, yet the memory of the day's dangers hummed softly beneath my skin.
-
-00:45:05,989 --> 00:45:08,980
-Combs, what shall I record as the moral of this adventure?
-
-00:45:08,980 --> 00:45:15,780
-chirp. Record that even the smallest voice, even the echo of a voice, can topple an empire built
-
-00:45:15,780 --> 00:45:25,179
-upon dirt. See it. Kimbo let out a final chirp, turning its head as though acknowledging the
-
-00:45:25,179 --> 00:45:30,029
-great detective's words. And for a moment, as the warm dew of the hearth washed over us,
-
-00:45:30,029 --> 00:45:34,900
-I felt an uncommon tranquility. The case had begun with a cry of death from a distant land,
-
-00:45:34,900 --> 00:45:36,659
-and ended with justice restored,
-
-00:45:36,659 --> 00:45:38,239
-carried upon the wings of a creature
-
-00:45:38,239 --> 00:45:40,050
-whose loyalty transcended kingdoms.
-
-00:45:40,050 --> 00:45:41,670
-I opened my journal,
-
-00:45:41,670 --> 00:45:42,579
-inked my pen
-
-00:45:42,579 --> 00:45:44,289
-and began to write the final lines.
-
-00:45:44,289 --> 00:45:45,420
-Holmes washed me,
-
-00:45:45,420 --> 00:45:47,949
-a faint smile tugging at the corner of his lips.
-
-00:45:47,949 --> 00:45:48,720
-Sir!
-
-00:45:48,720 --> 00:45:51,380
-Do describe me generously, Watson.
-
-00:45:51,380 --> 00:45:54,019
-The public must have its hero.
-
-00:45:54,019 --> 00:45:56,619
-Holmes, you require no embellishment.
-
-00:45:56,619 --> 00:45:59,059
-Your deeds speak plainly enough.
-
-00:45:59,059 --> 00:46:01,579
-Then let us rest, Watson.
-
-00:46:01,579 --> 00:46:02,380
-Tomorrow,
-
-00:46:02,380 --> 00:46:07,719
-Tomorrow London will present new mysteries, and I dare say we shall need all our wits.
-
-00:46:07,719 --> 00:46:17,099
-..........
+00:06:39,879 --> 00:06:40,300
+.
 
