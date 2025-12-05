@@ -18,10 +18,10 @@ CONSTRAINTS:
 DIALOGUE-SCENE FORMAT:
 
 [male_doctor_watson] "It was a calm morning....";
-(scene_1.1) {{loc_1, Victorian living room with sofa and fireplace}}, {Weather/Season/Time: sunny winter morning}; ((male_doctor_watson){Face Relative Direction: toward fireplace}{Looking Relative Direction: at newspaper}{Facial Expression: neutral}, {Relative Location: left side of sofa},{Body Facing Relative Direction: toward fireplace},{Body Posture: sitting},{Primary Action: reading};
+(scene_1.1) {{loc_1, Victorian living room with sofa and fireplace}}, {Weather/Season/Time: sunny winter morning}; ((male_doctor_watson)){Face Relative Direction: toward fireplace}{Looking Relative Direction: at newspaper}{Facial Expression: neutral}, {Relative Location: left side of sofa},{Body Facing Relative Direction: toward fireplace},{Body Posture: sitting},{Primary Action: reading};
 
 [male_detective_holmes] "Look, Watson....";
-(scene_1.2) {{loc_2, Victorian living room with dinning and fireplace}}, {Weather/Season/Time: sunny winter morning};(male_detective_holmes){Face Relative Direction: toward window}{Looking Relative Direction: at window}{Facial Expression: curious}, {Relative Location: standing near dining table},{Body Facing Relative Direction: toward window},{Body Posture: standing},{Primary Action: drinking water});
+(scene_1.2) {{loc_2, Victorian living room with dinning and fireplace}}, {Weather/Season/Time: sunny winter morning};((male_detective_holmes)){Face Relative Direction: toward window}{Looking Relative Direction: at window}{Facial Expression: curious}, {Relative Location: standing near dining table},{Body Facing Relative Direction: toward window},{Body Posture: standing},{Primary Action: drinking water};
 
 ....
 
