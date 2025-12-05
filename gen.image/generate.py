@@ -63,11 +63,11 @@ class TimedLogWriter:
 
 SCRIPTS = [
     #Speech
-    # "1.story.py",
-    # "../gen.audio/scripts/1.character.py",
-    # "../gen.audio/scripts/2.story.py",
-    # "../gen.audio/scripts/3.transcribe.py",
-    # "../gen.audio/scripts/4.quality.py",
+    "1.story.py",
+    "../gen.audio/scripts/1.character.py",
+    "../gen.audio/scripts/2.story.py",
+    "../gen.audio/scripts/3.transcribe.py",
+    "../gen.audio/scripts/4.quality.py",
 
     #SFX
     # "4.audio.py",
@@ -99,7 +99,7 @@ NEEDS_LMSTUDIO = {"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py"
 
 # Centralized non-interactive defaults (only change this file)
 SCRIPT_ARGS = {
-    # "1.story.py": ["--bypass-validation"],
+    "1.story.py": ["--bypass-validation"],
     "4.audio.py": ["--bypass-validation"],
     "1.character.py": ["--auto-gender", "m", "--auto-confirm", "y", "--change-settings", "n"],
     "5.timeline.py": ["../input/2.timeline.script.txt"],  # Pass the 2.1.timeline.txt file to 5.timeline.py (relative to gen.audio/scripts/)
@@ -132,12 +132,12 @@ def calculate_file_hash(filepath: str) -> str:
 
 
 def check_and_clean_tracking_if_files_changed(
-    base_dir: str, 
+    base_dir: str,
     log_handle,
     tracked_files: list[tuple[str, str]],  # List of (file_path, hash_key) tuples
     tracking_json_file: str,
-    output_dir: str = None  # Output directory to clear if files changed (defaults to tracking dir parent)
-) -> bool:
+    output_dirs: list[str] = None  # List of output directories to clear if files changed (defaults to tracking dir parent)
+    ) -> bool:
     """
     Check if any tracked file has changed and delete output directory if it has.
     
@@ -182,10 +182,10 @@ def check_and_clean_tracking_if_files_changed(
     
     tracking_dir = os.path.dirname(tracking_json_file)
     
-    # Determine output directory to clear
-    if output_dir is None:
+    # Determine output directories to clear
+    if output_dirs is None:
         # Default to parent of tracking directory (e.g., output/)
-        output_dir = os.path.dirname(tracking_dir)
+        output_dirs = [os.path.dirname(tracking_dir)]
     
     # If tracking directory doesn't exist, create it with tracking JSON
     if not os.path.exists(tracking_dir):
@@ -209,7 +209,8 @@ def check_and_clean_tracking_if_files_changed(
         # No tracking JSON means old tracking format, delete output and recreate
         log_handle.write("No tracking JSON found. Deleting old output format.\n")
         try:
-            shutil.rmtree(output_dir)
+            for out_dir in output_dirs:
+                shutil.rmtree(out_dir, ignore_errors=True)
             os.makedirs(tracking_dir, exist_ok=True)
             tracking_data = {
                 "file_hashes": current_hashes,
@@ -218,7 +219,7 @@ def check_and_clean_tracking_if_files_changed(
             }
             with open(tracking_json_file, 'w', encoding='utf-8') as f:
                 json.dump(tracking_data, f, indent=2)
-            log_handle.write("Output directory recreated with file hashes.\n")
+            log_handle.write("Output directories recreated with file hashes.\n")
         except Exception as ex:
             log_handle.write(f"WARNING: Failed to recreate output: {ex}\n")
             log_handle.flush()
@@ -235,7 +236,8 @@ def check_and_clean_tracking_if_files_changed(
         log_handle.write(f"WARNING: Failed to read tracking JSON: {ex}. Deleting output.\n")
         log_handle.flush()
         try:
-            shutil.rmtree(output_dir)
+            for out_dir in output_dirs:
+                shutil.rmtree(out_dir, ignore_errors=True)
             os.makedirs(tracking_dir, exist_ok=True)
             tracking_data = {
                 "file_hashes": current_hashes,
@@ -258,9 +260,10 @@ def check_and_clean_tracking_if_files_changed(
             break
     
     if hashes_changed:
-        # File content has changed, delete entire output directory
+        # File content has changed, delete all output directories
         try:
-            shutil.rmtree(output_dir)
+            for out_dir in output_dirs:
+                shutil.rmtree(out_dir, ignore_errors=True)
             os.makedirs(tracking_dir, exist_ok=True)
             tracking_data = {
                 "file_hashes": current_hashes,
@@ -271,14 +274,14 @@ def check_and_clean_tracking_if_files_changed(
                 json.dump(tracking_data, f, indent=2)
             log_handle.write(
                 f"Tracked file content changed. "
-                f"Deleted and recreated output directory: {output_dir}\n"
+                f"Deleted and recreated output directories: {output_dirs}\n"
             )
         except Exception as ex:
-            log_handle.write(f"WARNING: Failed to delete output directory: {ex}\n")
+            log_handle.write(f"WARNING: Failed to delete output directories: {ex}\n")
             log_handle.flush()
             return False
     else:
-        log_handle.write("All tracked files unchanged. Preserving output directory.\n")
+        log_handle.write("All tracked files unchanged. Preserving output directories.\n")
     
     log_handle.flush()
     return True
@@ -288,14 +291,19 @@ def check_and_clean_tracking_if_story_changed(base_dir: str, log_handle) -> bool
     """Check if 1.story.txt has changed and delete output directory if it has."""
     tracking_dir = os.path.join(base_dir, "output", "tracking")
     tracking_json_file = os.path.join(tracking_dir, "generate.state.json")
-    
+
     # Track the story file
     tracked_files = [
         ("input/1.story.txt", "story_file")
     ]
-    
+
+    # Output directories to clear: gen.image/output and gen.audio/output
+    gen_image_output = os.path.join(base_dir, "output")
+    gen_audio_output = os.path.abspath(os.path.join(base_dir, "..", "gen.audio", "output"))
+    output_dirs = [gen_image_output, gen_audio_output]
+
     return check_and_clean_tracking_if_files_changed(
-        base_dir, log_handle, tracked_files, tracking_json_file
+        base_dir, log_handle, tracked_files, tracking_json_file, output_dirs=output_dirs
     )
 
 
