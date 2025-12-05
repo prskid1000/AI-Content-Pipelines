@@ -1319,6 +1319,8 @@ class LocationGenerator:
                 
                 # Print workflow summary before sending
                 self._print_workflow_summary(workflow, f"LoRA {i + 1}: {lora_name}")
+
+                print(f"  Submitting {workflow}")
                 
                 # Submit workflow to ComfyUI
                 resp = requests.post(f"{self.comfyui_url}prompt", json={"prompt": workflow}, timeout=60)
@@ -1431,8 +1433,10 @@ class LocationGenerator:
         lora_node_id = f"lora_{lora_index}"
         
         # Get initial model and clip connections
-        model_input = self._find_node_by_class(workflow, "UnetLoaderGGUF") or ["1", 0]
-        clip_input = self._find_node_by_class(workflow, ["DualCLIPLoader", "TripleCLIPLoader"]) or ["2", 0]
+        model_input = (self._find_node_by_class(workflow, "UnetLoaderGGUF") or 
+                      self._find_node_by_class(workflow, "UNETLoader") or 
+                      ["41", 0])
+        clip_input = self._find_node_by_class(workflow, ["DualCLIPLoader", "TripleCLIPLoader"]) or ["10", 0]
         
         # Create LoRA node inputs
         lora_inputs = {

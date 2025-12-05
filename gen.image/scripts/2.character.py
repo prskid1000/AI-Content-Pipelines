@@ -472,8 +472,10 @@ class CharacterGenerator:
         print("All LoRAs will be stitched together in a single workflow execution")
         
         # Get initial model and clip connections
-        model_input = self._find_node_by_class(workflow, "UnetLoaderGGUF") or ["1", 0]
-        clip_input = self._find_node_by_class(workflow, ["DualCLIPLoader", "TripleCLIPLoader"]) or ["2", 0]
+        model_input = (self._find_node_by_class(workflow, "UnetLoaderGGUF") or 
+                      self._find_node_by_class(workflow, "UNETLoader") or 
+                      ["41", 0])
+        clip_input = self._find_node_by_class(workflow, ["DualCLIPLoader", "TripleCLIPLoader"]) or ["10", 0]
         
         last_model_output = model_input
         last_clip_output = clip_input
