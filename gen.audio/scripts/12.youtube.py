@@ -202,7 +202,7 @@ def create_shorts_title(title: str, shorts_num: int) -> str:
 
 def create_shorts_description(description: str, shorts_num: int) -> str:
     """Create a description for shorts video."""
-    shorts_desc = f"🎬 Shorts Version {shorts_num} - {description}\n\n#Shorts #YouTubeShorts"
+    shorts_desc = f"🎬 Shorts Version {shorts_num} - {description}\n\n#Shorts #trendingshorts #viralshorts #YouTubeShorts"
     return shorts_desc
 
 def upload_shorts_videos(youtube_service, shorts_dir: str, base_title: str, base_description: str, tags: list) -> list[str]:
