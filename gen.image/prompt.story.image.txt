@@ -8,7 +8,7 @@
 ## CONSTRAINTS:
 - Each DIALOGUE must be always at least 30 characters.
 - Each LOCATION_k must be always at max 12 words.
-- Each DIALOGUE_i must have its single corresponding SCENE_i, and vice-versa.
+- Each DIALOGUE_i must have its SINGLE corresponding SCENE_i, and vice-versa.
 - The broadcast can span over multiple LOCATION_k.
 - Each LOCATION_k will be used in multiple SCENE_i, keep description consistent and such that it has all objects needed/mentioned in past/current/future scenes. Repeat {{loc_k}} in each SCENE_i where LOCATION_k used for next time.
 - **Must always create a new location (describe independently and completely) when the news topic/visual changes (i.e. discussing different aspects of the story, showing different related images).**
@@ -19,17 +19,17 @@
 ## DIALOGUE-SCENE FORMAT:
 
 [narrator] "Breaking news this evening about a dramatic fall in the Indian Rupee...";
-(scene_1) {{loc_1, Stock market trading floor with digital screens and traders}}, {Primary Focus: red declining graphs on large digital screens};
+(scene_1) {{loc_1, Stock market trading floor with digital screens and traders}}, {Primary Focus: red declining graphs on large digital screens}; ((narrator)) {Standing};
 
 [narrator] "The rupee has fallen to an unprecedented ninety against the dollar...";
-(scene_2) {{loc_1, Stock market trading floor with digital screens and traders}}, {Primary Focus: close-up of USD-INR exchange rate display showing 90};
+(scene_2) {{loc_1, Stock market trading floor with digital screens and traders}}, {Primary Focus: close-up of USD-INR exchange rate display showing 90}; ((narrator)) {Standing};
 
 [narrator] "Meanwhile, gold prices have surged as investors seek safe havens...";
-(scene_3) {{loc_2, Gold bullion vault with stacked bars and security}}, {Primary Focus: gleaming gold bars arranged in rows};
+(scene_3) {{loc_2, Gold bullion vault with stacked bars and security}}, {Primary Focus: gleaming gold bars arranged in rows}; ((narrator)) {Standing};
 
 [narrator] "Financial experts predict continued volatility in currency markets...";
-(scene_4) {{loc_3, Economic graph charts showing downward rupee trend lines}}, {Primary Focus: arrow pointing downward on rupee chart};
+(scene_4) {{loc_3, Economic graph charts showing downward rupee trend lines}}, {Primary Focus: arrow pointing downward on rupee chart}; ((narrator)) {Standing};
 
 ...
 [narrator] ....dialogue_i; start & end in same line as of [].
-(scene_i) {{loc_k, Description of at max 12 words}}, {Weather/Season/Time: x}, {Primary Focus: what specific element/action is shown};
+(scene_i) {{loc_k, Description of at max 12 words}}, {Weather/Season/Time: x}, {Primary Focus: what specific element/action is shown}; ((narrator)) {Standing};

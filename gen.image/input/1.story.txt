@@ -1,93 +1,85 @@
-[narrator] Good evening — we bring you live coverage of a momentous event on the world stage: the arrival of Vladimir Putin in Delhi on a state visit during early December 2025. Tensions, diplomacy, history and high-stakes negotiations — all unfolding in the heart of India.”
+[narrator] "Good evening — we bring you breaking developments tonight. A major diplomatic event is unfolding in New Delhi as Vladimir Putin, President of Russia, lands in India for a high-stakes 2-day visit."
 
-(scene_1) {{loc_1, New Delhi Palam Airport runway and arrival area at dusk}}, {Time: evening}, {Primary Focus: Putin’s aircraft disembarking and PM Modi waiting at the tarmac}
+(scene_1) {{loc_1, New Delhi international airport arrival terminal}}, {Time: evening, Dec 4, 2025}, {Primary Focus: Putin stepping out of plane, officials greeting him}; ((narrator)) {Standing}
 
-[narrator] At around 6:35 PM this evening, President Putin landed in New Delhi for a two-day visit — his first since the war in Ukraine began in early 2022. The visit comes at a critical time, when global geopolitics and shifting alliances have turned every diplomatic move into a statement.
+[narrator] "At precisely 6:35 PM local time, Putin arrived at the capital, greeted personally by Narendra Modi — a rare warm welcome, complete with a hug and handshake, signalling the special importance of this visit."
 
-(scene_2) {{loc_1, Palam Airport arrival walkway with red carpet}}, {Time: evening}, {Primary Focus: PM Narendra Modi greeting Putin with handshake and embrace}
+(scene_2) {{loc_1, New Delhi international airport arrival terminal}}, {Time: same evening}, {Primary Focus: Modi and Putin greeting, handshake and hug}; ((narrator)) {Standing}
 
-[narrator] And here — a rare sight: Prime Minister Modi personally welcoming Putin with a hug and a handshake as he steps down from the aircraft. It’s a symbolic greeting, signalling how India intends to handle this visit: with warmth and full honours. The gesture alone speaks volumes amid significant Western pressure on India.
+[narrator] "Reports say the Russian President is accompanied not only by senior ministers, but also by a large business delegation — underscoring that beyond politics, commerce, trade, and industry are high on the agenda."
 
-(narrator) Soon after arrival, the two leaders took the same car to leave the airport — a deliberate display of personal rapport before the summit formally begins.
+(scene_3) {{loc_2, Meeting of Russian delegation — convoy arriving in black SUVs}}, {Time: evening traffic on Delhi roads}, {Primary Focus: black SUVs with Russian and Indian flags, security escort}; ((narrator)) {Standing}
 
-(scene_3) {{loc_2, New Delhi streets decorated with Russian and Indian flags, evening lights}}, {Time: evening}, {Primary Focus: Welcome banners and crowd preparations across Delhi roads}
+[narrator] "From the airport, both leaders proceeded directly to the official residence on Lok Kalyan Marg — and tonight, Prime Minister Modi will host a private dinner in honour of President Putin."
 
-[narrator] Across New Delhi — flags, banners, flex-boards: the city readied itself for a historic visit. Official notices urged residents of major routes in central Delhi to expect traffic restrictions tomorrow — a pointer to the scale of events planned over these two days.
+(scene_4) {{loc_3, PM official residence Lok Kalyan Marg exterior night}}, {Time: night, Dec 4, 2025}, {Primary Focus: residence lit up, Indian & Russian flags fluttering}; ((narrator)) {Standing}
 
-(scene_4) {{loc_3, Official invitation letter and Kremlin flag overlaid on India–Russia map}}, {Time: background}, {Primary Focus: symbolic map showing India and Russia partnership}
+[narrator] "This dinner revives a tradition — during each summit, such informal gatherings help cement personal rapport between leaders, beyond the stiff protocol of formal meetings."
 
-[narrator] This is not a ceremonial trip. President Putin is here for the 23rd India–Russia Annual Summit, scheduled for December 4–5, 2025. The summit is a key pillar of the long-standing strategic partnership between the two nations — one that spans defence, energy, trade, culture, and more.
+(scene_5) {{loc_3, PM official residence dining hall}}, {Time: later night}, {Primary Focus: table set for dinner, dignitaries arriving}; ((narrator)) {Standing}
 
-(narrator) The timing matters. It’s the first official visit by Putin since 2021 — and comes at a time when India is under growing pressure from Western powers to reconsider its ties with Russia.
+[narrator] "Ahead of this visit, New Delhi has been transformed — billboards and hoardings declaring Indo-Russian friendship dot major roads. The atmosphere signals the warming of ties even in fraught global times."
 
-(scene_5) {{loc_3, Documents and folders titled 'Trade', 'Defence', 'Energy', spread on a desk}}, {Time: background}, {Primary Focus: list of agenda items — defence, energy, trade, cooperation}
+(scene_6) {{loc_4, Street in central Delhi with large political hoarding}}, {Time: late afternoon Dec 4}, {Primary Focus: hoarding showing Modi and Putin side-by-side}; ((narrator)) {Standing}
 
-[narrator] The agenda is broad and ambitious: from bolstering defence cooperation and energy ties to expanding trade and exploring new collaborations in healthcare, culture, academia, labor mobility, and media. India’s stated aim is to deepen ties beyond conventional energy and arms deals.
+[narrator] "That symbolism matters: this is the first time President Putin is visiting India since the onset of the war in Ukraine nearly four years ago."
 
-(scene_6) {{loc_4, Global map highlighting India, Russia and Western bloc lines}}, {Time: background}, {Primary Focus: lines showing trade/pressure flow from West to India}
+(scene_7) {{loc_4, Same street but wider showing traffic and citizens}}, {Time: evening}, {Primary Focus: people passing hoarding, daily life in background}; ((narrator)) {Standing}
 
-[narrator] Make no mistake — this visit carries weight far beyond bilateral warmth. With Western sanctions on Russia over Ukraine still in force and growing pressure on India to distance itself, the two nations are seeking to reaffirm their independent foreign-policy choices. India is showing that it will not bow to outside pressure.
+[narrator] "Security in the capital has been stepped up to unprecedented levels. Across sectors — sky and ground — agencies remain on high alert."
 
-(narrator) As one diplomat put it, India’s collaboration with Russia ‘is not against someone’ — a clear signal that Delhi wants to maintain strategic autonomy even as global lines are being drawn.
+(scene_8) {{loc_5, Major security checkpoint near central Delhi streets}}, {Time: afternoon to night transition}, {Primary Focus: security personnel, barricades, surveillance}; ((narrator)) {Standing}
 
-(scene_7) {{loc_4, Commodities icons — oil barrel, missile, fertilizer sack, ship}}, {Time: background}, {Primary Focus: diversified trade goods between India and Russia}
+[narrator] "Authorities have tightly sealed the routes of President’s movement. Sensitive locations have been secured, and additional personnel from both national and local agencies deployed — reflecting the sensitivity of this visit."
 
-[narrator] Russia hopes to expand trade beyond oil and weapons — into fertilizer, machinery, pharmaceuticals, even labor migration. The goal: balance a trade relationship which, until now, has been heavily skewed in Russia’s favour.
+(scene_9) {{loc_5, Aerial view of secured zone with police vehicles}}, {Time: night}, {Primary Focus: perimeter fences, patrol vehicles with flashing lights}; ((narrator)) {Standing}
 
-(scene_8) {{loc_5, Photo of Gita in Russian gift edition}}, {Time: night}, {Primary Focus: Russian-language Gita book sitting on side table}
+[narrator] "Tomorrow — the heart of the visit: the two leaders will meet at Hyderabad House for the 23rd annual summit between India and Russia."
 
-[narrator] In a gesture rich with symbolism, Prime Minister Modi presented President Putin with a Russian-language copy of the Bhagavad Gita tonight. A subtle nod to shared respect for heritage and deeper cultural diplomacy — far beyond mere strategy.
+(scene_10) {{loc_6, Hyderabad House conference hall exterior}}, {Time: morning, Dec 5, 2025}, {Primary Focus: building facade with flags}; ((narrator)) {Standing}
 
-(narrator) Observers say this personal touch helps frame the visit not as a transactional one, but as a reaffirmation of long-standing friendship.
+[narrator] "Agenda spans a gamut: from defense cooperation, energy supplies, nuclear-power collaboration, to trade, healthcare and even labour mobility."
 
-(scene_9) {{loc_6, Media room with journalists and cameras around a table in Delhi}}, {Time: night}, {Primary Focus: Journalists preparing for live coverage of summit}
+(scene_11) {{loc_6, Hyderabad House meeting room}}, {Time: mid-day}, {Primary Focus: long table, leaders’ seats, national flags of India and Russia}; ((narrator)) {Standing}
 
-[narrator] Back in newsrooms across the capital and beyond, journalists are buzzing. Coverage tonight centers on what tomorrow’s summit may yield — especially whether new major defence, energy or trade deals will be signed.
+[narrator] "Notably, before this visit began, the Russian Parliament ratified a major military logistics pact — Reciprocal Exchange of Logistic Support (RELOS) — allowing armed forces of both nations to use each other's facilities for exercises, humanitarian efforts, and disaster-relief cooperation."
 
-(scene_10) {{loc_7, Illustrations of missile system and fighter jet with India & Russia flags overlay}}, {Time: background}, {Primary Focus: proposed defence systems deals — missiles, jets}
+[narrator] "Apart from defense, the two countries are poised to deepen cooperation in civilian nuclear-energy. Government sources confirm pending agreements — potentially giving a fresh push to projects like Rosatom-backed reactors in India."
 
-[narrator] Topping the agenda: defence. Reports indicate India and Russia may finalize deals for missile systems, fighter jets, and joint manufacturing or maintenance agreements. Among subjects of discussion: additional procurement of air-defence systems under the S-400 missile system programme.
+(scene_12) {{loc_7, Conceptual image of India-Russia nuclear energy cooperation}}, {Time: conceptual / symbolic}, {Primary Focus: nuclear-plant silhouette with flags}; ((narrator)) {Standing}
 
-(narrator) But it’s not just about buying — Russia has signaled readiness to support India’s ambition to become more self-reliant in defence production.
+[narrator] "Such energy deals, especially in non-military nuclear power, may help address India's long-term energy needs — a move that could reshape the strategic balance of energy security in South Asia."
 
-(scene_11) {{loc_8, Oil tanker silhouette at sea and fertilizer plant graphics}}, {Time: background}, {Primary Focus: Energy & fertilizer cooperation icons}
+(scene_13) {{loc_7, Map illustration of planned nuclear cooperation sites}}, {Time: conceptual}, {Primary Focus: map of India with marked reactor sites, arrows towards Russia}; ((narrator)) {Standing}
 
-[narrator] On the energy front — and beyond — things are shifting. With Western sanctions still looming, Russia is leveraging fertilizer, energy, and broader commerce to ensure cooperation stays third-country-proof— a phrase increasingly heard in diplomatic corridors.
+[narrator] "Economy and trade also feature prominently. Delegations from both sides are expected to sign deals across pharmaceuticals, manufacturing, textiles, and labour mobility."
 
-(narrator) Major fertiliser companies from India are reportedly set to sign a joint-venture with a top Russian firm. The aim: build a secure, gas-powered urea plant in Russia, ensuring long-term fertilizer supply to India.”
+(scene_14) {{loc_8, Trade and business meeting conference room}}, {Time: afternoon Dec 5}, {Primary Focus: delegates shaking hands, signing documents}; ((narrator)) {Standing}
 
-(scene_12) {{loc_9, Diagram showing bilateral trade growth target to 2030}}, {Time: background}, {Primary Focus: trade-growth graph aiming for $100 billion by 2030}
+[narrator] "In fact, even the financial side is seeing adjustments. According to Russian banking sources, institutions like Sberbank plan to boost imports from India and facilitate Indian labour migration to Russia — part of a broader effort to rebalance a decades-long heavily skewed trade equation."
 
-[narrator] Both sides voiced a renewed ambition to raise bilateral trade to the ambitious target of $100 billion by 2030 — though many analysts caution achieving that will require major structural shift, not just headline deals.
+(scene_15) {{loc_8, Bank office interior with Russian and Indian flags}}, {Time: same afternoon}, {Primary Focus: banking officials discussing deals, rupee-rouble transactions on screens}; ((narrator)) {Standing}
 
-(scene_13) {{loc_10, Western media montage showing sanctions, US flag overlay}}, {Time: background}, {Primary Focus: portrayal of Western pressure on India}
+[narrator] "A symbolic gesture is also on the schedule — President Putin is expected to pay respects at Rajghat, the memorial of Mahatma Gandhi, underscoring Russia’s intent to acknowledge shared values while renewing ties."
 
-[narrator] The visit sends a strategic message: India will not be a passive actor in global power politics. Despite heavy U.S. pressure over its Russian oil imports and defense ties, Delhi is asserting its right to make independent decisions.
+(scene_16) {{loc_9, Rajghat memorial grounds}}, {Time: late morning Dec 5}, {Primary Focus: wreath laying, solemn atmosphere}; ((narrator)) {Standing}
 
-(narrator) Critics argue the move risks cooling India’s relations with the West, but supporters say India needs to safeguard its energy security and defense autonomy — especially with global volatility rising.
+[narrator] "Such moments matter — they lend depth and historical resonance to what might otherwise be just another diplomatic visit."
 
-(scene_14) {{loc_10, Diplomatic handshake symbolic artwork of India and Russia handshake}}, {Time: background}, {Primary Focus: symbolic handshake between two nations}
+[narrator] "All this unfolds against a backdrop of mounting international pressure. Since Russia’s invasion of Ukraine, this is Putin’s first visit back to India — making this summit especially significant in global geopolitical equations."
 
-[narrator] Beyond geopolitics — there’s a reaffirmation of trust. The India-Russia partnership, forged over decades since the Cold War, remains resilient. This visit may be seen as a reset — not against anyone — but for mutual respect, cooperation and pragmatism.
+(scene_17) {{loc_4, Street in Delhi with subdued traffic and media vans}}, {Time: dawn Dec 5}, {Primary Focus: media presence, reporters assembling}; ((narrator)) {Standing}
 
-(scene_15) {{loc_11, Photo of Ganga Aarti in Varanasi with diyas forming 'Welcome Putin'}}, {Time: evening}, {Primary Focus: diyas and flags welcoming Putin}
+[narrator] "With Western nations watching closely — and India balancing complex ties — the outcomes may have long-lasting impacts: from defense and energy to trade and diplomacy."
 
-[narrator] Meanwhile, in cities far from Delhi — in places like Varanasi — locals lit up streets with diyas and flags, spelling out ‘Welcome Putin’ during the Ganga Aarti. The display — deeply cultural and symbolic — quickly went viral on social media.
+(scene_18) {{loc_6, Hyderabad House exterior at dusk after meetings}}, {Time: evening Dec 5}, {Primary Focus: building with flags lowered or evening lights on}; ((narrator)) {Standing}
 
-(narrator) For many citizens, the visit is less about geopolitics, and more about a legacy relationship — rooted in respect, history, and a shared vision for development.
+[narrator] "By official estimates, several agreements across defense logistics, nuclear cooperation, trade, immigration, and finance are expected to be signed — signalling a renewed chapter in India–Russia relations."
 
-(scene_16) {{loc_6, Newsroom screens showing global reactions — Western editorial headlines}}, {Time: night}, {Primary Focus: global media coverage montage}
+(scene_19) {{loc_6, Meeting hall departure — leaders and delegations leaving}}, {Time: night}, {Primary Focus: leaders leaving, aides packing documents}; ((narrator)) {Standing}
 
-[narrator] From global media to think-tank analyses — reactions have been mixed. Some hail the visit as bold diplomacy, others as a risky pivot. Regardless, few dispute this: the visit will influence not just India–Russia equations, but broader global alignments.
+[narrator] "As dusk settles after a whirlwind 27-hour visit, political observers call it a reaffirmation: India and Russia intend to protect and deepen a decades-old strategic partnership — even as global pressures rise."
 
-(scene_17) {{loc_3, Empty negotiation table with nameplates India and Russia}}, {Time: tomorrow morning}, {Primary Focus: summit table awaiting leaders}
+(scene_20) {{loc_9, New Delhi skyline night view}}, {Time: late night Dec 5}, {Primary Focus: city lights, symbolic closure of visit}; ((narrator)) {Standing}
 
-[narrator] Tomorrow, key moments: ceremonial reception at the presidential residence, summit talks at Hyderabad House, and a banquet hosted by Droupadi Murmu in honour of Putin. Observers expect major agreements — in defense, trade, energy, labour cooperation and more.
-
-(narrator) All eyes will be on the final communique — will India commit to new major arms deals, or shift policy under global pressure? Will trade deals smooth out India’s energy and fertilizer security concerns?”
-
-(scene_18) {{loc_9, Graph chart with two paths: one rising (trade & cooperation), one uncertain (geopolitics)}, {Time: background}, {Primary Focus: path comparison — opportunity vs risk}}
-
-[narrator] This visit may well shape New Delhi’s foreign-policy trajectory for years. The opportunity is there — for diversified trade, defense modernization, energy security. But the risk is also real — balancing Russia and the West is a tightrope walk.”
-
-(narrator) Stay tuned — tomorrow’s summit could mark a turning point.”
+[narrator] "Stay with us in coming days — we'll bring full coverage of the agreements signed, global reactions, and what this means for India’s foreign-policy path going forward."
