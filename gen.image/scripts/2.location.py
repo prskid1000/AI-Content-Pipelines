@@ -79,7 +79,7 @@ NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, p
 USE_RANDOM_SEED = True  # Set to True to use random seeds, False to use fixed seed
 FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 
-ART_STYLE = "Photorealistic"
+ART_STYLE = "PhotoRealstic-Anime Professional News Broadcast"
 
 EXTRA_PROMPT_PHRASES = [
     "Must keep character's both hands separate from each other and visible.",

@@ -69,10 +69,11 @@ class DiffusionPromptGenerator:
          - highly specific spatial and material details, and technical quality flags. 
          - Include: A Single MALE News Anchor with detailed physical descriptions and attire positioned specifically in the scene (center-left, background-right, etc.).
          - the central news focus or breaking story element placed precisely in the composition with detailed condition and appearance
-         - the broadcast environment with exact spatial descriptions of news desks, monitors, cameras, and atmospheric elements
+         - the broadcast environment with exact spatial descriptions of news desks and other User Visible Studio Elements
          - all object positions using directional terms (left wall, center focus, far background)
-         - precise material descriptions for textures and surfaces (polished mahogany, LED screens, modern glass)
+         - precise material descriptions for textures and surfaces (polished mahogany, OLED screens, modern glass)
          - Ensure every element supports the news broadcast and maintains spatial clarity and visual coherence.
+         - DO NOT ALLOW ANY TEXT IN THE IMAGE. Just use Logos and Icons if needed.
          
          Output must be a CREATIVELY generated single continuous paragraph within the word limit of {THUMBNAIL_CHARACTER_MIN}-{THUMBNAIL_CHARACTER_MAX} characters without line breaks.""".format(THUMBNAIL_CHARACTER_MIN=THUMBNAIL_CHARACTER_MIN, THUMBNAIL_CHARACTER_MAX=THUMBNAIL_CHARACTER_MAX)
 

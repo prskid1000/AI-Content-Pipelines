@@ -106,7 +106,7 @@ SAMPLING_STEPS = 25  # Number of sampling steps (higher = better quality, slower
 USE_NEGATIVE_PROMPT = False  # Set to True to enable negative prompts, False to disable
 NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, poorly drawn, asymmetrical, malformed, disfigured, ugly, bad proportions, plastic texture, artificial looking, cross-eyed, missing fingers, extra fingers, bad teeth, missing teeth, unrealistic"
 
-ART_STYLE = "Professional News Broadcast"
+ART_STYLE = "PhotoRealstic-Anime Professional News Broadcast"
 
 EXTRA_PROMPT_PHRASES = [
     "Must keep character's both hands separate from each other and visible.",

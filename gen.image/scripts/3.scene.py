@@ -114,7 +114,7 @@ FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 
 # Location Information Configuration (now handled by ACTIVE_LOCATION_MODE above)
 
-ART_STYLE = "Photorealistic"
+ART_STYLE = "PhotoRealstic-Anime Professional News Broadcast"
 
 EXTRA_PROMPT_PHRASES = [
     "Must keep character's both hands separate from each other and visible.",

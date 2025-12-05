@@ -3,7 +3,7 @@
 ## CONTENT:
 - Get all content from live search data and do analysis.
 - Do not just present facts. Be like actual reporter/anchor presenting news.
-- TOPIC: Sherlock Holmes and the Adventure of Blue Duckling.
+- TOPIC: Putin Visited India December 2025
 
 ## CONSTRAINTS:
 - Each DIALOGUE must be always at least 30 characters.
