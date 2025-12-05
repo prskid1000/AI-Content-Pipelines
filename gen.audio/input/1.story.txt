@@ -1,74 +1,23 @@
-[narrator] Good evening. Welcome to “Market Pulse Tonight.” I’m your anchor, and today we bring you a major development rippling across India’s economy — the Indian Rupee has plunged past the historic ₹90 per US dollar mark.
-[narrator] This plunge isn’t just a number. It signals turbulence — for businesses, for consumers, for ordinary citizens. Let’s dive into what this means, why it happened, and what could be coming next.
-
-[narrator] First, the facts: On Wednesday and Thursday, 3–4 December 2025, the Rupee breached the psychological barrier of ₹90 per US dollar for the first time ever. 
-
-[narrator] At one point, it touched an intraday low of ₹90.30 — and subsequent sessions saw it slide further, reaching around ₹90.41–₹90.43. 
-
-[narrator] By some reports, the rupee closed at about ₹90.19 per dollar — a dramatic fall that reflects deepening pressure on the currency. 
-
-[narrator] The slide hasn’t come overnight, though. This depreciation is part of a broader trend: over 2025, the rupee has slipped roughly 5% against the US dollar, making it one of Asia’s worst-performing currencies this year. 
-
-[narrator] Contextualizing — not long ago, many wouldn’t have imagined a rupee-to-dollar rate crossing ₹90. But for decades now, the rupee’s value has eroded gradually, shaped by economic shifts, global pressures and internal challenges. 
-
-[narrator] So — what caused this steep fall? Analysts point to a handful of critical factors.
-
-[narrator] First, foreign capital flight. In recent weeks, there’s been a steady outflow of funds from Indian equities — foreign portfolio investors (FPIs) have been pulling out, spooked by global uncertainties, rising U.S. yields, and changing risk perceptions. 
-
-[narrator] Simultaneously, domestic demand for dollars surged — importers (especially in sectors like oil, metals, electronics) are scrambling to secure dollars amid uncertainty, increasing demand pressure on USD and pushing INR down. 
-
-[narrator] Second, uncertainty over international trade & tariffs. The stalled trade negotiations between India and the U.S., along with steep U.S. tariffs on Indian goods, have sapped confidence in India’s export prospects. That weighs on foreign investment sentiment, and by extension, on the rupee. 
-
-[narrator] As one market commentary puts it: exporters are delaying conversions (hoping for a weaker rupee), while importers race to convert sooner — a dynamic that drives instability. 
-
-[narrator] Third, lack of aggressive intervention from the Reserve Bank of India (RBI). While historically the RBI has stepped in to defend certain levels, this time its restraint — reportedly choosing selective smoothing of volatility rather than holding a firm line — has allowed market dynamics to drive the currency lower. 
-
-[narrator] And fourth, the cumulative effect of global macroeconomic shifts — strong U.S. dollar demand, rising U.S. interest rates, global risk-off sentiment — which have made emerging-market currencies like the rupee more vulnerable. 
-
-[narrator] So we have a perfect storm: capital outflows, import-driven demand for dollars, trade uncertainty, and limited central bank cushioning.
-
-[narrator] But what does this mean for Indians — from the common man to businesses — in practical terms? The impact could be wide and deep.
-
-[narrator] For starters, imports are going to get costlier. Everything imported — fuel, electronics, critical raw materials, medical equipment, technology — becomes more expensive as the rupee weakens. That cost often passes on to consumers. 
-
-[narrator] This, in turn, fuels inflation. As the cost of essential imports rises, the ripple effect can push up prices of goods and services — from petrol to smartphones to consumer electronics to hospital equipment. Ordinary households may feel the pinch. 
-
-[narrator] For people planning foreign travel, overseas education, or foreign-denominated loans — the pain is more immediate. Students studying abroad now face higher costs when converting rupees to dollars. Tuition, living expenses, EMIs on foreign-currency loans — all get more expensive. 
-
-[narrator] For businesses dependent on imported raw materials — manufacturing units, pharma companies, tech firms — the cost base may expand, potentially squeezing margins or forcing higher prices. For import-heavy sectors like electronics or chemicals, this could spell trouble.
-
-[narrator] On the flip side, a weaker rupee could give a boost to exports and remittances. For export-oriented firms — particularly those in reference-price industries like IT services, manufacturing for overseas clients — their revenues in dollars now convert to more rupees, which might improve profitability. 
-
-[narrator] Similarly, remittances from Indians working abroad may be more valuable — potentially increasing inflows and helping households dependent on dollars.
-
-[narrator] But at this moment, the immediate sentiment is of concern and anxiety. Many ordinary citizens and small businesses may only see rising costs and shrinking value of savings.
-
-[narrator] What about the bigger picture — the economy and the markets?
-
-[narrator] For one, domestic equity markets have responded nervously. The fall in rupee typically dampens investor confidence — foreign investors pull out, domestic investors grow cautious, and equities may slump under pressure. 
-
-[narrator] At the same time, macro-economic fundamentals remain nuanced. Despite this currency weakness, some analysts assert that the rupee remains “undervalued” — suggesting the slide may be more about external pressure than domestic decay. 
-
-[narrator] Indeed, as put by officials, the economy still shows strength — but the gap between dollar-demand and dollar-supply, driven by trade dynamics and foreign flows, is what’s tilting the balance. 
-
-[narrator] Looking ahead: What could come next?
-
-[narrator] Many analysts caution that the slide may not stop at ₹90. With speculative trading already rising and hedging costs surging (in forward markets), some forecasts suggest the rupee could test ₹90.70–₹91.00 per dollar, if current dynamics persist. 
-
-[narrator] The upcoming meetings of the Monetary Policy Committee (MPC), global interest-rate decisions (especially in the U.S.), and progress — or lack thereof — in international trade negotiations, especially between India and the U.S., will likely play a big role in determining where the rupee goes from here. 
-
-[narrator] For now, the mood among policymakers seems to be one of caution mixed with resolve — intervening selectively, but allowing some degree of currency flexibility. 
-
-[narrator] So, what should citizens, businesses, and investors do now?
-
-[narrator] For ordinary households: be prepared for potential price hikes — especially for goods that rely heavily on imports. Budget accordingly. If you have any dollar-denominated obligations (education abroad, travel, loans), re-evaluate plans or consider hedging now.
-
-[narrator] For businesses — especially import-heavy ones — review supply chains, renegotiate contracts if possible, or look for alternative sourcing. Exporters may find opportunity — but they must also watch global demand and foreign exchange hedging costs.
-
-[narrator] For investors, this may call for caution in equities — especially in sectors dependent on imports or foreign raw materials. On the flip side, export-oriented firms or companies with dollar-earning businesses may gain a relative advantage.
-
-[narrator] In short: the slide of the Rupee to ₹90 per dollar marks a critical inflection point — one that could reshape costs, business dynamics, savings, and economic sentiment across India.
-
-[narrator] As always, the coming days and weeks will be crucial. Will the currency stabilize? Will policy response from the RBI or government bring confidence back? Or will global headwinds continue to batter the rupee’s value?
-
-[narrator] For now, we stay on watch.
+[narrator] "Good evening — we bring you breaking developments tonight. A major diplomatic event is unfolding in New Delhi as Vladimir Putin, President of Russia, lands in India for a high-stakes 2-day visit."
+[narrator] "At precisely 6:35 PM local time, Putin arrived at the capital, greeted personally by Narendra Modi — a rare warm welcome, complete with a hug and handshake, signalling the special importance of this visit."
+[narrator] "Reports say the Russian President is accompanied not only by senior ministers, but also by a large business delegation — underscoring that beyond politics, commerce, trade, and industry are high on the agenda."
+[narrator] "From the airport, both leaders proceeded directly to the official residence on Lok Kalyan Marg — and tonight, Prime Minister Modi will host a private dinner in honour of President Putin."
+[narrator] "This dinner revives a tradition — during each summit, such informal gatherings help cement personal rapport between leaders, beyond the stiff protocol of formal meetings."
+[narrator] "Ahead of this visit, New Delhi has been transformed — billboards and hoardings declaring Indo-Russian friendship dot major roads. The atmosphere signals the warming of ties even in fraught global times."
+[narrator] "That symbolism matters: this is the first time President Putin is visiting India since the onset of the war in Ukraine nearly four years ago."
+[narrator] "Security in the capital has been stepped up to unprecedented levels. Across sectors — sky and ground — agencies remain on high alert."
+[narrator] "Authorities have tightly sealed the routes of President’s movement. Sensitive locations have been secured, and additional personnel from both national and local agencies deployed — reflecting the sensitivity of this visit."
+[narrator] "Tomorrow — the heart of the visit: the two leaders will meet at Hyderabad House for the 23rd annual summit between India and Russia."
+[narrator] "Agenda spans a gamut: from defense cooperation, energy supplies, nuclear-power collaboration, to trade, healthcare and even labour mobility."
+[narrator] "Notably, before this visit began, the Russian Parliament ratified a major military logistics pact — Reciprocal Exchange of Logistic Support (RELOS) — allowing armed forces of both nations to use each other's facilities for exercises, humanitarian efforts, and disaster-relief cooperation."
+[narrator] "Apart from defense, the two countries are poised to deepen cooperation in civilian nuclear-energy. Government sources confirm pending agreements — potentially giving a fresh push to projects like Rosatom-backed reactors in India."
+[narrator] "Such energy deals, especially in non-military nuclear power, may help address India's long-term energy needs — a move that could reshape the strategic balance of energy security in South Asia."
+[narrator] "Economy and trade also feature prominently. Delegations from both sides are expected to sign deals across pharmaceuticals, manufacturing, textiles, and labour mobility."
+[narrator] "In fact, even the financial side is seeing adjustments. According to Russian banking sources, institutions like Sberbank plan to boost imports from India and facilitate Indian labour migration to Russia — part of a broader effort to rebalance a decades-long heavily skewed trade equation."
+[narrator] "A symbolic gesture is also on the schedule — President Putin is expected to pay respects at Rajghat, the memorial of Mahatma Gandhi, underscoring Russia’s intent to acknowledge shared values while renewing ties."
+[narrator] "Such moments matter — they lend depth and historical resonance to what might otherwise be just another diplomatic visit."
+[narrator] "All this unfolds against a backdrop of mounting international pressure. Since Russia’s invasion of Ukraine, this is Putin’s first visit back to India — making this summit especially significant in global geopolitical equations."
+[narrator] "With Western nations watching closely — and India balancing complex ties — the outcomes may have long-lasting impacts: from defense and energy to trade and diplomacy."
+[narrator] "By official estimates, several agreements across defense logistics, nuclear cooperation, trade, immigration, and finance are expected to be signed — signalling a renewed chapter in India–Russia relations."
+[narrator] "As dusk settles after a whirlwind 27-hour visit, political observers call it a reaffirmation: India and Russia intend to protect and deepen a decades-old strategic partnership — even as global pressures rise."
+[narrator] "Stay with us in coming days — we'll bring full coverage of the agreements signed, global reactions, and what this means for India’s foreign-policy path going forward."

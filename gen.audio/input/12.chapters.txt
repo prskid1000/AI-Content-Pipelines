@@ -1,10 +1,10 @@
-20%: Rupee Hits ₹90.43 per Dollar
-SHORT_SUMMARY : Indian Rupee hits record low at ₹90.43 to US dollar in December 2025.
-40%: Foreign Capital Flight from In
-SHORT_SUMMARY : FPIs withdrew funds from Indian markets due to U.S. policy shifts.
-60%: India's Trade Relations with U
-SHORT_SUMMARY : Stalled India-U.S. trade talks weaken export expectations and lower Rupee value.
-80%: RBI's Limited Intervention in
-SHORT_SUMMARY : Reserve Bank of India refrained from strong market intervention.
-100%: Implications Across Indian
-SHORT_SUMMARY : Weaker Rupee increases costs for imports and consumers in India.
+20%: Putin's Arrival in New Delhi
+SHORT_SUMMARY : Vladimir Putin lands in New Delhi. He is warmly welcomed by Narendra Modi.
+40%: High-Stakes Diplomacy and Indo
+SHORT_SUMMARY : Putin visits New Delhi for a 2-day summit with Modi. Focus on trade, defense, energy.
+60%: Economic and Commercial Ties
+SHORT_SUMMARY : Business delegations accompany both leaders. Trade deals expected.
+80%: Security Measures and Symbolic
+SHORT_SUMMARY : New Delhi sees high security. Putin to pay respects at Rajghat.
+100%: Global Reactions and Strategic
+SHORT_SUMMARY : Russia-Ukraine war context. India balances complex geopolitical relationships.

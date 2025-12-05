@@ -1,114 +1,40 @@
-5.460000: Good evening. Welcome to Market Pulse tonight. I'm your anchor and today we bring you a major
-4.080000: development rippling across India's economy. The Indian rupee has plunged past the historic
-5.510000: minute per US dollar mark. This plunge isn't just a number. It signals turbulence for businesses,
-4.310000: for consumers, for ordinary citizens. So let's dive into what this means, why it happened and
-5.060000: what could be coming next. First, the facts. On Wednesday and Thursday, December 2025,
-5.330000: the rupee breached the psychological barrier of 90 per US dollar for the first time ever.
-7.920000: At one point, it touched an intraday low of 90.33 and subsequent session saw it slide further, reaching around 90.41 and 90.43.
-1.700000: Why, some reports are here.
-6.260000: Oh, the rupee closed at about 90.19 per dollar, a dramatic fall that reflects deepening pressure on the currency.
-1.310000: That's a part of me.
-1.370000: The slide hasn't come overnight, though.
-0.460000: Whoa!
-2.050000: This depreciation is part of a broader trend.
-6.520000: Over 2025, the rupee has slipped roughly 5% against the US dollar, making it one of Asia's worst-performing currencies this year.
-0.960000: Contextualizing.
-3.420000: not long ago, many wouldn't have imagined a rupee to dollar rate crossing 90.
-1.060000: ..
-4.470000: But for decades now, the rupee's value has eroded gradually, shaped by economic shifts,
-4.850000: global pressures and internal challenges. So, what caused this steep fall? And this
-3.940000: points to a handful of critical factors. First, foreign capital flight. In recent weeks,
-4.120000: there's been a steady outflow of funds from Indian equities. Foreign portfolio investors,
-5.160000: FBIs, have been pulling out, spooked by durable uncertainties, rising US yields,
-4.240000: unchanging risk perceptions. Simultaneously domestic demand for
-4.580000: dollars surged. Importers, especially in sectors like oil, metals, electronics are
-2.900000: scrambling to secure dollars amid uncertainty, increasing demand pressure
-4.880000: on USD and pushing INR down. Second, uncertainty over international trade and
-4.680000: tariffs. The stalled trade negotiations between India and the US along with
-4.540000: steep US along with steep US. Delifts and Indian goods have sapped confidence in
-3.700000: India's export prospects. That weighs on foreign investment sentiment and by
-1.280000: by extension on the rupee.
-4.840000: As one market commentary puts it, exporters are delaying conversions, hoping for a weaker
-4.480000: rupee, while importers waste to convert sooner, a dynamic that drives instability.
-3.970000: Third, lack of aggressive intervention from the Reserve Bank of India RBI.
-4.310000: While historically the RBI has stepped in to defend certain levels, this time its restraint,
-3.420000: reportedly choosing selective smoothing of volatility rather than holding a firm line,
-2.260000: has allowed market dynamics to drive the currency lower.
-3.980000: And fourth, the cumulative effect of global macroeconomic shifts.
-5.970000: Strong US oil demand, rising US interest rates, global risk-cost sentiment,
-2.910000: which have made emerging market currencies like the rupee more vulnerable.
-4.320000: So we have a perfect storm, capital outflows, import-driven demand for dollars,
-2.970000: trade uncertainty and limited central bank cushioning.
-1.940000: But what does this mean for Indians?
-1.840000: From the common man to businesses.
-3.910000: In practical terms, in practical terms, the impact could be wide and deep.
-4.520000: For starters, imports are going to get costlier. Everything imported, fuel, electronics, critical
-4.350000: raw materials, medical equipment, technology becomes more expensive as the rupee weakens.
-5.550000: That cost often passes on to consumers. This in turn fuels inflation. As the cost of essential
-4.340000: imports rises, the ripple effect can push up prices of goods and services from petrol to
-4.410000: smartphones to consumer electronics to hospital equipment. Ordinary households may feel the pinch.
-4.650000: For people planning foreign travel, overseas education or foreign denominated loans,
-3.540000: loans, the pain is more immediate. Students studying abroad now face higher costs when
-4.280000: converting rubies to dollars. Tuition, living expenses, EMIs and foreign currency loans
-6.070000: all get more expensive. For businesses dependent on imported raw materials, manufacturing units,
-5.050000: pharma companies, pharma companies, tech firms, the cost base may expand, potentially squeezing
-3.910000: margins or forcing higher prices. For import heavy sectors like electronics or chemicals,
-3.850000: this could spell trouble. On the fixed side, a weaker rupee could give a boost to exports
-3.620000: exports and remittances. For export-oriented firms, particularly those in reference price
-4.880000: industries like IT services, manufacturing for overseas clients, their revenues in dollars now
-5.620000: convert to more rupees, which might improve profitability. Similarly, remittances from
-3.620000: Indians working abroad may be more valuable, potentially increasing inflows and helping
-3.900000: households dependent on dollars. But at this moment, the immediate sentiment is of concern
-5.240000: and anxiety. Many ordinary citizens and small businesses may only see rising costs and shrinking
-3.500000: shrinking value of savings. What about the bigger picture? The economy and the markets?
-4.960000: For one, domestic equity markets have responded nervously. The foreign rupee typically dampens
-4.000000: investor confidence. Foreign investors pull out, domestic investors grow cautious, and
-4.940000: equities may slump under pressure. At the same time, macroeconomic fundamentals remain
-4.480000: nuanced. Despite this currency weakness, some analysts assert that the rupee remains undervalued,
-5.260000: suggesting the slide may be more about external pressure than domestic decay. Indeed, as both
-2.130000: quote by officials, the economy still shows strength.
-2.080000: But the gap between dollar demand and dollar supply,
-4.170000: driven by trade dynamics and foreign flows, is what's tilting the balance.
-2.380000: Looking ahead, what could come next?
-3.240000: Many analysts caution that the slide may not stop at 90,
-3.160000: with speculative trading already rising and hedging costs surging in forward markets.
-6.480000: Some forecasts suggest the rupee could test 90.90.91.naughty.90.naught per dollar
-1.400000: if current dynamics persist.
-5.080000: The upcoming meetings of the Monetary Policy Committee, MPC, IMPC,
-2.660000: of global interest rate decisions especially in the US,
-3.630000: and progress or lack thereof in international trade negotiations,
-2.340000: especially between India and the US,
-3.220000: will likely play a big role in determining where the rupee goes from here.
-2.440000: Hmm, for now, hmm.
-3.560000: The mood among policymakers seems to be one of caution mixed with resolve,
-1.390000: intervening selectively.
-1.100000: Oh, oh.
-2.710000: But allowing some degree of currency flexibility.
-1.670000: Ha ha ha ha ha.
-4.050000: So what should citizens, businesses and investors do now?
-6.410000: Ordinary households be prepared for potential price hikes, especially for goods that rely heavily on imports.
-8.680000: If you have any dollar denominated obligations, education abroad, travel, loans, re-evaluate plans or consider hedging now.
-1.080000: ..
-4.370000: Poor businesses, especially import heavy ones, review supply chains, Laskari, Koo.
-4.010000: Renegocie a contract if possible or look for alternative sourcing.
-1.580000: Exporters may find opportunity,
-2.060000: but they must also watch global demand
-1.750000: and foreign exchange hedging costs.
-3.900000: For investors, this may call for caution in equities,
-2.010000: especially in sectors dependent on imports
-0.940000: or foreign raw materials.
-1.420000: ..
-1.720000: On the flip side, export-oriented firms
-1.380000: or companies with dollar-earning businesses
-1.690000: may gain a relative advantage.
-2.630000: In short, a slide of the repeated 90 per dollar
-1.840000: marks a critical inflection point,
-2.140000: one that cool, reshape costs,
-1.740000: business dynamics, savings,
-1.630000: and economic sentiment across India.
-2.430000: As always, the coming days and weeks will be crucial.
-1.150000: Will the currency stabilize?
-3.300000: Or will policy response from the RBIO government bring confidence back?
-3.440000: Or will global headwinds continue to batter the rupee's value?
-1.910000: For now, we stay on watch.
-0.420000: .
+2.550000: Good evening, we bring you breaking developments tonight.
+3.310000: A major diplomatic event is unfolding in New Delhi as Vladimir Putin,
+3.400000: President of Russia, lands in India for a high-stakes two-day visit.
+4.130000: At precisely 6.035 pm local time, Putin arrived at the capital,
+3.040000: greeted personally by Narendra Modi, a rare warm welcome,
+3.740000: complete with a hug and handshake, signaling the special importance of this visit.
+0.490000: Right!
+1.800000: ..
+4.340000: Reports say the Russian president is accompanied not only by senior ministers,
+5.000000: but also by a large business delegation underscoring that beyond politics, commerce, trade, commerce, trade,
+2.120000: and industry are high on the agenda.
+4.550000: From the airport, port leaders proceeded directly to the official residence of Loke Kalyanmar.
+3.430000: And overnight, Prime Minister Modi will host a private dinner in honour of President Putin.
+2.290000: This dinner revives the tradition.
+5.140000: During each summit, such informal gatherings help cement personal rapport between leaders here,
+2.030000: beyond the stiff protocol of formal meetings.
+4.310000: Hmm, ahead of this visit, New Delhi has been transformed.
+3.900000: Billboards and hoardings declaring Indo-Russian friendship taught major roads.
+4.240000: The atmosphere signals the warming of ties even in fraught global times.
+6.690000: That symbolism matters. This is the first time President Putin is visiting India since the onset of the war in Ukraine nearly four years ago.
+4.650000: Ex-security in the capital has been stepped up to unprecedented levels.
+4.740000: So, cross-sectors, sky and ground agencies remain on high alert.
+2.980000: Authorities have tightly sealed the roots of the President's movement.
+7.580000: Sensitive locations have been secured and additional personnel from both national and local agencies deployed, reflecting the sensitivity of this visit.
+7.430000: Tomorrow, the heart of the visit, the two leaders will meet at Hyderabad House for the 23rd Annual Summit between India and Russia.
+6.840000: Agenda spans a gamut, from defence cooperation, energy supplies, nuclear power collaboration, arms to trade, healthcare and even labour mobility.
+4.700000: Right before this visit began, the Russian parliament ratified a major military logistics
+3.980000: pact, the reciprocal exchange of logistics support are a loss, allowing armed forces
+5.230000: of both nations to use each other's facilities for exercises, humanitarian assets and disaster
+1.440000: relief cooperation.
+4.310000: Apart from defense, the two countries are poised to deepen cooperation in civilian nuclear
+0.560000: energy.
+3.900000: Government sources confirm pending agreements potentially giving a fresh push to projects
+2.000000: like Rosatom back to reactors in India.
+6.480000: India. Such energy deals, especially in non-military nuclear power, may help address India's long-term
+3.900000: energy needs, a move that could reshape the strategic balance of energy security in South
+0.640000: Asia.
+4.320000: Economy and trade also featured prominently. Delegations from both sides are expected to
+3.160000: assign deans across pharmaceuticals, manufacturing, textiles and labour mobility.
+0.460000: .
