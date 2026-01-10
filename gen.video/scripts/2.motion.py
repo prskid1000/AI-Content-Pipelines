@@ -11,7 +11,7 @@ from pathlib import Path
 print = partial(_builtins.print, flush=True)
 
 # Model constants for easy switching
-MODEL_MOTION_GENERATION = "qwen2.5-vl-7b-instruct"  # Vision model for motion generation
+MODEL_MOTION_GENERATION = "qwen_qwen3-vl-30b-a3b-instruct"  # Vision model for motion generation
 
 # Motion description word limits
 MOTION_DESCRIPTION_MIN_WORDS = 30  # Minimum words in motion description
