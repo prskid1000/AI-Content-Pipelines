@@ -891,7 +891,7 @@ output_file = "../output/final_sd.mp4"
 ##### `5.motion.py` - Motion Generation (NEW)
 ```python
 # Model Configuration
-MODEL_MOTION_GENERATION = "qwen_qwen3-vl-30b-a3b-instruct"  # Vision model for motion generation
+MODEL_MOTION_GENERATION = "qwen2.5-vl-7b-instruct"  # Vision model for motion generation
 
 # Feature Flags
 ENABLE_RESUMABLE_MODE = True
@@ -1927,12 +1927,12 @@ The AI Content Studio requires several AI models for different generation tasks.
   - **LM Studio Hub**: Search "qwen" in LM Studio interface
   - **Direct Download**: Use LM Studio's built-in model browser
 
-#### Vision Model: qwen_qwen3-vl-30b-a3b-instruct
+#### Vision Model: qwen2.5-vl-7b-instruct
 - **Format**: GGUF (for motion generation)
 - **Size**: ~4GB (Q4_K_M quantization)
 - **Purpose**: Video motion description generation
 - **Download Sources**:
-  - **Hugging Face**: [Qwen/qwen_qwen3-vl-30b-a3b-instruct-GGUF](https://huggingface.co/Qwen/qwen_qwen3-vl-30b-a3b-instruct-GGUF)
+  - **Hugging Face**: [Qwen/Qwen2.5-VL-7B-Instruct-GGUF](https://huggingface.co/Qwen/Qwen2.5-VL-7B-Instruct-GGUF)
   - **Local AI Zone**: [Qwen2.5-VL Models](https://local-ai-zone.github.io/)
 
 #### Recommended Quantization Levels
@@ -1991,7 +1991,7 @@ The AI Content Studio requires several AI models for different generation tasks.
 - **Stable Audio Open**: `stable-audio-open-1.0.safetensors` - Audio generation
 
 ##### Text Encoders (TEXT_ENCODERS Directory)
-- **T5 Base**: `t5xxl_fp16.safetensors` - Text encoding
+- **T5 Base**: `t5-base.safetensors` - Text encoding
 - **UMT5 XXL**: `umt5_xxl_fp8_e4m3fn_scaled.safetensors` - Advanced text encoding
 - **LTX2 Embeddings Connector**: `ltx-2-19b-embeddings_connector_bf16.safetensors` - LTX2 text encoding ([Download](https://huggingface.co/Kijai/LTXV2_comfy/blob/main/ltx-2-19b-embeddings_connector_bf16.safetensors))
 - **Gemma 3 12B FP8**: `gemma_3_12B_it_fp8_e4m3fn.safetensors` - Alternative text encoder ([Download](https://huggingface.co/GitMylo/LTX-2-comfy_gemma_fp8_e4m3fn/blob/main/gemma_3_12B_it_fp8_e4m3fn.safetensors))
