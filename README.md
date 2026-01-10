@@ -1982,12 +1982,19 @@ The AI Content Studio requires several AI models for different generation tasks.
 - **Wan 2.2 I2V Low Noise**: `Wan2.2-I2V-A14B-LowNoise-Q4_0.gguf` - Image-to-Video (14B params)
 - **Wan 2.2 T2V High Noise**: `Wan2.2-T2V-A14B-HighNoise-Q4_0.gguf` - Text-to-Video (14B params)
 
+##### LTX2 Video Models (Latest - GGUF Format)
+- **LTX2 GGUF Models**: [Kijai/LTXV2_comfy](https://huggingface.co/Kijai/LTXV2_comfy/tree/main) - Text-to-Video and Image-to-Video (19B params)
+  - Download one GGUF model of your choice from the `diffusion_models` folder
+  - Recommended: Q4_0 or Q6_K for best quality/performance balance
+
 ##### Audio Generation (Checkpoints Directory)
 - **Stable Audio Open**: `stable-audio-open-1.0.safetensors` - Audio generation
 
 ##### Text Encoders (TEXT_ENCODERS Directory)
 - **T5 Base**: `t5xxl_fp16.safetensors` - Text encoding
 - **UMT5 XXL**: `umt5_xxl_fp8_e4m3fn_scaled.safetensors` - Advanced text encoding
+- **LTX2 Embeddings Connector**: `ltx-2-19b-embeddings_connector_bf16.safetensors` - LTX2 text encoding ([Download](https://huggingface.co/Kijai/LTXV2_comfy/blob/main/ltx-2-19b-embeddings_connector_bf16.safetensors))
+- **Gemma 3 12B FP8**: `gemma_3_12B_it_fp8_e4m3fn.safetensors` - Alternative text encoder ([Download](https://huggingface.co/GitMylo/LTX-2-comfy_gemma_fp8_e4m3fn/blob/main/gemma_3_12B_it_fp8_e4m3fn.safetensors))
 
 ##### CLIP Models (CLIP Directory)
 - **CLIP G**: `clip_g.safetensors` - Large CLIP model
@@ -2001,15 +2008,21 @@ The AI Content Studio requires several AI models for different generation tasks.
 ##### LoRA Models (LORAS Directory)
 - **Wan 2.2 T2V LightX2V High Noise**: `wan2.2_t2v_lightx2v_4steps_lora_v1.1_high_noise.safetensors`
 - **Wan 2.2 T2V LightX2V Low Noise**: `wan2.2_t2v_lightx2v_4steps_lora_v1.1_low_noise.safetensors`
+- **LTX2 Distilled LoRA**: `ltx-2-19b-distilled-lora-384.safetensors` - LTX2 distilled LoRA for faster generation ([Download](https://huggingface.co/Lightricks/LTX-2/blob/main/ltx-2-19b-distilled-lora-384.safetensors))
 
 ##### VAE Models (VAE Directory)
 - **Flux Kontext VAE**: `flux_kontext_vae.safetensors` - Flux image decoder
 - **LTX Video VAE**: `LTXV-13B-0.9.8-dev-VAE.safetensors` - Video decoder
 - **SD 3.5 VAE**: `sd3.5_vae.safetensors` - SD 3.5 decoder
 - **Wan 2.1 VAE**: `wan2.1_vae.safetensors` - Wan video decoder
+- **LTX2 Video VAE**: `LTX2_video_vae_bf16.safetensors` - LTX2 video decoder ([Download](https://huggingface.co/Kijai/LTXV2_comfy/blob/main/LTX2_video_vae_bf16.safetensors))
+- **LTX2 Audio VAE**: `LTX2_audio_vae_bf16.safetensors` - LTX2 audio decoder ([Download](https://huggingface.co/Kijai/LTXV2_comfy/blob/main/LTX2_audio_vae_bf16.safetensors))
 
 ##### Upscale Models (UPSCALE_MODELS Directory)
 - **LTXV Spatial Upscaler**: `ltxv-spatial-upscaler-0.9.8.safetensors` - Video upscaling
+
+##### Latent Upscale Models (LATENT_UPSCALE_MODELS Directory)
+- **LTX2 Spatial Upscaler**: `ltx-2-spatial-upscaler-x2-1.0.safetensors` - LTX2 2x spatial upscaling ([Download](https://huggingface.co/Lightricks/LTX-2/blob/main/ltx-2-spatial-upscaler-x2-1.0.safetensors))
 
 ##### Detection Models (ULTRALYTICS Directory)
 - **Face Detection**: `face_yolov8m.pt` - Face detection
@@ -2071,7 +2084,116 @@ git clone https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved.git
 
 # Install ComfyUI-GGUF (required for GGUF image/video models)
 git clone https://github.com/city96/ComfyUI-GGUF.git
+
+# Install ComfyUI-KJNodes (required for LTX2 workflows)
+git clone https://github.com/kijai/ComfyUI-KJNodes.git
 ```
+
+#### 4. LTX2 Workflow Setup (Text-to-Video & Image-to-Video)
+
+LTX2 is the latest high-quality video generation model supporting both Text-to-Video (T2V) and Image-to-Video (I2V) workflows.
+
+##### Workflow Files
+- **Text-to-Video (T2V)**: [LTX2_T2V_GGUF.json](https://github.com/HerrDehy/SharePublic/blob/main/LTX2_T2V_GGUF.json)
+- **Image-to-Video (I2V)**: [LTX2_I2V_GGUF v0.3.json](https://github.com/HerrDehy/SharePublic/blob/main/LTX2_I2V_GGUF%20v0.3.json)
+
+##### Required Models
+Download from [Kijai/LTXV2_comfy](https://huggingface.co/Kijai/LTXV2_comfy/tree/main):
+
+**VAE Models** (Place in `models/vae/`):
+- `LTX2_audio_vae_bf16.safetensors`
+- `LTX2_video_vae_bf16.safetensors`
+
+**Text Encoders** (Place in `models/text_encoders/`):
+- `ltx-2-19b-embeddings_connector_bf16.safetensors`
+- `gemma_3_12B_it_fp8_e4m3fn.safetensors` ([Alternative download](https://huggingface.co/GitMylo/LTX-2-comfy_gemma_fp8_e4m3fn/blob/main/gemma_3_12B_it_fp8_e4m3fn.safetensors))
+
+**Diffusion Models** (Place in `models/unet/` or `models/diffusion_models/`):
+- Choose one GGUF model from the `diffusion_models` folder
+- Recommended: Q4_0 or Q6_K for best quality/performance balance
+
+**Optional Models**:
+- **Latent Upscaler** (Place in `models/latent_upscale_models/`): [ltx-2-spatial-upscaler-x2-1.0.safetensors](https://huggingface.co/Lightricks/LTX-2/blob/main/ltx-2-spatial-upscaler-x2-1.0.safetensors)
+- **LoRA** (Place in `models/loras/`): [ltx-2-19b-distilled-lora-384.safetensors](https://huggingface.co/Lightricks/LTX-2/blob/main/ltx-2-19b-distilled-lora-384.safetensors)
+
+##### Installation Steps
+
+1. **Initial Setup**
+   ```bash
+   # Run ComfyUI once to initialize
+   cd ComfyUI
+   python main.py
+   ```
+
+2. **Install Required Nodes**
+   - Install or update **ComfyUI-KJNodes** via ComfyUI Manager
+   - Install or update **ComfyUI-GGUF** via ComfyUI Manager
+   - Close ComfyUI after installation
+
+3. **Update ComfyUI-GGUF (Critical)**
+   
+   The ComfyUI-GGUF node requires a non-official commit for LTX2 support:
+   
+   ```bash
+   # Backup existing files first
+   cd ComfyUI/custom_nodes/ComfyUI-GGUF
+   copy loader.py loader.py.backup
+   copy nodes.py nodes.py.backup
+   
+   # Download updated files
+   # Download loader.py from:
+   # https://github.com/city96/ComfyUI-GGUF/blob/f083506720f2f049631ed6b6e937440f5579f6c7/loader.py
+   
+   # Download nodes.py from:
+   # https://github.com/city96/ComfyUI-GGUF/blob/f083506720f2f049631ed6b6e937440f5579f6c7/nodes.py
+   
+   # Replace the existing files with the downloaded versions
+   ```
+   
+   **Direct Download Links**:
+   - [loader.py](https://raw.githubusercontent.com/city96/ComfyUI-GGUF/f083506720f2f049631ed6b6e937440f5579f6c7/loader.py)
+   - [nodes.py](https://raw.githubusercontent.com/city96/ComfyUI-GGUF/f083506720f2f049631ed6b6e937440f5579f6c7/nodes.py)
+
+4. **Verify Installation**
+   ```bash
+   # Launch ComfyUI
+   cd ComfyUI
+   python main.py
+   
+   # Open the "Text to Video" workflow node
+   # Verify that:
+   # - All GGUF models appear in the model selection dropdown
+   # - LTX2 VAE models are available
+   # - Text encoder models are loaded
+   ```
+
+5. **Load Workflow**
+   - Download the workflow JSON files from the links above
+   - In ComfyUI, click "Load" and select the appropriate workflow:
+     - `LTX2_T2V_GGUF.json` for Text-to-Video
+     - `LTX2_I2V_GGUF v0.3.json` for Image-to-Video
+
+##### Troubleshooting LTX2 Setup
+
+**Models Not Appearing**:
+- Ensure models are in the correct directories
+- Restart ComfyUI after adding models
+- Check ComfyUI console for model loading errors
+
+**GGUF Node Errors**:
+- Verify you've updated to the specific commit mentioned above
+- Check that both `loader.py` and `nodes.py` are from the same commit
+- Restore backups if issues persist: `copy loader.py.backup loader.py`
+
+**Out of Memory**:
+- Use a smaller GGUF quantization (Q4_0 instead of Q6_K)
+- Reduce video resolution or frame count
+- Enable model offloading in ComfyUI settings
+
+**Missing Dependencies**:
+- Ensure ComfyUI-KJNodes is properly installed
+- Update ComfyUI to the latest version
+- Reinstall ComfyUI-GGUF if necessary
 
 ### Model Configuration
 
