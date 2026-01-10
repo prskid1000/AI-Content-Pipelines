@@ -216,7 +216,7 @@
   },
   "24": {
     "inputs": {
-      "vae_name": "LTXV-13B-0.9.8-distilled-VAE.safetensors"
+      "vae_name": "LTX2_video_vae_bf16.safetensors"
     },
     "class_type": "VAELoader",
     "_meta": {
