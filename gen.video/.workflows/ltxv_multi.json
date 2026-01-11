@@ -69,7 +69,7 @@
         "Node name for S&R": "VAELoader"
       },
       "widgets_values": [
-        "LTXV-13B-0.9.8-distilled-VAE.safetensors"
+        "LTX2_video_vae_bf16.safetensors"
       ]
     },
     {
