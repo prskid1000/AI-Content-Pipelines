@@ -15,10 +15,10 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
 # Video configuration constants
-VIDEO_WIDTH = 1280
-VIDEO_HEIGHT = 768
+VIDEO_WIDTH = 1024
+VIDEO_HEIGHT = 576
 FRAMES_PER_SECOND = 24
-CHUNK_SIZE = 5
+CHUNK_SIZE = 3
 
 # Feature flags
 ENABLE_SCENE = False # Set to True to add scene prompts from 3.scene.txt
