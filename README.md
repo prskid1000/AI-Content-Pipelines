@@ -2009,6 +2009,8 @@ The AI Content Studio requires several AI models for different generation tasks.
 - **Wan 2.2 T2V LightX2V High Noise**: `wan2.2_t2v_lightx2v_4steps_lora_v1.1_high_noise.safetensors`
 - **Wan 2.2 T2V LightX2V Low Noise**: `wan2.2_t2v_lightx2v_4steps_lora_v1.1_low_noise.safetensors`
 - **LTX2 Distilled LoRA**: `ltx-2-19b-distilled-lora-384.safetensors` - LTX2 distilled LoRA for faster generation ([Download](https://huggingface.co/Lightricks/LTX-2/blob/main/ltx-2-19b-distilled-lora-384.safetensors))
+- **LTX2 IC-LoRA Detailer**: `ltx-2-19b-ic-lora-detailer.safetensors` - Video detailer IC-LoRA for enhancing fine details and textures in generated videos ([Download](https://huggingface.co/Lightricks/LTX-2-19b-IC-LoRA-Detailer))
+- **LTX2 IC-LoRA Pose Control**: `ltx-2-19b-ic-lora-pose-control.safetensors` - Pose control IC-LoRA for video generation ([Download](https://huggingface.co/Lightricks/LTX-2-19b-IC-LoRA-Pose-Control/tree/main))
 
 ##### VAE Models (VAE Directory)
 - **Flux Kontext VAE**: `flux_kontext_vae.safetensors` - Flux image decoder
