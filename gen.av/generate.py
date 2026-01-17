@@ -62,50 +62,27 @@ class TimedLogWriter:
 
 
 SCRIPTS = [
-    #Speech
-    # "1.story.py",
-    # "../gen.audio/scripts/1.character.py",
-    # "../gen.audio/scripts/2.story.py",
-    # "../gen.audio/scripts/3.transcribe.py",
-    # "../gen.audio/scripts/4.quality.py",
+    #Story
+    "1.story.py",
+    # "../gen.image/scripts/1.story.py",
 
-    #SFX
-    # "4.audio.py",
-    # "../gen.audio/scripts/5.timeline.py",
-    # "../gen.audio/scripts/6.timing.py",
-    # "../gen.audio/scripts/7.sfx.py",
-    # "../gen.audio/scripts/8.combine.py"
+    #Images
+    # "../gen.image/scripts/2.character.py",
+    #"../gen.image/scripts/2.location.py",
+    # "../gen.image/scripts/3.scene.py",
 
     #Video
-    # "2.character.py",
-    # "2.location.py",
-    # "3.scene.py",
-
-    #Thumbnail
-    # "../gen.audio/scripts/9.media.py",
-    # "../gen.audio/scripts/10.thumbnail.py",
-
-    # YouTube
-    # "5.video.py",
-    # "6.combine.py",
-    # "../gen.audio/scripts/11.video.py",
-    # "../gen.audio/scripts/12.youtube.py"
+    "2.av.py",
 ]
 
 SCRIPTS_DIR = "scripts"
 
-NEEDS_COMFYUI = {"2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py", "2.location.py"}
-NEEDS_LMSTUDIO = {"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py", "9.media.py"}
+NEEDS_COMFYUI = {"2.character.py", "2.location.py", "3.scene.py", "2.av.py"}
+NEEDS_LMSTUDIO = {"1.story.py"}
 
 # Centralized non-interactive defaults (only change this file)
 SCRIPT_ARGS = {
-    "1.story.py": ["--bypass-validation"],
-    "4.audio.py": ["--bypass-validation"],
-    "1.character.py": ["--auto-gender", "m", "--auto-confirm", "y", "--change-settings", "n"],
-    "5.timeline.py": ["../input/2.timeline.script.txt"],  # Pass the 2.1.timeline.txt file to 5.timeline.py (relative to gen.audio/scripts/)
-    "7.sfx.py": ["--auto-confirm", "y"],  # sfx script auto-confirms by default; passing is harmless
-    "11.video.py": ["--video-file", "../../gen.image/output/final_sd.mp4"],
-    "12.youtube.py": ["--video-file", "../../gen.image/output/final_sd.mp4", "--upload-shorts", "--shorts-dir", "../../gen.audio/output"],
+    # "1.story.py": ["--bypass-validation"],
 }
 
 
@@ -297,10 +274,11 @@ def check_and_clean_tracking_if_story_changed(base_dir: str, log_handle) -> bool
         ("input/1.story.txt", "story_file")
     ]
 
-    # Output directories to clear: gen.image/output and gen.audio/output
-    gen_image_output = os.path.join(base_dir, "output")
+    # Output directories to clear: gen.video/output, gen.image/output, gen.audio/output
+    gen_video_output = os.path.join(base_dir, "output")
+    gen_image_output = os.path.abspath(os.path.join(base_dir, "..", "gen.image", "output"))
     gen_audio_output = os.path.abspath(os.path.join(base_dir, "..", "gen.audio", "output"))
-    output_dirs = [gen_image_output, gen_audio_output]
+    output_dirs = [gen_video_output, gen_image_output, gen_audio_output]
 
     return check_and_clean_tracking_if_files_changed(
         base_dir, log_handle, tracked_files, tracking_json_file, output_dirs=output_dirs
@@ -747,7 +725,7 @@ def main() -> int:
         empty_comfyui_folders(base_dir, log)
 
         # Check if story file changed and clean tracking directory if needed
-        check_and_clean_tracking_if_story_changed(base_dir, log)
+        # check_and_clean_tracking_if_story_changed(base_dir, log)
 
         # Manage services across scripts: keep running across consecutive needs
         comfy_proc = None
@@ -920,5 +898,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
-
