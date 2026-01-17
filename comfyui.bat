@@ -1,4 +1,4 @@
 @echo off
 cd /d %~dp0
-python ComfyUI\main.py --listen
+python ComfyUI\main.py --listen --disable-pinned-memory
 pause
