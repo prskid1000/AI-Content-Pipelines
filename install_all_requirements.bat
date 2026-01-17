@@ -23,6 +23,28 @@ if errorlevel 1 (
 echo SUCCESS: PyTorch installed
 echo.
 
+REM Install ONNX Runtime GPU (nightly CUDA 13.0)
+echo [0/3] Installing ONNX Runtime GPU (nightly CUDA 13.0)...
+.venv\Scripts\python.exe -m pip install --pre --index-url https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/ort-cuda-13-nightly/pypi/simple/ onnxruntime-gpu
+if errorlevel 1 (
+    echo ERROR: Failed to install ONNX Runtime GPU
+    pause
+    exit /b 1
+)
+echo SUCCESS: ONNX Runtime GPU installed
+echo.
+
+REM Install additional required Python packages
+echo Installing additional required Python packages...
+.venv\Scripts\python.exe -m pip install coloredlogs flatbuffers numpy packaging protobuf sympy
+if errorlevel 1 (
+    echo ERROR: Failed to install additional Python packages
+    pause
+    exit /b 1
+)
+echo SUCCESS: Additional Python packages installed
+echo.
+
 REM Install root requirements.txt
 echo [1/3] Installing root requirements.txt...
 if exist "requirements.txt" (
