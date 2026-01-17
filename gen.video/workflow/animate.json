@@ -216,7 +216,7 @@
   },
   "24": {
     "inputs": {
-      "vae_name": "LTX2_video_vae_bf16.safetensors"
+      "vae_name": "LTX2_video_vae_old_bf16.safetensors"
     },
     "class_type": "VAELoader",
     "_meta": {
