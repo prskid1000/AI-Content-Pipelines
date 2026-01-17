@@ -8,12 +8,13 @@ Transform text stories into rich multimedia content:
 - **🎵 Audio Stories** - Character voices, sound effects, and narration
 - **🖼️ Visual Content** - Character portraits and scene images  
 - **🎬 Video Production** - Animated videos with thumbnails
+- **🎥 AV Production** - Audio-visual videos with built-in audio generation
 - **📺 YouTube Ready** - Automated upload with metadata
 - **🔄 Resumable Operations** - Fault-tolerant processing with checkpoint recovery
 
 ## 🔧 System Architecture Overview
 
-The AI Content Studio is built on a modular pipeline architecture with three main processing stages:
+The AI Content Studio is built on a modular pipeline architecture with four main processing stages:
 
 ### Core Services
 - **ComfyUI** (Port 8188) - AI model inference server for TTS, image generation, and video animation
@@ -22,7 +23,7 @@ The AI Content Studio is built on a modular pipeline architecture with three mai
 - **Whisper** - Audio transcription
 
 ### Pipeline Orchestration
-Each pipeline (`gen.audio`, `gen.image`, `gen.video`) includes:
+Each pipeline (`gen.audio`, `gen.image`, `gen.video`, `gen.av`) includes:
 - **Service Management** - Automatic startup/shutdown of ComfyUI and LM Studio
 - **Dependency Detection** - Smart service lifecycle management
 - **Error Handling** - Graceful cleanup on failures
@@ -31,18 +32,23 @@ Each pipeline (`gen.audio`, `gen.image`, `gen.video`) includes:
 
 ## 🏗️ System Architecture
 
-Three integrated pipelines work together:
+Four integrated pipelines work together:
 
 ```
 Text Story → Audio Pipeline → Image Pipeline → Video Pipeline → YouTube
      ↓             ↓              ↓              ↓           ↓
  1.story.txt → final.wav → characters/*.png → animation/*.mp4 → Upload
+
+Text Story → Image Pipeline → AV Pipeline → YouTube
+     ↓             ↓              ↓           ↓
+ 1.story.txt → scene/*.png → scene_*.mp4 → Upload
 ```
 
 ### Pipeline Overview
 - **Audio Pipeline** (`gen.audio/`) - 13 scripts for TTS, SFX, and video creation
 - **Image Pipeline** (`gen.image/`) - 6 scripts for character/scene generation  
-- **Video Pipeline** (`gen.video/`) - 3 scripts for animation and compilation
+- **Video Pipeline** (`gen.video/`) - 4 scripts for animation and compilation
+- **AV Pipeline** (`gen.av/`) - 4 scripts for audio-visual video generation with built-in audio
 
 ## 📁 Project Structure
 
@@ -127,6 +133,23 @@ Text Story → Audio Pipeline → Image Pipeline → Video Pipeline → YouTube
     │   └── 5.motion.py         # Motion generation (new)
     └── workflow/               # Animation workflows
         └── animate.json        # Animation workflow
+└── gen.av/                     # AV pipeline (4 scripts)
+    ├── generate.py             # Main orchestrator
+    ├── input/                  # Input files
+    │   ├── 1.story.txt         # Source story text
+    │   └── 2.motion.txt         # Motion descriptions (optional)
+    ├── output/                 # Generated content
+    │   ├── frames/              # Extracted frame files
+    │   ├── tracking/            # Resumable checkpoints (*.state.json)
+    │   ├── scene_*.mp4          # Individual scene videos with audio
+    │   └── final.mp4            # Final combined video with audio
+    ├── scripts/                # Processing scripts (4)
+    │   ├── 1.story.py          # Story parsing for image pipeline
+    │   ├── 2.motion.py          # Motion description generation
+    │   ├── 3.av.py              # AV video generation with built-in audio
+    │   └── 4.video.py           # Final video compilation
+    └── workflow/               # ComfyUI workflows
+        └── movie.json          # AV video generation workflow
 ```
 
 ## 🚀 Quick Start
@@ -146,8 +169,11 @@ cd gen.audio && python generate.py
 # Image Pipeline (6 scripts) 
 cd gen.image && python generate.py
 
-# Video Pipeline (3 scripts)
+# Video Pipeline (4 scripts)
 cd gen.video && python generate.py
+
+# AV Pipeline (4 scripts)
+cd gen.av && python generate.py
 ```
 
 ### Resumable Operations
@@ -287,7 +313,8 @@ The AI Content Studio features a robust resumable processing system that allows 
 #### Supported Scripts Across All Pipelines
 **Audio Pipeline:** 5 scripts  
 **Image Pipeline:** 4 scripts  
-**Video Pipeline:** 1 script
+**Video Pipeline:** 1 script  
+**AV Pipeline:** 2 scripts
 
 #### Usage Examples
 ```bash
@@ -936,28 +963,203 @@ graph TD
 
 ---
 
+## 🎥 AV PIPELINE (gen.av/)
+
+**Purpose**: Create audio-visual videos with built-in audio generation from story text and scene images
+
+**Total Scripts**: 4 scripts | **Resumable**: 2 scripts | **Status**: AV video generation active
+
+### Workflow Overview
+```
+Story Text → Scene Images → Motion Descriptions → AV Video Generation → Final Video
+     ↓            ↓              ↓                      ↓                  ↓
+ 1.story.txt → scene/*.png → 2.motion.txt → scene_*.mp4 (with audio) → final.mp4
+```
+
+### Complete Script Inventory
+
+| # | Script | Purpose | Input Files | Output Files | Dependencies | Resumable |
+|---|--------|---------|-------------|--------------|--------------|-----------|
+| 1 | `1.story.py` | Parse story for image pipeline | `1.story.txt` | `gen.image/input/1.story.txt` | None | ❌ |
+| 2 | `2.motion.py` | Generate motion descriptions | `1.story.txt`, `scene/*.png` | `2.motion.txt` | **LM Studio** | ✅ |
+| 3 | `3.av.py` | Generate AV videos with built-in audio | `1.story.txt`, `scene/*.png`, `2.motion.txt` | `scene_*.mp4` | **ComfyUI** | ✅ |
+| 4 | `4.video.py` | Combine scene videos | `scene_*.mp4` | `final.mp4` | FFmpeg | ❌ |
+
+### Key Features
+- **Built-in Audio**: Videos include audio generated directly by the workflow (no separate audio pipeline needed)
+- **Dialogue-based Duration**: Video length calculated from dialogue word count using `WORDS_TO_SPEECH_RATIO`
+- **5-Second Chunking**: Automatic splitting of longer scenes into 5-second chunks for generation
+- **Frame Continuity**: Smooth transitions between chunks using last frame as input
+- **Motion Integration**: Optional motion descriptions enhance video prompts
+- **LoRA Control**: Configurable LoRA switches for depth, canny, pose, and detailer control
+- **Resumable Generation**: Checkpoint-based recovery for long video generation tasks
+
+### AV Pipeline File Structure
+
+```
+gen.av/
+├── generate.py                 # Main orchestrator
+├── input/                      # Input files
+│   ├── 1.story.txt            # Source story text
+│   └── 2.motion.txt           # Motion descriptions (optional, generated by 2.motion.py)
+├── output/                     # Output files
+│   ├── frames/                # Extracted frame files
+│   ├── tracking/              # Resumable checkpoints
+│   │   └── 3.av.state.json
+│   ├── scene_*.mp4            # Individual scene videos with built-in audio
+│   └── final.mp4              # Final combined video with audio
+├── scripts/                    # Processing scripts (4)
+│   ├── 1.story.py            # Story parsing for image pipeline
+│   ├── 2.motion.py            # Motion description generation
+│   ├── 3.av.py                # AV video generation with built-in audio
+│   └── 4.video.py             # Final video compilation
+└── workflow/                   # ComfyUI workflows
+    └── movie.json             # AV video generation workflow
+```
+
+### AV Pipeline Configuration Constants
+
+#### Script-Specific Settings
+
+##### `2.motion.py` - Motion Generation
+```python
+# Model Configuration
+MODEL_MOTION_GENERATION = "qwen_qwen3-vl-30b-a3b-instruct"  # Vision model
+
+# Feature Flags
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False
+
+# File Paths
+input_file = "../input/1.story.txt"
+output_file = "../input/2.motion.txt"
+scene_image_base_path = "../../gen.image/output/scene"
+```
+
+##### `3.av.py` - AV Video Generation
+```python
+# Feature Flags
+ENABLE_RESUMABLE_MODE = True
+CLEANUP_TRACKING_FILES = False
+ENABLE_SCENE = False
+ENABLE_LOCATION_IN_SCENE = False
+ENABLE_CHARACTER_IN_MOTION = False
+USE_SUMMARY_TEXT = False
+
+# Video Configuration
+VIDEO_WIDTH = 1024
+VIDEO_HEIGHT = 576
+FRAMES_PER_SECOND = 24
+CHUNK_SIZE = 5  # Maximum seconds per chunk
+
+# Duration Calculation
+WORDS_TO_SPEECH_RATIO = 0.15  # seconds per word
+
+# LoRA Switch Configuration
+ENABLE_SWITCH_279_286 = True   # Depth-control LoRA
+ENABLE_SWITCH_279_288 = True   # Canny-control LoRA
+ENABLE_SWITCH_279_289 = True   # Pose-control LoRA
+ENABLE_SWITCH_279_290 = True   # Detailer LoRA
+ENABLE_SWITCH_279_291 = True   # First CFGGuider
+ENABLE_SWITCH_279_292 = True   # Second CFGGuider
+
+# File Paths
+story_file = "../input/1.story.txt"
+motion_file = "../input/2.motion.txt"
+workflow_file = "../workflow/movie.json"
+scene_images_dir = "../../gen.image/output/scene"
+```
+
+##### `4.video.py` - Final Video Compilation
+```python
+# Input/Output
+output_dir = "../output"
+final_video = "../output/final.mp4"
+
+# Uses FFmpeg for video concatenation with -c copy to preserve audio
+```
+
+### AV Pipeline Flowchart
+
+```mermaid
+graph TD
+    A[1.story.txt] --> B[1.story.py]
+    B --> C[gen.image/input/1.story.txt]
+    B -.-> D[Image Pipeline]
+    
+    A --> E[2.motion.py]
+    F[gen.image/output/scene/*.png] --> E
+    E --> G[2.motion.txt]
+    E -.-> H[LM Studio Vision Model]
+    
+    A --> I[3.av.py]
+    F --> I
+    G --> I
+    J[2.character.txt] --> I
+    K[2.location.txt] --> I
+    I --> L[scene_*.mp4 with audio]
+    I -.-> M[ComfyUI movie.json]
+    
+    L --> N[4.video.py]
+    N --> O[final.mp4]
+    N -.-> P[FFmpeg]
+    
+    style A fill:#e1f5fe
+    style H fill:#fff8e1
+    style M fill:#f3e5f5
+    style P fill:#e0f2f1
+    style D fill:#ffebee
+    style L fill:#e8f5e8
+```
+
+### Differences from Video Pipeline
+
+| Feature | Video Pipeline | AV Pipeline |
+|---------|---------------|-------------|
+| **Audio Source** | Separate audio file (`final.wav`) | Built-in audio generation |
+| **Duration Calculation** | Timeline-based | Dialogue word count (`WORDS_TO_SPEECH_RATIO`) |
+| **Chunking** | Timeline-based chunks | 5-second max chunks |
+| **Workflow** | `animate.json` | `movie.json` |
+| **Input Images** | Single scene image | Single scene image (no multi-image support) |
+| **Motion** | Optional from `2.motion.txt` | Optional from `2.motion.txt` |
+| **Output Format** | `animation/*.mp4` | `scene_*.mp4` |
+
+---
+
 # 🔗 CROSS-PIPELINE INTEGRATION & SYSTEM CONFIGURATION
 
 ## 🔄 Cross-Pipeline Dependencies
 
-The three pipelines are designed to work together seamlessly:
+The four pipelines are designed to work together seamlessly:
 
 ### Pipeline Data Flow
 
 ```
-Audio Pipeline          Image Pipeline          Video Pipeline
-==============          ==============          ==============
-1.story.txt    ────┬──→ 1.story.txt    ────┐
-               │    9.summary.txt      │
-               │                       │
-2.character.txt────┐                   │
-               │   └──→ 2.character.py │
-               │        3.character.txt │
-               │                       │
-story.wav      │                       │
-  ↓            │                       │
-2.timeline.txt ├──→ 4.audio.py        │
-  ↓            │    2.timeline.script.txt
+Audio Pipeline          Image Pipeline          Video Pipeline          AV Pipeline
+==============          ==============          ==============          ============
+1.story.txt    ────┬──→ 1.story.txt    ────┐   1.story.txt    ────┐
+               │    9.summary.txt      │   │                    │
+               │                       │   │                    │
+2.character.txt────┐                   │   │                    │
+               │   └──→ 2.character.py │   │                    │
+               │        3.character.txt │   │                    │
+               │                       │   │                    │
+story.wav      │                       │   │                    │
+  ↓            │                       │   │                    │
+2.timeline.txt ├──→ 4.audio.py        │   │                    │
+  ↓            │    2.timeline.script.txt │                    │
+               │                       │   │                    │
+               │    scene/*.png ───────┼───┼──→ 1.story.py     │
+               │                       │   │    (for images)   │
+               │                       │   │                    │
+               │                       │   │    scene/*.png ────┼──→ 2.motion.py
+               │                       │   │                    │    (motion gen)
+               │                       │   │                    │
+               │                       │   │    scene/*.png ────┼──→ 3.av.py
+               │                       │   │    2.motion.txt    │    (AV video)
+               │                       │   │                    │
+               │                       │   │    scene_*.mp4 ────┼──→ 4.video.py
+               │                       │   │                    │    (combine)
 final.wav      │         ↓             │
                │    5.video.py         │
                │    merged.mp4         │
@@ -987,6 +1189,18 @@ final.wav      │         ↓             │
 
 #### Video → Video (Internal)
 - `gen.video/input/1.story.txt` → `gen.video/scripts/5.motion.py` → `gen.video/input/2.motion.txt`
+
+#### Image → AV
+- `gen.image/output/scene/*.png` → `gen.av/scripts/2.motion.py` (for motion generation)
+- `gen.image/output/scene/*.png` → `gen.av/scripts/3.av.py` (for AV video generation)
+- `gen.image/input/2.character.txt` → `gen.av/scripts/3.av.py` (optional character data)
+- `gen.image/input/2.location.txt` → `gen.av/scripts/3.av.py` (optional location data)
+
+#### AV → AV (Internal)
+- `gen.av/input/1.story.txt` → `gen.av/scripts/1.story.py` → `gen.image/input/1.story.txt`
+- `gen.av/input/1.story.txt` → `gen.av/scripts/2.motion.py` → `gen.av/input/2.motion.txt`
+- `gen.av/input/1.story.txt` + `gen.av/input/2.motion.txt` → `gen.av/scripts/3.av.py` → `gen.av/output/scene_*.mp4`
+- `gen.av/output/scene_*.mp4` → `gen.av/scripts/4.video.py` → `gen.av/output/final.mp4`
 
 ---
 
@@ -2526,6 +2740,15 @@ The orchestrator scripts automatically manage service dependencies with intellig
 | `2.animate.py` | `gen.image/output/scene/*.png`, `2.timeline.script.txt` | `animation/*.mp4` | Animation generation logs |
 | `3.video.py` | `animation/*.mp4`, `gen.audio/output/final.wav` | `final_sd.mp4` | Video compilation logs |
 
+### AV Pipeline File Flow
+
+| Script | Input Files | Output Files | Intermediate Files |
+|--------|-------------|--------------|-------------------|
+| `1.story.py` | `1.story.txt` | `gen.image/input/1.story.txt` | Story parsing logs |
+| `2.motion.py` | `1.story.txt`, `gen.image/output/scene/*.png` | `2.motion.txt` | Motion generation logs |
+| `3.av.py` | `1.story.txt`, `gen.image/output/scene/*.png`, `2.motion.txt` (optional), `2.character.txt` (optional), `2.location.txt` (optional) | `scene_*.mp4` (with built-in audio) | AV video generation logs, frames |
+| `4.video.py` | `scene_*.mp4` | `final.mp4` | Video compilation logs |
+
 ### Cross-Pipeline File Dependencies
 
 #### Audio → Image Pipeline
@@ -2540,6 +2763,18 @@ The orchestrator scripts automatically manage service dependencies with intellig
 #### Audio → Video Pipeline
 - `gen.audio/output/final.wav` → `gen.video/scripts/3.video.py`
 - `gen.audio/input/2.timeline.script.txt` → `gen.video/scripts/2.animate.py`
+
+#### Image → AV Pipeline
+- `gen.image/output/scene/*.png` → `gen.av/scripts/2.motion.py` (for motion generation)
+- `gen.image/output/scene/*.png` → `gen.av/scripts/3.av.py` (for AV video generation)
+- `gen.image/input/2.character.txt` → `gen.av/scripts/3.av.py` (optional character data)
+- `gen.image/input/2.location.txt` → `gen.av/scripts/3.av.py` (optional location data)
+
+#### AV → AV (Internal)
+- `gen.av/input/1.story.txt` → `gen.av/scripts/1.story.py` → `gen.image/input/1.story.txt`
+- `gen.av/input/1.story.txt` → `gen.av/scripts/2.motion.py` → `gen.av/input/2.motion.txt`
+- `gen.av/input/1.story.txt` + `gen.av/input/2.motion.txt` → `gen.av/scripts/3.av.py` → `gen.av/output/scene_*.mp4`
+- `gen.av/output/scene_*.mp4` → `gen.av/scripts/4.video.py` → `gen.av/output/final.mp4`
 
 ## 🔍 File Formats
 
@@ -2596,6 +2831,13 @@ The orchestrator scripts automatically manage service dependencies with intellig
 - `scene/*.png` - Scene images from image pipeline
 - `2.timeline.script.txt` - Audio timeline for synchronization
 
+**AV Pipeline Inputs:**
+- `1.story.txt` - Source story text
+- `2.motion.txt` - Motion descriptions (optional, generated by `2.motion.py`)
+- `scene/*.png` - Scene images from image pipeline
+- `2.character.txt` - Character descriptions (optional, from image pipeline)
+- `2.location.txt` - Location descriptions (optional, from image pipeline)
+
 #### Configuration Files
 - `workflow/*.json` - ComfyUI workflow definitions for different generation tasks
 - `prompt.story.audio.md` - Audio generation prompts and templates
@@ -2624,6 +2866,11 @@ The current workflow files use direct resolution settings instead of dynamic `Fl
 - `description.txt` - YouTube video description
 - `tags.txt` - YouTube video tags
 
+#### AV Pipeline
+- `scene_*.mp4` - Individual scene videos with built-in audio
+- `final.mp4` - Final combined video with audio
+- `2.motion.txt` - Motion descriptions (generated by `2.motion.py`)
+
 #### Image Pipeline
 - `characters/*.png` - Character portrait images (1280x720)
 - `locations/*.png` - Location background images (1280x720)
@@ -2631,6 +2878,10 @@ The current workflow files use direct resolution settings instead of dynamic `Fl
 - `backgrounds/*.png` - Background generation intermediate results
 - `lora/*.png` - LoRA intermediate results (serial mode)
 - `video/*.mp4` - Per-scene video clips
+
+#### Video Pipeline
+- `animation/*.mp4` - Animated video clips from scene images
+- `final_sd.mp4` - Final animated video with audio
 - `merged.mp4` - Combined scene videos
 - `final_sd.mp4` - Final video with audio
 
@@ -2888,12 +3139,21 @@ This is a modular system designed for easy extension. Each script is self-contai
 - **Requires ComfyUI**: 1 script (`2.animate.py`)
 - **Requires LM Studio**: None
 
+#### AV Pipeline (`gen.av/generate.py`)
+- **Total Scripts**: 4 scripts
+- **Active Scripts**: None (all scripts commented out - empty pipeline)
+- **Available Scripts**: `1.story.py`, `2.motion.py`, `3.av.py`, `4.video.py`
+- **Resumable Scripts**: 2 scripts (`2.motion.py`, `3.av.py`)
+- **Requires ComfyUI**: 1 script (`3.av.py`)
+- **Requires LM Studio**: 2 scripts (`1.story.py`, `2.motion.py`)
+- **New Features**: Built-in audio generation, dialogue-based duration calculation, 5-second chunking, configurable LoRA switches
+
 ### Key Features & Capabilities
 
 #### Resumable Processing System
-- **Total Resumable Scripts**: 11 across all pipelines
+- **Total Resumable Scripts**: 13 across all pipelines
 - **Checkpoint Location**: `../output/tracking/` in each pipeline
-- **Checkpoint Files**: 11 distinct `.state.json` files tracking progress
+- **Checkpoint Files**: 13 distinct `.state.json` files tracking progress
 - **File Validation**: Automatic validation of cached results before skipping
 - **Force Restart**: `--force-start` flag available on all resumable scripts
 - **Cleanup Option**: `CLEANUP_TRACKING_FILES` configuration flag
@@ -2920,12 +3180,14 @@ This is a modular system designed for easy extension. Each script is self-contai
 - **Image**: `1.story.txt`, `9.summary.txt`, `2.character.txt`, `3.location.txt`, `3.scene.txt`
 - **Image (Optional)**: `2.latent.png`, `3.latent.png` for IMAGE mode
 - **Video**: Scene images, timeline scripts
+- **AV**: `1.story.txt`, `scene/*.png`, `2.motion.txt` (optional), `2.character.txt` (optional), `2.location.txt` (optional)
 
 #### Output Files
 - **Audio**: `story.wav`, `sfx.wav`, `final.wav`, `final.mp4`, `thumbnail.png`, `shorts.v1-v5.mp4` (YouTube Shorts)
 - **Image**: `characters/*.png`, `locations/*.png` (NEW), `scene/*.png`, `lora/*.png` (extensive LoRA results)
 - **Video**: `animation/*.mp4`, `final_sd.mp4`
-- **Tracking**: 11 checkpoint files across 3 pipelines
+- **AV**: `scene_*.mp4` (with built-in audio), `final.mp4`
+- **Tracking**: 13 checkpoint files across 4 pipelines
 - **YouTube**: `description.txt`, `tags.txt` (enhanced metadata generation)
 
 ### Model Configuration
@@ -2936,13 +3198,13 @@ This is a modular system designed for easy extension. Each script is self-contai
 - **VAE**: Flux Kontext, LTX Video, SD 3.5, Wan 2.1 decoders
 
 ### Service Dependencies
-- **ComfyUI** (Port 8188): 8 scripts require it across pipelines
-- **LM Studio** (Port 1234): 6 scripts require it across pipelines
-- **FFmpeg**: 4 scripts for video/audio compilation
+- **ComfyUI** (Port 8188): 9 scripts require it across pipelines
+- **LM Studio** (Port 1234): 8 scripts require it across pipelines
+- **FFmpeg**: 5 scripts for video/audio compilation
 - **Whisper**: 1 script for audio transcription
 
 ---
 
 **Note**: This system requires significant computational resources. For optimal performance, use a CUDA-compatible GPU with 8GB+ VRAM and ensure adequate cooling during extended generation sessions. The resumable processing system allows for safe interruption and recovery of long-running operations, making it suitable for extended generation sessions across multiple days.
 
-**Last Updated**: December 2024 - Enhanced with YouTube Shorts support, location generation, script reorganization, expanded resumable processing capabilities, new motion generation script, and updated file structures with comprehensive voice samples and latent input images.
+**Last Updated**: December 2024 - Enhanced with YouTube Shorts support, location generation, script reorganization, expanded resumable processing capabilities, new motion generation script, AV pipeline with built-in audio generation, and updated file structures with comprehensive voice samples and latent input images.
