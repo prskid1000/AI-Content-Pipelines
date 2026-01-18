@@ -106,6 +106,7 @@ NEEDS_LMSTUDIO = {"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py"
 SCRIPT_ARGS = {
     # "1.story.py": ["--bypass-validation"],
     # "4.audio.py": ["--bypass-validation"],
+    "2.motion.py": ["--output", "../input/2.motion.txt"],  # Output path for video motion prompts
     "1.character.py": ["--auto-gender", "m", "--auto-confirm", "y", "--change-settings", "n"],
     "5.timeline.py": ["../input/2.timeline.script.txt"],  # Pass the 2.1.timeline.txt file to 5.timeline.py (relative to gen.audio/scripts/)
     "7.sfx.py": ["--auto-confirm", "y"],  # sfx script auto-confirms by default; passing is harmless
