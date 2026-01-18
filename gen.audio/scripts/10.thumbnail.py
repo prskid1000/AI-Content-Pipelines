@@ -1841,8 +1841,8 @@ class ThumbnailProcessor:
 
 
     def _get_master_prompt(self) -> str:
-        """Get the master prompt content."""
-        base_prompt = f"""Style: {ART_STYLE}, ultra-high-resolution illustration, 16K quality, professional composition. Background: non-black and non-white, visually engaging environment. Camera setup: positioned at very large distance (at least 12 meters away) with ultra-wide angle lens (160 degrees field of view), capturing a wide area with minimum 10 meters width and 10 meters height visible in frame. Composition: cinematic framing with clear spatial relationships, balanced elements, and strong visual hierarchy."""
+        """Get the master prompt content - OPTIMIZED FOR NEWS CHANNEL."""
+        base_prompt = f"""Style: {ART_STYLE}, ultra-high-resolution illustration, 16K quality, professional news broadcast composition. Background: professional newsroom, modern studio, or relevant news environment (non-black and non-white), visually engaging and credible setting appropriate for news content. Camera setup: positioned at professional broadcast distance (at least 12 meters away) with ultra-wide angle lens (160 degrees field of view), capturing a wide area with minimum 10 meters width and 10 meters height visible in frame. Composition: cinematic news broadcast framing with clear spatial relationships, balanced elements, strong visual hierarchy, and professional broadcast aesthetics. Visual elements should convey credibility, authority, and journalistic integrity typical of news and information channels."""
         
         extra_notes = " ".join(EXTRA_PROMPT_PHRASES) if EXTRA_PROMPT_PHRASES else ""
         

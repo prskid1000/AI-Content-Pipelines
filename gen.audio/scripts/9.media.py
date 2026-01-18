@@ -63,20 +63,20 @@ class DiffusionPromptGenerator:
         }
 
     def _build_system_prompt(self) -> str:
-        return """You are a professional visual director and thumbnail designer. Your task is to generate a detailed, visually rich image generation prompt for a thumbnail based on the provided story summary.
+        return """You are a professional visual director and thumbnail designer specializing in news and information channel content. Your task is to generate a detailed, visually rich image generation prompt for a thumbnail based on the provided news story summary.
 
 #### Your Role:
-Transform the story summary into a comprehensive, actionable image generation prompt that will produce an engaging, high-quality thumbnail image.
+Transform the news story summary into a comprehensive, actionable image generation prompt that will produce an engaging, high-quality thumbnail image appropriate for news and information channels.
 
 #### Guidelines:
-- **Character Details**: Describe main character(s) with specific physical attributes (age, build, hair, facial features), clothing details (style, colors, materials), and precise positioning in the scene (e.g., "center-left", "foreground-right", "background-center").
-- **Central Focus**: Identify and describe the narrative's central object or key visual element with detailed condition, appearance, materials, and exact placement in the composition.
-- **Environment & Setting**: Provide exact spatial descriptions including furniture placement, wall details, windows, doors, architectural elements, and atmospheric conditions (lighting, weather, time of day).
-- **Secondary Elements**: Include secondary characters with clear positioning, actions, and props. Describe background elements like weather indicators, time period markers, and contextual details that support the narrative.
-- **Spatial Clarity**: Use precise directional terms for all object positions (left wall, center focus, far background, foreground-right, etc.) to ensure clear spatial relationships.
-- **Material & Texture Details**: Include specific material descriptions for all surfaces and textures (e.g., "dark oak wood", "brass fittings", "weathered leather", "rough stone", "smooth glass").
-- **Visual Coherence**: Ensure every element supports the story narrative and maintains visual coherence. Avoid conflicting or contradictory details.
-- **Composition Quality**: Focus on creating a balanced, visually appealing composition that will work well as a thumbnail (clear focal point, good contrast, readable at small sizes).
+- **Character Details**: Describe main character(s) with specific physical attributes appropriate for news content (professional appearance, age, build, hair, facial features), clothing details (business attire, suits, blazers, professional dress - style, colors, materials), and precise positioning in the scene (e.g., "center-left", "foreground-right", "background-center"). For news anchors/reporters, emphasize authoritative presence and professional demeanor.
+- **Central Focus**: Identify and describe the news story's central object, key visual element, or news event with detailed condition, appearance, materials, and exact placement in the composition. This could be: breaking news scenes, newsroom settings, relevant locations, or key story elements.
+- **Environment & Setting**: Provide exact spatial descriptions appropriate for news content including: modern newsrooms, professional studios, office settings, relevant news locations, furniture placement, wall details, windows, doors, architectural elements, and atmospheric conditions (professional lighting, weather, time of day). Emphasize broadcast-quality environments.
+- **Secondary Elements**: Include secondary characters with clear positioning, actions, and props. Describe background elements like newsroom equipment (monitors, cameras, teleprompters), news graphics areas, or contextual details that support the news narrative and convey journalistic credibility.
+- **Spatial Clarity**: Use precise directional terms for all object positions (left wall, center focus, far background, foreground-right, etc.) to ensure clear spatial relationships typical of professional news broadcasts.
+- **Material & Texture Details**: Include specific material descriptions for all surfaces and textures (e.g., "modern glass desk", "polished wood paneling", "professional lighting fixtures", "sleek metal equipment", "smooth studio surfaces").
+- **Visual Coherence**: Ensure every element supports the news narrative and maintains visual coherence. Avoid conflicting or contradictory details. Maintain journalistic objectivity and credibility in visual descriptions.
+- **Composition Quality**: Focus on creating a balanced, visually appealing composition that will work well as a thumbnail for news content (clear focal point, good contrast, readable at small sizes, conveys news authority and professionalism).
 
 #### Output Requirements:
 - Single continuous paragraph in natural English
@@ -87,19 +87,20 @@ Transform the story summary into a comprehensive, actionable image generation pr
 - Be specific and detailed while staying within the character limit
 
 #### Important Notes:
-- Prioritize visual elements that are most important to the story
-- Use active, descriptive language
-- Include lighting and atmosphere details
+- Prioritize visual elements that are most important to the news story
+- Use active, descriptive language appropriate for news content
+- Include professional lighting and atmosphere details typical of news broadcasts
 - Ensure the prompt is actionable for an image generation model
-- If the story summary is vague, invent concrete visual details that support the narrative
+- If the story summary is vague, invent concrete visual details that support the news narrative and maintain journalistic credibility
+- Emphasize professional, authoritative, and credible visual elements typical of news and information channels
 
 #### Example:
-Input Story Summary: "A detective investigates a mysterious case in an old library. Books are scattered, and there's a hidden clue."
+Input Story Summary: "Breaking news: Major economic policy announcement at government press conference."
 
 Output (single continuous paragraph):
-In the center-left of the composition, a middle-aged detective in a dark brown trench coat stands examining an open book, his expression focused and determined. His short black hair is slightly disheveled, and he wears wire-rimmed glasses. The central focus is a large mahogany reading table positioned center-frame, covered with scattered antique books bound in weathered leather, their pages yellowed with age. One book lies open revealing a torn page with cryptic symbols. The setting is a grand Victorian-era library with floor-to-ceiling bookshelves made of dark oak wood lining the left and right walls, filled with leather-bound volumes. Tall arched windows on the far background wall allow soft afternoon sunlight to stream through, creating dramatic shadows. A rolling ladder leans against the right wall. Dust particles float in the air, visible in the light beams. The atmosphere is mysterious and slightly ominous, with warm amber lighting from vintage brass desk lamps positioned on the table. The floor is polished dark wood with a faded Persian rug in the foreground. A magnifying glass and a notebook with handwritten notes are visible on the table near the detective's right hand.
+In the center of the composition, a professional news anchor in a navy blue suit sits at a modern glass news desk, speaking with authoritative composure. Her dark hair is styled professionally, and she maintains confident eye contact. The central focus is the news desk positioned center-frame, featuring multiple monitors displaying news graphics and live feeds, with a sleek microphone and professional lighting setup. The setting is a modern newsroom studio with floor-to-ceiling windows on the background wall showing a city skyline, soft professional studio lighting creating a broadcast-quality atmosphere. Multiple news monitors and graphics displays line the side walls, showing economic charts and data visualizations. Colleagues work at desks in the background, visible through the glass partitions. The floor is polished dark wood with subtle studio lighting fixtures overhead. A teleprompter is positioned just below the camera view. The atmosphere is professional and authoritative, with warm studio lighting from overhead fixtures creating a credible news broadcast environment. News graphics and data visualizations are visible on side monitors, supporting the economic policy story.
 
-Your output quality directly impacts thumbnail generation success. Generate a visually rich, detailed, and coherent prompt.""".format(THUMBNAIL_CHARACTER_MIN=THUMBNAIL_CHARACTER_MIN, THUMBNAIL_CHARACTER_MAX=THUMBNAIL_CHARACTER_MAX)
+Your output quality directly impacts thumbnail generation success. Generate a visually rich, detailed, and coherent prompt appropriate for news and information channels.""".format(THUMBNAIL_CHARACTER_MIN=THUMBNAIL_CHARACTER_MIN, THUMBNAIL_CHARACTER_MAX=THUMBNAIL_CHARACTER_MAX)
 
     def _build_user_prompt(self, story_desc: str) -> str:
         return f"""NEWS SUMMARY: {story_desc}"""
@@ -392,16 +393,16 @@ class YouTubeDescriptionGenerator:
 
     def _gen_tags_initial(self, title: str, summary: str) -> List[str]:
         sys = (
-            "TASK: Using the news title and summary, create 60 YouTube tags for a news broadcast channel.\n"
+            "TASK: Using the news title and summary, create 60 YouTube tags optimized for a news and information broadcast channel.\n"
             "- No repeated words across all tags.\n"
-            "- Include news-specific topics/events/elements.\n"
-            "- Target: news viewers, current events followers, global/local news enthusiasts.\n"
-            "- Mix popular + niche terms for discovery.\n"
+            "- Include news-specific topics/events/elements relevant to the story.\n"
+            "- Target: news viewers, current events followers, global/local news enthusiasts, information seekers, informed citizens.\n"
+            "- Mix popular + niche terms for discovery while maintaining journalistic credibility.\n"
             "- Two/One word tags only.\n\n"
-            "- core_news_terms: 15 tags (breaking news, global news, local news, current affairs, etc.)\n"
-            "- audience_targeting: 20 tags (news update, live broadcast, daily news, world events, etc.)\n"
-            "- news_specific_elements: 15 tags (specific topics like sports, science, atrocity stories from the news)\n\n"
-            "Return JSON with the four arrays as specified in the schema; no commentary."
+            "- core_news_terms: 15 tags (breaking news, global news, local news, current affairs, news update, etc.)\n"
+            "- audience_targeting: 20 tags (news update, live broadcast, daily news, world events, information channel, news analysis, etc.)\n"
+            "- news_specific_elements: 15 tags (specific topics from the story like politics, economics, science, technology, sports, or relevant current events)\n\n"
+            "Return JSON with the three arrays as specified in the schema; no commentary. Focus on professional, credible tags appropriate for news and information channels."
         )
         payload = {"title": title, "summary": summary}
         raw = self._call_lm_studio(sys, json.dumps(payload, ensure_ascii=False), response_format=self._schema_tags(), model=MODEL_MEDIA_TAGS)
@@ -598,10 +599,10 @@ class YouTubeDescriptionGenerator:
     # ---------- Part generators ----------
     def _gen_title_line(self, title: str, summary: str) -> str:
         sys = (
-            "You are a YouTube content editor. Generate a title and genre/content type label for YouTube.\n"
-            "The title should start with an emoji and be engaging.\n"
-            "The genre should be a concise content type/genre label (e.g., 'Breaking News', 'News Update', 'Current Affairs').\n"
-            "Keep both concise and appropriate to the summary."
+            "You are a YouTube content editor specializing in news and information channels. Generate a title and genre/content type label for YouTube.\n"
+            "The title should start with an emoji and be engaging while maintaining journalistic credibility and professionalism.\n"
+            "The genre should be a concise content type/genre label appropriate for news channels (e.g., 'Breaking News', 'News Update', 'Current Affairs', 'News Analysis', 'Information Report').\n"
+            "Keep both concise and appropriate to the news summary. Maintain authoritative tone suitable for news and information content."
         )
         payload = {"title": title, "summary": summary}
         raw = self._call_lm_studio(sys, json.dumps(payload, ensure_ascii=False), response_format=self._schema_title(), model=MODEL_MEDIA_TITLE)
@@ -612,7 +613,7 @@ class YouTubeDescriptionGenerator:
 
     def _gen_hook(self, summary: str, hook_limit: int) -> str:
         sys = (
-            f"Write a single-sentence hook (<= {hook_limit} chars), engaging and spoiler-light, starting with an emoji. Return JSON."
+            f"Write a single-sentence hook (<= {hook_limit} chars) for a news and information channel, engaging and spoiler-light while maintaining journalistic credibility, starting with an emoji. Return JSON. Use professional, authoritative language appropriate for news content."
         )
         payload = {"summary": summary, "constraints": {"max_chars": hook_limit}}
         raw = self._call_lm_studio(sys, json.dumps(payload, ensure_ascii=False), response_format=self._schema_hook(), model=MODEL_MEDIA_HOOK)
@@ -624,7 +625,7 @@ class YouTubeDescriptionGenerator:
 
     def _gen_bullets(self, summary: str) -> List[str]:
         sys = (
-            "Produce 3–5 concise bullet lines starting with an emoji, highlighting appeal and features. Return JSON."
+            "Produce 3–5 concise bullet lines starting with an emoji for a news and information channel, highlighting key story points, news value, and information appeal. Return JSON. Use professional, credible language appropriate for news content."
         )
         payload = {"summary": summary}
         raw = self._call_lm_studio(sys, json.dumps(payload, ensure_ascii=False), response_format=self._schema_bullets(), model=MODEL_MEDIA_BULLETS)
