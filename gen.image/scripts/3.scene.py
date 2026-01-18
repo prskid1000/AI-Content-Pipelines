@@ -35,12 +35,6 @@ IMAGE_COMPRESSION_QUALITY = 100
 # "NONE" Skip location processing entirely
 # Note: LATENT_MODE controls whether location images are ALSO used as latent input (separate from grouping)
 
-# Location prompt handling modes
-# "IMAGE_TEXT" Use location images as reference images (stitched with characters) + location details appended from locations.txt
-# "TEXT" Only location details from locations.txt (replace {{loc_X}} with descriptions)
-# "IMAGE" Only location images as reference images (stitched with characters, no text replacement)
-# Note: LATENT_MODE controls whether location images are ALSO used as latent input (separate from grouping)
-
 # HARDCODED CHARACTER MODE - Change this to switch modes
 ACTIVE_CHARACTER_MODE = "IMAGE_TEXT"
 
@@ -56,7 +50,7 @@ IMAGE_WIDTH = 1280
 IMAGE_HEIGHT = 800
 
 # Latent Input Mode Configuration
-LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
+LATENT_MODE = "IMAGE"  # "LATENT" for normal noise generation, "IMAGE" for load image input
 LATENT_DENOISING_STRENGTH = 0.90  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # Image Stitching Configuration (1-5)
@@ -593,7 +587,72 @@ class SceneGenerator:
             ordinal_suffix = self._get_ordinal_suffix(position_in_group)
             return f"{position_in_group}{ordinal_suffix} SCENE from Left in Image {group_number},"
 
-    def _replace_location_references(self, scene_description: str, location_ids: list[str], locations_data: dict[str, str]) -> str:
+    def _build_reference_order_map(self, scene_description: str, location_ids: list[str], character_names: list[str]) -> dict:
+        """Build a mapping of references to their sequential image numbers.
+        
+        Characters are grouped together first, then locations are grouped separately.
+        This matches the actual image stitching behavior where characters and locations
+        are stitched in separate groups.
+        
+        Returns a dict with keys like ('location', 'loc_1') or ('character', 'Alice') mapping to (group_number, position_in_group).
+        """
+        reference_map = {}
+        
+        # Find all character references
+        character_pattern = r'\(\(([^)]+)\)\)(?!\))'
+        char_matches = []
+        for match in re.finditer(character_pattern, scene_description):
+            char_name = match.group(1).strip()
+            if char_name in character_names:
+                char_matches.append(char_name)
+        
+        # Find all location references
+        location_pattern = r'\{\{([^}]+)\}\}'
+        loc_matches = []
+        for match in re.finditer(location_pattern, scene_description):
+            content = match.group(1).strip()
+            loc_id = content.split(',')[0].strip() if ',' in content else content
+            if loc_id in location_ids:
+                loc_matches.append(loc_id)
+        
+        # Remove duplicates while preserving order
+        seen_chars = set()
+        unique_chars = []
+        for char in char_matches:
+            if char not in seen_chars:
+                seen_chars.add(char)
+                unique_chars.append(char)
+        
+        seen_locs = set()
+        unique_locs = []
+        for loc in loc_matches:
+            if loc not in seen_locs:
+                seen_locs.add(loc)
+                unique_locs.append(loc)
+        
+        # Assign group numbers: characters first, then locations (grouped separately)
+        current_group = 1
+        
+        # Process characters first - group them together
+        for char_index, char_name in enumerate(unique_chars):
+            position_in_group = (char_index % IMAGE_STITCH_COUNT) + 1
+            group_number = (char_index // IMAGE_STITCH_COUNT) + current_group
+            reference_map[('character', char_name)] = (group_number, position_in_group)
+        
+        # Update current_group to start after character groups
+        if unique_chars:
+            char_groups = (len(unique_chars) + IMAGE_STITCH_COUNT - 1) // IMAGE_STITCH_COUNT
+            current_group += char_groups
+        
+        # Process locations - group them separately after characters
+        for loc_index, loc_id in enumerate(unique_locs):
+            position_in_group = (loc_index % IMAGE_STITCH_COUNT) + 1
+            group_number = (loc_index // IMAGE_STITCH_COUNT) + current_group
+            reference_map[('location', loc_id)] = (group_number, position_in_group)
+        
+        return reference_map
+
+    def _replace_location_references(self, scene_description: str, location_ids: list[str], locations_data: dict[str, str], reference_map: dict = None) -> str:
         """Replace {{loc_id}} references with position and location descriptions."""
         if not location_ids:
             return scene_description
@@ -606,10 +665,14 @@ class SceneGenerator:
             
             # Find the index of this location in the list
             if loc_id in location_ids:
-                loc_index = location_ids.index(loc_id)
-                # Calculate position information
-                position_in_group = (loc_index % IMAGE_STITCH_COUNT) + 1
-                group_number = (loc_index // IMAGE_STITCH_COUNT) + 1
+                if reference_map and ('location', loc_id) in reference_map:
+                    # Use the sequential image number from reference map
+                    group_number, position_in_group = reference_map[('location', loc_id)]
+                else:
+                    # Fallback to old behavior if no map provided
+                    loc_index = location_ids.index(loc_id)
+                    position_in_group = (loc_index % IMAGE_STITCH_COUNT) + 1
+                    group_number = (loc_index // IMAGE_STITCH_COUNT) + 1
                 
                 # Create position description using helper method
                 position_desc = self._get_location_position_description(position_in_group, group_number)
@@ -625,7 +688,7 @@ class SceneGenerator:
         result = re.sub(r'\{\{([^}]+)\}\}', replace_func, scene_description)
         return result
 
-    def _replace_character_references(self, scene_description: str, character_names: list[str], characters_data) -> str:
+    def _replace_character_references(self, scene_description: str, character_names: list[str], characters_data, reference_map: dict = None) -> str:
         """Replace ((character_name)) references with position format in scene description."""
         if not character_names:
             return scene_description
@@ -636,10 +699,14 @@ class SceneGenerator:
             
             # Find the index of this character in the list
             if char_name in character_names:
-                char_index = character_names.index(char_name)
-                # Calculate position information
-                position_in_group = (char_index % IMAGE_STITCH_COUNT) + 1
-                group_number = (char_index // IMAGE_STITCH_COUNT) + 1
+                if reference_map and ('character', char_name) in reference_map:
+                    # Use the sequential image number from reference map
+                    group_number, position_in_group = reference_map[('character', char_name)]
+                else:
+                    # Fallback to old behavior if no map provided
+                    char_index = character_names.index(char_name)
+                    position_in_group = (char_index % IMAGE_STITCH_COUNT) + 1
+                    group_number = (char_index // IMAGE_STITCH_COUNT) + 1
                 
                 # Create position description using helper method
                 position_desc = self._get_position_description(position_in_group, group_number)
@@ -1362,40 +1429,78 @@ class SceneGenerator:
                 if node.get("class_type") in class_types and input_key in node["inputs"]:
                     node["inputs"][input_key] = value
 
-    def _create_image_processing_nodes(self, workflow: dict, all_images: dict, start_node_id: int) -> list[str]:
-        """Create all image processing nodes with stitching and return reference latent node IDs."""
-        next_node_id = start_node_id
-        item_names = list(all_images.keys())
+    def _create_image_processing_nodes(self, workflow: dict, character_images: dict, location_images: dict, start_node_id: int) -> list[str]:
+        """Create all image processing nodes with stitching and return reference latent node IDs.
         
-        # Create LoadImage nodes
-        load_nodes = []
-        for item_name, img_path in all_images.items():
+        Characters and locations are grouped separately - characters are stitched together first,
+        then locations are stitched together separately.
+        """
+        next_node_id = start_node_id
+        
+        # Process character images first
+        char_item_names = list(character_images.keys())
+        char_load_nodes = []
+        for item_name, img_path in character_images.items():
             node_id = str(next_node_id)
             workflow[node_id] = {
                 "inputs": {"image": os.path.basename(img_path)},
                 "class_type": "LoadImage",
                 "_meta": {"title": f"Load {item_name}"}
             }
-            load_nodes.append(node_id)
+            char_load_nodes.append(node_id)
             next_node_id += 1
 
-        # Create Scale nodes (connect directly to LoadImage nodes since resizing is done during compression)
-        scale_nodes = []
-        for i, load_node in enumerate(load_nodes):
+        # Process location images
+        loc_item_names = list(location_images.keys())
+        loc_load_nodes = []
+        for item_name, img_path in location_images.items():
+            node_id = str(next_node_id)
+            workflow[node_id] = {
+                "inputs": {"image": os.path.basename(img_path)},
+                "class_type": "LoadImage",
+                "_meta": {"title": f"Load {item_name}"}
+            }
+            loc_load_nodes.append(node_id)
+            next_node_id += 1
+
+        # Create Scale nodes for characters
+        char_scale_nodes = []
+        for i, load_node in enumerate(char_load_nodes):
             node_id = str(next_node_id)
             workflow[node_id] = {
                 "inputs": {"image": [load_node, 0]},
                 "class_type": "FluxKontextImageScale",
-                "_meta": {"title": f"Scale {item_names[i]}"}
+                "_meta": {"title": f"Scale {char_item_names[i]}"}
             }
-            scale_nodes.append(node_id)
+            char_scale_nodes.append(node_id)
             next_node_id += 1
 
-        # Group images for stitching
-        stitch_groups = []
-        for i in range(0, len(scale_nodes), IMAGE_STITCH_COUNT):
-            group = scale_nodes[i:i + IMAGE_STITCH_COUNT]
-            stitch_groups.append(group)
+        # Create Scale nodes for locations
+        loc_scale_nodes = []
+        for i, load_node in enumerate(loc_load_nodes):
+            node_id = str(next_node_id)
+            workflow[node_id] = {
+                "inputs": {"image": [load_node, 0]},
+                "class_type": "FluxKontextImageScale",
+                "_meta": {"title": f"Scale {loc_item_names[i]}"}
+            }
+            loc_scale_nodes.append(node_id)
+            next_node_id += 1
+
+        # Group character images for stitching (characters grouped together)
+        char_stitch_groups = []
+        for i in range(0, len(char_scale_nodes), IMAGE_STITCH_COUNT):
+            group = char_scale_nodes[i:i + IMAGE_STITCH_COUNT]
+            char_stitch_groups.append(group)
+
+        # Group location images for stitching (locations grouped together separately)
+        loc_stitch_groups = []
+        for i in range(0, len(loc_scale_nodes), IMAGE_STITCH_COUNT):
+            group = loc_scale_nodes[i:i + IMAGE_STITCH_COUNT]
+            loc_stitch_groups.append(group)
+
+        # Combine all groups: characters first, then locations
+        stitch_groups = char_stitch_groups + loc_stitch_groups
 
         # Create ImageStitch nodes for each group
         stitched_nodes = []
@@ -1507,12 +1612,12 @@ class SceneGenerator:
         
         # Handle chained mode workflow setup
         # Handle different character and location modes
-        all_images = {}
+        character_images = {}
+        location_images = {}
         
         # Copy character images if in IMAGE or IMAGE_TEXT mode (skip in NONE mode)
         if self.character_mode in ["IMAGE", "IMAGE_TEXT"]:
             character_images = self._copy_character_images_to_comfyui(character_names)
-            all_images.update(character_images)
             print(f"Added {len(character_images)} character images to stitching process")
             if not character_images and self.character_mode == "IMAGE":
                 print("ERROR: No character images copied to ComfyUI!")
@@ -1521,29 +1626,27 @@ class SceneGenerator:
         # Copy location images if in IMAGE or IMAGE_TEXT mode (skip in NONE mode)
         if self.location_mode in ["IMAGE", "IMAGE_TEXT"]:
             location_images = self._copy_location_images_to_comfyui(location_ids)
-            all_images.update(location_images)
             print(f"Added {len(location_images)} location images to stitching process")
             if not location_images and self.location_mode == "IMAGE":
                 print("ERROR: No location images copied to ComfyUI!")
                 return {}
         
+        all_images = {**character_images, **location_images}
         print(f"Character mode: {self.character_mode}, Location mode: {self.location_mode}, Total images: {len(all_images)}")
         
-        # Calculate stitching groups for logging
-        if all_images:
-            total_images = len(all_images)
-            groups_needed = (total_images + IMAGE_STITCH_COUNT - 1) // IMAGE_STITCH_COUNT
-            group_sizes = [IMAGE_STITCH_COUNT] * (groups_needed - 1)
-            if total_images % IMAGE_STITCH_COUNT != 0:
-                group_sizes.append(total_images % IMAGE_STITCH_COUNT)
-            print(f"Image stitching: {total_images} images → {groups_needed} groups {group_sizes}")
+        # Calculate stitching groups for logging (characters and locations grouped separately)
+        if character_images or location_images:
+            char_groups = (len(character_images) + IMAGE_STITCH_COUNT - 1) // IMAGE_STITCH_COUNT if character_images else 0
+            loc_groups = (len(location_images) + IMAGE_STITCH_COUNT - 1) // IMAGE_STITCH_COUNT if location_images else 0
+            total_groups = char_groups + loc_groups
+            print(f"Image stitching: {len(character_images)} character images → {char_groups} groups, {len(location_images)} location images → {loc_groups} groups (total: {total_groups} groups)")
         
         next_node_id = 100
 
-        # Process images if available
+        # Process images if available (characters and locations grouped separately)
         ref_latent_nodes = []
         if all_images:
-            ref_latent_nodes = self._create_image_processing_nodes(workflow, all_images, next_node_id)
+            ref_latent_nodes = self._create_image_processing_nodes(workflow, character_images, location_images, next_node_id)
 
         # Set conditioning based on available reference latents
         if ref_latent_nodes:
@@ -1558,9 +1661,12 @@ class SceneGenerator:
         # Replace location references if location data is available and in appropriate mode (skip in NONE mode)
         processed_scene_description = scene_description
 
-        processed_scene_description = self._replace_location_references(scene_description, location_ids, locations_data)
+        # Build reference order map based on order of appearance in scene description
+        reference_map = self._build_reference_order_map(scene_description, location_ids, character_names)
+
+        processed_scene_description = self._replace_location_references(scene_description, location_ids, locations_data, reference_map)
         
-        processed_scene_description = self._replace_character_references(processed_scene_description, character_names, characters_data)
+        processed_scene_description = self._replace_character_references(processed_scene_description, character_names, characters_data, reference_map)
 
         text_prompt += f"\n{processed_scene_description}\n"
         

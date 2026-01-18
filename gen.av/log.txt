@@ -1,6 +1,13 @@
 Workflow runner started. Python executable: D:\.comfyui\.venv\Scripts\python.exe
 Working directory: D:\.comfyui\gen.av
 Emptying ComfyUI input and output folders...
+Removed directory: D:\.comfyui\ComfyUI\input\3d
+Removed file: D:\.comfyui\ComfyUI\input\loc_loc_1.jpg
+Removed file: D:\.comfyui\ComfyUI\input\male_detective_holmes.jpg
+Removed file: D:\.comfyui\ComfyUI\input\male_doctor_watson.jpg
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00002_.png
 Successfully emptied ComfyUI input and output folders.
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
@@ -8,7 +15,7 @@ ComfyUI not ready yet (attempt 1). Retrying in 15s...
 [START] Security scan
 [DONE] Security scan
 ## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2026-01-18 10:17:09.106
+** ComfyUI startup time: 2026-01-18 11:08:56.455
 ** Platform: Windows
 ** Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
 ** Python executable: D:\.comfyui\.venv\Scripts\python.exe
@@ -19,7 +26,7 @@ ComfyUI not ready yet (attempt 1). Retrying in 15s...
 ** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
 
 Prestartup times for custom nodes:
-   6.9 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   3.8 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
 
 Checkpoint files will always be loaded safely.
 Total VRAM 12227 MB, total RAM 64957 MB
@@ -28,11 +35,246 @@ Set vram state to: NORMAL_VRAM
 Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
 Using async weight offloading with 16 streams
 working around nvidia conv3d memory bug.
-Found comfy_kitchen backend triton: {'available': True, 'disabled': True, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8']}
-Found comfy_kitchen backend cuda: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
 Found comfy_kitchen backend eager: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
+Found comfy_kitchen backend cuda: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
+Found comfy_kitchen backend triton: {'available': True, 'disabled': True, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8']}
 Using pytorch attention
+Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
+ComfyUI version: 0.8.2
+ComfyUI frontend version: 1.36.13
+[Prompt Server] web root: D:\.comfyui\.venv\Lib\site-packages\comfyui_frontend_package\static
+Total VRAM 12227 MB, total RAM 64957 MB
+pytorch version: 2.9.1+cu130
+Set vram state to: NORMAL_VRAM
+Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
+Using async weight offloading with 16 streams
+ComfyUI-GGUF: Allowing full torch compile
+### Loading: ComfyUI-Manager (V3.39.2)
+[ComfyUI-Manager] network_mode: public
+[ComfyUI-Manager] ComfyUI per-queue preview override detected (PR #11261). Manager's preview method feature is disabled. Use ComfyUI's --preview-method CLI option or 'Settings > Execution > Live preview method'.
+### ComfyUI Revision: 4498 [2e9d5168] *DETACHED | Released on '2026-01-07'
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
+
+[32mInitializing ControlAltAI Nodes[0m
+✅ ChatterboxTTS loaded from bundled package
+✅ ChatterboxVC loaded from bundled package
+FETCH ComfyRegistry Data: 5/120
 ComfyUI not ready yet (attempt 2). Retrying in 15s...
-Received signal 2. Cleaning up services...
+✅ F5-TTS loaded from system package
+🎭 Character voices: Found 61 characters, 2 aliases
+✅ SRT modules loaded from system package
+🔧 Registering TTS Audio Suite nodes...
+======================================================================
+🚀 TTS Audio Suite v4.2.1
+Universal multi-engine TTS extension for ComfyUI
+⚠️ No local ChatterBox models found - will download from Hugging Face
+💡 Tip: First generation will download models (~1GB)
+   Models will be saved locally for future use
+✅ TTS Audio Suite v4.2.1 loaded with 16 nodes:
+   • ⚙️ ChatterBox TTS Engine
+   • ⚙️ F5 TTS Engine
+   • ⚙️ RVC Engine
+   • 🌊 Audio Wave Analyzer
+   • 🎙️ Voice Capture
+   • 🎤 TTS Text
+   • 🎭 Character Voices
+   • 🎭 Load RVC Character Model
+   • 👄 F5-TTS Speech Editor
+   • 📺 TTS SRT
+   • 🔄 Voice Changer
+   • 🔧 Audio Analyzer Options
+   • 🔧 F5-TTS Edit Options
+   • 🔧 RVC Pitch Extraction Options
+   • 🤐 Noise or Vocal Removal
+   • 🥪 Merge Audio
+======================================================================
+
+Import times for custom nodes:
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyMath
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
+   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
+   0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
+   0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   0.8 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
+   9.4 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
+
+Context impl SQLiteImpl.
+Will assume non-transactional DDL.
+No target revision found.
+Starting server
+
+To see the GUI go to: http://127.0.0.1:8188
+FETCH ComfyRegistry Data: 10/120
+FETCH ComfyRegistry Data: 15/120
+ComfyUI is ready after 34.1s (attempt 3).
+
+===== START D:\.comfyui\gen.image\scripts\3.scene.py @ 2026-01-18 11:09:28 =====
+Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.image\output\tracking
+Found existing checkpoint: D:\.comfyui\gen.image\output\tracking\3.scene.state.json
+Progress: Scenes(1/1)
+Character mode: IMAGE
+Location mode: IMAGE
+Validating cache against output/scene directory: ../output/scene
+Scanning output/scene directory for untracked files: ../output/scene
+No untracked scenes found in output/scene directory
+Validating 1 completed scenes against output/scene directory...
+Precheck: File missing for scene_1.1 - marking as not completed
+Precheck: Cleared LoRA progress for scene_1.1
+Precheck: Cleaned up 1 invalid entries from checkpoint
+Precheck completed: 1 invalid entries removed from checkpoint
+Processing 18 scenes, skipped 0
+📊 Total scene words: 524
+============================================================
+
+📊 SCENE GENERATION PROGRESS
+====================================================================================================
+🔄 Scene 1/18 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Processing...
+📊 Estimated time remaining: ~2.6m (?)
+Generating scene: scene_1.1 with characters: male_doctor_watson (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_1.1
+Compressed male_doctor_watson image: 120.5KB → 63.1KB (47.6% reduction)
+Added 1 character images to stitching process
+Compressed loc_1 image: 1244.0KB → 619.6KB (50.2% reduction)
+Added 1 location images to stitching process
+Character mode: IMAGE, Location mode: IMAGE, Total images: 2
+Image stitching: 1 character images → 1 groups, 1 location images → 1 groups (total: 2 groups)
+Using cascaded reference conditioning
+Using latent mode with dimensions: 1280x800
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 3010709759
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        
+ __NOTE__:Must keep character's both hands separate from each other and visible. No textual elements. Just use logos/icons if needed.
+ADD ,LEFTMOST SCENE in Image 2, , as background of the entire illustration., {Weather/Season/Time: sunny winter morning};
+ADD ,LEFTMOST CHARACTER in Image 1, , as one of the main characters of the illustration.{Face Relative Direction: toward fireplace}{Looking Relative Direction: at newspaper}{Facial Expression: thoughtful}, {Relative Location: left side of sofa},{Body Facing Relative Direction: toward fireplace},{Body Posture: sitting},{Primary Action: reading};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 2431270161
+  Using latent mode with dimensions: 1280x800
+  Using LoRA denoising_strength: 1
+  Steps: 9, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Using pytorch attention in VAE
+Using pytorch attention in VAE
+VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
+FETCH ComfyRegistry Data: 20/120
+clip missing: ['text_projection.weight']
+CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
+model weight dtype torch.bfloat16, manual cast: None
+model_type FLUX
+FETCH ComfyRegistry Data: 25/120
+FETCH ComfyRegistry Data: 30/120
+FETCH ComfyRegistry Data: 35/120
+FETCH ComfyRegistry Data: 40/120
+Requested to load FluxClipModel_
+FETCH ComfyRegistry Data: 45/120
+loaded completely; 9606.80 MB usable, 9319.23 MB loaded, full load: True
+Requested to load AutoencodingEngine
+Unloaded partially: 3628.23 MB freed, 5691.00 MB remains loaded, 936.38 MB buffer reserved, lowvram patches: 0
+loaded completely; 1143.91 MB usable, 159.87 MB loaded, full load: True
+Requested to load Flux
+FETCH ComfyRegistry Data: 50/120
+loaded partially; 7341.24 MB usable, 5284.03 MB loaded, 17416.11 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 266
+  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 55/120
+FETCH ComfyRegistry Data: 60/120
+FETCH ComfyRegistry Data: 65/120
+ 11%|█         | 1/9 [00:17<02:20, 17.56s/it]FETCH ComfyRegistry Data: 70/120
+FETCH ComfyRegistry Data: 75/120
+FETCH ComfyRegistry Data: 80/120
+ 22%|██▏       | 2/9 [00:31<01:46, 15.27s/it]FETCH ComfyRegistry Data: 85/120
+FETCH ComfyRegistry Data: 90/120
+ 33%|███▎      | 3/9 [00:44<01:26, 14.48s/it]FETCH ComfyRegistry Data: 95/120
+FETCH ComfyRegistry Data: 100/120
+FETCH ComfyRegistry Data: 105/120
+ 44%|████▍     | 4/9 [00:58<01:10, 14.12s/it]FETCH ComfyRegistry Data: 110/120
+FETCH ComfyRegistry Data: 115/120
+ 56%|█████▌    | 5/9 [01:11<00:55, 13.94s/it]FETCH ComfyRegistry Data: 120/120
+FETCH ComfyRegistry Data [DONE]
+[ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
+FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
+[ComfyUI-Manager] All startup tasks have been completed.
+ 67%|██████▋   | 6/9 [01:25<00:41, 13.85s/it] 78%|███████▊  | 7/9 [01:39<00:27, 13.76s/it] 89%|████████▉ | 8/9 [01:52<00:13, 13.74s/it]100%|██████████| 9/9 [02:06<00:00, 13.72s/it]100%|██████████| 9/9 [02:06<00:00, 14.06s/it]
+Requested to load AutoencodingEngine
+loaded completely; 824.94 MB usable, 159.87 MB loaded, full load: True
+Prompt executed in 173.28 seconds
+  Saved LoRA result: ../output/lora\scene_1.1.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/scene\scene_1.1.png
+  Preserved LoRA progress for completed scene
+✅ Scene 1/18 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Completed in 2.9m
+📊 Estimated time remaining: ~48.4m (?)
+[OK] Generated: scene_1.1
+🔄 Scene 2/18 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Processing...
+📊 Estimated time remaining: ~48.4m (?)
+Generating scene: scene_1.2 with characters: male_detective_holmes (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_1.2
+Compressed male_detective_holmes image: 111.6KB → 55.6KB (50.2% reduction)
+Added 1 character images to stitching process
+Compressed loc_1 image: 1244.0KB → 619.6KB (50.2% reduction)
+Added 1 location images to stitching process
+Character mode: IMAGE, Location mode: IMAGE, Total images: 2
+Image stitching: 1 character images → 1 groups, 1 location images → 1 groups (total: 2 groups)
+Using cascaded reference conditioning
+Using latent mode with dimensions: 1280x800
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 4188054389
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        
+ __NOTE__:Must keep character's both hands separate from each other and visible. No textual elements. Just use logos/icons if needed.
+ADD ,LEFTMOST SCENE in Image 2, , as background of the entire illustration., {Weather/Season/Time: sunny winter morning};
+ADD ,LEFTMOST CHARACTER in Image 1, , as one of the main characters of the illustration.{Face Relative Direction: toward Watson}{Looking Relative Direction: at Watson}{Facial Expression: amused}, {Relative Location: right side of sofa},{Body Facing Relative Direction: toward Watson},{Body Posture: reclining},{Primary Action: observing};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 2509471665
+  Using latent mode with dimensions: 1280x800
+  Using LoRA denoising_strength: 1
+  Steps: 9, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely; 9543.67 MB usable, 9319.23 MB loaded, full load: True
+Requested to load AutoencodingEngine
+Unloaded partially: 3628.23 MB freed, 5691.00 MB remains loaded, 936.38 MB buffer reserved, lowvram patches: 0
+loaded completely; 1138.74 MB usable, 159.87 MB loaded, full load: True
+Requested to load Flux
+loaded partially; 7341.24 MB usable, 5284.03 MB loaded, 17416.11 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 266
+  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:13<01:49, 13.66s/it] 22%|██▏       | 2/9 [00:27<01:35, 13.65s/it]
+===== END D:\.comfyui\gen.image\scripts\3.scene.py @ 2026-01-18 11:13:12 (exit=3221225786, took=224.17s) =====
 Stopping ComfyUI backend...
-ComfyUI appears stopped (after 1 checks).
+Received signal 21. Cleaning up services...
+Stopping ComfyUI backend...
