@@ -109,8 +109,10 @@ NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, p
 ART_STYLE = "PhotoRealstic-Anime Professional News Broadcast"
 
 EXTRA_PROMPT_PHRASES = [
-    "Must keep character's both hands separate from each other and visible.",
-    "No textual elements. Just use logos/icons if needed.",
+    "Keep both of the character's hands separate and clearly visible.",
+    "Include only one character in the scene.",
+    "Character size should be realistic and proportional to other objects and elements in the scene.",
+    "Avoid textual elements. Use logos or icons only when necessary.",
 ]
 
 class ResumableState:
