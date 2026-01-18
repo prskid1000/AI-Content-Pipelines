@@ -50,7 +50,7 @@ IMAGE_WIDTH = 1280
 IMAGE_HEIGHT = 800
 
 # Latent Input Mode Configuration
-LATENT_MODE = "IMAGE"  # "LATENT" for normal noise generation, "IMAGE" for load image input
+LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
 LATENT_DENOISING_STRENGTH = 0.90  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # Image Stitching Configuration (1-5)
