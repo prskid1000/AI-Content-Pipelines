@@ -109,9 +109,9 @@ NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, p
 ART_STYLE = "Realistic Anime"
 
 EXTRA_PROMPT_PHRASES = [
+    "VERY IMPORTANT: Maintain realistic size ratios between the character and objects in the scene, matching real-world proportions and scale.",
     "Keep both of the character's hands separate and clearly visible.",
     "Include only one character in the scene.",
-    "VERY IMPORTANT: Maintain realistic size ratios between the character and objects in the scene, matching real-world proportions and scale.",
     "Avoid textual elements. Use logos or icons only when necessary.",
 ]
 
