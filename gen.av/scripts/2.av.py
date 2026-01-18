@@ -16,10 +16,10 @@ WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary print
 ENABLE_DIALOGUE_CHUNKS = True  # Set to True to include dialogue chunks in ComfyUI prompts, False to exclude dialogue
 
 # Video configuration constants
-VIDEO_WIDTH = 1024
-VIDEO_HEIGHT = 576
+VIDEO_WIDTH = 960
+VIDEO_HEIGHT = 540
 FRAMES_PER_SECOND = 24
-CHUNK_SIZE = 3  # Maximum seconds per chunk (5 seconds max for AV)
+CHUNK_SIZE = 6  # Maximum seconds per chunk (8 seconds max for AV)
 
 # Feature flags (moved to 2.motion.py)
 # Note: Master prompts are now generated in 2.motion.py with all features integrated
