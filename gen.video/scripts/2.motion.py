@@ -19,6 +19,7 @@ CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files afte
 
 # Prompt generation feature flags
 USE_SCENE_IMAGE = True  # Set to True to include scene image in prompt generation
+USE_DIALOGUE = False  # Set to True to include dialogue lines in prompt generation
 USE_LOCATION = False  # Set to True to include location data from 3.location.txt
 USE_CHARACTER = False  # Set to True to include character data from 2.character.txt
 USE_SUMMARY_TEXT = False  # Set to True to use summary text files (3.character.txt, 3.location.txt) instead of 2.character.txt, 2.location.txt
@@ -213,7 +214,11 @@ class PromptGenerator:
             
             # Look for dialogue lines (character speaking)
             if line.startswith('[') and ']' in line:
-                dialogue = line
+                # Extract speaker and dialogue text separately (like 3.av.py does)
+                dialogue_end = line.find(']')
+                speaker = line[1:dialogue_end]
+                dialogue_text = line[dialogue_end + 1:].strip()
+                
                 # Look for the next scene line
                 j = i + 1
                 while j < len(lines) and not lines[j].strip().startswith('(scene_'):
@@ -233,7 +238,8 @@ class PromptGenerator:
                             if os.path.exists(scene_image_path) or not USE_SCENE_IMAGE:
                                 scenes.append({
                                     'scene_number': scene_number,
-                                    'dialogue': dialogue,
+                                    'dialogue': dialogue_text,  # Store just the dialogue text (without speaker tag)
+                                    'speaker': speaker,  # Store speaker separately
                                     'scene_content': scene_content,
                                     'image_path': scene_image_path if os.path.exists(scene_image_path) else None,
                                     'original_scene_line': scene_line
@@ -257,9 +263,13 @@ class PromptGenerator:
         """Build the raw input prompt from scene, dialogue, and optional data"""
         parts = []
         
-        # Add dialogue
-        if scene.get('dialogue'):
-            parts.append(f"DIALOGUE: {scene['dialogue']}")
+        # Add dialogue (with speaker if available)
+        if USE_DIALOGUE and scene.get('dialogue'):
+            speaker = scene.get('speaker', '')
+            if speaker:
+                parts.append(f"DIALOGUE: [{speaker}] {scene['dialogue']}")
+            else:
+                parts.append(f"DIALOGUE: {scene['dialogue']}")
         
         # Add scene description
         if scene.get('scene_content'):
@@ -280,9 +290,13 @@ class PromptGenerator:
         
         # Add character information if enabled
         if USE_CHARACTER and characters_data:
-            # Extract character references from dialogue and scene
+            # Extract character references from speaker, dialogue, and scene
             char_refs = set()
+            # Add speaker as character reference
+            if scene.get('speaker'):
+                char_refs.add(scene['speaker'])
             if scene.get('dialogue'):
+                # Dialogue text might still have character references in quotes or elsewhere
                 char_refs.update(re.findall(r'\[([^\]]+)\]', scene['dialogue']))
             if scene.get('scene_content'):
                 char_refs.update(re.findall(r'\(\(([^)]+)\)\)', scene['scene_content']))

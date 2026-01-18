@@ -774,5 +774,18 @@
     "_meta": {
       "title": "FloatToInt"
     }
+  },
+  "3000": {
+    "inputs": {
+      "filename_prefix": "",
+      "images": [
+        "279:245",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
   }
 }

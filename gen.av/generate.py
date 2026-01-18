@@ -70,25 +70,25 @@ SCRIPTS = [
     #Images
     # "../gen.image/scripts/2.character.py",
     # "../gen.image/scripts/2.location.py",
-    "../gen.image/scripts/3.scene.py",
+    # "../gen.image/scripts/3.scene.py",
 
     #Video
     # "../gen.video/scripts/2.motion.py",
-    # "3.av.py",
+    "2.av.py",
 
     #Thumbnail
     # "../gen.audio/scripts/9.media.py",
     # "../gen.audio/scripts/10.thumbnail.py",
 
     # YouTube
-    # "4.video.py",
+    # "3.video.py",
     # "../gen.audio/scripts/11.video.py",
     # "../gen.audio/scripts/12.youtube.py"
 ]
 
 SCRIPTS_DIR = "scripts"
 
-NEEDS_COMFYUI = {"3.av.py", "2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py", "3.animate.py", "2.location.py"}
+NEEDS_COMFYUI = {"2.av.py", "2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py", "3.animate.py", "2.location.py"}
 NEEDS_LMSTUDIO = {"1.character.py", "1.story.py", "2.motion.py", "5.timeline.py", "6.timing.py", "9.media.py"}
 
 # Centralized non-interactive defaults (only change this file)

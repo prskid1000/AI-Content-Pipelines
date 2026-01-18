@@ -1,9 +1,5 @@
 Workflow runner started. Python executable: D:\.comfyui\.venv\Scripts\python.exe
 Working directory: D:\.comfyui\gen.av
 Emptying ComfyUI input and output folders...
-Removed directory: D:\.comfyui\ComfyUI\input\3d
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_2_00001_.png
 Successfully emptied ComfyUI input and output folders.
-Starting ComfyUI backend using Windows cmd style...
-Waiting for ComfyUI to become ready (polling every 15s)...
+ERROR: Script not found: D:\.comfyui\gen.av\scripts\2.av.py

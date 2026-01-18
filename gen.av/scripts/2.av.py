@@ -13,6 +13,7 @@ from typing import List, Dict, Optional, Tuple
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
+ENABLE_DIALOGUE_CHUNKS = True  # Set to True to include dialogue chunks in ComfyUI prompts, False to exclude dialogue
 
 # Video configuration constants
 VIDEO_WIDTH = 1024
@@ -792,7 +793,7 @@ class AVVideoGenerator:
             print(f"ERROR: Failed to copy image {image_path}: {e}")
             return None
 
-    def _build_av_workflow(self, chunk_scene_id: str, scene_description: str, image_filename: str, duration: float = None, motion_data: dict[str, str] = None, frame_count: int = None) -> dict:
+    def _build_av_workflow(self, chunk_scene_id: str, scene_description: str, image_filename: str, duration: float = None, motion_data: dict[str, str] = None, frame_count: int = None, dialogue: str = "") -> dict:
         """Build AV workflow with scene image and description.
         
         Args:
@@ -802,6 +803,7 @@ class AVVideoGenerator:
             duration: Duration of video in seconds
             motion_data: Master prompts for scenes (generated in 2.motion.py)
             frame_count: Number of frames to generate (overrides duration)
+            dialogue: Dialogue text for this chunk (optional, only used if ENABLE_DIALOGUE_CHUNKS is True)
         """
         workflow = self._load_base_workflow()
         if not workflow:
@@ -831,6 +833,16 @@ class AVVideoGenerator:
             positive_prompt = self._get_positive_prompt()
             print_flush("⚠️ No motion data available - using base prompt only")
         
+        # Add dialogue chunk to prompt if enabled
+        if ENABLE_DIALOGUE_CHUNKS and dialogue:
+            if positive_prompt:
+                # Append dialogue to existing prompt
+                positive_prompt = f"{positive_prompt}\n\nDialogue: {dialogue}"
+            else:
+                # Use dialogue as prompt if no motion data
+                positive_prompt = f"Dialogue: {dialogue}"
+            print_flush(f"💬 Added dialogue chunk to prompt: {dialogue[:50]}...")
+        
         # Use provided frame count or calculate from duration
         if frame_count is None:
             if duration is not None:
@@ -839,7 +851,7 @@ class AVVideoGenerator:
                 print(f"Duration is not provided for {chunk_scene_id}")
                 frame_count = 121  # Default fallback
 
-        print_flush(f"Full prompt: {positive_prompt}")
+        print_flush(f"Full prompt: {positive_prompt[:100]}..." if len(positive_prompt) > 100 else f"Full prompt: {positive_prompt}")
         
         # Update workflow nodes for movie.json
         # Node "204" is the text input (PrimitiveStringMultiline) - set to positive prompt
@@ -861,6 +873,10 @@ class AVVideoGenerator:
         # Node "104" is the video output (SaveVideo) - set filename prefix
         if "104" in workflow:
             workflow["104"]["inputs"]["filename_prefix"] = f"video/AV-{chunk_scene_id}"
+        
+        # Node "3000" is the save image (SaveImage) - set filename prefix for frames
+        if "3000" in workflow:
+            workflow["3000"]["inputs"]["filename_prefix"] = f"{chunk_scene_id}_frame"
         
         # Configure LoRA switches (6 switches total)
         # Node "279:286" - Depth Control LoRA switch
@@ -1029,7 +1045,7 @@ class AVVideoGenerator:
                     chunk_description = scene_description_only if scene_description_only else scene_description
                 
                 # Build workflow for this chunk (single image only, no guide images)
-                workflow = self._build_av_workflow(chunk_scene_id, chunk_description, current_input_image, chunk_duration, motion_data, chunk_frames)
+                workflow = self._build_av_workflow(chunk_scene_id, chunk_description, current_input_image, chunk_duration, motion_data, chunk_frames, chunk_dialogue)
                 
                 # Update cumulative time for next chunk
                 cumulative_time += chunk_duration
