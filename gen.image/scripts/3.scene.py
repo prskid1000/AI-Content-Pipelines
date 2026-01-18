@@ -36,7 +36,7 @@ IMAGE_COMPRESSION_QUALITY = 100
 # Note: LATENT_MODE controls whether location images are ALSO used as latent input (separate from grouping)
 
 # HARDCODED CHARACTER MODE - Change this to switch modes
-ACTIVE_CHARACTER_MODE = "IMAGE_TEXT"
+ACTIVE_CHARACTER_MODE = "IMAGE"
 
 # HARDCODED LOCATION MODE - Change this to switch modes
 ACTIVE_LOCATION_MODE = "IMAGE"
@@ -51,7 +51,7 @@ IMAGE_HEIGHT = 800
 
 # Latent Input Mode Configuration
 LATENT_MODE = "IMAGE"  # "LATENT" for normal noise generation, "IMAGE" for load image input
-LATENT_DENOISING_STRENGTH = 0.95  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
+LATENT_DENOISING_STRENGTH = 0.90  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # Image Stitching Configuration (1-5)
 IMAGE_STITCH_COUNT = 3  # Number of images to stitch together in each group
