@@ -807,6 +807,7 @@ CLEANUP_TRACKING_FILES = False
 IMAGE_WIDTH = 1280
 IMAGE_HEIGHT = 720
 CHARACTER_RESIZE_FACTOR = 1  # 100% original size
+LOCATION_RESIZE_FACTOR = 1.0  # Location resize: 1.0 = no resize, 2.0 = double size, 0.5 = half size
 IMAGE_COMPRESSION_QUALITY = 95
 ACTIVE_CHARACTER_MODE = "IMAGE"  # "IMAGE_TEXT", "TEXT", "IMAGE", "NONE"
 ACTIVE_LOCATION_MODE = "TEXT"   # "IMAGE_TEXT", "TEXT", "IMAGE", "NONE"
@@ -1856,6 +1857,7 @@ IMAGE_HEIGHT = 720
 
 # Image Processing
 CHARACTER_RESIZE_FACTOR = 1  # Character resize: 1 = 100% original size
+LOCATION_RESIZE_FACTOR = 1.0  # Location resize: 1.0 = no resize, 2.0 = double size, 0.5 = half size
 IMAGE_COMPRESSION_QUALITY = 95  # JPEG quality: 1-100
 
 # Prompt Handling Modes

@@ -14,9 +14,11 @@ ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 WORKFLOW_SUMMARY_ENABLED = False # Set to True to enable workflow summary printing
 
-# Image resizing configuration (characters only)
+# Image resizing configuration
 # Character image resize factor: 0.125 (12.5% of original size) - Better aspect ratio for stitching
-CHARACTER_RESIZE_FACTOR = 0.5
+CHARACTER_RESIZE_FACTOR = 0.2
+# Location image resize factor: 1.0 = no resize, 2.0 = double size, 0.5 = half size
+LOCATION_RESIZE_FACTOR = 1.0
 
 # Image compression configuration
 # JPEG quality: 1-100 (100 = best quality, larger file; 1 = worst quality, smaller file)
@@ -51,7 +53,7 @@ IMAGE_HEIGHT = 800
 
 # Latent Input Mode Configuration
 LATENT_MODE = "IMAGE"  # "LATENT" for normal noise generation, "IMAGE" for load image input
-LATENT_DENOISING_STRENGTH = 0.95  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
+LATENT_DENOISING_STRENGTH = 0.99  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # Image Stitching Configuration (1-5)
 IMAGE_STITCH_COUNT = 3  # Number of images to stitch together in each group
@@ -875,12 +877,12 @@ class SceneGenerator:
                         elif img.mode != 'RGB':
                             img = img.convert('RGB')
                         
-                        # Resize the image using the resize factor
-                        new_width = int(img.width * CHARACTER_RESIZE_FACTOR)
-                        new_height = int(img.height * CHARACTER_RESIZE_FACTOR)
-                        
-                        # Resize with aspect ratio preserved
-                        img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+                        # Resize the image using the location resize factor (separate from character resize)
+                        if LOCATION_RESIZE_FACTOR != 1.0:
+                            new_width = int(img.width * LOCATION_RESIZE_FACTOR)
+                            new_height = int(img.height * LOCATION_RESIZE_FACTOR)
+                            # Resize with aspect ratio preserved
+                            img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
                         
                         # Save with compression
                         img.save(dest_path, 'JPEG', quality=IMAGE_COMPRESSION_QUALITY, optimize=True)
