@@ -16,7 +16,7 @@ WORKFLOW_SUMMARY_ENABLED = False # Set to True to enable workflow summary printi
 
 # Image resizing configuration (characters only)
 # Character image resize factor: 0.125 (12.5% of original size) - Better aspect ratio for stitching
-CHARACTER_RESIZE_FACTOR = 0.5
+CHARACTER_RESIZE_FACTOR = 0.2
 
 # Image compression configuration
 # JPEG quality: 1-100 (100 = best quality, larger file; 1 = worst quality, smaller file)
@@ -111,11 +111,10 @@ FIXED_SEED = 333555666  # Fixed seed value when USE_RANDOM_SEED is False
 ART_STYLE = "Realistic Anime"
 
 EXTRA_PROMPT_PHRASES = [
-    "Keep both of the character's hands separate and clearly visible. E.g. hands should not overlap, be hidden behind the body, or merge together.",
-    "Include only one character in the scene. E.g. no background characters, crowds, or multiple people visible.",
-    "Character size should be realistic and proportional to other objects and elements in the scene. E.g. if character is sitting on a chair, the character should be in realistic size compared to the chair; if standing next to a door, the character should match the door's height appropriately.",
-    "Character should interact naturally with objects and elements in the scene. E.g. if holding an object, show proper grip; if leaning on a wall, show weight distribution; if near furniture, show appropriate spatial relationship.",
-    "Avoid textual elements. Use logos or icons only when necessary. E.g. no signs with words, no text on clothing, no written labels; company logos or symbols are acceptable when contextually appropriate.",
+    "Keep both of the character's hands separate and clearly visible.",
+    "Include only one character in the scene.",
+    "Character size should be realistic and proportional to other objects and elements in the scene.",
+    "Avoid textual elements. Use logos or icons only when necessary.",
 ]
 
 USE_SUMMARY_TEXT = False  # Set to True to use summary text

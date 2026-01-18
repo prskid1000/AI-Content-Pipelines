@@ -109,11 +109,10 @@ NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, p
 ART_STYLE = "Realistic Anime"
 
 EXTRA_PROMPT_PHRASES = [
-    "Keep both of the character's hands separate and clearly visible. E.g. hands should not overlap, be hidden behind the body, or merge together.",
-    "Include only one character in the scene. E.g. no background characters, crowds, or multiple people visible.",
-    "Character size should be realistic and proportional to other objects and elements in the scene. E.g. if character is sitting on a chair, the character should be in realistic size compared to the chair; if standing next to a door, the character should match the door's height appropriately.",
-    "Character should interact naturally with objects and elements in the scene. E.g. if holding an object, show proper grip; if leaning on a wall, show weight distribution; if near furniture, show appropriate spatial relationship.",
-    "Avoid textual elements. Use logos or icons only when necessary. E.g. no signs with words, no text on clothing, no written labels; company logos or symbols are acceptable when contextually appropriate.",
+    "Keep both of the character's hands separate and clearly visible.",
+    "Include only one character in the scene.",
+    "Character size should be realistic and proportional to other objects and elements in the scene.",
+    "Avoid textual elements. Use logos or icons only when necessary.",
 ]
 
 class ResumableState:
