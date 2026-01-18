@@ -346,7 +346,7 @@ python 2.story.py --disable-resumable
 
 **Purpose**: Generate narrated stories with sound effects and create YouTube-ready videos
 
-**Total Scripts**: 13 scripts | **Resumable**: 5 scripts | **Status**: All Active
+**Total Scripts**: 12 scripts (all listed in `gen.audio/generate.py`)
 
 ### Workflow Overview
 ```
@@ -355,20 +355,22 @@ Story Text → Character Analysis → TTS → Transcription → SFX → Mixing �
 
 ### Complete Script Inventory
 
+All scripts listed in `gen.audio/generate.py`:
+
 | # | Script | Purpose | Input Files | Output Files | Dependencies | Resumable |
 |---|--------|---------|-------------|--------------|--------------|-----------|
-| 1 | `1.character.py` | Character voice assignment & analysis | `1.story.txt`, `voices/` | `2.character.txt` | **LM Studio** | ✅ |
-| 2 | `2.story.py` | Generate main story audio | `1.story.txt`, `2.character.txt` | `story.wav` | **ComfyUI** | ✅ |
-| 3 | `3.transcribe.py` | Audio transcription | `story.wav` | `2.story.srt`, `2.story.str.txt` | Whisper | ✅ |
-| 4 | `4.quality.py` | Transcription quality check | `2.story.str.txt` | Quality report | None | ❌ |
-| 5 | `5.timeline.py` | SFX timeline generation | `2.story.str.txt` | `2.timeline.txt` | **LM Studio** | ✅ |
-| 6 | `6.timing.py` | SFX timing refinement | `2.timeline.txt` | `3.timing.txt` | **LM Studio** | ✅ |
-| 7 | `7.sfx.py` | Generate sound effects | `3.timing.txt` | `sfx.wav` | **ComfyUI** | ✅ |
-| 8 | `8.combine.py` | Mix audio (story + SFX) | `story.wav`, `sfx.wav` | `final.wav` | PyTorch/Torchaudio | ❌ |
-| 9 | `9.media.py` | YouTube metadata & thumbnail | `1.story.txt`, `9.summary.txt` | `10.thumbnail.txt`, `description.txt`, `tags.txt` | **LM Studio** | ❌ |
-| 10 | `10.thumbnail.py` | Generate thumbnail image | `10.thumbnail.txt` | `thumbnail.png` | **ComfyUI** | ❌ |
-| 11 | `11.video.py` | Create final video | `final.wav`, `thumbnail.png` | `final.mp4`, `shorts.v1-v5.mp4` | FFmpeg | ❌ |
-| 12 | `12.youtube.py` | Upload to YouTube | `final.mp4`, `shorts.v1-v5.mp4`, `description.txt`, `tags.txt` | YouTube upload | Google API | ❌ |
+| 1 | `gen.audio/scripts/1.character.py` | Character voice assignment & analysis | `gen.audio/input/1.story.txt`, `gen.audio/input/voices/` | `gen.audio/input/2.character.txt` | **LM Studio** | ✅ |
+| 2 | `gen.audio/scripts/2.story.py` | Generate main story audio | `gen.audio/input/1.story.txt`, `gen.audio/input/2.character.txt` | `gen.audio/output/story.wav` | **ComfyUI** | ✅ |
+| 3 | `gen.audio/scripts/3.transcribe.py` | Audio transcription | `gen.audio/output/story.wav` | `gen.audio/input/2.story.srt`, `gen.audio/input/2.story.str.txt` | Whisper | ✅ |
+| 4 | `gen.audio/scripts/4.quality.py` | Transcription quality check | `gen.audio/input/2.story.str.txt` | Quality report | None | ❌ |
+| 5 | `gen.audio/scripts/5.timeline.py` | SFX timeline generation | `gen.audio/input/2.story.str.txt` | `gen.audio/input/2.timeline.txt` | **LM Studio** | ✅ |
+| 6 | `gen.audio/scripts/6.timing.py` | SFX timing refinement | `gen.audio/input/2.timeline.txt` | `gen.audio/input/3.timing.txt` | **LM Studio** | ✅ |
+| 7 | `gen.audio/scripts/7.sfx.py` | Generate sound effects | `gen.audio/input/3.timing.txt` | `gen.audio/output/sfx.wav` | **ComfyUI** | ✅ |
+| 8 | `gen.audio/scripts/8.combine.py` | Mix audio (story + SFX) | `gen.audio/output/story.wav`, `gen.audio/output/sfx.wav` | `gen.audio/output/final.wav` | PyTorch/Torchaudio | ❌ |
+| 9 | `gen.audio/scripts/9.media.py` | YouTube metadata & thumbnail | `gen.audio/input/1.story.txt`, `gen.audio/input/9.summary.txt` | `gen.audio/input/10.thumbnail.txt`, `gen.audio/output/description.txt`, `gen.audio/output/tags.txt` | **LM Studio** | ❌ |
+| 10 | `gen.audio/scripts/10.thumbnail.py` | Generate thumbnail image | `gen.audio/input/10.thumbnail.txt` | `gen.audio/output/thumbnail.png` | **ComfyUI** | ❌ |
+| 11 | `gen.audio/scripts/11.video.py` | Create final video | `gen.audio/output/final.wav`, `gen.audio/output/thumbnail.png` | `gen.audio/output/final.mp4`, `gen.audio/output/shorts.v1-v5.mp4` | FFmpeg | ❌ |
+| 12 | `gen.audio/scripts/12.youtube.py` | Upload to YouTube | `gen.audio/output/final.mp4`, `gen.audio/output/shorts.v1-v5.mp4`, `gen.audio/output/description.txt`, `gen.audio/output/tags.txt` | YouTube upload | Google API | ❌ |
 
 ### Key Features
 - **Character Voice Assignment**: Automatic gender detection and voice selection with resumable processing
@@ -535,61 +537,61 @@ YOUTUBE_CATEGORY_ID = "22"  # People & Blogs
 
 ```mermaid
 graph TD
-    A[1.story.txt] --> B[1.character.py]
-    B --> C[2.character.txt]
-    B --> D[voices/]
+    A[gen.audio/input/1.story.txt] --> B[gen.audio/scripts/1.character.py]
+    B --> C[gen.audio/input/2.character.txt]
+    B --> D[gen.audio/input/voices/]
     B -.-> E[LM Studio]
     
-    A --> F[2.story.py]
+    A --> F[gen.audio/scripts/2.story.py]
     C --> F
-    F --> G[story.wav]
+    F --> G[gen.audio/output/story.wav]
     F -.-> H[ComfyUI]
     
-    G --> I[3.transcribe.py]
-    I --> J[2.story.srt]
-    I --> K[2.story.str.txt]
+    G --> I[gen.audio/scripts/3.transcribe.py]
+    I --> J[gen.audio/input/2.story.srt]
+    I --> K[gen.audio/input/2.story.str.txt]
     I -.-> L[Whisper]
     
-    K --> M[4.quality.py]
+    K --> M[gen.audio/scripts/4.quality.py]
     M --> N[Quality Report]
     
-    K --> O[5.timeline.py]
-    O --> P[2.timeline.txt]
+    K --> O[gen.audio/scripts/5.timeline.py]
+    O --> P[gen.audio/input/2.timeline.txt]
     O -.-> E
     
-    P --> Q[6.timing.py]
-    Q --> R[3.timing.txt]
+    P --> Q[gen.audio/scripts/6.timing.py]
+    Q --> R[gen.audio/input/3.timing.txt]
     Q -.-> E
     
-    R --> S[7.sfx.py]
-    S --> T[sfx.wav]
+    R --> S[gen.audio/scripts/7.sfx.py]
+    S --> T[gen.audio/output/sfx.wav]
     S -.-> H
     
-    G --> U[8.combine.py]
+    G --> U[gen.audio/scripts/8.combine.py]
     T --> U
-    U --> V[final.wav]
+    U --> V[gen.audio/output/final.wav]
     U -.-> W[PyTorch/Torchaudio]
     
-    A --> X[9.media.py]
-    X --> Y[10.thumbnail.txt]
+    A --> X[gen.audio/scripts/9.media.py]
+    X --> Y[gen.audio/input/10.thumbnail.txt]
     X -.-> E
     
-    Y --> Z[10.thumbnail.py]
-    Z --> AA[thumbnail.png]
+    Y --> Z[gen.audio/scripts/10.thumbnail.py]
+    Z --> AA[gen.audio/output/thumbnail.png]
     Z -.-> H
     
-    V --> BB[11.video.py]
+    V --> BB[gen.audio/scripts/11.video.py]
     AA --> BB
-    BB --> CC[final.mp4]
-    BB --> CC2[shorts.v1-v5.mp4]
+    BB --> CC[gen.audio/output/final.mp4]
+    BB --> CC2[gen.audio/output/shorts.v1-v5.mp4]
     BB -.-> DD[FFmpeg]
     
-    A --> EE[9.media.py]
-    EE --> FF[description.txt]
-    EE --> GG[tags.txt]
+    A --> EE[gen.audio/scripts/9.media.py]
+    EE --> FF[gen.audio/output/description.txt]
+    EE --> GG[gen.audio/output/tags.txt]
     EE -.-> E
     
-    CC --> HH[12.youtube.py]
+    CC --> HH[gen.audio/scripts/12.youtube.py]
     CC2 --> HH
     FF --> HH
     GG --> HH
@@ -612,7 +614,7 @@ graph TD
 
 **Purpose**: Create character portraits, location backgrounds, and scene visualizations from story text
 
-**Total Scripts**: 7 scripts | **Resumable**: 4 scripts | **Status**: Character generation active
+**Total Scripts**: 15 scripts (all listed in `gen.image/generate.py`)
 
 ### Workflow Overview
 ```
@@ -621,15 +623,25 @@ Story Text → Parse Characters/Locations → Generate Images → Combine into S
 
 ### Complete Script Inventory
 
-| # | Script | Purpose | Input Files | Output Files | Dependencies | Resumable |
-|---|--------|---------|-------------|--------------|--------------|-----------|
-| 1 | `1.story.py` | Parse story and extract entities | `1.story.txt`, `9.summary.txt` | `2.character.txt`, `3.character.txt`, `2.location.txt`, `3.location.txt`, `3.scene.txt` | **LM Studio** | ✅ |
-| 2 | `2.character.py` | Generate character portraits | `2.character.txt` | `characters/*.png` | **ComfyUI** | ✅ |
-| 3 | `2.location.py` | Generate location backgrounds | `3.location.txt` | `locations/*.png` | **ComfyUI** | ✅ |
-| 4 | `3.scene.py` | Generate scene compositions | `3.scene.txt`, `characters/*.png`, `locations/*.png` | `scene/*.png` | **ComfyUI** | ✅ |
-| 5 | `4.audio.py` | Process audio timeline for video | `2.timeline.txt`, `1.story.txt`, `3.scene.txt` | `2.timeline.script.txt` | None | ❌ |
-| 6 | `5.video.py` | Create per-scene videos | `scene/*.png`, `2.timeline.script.txt` | `video/*.mp4`, `merged.mp4` | FFmpeg | ❌ |
-| 7 | `6.combine.py` | Merge videos with audio | `merged.mp4`, `final.wav` | `final_sd.mp4` | FFmpeg | ❌ |
+All scripts listed in `gen.image/generate.py`:
+
+| Category | Script | Purpose | Input Files | Output Files | Dependencies | Resumable |
+|----------|--------|---------|-------------|--------------|--------------|-----------|
+| Speech | `gen.image/scripts/1.story.py` | Parse story and extract entities | `gen.image/input/1.story.txt`, `gen.image/input/9.summary.txt` | `gen.image/input/2.character.txt`, `gen.image/input/3.character.txt`, `gen.image/input/2.location.txt`, `gen.image/input/3.location.txt`, `gen.image/input/3.scene.txt` | **LM Studio** | ✅ |
+| Speech | `gen.audio/scripts/1.character.py` | Character generation | Character inputs | Character outputs | **LM Studio** | ✅ |
+| Speech | `gen.audio/scripts/2.story.py` | Story audio generation | `gen.audio/input/1.story.txt`, `gen.audio/input/2.character.txt` | `gen.audio/output/story.wav` | **ComfyUI** | ✅ |
+| Speech | `gen.audio/scripts/3.transcribe.py` | Transcription | Audio inputs | Transcription outputs | **LM Studio** | ❌ |
+| Speech | `gen.audio/scripts/4.quality.py` | Quality processing | Audio inputs | Quality outputs | **ComfyUI** | ❌ |
+| SFX | `gen.image/scripts/4.audio.py` | Process audio timeline for video | `gen.image/input/2.timeline.txt`, `gen.image/input/1.story.txt`, `gen.image/input/3.scene.txt` | `gen.image/input/2.timeline.script.txt` | None | ❌ |
+| SFX | `gen.audio/scripts/5.timeline.py` | Timeline generation | Story inputs | Timeline outputs | **LM Studio** | ✅ |
+| SFX | `gen.audio/scripts/6.timing.py` | Timing processing | Timing inputs | Timing outputs | **LM Studio** | ✅ |
+| SFX | `gen.audio/scripts/7.sfx.py` | SFX generation | SFX inputs | SFX outputs | **ComfyUI** | ✅ |
+| SFX | `gen.audio/scripts/8.combine.py` | Audio combining | Audio inputs | Combined audio | FFmpeg | ❌ |
+| Video | `gen.image/scripts/2.character.py` | Generate character portraits | `gen.image/input/2.character.txt` | `gen.image/output/characters/*.png` | **ComfyUI** | ✅ |
+| Video | `gen.image/scripts/2.location.py` | Generate location backgrounds | `gen.image/input/3.location.txt` | `gen.image/output/locations/*.png` | **ComfyUI** | ✅ |
+| Video | `gen.image/scripts/3.scene.py` | Generate scene compositions | `gen.image/input/3.scene.txt`, `gen.image/output/characters/*.png`, `gen.image/output/locations/*.png` | `gen.image/output/scene/*.png` | **ComfyUI** | ✅ |
+| Thumbnail | `gen.audio/scripts/9.media.py` | Media processing | Media inputs | Media outputs | **ComfyUI** | ❌ |
+| Thumbnail | `gen.audio/scripts/10.thumbnail.py` | Thumbnail generation | Thumbnail inputs | Thumbnail outputs | **ComfyUI** | ❌ |
 
 ### Key Features
 - **LLM Story Parsing**: Extract characters, locations, and scenes from text with resumable processing
@@ -683,42 +695,42 @@ gen.image/
 
 ```mermaid
 graph TD
-    A[1.story.txt] --> B[1.story.py]
-    B --> I[2.character.txt]
-    B --> I2[3.location.txt]
-    B --> J[3.scene.txt]
+    A[gen.image/input/1.story.txt] --> B[gen.image/scripts/1.story.py]
+    B --> I[gen.image/input/2.character.txt]
+    B --> I2[gen.image/input/3.location.txt]
+    B --> J[gen.image/input/3.scene.txt]
     B -.-> H[LM Studio]
     
-    I --> C[2.character.py]
-    C --> M[characters/*.png]
+    I --> C[gen.image/scripts/2.character.py]
+    C --> M[gen.image/output/characters/*.png]
     C -.-> L[ComfyUI]
     
-    I2 --> C2[2.location.py]
-    C2 --> M2[locations/*.png]
+    I2 --> C2[gen.image/scripts/2.location.py]
+    C2 --> M2[gen.image/output/locations/*.png]
     C2 -.-> L
     
-    J --> D[3.scene.py]
+    J --> D[gen.image/scripts/3.scene.py]
     M --> D
     M2 --> D
-    D --> N[scene/*.png]
+    D --> N[gen.image/output/scene/*.png]
     D -.-> L
     
-    K[Audio story processing] --> E[4.audio.py]
-    E --> P[2.timeline.script.txt]
+    K[gen.audio/input/2.timeline.txt] --> E[gen.image/scripts/4.audio.py]
+    E --> P[gen.image/input/2.timeline.script.txt]
     
-    N --> F[5.video.py]
+    N --> F[gen.image/scripts/5.video.py]
     P --> F
-    F --> R[video/*.mp4]
-    F --> S[merged.mp4]
+    F --> R[gen.image/output/video/*.mp4]
+    F --> S[gen.image/output/merged.mp4]
     F -.-> Q[FFmpeg]
     
-    S --> G[6.combine.py]
-    AA[final.wav] --> G
-    G --> T[final_sd.mp4]
+    S --> G[gen.image/scripts/6.combine.py]
+    AA[gen.audio/output/final.wav] --> G
+    G --> T[gen.image/output/final_sd.mp4]
     G -.-> Q
     
-    U[Cross-Pipeline Scripts] --> V[Audio Pipeline Scripts]
-    U --> W[YouTube Scripts]
+    U[Cross-Pipeline Scripts] --> V[gen.audio/scripts/*]
+    U --> W[gen.audio/scripts/9.media.py, 10.thumbnail.py]
     
     style A fill:#e1f5fe
     style H fill:#fff8e1
@@ -845,7 +857,7 @@ LORAS = [
 
 **Purpose**: Create animated videos from static scene images using AI animation models
 
-**Total Scripts**: 4 scripts | **Resumable**: 1 script | **Status**: Animation script active
+**Total Scripts**: 16 scripts (all listed in `gen.video/generate.py`)
 
 ### Workflow Overview
 ```
@@ -854,12 +866,26 @@ Scene Images + Timeline → AI Animation → Combine with Audio → Final Video
 
 ### Complete Script Inventory
 
-| # | Script | Purpose | Input Files | Output Files | Dependencies | Resumable |
-|---|--------|---------|-------------|--------------|--------------|-----------|
-| 1 | `1.story.py` | Parse story structure | `1.story.txt` | Story analysis | **LM Studio** | ❌ |
-| 2 | `2.animate.py` | Animate static scene images | `scene/*.png`, `2.timeline.script.txt` | `animation/*.mp4` | **ComfyUI** | ✅ |
-| 3 | `3.video.py` | Combine animated videos with audio | `animation/*.mp4`, `final.wav` | `final_sd.mp4` | FFmpeg | ❌ |
-| 2 | `2.motion.py` | Generate master prompts for video generation | `1.story.txt`, `scene/*.png` (optional), `2.character.txt` (optional), `2.location.txt` (optional) | `2.motion.txt` | **LM Studio** | ✅ |
+All scripts listed in `gen.video/generate.py`:
+
+| Category | Script | Purpose | Input Files | Output Files | Dependencies | Resumable |
+|----------|--------|---------|-------------|--------------|--------------|-----------|
+| Speech | `gen.video/scripts/1.story.py` | Parse story structure | `gen.video/input/1.story.txt` | Story analysis | **LM Studio** | ❌ |
+| Speech | `gen.image/scripts/1.story.py` | Parse story for image pipeline | `gen.video/input/1.story.txt` | `gen.image/input/1.story.txt` | None | ❌ |
+| Speech | `gen.audio/scripts/1.character.py` | Character generation | Character inputs | Character outputs | **LM Studio** | ✅ |
+| Speech | `gen.audio/scripts/2.story.py` | Story audio generation | `gen.audio/input/1.story.txt`, `gen.audio/input/2.character.txt` | `gen.audio/output/story.wav` | **ComfyUI** | ✅ |
+| Speech | `gen.audio/scripts/3.transcribe.py` | Transcription | Audio inputs | Transcription outputs | **LM Studio** | ❌ |
+| Speech | `gen.audio/scripts/4.quality.py` | Quality processing | Audio inputs | Quality outputs | **ComfyUI** | ❌ |
+| SFX | `gen.image/scripts/4.audio.py` | Audio processing | Audio inputs | Audio outputs | **ComfyUI** | ❌ |
+| SFX | `gen.audio/scripts/5.timeline.py` | Timeline generation | Story inputs | Timeline outputs | **LM Studio** | ✅ |
+| SFX | `gen.audio/scripts/6.timing.py` | Timing processing | Timing inputs | Timing outputs | **LM Studio** | ✅ |
+| SFX | `gen.audio/scripts/7.sfx.py` | SFX generation | SFX inputs | SFX outputs | **ComfyUI** | ✅ |
+| SFX | `gen.audio/scripts/8.combine.py` | Audio combining | Audio inputs | Combined audio | FFmpeg | ❌ |
+| Images | `gen.image/scripts/2.character.py` | Character image generation | Character inputs | `gen.image/output/characters/*.png` | **ComfyUI** | ❌ |
+| Images | `gen.image/scripts/2.location.py` | Location image generation | Location inputs | `gen.image/output/locations/*.png` | **ComfyUI** | ❌ |
+| Images | `gen.image/scripts/3.scene.py` | Scene image generation | Scene inputs | `gen.image/output/scene/*.png` | **ComfyUI** | ❌ |
+| Video | `gen.video/scripts/2.motion.py` (shared) | Generate master prompts for video generation | `gen.video/input/1.story.txt`, `gen.image/output/scene/*.png` (optional), `gen.image/input/2.character.txt` (optional), `gen.image/input/2.location.txt` (optional) | `gen.video/input/2.motion.txt` | **LM Studio** | ✅ |
+| Video | `gen.video/scripts/3.animate.py` | Animate static scene images | `gen.image/output/scene/*.png`, `gen.image/input/2.timeline.script.txt` | `gen.video/output/animation/*.mp4` | **ComfyUI** | ✅ |
 
 ### Key Features
 - **Story Analysis**: Parse and structure story content for animation
@@ -891,18 +917,24 @@ gen.video/
 
 #### Script-Specific Settings
 
-##### `2.animate.py` - Video Animation
+##### `3.animate.py` - Video Animation
 ```python
+# Feature Flags
 ENABLE_RESUMABLE_MODE = True
-CLEANUP_TRACKING_FILES = False
+CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
+WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
+
+# Video Configuration Constants
 VIDEO_WIDTH = 1024
 VIDEO_HEIGHT = 576
 FRAMES_PER_SECOND = 24
-ENABLE_MOTION = True
-ENABLE_SCENE = True
-ENABLE_LOCATION = True
-ART_STYLE = "Anime"
-comfyui_url = "http://127.0.0.1:8188/"
+CHUNK_SIZE = 3  # Maximum seconds per chunk (3 seconds max for video animation)
+
+# Feature flags (moved to 2.motion.py)
+# Note: Master prompts are now generated in 2.motion.py with all features integrated
+
+# ComfyUI URL (default parameter in class, not a constant)
+# comfyui_url = "http://127.0.0.1:8188/"  # Default URL for ComfyUI API
 ```
 
 ##### `3.video.py` - Final Video Compilation
@@ -919,20 +951,20 @@ output_file = "../output/final_sd.mp4"
 **Location**: `gen.video/scripts/2.motion.py` (shared by both video and AV pipelines)
 
 ```python
-# Model Configuration
-MODEL_MOTION_GENERATION = "qwen_qwen3-vl-30b-a3b-instruct"  # Vision model for prompt generation
+# Model Constants for easy switching
+MODEL_MOTION_GENERATION = "qwen_qwen3-vl-30b-a3b-instruct"  # Vision model for motion generation
 
 # Feature Flags
-ENABLE_RESUMABLE_MODE = True
-CLEANUP_TRACKING_FILES = False
+ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
+CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 
 # Prompt Generation Feature Flags
-USE_SCENE_IMAGE = True   # Include scene image in prompt generation
-USE_LOCATION = False     # Include location data from 2.location.txt or 3.location.txt
-USE_CHARACTER = False    # Include character data from 2.character.txt or 3.character.txt
-USE_SUMMARY_TEXT = False # Use summary text files (3.*.txt) instead of 2.*.txt
+USE_SCENE_IMAGE = True  # Set to True to include scene image in prompt generation
+USE_LOCATION = False  # Set to True to include location data from 3.location.txt
+USE_CHARACTER = False  # Set to True to include character data from 2.character.txt
+USE_SUMMARY_TEXT = False  # Set to True to use summary text files (3.character.txt, 3.location.txt) instead of 2.character.txt, 2.location.txt
 
-# File Paths
+# File Paths (relative to script location)
 input_file = "../input/1.story.txt"
 output_file = "../input/2.motion.txt"  # Configurable via --output argument
 scene_image_base_path = "../../gen.image/output/scene"
@@ -954,31 +986,37 @@ checkpoint_dir = "../output/tracking"
 
 ```mermaid
 graph TD
-    A[1.story.txt] --> B[1.story.py]
+    A[gen.video/input/1.story.txt] --> B[gen.video/scripts/1.story.py]
     B --> C[Story Analysis]
     B -.-> D[LM Studio]
     
-    E[gen.image/output/scene/*.png] --> F[2.animate.py]
-    G[2.timeline.script.txt] --> F
-    F --> H[animation/*.mp4]
+    E[gen.image/output/scene/*.png] --> F[gen.video/scripts/3.animate.py]
+    G[gen.image/input/2.timeline.script.txt] --> F
+    F --> H[gen.video/output/animation/*.mp4]
     F -.-> I[ComfyUI Animation]
     
-    H --> J[3.video.py]
+    H --> J[gen.video/scripts/3.video.py]
     K[gen.audio/output/final.wav] --> J
-    J --> L[final_sd.mp4]
+    J --> L[gen.video/output/final_sd.mp4]
     J -.-> M[FFmpeg]
     
-    N[Cross-Pipeline Integration] --> O[Image Pipeline]
-    N --> P[Audio Pipeline]
+    A --> N[gen.video/scripts/2.motion.py]
+    E --> N
+    N --> O[gen.video/input/2.motion.txt]
+    N -.-> D
+    
+    P[Cross-Pipeline Integration] --> Q[Image Pipeline]
+    P --> R[Audio Pipeline]
     
     style A fill:#e1f5fe
     style D fill:#fff8e1
     style I fill:#f3e5f5
     style M fill:#e0f2f1
     style K fill:#e8f5e8
-    style N fill:#ffebee
-    style O fill:#ffebee
     style P fill:#ffebee
+    style Q fill:#ffebee
+    style R fill:#ffebee
+    style N fill:#fff3e0
 ``` 
 
 ---
@@ -987,7 +1025,7 @@ graph TD
 
 **Purpose**: Create audio-visual videos with built-in audio generation from story text and scene images
 
-**Total Scripts**: 4 scripts | **Resumable**: 2 scripts | **Status**: AV video generation active
+**Total Scripts**: 13 scripts (all listed in `gen.av/generate.py`) | **Resumable**: 2 scripts
 
 ### Workflow Overview
 ```
@@ -998,12 +1036,23 @@ Story Text → Scene Images → Motion Descriptions → AV Video Generation → 
 
 ### Complete Script Inventory
 
-| # | Script | Purpose | Input Files | Output Files | Dependencies | Resumable |
-|---|--------|---------|-------------|--------------|--------------|-----------|
-| 1 | `1.story.py` | Parse story for image pipeline | `1.story.txt` | `gen.image/input/1.story.txt` | None | ❌ |
-| 2 | `2.motion.py` | Generate master prompts for video generation | `1.story.txt`, `scene/*.png` (optional), `2.character.txt` (optional), `2.location.txt` (optional) | `2.motion.txt` | **LM Studio** | ✅ |
-| 3 | `3.av.py` | Generate AV videos with built-in audio | `1.story.txt`, `scene/*.png`, `2.motion.txt` (master prompts) | `scene_*.mp4` | **ComfyUI** | ✅ |
-| 4 | `4.video.py` | Combine scene videos | `scene_*.mp4` | `final.mp4` | FFmpeg | ❌ |
+All scripts listed in `gen.av/generate.py`:
+
+| Category | Script | Purpose | Input Files | Output Files | Dependencies | Resumable |
+|----------|--------|---------|-------------|--------------|--------------|-----------|
+| Story | `gen.av/scripts/1.story.py` | Parse story for image pipeline | `gen.av/input/1.story.txt` | `gen.image/input/1.story.txt` | None | ❌ |
+| Story | `gen.image/scripts/1.story.py` | Parse story for image pipeline | `gen.av/input/1.story.txt` | `gen.image/input/1.story.txt` | None | ❌ |
+| Story | `gen.audio/scripts/1.character.py` | Character generation | Character inputs | Character outputs | **LM Studio** | ✅ |
+| Images | `gen.image/scripts/2.character.py` | Character image generation | Character inputs | `gen.image/output/characters/*.png` | **ComfyUI** | ❌ |
+| Images | `gen.image/scripts/2.location.py` | Location image generation | Location inputs | `gen.image/output/locations/*.png` | **ComfyUI** | ❌ |
+| Images | `gen.image/scripts/3.scene.py` | Scene image generation | Scene inputs | `gen.image/output/scene/*.png` | **ComfyUI** | ❌ |
+| Video | `gen.video/scripts/2.motion.py` (shared) | Generate master prompts for video generation | `gen.av/input/1.story.txt`, `gen.image/output/scene/*.png` (optional), `gen.image/input/2.character.txt` (optional), `gen.image/input/2.location.txt` (optional) | `gen.av/input/2.motion.txt` | **LM Studio** | ✅ |
+| Video | `gen.av/scripts/3.av.py` | Generate AV videos with built-in audio | `gen.av/input/1.story.txt`, `gen.image/output/scene/*.png`, `gen.av/input/2.motion.txt` (master prompts) | `gen.av/output/scene_*.mp4` | **ComfyUI** | ✅ |
+| Thumbnail | `gen.audio/scripts/9.media.py` | Media processing | Media inputs | Media outputs | **ComfyUI** | ❌ |
+| Thumbnail | `gen.audio/scripts/10.thumbnail.py` | Thumbnail generation | Thumbnail inputs | Thumbnail outputs | **ComfyUI** | ❌ |
+| YouTube | `gen.av/scripts/4.video.py` | Combine scene videos | `gen.av/output/scene_*.mp4` | `gen.av/output/final.mp4` | FFmpeg | ❌ |
+| YouTube | `gen.audio/scripts/11.video.py` | Video processing | Video inputs | Video outputs | FFmpeg | ❌ |
+| YouTube | `gen.audio/scripts/12.youtube.py` | YouTube upload | Video file | YouTube upload | YouTube API | ❌ |
 
 ### Key Features
 - **Built-in Audio**: Videos include audio generated directly by the workflow (no separate audio pipeline needed)
@@ -1080,25 +1129,30 @@ scene_image_base_path = "../../gen.image/output/scene"
 ```python
 # Feature Flags
 ENABLE_RESUMABLE_MODE = True
-CLEANUP_TRACKING_FILES = False
-# Note: Feature flags for scene/location/character are now in 2.motion.py
+CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
+WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 
-# Video Configuration
+# Feature flags (moved to 2.motion.py)
+# Note: Master prompts are now generated in 2.motion.py with all features integrated
+
+# Video Configuration Constants
 VIDEO_WIDTH = 1024
 VIDEO_HEIGHT = 576
 FRAMES_PER_SECOND = 24
-CHUNK_SIZE = 5  # Maximum seconds per chunk
+CHUNK_SIZE = 5  # Maximum seconds per chunk (5 seconds max for AV)
 
 # Duration Calculation
-WORDS_TO_SPEECH_RATIO = 0.15  # seconds per word
+# Words to speech ratio: seconds per word
+WORDS_TO_SPEECH_RATIO = 0.15  # 0.15 seconds per word (approximately 6.67 words per second)
 
-# LoRA Switch Configuration
-ENABLE_SWITCH_279_286 = True   # Depth-control LoRA
-ENABLE_SWITCH_279_288 = True   # Canny-control LoRA
-ENABLE_SWITCH_279_289 = True   # Pose-control LoRA
-ENABLE_SWITCH_279_290 = True   # Detailer LoRA
-ENABLE_SWITCH_279_291 = True   # First CFGGuider
-ENABLE_SWITCH_279_292 = True   # Second CFGGuider
+# LoRA Switch Configuration (controls LoRA chain in movie.json workflow)
+# Each switch controls a specific part of the LoRA chain
+ENABLE_SWITCH_279_286 = True   # Node 279:286 - Controls depth-control LoRA (ltx-2-19b-ic-lora-depth-control.safetensors)
+ENABLE_SWITCH_279_288 = True   # Node 279:288 - Controls canny-control LoRA (ltx-2-19b-ic-lora-canny-control.safetensors)
+ENABLE_SWITCH_279_289 = True   # Node 279:289 - Controls pose-control LoRA (ltx-2-19b-ic-lora-pose-control.safetensors)
+ENABLE_SWITCH_279_290 = True   # Node 279:290 - Controls detailer LoRA (ltx-2-19b-ic-lora-detailer.safetensors)
+ENABLE_SWITCH_279_291 = True   # Node 279:291 - Final switch for first CFGGuider (279:239)
+ENABLE_SWITCH_279_292 = True   # Node 279:292 - Final switch for second CFGGuider (279:252)
 
 # File Paths
 story_file = "../input/1.story.txt"
@@ -1120,25 +1174,25 @@ final_video = "../output/final.mp4"
 
 ```mermaid
 graph TD
-    A[1.story.txt] --> B[1.story.py]
+    A[gen.av/input/1.story.txt] --> B[gen.av/scripts/1.story.py]
     B --> C[gen.image/input/1.story.txt]
     B -.-> D[Image Pipeline]
     
-    A --> E[2.motion.py]
+    A --> E[gen.video/scripts/2.motion.py]
     F[gen.image/output/scene/*.png] --> E
-    L[2.character.txt] --> E
-    K[2.location.txt] --> E
-    E --> G[2.motion.txt]
+    L[gen.image/input/2.character.txt] --> E
+    K[gen.image/input/2.location.txt] --> E
+    E --> G[gen.av/input/2.motion.txt]
     E -.-> H[LM Studio Vision Model]
     
-    A --> I[3.av.py]
+    A --> I[gen.av/scripts/3.av.py]
     F --> I
     G --> I
-    I --> L[scene_*.mp4 with audio]
+    I --> L2[gen.av/output/scene_*.mp4 with audio]
     I -.-> M[ComfyUI movie.json]
     
-    L --> N[4.video.py]
-    N --> O[final.mp4]
+    L2 --> N[gen.av/scripts/4.video.py]
+    N --> O[gen.av/output/final.mp4]
     N -.-> P[FFmpeg]
     
     style A fill:#e1f5fe
@@ -1146,7 +1200,8 @@ graph TD
     style M fill:#f3e5f5
     style P fill:#e0f2f1
     style D fill:#ffebee
-    style L fill:#e8f5e8
+    style L2 fill:#e8f5e8
+    style E fill:#fff3e0
 ```
 
 ### Differences from Video Pipeline
@@ -2745,46 +2800,59 @@ The orchestrator scripts automatically manage service dependencies with intellig
 
 | Script | Input Files | Output Files | Intermediate Files |
 |--------|-------------|--------------|-------------------|
-| `1.character.py` | `1.story.txt`, `voices/` | `2.character.txt` | Character analysis, voice assignments |
-| `2.story.py` | `1.story.txt`, `2.character.txt` | `story.wav` | TTS generation logs |
-| `3.transcribe.py` | `story.wav` | `2.story.srt`, `2.story.str.txt` | Whisper transcription |
-| `4.quality.py` | `2.story.str.txt` | Quality report | Quality metrics |
-| `5.timeline.py` | `2.story.str.txt` | `2.timeline.txt` | Timeline analysis |
-| `6.timing.py` | `2.timeline.txt` | `3.timing.txt` | SFX timing refinement |
-| `7.sfx.py` | `3.timing.txt` | `sfx.wav` | SFX generation logs |
-| `8.combine.py` | `story.wav`, `sfx.wav` | `final.wav` | Audio mixing logs |
-| `9.media.py` | `1.story.txt`, `9.summary.txt` | `10.thumbnail.txt`, `description.txt`, `tags.txt` | YouTube metadata & thumbnail description |
-| `10.thumbnail.py` | `10.thumbnail.txt` | `thumbnail.png` | Image generation logs |
-| `11.video.py` | `final.wav`, `thumbnail.png` | `final.mp4`, `shorts.v1-v5.mp4` | Video compilation logs |
-| `12.youtube.py` | `final.mp4`, `shorts.v1-v5.mp4`, `description.txt`, `tags.txt` | YouTube upload | Upload logs |
+| `gen.audio/scripts/1.character.py` | `gen.audio/input/1.story.txt`, `gen.audio/input/voices/` | `gen.audio/input/2.character.txt` | Character analysis, voice assignments |
+| `gen.audio/scripts/2.story.py` | `gen.audio/input/1.story.txt`, `gen.audio/input/2.character.txt` | `gen.audio/output/story.wav` | TTS generation logs |
+| `gen.audio/scripts/3.transcribe.py` | `gen.audio/output/story.wav` | `gen.audio/input/2.story.srt`, `gen.audio/input/2.story.str.txt` | Whisper transcription |
+| `gen.audio/scripts/4.quality.py` | `gen.audio/input/2.story.str.txt` | Quality report | Quality metrics |
+| `gen.audio/scripts/5.timeline.py` | `gen.audio/input/2.story.str.txt` | `gen.audio/input/2.timeline.txt` | Timeline analysis |
+| `gen.audio/scripts/6.timing.py` | `gen.audio/input/2.timeline.txt` | `gen.audio/input/3.timing.txt` | SFX timing refinement |
+| `gen.audio/scripts/7.sfx.py` | `gen.audio/input/3.timing.txt` | `gen.audio/output/sfx.wav` | SFX generation logs |
+| `gen.audio/scripts/8.combine.py` | `gen.audio/output/story.wav`, `gen.audio/output/sfx.wav` | `gen.audio/output/final.wav` | Audio mixing logs |
+| `gen.audio/scripts/9.media.py` | `gen.audio/input/1.story.txt`, `gen.audio/input/9.summary.txt` | `gen.audio/input/10.thumbnail.txt`, `gen.audio/output/description.txt`, `gen.audio/output/tags.txt` | YouTube metadata & thumbnail description |
+| `gen.audio/scripts/10.thumbnail.py` | `gen.audio/input/10.thumbnail.txt` | `gen.audio/output/thumbnail.png` | Image generation logs |
+| `gen.audio/scripts/11.video.py` | `gen.audio/output/final.wav`, `gen.audio/output/thumbnail.png` | `gen.audio/output/final.mp4`, `gen.audio/output/shorts.v1-v5.mp4` | Video compilation logs |
+| `gen.audio/scripts/12.youtube.py` | `gen.audio/output/final.mp4`, `gen.audio/output/shorts.v1-v5.mp4`, `gen.audio/output/description.txt`, `gen.audio/output/tags.txt` | YouTube upload | Upload logs |
 
 ### Image Pipeline File Flow
 
 | Script | Input Files | Output Files | Intermediate Files |
 |--------|-------------|--------------|-------------------|
-| `1.story.py` | `1.story.txt`, `9.summary.txt` | `2.character.txt`, `3.scene.txt` | Story parsing logs |
-| `2.character.py` | `2.character.txt` | `characters/*.png` | Character generation logs |
-| `3.scene.py` | `3.scene.txt`, `2.character.txt`, `characters/*.png` | `scene/*.png` | Scene generation logs |
-| `4.audio.py` | `2.timeline.txt`, `1.story.txt`, `3.scene.txt` | `2.timeline.script.txt` | Timeline processing logs |
-| `5.video.py` | `scene/*.png`, `2.timeline.script.txt` | `video/*.mp4`, `merged.mp4` | Video compilation logs |
-| `6.combine.py` | `merged.mp4`, `final.wav` | `final_sd.mp4` | Video merging logs |
+| `gen.image/scripts/1.story.py` | `gen.image/input/1.story.txt`, `gen.image/input/9.summary.txt` | `gen.image/input/2.character.txt`, `gen.image/input/3.character.txt`, `gen.image/input/2.location.txt`, `gen.image/input/3.location.txt`, `gen.image/input/3.scene.txt` | Story parsing logs |
+| `gen.image/scripts/2.character.py` | `gen.image/input/2.character.txt` | `gen.image/output/characters/*.png` | Character generation logs |
+| `gen.image/scripts/2.location.py` | `gen.image/input/3.location.txt` | `gen.image/output/locations/*.png` | Location generation logs |
+| `gen.image/scripts/3.scene.py` | `gen.image/input/3.scene.txt`, `gen.image/output/characters/*.png`, `gen.image/output/locations/*.png` | `gen.image/output/scene/*.png` | Scene generation logs |
+| `gen.image/scripts/4.audio.py` | `gen.audio/input/2.timeline.txt`, `gen.image/input/1.story.txt`, `gen.image/input/3.scene.txt` | `gen.image/input/2.timeline.script.txt` | Timeline processing logs |
+| `gen.image/scripts/5.video.py` | `gen.image/output/scene/*.png`, `gen.image/input/2.timeline.script.txt` | `gen.image/output/video/*.mp4`, `gen.image/output/merged.mp4` | Video compilation logs |
+| `gen.image/scripts/6.combine.py` | `gen.image/output/merged.mp4`, `gen.audio/output/final.wav` | `gen.image/output/final_sd.mp4` | Video merging logs |
 
 ### Video Pipeline File Flow
 
 | Script | Input Files | Output Files | Intermediate Files |
 |--------|-------------|--------------|-------------------|
-| `1.story.py` | `1.story.txt` | Story analysis | Story structure logs |
-| `2.animate.py` | `gen.image/output/scene/*.png`, `2.timeline.script.txt` | `animation/*.mp4` | Animation generation logs |
-| `3.video.py` | `animation/*.mp4`, `gen.audio/output/final.wav` | `final_sd.mp4` | Video compilation logs |
+| `gen.video/scripts/1.story.py` | `gen.video/input/1.story.txt` | Story analysis | Story structure logs |
+| `gen.video/scripts/2.motion.py` (shared) | `gen.video/input/1.story.txt`, `gen.image/output/scene/*.png` (optional), `gen.image/input/2.character.txt` (optional), `gen.image/input/2.location.txt` (optional) | `gen.video/input/2.motion.txt` | Master prompt generation logs |
+| `gen.video/scripts/3.animate.py` | `gen.image/output/scene/*.png`, `gen.image/input/2.timeline.script.txt` | `gen.video/output/animation/*.mp4` | Animation generation logs |
+| `gen.video/scripts/3.video.py` | `gen.video/output/animation/*.mp4`, `gen.audio/output/final.wav` | `gen.video/output/final_sd.mp4` | Video compilation logs |
 
 ### AV Pipeline File Flow
 
+All scripts listed in `gen.av/generate.py`:
+
 | Script | Input Files | Output Files | Intermediate Files |
 |--------|-------------|--------------|-------------------|
-| `1.story.py` | `1.story.txt` | `gen.image/input/1.story.txt` | Story parsing logs |
-| `2.motion.py` | `1.story.txt`, `gen.image/output/scene/*.png` (optional), `2.character.txt` (optional), `2.location.txt` (optional) | `2.motion.txt` | Master prompt generation logs |
-| `3.av.py` | `1.story.txt`, `gen.image/output/scene/*.png`, `2.motion.txt` (master prompts) | `scene_*.mp4` (with built-in audio) | AV video generation logs, frames |
-| `4.video.py` | `scene_*.mp4` | `final.mp4` | Video compilation logs |
+| `gen.av/scripts/1.story.py` | `gen.av/input/1.story.txt` | `gen.image/input/1.story.txt` | Story parsing logs |
+| `gen.image/scripts/1.story.py` | `gen.av/input/1.story.txt` | `gen.image/input/1.story.txt` | Story parsing logs |
+| `gen.audio/scripts/1.character.py` | Character inputs | Character outputs | Character generation logs |
+| `gen.image/scripts/2.character.py` | Character inputs | `gen.image/output/characters/*.png` | Character generation logs |
+| `gen.image/scripts/2.location.py` | Location inputs | `gen.image/output/locations/*.png` | Location generation logs |
+| `gen.image/scripts/3.scene.py` | Scene inputs | `gen.image/output/scene/*.png` | Scene generation logs |
+| `gen.video/scripts/2.motion.py` (shared) | `gen.av/input/1.story.txt`, `gen.image/output/scene/*.png` (optional), `gen.image/input/2.character.txt` (optional), `gen.image/input/2.location.txt` (optional) | `gen.av/input/2.motion.txt` | Master prompt generation logs |
+| `gen.av/scripts/3.av.py` | `gen.av/input/1.story.txt`, `gen.image/output/scene/*.png`, `gen.av/input/2.motion.txt` (master prompts) | `gen.av/output/scene_*.mp4` (with built-in audio) | AV video generation logs, frames |
+| `gen.audio/scripts/9.media.py` | Media inputs | Media outputs | Media processing logs |
+| `gen.audio/scripts/10.thumbnail.py` | Thumbnail inputs | Thumbnail outputs | Thumbnail generation logs |
+| `gen.av/scripts/4.video.py` | `gen.av/output/scene_*.mp4` | `gen.av/output/final.mp4` | Video compilation logs |
+| `gen.audio/scripts/11.video.py` | Video inputs | Video outputs | Video processing logs |
+| `gen.audio/scripts/12.youtube.py` | Video file | YouTube upload | YouTube upload logs |
 
 ### Cross-Pipeline File Dependencies
 
@@ -3152,40 +3220,36 @@ This is a modular system designed for easy extension. Each script is self-contai
 ### Active Pipeline Scripts (December 2024)
 
 #### Audio Pipeline (`gen.audio/generate.py`)
-- **Total Scripts**: 13 scripts (all available, currently all commented out)
-- **Active Scripts**: None (all scripts commented out - empty pipeline)
+- **Total Scripts**: 12 scripts (all listed in `gen.audio/generate.py`)
 - **Resumable Scripts**: 5 scripts (`1.character.py`, `2.story.py`, `5.timeline.py`, `6.timing.py`, `7.sfx.py`)
 - **Requires ComfyUI**: 3 scripts (`2.story.py`, `7.sfx.py`, `10.thumbnail.py`)
 - **Requires LM Studio**: 5 scripts (`1.character.py`, `5.timeline.py`, `6.timing.py`, `9.media.py`, `12.youtube.py`)
 - **New Features**: YouTube Shorts generation, enhanced metadata creation, story summary integration
 
 #### Image Pipeline (`gen.image/generate.py`)
-- **Total Scripts**: 7 scripts (6 generation + 1 cross-pipeline script)
-- **Active Scripts**: None (all scripts commented out - empty pipeline)
-- **Available Scripts**: `1.story.py`, `2.character.py`, `2.location.py`, `3.scene.py`, `4.audio.py`, `5.video.py`, `6.combine.py`
+- **Total Scripts**: 15 scripts (all listed in `gen.image/generate.py`)
 - **Resumable Scripts**: 4 scripts (`1.story.py`, `2.character.py`, `2.location.py`, `3.scene.py`)
 - **Requires ComfyUI**: 4 scripts (`2.character.py`, `2.location.py`, `3.scene.py`)
 - **Requires LM Studio**: 1 script (`1.story.py`)
 - **New Features**: Location background generation, extensive LoRA processing, latent input modes
+- **Cross-folder References**: Includes scripts from `gen.audio/scripts/`
 
 #### Video Pipeline (`gen.video/generate.py`)
-- **Total Scripts**: 4 scripts
-- **Active Scripts**: 1 script (`3.animate.py` - video animation only)
-- **Available Scripts**: `1.story.py`, `2.motion.py`, `3.animate.py`, `4.video.py`
-- **Shared Script**: `2.motion.py` is also used by AV pipeline with configurable output path
+- **Total Scripts**: 16 scripts (all listed in `gen.video/generate.py`)
+- **Shared Script**: `gen.video/scripts/2.motion.py` is also used by AV pipeline with configurable output path
 - **Resumable Scripts**: 2 scripts (`2.motion.py`, `3.animate.py`)
 - **Requires ComfyUI**: 1 script (`3.animate.py`)
 - **Requires LM Studio**: 1 script (`2.motion.py`)
+- **Cross-folder References**: Includes scripts from `gen.image/scripts/`, `gen.audio/scripts/`
 
 #### AV Pipeline (`gen.av/generate.py`)
-- **Total Scripts**: 3 scripts + 1 shared script
-- **Active Scripts**: None (all scripts commented out - empty pipeline)
-- **Available Scripts**: `1.story.py`, `3.av.py`, `4.video.py`
-- **Shared Script**: `2.motion.py` (located in `gen.video/scripts/`, used by both video and AV pipelines)
+- **Total Scripts**: 13 scripts (all listed in `gen.av/generate.py`)
+- **Shared Script**: `gen.video/scripts/2.motion.py` (located in `gen.video/scripts/`, used by both video and AV pipelines)
 - **Resumable Scripts**: 2 scripts (`2.motion.py` from video folder, `3.av.py`)
 - **Requires ComfyUI**: 1 script (`3.av.py`)
-- **Requires LM Studio**: 2 scripts (`1.story.py`, `2.motion.py` from video folder)
+- **Requires LM Studio**: 1 script (`2.motion.py` from video folder)
 - **New Features**: Built-in audio generation, dialogue-based duration calculation, 5-second chunking, configurable LoRA switches
+- **Cross-folder References**: Includes scripts from `gen.image/scripts/`, `gen.audio/scripts/`, `gen.video/scripts/`
 
 ### Key Features & Capabilities
 

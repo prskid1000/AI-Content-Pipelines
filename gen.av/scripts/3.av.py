@@ -477,10 +477,30 @@ class AVVideoGenerator:
             
             if scene_name not in combined_scenes:
                 # First occurrence of this scene
+                # Extract dialogue and scene description separately
+                full_description = scene.get("description", "")
+                dialogue = scene.get("dialogue", "")
+                speaker = scene.get("speaker", "")
+                
+                # Split description into dialogue and scene description if needed
+                if dialogue and full_description.startswith(dialogue):
+                    scene_description = full_description[len(dialogue):].lstrip('\n')
+                else:
+                    # Try to extract from description format: "dialogue\nscene_description"
+                    parts = full_description.split('\n', 1)
+                    if len(parts) == 2:
+                        dialogue = parts[0] if not dialogue else dialogue
+                        scene_description = parts[1]
+                    else:
+                        scene_description = full_description
+                
                 combined_scenes[scene_name] = {
                     "scene_name": scene_name,
                     "scene_id": scene.get("scene_id", scene_name),
-                    "description": scene.get("description", ""),
+                    "description": full_description,
+                    "dialogue": dialogue,
+                    "speaker": speaker,
+                    "scene_description": scene_description,  # Store scene description separately
                     "total_duration": duration,
                     "first_occurrence": i,
                     "occurrences": [i]
@@ -488,6 +508,8 @@ class AVVideoGenerator:
                 scene_order.append(scene_name)
             else:
                 # Additional occurrence - add to total duration
+                # For combined scenes, we keep the dialogue from first occurrence
+                # but accumulate duration (dialogue duration is already included in first occurrence)
                 combined_scenes[scene_name]["total_duration"] += duration
                 combined_scenes[scene_name]["occurrences"].append(i)
         
@@ -504,31 +526,83 @@ class AVVideoGenerator:
         """Calculate number of frames based on duration and frame rate."""
         return max(1, int(duration * FRAMES_PER_SECOND))
     
-    def _calculate_video_chunks(self, duration: float) -> List[Tuple[str, int]]:
+    def _calculate_video_chunks(self, duration: float) -> List[Tuple[str, int, float]]:
         """Calculate video chunks for long durations.
         
         Returns:
-            List of (chunk_filename, frame_count) tuples
+            List of (chunk_filename, frame_count, chunk_duration) tuples
         """
         total_frames = self._calculate_frame_count(duration)
         max_frames_per_chunk = CHUNK_SIZE * FRAMES_PER_SECOND + 1
         
         if total_frames <= max_frames_per_chunk:
             # Single video
-            return [("", total_frames)]
+            return [("", total_frames, duration)]
         
         # Multiple chunks needed
         chunks = []
         remaining_frames = total_frames
         chunk_number = 1
+        frame_duration = 1.0 / FRAMES_PER_SECOND
         
         while remaining_frames > 0:
             chunk_frames = min(remaining_frames, max_frames_per_chunk)
-            chunks.append((f"_{chunk_number}", chunk_frames))
+            chunk_duration = chunk_frames * frame_duration
+            chunks.append((f"_{chunk_number}", chunk_frames, chunk_duration))
             remaining_frames -= chunk_frames
             chunk_number += 1
         
         return chunks
+    
+    def _split_dialogue_for_chunk(self, dialogue: str, chunk_duration: float, total_duration: float, chunk_start_time: float = 0.0) -> str:
+        """Split dialogue proportionally for a specific chunk based on time.
+        
+        Args:
+            dialogue: Full dialogue text
+            chunk_duration: Duration of this chunk in seconds
+            total_duration: Total duration of the scene in seconds
+            chunk_start_time: Start time of this chunk within the total duration (for multi-chunk scenes)
+        
+        Returns:
+            Portion of dialogue text that corresponds to this chunk's duration
+        """
+        if not dialogue or total_duration <= 0:
+            return dialogue
+        
+        # If chunk duration equals or exceeds total duration, return full dialogue
+        if chunk_duration >= total_duration:
+            return dialogue
+        
+        # Calculate how many words should be in this chunk
+        words = dialogue.split()
+        total_words = len(words)
+        
+        if total_words == 0:
+            return dialogue
+        
+        # Calculate word ratio for this chunk
+        chunk_ratio = chunk_duration / total_duration
+        
+        # Calculate start and end word indices for this chunk
+        start_word_idx = int(chunk_start_time / total_duration * total_words)
+        end_word_idx = int((chunk_start_time + chunk_duration) / total_duration * total_words)
+        
+        # Ensure we don't go out of bounds
+        start_word_idx = max(0, min(start_word_idx, total_words))
+        end_word_idx = max(start_word_idx, min(end_word_idx, total_words))
+        
+        # Extract words for this chunk
+        chunk_words = words[start_word_idx:end_word_idx]
+        
+        # Reconstruct dialogue text (preserve original spacing if possible)
+        if chunk_words:
+            chunk_dialogue = ' '.join(chunk_words)
+            # Try to preserve punctuation and formatting
+            # If the original dialogue had line breaks, we might lose them, but that's acceptable
+            return chunk_dialogue
+        else:
+            # Fallback: return empty or first few words
+            return ' '.join(words[:max(1, int(chunk_ratio * total_words))])
 
     def _copy_saved_frames_to_output(self, chunk_scene_id: str) -> None:
         """Copy saved frames from ComfyUI output to output/frames directory with proper naming.
@@ -822,8 +896,18 @@ class AVVideoGenerator:
             return chunk_scene_id[6:]  # Remove "scene_" (6 chars)
         return chunk_scene_id
 
-    def _generate_video(self, scene_id: str, scene_description: str, image_path: str, duration: float = None, motion_data: dict[str, str] = None, resumable_state=None) -> List[str] | None:
+    def _generate_video(self, scene_id: str, scene_description: str, image_path: str, duration: float = None, motion_data: dict[str, str] = None, resumable_state=None, dialogue: str = "", scene_description_only: str = "") -> List[str] | None:
         """Generate video(s) from a scene image using ComfyUI with frame continuity between chunks.
+        
+        Args:
+            scene_id: Scene identifier
+            scene_description: Full scene description (for logging/display)
+            image_path: Path to scene image
+            duration: Total duration of the scene
+            motion_data: Motion data for prompts
+            resumable_state: Resumable state manager
+            dialogue: Dialogue text (will be split across chunks)
+            scene_description_only: Scene description without dialogue (used for all chunks)
         
         Returns:
             List of generated video file paths, or None if failed
@@ -848,8 +932,13 @@ class AVVideoGenerator:
                 frame_count = self._calculate_frame_count(duration)
                 print(f"Duration: {duration:.2f}s, Frames: {frame_count}")
             
-            # Calculate video chunks
-            chunks = self._calculate_video_chunks(duration) if duration else [("", 97)]
+            # Calculate video chunks (now returns chunk_duration as well)
+            if duration:
+                chunks = self._calculate_video_chunks(duration)
+            else:
+                # Default: single chunk with 97 frames (~4 seconds at 24fps)
+                default_duration = 97.0 / FRAMES_PER_SECOND
+                chunks = [("", 97, default_duration)]
             print(f"Video chunks: {len(chunks)}")
             
             # Copy initial image to ComfyUI input
@@ -860,7 +949,10 @@ class AVVideoGenerator:
             generated_videos = []
             current_input_image = image_filename  # Track the current input image for continuity
             
-            for chunk_idx, (chunk_suffix, chunk_frames) in enumerate(chunks):
+            # Track cumulative time for dialogue splitting
+            cumulative_time = 0.0
+            
+            for chunk_idx, (chunk_suffix, chunk_frames, chunk_duration) in enumerate(chunks):
                 chunk_scene_id = f"{scene_id}{chunk_suffix}"
                 
                 # Check if this chunk is already complete
@@ -901,7 +993,7 @@ class AVVideoGenerator:
                 # For subsequent chunks, use the last frame of the previous chunk as input
                 if chunk_idx > 0 and generated_videos:
                     # Try to find the last saved frame from the previous chunk
-                    previous_chunk_suffix = chunks[chunk_idx - 1][0]  # Get previous chunk suffix
+                    previous_chunk_suffix = chunks[chunk_idx - 1][0]  # Get previous chunk suffix (first element of tuple)
                     last_saved_frame = self._find_last_saved_frame(scene_id, previous_chunk_suffix)
                     
                     if last_saved_frame:
@@ -922,8 +1014,25 @@ class AVVideoGenerator:
                         print(f"⚠️ Failed to find last saved frame from previous chunk, using original image")
                         current_input_image = image_filename
                 
+                # Split dialogue for this chunk if dialogue exists
+                chunk_dialogue = ""
+                if dialogue and duration and duration > 0:
+                    chunk_dialogue = self._split_dialogue_for_chunk(dialogue, chunk_duration, duration, cumulative_time)
+                    if chunk_dialogue:
+                        print(f"💬 Chunk {chunk_idx + 1} dialogue ({chunk_duration:.2f}s): {chunk_dialogue[:50]}...")
+                
+                # Build description for this chunk: chunk_dialogue + scene_description_only
+                if chunk_dialogue:
+                    chunk_description = f"{chunk_dialogue}\n{scene_description_only}" if scene_description_only else chunk_dialogue
+                else:
+                    # No dialogue or dialogue already processed, use scene description only
+                    chunk_description = scene_description_only if scene_description_only else scene_description
+                
                 # Build workflow for this chunk (single image only, no guide images)
-                workflow = self._build_av_workflow(chunk_scene_id, scene_description, current_input_image, duration, motion_data, chunk_frames)
+                workflow = self._build_av_workflow(chunk_scene_id, chunk_description, current_input_image, chunk_duration, motion_data, chunk_frames)
+                
+                # Update cumulative time for next chunk
+                cumulative_time += chunk_duration
                 if not workflow:
                     print(f"ERROR: Failed to build workflow for {chunk_scene_id}")
                     continue
@@ -1375,13 +1484,15 @@ class AVVideoGenerator:
             duration = scene_info["total_duration"]
             description = scene_info["description"]
             image_path = scene_info["image_path"]
+            dialogue = scene_info.get("dialogue", "")
+            scene_description_only = scene_info.get("scene_description", description)
             frame_count = self._calculate_frame_count(duration)
             
             eta = self.estimate_remaining_time(i, len(scenes_to_process), scene_description=description, duration=duration)
             print_flush(f"🔄 Scene {i}/{len(scenes_to_process)} - {description[:50]} ({duration:.2f}s) - Processing...")
             print_flush(f"📊 Estimated time remaining: {eta}")
             
-            output_paths = self._generate_video(scene_name, description, image_path, duration, motion_data, resumable_state)
+            output_paths = self._generate_video(scene_name, description, image_path, duration, motion_data, resumable_state, dialogue, scene_description_only)
             
             scene_processing_time = time.time() - scene_start_time
             self.processing_times.append(scene_processing_time)

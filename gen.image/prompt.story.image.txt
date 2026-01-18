@@ -26,5 +26,4 @@ DIALOGUE-SCENE FORMAT:
 ....
 
 [gender_profession_actor_name] ....dialogue_i.j; start & end in same line as of [].
-(scene_i.j) {{loc_k, Description of at max 12 words}}, {Weather/Season/Time: x};
-((gender_profession_actor_name - only one, either dialogue speaker or main subject of dialogue)){Face Relative Direction: x}{Looking Relative Direction: x}{Facial Expression: x}, {Relative Location: x},{Body Facing Relative Direction: x},{Body Posture: x}, {Primary Action: x};start & end in same line as of ().
+(scene_i.j) {{loc_k, Description of at max 12 words}}, {Weather/Season/Time: x};((gender_profession_actor_name - only one, either dialogue speaker or main subject of dialogue)){Face Relative Direction: x}{Looking Relative Direction: x}{Facial Expression: x}, {Relative Location: x},{Body Facing Relative Direction: x},{Body Posture: x}, {Primary Action: x};start & end in same line as of ().

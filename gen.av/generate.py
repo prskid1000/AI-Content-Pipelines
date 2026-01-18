@@ -66,7 +66,6 @@ SCRIPTS = [
     # "1.story.py",
     # "../gen.image/scripts/1.story.py",
     # "../gen.audio/scripts/1.character.py",
-    # "../gen.audio/scripts/2.story.py",
 
     #Images
     # "../gen.image/scripts/2.character.py",
@@ -95,6 +94,7 @@ NEEDS_LMSTUDIO = {"1.character.py", "1.story.py", "2.motion.py", "5.timeline.py"
 # Centralized non-interactive defaults (only change this file)
 SCRIPT_ARGS = {
     # "1.story.py": ["--bypass-validation"],
+    "1.character.py": ["--auto-gender", "m", "--auto-confirm", "y", "--change-settings", "n"],
     "2.motion.py": ["--output", "../../gen.av/input/2.motion.txt"],  # Output path for AV motion prompts (relative to gen.video/scripts/)
     "11.video.py": ["--video-file", "../../gen.av/output/final.mp4"],
     "12.youtube.py": ["--video-file", "../../gen.av/output/final.mp4", "--upload-shorts", "--shorts-dir", "../../gen.audio/output"],
@@ -375,7 +375,7 @@ def start_comfyui(working_dir: str, log_handle) -> subprocess.Popen:
         env = os.environ.copy()
         env.setdefault("PYTHONIOENCODING", "utf-8")
         proc = subprocess.Popen(
-            [sys.executable, "main.py", "--disable-pinned-memory", "--async-offload 16"],
+            [sys.executable, "main.py", "--disable-pinned-memory", "--async-offload", "16"],
             cwd=comfy_dir,
             stdout=log_handle,
             stderr=log_handle,
@@ -386,7 +386,7 @@ def start_comfyui(working_dir: str, log_handle) -> subprocess.Popen:
     else:
         # Non-Windows fallback
         proc = subprocess.Popen(
-            [sys.executable, "main.py", "--disable-pinned-memory", "--async-offload 16"],
+            [sys.executable, "main.py", "--disable-pinned-memory", "--async-offload", "16"],
             cwd=comfy_dir,
             stdout=log_handle,
             stderr=log_handle,

@@ -1,0 +1,38 @@
+Workflow runner started. Python executable: D:\.comfyui\.venv\Scripts\python.exe
+Working directory: D:\.comfyui\gen.av
+Emptying ComfyUI input and output folders...
+Successfully emptied ComfyUI input and output folders.
+Starting ComfyUI backend using Windows cmd style...
+Waiting for ComfyUI to become ready (polling every 15s)...
+ComfyUI not ready yet (attempt 1). Retrying in 15s...
+[START] Security scan
+[DONE] Security scan
+## ComfyUI-Manager: installing dependencies done.
+** ComfyUI startup time: 2026-01-18 10:17:09.106
+** Platform: Windows
+** Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
+** Python executable: D:\.comfyui\.venv\Scripts\python.exe
+** ComfyUI Path: D:\.comfyui\ComfyUI
+** ComfyUI Base Folder Path: D:\.comfyui\ComfyUI
+** User directory: D:\.comfyui\ComfyUI\user
+** ComfyUI-Manager config path: D:\.comfyui\ComfyUI\user\__manager\config.ini
+** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
+
+Prestartup times for custom nodes:
+   6.9 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+
+Checkpoint files will always be loaded safely.
+Total VRAM 12227 MB, total RAM 64957 MB
+pytorch version: 2.9.1+cu130
+Set vram state to: NORMAL_VRAM
+Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
+Using async weight offloading with 16 streams
+working around nvidia conv3d memory bug.
+Found comfy_kitchen backend triton: {'available': True, 'disabled': True, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8']}
+Found comfy_kitchen backend cuda: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
+Found comfy_kitchen backend eager: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
+Using pytorch attention
+ComfyUI not ready yet (attempt 2). Retrying in 15s...
+Received signal 2. Cleaning up services...
+Stopping ComfyUI backend...
+ComfyUI appears stopped (after 1 checks).
