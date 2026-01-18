@@ -18,36 +18,3 @@
 
 [male_doctor_watson] "Before I could inquire further, Holmes, there came a timid tapping at our door, and with it an inexplicable feeling that the mystery was about to waddle rather than stride into our lives.";
 (scene_1.7) {{loc_2, Baker Street hallway with door and coat rack}}, {Weather/Season/Time: sunny winter morning};((male_doctor_watson)){Face Relative Direction: toward door}{Looking Relative Direction: at door}{Facial Expression: alert}, {Relative Location: beside coat rack},{Body Facing Relative Direction: toward door},{Body Posture: standing},{Primary Action: approaching};
-
-[male_detective_holmes] "Open it, Watson, for the rhythm of that knock suggests hesitation mixed with urgency, a combination often accompanying either guilt or desperation, and I fancy we shall soon know which.";
-(scene_1.8) {{loc_2, Baker Street hallway with door and coat rack}}, {Weather/Season/Time: sunny winter morning};((male_detective_holmes)){Face Relative Direction: toward door}{Looking Relative Direction: at door}{Facial Expression: intent}, {Relative Location: behind Watson},{Body Facing Relative Direction: toward door},{Body Posture: standing},{Primary Action: listening};
-
-[male_doctor_watson] "Upon opening the door, I was confronted not by a man or woman, but by a small wicker basket from which issued the softest of quacks, accompanied by a flash of the most astonishing blue plumage.";
-(scene_1.9) {{loc_3, Baker Street doorway with wicker basket}}, {Weather/Season/Time: sunny winter morning};((male_doctor_watson)){Face Relative Direction: downward}{Looking Relative Direction: into basket}{Facial Expression: astonished}, {Relative Location: threshold},{Body Facing Relative Direction: toward basket},{Body Posture: bending},{Primary Action: peering};
-
-[male_detective_holmes] "Ah, our visitor reveals itself at last, a duckling dyed a most unnatural cerulean, which immediately tells me that this is no mere prank but the remnant of a larger chemical experiment.";
-(scene_1.10) {{loc_3, Baker Street doorway with wicker basket}}, {Weather/Season/Time: sunny winter morning};((male_detective_holmes)){Face Relative Direction: toward basket}{Looking Relative Direction: at duckling}{Facial Expression: intrigued}, {Relative Location: beside Watson},{Body Facing Relative Direction: toward basket},{Body Posture: crouching},{Primary Action: examining};
-
-[male_doctor_watson] "Holmes, I am continually amazed by your confidence, for I can scarcely imagine how a blue duckling could point to criminal enterprise rather than simple eccentricity.";
-(scene_1.11) {{loc_3, Baker Street doorway with wicker basket}}, {Weather/Season/Time: sunny winter morning};((male_doctor_watson)){Face Relative Direction: toward Holmes}{Looking Relative Direction: at Holmes}{Facial Expression: doubtful}, {Relative Location: threshold},{Body Facing Relative Direction: toward Holmes},{Body Posture: standing},{Primary Action: questioning};
-
-[male_detective_holmes] "Observe the uniformity of the color, Watson, and note the absence of irritation upon the creature’s skin, which proves the dye to be carefully prepared, likely by someone with professional knowledge.";
-(scene_1.12) {{loc_3, Baker Street doorway with wicker basket}}, {Weather/Season/Time: sunny winter morning};((male_detective_holmes)){Face Relative Direction: toward duckling}{Looking Relative Direction: at feathers}{Facial Expression: analytical}, {Relative Location: beside basket},{Body Facing Relative Direction: toward duckling},{Body Posture: kneeling},{Primary Action: pointing};
-
-[male_doctor_watson] "We carried the basket into the sitting room, the duckling peeping cheerfully, and I could not help but feel an odd affection for the little creature despite its obvious connection to trouble.";
-(scene_1.13) {{loc_4, Victorian sitting room with table and basket}}, {Weather/Season/Time: sunny winter morning};((male_doctor_watson)){Face Relative Direction: toward table}{Looking Relative Direction: at duckling}{Facial Expression: gentle}, {Relative Location: beside table},{Body Facing Relative Direction: toward table},{Body Posture: standing},{Primary Action: setting basket};
-
-[male_detective_holmes] "Affection is admirable, Watson, yet sentiment must never cloud reason, and reason tells me this duckling was abandoned deliberately to draw my attention.";
-(scene_1.14) {{loc_4, Victorian sitting room with table and basket}}, {Weather/Season/Time: sunny winter morning};((male_detective_holmes)){Face Relative Direction: toward Watson}{Looking Relative Direction: at Watson}{Facial Expression: serious}, {Relative Location: opposite table},{Body Facing Relative Direction: toward Watson},{Body Posture: standing},{Primary Action: explaining};
-
-[male_doctor_watson] "Your reputation precedes you even among those who deal in fowl and pigments, it seems, though I struggle to see what end could be served by such an elaborate avian message.";
-(scene_1.15) {{loc_4, Victorian sitting room with table and basket}}, {Weather/Season/Time: sunny winter morning};((male_doctor_watson)){Face Relative Direction: toward Holmes}{Looking Relative Direction: at Holmes}{Facial Expression: curious}, {Relative Location: beside table},{Body Facing Relative Direction: toward Holmes},{Body Posture: leaning},{Primary Action: listening};
-
-[male_detective_holmes] "The end, my dear Watson, is revelation, for this blue duckling originates from a laboratory near the Thames where counterfeit dyes are being tested for far less innocent purposes.";
-(scene_1.16) {{loc_4, Victorian sitting room with table and basket}}, {Weather/Season/Time: sunny winter morning};((male_detective_holmes)){Face Relative Direction: toward window}{Looking Relative Direction: at distant street}{Facial Expression: confident}, {Relative Location: opposite table},{Body Facing Relative Direction: toward window},{Body Posture: upright},{Primary Action: deducing};
-
-[male_doctor_watson] "As always, Holmes, your deductions leave me in awe, and I resolved then to follow every step of your reasoning, that I might one day glimpse the world through such piercing eyes.";
-(scene_1.17) {{loc_4, Victorian sitting room with table and basket}}, {Weather/Season/Time: sunny winter morning};((male_doctor_watson)){Face Relative Direction: toward Holmes}{Looking Relative Direction: at Holmes}{Facial Expression: admiring}, {Relative Location: beside table},{Body Facing Relative Direction: toward Holmes},{Body Posture: standing},{Primary Action: reflecting};
-
-[male_detective_holmes] "Come then, Watson, fetch your coat, for this duckling’s adventure is but the prologue, and the true drama awaits us beyond Baker Street, where everything, as ever, will prove elementary.";
-(scene_1.18) {{loc_2, Baker Street hallway with door and coat rack}}, {Weather/Season/Time: sunny winter morning};((male_detective_holmes)){Face Relative Direction: toward coat rack}{Looking Relative Direction: at coats}{Facial Expression: resolved}, {Relative Location: near door},{Body Facing Relative Direction: toward rack},{Body Posture: standing},{Primary Action: reaching for coat};

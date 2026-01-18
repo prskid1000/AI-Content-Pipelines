@@ -145,8 +145,8 @@ Text Story → Image Pipeline → AV Pipeline → YouTube
     │   └── final.mp4            # Final combined video with audio
     ├── scripts/                # Processing scripts (3)
     │   ├── 1.story.py          # Story parsing for image pipeline
-    │   ├── 3.av.py              # AV video generation with built-in audio
-    │   └── 4.video.py           # Final video compilation
+    │   ├── 2.av.py              # AV video generation with built-in audio
+    │   └── 3.video.py           # Final video compilation
     │   # Note: 2.motion.py is shared from gen.video/scripts/ (see Video Pipeline)
     └── workflow/               # ComfyUI workflows
         └── movie.json          # AV video generation workflow
@@ -807,6 +807,7 @@ CLEANUP_TRACKING_FILES = False
 IMAGE_WIDTH = 1280
 IMAGE_HEIGHT = 720
 CHARACTER_RESIZE_FACTOR = 1  # 100% original size
+LOCATION_RESIZE_FACTOR = 1.0  # Location resize: 1.0 = no resize, 2.0 = double size, 0.5 = half size
 IMAGE_COMPRESSION_QUALITY = 95
 ACTIVE_CHARACTER_MODE = "IMAGE"  # "IMAGE_TEXT", "TEXT", "IMAGE", "NONE"
 ACTIVE_LOCATION_MODE = "TEXT"   # "IMAGE_TEXT", "TEXT", "IMAGE", "NONE"
@@ -1047,10 +1048,10 @@ All scripts listed in `gen.av/generate.py`:
 | Images | `gen.image/scripts/2.location.py` | Location image generation | Location inputs | `gen.image/output/locations/*.png` | **ComfyUI** | ❌ |
 | Images | `gen.image/scripts/3.scene.py` | Scene image generation | Scene inputs | `gen.image/output/scene/*.png` | **ComfyUI** | ❌ |
 | Video | `gen.video/scripts/2.motion.py` (shared) | Generate master prompts for video generation | `gen.av/input/1.story.txt`, `gen.image/output/scene/*.png` (optional), `gen.image/input/2.character.txt` (optional), `gen.image/input/2.location.txt` (optional) | `gen.av/input/2.motion.txt` | **LM Studio** | ✅ |
-| Video | `gen.av/scripts/3.av.py` | Generate AV videos with built-in audio | `gen.av/input/1.story.txt`, `gen.image/output/scene/*.png`, `gen.av/input/2.motion.txt` (master prompts) | `gen.av/output/scene_*.mp4` | **ComfyUI** | ✅ |
+| Video | `gen.av/scripts/2.av.py` | Generate AV videos with built-in audio | `gen.av/input/1.story.txt`, `gen.image/output/scene/*.png`, `gen.av/input/2.motion.txt` (master prompts) | `gen.av/output/scene_*.mp4` | **ComfyUI** | ✅ |
 | Thumbnail | `gen.audio/scripts/9.media.py` | Media processing | Media inputs | Media outputs | **ComfyUI** | ❌ |
 | Thumbnail | `gen.audio/scripts/10.thumbnail.py` | Thumbnail generation | Thumbnail inputs | Thumbnail outputs | **ComfyUI** | ❌ |
-| YouTube | `gen.av/scripts/4.video.py` | Combine scene videos | `gen.av/output/scene_*.mp4` | `gen.av/output/final.mp4` | FFmpeg | ❌ |
+| YouTube | `gen.av/scripts/3.video.py` | Combine scene videos | `gen.av/output/scene_*.mp4` | `gen.av/output/final.mp4` | FFmpeg | ❌ |
 | YouTube | `gen.audio/scripts/11.video.py` | Video processing | Video inputs | Video outputs | FFmpeg | ❌ |
 | YouTube | `gen.audio/scripts/12.youtube.py` | YouTube upload | Video file | YouTube upload | YouTube API | ❌ |
 
@@ -1080,8 +1081,8 @@ gen.av/
 │   └── final.mp4              # Final combined video with audio
 ├── scripts/                    # Processing scripts (3)
 │   ├── 1.story.py            # Story parsing for image pipeline
-│   ├── 3.av.py                # AV video generation with built-in audio
-│   └── 4.video.py             # Final video compilation
+│   ├── 2.av.py                # AV video generation with built-in audio
+│   └── 3.video.py             # Final video compilation
 │   # Note: 2.motion.py is shared from gen.video/scripts/ (see Video Pipeline section)
 └── workflow/                   # ComfyUI workflows
     └── movie.json             # AV video generation workflow
@@ -1125,7 +1126,7 @@ scene_image_base_path = "../../gen.image/output/scene"
 - Output path configurable via `--output` argument (allows sharing between pipelines)
 - Supports optional scene image analysis via vision model
 
-##### `3.av.py` - AV Video Generation
+##### `2.av.py` - AV Video Generation
 ```python
 # Feature Flags
 ENABLE_RESUMABLE_MODE = True
@@ -1161,7 +1162,7 @@ workflow_file = "../workflow/movie.json"
 scene_images_dir = "../../gen.image/output/scene"
 ```
 
-##### `4.video.py` - Final Video Compilation
+##### `3.video.py` - Final Video Compilation
 ```python
 # Input/Output
 output_dir = "../output"
@@ -1185,13 +1186,13 @@ graph TD
     E --> G[gen.av/input/2.motion.txt]
     E -.-> H[LM Studio Vision Model]
     
-    A --> I[gen.av/scripts/3.av.py]
+    A --> I[gen.av/scripts/2.av.py]
     F --> I
     G --> I
     I --> L2[gen.av/output/scene_*.mp4 with audio]
     I -.-> M[ComfyUI movie.json]
     
-    L2 --> N[gen.av/scripts/4.video.py]
+    L2 --> N[gen.av/scripts/3.video.py]
     N --> O[gen.av/output/final.mp4]
     N -.-> P[FFmpeg]
     
@@ -1247,10 +1248,10 @@ story.wav      │                       │   │                    │
                │                       │   │    scene/*.png ────┼──→ 2.motion.py
                │                       │   │                    │    (motion gen)
                │                       │   │                    │
-               │                       │   │    scene/*.png ────┼──→ 3.av.py
+               │                       │   │    scene/*.png ────┼──→ 2.av.py
                │                       │   │    2.motion.txt    │    (AV video)
                │                       │   │                    │
-               │                       │   │    scene_*.mp4 ────┼──→ 4.video.py
+               │                       │   │    scene_*.mp4 ────┼──→ 3.video.py
                │                       │   │                    │    (combine)
 final.wav      │         ↓             │
                │    5.video.py         │
@@ -1284,15 +1285,15 @@ final.wav      │         ↓             │
 
 #### Image → AV
 - `gen.image/output/scene/*.png` → `gen.video/scripts/2.motion.py` (shared script, outputs to gen.av/input/2.motion.txt)
-- `gen.image/output/scene/*.png` → `gen.av/scripts/3.av.py` (for AV video generation)
+- `gen.image/output/scene/*.png` → `gen.av/scripts/2.av.py` (for AV video generation)
 - `gen.image/input/2.character.txt` → `gen.video/scripts/2.motion.py` (integrated into master prompts)
 - `gen.image/input/2.location.txt` → `gen.video/scripts/2.motion.py` (integrated into master prompts)
 
 #### AV → AV (Internal)
 - `gen.av/input/1.story.txt` → `gen.av/scripts/1.story.py` → `gen.image/input/1.story.txt`
 - `gen.av/input/1.story.txt` → `gen.video/scripts/2.motion.py` (via --output argument) → `gen.av/input/2.motion.txt`
-- `gen.av/input/1.story.txt` + `gen.av/input/2.motion.txt` → `gen.av/scripts/3.av.py` → `gen.av/output/scene_*.mp4`
-- `gen.av/output/scene_*.mp4` → `gen.av/scripts/4.video.py` → `gen.av/output/final.mp4`
+- `gen.av/input/1.story.txt` + `gen.av/input/2.motion.txt` → `gen.av/scripts/2.av.py` → `gen.av/output/scene_*.mp4`
+- `gen.av/output/scene_*.mp4` → `gen.av/scripts/3.video.py` → `gen.av/output/final.mp4`
 
 ---
 
@@ -1856,6 +1857,7 @@ IMAGE_HEIGHT = 720
 
 # Image Processing
 CHARACTER_RESIZE_FACTOR = 1  # Character resize: 1 = 100% original size
+LOCATION_RESIZE_FACTOR = 1.0  # Location resize: 1.0 = no resize, 2.0 = double size, 0.5 = half size
 IMAGE_COMPRESSION_QUALITY = 95  # JPEG quality: 1-100
 
 # Prompt Handling Modes
@@ -2847,10 +2849,10 @@ All scripts listed in `gen.av/generate.py`:
 | `gen.image/scripts/2.location.py` | Location inputs | `gen.image/output/locations/*.png` | Location generation logs |
 | `gen.image/scripts/3.scene.py` | Scene inputs | `gen.image/output/scene/*.png` | Scene generation logs |
 | `gen.video/scripts/2.motion.py` (shared) | `gen.av/input/1.story.txt`, `gen.image/output/scene/*.png` (optional), `gen.image/input/2.character.txt` (optional), `gen.image/input/2.location.txt` (optional) | `gen.av/input/2.motion.txt` | Master prompt generation logs |
-| `gen.av/scripts/3.av.py` | `gen.av/input/1.story.txt`, `gen.image/output/scene/*.png`, `gen.av/input/2.motion.txt` (master prompts) | `gen.av/output/scene_*.mp4` (with built-in audio) | AV video generation logs, frames |
+| `gen.av/scripts/2.av.py` | `gen.av/input/1.story.txt`, `gen.image/output/scene/*.png`, `gen.av/input/2.motion.txt` (master prompts) | `gen.av/output/scene_*.mp4` (with built-in audio) | AV video generation logs, frames |
 | `gen.audio/scripts/9.media.py` | Media inputs | Media outputs | Media processing logs |
 | `gen.audio/scripts/10.thumbnail.py` | Thumbnail inputs | Thumbnail outputs | Thumbnail generation logs |
-| `gen.av/scripts/4.video.py` | `gen.av/output/scene_*.mp4` | `gen.av/output/final.mp4` | Video compilation logs |
+| `gen.av/scripts/3.video.py` | `gen.av/output/scene_*.mp4` | `gen.av/output/final.mp4` | Video compilation logs |
 | `gen.audio/scripts/11.video.py` | Video inputs | Video outputs | Video processing logs |
 | `gen.audio/scripts/12.youtube.py` | Video file | YouTube upload | YouTube upload logs |
 
@@ -2871,15 +2873,15 @@ All scripts listed in `gen.av/generate.py`:
 
 #### Image → AV Pipeline
 - `gen.image/output/scene/*.png` → `gen.video/scripts/2.motion.py` (shared script, outputs to gen.av/input/2.motion.txt)
-- `gen.image/output/scene/*.png` → `gen.av/scripts/3.av.py` (for AV video generation)
+- `gen.image/output/scene/*.png` → `gen.av/scripts/2.av.py` (for AV video generation)
 - `gen.image/input/2.character.txt` → `gen.video/scripts/2.motion.py` (integrated into master prompts)
 - `gen.image/input/2.location.txt` → `gen.video/scripts/2.motion.py` (integrated into master prompts)
 
 #### AV → AV (Internal)
 - `gen.av/input/1.story.txt` → `gen.av/scripts/1.story.py` → `gen.image/input/1.story.txt`
 - `gen.av/input/1.story.txt` → `gen.video/scripts/2.motion.py` (via --output argument) → `gen.av/input/2.motion.txt`
-- `gen.av/input/1.story.txt` + `gen.av/input/2.motion.txt` → `gen.av/scripts/3.av.py` → `gen.av/output/scene_*.mp4`
-- `gen.av/output/scene_*.mp4` → `gen.av/scripts/4.video.py` → `gen.av/output/final.mp4`
+- `gen.av/input/1.story.txt` + `gen.av/input/2.motion.txt` → `gen.av/scripts/2.av.py` → `gen.av/output/scene_*.mp4`
+- `gen.av/output/scene_*.mp4` → `gen.av/scripts/3.video.py` → `gen.av/output/final.mp4`
 
 ## 🔍 File Formats
 
@@ -3245,8 +3247,8 @@ This is a modular system designed for easy extension. Each script is self-contai
 #### AV Pipeline (`gen.av/generate.py`)
 - **Total Scripts**: 13 scripts (all listed in `gen.av/generate.py`)
 - **Shared Script**: `gen.video/scripts/2.motion.py` (located in `gen.video/scripts/`, used by both video and AV pipelines)
-- **Resumable Scripts**: 2 scripts (`2.motion.py` from video folder, `3.av.py`)
-- **Requires ComfyUI**: 1 script (`3.av.py`)
+- **Resumable Scripts**: 2 scripts (`2.motion.py` from video folder, `2.av.py`)
+- **Requires ComfyUI**: 1 script (`2.av.py`)
 - **Requires LM Studio**: 1 script (`2.motion.py` from video folder)
 - **New Features**: Built-in audio generation, dialogue-based duration calculation, 5-second chunking, configurable LoRA switches
 - **Cross-folder References**: Includes scripts from `gen.image/scripts/`, `gen.audio/scripts/`, `gen.video/scripts/`
