@@ -58,7 +58,7 @@ IMAGE_HEIGHT = 720
 
 # Latent Input Mode Configuration
 LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load image input
-LATENT_DENOISING_STRENGTH = 0.8  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
+LATENT_DENOISING_STRENGTH = 0.95  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # LoRA Configuration
 USE_LORA = True  # Set to False to disable LoRA usage in workflow
@@ -109,7 +109,6 @@ NEGATIVE_PROMPT = "blur, distorted, text, watermark, extra limbs, bad anatomy, p
 ART_STYLE = "Realistic Anime"
 
 EXTRA_PROMPT_PHRASES = [
-    "VERY IMPORTANT: Maintain realistic size ratios between the character and objects in the scene, matching real-world proportions and scale.",
     "Keep both of the character's hands separate and clearly visible.",
     "Include only one character in the scene.",
     "Avoid textual elements. Use logos or icons only when necessary.",
