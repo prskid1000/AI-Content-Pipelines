@@ -2,7 +2,6 @@ Workflow runner started. Python executable: D:\.comfyui\.venv\Scripts\python.exe
 Working directory: D:\.comfyui\gen.av
 Emptying ComfyUI input and output folders...
 Removed directory: D:\.comfyui\ComfyUI\input\3d
-Removed file: D:\.comfyui\ComfyUI\input\loc_1.png
 Removed file: D:\.comfyui\ComfyUI\input\male_detective_holmes.jpg
 Removed file: D:\.comfyui\ComfyUI\input\male_doctor_watson.jpg
 Removed file: D:\.comfyui\ComfyUI\output\scene_1.1.FLUX1_Turbo_Alphasafetensors_00001_.png
