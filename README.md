@@ -2327,8 +2327,7 @@ The AI Content Studio requires several AI models for different generation tasks.
 - **LTX Video VAE**: `LTXV-13B-0.9.8-dev-VAE.safetensors` - Video decoder
 - **SD 3.5 VAE**: `sd3.5_vae.safetensors` - SD 3.5 decoder
 - **Wan 2.1 VAE**: `wan2.1_vae.safetensors` - Wan video decoder
-- **LTX2 Video VAE (Old)**: `LTX2_video_vae_old_bf16.safetensors` - LTX2 video decoder for video folder (gen.video) ([Download](https://huggingface.co/Kijai/LTXV2_comfy/blob/main/VAE/LTX2_video_vae_old_bf16.safetensors))
-- **LTX2 Video VAE**: `LTX2_video_vae_bf16.safetensors` - LTX2 video decoder for av folder (gen.av) ([Download](https://huggingface.co/Kijai/LTXV2_comfy/blob/main/LTX2_video_vae_bf16.safetensors))
+- **LTX2 Video VAE (Old)**: `LTX2_video_vae_old_bf16.safetensors` - LTX2 video decoder, rename to `LTX2_video_vae_bf16.safetensors` ([Download](https://huggingface.co/Kijai/LTXV2_comfy/blob/main/VAE/LTX2_video_vae_old_bf16.safetensors))
 - **LTX2 Audio VAE**: `LTX2_audio_vae_bf16.safetensors` - LTX2 audio decoder ([Download](https://huggingface.co/Kijai/LTXV2_comfy/blob/main/LTX2_audio_vae_bf16.safetensors))
 
 ##### Upscale Models (UPSCALE_MODELS Directory)
@@ -2415,8 +2414,7 @@ Download from [Kijai/LTXV2_comfy](https://huggingface.co/Kijai/LTXV2_comfy/tree/
 
 **VAE Models** (Place in `models/vae/`):
 - `LTX2_audio_vae_bf16.safetensors`
-- `LTX2_video_vae_old_bf16.safetensors` (for video folder - gen.video)
-- `LTX2_video_vae_bf16.safetensors` (for av folder - gen.av)
+- `LTX2_video_vae_old_bf16.safetensors` rename to `LTX2_video_vae_bf16.safetensors`
 
 **Text Encoders** (Place in `models/text_encoders/`):
 - `ltx-2-19b-embeddings_connector_bf16.safetensors`
