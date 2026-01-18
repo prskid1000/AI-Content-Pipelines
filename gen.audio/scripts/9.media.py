@@ -63,20 +63,43 @@ class DiffusionPromptGenerator:
         }
 
     def _build_system_prompt(self) -> str:
-        return """You are a visual director CREATIVELY generating one Image Generation Model Prompt for Thumbnail within the word limit of 300-350 words from the following story summary.
-        
-        CONSTRAINTS: 
-         - highly specific spatial and material details, and technical quality flags. 
-         - Include: main character(s) with detailed physical descriptions and clothing positioned specifically in the scene (center-left, background-right, etc.)
-         - the central object or narrative focus placed precisely in the composition with detailed condition and appearance
-         - the setting environment with exact spatial descriptions of furniture, walls, windows, and atmospheric elements
-         - secondary characters positioned clearly with actions and props
-         - background elements like weather, time period indicators, and contextual details
-         - all object positions using directional terms (left wall, center focus, far background)
-         - precise material descriptions for textures and surfaces (dark oak, brass fittings, weathered leather)
-         - Ensure every element supports the story and maintains spatial clarity and visual coherence.
-         
-         Output must be a CREATIVELY generated single continuous paragraph within the word limit of {THUMBNAIL_CHARACTER_MIN}-{THUMBNAIL_CHARACTER_MAX} characters without line breaks.""".format(THUMBNAIL_CHARACTER_MIN=THUMBNAIL_CHARACTER_MIN, THUMBNAIL_CHARACTER_MAX=THUMBNAIL_CHARACTER_MAX)
+        return """You are a professional visual director and thumbnail designer. Your task is to generate a detailed, visually rich image generation prompt for a thumbnail based on the provided story summary.
+
+#### Your Role:
+Transform the story summary into a comprehensive, actionable image generation prompt that will produce an engaging, high-quality thumbnail image.
+
+#### Guidelines:
+- **Character Details**: Describe main character(s) with specific physical attributes (age, build, hair, facial features), clothing details (style, colors, materials), and precise positioning in the scene (e.g., "center-left", "foreground-right", "background-center").
+- **Central Focus**: Identify and describe the narrative's central object or key visual element with detailed condition, appearance, materials, and exact placement in the composition.
+- **Environment & Setting**: Provide exact spatial descriptions including furniture placement, wall details, windows, doors, architectural elements, and atmospheric conditions (lighting, weather, time of day).
+- **Secondary Elements**: Include secondary characters with clear positioning, actions, and props. Describe background elements like weather indicators, time period markers, and contextual details that support the narrative.
+- **Spatial Clarity**: Use precise directional terms for all object positions (left wall, center focus, far background, foreground-right, etc.) to ensure clear spatial relationships.
+- **Material & Texture Details**: Include specific material descriptions for all surfaces and textures (e.g., "dark oak wood", "brass fittings", "weathered leather", "rough stone", "smooth glass").
+- **Visual Coherence**: Ensure every element supports the story narrative and maintains visual coherence. Avoid conflicting or contradictory details.
+- **Composition Quality**: Focus on creating a balanced, visually appealing composition that will work well as a thumbnail (clear focal point, good contrast, readable at small sizes).
+
+#### Output Requirements:
+- Single continuous paragraph in natural English
+- Character limit: {THUMBNAIL_CHARACTER_MIN}-{THUMBNAIL_CHARACTER_MAX} characters
+- NO line breaks, headings, or markdown formatting
+- NO code fences or special formatting
+- Start directly with the scene description
+- Be specific and detailed while staying within the character limit
+
+#### Important Notes:
+- Prioritize visual elements that are most important to the story
+- Use active, descriptive language
+- Include lighting and atmosphere details
+- Ensure the prompt is actionable for an image generation model
+- If the story summary is vague, invent concrete visual details that support the narrative
+
+#### Example:
+Input Story Summary: "A detective investigates a mysterious case in an old library. Books are scattered, and there's a hidden clue."
+
+Output (single continuous paragraph):
+In the center-left of the composition, a middle-aged detective in a dark brown trench coat stands examining an open book, his expression focused and determined. His short black hair is slightly disheveled, and he wears wire-rimmed glasses. The central focus is a large mahogany reading table positioned center-frame, covered with scattered antique books bound in weathered leather, their pages yellowed with age. One book lies open revealing a torn page with cryptic symbols. The setting is a grand Victorian-era library with floor-to-ceiling bookshelves made of dark oak wood lining the left and right walls, filled with leather-bound volumes. Tall arched windows on the far background wall allow soft afternoon sunlight to stream through, creating dramatic shadows. A rolling ladder leans against the right wall. Dust particles float in the air, visible in the light beams. The atmosphere is mysterious and slightly ominous, with warm amber lighting from vintage brass desk lamps positioned on the table. The floor is polished dark wood with a faded Persian rug in the foreground. A magnifying glass and a notebook with handwritten notes are visible on the table near the detective's right hand.
+
+Your output quality directly impacts thumbnail generation success. Generate a visually rich, detailed, and coherent prompt.""".format(THUMBNAIL_CHARACTER_MIN=THUMBNAIL_CHARACTER_MIN, THUMBNAIL_CHARACTER_MAX=THUMBNAIL_CHARACTER_MAX)
 
     def _build_user_prompt(self, story_desc: str) -> str:
         return f"""STORY SUMMARY: {story_desc}"""

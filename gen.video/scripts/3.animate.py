@@ -20,12 +20,8 @@ VIDEO_HEIGHT = 576
 FRAMES_PER_SECOND = 24
 CHUNK_SIZE = 3
 
-# Feature flags
-ENABLE_SCENE = False # Set to True to add scene prompts from 3.scene.txt
-ENABLE_LOCATION_IN_SCENE = False # Set to True to add location prompts from 3.location.txt
-ENABLE_CHARACTER_IN_MOTION = False # Set to True to add character prompts from 2.character.txt in motion prompts
-
-USE_SUMMARY_TEXT = False  # Set to True to use summary text
+# Feature flags (moved to 2.motion.py)
+# Note: Master prompts are now generated in 2.motion.py with all features integrated
 
 class ResumableState:
     """Manages resumable state for expensive video animation operations."""
@@ -212,11 +208,7 @@ class VideoAnimator:
         self.timeline_file = "../../gen.audio/input/2.timeline.script.txt"
         # Animation workflow file
         self.workflow_file = "../workflow/animate.json"
-        # Character data file
-        self.character_file = "../../gen.image/input/3.character.txt" if USE_SUMMARY_TEXT else "../../gen.image/input/2.character.txt"
-        # Location data file
-        self.location_file = "../../gen.image/input/3.location.txt" if USE_SUMMARY_TEXT else "../../gen.image/input/2.location.txt"
-        # Motion data file
+        # Motion data file (master prompts generated in 2.motion.py)
         self.motion_file = "../input/2.motion.txt"
 
         # Time estimation tracking
@@ -590,25 +582,6 @@ class VideoAnimator:
             "original_line": f"{scene_name} = {description_part}"
         }
 
-    def _read_character_data(self) -> dict[str, str]:
-        """Parse character data from input file.
-        
-        Format: Each character on a single line as: ((character_name)): description
-        """
-        characters = {}
-        try:
-            with open(self.character_file, "r", encoding="utf-8") as f:
-                content = f.read().strip()
-            # Split on single newlines since each character is on one line
-            entries = [entry.strip() for entry in content.split('\n') if entry.strip()]
-            for entry in entries:
-                match = re.match(r'\(\(([^)]+)\)\):\s*(.+)', entry, re.DOTALL)
-                if match:
-                    characters[match.group(1).strip()] = match.group(2).strip()
-        except Exception as e:
-            print_flush(f"ERROR: Failed to read character data: {e}")
-        return characters
-
     def _read_motion_data(self) -> dict[str, str]:
         """Parse motion data from input file.
         
@@ -634,86 +607,6 @@ class VideoAnimator:
         except Exception as e:
             print_flush(f"ERROR: Failed to read motion data: {e}")
         return motions
-
-    def _read_location_data(self) -> dict[str, str]:
-        """Parse location data from input file.
-        
-        Format: Each location on a single line as: {{loc_id}} description
-        """
-        locations = {}
-        try:
-            with open(self.location_file, "r", encoding="utf-8") as f:
-                content = f.read().strip()
-            # Split on single newlines since each location is on one line
-            lines = [line.strip() for line in content.split('\n') if line.strip()]
-            for line in lines:
-                # Match format: {{loc_id}} description...
-                match = re.match(r'\{\{([^}]+)\}\}\s*(.+)', line)
-                if match:
-                    locations[match.group(1).strip()] = match.group(2).strip()
-        except Exception as e:
-            print_flush(f"ERROR: Failed to read location data: {e}")
-        return locations
-
-    def _replace_location_references(self, scene_description: str, locations_data: dict[str, str]) -> str:
-        """Replace {{loc_id}} references with location descriptions inline.
-        
-        Format: {{loc_forest}} -> scene which should look like, {detailed description}, as background
-        """
-        if not ENABLE_LOCATION_IN_SCENE or not locations_data:
-            return scene_description
-        
-        def replace_func(match):
-            full_match = match.group(0)
-            # Extract loc_id (handle both {{loc_id}} and {{loc_id, description}} formats)
-            content = match.group(1).strip()
-            loc_id = content.split(',')[0].strip() if ',' in content else content
-            
-            if loc_id in locations_data:
-                # Replace with inline location description
-                return f"\nSCENE, {locations_data[loc_id]}, as background of the entire illustration."
-            else:
-                # Location not found, keep original
-                return full_match
-
-        # Replace {{loc_id}} patterns with location descriptions
-        result = re.sub(r'\{\{([^}]+)\}\}', replace_func, scene_description)
-        return result
-
-    def _replace_motion_character_references(self, motion_prompt: str, characters_data: dict[str, str]) -> str:
-        """Replace ((character_name)) references in motion prompts with character descriptions.
-        
-        Format: ((Alice)) {walks} -> Character which should look like, {description}, as one of the main characters {walks}
-        """
-        if not ENABLE_CHARACTER_IN_MOTION or not characters_data:
-            return motion_prompt
-        
-        def replace_motion_char_func(match):
-            full_match = match.group(0)
-            char_name = match.group(1).strip()
-            
-            if char_name in characters_data:
-                # Replace with inline character description for motion
-                return f"\nCHARACTER, {char_name}, which looks like, {characters_data[char_name]},"
-            else:
-                # Character not found, keep original
-                return full_match
-        
-        # Replace ((character_name)) patterns in motion prompts
-        result = re.sub(r'\(\(([^)]+)\)\)', replace_motion_char_func, motion_prompt)
-        return result
-
-    def _extract_characters_from_scene(self, scene_description: str) -> list[str]:
-        """Extract character names from scene description."""
-        character_matches = re.findall(r'\(\(([^)]+)\)\)(?!\))', scene_description)
-        seen = set()
-        unique_characters = []
-        for char in character_matches:
-            char = char.strip()
-            if char and char not in seen:
-                seen.add(char)
-                unique_characters.append(char)
-        return unique_characters
 
     def combine_adjacent_scenes(self, durations: List[float], scenes: List[Dict[str, str]]) -> Dict[str, Dict[str, any]]:
         """Combine adjacent same scenes into single large durations.
@@ -1280,7 +1173,7 @@ class VideoAnimator:
             print(f"ERROR: Failed to copy image {image_path}: {e}")
             return None
 
-    def _build_animation_workflow(self, chunk_scene_id: str, scene_description: str, image_filename: str, duration: float = None, characters_data: dict[str, str] = None, motion_data: dict[str, str] = None, locations_data: dict[str, str] = None, frame_count: int = None, guide_images_paths: List[str] = None) -> dict:
+    def _build_animation_workflow(self, chunk_scene_id: str, scene_description: str, image_filename: str, duration: float = None, motion_data: dict[str, str] = None, frame_count: int = None, guide_images_paths: List[str] = None) -> dict:
         """Build animation workflow with scene image and description.
         
         Args:
@@ -1288,9 +1181,7 @@ class VideoAnimator:
             scene_description: Visual description of the scene
             image_filename: Input image filename in ComfyUI input folder
             duration: Duration of video in seconds
-            characters_data: Character descriptions for inline replacement
-            motion_data: Motion prompts for scenes
-            locations_data: Location descriptions for inline replacement
+            motion_data: Master prompts for scenes (generated in 2.motion.py)
             frame_count: Number of frames to generate (overrides duration)
         """
         workflow = self._load_base_workflow()
@@ -1299,13 +1190,9 @@ class VideoAnimator:
 
         # Get prompts
         negative_prompt = self._get_negative_prompt()
-        positive_prompt = self._get_positive_prompt() + "\n" + (scene_description if ENABLE_SCENE else "")
-
-        if locations_data:
-            positive_prompt = self._replace_location_references(positive_prompt, locations_data)
-            print_flush(f"📍 Replaced location references with descriptions")
         
-        # Add motion prompts if available (with inline character replacements)
+        # Use motion data directly as the master prompt (generated in 2.motion.py)
+        positive_prompt = ""
         if motion_data:
             # Try to find matching motion for this scene
             # Extract scene ID (remove "scene_" prefix if present, then remove chunk suffix)
@@ -1319,16 +1206,16 @@ class VideoAnimator:
                 clean_scene_id = clean_scene_id.rsplit('_', 1)[0]
             scene_motion_id = f"motion_{clean_scene_id}"
             if scene_motion_id in motion_data:
-                motion_prompt = motion_data[scene_motion_id]
-                # Replace character references in motion prompt with descriptions
-                if characters_data:
-                    motion_prompt = self._replace_motion_character_references(motion_prompt, characters_data)
-                    print_flush(f"🎬 Added motion prompt with inline character replacements for {clean_scene_id}")
-                else:
-                    print_flush(f"🎬 Added motion prompt for {clean_scene_id}")
-                positive_prompt  += f"\n{motion_prompt}"
+                positive_prompt = motion_data[scene_motion_id]
+                print_flush(f"🎬 Using master prompt for {clean_scene_id}")
             else:
                 print_flush(f"⚠️ No motion data found for scene {clean_scene_id} (looking for {scene_motion_id})")
+                # Fallback to base prompt if no motion data
+                positive_prompt = self._get_positive_prompt()
+        else:
+            # Fallback to base prompt if no motion data available
+            positive_prompt = self._get_positive_prompt()
+            print_flush("⚠️ No motion data available - using base prompt only")
         
         # Use provided frame count or calculate from duration
         if frame_count is None:
@@ -1463,7 +1350,7 @@ class VideoAnimator:
         
         print_flush(f"🎬 Multi-image setup: {len(guide_images_paths)} guide images with frame indices {frame_indices}")
 
-    def _generate_video(self, scene_id: str, scene_description: str, image_path: str, duration: float = None, characters_data: dict[str, str] = None, motion_data: dict[str, str] = None, locations_data: dict[str, str] = None, resumable_state=None) -> List[str] | None:
+    def _generate_video(self, scene_id: str, scene_description: str, image_path: str, duration: float = None, motion_data: dict[str, str] = None, resumable_state=None) -> List[str] | None:
         """Generate video(s) from a scene image using ComfyUI with frame continuity between chunks.
         
         Returns:
@@ -1578,7 +1465,7 @@ class VideoAnimator:
                         current_input_image = image_filename
                 
                 # Build workflow for this chunk
-                workflow = self._build_animation_workflow(chunk_scene_id, scene_description, current_input_image, duration, characters_data, motion_data, locations_data, chunk_frames, guide_images_paths)
+                workflow = self._build_animation_workflow(chunk_scene_id, scene_description, current_input_image, duration, motion_data, chunk_frames, guide_images_paths)
                 if not workflow:
                     print(f"ERROR: Failed to build workflow for {chunk_scene_id}")
                     continue
@@ -1783,26 +1670,12 @@ class VideoAnimator:
         if not durations or not scenes:
             return {}
         
-        # Read character data
-        characters_data = self._read_character_data()
-        if characters_data:
-            print_flush(f"📖 Loaded {len(characters_data)} character descriptions")
-        else:
-            print_flush("⚠️ No character data found - animations will use scene descriptions only")
-        
-        # Read motion data
+        # Read motion data (master prompts generated in 2.motion.py)
         motion_data = self._read_motion_data()
         if motion_data:
-            print_flush(f"🎬 Loaded {len(motion_data)} motion prompts")
+            print_flush(f"🎬 Loaded {len(motion_data)} master prompts")
         else:
-            print_flush("⚠️ No motion data found - animations will use basic motion prompts only")
-        
-        # Read location data
-        locations_data = self._read_location_data()
-        if locations_data:
-            print_flush(f"📍 Loaded {len(locations_data)} location descriptions")
-        else:
-            print_flush("⚠️ No location data found")
+            print_flush("⚠️ No motion data found - animations will use basic prompts only")
         
         if len(durations) != len(scenes):
             print_flush(f"⚠️ Count mismatch: timeline entries={len(durations)} vs scenes={len(scenes)}. Proceeding with min count.")
@@ -1893,7 +1766,7 @@ class VideoAnimator:
             print_flush(f"🔄 Scene {i}/{len(scenes_to_process)} - {description[:50]} ({duration:.2f}s) - Processing...")
             print_flush(f"📊 Estimated time remaining: {eta}")
             
-            output_paths = self._generate_video(scene_name, description, image_path, duration, characters_data, motion_data, locations_data, resumable_state)
+            output_paths = self._generate_video(scene_name, description, image_path, duration, motion_data, resumable_state)
             
             scene_processing_time = time.time() - scene_start_time
             self.processing_times.append(scene_processing_time)

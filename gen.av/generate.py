@@ -74,7 +74,7 @@ SCRIPTS = [
     # "../gen.image/scripts/3.scene.py",
 
     #Video
-    # "2.motion.py",
+    # "../gen.video/scripts/2.motion.py",
     # "3.av.py",
 
     #Thumbnail
@@ -95,6 +95,7 @@ NEEDS_LMSTUDIO = {"1.character.py", "1.story.py", "2.motion.py", "5.timeline.py"
 # Centralized non-interactive defaults (only change this file)
 SCRIPT_ARGS = {
     # "1.story.py": ["--bypass-validation"],
+    "2.motion.py": ["--output", "../../gen.av/input/2.motion.txt"],  # Output path for AV motion prompts (relative to gen.video/scripts/)
     "11.video.py": ["--video-file", "../../gen.av/output/final.mp4"],
     "12.youtube.py": ["--video-file", "../../gen.av/output/final.mp4", "--upload-shorts", "--shorts-dir", "../../gen.audio/output"],
 }

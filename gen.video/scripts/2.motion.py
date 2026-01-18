@@ -4,7 +4,7 @@ import time
 import os
 import re
 import base64
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from functools import partial
 import builtins as _builtins
 from pathlib import Path
@@ -13,14 +13,15 @@ print = partial(_builtins.print, flush=True)
 # Model constants for easy switching
 MODEL_MOTION_GENERATION = "qwen_qwen3-vl-30b-a3b-instruct"  # Vision model for motion generation
 
-# Motion description word limits
-MOTION_DESCRIPTION_MIN_WORDS = 30  # Minimum words in motion description
-MOTION_DESCRIPTION_MAX_WORDS = 300  # Maximum words in motion description
-WORD_FACTOR = 6
-
 # Feature flags
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
+
+# Prompt generation feature flags
+USE_SCENE_IMAGE = True  # Set to True to include scene image in prompt generation
+USE_LOCATION = False  # Set to True to include location data from 3.location.txt
+USE_CHARACTER = False  # Set to True to include character data from 2.character.txt
+USE_SUMMARY_TEXT = False  # Set to True to use summary text files (3.character.txt, 3.location.txt) instead of 2.character.txt, 2.location.txt
 
 # Resumable state management
 class ResumableState:
@@ -50,7 +51,7 @@ class ResumableState:
             except Exception as ex:
                 print(f"WARNING: Failed to load checkpoint state: {ex}")
         return {
-            "motion_entries": {"completed": [], "results": {}},
+            "prompt_entries": {"completed": [], "results": {}},
             "metadata": {"start_time": time.time(), "last_update": time.time()}
         }
     
@@ -63,19 +64,19 @@ class ResumableState:
         except Exception as ex:
             print(f"WARNING: Failed to save checkpoint state: {ex}")
     
-    def is_motion_entry_complete(self, entry_key: str) -> bool:
-        """Check if specific motion entry is complete."""
-        return entry_key in self.state["motion_entries"]["completed"]
+    def is_prompt_entry_complete(self, entry_key: str) -> bool:
+        """Check if specific prompt entry is complete."""
+        return entry_key in self.state["prompt_entries"]["completed"]
     
-    def get_motion_entry(self, entry_key: str) -> str | None:
-        """Get cached motion entry if available."""
-        return self.state["motion_entries"]["results"].get(entry_key)
+    def get_prompt_entry(self, entry_key: str) -> str | None:
+        """Get cached prompt entry if available."""
+        return self.state["prompt_entries"]["results"].get(entry_key)
     
-    def set_motion_entry(self, entry_key: str, motion_description: str):
-        """Set motion entry and mark as complete."""
-        if entry_key not in self.state["motion_entries"]["completed"]:
-            self.state["motion_entries"]["completed"].append(entry_key)
-        self.state["motion_entries"]["results"][entry_key] = motion_description
+    def set_prompt_entry(self, entry_key: str, master_prompt: str):
+        """Set prompt entry and mark as complete."""
+        if entry_key not in self.state["prompt_entries"]["completed"]:
+            self.state["prompt_entries"]["completed"].append(entry_key)
+        self.state["prompt_entries"]["results"][entry_key] = master_prompt
         self._save_state()
     
     def cleanup(self):
@@ -91,20 +92,27 @@ class ResumableState:
     
     def get_progress_summary(self) -> str:
         """Get a summary of current progress."""
-        motion_done = len(self.state["motion_entries"]["completed"])
-        motion_total = len(self.state["motion_entries"]["results"]) + len([k for k in self.state["motion_entries"]["results"].keys() if k not in self.state["motion_entries"]["completed"]])
+        prompt_done = len(self.state["prompt_entries"]["completed"])
+        prompt_total = len(self.state["prompt_entries"]["results"]) + len([k for k in self.state["prompt_entries"]["results"].keys() if k not in self.state["prompt_entries"]["completed"]])
         
-        return f"Progress: Motion Entries({motion_done}/{motion_total})"
+        return f"Progress: Prompt Entries({prompt_done}/{prompt_total})"
 
-class MotionGenerator:
-    def __init__(self, lm_studio_url="http://localhost:1234/v1", model=MODEL_MOTION_GENERATION, use_json_schema=True):
+class PromptGenerator:
+    def __init__(self, lm_studio_url="http://localhost:1234/v1", model=MODEL_MOTION_GENERATION, output_file="../input/2.motion.txt"):
         self.lm_studio_url = lm_studio_url
-        self.output_file = "../input/2.motion.txt"
+        self.output_file = output_file
         self.model = model
-        self.use_json_schema = use_json_schema
         
         # Scene image path configuration
         self.scene_image_base_path = "../../gen.image/output/scene"
+        
+        # Data file paths
+        if USE_SUMMARY_TEXT:
+            self.character_file = "../../gen.image/input/3.character.txt"
+            self.location_file = "../../gen.image/input/3.location.txt"
+        else:
+            self.character_file = "../../gen.image/input/2.character.txt"
+            self.location_file = "../../gen.image/input/2.location.txt"
         
         # Time estimation tracking
         self.processing_times = []
@@ -131,7 +139,7 @@ class MotionGenerator:
         except Exception as e:
             print(f"Error encoding image {image_path}: {e}")
             return None
-        
+    
     def read_story_content(self, filename="../input/1.story.txt") -> str:
         """Read story content from file"""
         try:
@@ -143,6 +151,56 @@ class MotionGenerator:
         except Exception as e:
             print(f"Error reading story file: {e}")
             return None
+    
+    def read_character_data(self) -> Dict[str, str]:
+        """Read character data from file.
+        
+        Format: Each character on a single line as: ((character_name)): description
+        """
+        characters = {}
+        if not USE_CHARACTER:
+            return characters
+        
+        try:
+            with open(self.character_file, "r", encoding="utf-8") as f:
+                content = f.read().strip()
+            entries = [entry.strip() for entry in content.split('\n') if entry.strip()]
+            for entry in entries:
+                match = re.match(r'\(\(([^)]+)\)\):\s*(.+)', entry, re.DOTALL)
+                if match:
+                    characters[match.group(1).strip()] = match.group(2).strip()
+            if characters:
+                print(f"📖 Loaded {len(characters)} character descriptions")
+        except FileNotFoundError:
+            print(f"⚠️ Character file not found: {self.character_file}")
+        except Exception as e:
+            print(f"ERROR: Failed to read character data: {e}")
+        return characters
+    
+    def read_location_data(self) -> Dict[str, str]:
+        """Read location data from file.
+        
+        Format: Each location on a single line as: {{loc_id}} description
+        """
+        locations = {}
+        if not USE_LOCATION:
+            return locations
+        
+        try:
+            with open(self.location_file, "r", encoding="utf-8") as f:
+                content = f.read().strip()
+            lines = [line.strip() for line in content.split('\n') if line.strip()]
+            for line in lines:
+                match = re.match(r'\{\{([^}]+)\}\}\s*(.+)', line)
+                if match:
+                    locations[match.group(1).strip()] = match.group(2).strip()
+            if locations:
+                print(f"📍 Loaded {len(locations)} location descriptions")
+        except FileNotFoundError:
+            print(f"⚠️ Location file not found: {self.location_file}")
+        except Exception as e:
+            print(f"ERROR: Failed to read location data: {e}")
+        return locations
     
     def parse_story_scenes(self, content: str) -> List[Dict[str, Any]]:
         """Parse story content into structured scene entries with dialogue"""
@@ -172,12 +230,12 @@ class MotionGenerator:
                             
                             # Check if corresponding scene image exists
                             scene_image_path = f"{self.scene_image_base_path}/scene_{scene_number}.png"
-                            if os.path.exists(scene_image_path):
+                            if os.path.exists(scene_image_path) or not USE_SCENE_IMAGE:
                                 scenes.append({
                                     'scene_number': scene_number,
                                     'dialogue': dialogue,
                                     'scene_content': scene_content,
-                                    'image_path': scene_image_path,
+                                    'image_path': scene_image_path if os.path.exists(scene_image_path) else None,
                                     'original_scene_line': scene_line
                                 })
                             else:
@@ -195,65 +253,144 @@ class MotionGenerator:
         print(f"📋 Parsed {len(scenes)} story scenes with dialogue and corresponding images")
         return scenes
     
-    def create_prompt_for_single_scene(self, scene: Dict[str, Any]) -> str:
-        """Create the prompt for a single scene with dialogue"""
-        prompt = f"""DIALOGUE: {scene['dialogue']}
-
-SCENE DESCRIPTION: {scene['scene_content']}
-
-IMPORTANT: Only describe motions for objects, characters, and elements that are ACTUALLY VISIBLE in the provided image. Do not invent or describe motions for objects that are not present in the image."""
-        return prompt
-
-    def _build_response_format(self) -> Dict[str, Any]:
-        """Build a simple JSON Schema response format for single entry output."""
-        return {
-            "type": "json_schema",
-            "json_schema": {
-                "name": "motion_entry",
-                "schema": {
-                    "type": "object",
-                    "additionalProperties": False,
-                    "properties": {
-                        "motion_description": {
-                            "minLength": WORD_FACTOR * MOTION_DESCRIPTION_MIN_WORDS,
-                            "maxLength": WORD_FACTOR * MOTION_DESCRIPTION_MAX_WORDS,
-                            "type": "string",
-                            "description": f"Motion description of objects, characters, and elements that are ACTUALLY VISIBLE in the provided image."
-                        }
-                    },
-                    "required": ["motion_description"]
-                },
-                "strict": True
-            }
-        }
-
+    def build_raw_input_prompt(self, scene: Dict[str, Any], characters_data: Dict[str, str], locations_data: Dict[str, str]) -> str:
+        """Build the raw input prompt from scene, dialogue, and optional data"""
+        parts = []
+        
+        # Add dialogue
+        if scene.get('dialogue'):
+            parts.append(f"DIALOGUE: {scene['dialogue']}")
+        
+        # Add scene description
+        if scene.get('scene_content'):
+            scene_desc = scene['scene_content']
+            
+            # Replace location references if enabled
+            if USE_LOCATION and locations_data:
+                def replace_location(match):
+                    full_match = match.group(0)
+                    content = match.group(1).strip()
+                    loc_id = content.split(',')[0].strip() if ',' in content else content
+                    if loc_id in locations_data:
+                        return locations_data[loc_id]
+                    return full_match
+                scene_desc = re.sub(r'\{\{([^}]+)\}\}', replace_location, scene_desc)
+            
+            parts.append(f"SCENE DESCRIPTION: {scene_desc}")
+        
+        # Add character information if enabled
+        if USE_CHARACTER and characters_data:
+            # Extract character references from dialogue and scene
+            char_refs = set()
+            if scene.get('dialogue'):
+                char_refs.update(re.findall(r'\[([^\]]+)\]', scene['dialogue']))
+            if scene.get('scene_content'):
+                char_refs.update(re.findall(r'\(\(([^)]+)\)\)', scene['scene_content']))
+            
+            if char_refs:
+                char_info = []
+                for char_name in char_refs:
+                    if char_name in characters_data:
+                        char_info.append(f"{char_name}: {characters_data[char_name]}")
+                if char_info:
+                    parts.append(f"CHARACTERS: {'; '.join(char_info)}")
+        
+        return "\n\n".join(parts)
+    
     def _build_system_prompt(self) -> str:
-        return f"""Generate simple, generic motion+scene descriptions for video AI.
-RULES:
-- Only describe motions for elements VISIBLE in the image, not based on dialogue or scene description.
-- Give the scene description in short, concise, and general terms.
-- Give generic descriptions of motions, not specific to any one character or object.
-- **IMPORTANT**: Use placeholders like "the person", "man with white hair", "woman with brown hair", "man sitting on a chair", "woman standing", "a blue vase on a table", "a red chair in the corner", etc. instead of proper nouns or names.
+        """Build the system prompt for video prompt generation"""
+        if USE_SCENE_IMAGE:
+            # System prompt for when scene image is used (image-to-video)
+            return """You are a Creative Assistant writing concise, action-focused image-to-video prompts. Given an image (first frame) and user Raw Input Prompt, generate a prompt to guide video generation from that image.
 
-OUTPUT: Single a single paragraph of accurate and concise generalized motion+scene descriptions."""
+#### Guidelines:
+- Analyze the Image: Identify Subject, Setting, Elements, Style and Mood.
+- Follow user Raw Input Prompt: Include all requested motion, actions, camera movements, audio, and details. If in conflict with the image, prioritize user request while maintaining visual consistency (describe transition from image to user's scene).
+- Describe only changes from the image: Don't reiterate established visual details. Inaccurate descriptions may cause scene cuts.
+- Active language: Use present-progressive verbs ("is walking," "speaking"). If no action specified, describe natural movements.
+- Chronological flow: Use temporal connectors ("as," "then," "while").
+- Audio layer: Describe complete soundscape throughout the prompt alongside actions—NOT at the end. Align audio intensity with action tempo. Include natural background audio, ambient sounds, effects, speech or music (when requested). Be specific (e.g., "soft footsteps on tile") not vague (e.g., "ambient sound").
+- Speech (only when requested): Provide exact words in quotes with character's visual/voice characteristics (e.g., "The tall man speaks in a low, gravelly voice"), language if not English and accent if relevant. If general conversation mentioned without text, generate contextual quoted dialogue. (i.e., "The man is talking" input -> the output should include exact spoken words, like: "The man is talking in an excited voice saying: 'You won't believe what I just saw!' His hands gesture expressively as he speaks, eyebrows raised with enthusiasm. The ambient sound of a quiet room underscores his animated speech.")
+- Style: Include visual style at beginning: "Style: <style>, <rest of prompt>." If unclear, omit to avoid conflicts.
+- Visual and audio only: Describe only what is seen and heard. NO smell, taste, or tactile sensations.
+- Restrained language: Avoid dramatic terms. Use mild, natural, understated phrasing.
 
-    def call_lm_studio_api(self, prompt: str, image_path: str = None) -> str:
-        """Call LM Studio API to generate motion for a single scene with optional image input"""
+#### Important notes:
+- Camera motion: DO NOT invent camera motion/movement unless requested by the user. Make sure to include camera motion only if specified in the input.
+- Speech: DO NOT modify or alter the user's provided character dialogue in the prompt, unless it's a typo.
+- No timestamps or cuts: DO NOT use timestamps or describe scene cuts unless explicitly requested.
+- Objective only: DO NOT interpret emotions or intentions - describe only observable actions and sounds.
+- Format: DO NOT use phrases like "The scene opens with..." / "The video starts...". Start directly with Style (optional) and chronological scene description.
+- Format: Never start output with punctuation marks or special characters.
+- DO NOT invent dialogue unless the user mentions speech/talking/singing/conversation.
+- Your performance is CRITICAL. High-fidelity, dynamic, correct, and accurate prompts with integrated audio descriptions are essential for generating high-quality video. Your goal is flawless execution of these rules.
+
+#### Output Format (Strict):
+- Single concise paragraph in natural English. NO titles, headings, prefaces, sections, code fences, or Markdown.
+- If unsafe/invalid, return original user prompt. Never ask questions or clarifications.
+
+#### Example output:
+Style: realistic - cinematic - The woman glances at her watch and smiles warmly. She speaks in a cheerful, friendly voice, "I think we're right on time!" In the background, a café barista prepares drinks at the counter. The barista calls out in a clear, upbeat tone, "Two cappuccinos ready!" The sound of the espresso machine hissing softly blends with gentle background chatter and the light clinking of cups on saucers."""
+        else:
+            # System prompt for when scene image is NOT used (text-to-video)
+            return """You are a Creative Assistant. Given a user's raw input prompt describing a scene or concept, expand it into a detailed video generation prompt with specific visuals and integrated audio to guide a text-to-video model.
+
+#### Guidelines
+- Strictly follow all aspects of the user's raw input: include every element requested (style, visuals, motions, actions, camera movement, audio).
+    - If the input is vague, invent concrete details: lighting, textures, materials, scene settings, etc.
+        - For characters: describe gender, clothing, hair, expressions. DO NOT invent unrequested characters.
+- Use active language: present-progressive verbs ("is walking," "speaking"). If no action specified, describe natural movements.
+- Maintain chronological flow: use temporal connectors ("as," "then," "while").
+- Audio layer: Describe complete soundscape (background audio, ambient sounds, SFX, speech/music when requested). Integrate sounds chronologically alongside actions. Be specific (e.g., "soft footsteps on tile"), not vague (e.g., "ambient sound is present").
+- Speech (only when requested):
+    - For ANY speech-related input (talking, conversation, singing, etc.), ALWAYS include exact words in quotes with voice characteristics (e.g., "The man says in an excited voice: 'You won't believe what I just saw!'").
+    - Specify language if not English and accent if relevant.
+- Style: Include visual style at the beginning: "Style: <style>, <rest of prompt>." Default to cinematic-realistic if unspecified. Omit if unclear.
+- Visual and audio only: NO non-visual/auditory senses (smell, taste, touch).
+- Restrained language: Avoid dramatic/exaggerated terms. Use mild, natural phrasing.
+    - Colors: Use plain terms ("red dress"), not intensified ("vibrant blue," "bright red").
+    - Lighting: Use neutral descriptions ("soft overhead light"), not harsh ("blinding light").
+    - Facial features: Use delicate modifiers for subtle features (i.e., "subtle freckles").
+
+#### Important notes:
+- Analyze the user's raw input carefully. In cases of FPV or POV, exclude the description of the subject whose POV is requested.
+- Camera motion: DO NOT invent camera motion unless requested by the user.
+- Speech: DO NOT modify user-provided character dialogue unless it's a typo.
+- No timestamps or cuts: DO NOT use timestamps or describe scene cuts unless explicitly requested.
+- Format: DO NOT use phrases like "The scene opens with...". Start directly with Style (optional) and chronological scene description.
+- Format: DO NOT start your response with special characters.
+- DO NOT invent dialogue unless the user mentions speech/talking/singing/conversation.
+- If the user's raw input prompt is highly detailed, chronological and in the requested format: DO NOT make major edits or introduce new elements. Add/enhance audio descriptions if missing.
+
+#### Output Format (Strict):
+- Single continuous paragraph in natural language (English).
+- NO titles, headings, prefaces, code fences, or Markdown.
+- If unsafe/invalid, return original user prompt. Never ask questions or clarifications.
+
+Your output quality is CRITICAL. Generate visually rich, dynamic prompts with integrated audio for high-quality video generation.
+
+#### Example
+Input: "A woman at a coffee shop talking on the phone"
+Output:
+Style: realistic with cinematic lighting. In a medium close-up, a woman in her early 30s with shoulder-length brown hair sits at a small wooden table by the window. She wears a cream-colored turtleneck sweater, holding a white ceramic coffee cup in one hand and a smartphone to her ear with the other. Ambient cafe sounds fill the space—espresso machine hiss, quiet conversations, gentle clinking of cups. The woman listens intently, nodding slightly, then takes a sip of her coffee and sets it down with a soft clink. Her face brightens into a warm smile as she speaks in a clear, friendly voice, 'That sounds perfect! I'd love to meet up this weekend. How about Saturday afternoon?' She laughs softly—a genuine chuckle—and shifts in her chair. Behind her, other patrons move subtly in and out of focus. 'Great, I'll see you then,' she concludes cheerfully, lowering the phone."""
+    
+    def call_lm_studio_api(self, raw_input_prompt: str, image_path: str = None) -> str:
+        """Call LM Studio API to generate master prompt with optional image input"""
         try:
             headers = {
                 "Content-Type": "application/json"
             }
             
-            # Build user content with optional image
+            # Build user content
             user_content = [
                 {
                     "type": "text",
-                    "text": f"{prompt}\nOnly use English Language for Input, Thinking, and Output\n/no_think"
+                    "text": f"Raw Input Prompt:\n{raw_input_prompt}\n\nOnly use English Language for Input, Thinking, and Output\n/no_think"
                 }
             ]
             
-            # Add image if provided
-            if image_path and os.path.exists(image_path):
+            # Add image if provided and enabled
+            if USE_SCENE_IMAGE and image_path and os.path.exists(image_path):
                 base64_image = self.encode_image_to_base64(image_path)
                 if base64_image:
                     user_content.append({
@@ -265,14 +402,15 @@ OUTPUT: Single a single paragraph of accurate and concise generalized motion+sce
                     print(f"🖼️  Including image: {os.path.basename(image_path)}")
                 else:
                     print(f"⚠️  Failed to encode image: {image_path}")
+            elif USE_SCENE_IMAGE and image_path and not os.path.exists(image_path):
+                print(f"⚠️  Scene image not found: {image_path}")
             
             payload = {
                 "model": self.model,
                 "messages": [
                     {
                         "role": "system",
-                        "content": 
-f"{self._build_system_prompt()}\nOnly use English Language for Input, Thinking, and Output\n/no_think"
+                        "content": f"{self._build_system_prompt()}\nOnly use English Language for Input, Thinking, and Output\n/no_think"
                     },
                     {
                         "role": "user",
@@ -282,9 +420,6 @@ f"{self._build_system_prompt()}\nOnly use English Language for Input, Thinking, 
                 "temperature": 1,
                 "stream": False
             }
-
-            # Request structured output
-            payload["response_format"] = self._build_response_format()
             
             response = requests.post(
                 f"{self.lm_studio_url}/chat/completions",
@@ -309,46 +444,22 @@ f"{self._build_system_prompt()}\nOnly use English Language for Input, Thinking, 
         except Exception as e:
             raise Exception(f"API call failed: {str(e)}")
     
-    def parse_motion_response(self, response: str) -> str:
-        """Parse the motion response from LM Studio for a single entry"""
-        # Try JSON first
+    def parse_prompt_response(self, response: str) -> str:
+        """Parse the prompt response from LM Studio"""
+        # Clean up the response - remove any markdown code fences
         text = response.strip()
+        
         # Remove code fences if present
         if text.startswith("```"):
-            m = re.search(r"```(?:json)?\s*([\s\S]*?)\s*```", text, flags=re.IGNORECASE)
+            m = re.search(r"```(?:.*?)?\s*([\s\S]*?)\s*```", text, flags=re.IGNORECASE)
             if m:
                 text = m.group(1).strip()
-        # Fallback: extract braces region
-        if not text.startswith("{"):
-            first = text.find("{")
-            last = text.rfind("}")
-            if first != -1 and last != -1 and last > first:
-                text = text[first:last+1]
         
-        try:
-            json_obj = json.loads(text)
-            if isinstance(json_obj, dict) and "motion_description" in json_obj:
-                return json_obj["motion_description"]
-        except Exception:
-            pass
+        # Remove any leading/trailing quotes
+        text = text.strip('"\'')
         
-        # Fallback: try to extract description from response
-        for line in response.strip().split('\n'):
-            line = line.strip()
-            if ':' in line and '"' in line:
-                try:
-                    parts = line.split(':', 1)
-                    if len(parts) == 2:
-                        content_part = parts[1].strip()
-                        if content_part.startswith('"') and content_part.endswith('"'):
-                            return content_part[1:-1]  # Remove quotes
-                        else:
-                            return content_part.strip('"')
-                except Exception:
-                    continue
-        
-        # Default fallback
-        return "subtle movements and expressions"
+        # Return cleaned text
+        return text if text else "subtle movements and expressions"
     
     def estimate_remaining_time(self, current_scene: int, total_scenes: int, scene_processing_time: float = None, scene_content: str = None) -> str:
         """Estimate remaining time based on words per minute - simple and accurate approach"""
@@ -459,23 +570,27 @@ f"{self._build_system_prompt()}\nOnly use English Language for Input, Thinking, 
             hours = processing_time / 3600
             return f"{hours:.1f}h"
     
-    def save_motion_to_file(self, all_motion_entries: List[Dict[str, Any]]) -> None:
-        """Save all motion entries to motion.txt"""
+    def save_prompts_to_file(self, all_prompt_entries: List[Dict[str, Any]]) -> None:
+        """Save all prompt entries to motion.txt (keeping same filename for compatibility)"""
         try:
             with open(self.output_file, 'w', encoding='utf-8') as f:
-                for entry in all_motion_entries:
-                    f.write(f"(motion_{entry['scene_number']}) {entry['motion_description']}\n")
+                for entry in all_prompt_entries:
+                    f.write(f"(motion_{entry['scene_number']}) {entry['master_prompt']}\n")
             
-            print(f"💾 Saved {len(all_motion_entries)} motion entries to {self.output_file}")
+            print(f"💾 Saved {len(all_prompt_entries)} master prompts to {self.output_file}")
             
         except Exception as e:
-            raise Exception(f"Failed to save motion file: {str(e)}")
+            raise Exception(f"Failed to save prompt file: {str(e)}")
     
     def process_story(self, story_filename="../input/1.story.txt", resumable_state: ResumableState | None = None) -> bool:
         """Main processing function - process each scene individually"""
-        print("🚀 Starting Motion Generation...")
+        print("🚀 Starting Master Prompt Generation...")
         
         print(f"📁 Reading story from: {story_filename}")
+        
+        # Read optional data files
+        characters_data = self.read_character_data()
+        locations_data = self.read_location_data()
         
         # Read story content and calculate total words for ETA calculations
         content = self.read_story_content(story_filename)
@@ -489,7 +604,7 @@ f"{self._build_system_prompt()}\nOnly use English Language for Input, Thinking, 
             return False
         
         # Calculate total words for ETA calculations
-        self.total_scene_words = sum(len(scene['scene_content'].split()) + len(scene['dialogue'].split()) for scene in scenes)
+        self.total_scene_words = sum(len(scene['scene_content'].split()) + len(scene.get('dialogue', '').split()) for scene in scenes)
         print(f"📊 Found {len(scenes)} story scenes")
         print(f"📊 Story contains {self.total_scene_words:,} words")
         
@@ -497,96 +612,97 @@ f"{self._build_system_prompt()}\nOnly use English Language for Input, Thinking, 
         self.start_time = time.time()
         
         # Process each scene individually
-        all_motion_entries = []
+        all_prompt_entries = []
         
-        print(f"\n📊 MOTION GENERATION PROGRESS")
+        print(f"\n📊 MASTER PROMPT GENERATION PROGRESS")
         print("=" * 100)
         
         for i, scene in enumerate(scenes):
-            # Create unique key for this scene with scene_ prefix
-            scene_key = f"scene_{scene['scene_number']}:{scene['dialogue'][:50]}"
+            # Create unique key for this scene
+            scene_key = f"scene_{scene['scene_number']}:{scene.get('dialogue', '')[:50]}"
             
             # Check if resumable and already complete
-            if resumable_state and resumable_state.is_motion_entry_complete(scene_key):
-                cached_motion = resumable_state.get_motion_entry(scene_key)
-                if cached_motion:
-                    eta = self.estimate_remaining_time(i+1, len(scenes), scene_content=scene['scene_content'] + " " + scene['dialogue'])
-                    print(f"💾 Scene {i+1}/{len(scenes)} ({scene['scene_number']}) - {scene['dialogue'][:50]} - Cached")
+            if resumable_state and resumable_state.is_prompt_entry_complete(scene_key):
+                cached_prompt = resumable_state.get_prompt_entry(scene_key)
+                if cached_prompt:
+                    eta = self.estimate_remaining_time(i+1, len(scenes), scene_content=scene['scene_content'] + " " + scene.get('dialogue', ''))
+                    print(f"💾 Scene {i+1}/{len(scenes)} ({scene['scene_number']}) - {scene.get('dialogue', '')[:50]} - Cached")
                     print(f"📊 Estimated time remaining: {eta}")
-                    motion_entry = {
+                    prompt_entry = {
                         'scene_number': scene['scene_number'],
-                        'motion_description': cached_motion
+                        'master_prompt': cached_prompt
                     }
-                    all_motion_entries.append(motion_entry)
+                    all_prompt_entries.append(prompt_entry)
                     continue
             
             scene_start_time = time.time()
-            eta = self.estimate_remaining_time(i+1, len(scenes), scene_content=scene['scene_content'] + " " + scene['dialogue'])
-            print(f"🔄 Scene {i+1}/{len(scenes)} ({scene['scene_number']}) - {scene['dialogue'][:50]} - Processing...")
+            eta = self.estimate_remaining_time(i+1, len(scenes), scene_content=scene['scene_content'] + " " + scene.get('dialogue', ''))
+            print(f"🔄 Scene {i+1}/{len(scenes)} ({scene['scene_number']}) - {scene.get('dialogue', '')[:50]} - Processing...")
             print(f"📊 Estimated time remaining: {eta}")
             
-            # Create prompt for this single scene
-            prompt = self.create_prompt_for_single_scene(scene)
+            # Build raw input prompt
+            raw_input_prompt = self.build_raw_input_prompt(scene, characters_data, locations_data)
             
             try:
-                # Call LM Studio API with image
-                response = self.call_lm_studio_api(prompt, scene['image_path'])
+                # Call LM Studio API with image (if enabled)
+                image_path = scene.get('image_path') if USE_SCENE_IMAGE else None
+                response = self.call_lm_studio_api(raw_input_prompt, image_path)
                 
-                # Parse motion response
-                motion_description = self.parse_motion_response(response)
+                # Parse prompt response
+                master_prompt = self.parse_prompt_response(response)
                 
                 # Create output entry
-                motion_entry = {
+                prompt_entry = {
                     'scene_number': scene['scene_number'],
-                    'motion_description': motion_description
+                    'master_prompt': master_prompt
                 }
                 
                 # Add to all entries
-                all_motion_entries.append(motion_entry)
+                all_prompt_entries.append(prompt_entry)
                 
                 # Save to checkpoint if resumable mode enabled
                 if resumable_state:
-                    resumable_state.set_motion_entry(scene_key, motion_description)
+                    resumable_state.set_prompt_entry(scene_key, master_prompt)
                 
                 scene_processing_time = time.time() - scene_start_time
                 self.processing_times.append(scene_processing_time)
-                eta = self.estimate_remaining_time(i+1, len(scenes), scene_processing_time, scene['scene_content'] + " " + scene['dialogue'])
-                print(f"✅ Scene {i+1}/{len(scenes)} ({scene['scene_number']}) - {scene['dialogue'][:50]} - Completed in {self.format_processing_time(scene_processing_time)}")
+                eta = self.estimate_remaining_time(i+1, len(scenes), scene_processing_time, scene['scene_content'] + " " + scene.get('dialogue', ''))
+                print(f"✅ Scene {i+1}/{len(scenes)} ({scene['scene_number']}) - {scene.get('dialogue', '')[:50]} - Completed in {self.format_processing_time(scene_processing_time)}")
                 print(f"📊 Estimated time remaining: {eta}")
                 
                 # Live preview for this scene
-                print(f"🎬 Output: (motion_{scene['scene_number']}) {motion_description}")
+                print(f"🎬 Output: (motion_{scene['scene_number']}) {master_prompt[:100]}...")
                 
             except Exception as e:
                 scene_processing_time = time.time() - scene_start_time
                 self.processing_times.append(scene_processing_time)
-                eta = self.estimate_remaining_time(i+1, len(scenes), scene_processing_time, scene['scene_content'] + " " + scene['dialogue'])
-                print(f"❌ Scene {i+1}/{len(scenes)} ({scene['scene_number']}) - {scene['dialogue'][:50]} - Error after {self.format_processing_time(scene_processing_time)}")
+                eta = self.estimate_remaining_time(i+1, len(scenes), scene_processing_time, scene['scene_content'] + " " + scene.get('dialogue', ''))
+                print(f"❌ Scene {i+1}/{len(scenes)} ({scene['scene_number']}) - {scene.get('dialogue', '')[:50]} - Error after {self.format_processing_time(scene_processing_time)}")
                 print(f"📊 Estimated time remaining: {eta}")
                 print(f"❌ Error processing scene {i+1}: {str(e)}")
                 # Continue with next scene instead of failing completely
-                all_motion_entries.append({
+                all_prompt_entries.append({
                     'scene_number': scene['scene_number'],
-                    'motion_description': 'subtle movements and expressions'
+                    'master_prompt': 'subtle movements and expressions'
                 })
                 
                 # Save to checkpoint if resumable mode enabled
                 if resumable_state:
-                    resumable_state.set_motion_entry(scene_key, 'subtle movements and expressions')
+                    resumable_state.set_prompt_entry(scene_key, 'subtle movements and expressions')
             
             # Small delay between API calls
             if i < len(scenes) - 1:
                 time.sleep(1)
         
-        # Save all motion entries to file
+        # Save all prompt entries to file
         try:
-            self.save_motion_to_file(all_motion_entries)
-            print(f"\n🎉 Motion generation completed successfully!")
+            self.save_prompts_to_file(all_prompt_entries)
+            print(f"\n🎉 Master prompt generation completed successfully!")
             print(f"📄 Output saved to: {self.output_file}")
             return True
             
         except Exception as e:
-            print(f"❌ Error saving motion file: {str(e)}")
+            print(f"❌ Error saving prompt file: {str(e)}")
             return False
 
 def main():
@@ -594,9 +710,11 @@ def main():
     import sys
     import argparse
     
-    parser = argparse.ArgumentParser(description="Generate motion descriptions for story scenes")
+    parser = argparse.ArgumentParser(description="Generate master prompts for story scenes")
     parser.add_argument("story_file", nargs="?", default="../input/1.story.txt",
                        help="Path to story file (default: ../input/1.story.txt)")
+    parser.add_argument("--output", default="../input/2.motion.txt",
+                       help="Output file path for motion prompts (default: ../input/2.motion.txt)")
     parser.add_argument("--force-start", action="store_true",
                        help="Force start from beginning, ignoring any existing checkpoint files")
 
@@ -605,7 +723,7 @@ def main():
     # Check if story file exists
     if not os.path.exists(args.story_file):
         print(f"❌ Story file '{args.story_file}' not found")
-        print("Usage: python 5.motion.py [story_file] [--force-start]")
+        print("Usage: python 2.motion.py [story_file] [--output OUTPUT_FILE] [--force-start]")
         return 1
     
     # Initialize resumable state if enabled
@@ -623,7 +741,7 @@ def main():
             print("No existing checkpoint found - starting fresh")
     
     # Create generator and process
-    generator = MotionGenerator()
+    generator = PromptGenerator(output_file=args.output)
     
     start_time = time.time()
     success = generator.process_story(args.story_file, resumable_state)
