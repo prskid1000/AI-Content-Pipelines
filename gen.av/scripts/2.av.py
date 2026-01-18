@@ -25,7 +25,7 @@ CHUNK_SIZE = 3  # Maximum seconds per chunk (3 seconds max for AV)
 # Note: Master prompts are now generated in 2.motion.py with all features integrated
 
 # Words to speech ratio: seconds per word
-WORDS_TO_SPEECH_RATIO = 0.15  # 0.15 seconds per word (approximately 6.67 words per second)
+WORDS_TO_SPEECH_RATIO = 0.20  # 0.20 seconds per word (approximately 5 words per second)
 
 # LoRA Switch Configuration (controls LoRA chain in movie.json workflow)
 # Each switch controls a specific part of the LoRA chain
@@ -555,38 +555,36 @@ class AVVideoGenerator:
         
         return chunks
     
-    def _split_dialogue_for_chunk(self, dialogue: str, chunk_duration: float, total_duration: float, chunk_start_time: float = 0.0) -> str:
-        """Split dialogue proportionally for a specific chunk based on time.
+    def _split_dialogue_for_chunk(self, dialogue: str, chunk_idx: int = 0) -> str:
+        """Split dialogue for a specific chunk based on chunk size limit (max 20 words per 3s chunk).
         
         Args:
             dialogue: Full dialogue text
-            chunk_duration: Duration of this chunk in seconds
-            total_duration: Total duration of the scene in seconds
-            chunk_start_time: Start time of this chunk within the total duration (for multi-chunk scenes)
+            chunk_idx: Zero-based index of the chunk (0 = first chunk, 1 = second chunk, etc.)
         
         Returns:
-            Portion of dialogue text that corresponds to this chunk's duration
+            Portion of dialogue text that corresponds to this chunk (max 20 words per 3s chunk)
         """
-        if not dialogue or total_duration <= 0:
+        if not dialogue:
             return dialogue
         
-        # If chunk duration equals or exceeds total duration, return full dialogue
-        if chunk_duration >= total_duration:
-            return dialogue
+        # Calculate max words per chunk based on CHUNK_SIZE (3 seconds max)
+        # CHUNK_SIZE / WORDS_TO_SPEECH_RATIO = 3 / 0.15 = 20 words max per chunk
+        # Example: 100 words dialogue → 5 chunks of 20 words each (3s + 3s + 3s + 3s + 3s = 15s)
+        max_words_per_chunk = int(CHUNK_SIZE / WORDS_TO_SPEECH_RATIO)
         
-        # Calculate how many words should be in this chunk
+        # Split dialogue into words
         words = dialogue.split()
         total_words = len(words)
         
         if total_words == 0:
             return dialogue
         
-        # Calculate word ratio for this chunk
-        chunk_ratio = chunk_duration / total_duration
-        
         # Calculate start and end word indices for this chunk
-        start_word_idx = int(chunk_start_time / total_duration * total_words)
-        end_word_idx = int((chunk_start_time + chunk_duration) / total_duration * total_words)
+        # Each chunk gets max_words_per_chunk words (or remaining words for last chunk)
+        # Chunk 0: words 0-19, Chunk 1: words 20-39, Chunk 2: words 40-59, etc.
+        start_word_idx = chunk_idx * max_words_per_chunk
+        end_word_idx = min(start_word_idx + max_words_per_chunk, total_words)
         
         # Ensure we don't go out of bounds
         start_word_idx = max(0, min(start_word_idx, total_words))
@@ -595,15 +593,13 @@ class AVVideoGenerator:
         # Extract words for this chunk
         chunk_words = words[start_word_idx:end_word_idx]
         
-        # Reconstruct dialogue text (preserve original spacing if possible)
+        # Reconstruct dialogue text
         if chunk_words:
             chunk_dialogue = ' '.join(chunk_words)
-            # Try to preserve punctuation and formatting
-            # If the original dialogue had line breaks, we might lose them, but that's acceptable
             return chunk_dialogue
         else:
-            # Fallback: return empty or first few words
-            return ' '.join(words[:max(1, int(chunk_ratio * total_words))])
+            # Fallback: return empty string if no words
+            return ""
 
     def _copy_saved_frames_to_output(self, chunk_scene_id: str) -> None:
         """Copy saved frames from ComfyUI output to output/frames directory with proper naming.
@@ -837,10 +833,10 @@ class AVVideoGenerator:
         if ENABLE_DIALOGUE_CHUNKS and dialogue:
             if positive_prompt:
                 # Append dialogue to existing prompt
-                positive_prompt = f"{positive_prompt}\n\nDialogue: {dialogue}"
+                positive_prompt = f"{positive_prompt}\n\nDialogue: \"{dialogue}\""
             else:
                 # Use dialogue as prompt if no motion data
-                positive_prompt = f"Dialogue: {dialogue}"
+                positive_prompt = f"Dialogue: \"{dialogue}\""
             print_flush(f"💬 Added dialogue chunk to prompt: {dialogue[:50]}...")
         
         # Use provided frame count or calculate from duration
@@ -851,7 +847,7 @@ class AVVideoGenerator:
                 print(f"Duration is not provided for {chunk_scene_id}")
                 frame_count = 121  # Default fallback
 
-        print_flush(f"Full prompt: {positive_prompt[:100]}..." if len(positive_prompt) > 100 else f"Full prompt: {positive_prompt}")
+        print_flush(f"Full prompt: {positive_prompt}")
         
         # Update workflow nodes for movie.json
         # Node "204" is the text input (PrimitiveStringMultiline) - set to positive prompt
@@ -965,9 +961,6 @@ class AVVideoGenerator:
             generated_videos = []
             current_input_image = image_filename  # Track the current input image for continuity
             
-            # Track cumulative time for dialogue splitting
-            cumulative_time = 0.0
-            
             for chunk_idx, (chunk_suffix, chunk_frames, chunk_duration) in enumerate(chunks):
                 chunk_scene_id = f"{scene_id}{chunk_suffix}"
                 
@@ -1032,10 +1025,11 @@ class AVVideoGenerator:
                 
                 # Split dialogue for this chunk if dialogue exists
                 chunk_dialogue = ""
-                if dialogue and duration and duration > 0:
-                    chunk_dialogue = self._split_dialogue_for_chunk(dialogue, chunk_duration, duration, cumulative_time)
+                if dialogue:
+                    chunk_dialogue = self._split_dialogue_for_chunk(dialogue, chunk_idx)
                     if chunk_dialogue:
-                        print(f"💬 Chunk {chunk_idx + 1} dialogue ({chunk_duration:.2f}s): {chunk_dialogue[:50]}...")
+                        word_count = len(chunk_dialogue.split())
+                        print(f"💬 Chunk {chunk_idx + 1} dialogue ({chunk_duration:.2f}s, {word_count} words): {chunk_dialogue[:50]}...")
                 
                 # Build description for this chunk: chunk_dialogue + scene_description_only
                 if chunk_dialogue:
@@ -1046,9 +1040,6 @@ class AVVideoGenerator:
                 
                 # Build workflow for this chunk (single image only, no guide images)
                 workflow = self._build_av_workflow(chunk_scene_id, chunk_description, current_input_image, chunk_duration, motion_data, chunk_frames, chunk_dialogue)
-                
-                # Update cumulative time for next chunk
-                cumulative_time += chunk_duration
                 if not workflow:
                     print(f"ERROR: Failed to build workflow for {chunk_scene_id}")
                     continue

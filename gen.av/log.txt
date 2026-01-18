@@ -2,13 +2,17 @@ Workflow runner started. Python executable: D:\.comfyui\.venv\Scripts\python.exe
 Working directory: D:\.comfyui\gen.av
 Emptying ComfyUI input and output folders...
 Removed directory: D:\.comfyui\ComfyUI\input\3d
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_2_last_frame.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_3_last_frame.png
 Successfully emptied ComfyUI input and output folders.
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
+ComfyUI not ready yet (attempt 1). Retrying in 15s...
 [START] Security scan
 [DONE] Security scan
 ## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2026-01-18 20:43:49.228
+** ComfyUI startup time: 2026-01-18 21:14:17.998
 ** Platform: Windows
 ** Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
 ** Python executable: D:\.comfyui\.venv\Scripts\python.exe
@@ -17,10 +21,9 @@ Waiting for ComfyUI to become ready (polling every 15s)...
 ** User directory: D:\.comfyui\ComfyUI\user
 ** ComfyUI-Manager config path: D:\.comfyui\ComfyUI\user\__manager\config.ini
 ** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
-ComfyUI not ready yet (attempt 1). Retrying in 15s...
 
 Prestartup times for custom nodes:
-   3.4 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   4.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
 
 Checkpoint files will always be loaded safely.
 Total VRAM 12227 MB, total RAM 64957 MB
@@ -29,8 +32,8 @@ Set vram state to: NORMAL_VRAM
 Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
 Using async weight offloading with 16 streams
 working around nvidia conv3d memory bug.
-Found comfy_kitchen backend cuda: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
 Found comfy_kitchen backend eager: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
+Found comfy_kitchen backend cuda: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
 Found comfy_kitchen backend triton: {'available': True, 'disabled': True, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8']}
 Using pytorch attention
 Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
@@ -49,16 +52,15 @@ ComfyUI-GGUF: Allowing full torch compile
 ### ComfyUI Revision: 4498 [2e9d5168] *DETACHED | Released on '2026-01-07'
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
 
 [32mInitializing ControlAltAI Nodes[0m
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
 ✅ ChatterboxTTS loaded from bundled package
 ✅ ChatterboxVC loaded from bundled package
-FETCH ComfyRegistry Data: 5/120
 ComfyUI not ready yet (attempt 2). Retrying in 15s...
-FETCH ComfyRegistry Data: 10/120
+FETCH ComfyRegistry Data: 5/120
 ✅ F5-TTS loaded from system package
 🎭 Character voices: Found 61 characters, 2 aliases
 ✅ SRT modules loaded from system package
@@ -90,13 +92,13 @@ Universal multi-engine TTS extension for ComfyUI
 
 Import times for custom nodes:
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyMath
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
-   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
-   0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-   0.7 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
-  17.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
+   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
+   0.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
+   0.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   0.8 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
+  10.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
 
 Context impl SQLiteImpl.
 Will assume non-transactional DDL.
@@ -104,13 +106,22 @@ No target revision found.
 Starting server
 
 To see the GUI go to: http://127.0.0.1:8188
+FETCH ComfyRegistry Data: 10/120
 FETCH ComfyRegistry Data: 15/120
 ComfyUI is ready after 34.1s (attempt 3).
 
-===== START D:\.comfyui\gen.av\scripts\2.av.py @ 2026-01-18 20:44:21 =====
+===== START D:\.comfyui\gen.av\scripts\2.av.py @ 2026-01-18 21:14:49 =====
+Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
 Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.av\output\tracking
 Found existing checkpoint: D:\.comfyui\gen.av\output\tracking\2.av.state.json
-Progress: Videos(0/0), Chunks(1/1)
+Progress: Videos(0/0), Chunks(2/2)
 🎬 Starting AV video generation process...
 📁 Story:     ../input/1.story.txt
 🖼️  Images:    ../../gen.image/output/scene
@@ -136,22 +147,30 @@ Processing 7 unique scenes, skipped 0
 📊 Estimated time remaining: ~18.7m (?)
 Generating video for scene: scene_1.1
 Duration: 6.75s, Frames: 162
-Video chunks: 2
+Video chunks: 3
 Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_1.1.png
 ✅ Using cached chunk: scene_1.1_1
 🔄 Cached chunk continuity: will use scene_1.1.png for next chunk
-Generating chunk: scene_1.1_2 (17 frames)
-🔍 Frame prefix: scene_1.1_1.frame_
+✅ Using cached chunk: scene_1.1_2
+⚠️ Cached frame file missing: scene_1.1_2_last_frame.png, will search for last saved frame
+🔍 Frame prefix: scene_1.1_2.frame_
 🔍 Matching frames: 73
-🔍 Found last frame: scene_1.1_1.frame_073.png (frame #73)
-🔄 Using last saved frame from previous chunk as input for scene_1.1_2
-📁 Frame stored: ../output/frames\scene_1.1_2_last_frame.png
-💬 Chunk 2 dialogue (0.71s): "It was a calm...
+🔍 Found last frame: scene_1.1_2.frame_073.png (frame #73)
+🔄 Recovered cached chunk continuity: using scene_1.1_2_last_frame.png
+Generating chunk: scene_1.1_3 (16 frames)
+🔍 Frame prefix: scene_1.1_2.frame_
+🔍 Matching frames: 73
+🔍 Found last frame: scene_1.1_2.frame_073.png (frame #73)
+🔄 Using last saved frame from previous chunk as input for scene_1.1_3
+📁 Frame stored: ../output/frames\scene_1.1_3_last_frame.png
+💬 Chunk 3 dialogue (0.67s): "It was a calm...
 🎬 Using master prompt for 1.1
 💬 Added dialogue chunk to prompt: "It was a calm...
-Full prompt: Style: anime - cinematic - The young man sits on a blue couch near a window, reading a newspaper. Su...
+Full prompt: Style: anime - cinematic - The young man sits on a blue couch near a window, reading a newspaper. Sunlight streams through the glass, illuminating his face and casting soft shadows across the room. He wears a white short-sleeved shirt and brown pants, with a watch on his left wrist. A small wooden table stands beside him, while green plants grow in the corner of the room. On the wall behind him hangs a framed picture. Outside the window, trees sway gently under a bright blue sky dotted with fluffy clouds. The sound of birds chirping fills the air, accompanied by the soft rustling of leaves and distant traffic noise from the street below.
+
+Dialogue: ""It was a calm"
 got prompt
-Waiting for video generation completion (prompt_id: 1ac6b54e-d98e-4baa-97d2-057ec66ae10e)...
+Waiting for video generation completion (prompt_id: 1022a0f2-578b-4784-9238-48a6aa822398)...
 VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
 Requested to load VideoVAE
 FETCH ComfyRegistry Data: 20/120
@@ -171,30 +190,73 @@ Requested to load LTXAV
 FETCH ComfyRegistry Data: 45/120
 FETCH ComfyRegistry Data: 50/120
 FETCH ComfyRegistry Data: 55/120
-FETCH ComfyRegistry Data: 60/120
-loaded partially; 9543.05 MB usable, 9389.91 MB loaded, 2852.06 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 65/120
+loaded partially; 9543.25 MB usable, 9390.12 MB loaded, 2851.85 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
+  0%|          | 0/8 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 60/120
+FETCH ComfyRegistry Data: 65/120
 FETCH ComfyRegistry Data: 70/120
-FETCH ComfyRegistry Data: 75/120
- 12%|█▎        | 1/8 [00:17<02:03, 17.62s/it]FETCH ComfyRegistry Data: 80/120
-FETCH ComfyRegistry Data: 85/120
- 25%|██▌       | 2/8 [00:26<01:13, 12.24s/it]FETCH ComfyRegistry Data: 90/120
- 38%|███▊      | 3/8 [00:34<00:52, 10.50s/it]FETCH ComfyRegistry Data: 95/120
- 50%|█████     | 4/8 [00:42<00:38,  9.70s/it]FETCH ComfyRegistry Data: 100/120
-FETCH ComfyRegistry Data: 105/120
- 62%|██████▎   | 5/8 [00:51<00:27,  9.27s/it]FETCH ComfyRegistry Data: 110/120
- 75%|███████▌  | 6/8 [01:00<00:18,  9.03s/it]FETCH ComfyRegistry Data: 115/120
-FETCH ComfyRegistry Data: 120/120
+ 12%|█▎        | 1/8 [00:15<01:50, 15.73s/it]FETCH ComfyRegistry Data: 75/120
+FETCH ComfyRegistry Data: 80/120
+ 25%|██▌       | 2/8 [00:24<01:08, 11.43s/it]FETCH ComfyRegistry Data: 85/120
+ 38%|███▊      | 3/8 [00:32<00:49,  9.99s/it]FETCH ComfyRegistry Data: 90/120
+ 50%|█████     | 4/8 [00:40<00:37,  9.33s/it]FETCH ComfyRegistry Data: 95/120
+FETCH ComfyRegistry Data: 100/120
+ 62%|██████▎   | 5/8 [00:49<00:26,  8.98s/it]FETCH ComfyRegistry Data: 105/120
+ 75%|███████▌  | 6/8 [00:57<00:17,  8.77s/it]FETCH ComfyRegistry Data: 110/120
+FETCH ComfyRegistry Data: 115/120
+ 88%|████████▊ | 7/8 [01:05<00:08,  8.63s/it]FETCH ComfyRegistry Data: 120/120
 FETCH ComfyRegistry Data [DONE]
 [ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
 FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
 [ComfyUI-Manager] All startup tasks have been completed.
- 88%|████████▊ | 7/8 [01:09<00:09,  9.01s/it]100%|██████████| 8/8 [01:17<00:00,  8.94s/it]100%|██████████| 8/8 [01:17<00:00,  9.73s/it]
+100%|██████████| 8/8 [01:14<00:00,  8.61s/it]100%|██████████| 8/8 [01:14<00:00,  9.30s/it]
 Requested to load VideoVAE
-Unloaded partially: 2400.13 MB freed, 6989.78 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 211
+Unloaded partially: 2400.34 MB freed, 6989.78 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 211
 loaded completely; 2648.72 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9731.21 MB usable, 9578.07 MB loaded, 2663.90 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:12<00:24, 12.01s/it]Traceback (most recent call last):
+loaded partially; 9732.03 MB usable, 9578.89 MB loaded, 2663.08 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
+  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:10<00:20, 10.37s/it] 67%|██████▋   | 2/3 [00:20<00:10, 10.27s/it]100%|██████████| 3/3 [00:30<00:00, 10.25s/it]100%|██████████| 3/3 [00:30<00:00, 10.26s/it]
+Requested to load VideoVAE
+Unloaded partially: 3833.95 MB freed, 5744.94 MB remains loaded, 379.78 MB buffer reserved, lowvram patches: 524
+loaded completely; 2848.56 MB usable, 2378.23 MB loaded, full load: True
+Requested to load AudioVAE
+loaded completely; 1610.44 MB usable, 415.20 MB loaded, full load: True
+Prompt executed in 163.59 seconds
+✅ Copied 9 frames for scene_1.1_3
+Saved video: ../output\scene_1.1_3.mp4
+💾 Checkpoint saved for chunk: scene_1.1_3
+🔗 Merging 3 video chunks for scene_1.1...
+Merging 3 video chunks...
+✅ Successfully merged chunks, now processing to remove first frame...
+Removing first frame...
+Extracting first frame of trimmed video...
+Creating duplicate of first frame...
+Concatenating duplicate frame with trimmed video...
+✅ Successfully processed video: scene_1.1.mp4
+🗑️ Cleaned up chunk: scene_1.1_1.mp4
+🗑️ Cleaned up chunk: scene_1.1_2.mp4
+🗑️ Cleaned up chunk: scene_1.1_3.mp4
+✅ Scene 1/7 - "It was a calm winter morning in Baker Street, the (6.75s) - Completed in 2.8m
+📊 Estimated time remaining: ~14.8m (?)
+✅ Generated video: scene_1.1
+🔄 Scene 2/7 - "You mistake calm for emptiness, Watson, for I per (5.70s) - Processing...
+📊 Estimated time remaining: ~14.1m (?)
+Generating video for scene: scene_1.2
+Duration: 5.70s, Frames: 136
+Video chunks: 2
+Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_1.2.png
+Generating chunk: scene_1.2_1 (73 frames)
+💬 Chunk 1 dialogue (3.04s): "You mistake calm for emptiness, Watson, for I per...
+🎬 Using master prompt for 1.2
+💬 Added dialogue chunk to prompt: "You mistake calm for emptiness, Watson, for I per...
+Full prompt: Style: anime - realistic - cinematic - The man with black hair and blue eyes stands near the window, his finger pointing at the sill. He speaks in a calm, authoritative voice saying: "Observe, Watson, our nocturnal visitor has been most careless. The marks upon this sill tell me she stood here for some moments before deciding to knock." In the background, the man with dark hair and blue eyes leans forward from the armchair, his newspaper lowered as he listens intently. A fire burns warmly in the fireplace, casting a soft orange glow across the room. Outside, green trees sway gently under a clear blue sky. The sound of crackling wood and distant birdsong blend into a quiet, contemplative atmosphere.
+
+Dialogue: ""You mistake calm for emptiness, Watson, for I perceive from the stiffness of your posture and the untouched tea that"
+got prompt
+Waiting for video generation completion (prompt_id: d2176402-08a5-4ba6-ac58-4c4a93a1601e)...
+Requested to load LTXAVTEModel_
+loaded partially; 9541.67 MB usable, 714.50 MB loaded, 25249.59 MB offloaded, 8827.18 MB buffer reserved, lowvram patches: 0
+Requested to load LTXAV
+loaded partially; 9539.56 MB usable, 9386.43 MB loaded, 2855.54 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:12<01:24, 12.06s/it] 25%|██▌       | 2/8 [00:22<01:07, 11.32s/it] 38%|███▊      | 3/8 [00:33<00:55, 11.11s/it] 50%|█████     | 4/8 [00:44<00:44, 11.04s/it] 62%|██████▎   | 5/8 [00:55<00:33, 11.02s/it]Traceback (most recent call last):
   File "D:\.comfyui\gen.av\scripts\2.av.py", line 1608, in <module>
     exit(main())
          ^^^^^^
