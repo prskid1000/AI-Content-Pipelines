@@ -111,7 +111,7 @@ ART_STYLE = "Realistic Anime"
 EXTRA_PROMPT_PHRASES = [
     "Keep both of the character's hands separate and clearly visible.",
     "Include only one character in the scene.",
-    "Character size should be realistic and proportional to other objects and elements in the scene.",
+    "VERY IMPORTANT: Maintain realistic size ratios between the character and objects in the scene, matching real-world proportions and scale.",
     "Avoid textual elements. Use logos or icons only when necessary.",
 ]
 

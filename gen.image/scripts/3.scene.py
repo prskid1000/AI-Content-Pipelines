@@ -16,7 +16,7 @@ WORKFLOW_SUMMARY_ENABLED = False # Set to True to enable workflow summary printi
 
 # Image resizing configuration (characters only)
 # Character image resize factor: 0.125 (12.5% of original size) - Better aspect ratio for stitching
-CHARACTER_RESIZE_FACTOR = 0.2
+CHARACTER_RESIZE_FACTOR = 1
 
 # Image compression configuration
 # JPEG quality: 1-100 (100 = best quality, larger file; 1 = worst quality, smaller file)
@@ -51,7 +51,7 @@ IMAGE_HEIGHT = 800
 
 # Latent Input Mode Configuration
 LATENT_MODE = "IMAGE"  # "LATENT" for normal noise generation, "IMAGE" for load image input
-LATENT_DENOISING_STRENGTH = 0.96  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
+LATENT_DENOISING_STRENGTH = 0.95  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # Image Stitching Configuration (1-5)
 IMAGE_STITCH_COUNT = 3  # Number of images to stitch together in each group
@@ -113,7 +113,7 @@ ART_STYLE = "Realistic Anime"
 EXTRA_PROMPT_PHRASES = [
     "Keep both of the character's hands separate and clearly visible.",
     "Include only one character in the scene.",
-    "Character size should be realistic and proportional to other objects and elements in the scene.",
+    "VERY IMPORTANT: Maintain realistic size ratios between the character and objects in the scene, matching real-world proportions and scale.",
     "Avoid textual elements. Use logos or icons only when necessary.",
 ]
 

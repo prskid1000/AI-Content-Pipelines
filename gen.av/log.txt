@@ -3,20 +3,42 @@ Working directory: D:\.comfyui\gen.av
 Emptying ComfyUI input and output folders...
 Removed directory: D:\.comfyui\ComfyUI\input\3d
 Removed file: D:\.comfyui\ComfyUI\input\loc_1.png
+Removed file: D:\.comfyui\ComfyUI\input\loc_2.png
+Removed file: D:\.comfyui\ComfyUI\input\loc_3.png
 Removed file: D:\.comfyui\ComfyUI\input\loc_loc_1.jpg
+Removed file: D:\.comfyui\ComfyUI\input\loc_loc_2.jpg
+Removed file: D:\.comfyui\ComfyUI\input\loc_loc_3.jpg
 Removed file: D:\.comfyui\ComfyUI\input\male_detective_holmes.jpg
 Removed file: D:\.comfyui\ComfyUI\input\male_doctor_watson.jpg
 Removed file: D:\.comfyui\ComfyUI\output\scene_1.1.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.3.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.4.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.5.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.6.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.7.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.8.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.9.FLUX1_Turbo_Alphasafetensors_00001_.png
 Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00001_.png
 Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00002_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00003_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00004_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00005_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00006_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00007_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00008_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00009_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00010_.png
 Removed file: D:\.comfyui\ComfyUI\output\stitched_group_2_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_2_00002_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_2_00003_.png
 Successfully emptied ComfyUI input and output folders.
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
 [START] Security scan
 [DONE] Security scan
 ## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2026-01-18 12:45:42.810
+** ComfyUI startup time: 2026-01-18 13:52:06.601
 ** Platform: Windows
 ** Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
 ** Python executable: D:\.comfyui\.venv\Scripts\python.exe
@@ -37,9 +59,9 @@ Set vram state to: NORMAL_VRAM
 Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
 Using async weight offloading with 16 streams
 working around nvidia conv3d memory bug.
-Found comfy_kitchen backend triton: {'available': True, 'disabled': True, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8']}
-Found comfy_kitchen backend eager: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
 Found comfy_kitchen backend cuda: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
+Found comfy_kitchen backend eager: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
+Found comfy_kitchen backend triton: {'available': True, 'disabled': True, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8']}
 Using pytorch attention
 Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
 ComfyUI version: 0.8.2
@@ -103,7 +125,7 @@ Import times for custom nodes:
    0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
    0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
    0.7 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
-   8.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
+   8.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
 
 Context impl SQLiteImpl.
 Will assume non-transactional DDL.
@@ -113,9 +135,10 @@ Starting server
 To see the GUI go to: http://127.0.0.1:8188
 FETCH ComfyRegistry Data: 10/120
 FETCH ComfyRegistry Data: 15/120
+FETCH ComfyRegistry Data: 20/120
 ComfyUI is ready after 34.1s (attempt 3).
 
-===== START D:\.comfyui\gen.image\scripts\3.scene.py @ 2026-01-18 12:46:15 =====
+===== START D:\.comfyui\gen.image\scripts\3.scene.py @ 2026-01-18 13:52:38 =====
 Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
 handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
 Traceback (most recent call last):
@@ -126,17 +149,33 @@ Traceback (most recent call last):
 ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
 Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.image\output\tracking
 Found existing checkpoint: D:\.comfyui\gen.image\output\tracking\3.scene.state.json
-Progress: Scenes(1/1)
+Progress: Scenes(9/9)
 Character mode: IMAGE_TEXT
 Location mode: IMAGE
 Validating cache against output/scene directory: ../output/scene
 Scanning output/scene directory for untracked files: ../output/scene
 No untracked scenes found in output/scene directory
-Validating 1 completed scenes against output/scene directory...
+Validating 9 completed scenes against output/scene directory...
 Precheck: File missing for scene_1.1 - marking as not completed
+Precheck: File missing for scene_1.2 - marking as not completed
+Precheck: File missing for scene_1.3 - marking as not completed
+Precheck: File missing for scene_1.4 - marking as not completed
+Precheck: File missing for scene_1.5 - marking as not completed
+Precheck: File missing for scene_1.6 - marking as not completed
+Precheck: File missing for scene_1.7 - marking as not completed
+Precheck: File missing for scene_1.8 - marking as not completed
+Precheck: File missing for scene_1.9 - marking as not completed
 Precheck: Cleared LoRA progress for scene_1.1
-Precheck: Cleaned up 1 invalid entries from checkpoint
-Precheck completed: 1 invalid entries removed from checkpoint
+Precheck: Cleared LoRA progress for scene_1.2
+Precheck: Cleared LoRA progress for scene_1.3
+Precheck: Cleared LoRA progress for scene_1.4
+Precheck: Cleared LoRA progress for scene_1.5
+Precheck: Cleared LoRA progress for scene_1.6
+Precheck: Cleared LoRA progress for scene_1.7
+Precheck: Cleared LoRA progress for scene_1.8
+Precheck: Cleared LoRA progress for scene_1.9
+Precheck: Cleaned up 9 invalid entries from checkpoint
+Precheck completed: 9 invalid entries removed from checkpoint
 Processing 18 scenes, skipped 0
 📊 Total scene words: 524
 ============================================================
@@ -151,9 +190,9 @@ Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
   Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
 Serial LoRA mode enabled - will create separate workflow
 Building workflow for serial LoRA mode: scene_1.1
-Compressed male_doctor_watson image: 120.5KB → 21.7KB (82.0% reduction)
+Compressed male_doctor_watson image: 120.5KB → 2.2KB (98.2% reduction)
 Added 1 character images to stitching process
-Compressed loc_1 image: 1244.0KB → 188.0KB (84.9% reduction)
+Compressed loc_1 image: 1244.0KB → 10.4KB (99.2% reduction)
 Added 1 location images to stitching process
 Character mode: IMAGE_TEXT, Location mode: IMAGE, Total images: 2
 Image stitching: 1 character images → 1 groups, 1 location images → 1 groups (total: 2 groups)
@@ -161,7 +200,7 @@ Using cascaded reference conditioning
 Using location image for latent input: loc_1 -> ../output/locations\loc_1.png
 Serial mode: Set latent dimensions, individual LoRA handling will replace with image input
 Negative prompt disabled - using ConditioningZeroOut
-Seed set to: 576495984
+Seed set to: 2225135621
 
 
 
@@ -169,21 +208,21 @@ Seed set to: 576495984
 Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
         with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
         
- __NOTE__:Keep both of the character's hands separate and clearly visible. E.g. hands should not overlap, be hidden behind the body, or merge together. Include only one character in the scene. E.g. no background characters, crowds, or multiple people visible. Character size should be realistic and proportional to other objects and elements in the scene. E.g. if character is sitting on a chair, the character should be in realistic size compared to the chair; if standing next to a door, the character should match the door's height appropriately. Character should interact naturally with objects and elements in the scene. E.g. if holding an object, show proper grip; if leaning on a wall, show weight distribution; if near furniture, show appropriate spatial relationship. Avoid textual elements. Use logos or icons only when necessary. E.g. no signs with words, no text on clothing, no written labels; company logos or symbols are acceptable when contextually appropriate.
+ __NOTE__:Keep both of the character's hands separate and clearly visible. Include only one character in the scene. Avoid textual elements. Use logos or icons only when necessary.
 ADD ,LEFTMOST SCENE in Image 2, , as background of the entire illustration., {Weather/Season/Time: sunny winter morning};
 ADD ,LEFTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: fair, Eyes Color: gray, Hair Color: brown, Hair Texture: straight, Age: adult, Gender: male, Body Type: average), Clothing: (Tops: (Type: short_sleeve_button_down, Color: white), Bottoms: (Type: police_pants, Color: brown), Footwear: (Type: dress_boots, Color: black)), Accessories: [(Type: watch, Location: on_wrist, Color: silver)], as one of the main characters of the illustration.{Face Relative Direction: toward fireplace}{Looking Relative Direction: at newspaper}{Facial Expression: thoughtful}, {Relative Location: left side of sofa},{Body Facing Relative Direction: toward fireplace},{Body Posture: sitting},{Primary Action: reading};
 
   Model strength: 3.0
   CLIP strength: 3.0
-  Seed set to: 3895696563
+  Seed set to: 1211573872
 Using location image for latent input: loc_1 -> ../output/locations\loc_1.png
   Copied image to ComfyUI input: loc_1.png
   Replaced EmptySD3LatentImage with LoadImage + VAEEncode
   LoadImage node: 110, VAEEncode node: 111
-  Denoising strength set to: 0.96
+  Denoising strength set to: 0.955
   Using image input mode for first LoRA with file: ../output/locations\loc_1.png
-  Using LATENT_DENOISING_STRENGTH: 0.96
-  Steps: 9, Denoising: 0.96
+  Using LATENT_DENOISING_STRENGTH: 0.955
+  Steps: 9, Denoising: 0.955
 got prompt
   Waiting for LoRA 1 generation to complete...
 Using pytorch attention in VAE
@@ -191,10 +230,9 @@ Using pytorch attention in VAE
 VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
 Requested to load AutoencodingEngine
 loaded completely; 7319.95 MB usable, 159.87 MB loaded, full load: True
-FETCH ComfyRegistry Data: 20/120
+FETCH ComfyRegistry Data: 25/120
 clip missing: ['text_projection.weight']
 CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
-FETCH ComfyRegistry Data: 25/120
 model weight dtype torch.bfloat16, manual cast: None
 model_type FLUX
 FETCH ComfyRegistry Data: 30/120
@@ -206,43 +244,43 @@ loaded completely; 9562.80 MB usable, 9319.23 MB loaded, full load: True
 Requested to load AutoencodingEngine
 Unloaded partially: 3628.23 MB freed, 5691.00 MB remains loaded, 936.38 MB buffer reserved, lowvram patches: 0
 loaded completely; 1143.91 MB usable, 159.87 MB loaded, full load: True
-Requested to load Flux
 FETCH ComfyRegistry Data: 50/120
+Requested to load Flux
 loaded partially; 7440.44 MB usable, 5387.56 MB loaded, 17312.58 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 266
   0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 55/120
 FETCH ComfyRegistry Data: 60/120
- 11%|█         | 1/9 [00:09<01:18,  9.83s/it]FETCH ComfyRegistry Data: 65/120
- 22%|██▏       | 2/9 [00:16<00:53,  7.70s/it]FETCH ComfyRegistry Data: 70/120
- 33%|███▎      | 3/9 [00:22<00:41,  6.97s/it]FETCH ComfyRegistry Data: 75/120
- 44%|████▍     | 4/9 [00:28<00:33,  6.63s/it]FETCH ComfyRegistry Data: 80/120
- 56%|█████▌    | 5/9 [00:34<00:25,  6.44s/it]FETCH ComfyRegistry Data: 85/120
- 67%|██████▋   | 6/9 [00:40<00:18,  6.33s/it]FETCH ComfyRegistry Data: 90/120
- 78%|███████▊  | 7/9 [00:46<00:12,  6.28s/it]FETCH ComfyRegistry Data: 95/120
- 89%|████████▉ | 8/9 [00:52<00:06,  6.22s/it]FETCH ComfyRegistry Data: 100/120
-100%|██████████| 9/9 [00:58<00:00,  6.18s/it]100%|██████████| 9/9 [00:58<00:00,  6.54s/it]
+ 11%|█         | 1/9 [00:09<01:19,  9.89s/it]FETCH ComfyRegistry Data: 65/120
+ 22%|██▏       | 2/9 [00:15<00:53,  7.59s/it]FETCH ComfyRegistry Data: 70/120
+ 33%|███▎      | 3/9 [00:21<00:40,  6.83s/it]FETCH ComfyRegistry Data: 75/120
+ 44%|████▍     | 4/9 [00:29<00:34,  7.00s/it]FETCH ComfyRegistry Data: 80/120
+FETCH ComfyRegistry Data: 85/120
+ 56%|█████▌    | 5/9 [00:35<00:27,  6.94s/it]FETCH ComfyRegistry Data: 90/120
+ 67%|██████▋   | 6/9 [00:41<00:19,  6.61s/it] 78%|███████▊  | 7/9 [00:47<00:12,  6.39s/it]FETCH ComfyRegistry Data: 95/120
+ 89%|████████▉ | 8/9 [00:53<00:06,  6.24s/it]FETCH ComfyRegistry Data: 100/120
+100%|██████████| 9/9 [00:59<00:00,  6.14s/it]100%|██████████| 9/9 [00:59<00:00,  6.63s/it]
 Requested to load AutoencodingEngine
-loaded completely; 1146.80 MB usable, 159.87 MB loaded, full load: True
 FETCH ComfyRegistry Data: 105/120
-Prompt executed in 96.17 seconds
+loaded completely; 1146.80 MB usable, 159.87 MB loaded, full load: True
+Prompt executed in 97.14 seconds
   Saved LoRA result: ../output/lora\scene_1.1.FLUX1_Turbo_Alphasafetensors.png
   LoRA 1 completed successfully
   Saved LoRA progress: 1/1 completed
 Saved: ../output/scene\scene_1.1.png
   Preserved LoRA progress for completed scene
 ✅ Scene 1/18 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Completed in 1.7m
-📊 Estimated time remaining: ~27.5m (?)
+📊 Estimated time remaining: ~27.7m (?)
 [OK] Generated: scene_1.1
 🔄 Scene 2/18 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Processing...
-📊 Estimated time remaining: ~27.5m (?)
+📊 Estimated time remaining: ~27.7m (?)
 Generating scene: scene_1.2 with characters: male_detective_holmes (Serial LoRA mode)
 
 Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
   Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
 Serial LoRA mode enabled - will create separate workflow
 Building workflow for serial LoRA mode: scene_1.2
-Compressed male_detective_holmes image: 111.6KB → 18.6KB (83.3% reduction)
+Compressed male_detective_holmes image: 111.6KB → 1.8KB (98.4% reduction)
 Added 1 character images to stitching process
-Compressed loc_1 image: 1244.0KB → 188.0KB (84.9% reduction)
+Compressed loc_1 image: 1244.0KB → 10.4KB (99.2% reduction)
 Added 1 location images to stitching process
 Character mode: IMAGE_TEXT, Location mode: IMAGE, Total images: 2
 Image stitching: 1 character images → 1 groups, 1 location images → 1 groups (total: 2 groups)
@@ -250,7 +288,7 @@ Using cascaded reference conditioning
 Using location image for latent input: loc_1 -> ../output/locations\loc_1.png
 Serial mode: Set latent dimensions, individual LoRA handling will replace with image input
 Negative prompt disabled - using ConditioningZeroOut
-Seed set to: 2888474764
+Seed set to: 2971002798
 
 
 
@@ -258,26 +296,26 @@ Seed set to: 2888474764
 Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
         with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
         
- __NOTE__:Keep both of the character's hands separate and clearly visible. E.g. hands should not overlap, be hidden behind the body, or merge together. Include only one character in the scene. E.g. no background characters, crowds, or multiple people visible. Character size should be realistic and proportional to other objects and elements in the scene. E.g. if character is sitting on a chair, the character should be in realistic size compared to the chair; if standing next to a door, the character should match the door's height appropriately. Character should interact naturally with objects and elements in the scene. E.g. if holding an object, show proper grip; if leaning on a wall, show weight distribution; if near furniture, show appropriate spatial relationship. Avoid textual elements. Use logos or icons only when necessary. E.g. no signs with words, no text on clothing, no written labels; company logos or symbols are acceptable when contextually appropriate.
+ __NOTE__:Keep both of the character's hands separate and clearly visible. Include only one character in the scene. Avoid textual elements. Use logos or icons only when necessary.
 ADD ,LEFTMOST SCENE in Image 2, , as background of the entire illustration., {Weather/Season/Time: sunny winter morning};
 ADD ,LEFTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: pale, Eyes Color: gray, Hair Color: black, Hair Texture: straight, Age: adult, Gender: male, Body Type: average, Facial Hair: none), Clothing: (Tops: (Type: denim_shirt, Color: grayish_black), Bottoms: (Type: dark_wash_jeans, Color: blue), Footwear: (Type: brogue_shoes, Color: black)), Accessories: [(Type: smartwatch, Location: on_wrist, Color: metallic_gray), (Type: necklace, Location: around_neck, Color: black_silver_pendant)], as one of the main characters of the illustration.{Face Relative Direction: toward Watson}{Looking Relative Direction: at Watson}{Facial Expression: amused}, {Relative Location: right side of sofa},{Body Facing Relative Direction: toward Watson},{Body Posture: reclining},{Primary Action: observing};
 
   Model strength: 3.0
   CLIP strength: 3.0
-  Seed set to: 4139252695
+  Seed set to: 511050062
 Using location image for latent input: loc_1 -> ../output/locations\loc_1.png
   Copied image to ComfyUI input: loc_1.png
   Replaced EmptySD3LatentImage with LoadImage + VAEEncode
   LoadImage node: 110, VAEEncode node: 111
-  Denoising strength set to: 0.96
+  Denoising strength set to: 0.955
   Using image input mode for first LoRA with file: ../output/locations\loc_1.png
-  Using LATENT_DENOISING_STRENGTH: 0.96
-  Steps: 9, Denoising: 0.96
+  Using LATENT_DENOISING_STRENGTH: 0.955
+  Steps: 9, Denoising: 0.955
 got prompt
   Waiting for LoRA 1 generation to complete...
 Requested to load FluxClipModel_
-loaded completely; 9543.67 MB usable, 9319.23 MB loaded, full load: True
 FETCH ComfyRegistry Data: 110/120
+loaded completely; 9543.67 MB usable, 9319.23 MB loaded, full load: True
 Requested to load AutoencodingEngine
 Unloaded partially: 3628.23 MB freed, 5691.00 MB remains loaded, 936.38 MB buffer reserved, lowvram patches: 0
 loaded completely; 1138.74 MB usable, 159.87 MB loaded, full load: True
@@ -285,24 +323,272 @@ Requested to load Flux
 loaded partially; 7440.44 MB usable, 5387.56 MB loaded, 17312.58 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 266
   0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 115/120
 FETCH ComfyRegistry Data: 120/120
- 11%|█         | 1/9 [00:06<00:52,  6.51s/it]FETCH ComfyRegistry Data [DONE]
+ 11%|█         | 1/9 [00:06<00:50,  6.30s/it]FETCH ComfyRegistry Data [DONE]
 [ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
 FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
 [ComfyUI-Manager] All startup tasks have been completed.
- 22%|██▏       | 2/9 [00:12<00:44,  6.32s/it] 33%|███▎      | 3/9 [00:18<00:37,  6.21s/it] 44%|████▍     | 4/9 [00:24<00:30,  6.16s/it] 56%|█████▌    | 5/9 [00:30<00:24,  6.13s/it] 67%|██████▋   | 6/9 [00:36<00:18,  6.11s/it] 78%|███████▊  | 7/9 [00:43<00:12,  6.12s/it]Traceback (most recent call last):
-  File "D:\.comfyui\gen.image\scripts\3.scene.py", line 2460, in <module>
+ 22%|██▏       | 2/9 [00:12<00:43,  6.21s/it] 33%|███▎      | 3/9 [00:18<00:36,  6.10s/it] 44%|████▍     | 4/9 [00:24<00:30,  6.06s/it] 56%|█████▌    | 5/9 [00:30<00:24,  6.02s/it] 67%|██████▋   | 6/9 [00:36<00:18,  6.04s/it] 78%|███████▊  | 7/9 [00:42<00:12,  6.03s/it] 89%|████████▉ | 8/9 [00:48<00:06,  6.05s/it]100%|██████████| 9/9 [00:54<00:00,  6.05s/it]100%|██████████| 9/9 [00:54<00:00,  6.07s/it]
+Requested to load AutoencodingEngine
+loaded completely; 1146.80 MB usable, 159.87 MB loaded, full load: True
+Prompt executed in 61.56 seconds
+  Saved LoRA result: ../output/lora\scene_1.2.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/scene\scene_1.2.png
+  Preserved LoRA progress for completed scene
+✅ Scene 2/18 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Completed in 1.1m
+📊 Estimated time remaining: ~21.3m (?)
+[OK] Generated: scene_1.2
+🔄 Scene 3/18 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Processing...
+📊 Estimated time remaining: ~21.3m (?)
+Generating scene: scene_1.3 with characters: male_doctor_watson (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_1.3
+Compressed male_doctor_watson image: 120.5KB → 2.2KB (98.2% reduction)
+Added 1 character images to stitching process
+Compressed loc_1 image: 1244.0KB → 10.4KB (99.2% reduction)
+Added 1 location images to stitching process
+Character mode: IMAGE_TEXT, Location mode: IMAGE, Total images: 2
+Image stitching: 1 character images → 1 groups, 1 location images → 1 groups (total: 2 groups)
+Using cascaded reference conditioning
+Using location image for latent input: loc_1 -> ../output/locations\loc_1.png
+Serial mode: Set latent dimensions, individual LoRA handling will replace with image input
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 2957354202
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        
+ __NOTE__:Keep both of the character's hands separate and clearly visible. Include only one character in the scene. Avoid textual elements. Use logos or icons only when necessary.
+ADD ,LEFTMOST SCENE in Image 2, , as background of the entire illustration., {Weather/Season/Time: sunny winter morning};
+ADD ,LEFTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: fair, Eyes Color: gray, Hair Color: brown, Hair Texture: straight, Age: adult, Gender: male, Body Type: average), Clothing: (Tops: (Type: short_sleeve_button_down, Color: white), Bottoms: (Type: police_pants, Color: brown), Footwear: (Type: dress_boots, Color: black)), Accessories: [(Type: watch, Location: on_wrist, Color: silver)], as one of the main characters of the illustration.{Face Relative Direction: toward Holmes}{Looking Relative Direction: at Holmes}{Facial Expression: mildly puzzled}, {Relative Location: left side of sofa},{Body Facing Relative Direction: toward Holmes},{Body Posture: sitting},{Primary Action: lowering newspaper};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 2276405649
+Using location image for latent input: loc_1 -> ../output/locations\loc_1.png
+  Copied image to ComfyUI input: loc_1.png
+  Replaced EmptySD3LatentImage with LoadImage + VAEEncode
+  LoadImage node: 110, VAEEncode node: 111
+  Denoising strength set to: 0.955
+  Using image input mode for first LoRA with file: ../output/locations\loc_1.png
+  Using LATENT_DENOISING_STRENGTH: 0.955
+  Steps: 9, Denoising: 0.955
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely; 9543.67 MB usable, 9319.23 MB loaded, full load: True
+Requested to load AutoencodingEngine
+Unloaded partially: 3628.23 MB freed, 5691.00 MB remains loaded, 936.38 MB buffer reserved, lowvram patches: 0
+loaded completely; 1138.74 MB usable, 159.87 MB loaded, full load: True
+Requested to load Flux
+loaded partially; 7440.44 MB usable, 5387.56 MB loaded, 17312.58 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 266
+  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:06<00:49,  6.19s/it] 22%|██▏       | 2/9 [00:12<00:42,  6.08s/it] 33%|███▎      | 3/9 [00:18<00:36,  6.07s/it] 44%|████▍     | 4/9 [00:24<00:30,  6.06s/it] 56%|█████▌    | 5/9 [00:30<00:24,  6.06s/it] 67%|██████▋   | 6/9 [00:36<00:18,  6.05s/it] 78%|███████▊  | 7/9 [00:42<00:12,  6.08s/it] 89%|████████▉ | 8/9 [00:48<00:06,  6.08s/it]100%|██████████| 9/9 [00:54<00:00,  6.07s/it]100%|██████████| 9/9 [00:54<00:00,  6.07s/it]
+Requested to load AutoencodingEngine
+loaded completely; 1146.80 MB usable, 159.87 MB loaded, full load: True
+Prompt executed in 61.28 seconds
+  Saved LoRA result: ../output/lora\scene_1.3.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/scene\scene_1.3.png
+  Preserved LoRA progress for completed scene
+✅ Scene 3/18 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Completed in 1.1m
+📊 Estimated time remaining: ~17.9m (~)
+[OK] Generated: scene_1.3
+🔄 Scene 4/18 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Processing...
+📊 Estimated time remaining: ~17.9m (~)
+Generating scene: scene_1.4 with characters: male_detective_holmes (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_1.4
+Compressed male_detective_holmes image: 111.6KB → 1.8KB (98.4% reduction)
+Added 1 character images to stitching process
+Compressed loc_1 image: 1244.0KB → 10.4KB (99.2% reduction)
+Added 1 location images to stitching process
+Character mode: IMAGE_TEXT, Location mode: IMAGE, Total images: 2
+Image stitching: 1 character images → 1 groups, 1 location images → 1 groups (total: 2 groups)
+Using cascaded reference conditioning
+Using location image for latent input: loc_1 -> ../output/locations\loc_1.png
+Serial mode: Set latent dimensions, individual LoRA handling will replace with image input
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 4261994088
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        
+ __NOTE__:Keep both of the character's hands separate and clearly visible. Include only one character in the scene. Avoid textual elements. Use logos or icons only when necessary.
+ADD ,LEFTMOST SCENE in Image 2, , as background of the entire illustration., {Weather/Season/Time: sunny winter morning};
+ADD ,LEFTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: pale, Eyes Color: gray, Hair Color: black, Hair Texture: straight, Age: adult, Gender: male, Body Type: average, Facial Hair: none), Clothing: (Tops: (Type: denim_shirt, Color: grayish_black), Bottoms: (Type: dark_wash_jeans, Color: blue), Footwear: (Type: brogue_shoes, Color: black)), Accessories: [(Type: smartwatch, Location: on_wrist, Color: metallic_gray), (Type: necklace, Location: around_neck, Color: black_silver_pendant)], as one of the main characters of the illustration.{Face Relative Direction: toward Watson}{Looking Relative Direction: at cuff}{Facial Expression: keen}, {Relative Location: right side of sofa},{Body Facing Relative Direction: toward Watson},{Body Posture: leaning forward},{Primary Action: pointing};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 4264054775
+Using location image for latent input: loc_1 -> ../output/locations\loc_1.png
+  Copied image to ComfyUI input: loc_1.png
+  Replaced EmptySD3LatentImage with LoadImage + VAEEncode
+  LoadImage node: 110, VAEEncode node: 111
+  Denoising strength set to: 0.955
+  Using image input mode for first LoRA with file: ../output/locations\loc_1.png
+  Using LATENT_DENOISING_STRENGTH: 0.955
+  Steps: 9, Denoising: 0.955
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely; 9543.67 MB usable, 9319.23 MB loaded, full load: True
+Requested to load AutoencodingEngine
+Unloaded partially: 3628.23 MB freed, 5691.00 MB remains loaded, 936.38 MB buffer reserved, lowvram patches: 0
+loaded completely; 1138.74 MB usable, 159.87 MB loaded, full load: True
+Requested to load Flux
+loaded partially; 7440.44 MB usable, 5387.56 MB loaded, 17312.58 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 266
+  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:06<00:49,  6.22s/it] 22%|██▏       | 2/9 [00:12<00:42,  6.06s/it] 33%|███▎      | 3/9 [00:18<00:36,  6.03s/it] 44%|████▍     | 4/9 [00:24<00:30,  6.00s/it] 56%|█████▌    | 5/9 [00:30<00:24,  6.01s/it] 67%|██████▋   | 6/9 [00:36<00:18,  6.02s/it] 78%|███████▊  | 7/9 [00:42<00:12,  6.03s/it] 89%|████████▉ | 8/9 [00:48<00:06,  6.01s/it]100%|██████████| 9/9 [00:54<00:00,  6.01s/it]100%|██████████| 9/9 [00:54<00:00,  6.02s/it]
+Requested to load AutoencodingEngine
+loaded completely; 1146.80 MB usable, 159.87 MB loaded, full load: True
+Prompt executed in 60.90 seconds
+  Saved LoRA result: ../output/lora\scene_1.4.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/scene\scene_1.4.png
+  Preserved LoRA progress for completed scene
+✅ Scene 4/18 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Completed in 1.1m
+📊 Estimated time remaining: ~15.9m (~)
+[OK] Generated: scene_1.4
+🔄 Scene 5/18 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Processing...
+📊 Estimated time remaining: ~15.9m (~)
+Generating scene: scene_1.5 with characters: male_doctor_watson (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_1.5
+Compressed male_doctor_watson image: 120.5KB → 2.2KB (98.2% reduction)
+Added 1 character images to stitching process
+Compressed loc_1 image: 1244.0KB → 10.4KB (99.2% reduction)
+Added 1 location images to stitching process
+Character mode: IMAGE_TEXT, Location mode: IMAGE, Total images: 2
+Image stitching: 1 character images → 1 groups, 1 location images → 1 groups (total: 2 groups)
+Using cascaded reference conditioning
+Using location image for latent input: loc_1 -> ../output/locations\loc_1.png
+Serial mode: Set latent dimensions, individual LoRA handling will replace with image input
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 71871346
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        
+ __NOTE__:Keep both of the character's hands separate and clearly visible. Include only one character in the scene. Avoid textual elements. Use logos or icons only when necessary.
+ADD ,LEFTMOST SCENE in Image 2, , as background of the entire illustration., {Weather/Season/Time: sunny winter morning};
+ADD ,LEFTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: fair, Eyes Color: gray, Hair Color: brown, Hair Texture: straight, Age: adult, Gender: male, Body Type: average), Clothing: (Tops: (Type: short_sleeve_button_down, Color: white), Bottoms: (Type: police_pants, Color: brown), Footwear: (Type: dress_boots, Color: black)), Accessories: [(Type: watch, Location: on_wrist, Color: silver)], as one of the main characters of the illustration.{Face Relative Direction: toward cuff}{Looking Relative Direction: at cuff}{Facial Expression: surprised}, {Relative Location: left side of sofa},{Body Facing Relative Direction: toward Holmes},{Body Posture: sitting},{Primary Action: inspecting sleeve};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 3284642926
+Using location image for latent input: loc_1 -> ../output/locations\loc_1.png
+  Copied image to ComfyUI input: loc_1.png
+  Replaced EmptySD3LatentImage with LoadImage + VAEEncode
+  LoadImage node: 110, VAEEncode node: 111
+  Denoising strength set to: 0.955
+  Using image input mode for first LoRA with file: ../output/locations\loc_1.png
+  Using LATENT_DENOISING_STRENGTH: 0.955
+  Steps: 9, Denoising: 0.955
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely; 9543.67 MB usable, 9319.23 MB loaded, full load: True
+Requested to load AutoencodingEngine
+Unloaded partially: 3628.23 MB freed, 5691.00 MB remains loaded, 936.38 MB buffer reserved, lowvram patches: 0
+loaded completely; 1138.74 MB usable, 159.87 MB loaded, full load: True
+Requested to load Flux
+loaded partially; 7440.44 MB usable, 5387.56 MB loaded, 17312.58 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 266
+  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:07<00:58,  7.36s/it] 22%|██▏       | 2/9 [00:13<00:46,  6.65s/it] 33%|███▎      | 3/9 [00:19<00:38,  6.37s/it] 44%|████▍     | 4/9 [00:25<00:31,  6.26s/it] 56%|█████▌    | 5/9 [00:31<00:24,  6.20s/it] 67%|██████▋   | 6/9 [00:37<00:18,  6.14s/it] 78%|███████▊  | 7/9 [00:43<00:12,  6.14s/it] 89%|████████▉ | 8/9 [00:50<00:06,  6.14s/it]100%|██████████| 9/9 [00:56<00:00,  6.13s/it]100%|██████████| 9/9 [00:56<00:00,  6.24s/it]
+Requested to load AutoencodingEngine
+loaded completely; 1144.80 MB usable, 159.87 MB loaded, full load: True
+Prompt executed in 63.64 seconds
+  Saved LoRA result: ../output/lora\scene_1.5.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/scene\scene_1.5.png
+  Preserved LoRA progress for completed scene
+✅ Scene 5/18 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Completed in 1.1m
+📊 Estimated time remaining: ~14.4m (✓)
+[OK] Generated: scene_1.5
+🔄 Scene 6/18 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Processing...
+📊 Estimated time remaining: ~14.4m (✓)
+Generating scene: scene_1.6 with characters: male_detective_holmes (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_1.6
+Compressed male_detective_holmes image: 111.6KB → 1.8KB (98.4% reduction)
+Added 1 character images to stitching process
+Compressed loc_1 image: 1244.0KB → 10.4KB (99.2% reduction)
+Added 1 location images to stitching process
+Character mode: IMAGE_TEXT, Location mode: IMAGE, Total images: 2
+Image stitching: 1 character images → 1 groups, 1 location images → 1 groups (total: 2 groups)
+Using cascaded reference conditioning
+Using location image for latent input: loc_1 -> ../output/locations\loc_1.png
+Serial mode: Set latent dimensions, individual LoRA handling will replace with image input
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 3624550937
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        
+ __NOTE__:Keep both of the character's hands separate and clearly visible. Include only one character in the scene. Avoid textual elements. Use logos or icons only when necessary.
+ADD ,LEFTMOST SCENE in Image 2, , as background of the entire illustration., {Weather/Season/Time: sunny winter morning};
+ADD ,LEFTMOST CHARACTER in Image 1, which should look like,Face: (Head Shape: oval, Skin Tone: pale, Eyes Color: gray, Hair Color: black, Hair Texture: straight, Age: adult, Gender: male, Body Type: average, Facial Hair: none), Clothing: (Tops: (Type: denim_shirt, Color: grayish_black), Bottoms: (Type: dark_wash_jeans, Color: blue), Footwear: (Type: brogue_shoes, Color: black)), Accessories: [(Type: smartwatch, Location: on_wrist, Color: metallic_gray), (Type: necklace, Location: around_neck, Color: black_silver_pendant)], as one of the main characters of the illustration.{Face Relative Direction: toward floor}{Looking Relative Direction: toward hearth rug}{Facial Expression: satisfied}, {Relative Location: right side of sofa},{Body Facing Relative Direction: toward floor},{Body Posture: seated},{Primary Action: deducing};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 3919427410
+Using location image for latent input: loc_1 -> ../output/locations\loc_1.png
+  Copied image to ComfyUI input: loc_1.png
+  Replaced EmptySD3LatentImage with LoadImage + VAEEncode
+  LoadImage node: 110, VAEEncode node: 111
+  Denoising strength set to: 0.955
+  Using image input mode for first LoRA with file: ../output/locations\loc_1.png
+  Using LATENT_DENOISING_STRENGTH: 0.955
+  Steps: 9, Denoising: 0.955
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely; 9541.67 MB usable, 9319.23 MB loaded, full load: True
+Requested to load AutoencodingEngine
+Unloaded partially: 3628.23 MB freed, 5691.00 MB remains loaded, 936.38 MB buffer reserved, lowvram patches: 0
+loaded completely; 1136.74 MB usable, 159.87 MB loaded, full load: True
+Requested to load Flux
+loaded partially; 7438.44 MB usable, 5385.68 MB loaded, 17314.46 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 268
+  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:06<00:54,  6.83s/it] 22%|██▏       | 2/9 [00:13<00:47,  6.82s/it] 33%|███▎      | 3/9 [00:19<00:38,  6.46s/it] 44%|████▍     | 4/9 [00:25<00:31,  6.30s/it] 56%|█████▌    | 5/9 [00:31<00:24,  6.23s/it] 67%|██████▋   | 6/9 [00:37<00:18,  6.16s/it]Traceback (most recent call last):
+  File "D:\.comfyui\gen.image\scripts\3.scene.py", line 2458, in <module>
     raise SystemExit(main())
                      ^^^^^^
-  File "D:\.comfyui\gen.image\scripts\3.scene.py", line 2441, in main
+  File "D:\.comfyui\gen.image\scripts\3.scene.py", line 2439, in main
     results = generator.generate_all_scenes(force_regenerate=args.force, resumable_state=resumable_state)
               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\.comfyui\gen.image\scripts\3.scene.py", line 2391, in generate_all_scenes
+  File "D:\.comfyui\gen.image\scripts\3.scene.py", line 2389, in generate_all_scenes
     output_path = self._generate_scene_image(scene_id, scene_description, valid_characters, location_ids, master_prompt, characters, locations, resumable_state)
                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\.comfyui\gen.image\scripts\3.scene.py", line 2178, in _generate_scene_image
+  File "D:\.comfyui\gen.image\scripts\3.scene.py", line 2176, in _generate_scene_image
     return self._generate_scene_image_serial(scene_id, scene_description, character_names, location_ids, master_prompt, characters_data, locations_data, resumable_state)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\.comfyui\gen.image\scripts\3.scene.py", line 2053, in _generate_scene_image_serial
+  File "D:\.comfyui\gen.image\scripts\3.scene.py", line 2051, in _generate_scene_image_serial
     time.sleep(2)
 KeyboardInterrupt
 Received signal 2. Cleaning up services...
