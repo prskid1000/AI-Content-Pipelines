@@ -12,8 +12,19 @@ if not exist ".venv" (
     exit /b 1
 )
 
+REM Install wheel first (required for flash-attn)
+echo Installing wheel (required for flash-attn)...
+.venv\Scripts\python.exe -m pip install wheel
+if errorlevel 1 (
+    echo ERROR: Failed to install wheel
+    pause
+    exit /b 1
+)
+echo SUCCESS: wheel installed
+echo.
+
 REM Install PyTorch first
-echo [0/3] Installing PyTorch (nightly with CUDA 13.0)...
+echo [1/4] Installing PyTorch (nightly with CUDA 13.0)...
 .venv\Scripts\python.exe -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu130
 if errorlevel 1 (
     echo ERROR: Failed to install PyTorch
@@ -23,8 +34,19 @@ if errorlevel 1 (
 echo SUCCESS: PyTorch installed
 echo.
 
+REM Install flash-attn (pre-built wheel for Python 3.12 + CUDA 13.0)
+echo [2/4] Installing flash-attn (pre-built wheel for CUDA 13.0)...
+.venv\Scripts\python.exe -m pip install https://huggingface.co/ussoewwin/Flash-Attention-2_for_Windows/resolve/main/flash_attn-2.8.3+cu130torch2.9.0cxx11abiTRUE-cp312-cp312-win_amd64.whl
+if errorlevel 1 (
+    echo ERROR: Failed to install flash-attn
+    pause
+    exit /b 1
+)
+echo SUCCESS: flash-attn installed
+echo.
+
 REM Install ONNX Runtime GPU (nightly CUDA 13.0)
-echo [0/3] Installing ONNX Runtime GPU (nightly CUDA 13.0)...
+echo [3/4] Installing ONNX Runtime GPU (nightly CUDA 13.0)...
 .venv\Scripts\python.exe -m pip install --pre --index-url https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/ort-cuda-13-nightly/pypi/simple/ onnxruntime-gpu
 if errorlevel 1 (
     echo ERROR: Failed to install ONNX Runtime GPU
@@ -46,7 +68,7 @@ echo SUCCESS: Additional Python packages installed
 echo.
 
 REM Install root requirements.txt
-echo [1/3] Installing root requirements.txt...
+echo [4/4] Installing root requirements.txt...
 if exist "requirements.txt" (
     .venv\Scripts\python.exe -m pip install -r requirements.txt
     if errorlevel 1 (
