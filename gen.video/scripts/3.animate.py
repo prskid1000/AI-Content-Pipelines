@@ -13,6 +13,7 @@ from typing import List, Dict, Optional, Tuple
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
+CONCAT_AFTER_COMPLETION = True  # Set to True to merge chunks at the end after all scenes are done, False to merge immediately after each scene
 
 # Video configuration constants
 VIDEO_WIDTH = 1024
@@ -1360,6 +1361,22 @@ class VideoAnimator:
             # Check if resumable and already complete
             if resumable_state and resumable_state.is_video_complete(scene_id):
                 cached_result = resumable_state.get_video_result(scene_id)
+                
+                # If CONCAT_AFTER_COMPLETION is enabled and chunks need merging, don't skip generation
+                # (chunks might be missing and need to be regenerated)
+                if CONCAT_AFTER_COMPLETION and cached_result and cached_result.get('needs_merge', False):
+                    # Check if all chunk files exist
+                    chunk_paths = cached_result.get('paths', [])
+                    if isinstance(chunk_paths, list):
+                        existing_chunks = [p for p in chunk_paths if os.path.exists(p)]
+                        if len(existing_chunks) < len(chunk_paths):
+                            # Some chunks are missing, need to regenerate
+                            print(f"⚠️ Scene {scene_id} has missing chunks - will regenerate missing ones")
+                        else:
+                            # All chunks exist, skip generation (will be merged later)
+                            print(f"✅ Scene {scene_id} has all chunks - skipping generation (will merge later)")
+                            return chunk_paths
+                
                 if cached_result and cached_result.get('paths'):
                     # Check if all cached video files still exist
                     all_exist = all(os.path.exists(path) for path in cached_result['paths'])
@@ -1526,46 +1543,67 @@ class VideoAnimator:
             
             # Note: Frame files are preserved in output/frames/ for debugging and inspection
             
-            # If we have multiple chunks, merge them into a single video
+            # If we have multiple chunks, merge them based on CONCAT_AFTER_COMPLETION flag
             if len(generated_videos) > 1:
-                print(f"🔗 Merging {len(generated_videos)} video chunks for {scene_id}...")
-                merged_path = os.path.join(self.final_output_dir, f"{scene_id}.mp4")
-                if self._merge_video_chunks(generated_videos, merged_path):
-                    # Clean up individual chunk files after successful merge
-                    for chunk_path in generated_videos:
-                        try:
-                            os.remove(chunk_path)
-                            print(f"🗑️ Cleaned up chunk: {os.path.basename(chunk_path)}")
-                        except OSError as e:
-                            print(f"⚠️ Could not remove chunk {os.path.basename(chunk_path)}: {e}")
+                if CONCAT_AFTER_COMPLETION:
+                    # Don't merge now - will merge at the end after all scenes are done
+                    print(f"📦 Keeping {len(generated_videos)} chunks for {scene_id} (will merge after all scenes complete)")
                     
-                    # Save to checkpoint if resumable mode enabled
+                    # Save to checkpoint if resumable mode enabled (keep chunks separate)
                     if resumable_state:
                         result = {
-                            'paths': [merged_path],
+                            'paths': generated_videos,  # Keep individual chunk paths
                             'scene_id': scene_id,
                             'scene_description': scene_description,
                             'duration': duration,
-                            'frame_count': frame_count
+                            'frame_count': frame_count,
+                            'needs_merge': True  # Flag to indicate chunks need merging
                         }
                         resumable_state.set_video_result(scene_id, result)
                     
-                    return [merged_path]  # Return the merged file
+                    return generated_videos  # Return individual chunks
                 else:
-                    print(f"⚠️ Failed to merge chunks for {scene_id}, keeping individual chunks")
-                    
-                    # Save to checkpoint if resumable mode enabled
-                    if resumable_state:
-                        result = {
-                            'paths': generated_videos,
-                            'scene_id': scene_id,
-                            'scene_description': scene_description,
-                            'duration': duration,
-                            'frame_count': frame_count
-                        }
-                        resumable_state.set_video_result(scene_id, result)
-                    
-                    return generated_videos  # Return individual chunks if merge failed
+                    # Merge immediately (original behavior)
+                    print(f"🔗 Merging {len(generated_videos)} video chunks for {scene_id}...")
+                    merged_path = os.path.join(self.final_output_dir, f"{scene_id}.mp4")
+                    if self._merge_video_chunks(generated_videos, merged_path):
+                        # Clean up individual chunk files after successful merge
+                        for chunk_path in generated_videos:
+                            try:
+                                os.remove(chunk_path)
+                                print(f"🗑️ Cleaned up chunk: {os.path.basename(chunk_path)}")
+                            except OSError as e:
+                                print(f"⚠️ Could not remove chunk {os.path.basename(chunk_path)}: {e}")
+                        
+                        # Save to checkpoint if resumable mode enabled
+                        if resumable_state:
+                            result = {
+                                'paths': [merged_path],
+                                'scene_id': scene_id,
+                                'scene_description': scene_description,
+                                'duration': duration,
+                                'frame_count': frame_count,
+                                'needs_merge': False
+                            }
+                            resumable_state.set_video_result(scene_id, result)
+                        
+                        return [merged_path]  # Return the merged file
+                    else:
+                        print(f"⚠️ Failed to merge chunks for {scene_id}, keeping individual chunks")
+                        
+                        # Save to checkpoint if resumable mode enabled
+                        if resumable_state:
+                            result = {
+                                'paths': generated_videos,
+                                'scene_id': scene_id,
+                                'scene_description': scene_description,
+                                'duration': duration,
+                                'frame_count': frame_count,
+                                'needs_merge': True
+                            }
+                            resumable_state.set_video_result(scene_id, result)
+                        
+                        return generated_videos  # Return individual chunks if merge failed
             
             # Save to checkpoint if resumable mode enabled (single video case)
             if resumable_state and generated_videos:
@@ -1574,7 +1612,8 @@ class VideoAnimator:
                     'scene_id': scene_id,
                     'scene_description': scene_description,
                     'duration': duration,
-                    'frame_count': frame_count
+                    'frame_count': frame_count,
+                    'needs_merge': False
                 }
                 resumable_state.set_video_result(scene_id, result)
             
@@ -1724,6 +1763,21 @@ class VideoAnimator:
             completed_videos = set()
             for scene_name in available_scenes.keys():
                 if resumable_state.is_video_complete(scene_name):
+                    cached_result = resumable_state.get_video_result(scene_name)
+                    # If CONCAT_AFTER_COMPLETION is enabled, check if chunks still need merging
+                    if CONCAT_AFTER_COMPLETION and cached_result:
+                        needs_merge = cached_result.get('needs_merge', False)
+                        if needs_merge:
+                            # Scene has chunks that need merging, don't mark as complete yet
+                            # Will check if chunks exist and regenerate missing ones if needed
+                            chunk_paths = cached_result.get('paths', [])
+                            if isinstance(chunk_paths, list):
+                                existing_chunks = [p for p in chunk_paths if os.path.exists(p)]
+                                if len(existing_chunks) < len(chunk_paths):
+                                    print_flush(f"⚠️ Scene {scene_name} has {len(chunk_paths) - len(existing_chunks)} missing chunks - will regenerate")
+                                else:
+                                    print_flush(f"✅ Scene {scene_name} has all chunks - will skip generation, merge later")
+                            continue
                     completed_videos.add(scene_name)
         else:
             completed_videos = self._get_completed_videos()
@@ -1794,6 +1848,42 @@ class VideoAnimator:
         
         elapsed = time.time() - self.start_time
         
+        # If CONCAT_AFTER_COMPLETION is enabled, merge all chunks now
+        if CONCAT_AFTER_COMPLETION:
+            print_flush("\n🔗 Merging all chunks after scene generation...")
+            # Also check resumable state for scenes that have chunks needing merge
+            if resumable_state:
+                for scene_name in available_scenes.keys():
+                    if scene_name not in results:
+                        # Scene was skipped (already complete), but check if it has chunks needing merge
+                        cached_result = resumable_state.get_video_result(scene_name)
+                        if cached_result and cached_result.get('needs_merge', False):
+                            # Check if merged file already exists (might have been merged manually or in previous run)
+                            merged_path = os.path.join(self.final_output_dir, f"{scene_name}.mp4")
+                            if os.path.exists(merged_path):
+                                # Merged file already exists, update checkpoint to mark as merged
+                                print_flush(f"✅ Scene {scene_name} already has merged file - updating checkpoint")
+                                cached_result['paths'] = [merged_path]
+                                cached_result['needs_merge'] = False
+                                resumable_state.set_video_result(scene_name, cached_result)
+                                continue
+                            
+                            chunk_paths = cached_result.get('paths', [])
+                            if isinstance(chunk_paths, list) and len(chunk_paths) > 1:
+                                # Validate that all chunk files exist
+                                existing_chunks = [p for p in chunk_paths if os.path.exists(p)]
+                                if len(existing_chunks) == len(chunk_paths):
+                                    # All chunks exist, add to results so it gets merged
+                                    results[scene_name] = chunk_paths
+                                    print_flush(f"📦 Found scene {scene_name} with chunks from checkpoint that need merging")
+                                else:
+                                    missing_count = len(chunk_paths) - len(existing_chunks)
+                                    print_flush(f"⚠️ Scene {scene_name} has {missing_count} missing chunks - will skip merge until all chunks are generated")
+                                    # Don't add to results - will be handled when missing chunks are generated
+            
+            merged_results = self._merge_all_chunks(results, resumable_state, available_scenes)
+            results = merged_results
+        
         print_flush("\n📊 ANIMATION SUMMARY:")
         print_flush(f"   • Total timeline entries: {len(durations)}")
         print_flush(f"   • Unique scenes:         {len(combined_scenes)}")
@@ -1806,6 +1896,128 @@ class VideoAnimator:
         print_flush(f"   • Time:                  {elapsed:.2f}s")
 
         return results
+
+    def _merge_all_chunks(self, results: Dict[str, any], resumable_state=None, available_scenes=None) -> Dict[str, str]:
+        """Merge all chunks for scenes that have multiple chunks.
+        
+        Args:
+            results: Dictionary mapping scene_name to either a single path (str) or list of chunk paths
+            resumable_state: Optional resumable state manager
+            available_scenes: Optional dict of available scenes (for getting scene info)
+            
+        Returns:
+            Dictionary mapping scene_name to final merged video path (or original path if single chunk)
+        """
+        merged_results = {}
+        scenes_to_merge = []
+        
+        # Collect all scenes that need merging
+        for scene_name, paths in results.items():
+            if isinstance(paths, list) and len(paths) > 1:
+                scenes_to_merge.append((scene_name, paths))
+            else:
+                # Single video or single chunk, no merging needed
+                merged_results[scene_name] = paths if isinstance(paths, str) else paths[0] if paths else None
+        
+        if not scenes_to_merge:
+            print_flush("✅ No chunks to merge - all scenes are single videos")
+            return merged_results
+        
+        print_flush(f"📦 Found {len(scenes_to_merge)} scenes with chunks to merge")
+        
+        # Merge chunks for each scene
+        for scene_name, chunk_paths in scenes_to_merge:
+            # Extract scene_id from scene_name (scene_name is like "scene_1.1")
+            scene_id = scene_name
+            merged_path = os.path.join(self.final_output_dir, f"{scene_id}.mp4")
+            
+            # Validate that all chunk files exist before attempting merge
+            missing_chunks = []
+            valid_chunk_paths = []
+            for chunk_path in chunk_paths:
+                if os.path.exists(chunk_path):
+                    valid_chunk_paths.append(chunk_path)
+                else:
+                    missing_chunks.append(os.path.basename(chunk_path))
+            
+            if missing_chunks:
+                print_flush(f"⚠️ Scene {scene_name} has {len(missing_chunks)} missing chunks - skipping merge")
+                print_flush(f"   Missing: {', '.join(missing_chunks)}")
+                print_flush(f"   Re-run the script to generate missing chunks, then merge will happen automatically")
+                # Keep original chunk paths in results (including missing ones) so they can be merged later
+                # The checkpoint still has needs_merge=True, so on next run it will attempt merge again
+                merged_results[scene_name] = chunk_paths
+                continue
+            
+            if len(valid_chunk_paths) < 2:
+                print_flush(f"⚠️ Scene {scene_name} has less than 2 valid chunks - skipping merge")
+                merged_results[scene_name] = valid_chunk_paths[0] if valid_chunk_paths else None
+                continue
+            
+            # Check if merged file already exists (skip merge if already done)
+            if os.path.exists(merged_path):
+                print_flush(f"✅ Scene {scene_name} already has merged file - skipping merge")
+                merged_results[scene_name] = merged_path
+                
+                # Update checkpoint to mark as merged
+                if resumable_state:
+                    cached_result = resumable_state.get_video_result(scene_name)
+                    if cached_result:
+                        cached_result['paths'] = [merged_path]
+                        cached_result['needs_merge'] = False
+                        resumable_state.set_video_result(scene_name, cached_result)
+                continue
+            
+            print_flush(f"🔗 Merging {len(valid_chunk_paths)} chunks for {scene_name}...")
+            
+            # Use _merge_video_chunks which handles frame removal/duplication
+            if self._merge_video_chunks(valid_chunk_paths, merged_path):
+                # Clean up individual chunk files after successful merge
+                for chunk_path in valid_chunk_paths:
+                    try:
+                        if os.path.exists(chunk_path):
+                            os.remove(chunk_path)
+                            print_flush(f"🗑️ Cleaned up chunk: {os.path.basename(chunk_path)}")
+                    except OSError as e:
+                        print_flush(f"⚠️ Could not remove chunk {os.path.basename(chunk_path)}: {e}")
+                
+                merged_results[scene_name] = merged_path
+                
+                # Update checkpoint if resumable mode enabled
+                if resumable_state:
+                    # Get scene info from checkpoint or available_scenes
+                    cached_result = resumable_state.get_video_result(scene_name)
+                    scene_description = ''
+                    duration = None
+                    frame_count = None
+                    
+                    if cached_result:
+                        scene_description = cached_result.get('scene_description', '')
+                        duration = cached_result.get('duration')
+                        frame_count = cached_result.get('frame_count')
+                    elif available_scenes and scene_name in available_scenes:
+                        scene_info = available_scenes[scene_name]
+                        scene_description = scene_info.get('description', '')
+                        duration = scene_info.get('total_duration')
+                        frame_count = self._calculate_frame_count(duration) if duration else None
+                    
+                    result = {
+                        'paths': [merged_path],
+                        'scene_id': scene_name,
+                        'scene_description': scene_description,
+                        'duration': duration,
+                        'frame_count': frame_count,
+                        'needs_merge': False
+                    }
+                    resumable_state.set_video_result(scene_name, result)
+                    print_flush(f"💾 Updated checkpoint for merged scene: {scene_name}")
+                
+                print_flush(f"✅ Successfully merged chunks for {scene_name}: {os.path.basename(merged_path)}")
+            else:
+                print_flush(f"⚠️ Failed to merge chunks for {scene_name}, keeping individual chunks")
+                merged_results[scene_name] = chunk_paths  # Keep individual chunks if merge failed
+        
+        return merged_results
 
     def _print_workflow_summary(self, workflow: dict, title: str) -> None:
         """Print a comprehensive workflow summary showing the flow to sampler inputs."""
