@@ -68,7 +68,7 @@ echo SUCCESS: Additional Python packages installed
 echo.
 
 REM Install root requirements.txt
-echo [4/4] Installing root requirements.txt...
+echo [1/3] Installing root requirements.txt...
 if exist "requirements.txt" (
     .venv\Scripts\python.exe -m pip install -r requirements.txt
     if errorlevel 1 (
