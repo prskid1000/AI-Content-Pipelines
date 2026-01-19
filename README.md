@@ -924,6 +924,7 @@ gen.video/
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
+CONCAT_AFTER_COMPLETION = True  # Set to True to merge chunks at the end after all scenes are done, False to merge immediately after each scene
 
 # Video Configuration Constants
 VIDEO_WIDTH = 1024
@@ -1064,6 +1065,7 @@ All scripts listed in `gen.av/generate.py`:
 - **Shared Motion Script**: Both video and AV pipelines use the same `gen.video/scripts/2.motion.py` script with configurable output paths
 - **LoRA Control**: Configurable LoRA switches for depth, canny, pose, and detailer control
 - **Resumable Generation**: Checkpoint-based recovery for long video generation tasks
+- **Deferred Chunk Merging**: `CONCAT_AFTER_COMPLETION` flag allows merging all chunks at the end after all scenes are generated (useful for batch processing and resuming with missing chunks)
 
 ### AV Pipeline File Structure
 
@@ -1132,6 +1134,7 @@ scene_image_base_path = "../../gen.image/output/scene"
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
+CONCAT_AFTER_COMPLETION = True  # Set to True to merge chunks at the end after all scenes are done, False to merge immediately after each scene
 
 # Feature flags (moved to 2.motion.py)
 # Note: Master prompts are now generated in 2.motion.py with all features integrated
