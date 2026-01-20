@@ -1,10 +1,10 @@
-20%: The Calm Before the Quack
-SHORT_SUMMARY : Watson reads while Holmes observes his mind wandering toward something unusual.
-40%: The Stain That Speaks
-SHORT_SUMMARY : Holmes identifies ink residue as evidence of something more alive.
-60%: The Door and the Duckling
-SHORT_SUMMARY : A knock leads to a basket with a quacking, blue duckling inside.
-80%: The Deduction in Feathers
-SHORT_SUMMARY : Holmes analyzes the duckling’s dye and declares its artificial origin.
-100%: The Case Beyond the Cuff
-SHORT_SUMMARY : Holmes connects the duckling to counterfeit dyes and looming danger.
+20%: A Calm Morning's Disturbance
+SHORT_SUMMARY : Watson reflects on ordinary winter mornings while Holmes notices subtle disorder.
+40%: The Coin Arrangement
+SHORT_SUMMARY : Holmes draws Watson's attention to an odd heap of coins on the mantelpiece.
+60%: Unsettling Implications
+SHORT_SUMMARY : Watson recognizes the coins' significance and fears unseen intrusion.
+80%: Holmes’ Interpretation
+SHORT_SUMMARY : Holmes deciphers meaning from coin arrangement through methodical logic.
+100%: A Challenge Accepted
+SHORT_SUMMARY : Holmes invites Watson into a new investigation with dramatic confidence.

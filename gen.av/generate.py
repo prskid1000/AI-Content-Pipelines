@@ -63,13 +63,13 @@ class TimedLogWriter:
 
 SCRIPTS = [
     #Story
-    "1.story.py",
-    "../gen.image/scripts/1.story.py",
-    "../gen.audio/scripts/1.character.py",
+    # "1.story.py",
+    # "../gen.image/scripts/1.story.py",
+    # "../gen.audio/scripts/1.character.py",
 
     #Images
-    "../gen.image/scripts/2.character.py",
-    "../gen.image/scripts/2.location.py",
+    # "../gen.image/scripts/2.character.py",
+    # "../gen.image/scripts/2.location.py",
     # "../gen.image/scripts/3.scene.py",
 
     #Video
