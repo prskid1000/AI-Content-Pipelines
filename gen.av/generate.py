@@ -63,18 +63,18 @@ class TimedLogWriter:
 
 SCRIPTS = [
     #Story
-    # "1.story.py",
-    # "../gen.image/scripts/1.story.py",
-    # "../gen.audio/scripts/1.character.py",
+    "1.story.py",
+    "../gen.image/scripts/1.story.py",
+    "../gen.audio/scripts/1.character.py",
 
     #Images
-    # "../gen.image/scripts/2.character.py",
-    # "../gen.image/scripts/2.location.py",
+    "../gen.image/scripts/2.character.py",
+    "../gen.image/scripts/2.location.py",
     # "../gen.image/scripts/3.scene.py",
 
     #Video
     # "../gen.video/scripts/2.motion.py",
-    "2.av.py",
+    # "2.av.py",
 
     #Thumbnail
     # "../gen.audio/scripts/9.media.py",
@@ -290,10 +290,11 @@ def check_and_clean_tracking_if_story_changed(base_dir: str, log_handle) -> bool
     ]
 
     # Output directories to clear: gen.video/output, gen.image/output, gen.audio/output
-    gen_video_output = os.path.join(base_dir, "output")
+    gen_av_output = os.path.join(base_dir, "output")
     gen_image_output = os.path.abspath(os.path.join(base_dir, "..", "gen.image", "output"))
     gen_audio_output = os.path.abspath(os.path.join(base_dir, "..", "gen.audio", "output"))
-    output_dirs = [gen_video_output, gen_image_output, gen_audio_output]
+    gen_video_output = os.path.abspath(os.path.join(base_dir, "..", "gen.video", "output"))
+    output_dirs = [gen_av_output,gen_video_output, gen_image_output, gen_audio_output]
 
     return check_and_clean_tracking_if_files_changed(
         base_dir, log_handle, tracked_files, tracking_json_file, output_dirs=output_dirs
@@ -740,7 +741,7 @@ def main() -> int:
         empty_comfyui_folders(base_dir, log)
 
         # Check if story file changed and clean tracking directory if needed
-        # check_and_clean_tracking_if_story_changed(base_dir, log)
+        check_and_clean_tracking_if_story_changed(base_dir, log)
 
         # Manage services across scripts: keep running across consecutive needs
         comfy_proc = None
