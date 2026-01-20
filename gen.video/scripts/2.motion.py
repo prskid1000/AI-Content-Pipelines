@@ -319,7 +319,7 @@ class PromptGenerator:
 
 #### Guidelines:
 - Analyze the Image: Identify Subject, Setting, Elements, Style and Mood.
-- Follow user Raw Input Prompt: Include all requested motion, actions, camera movements, audio, and details. If in conflict with the image, prioritize user request while maintaining visual consistency (describe transition from image to user's scene).
+- Follow user Raw Input Prompt: Include all requested motion, actions, camera movements, audio, and details. If in conflict with the image, prioritize the image data while incorporating compatible elements from the user request. The image represents the ground truth visual state - use it as the foundation.
 - Describe only changes from the image: Don't reiterate established visual details. Inaccurate descriptions may cause scene cuts.
 - Active language: Use present-progressive verbs ("is walking," "speaking"). If no action specified, describe natural movements.
 - Chronological flow: Use temporal connectors ("as," "then," "while").
@@ -395,29 +395,34 @@ Style: realistic with cinematic lighting. In a medium close-up, a woman in her e
                 "Content-Type": "application/json"
             }
             
-            # Build user content
-            user_content = [
-                {
-                    "type": "text",
-                    "text": f"Raw Input Prompt:\n{raw_input_prompt}\n\nOnly use English Language for Input, Thinking, and Output\n/no_think"
-                }
-            ]
+            # Build user content - image first (if provided), then text
+            user_content = []
             
-            # Add image if provided and enabled
+            # Add image if provided and enabled (place image BEFORE text for vision models)
             if USE_SCENE_IMAGE and image_path and os.path.exists(image_path):
                 base64_image = self.encode_image_to_base64(image_path)
                 if base64_image:
-                    user_content.append({
-                        "type": "image_url",
-                        "image_url": {
-                            "url": base64_image
-                        }
-                    })
-                    print(f"🖼️  Including image: {os.path.basename(image_path)}")
+                    # Verify base64 string is valid (starts with data: and contains base64)
+                    if base64_image.startswith("data:") and len(base64_image) > 100:
+                        user_content.append({
+                            "type": "image_url",
+                            "image_url": {
+                                "url": base64_image
+                            }
+                        })
+                        print(f"🖼️  Including image: {os.path.basename(image_path)} (base64 length: {len(base64_image)} chars)")
+                    else:
+                        print(f"⚠️  Invalid base64 image format: {image_path}")
                 else:
                     print(f"⚠️  Failed to encode image: {image_path}")
             elif USE_SCENE_IMAGE and image_path and not os.path.exists(image_path):
                 print(f"⚠️  Scene image not found: {image_path}")
+            
+            # Add text content (after image if image was added)
+            user_content.append({
+                "type": "text",
+                "text": f"Raw Input Prompt:\n{raw_input_prompt}\n\nOnly use English Language for Input, Thinking, and Output\n/no_think"
+            })
             
             payload = {
                 "model": self.model,
