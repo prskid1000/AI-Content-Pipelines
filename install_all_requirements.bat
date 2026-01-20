@@ -45,8 +45,19 @@ if errorlevel 1 (
 echo SUCCESS: flash-attn installed
 echo.
 
+REM Install sage-attn (pre-built wheel for Python 3.12 + CUDA 13.0)
+echo [3/4] Installing sage-attn (pre-built wheel for CUDA 13.0)...
+.venv\Scripts\python.exe -m pip install https://github.com/woct0rdho/SageAttention/releases/download/v2.2.0-windows.post4/sageattention-2.2.0+cu130torch2.9.0andhigher.post4-cp39-abi3-win_amd64.whl
+if errorlevel 1 (
+    echo ERROR: Failed to install sage-attn
+    pause
+    exit /b 1
+)
+echo SUCCESS: sage-attn installed
+echo.
+
 REM Install ONNX Runtime GPU (nightly CUDA 13.0)
-echo [3/4] Installing ONNX Runtime GPU (nightly CUDA 13.0)...
+echo [4/4] Installing ONNX Runtime GPU (nightly CUDA 13.0)...
 .venv\Scripts\python.exe -m pip install --pre --index-url https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/ort-cuda-13-nightly/pypi/simple/ onnxruntime-gpu
 if errorlevel 1 (
     echo ERROR: Failed to install ONNX Runtime GPU
