@@ -3314,3 +3314,13 @@ This is a modular system designed for easy extension. Each script is self-contai
 **Note**: This system requires significant computational resources. For optimal performance, use a CUDA-compatible GPU with 8GB+ VRAM and ensure adequate cooling during extended generation sessions. The resumable processing system allows for safe interruption and recovery of long-running operations, making it suitable for extended generation sessions across multiple days.
 
 **Last Updated**: December 2024 - Consolidated motion.py scripts into a single shared script with configurable output paths, implemented master prompt generation with advanced system instructions, simplified animate.py and av.py by removing redundant functions, and enhanced prompt generation with integrated character/location data support.
+
+---
+
+## Custom Modifications
+
+### Pinned Memory Limit
+The ComfyUI pinned memory limit has been customized to use 95% of CPU RAM on Windows (matching Linux behavior), instead of the default 45%. This change is located in `ComfyUI\comfy\model_management.py` and allows for better memory utilization on Windows systems.
+
+**Location**: `ComfyUI\comfy\model_management.py` (line ~1133)
+**Change**: Windows pinned memory limit changed from 45% to 95% of total CPU memory

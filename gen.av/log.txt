@@ -2,28 +2,27 @@ Workflow runner started. Python executable: D:\.comfyui\.venv\Scripts\python.exe
 Working directory: D:\.comfyui\gen.av
 Emptying ComfyUI input and output folders...
 Removed directory: D:\.comfyui\ComfyUI\input\3d
-Removed file: D:\.comfyui\ComfyUI\input\loc_loc_1.jpg
-Removed file: D:\.comfyui\ComfyUI\input\loc_loc_2.jpg
-Removed file: D:\.comfyui\ComfyUI\input\loc_loc_4.jpg
-Removed file: D:\.comfyui\ComfyUI\input\male_detective_holmes.jpg
-Removed file: D:\.comfyui\ComfyUI\input\male_doctor_watson.jpg
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.3.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.4.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.6.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_2.4.FLUX1_Turbo_Alphasafetensors_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00002_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_2_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_2_00002_.png
-Removed file: D:\.comfyui\ComfyUI\output\stitched_group_2_00003_.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.2.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.3.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.4.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.5.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.6.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_2.1.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_2.2.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_2.3.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_2.4.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_2.5.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_2.6.png
 Successfully emptied ComfyUI input and output folders.
 All tracked files unchanged. Preserving output directories.
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
+ComfyUI not ready yet (attempt 1). Retrying in 15s...
 [START] Security scan
 [DONE] Security scan
 ## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2026-01-20 09:29:55.462
+** ComfyUI startup time: 2026-01-20 12:46:41.650
 ** Platform: Windows
 ** Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
 ** Python executable: D:\.comfyui\.venv\Scripts\python.exe
@@ -32,10 +31,9 @@ Waiting for ComfyUI to become ready (polling every 15s)...
 ** User directory: D:\.comfyui\ComfyUI\user
 ** ComfyUI-Manager config path: D:\.comfyui\ComfyUI\user\__manager\config.ini
 ** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
-ComfyUI not ready yet (attempt 1). Retrying in 15s...
 
 Prestartup times for custom nodes:
-   2.8 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   3.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
 
 Checkpoint files will always be loaded safely.
 Total VRAM 12227 MB, total RAM 64957 MB
@@ -45,23 +43,18 @@ Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
 Using async weight offloading with 16 streams
 working around nvidia conv3d memory bug.
 Found comfy_kitchen backend cuda: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
-Found comfy_kitchen backend eager: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
 Found comfy_kitchen backend triton: {'available': True, 'disabled': True, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8']}
+Found comfy_kitchen backend eager: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
 Using pytorch attention
 Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
-ComfyUI version: 0.8.2
-ComfyUI frontend version: 1.36.13
+ComfyUI version: 0.10.0
+ComfyUI frontend version: 1.36.14
 [Prompt Server] web root: D:\.comfyui\.venv\Lib\site-packages\comfyui_frontend_package\static
-Total VRAM 12227 MB, total RAM 64957 MB
-pytorch version: 2.9.1+cu130
-Set vram state to: NORMAL_VRAM
-Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
-Using async weight offloading with 16 streams
 ComfyUI-GGUF: Allowing full torch compile
 ### Loading: ComfyUI-Manager (V3.39.2)
 [ComfyUI-Manager] network_mode: public
 [ComfyUI-Manager] ComfyUI per-queue preview override detected (PR #11261). Manager's preview method feature is disabled. Use ComfyUI's --preview-method CLI option or 'Settings > Execution > Live preview method'.
-### ComfyUI Revision: 4498 [2e9d5168] *DETACHED | Released on '2026-01-07'
+### ComfyUI Version: v0.10.0-2-g0fc3b6e3 | Released on '2026-01-19'
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
@@ -71,10 +64,11 @@ ComfyUI-GGUF: Allowing full torch compile
 [32mInitializing ControlAltAI Nodes[0m
 ✅ ChatterboxTTS loaded from bundled package
 ✅ ChatterboxVC loaded from bundled package
+ComfyUI not ready yet (attempt 2). Retrying in 15s...
 FETCH ComfyRegistry Data: 5/120
+FETCH ComfyRegistry Data: 10/120
 ✅ F5-TTS loaded from system package
 🎭 Character voices: Found 61 characters, 2 aliases
-ComfyUI not ready yet (attempt 2). Retrying in 15s...
 ✅ SRT modules loaded from system package
 🔧 Registering TTS Audio Suite nodes...
 ======================================================================
@@ -103,32 +97,26 @@ Universal multi-engine TTS extension for ComfyUI
 ======================================================================
 
 Import times for custom nodes:
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyMath
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
+   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
    0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
-   0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-   0.7 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
-   8.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
+   0.7 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   1.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
+  12.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
 
 Context impl SQLiteImpl.
 Will assume non-transactional DDL.
-No target revision found.
+Assets scan(roots=['models']) completed in 0.023s (created=0, skipped_existing=29, total_seen=30)
 Starting server
 
 To see the GUI go to: http://127.0.0.1:8188
-[DEPRECATION WARNING] Detected import of deprecated legacy API: /scripts/ui.js. This is likely caused by a custom node extension using outdated APIs. Please update your extensions or contact the extension author for an updated version.
-[DEPRECATION WARNING] Detected import of deprecated legacy API: /extensions/core/groupNode.js. This is likely caused by a custom node extension using outdated APIs. Please update your extensions or contact the extension author for an updated version.
-[DEPRECATION WARNING] Detected import of deprecated legacy API: /extensions/core/widgetInputs.js. This is likely caused by a custom node extension using outdated APIs. Please update your extensions or contact the extension author for an updated version.
-[DEPRECATION WARNING] Detected import of deprecated legacy API: /scripts/ui/components/buttonGroup.js. This is likely caused by a custom node extension using outdated APIs. Please update your extensions or contact the extension author for an updated version.
-[DEPRECATION WARNING] Detected import of deprecated legacy API: /scripts/ui/components/button.js. This is likely caused by a custom node extension using outdated APIs. Please update your extensions or contact the extension author for an updated version.
-FETCH ComfyRegistry Data: 10/120
 FETCH ComfyRegistry Data: 15/120
-FETCH ComfyRegistry Data: 20/120
 ComfyUI is ready after 34.1s (attempt 3).
 
-===== START D:\.comfyui\gen.image\scripts\3.scene.py @ 2026-01-20 09:30:27 =====
+===== START D:\.comfyui\gen.av\scripts\2.av.py @ 2026-01-20 12:47:12 =====
 Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
 handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
 Traceback (most recent call last):
@@ -137,336 +125,299 @@ Traceback (most recent call last):
   File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
     self._sock.shutdown(socket.SHUT_RDWR)
 ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
-Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.image\output\tracking
-Found existing checkpoint: D:\.comfyui\gen.image\output\tracking\3.scene.state.json
-Progress: Scenes(12/12)
-Character mode: IMAGE
-Location mode: IMAGE
-Validating cache against output/scene directory: ../output/scene
-Scanning output/scene directory for untracked files: ../output/scene
-Scene already tracked: scene_1.1
-Scene already tracked: scene_1.2
-Scene already tracked: scene_1.4
-Scene already tracked: scene_1.5
-Scene already tracked: scene_2.1
-Scene already tracked: scene_2.2
-Scene already tracked: scene_2.3
-Scene already tracked: scene_2.4
-Scene already tracked: scene_2.5
-Scene already tracked: scene_2.6
-No untracked scenes found in output/scene directory
-Validating 12 completed scenes against output/scene directory...
-Precheck: ✓ scene_1.1 validated in output/scene directory
-Precheck: ✓ scene_1.2 validated in output/scene directory
-Precheck: ✓ scene_1.5 validated in output/scene directory
-Precheck: ✓ scene_2.1 validated in output/scene directory
-Precheck: ✓ scene_2.2 validated in output/scene directory
-Precheck: ✓ scene_2.3 validated in output/scene directory
-Precheck: ✓ scene_2.5 validated in output/scene directory
-Precheck: ✓ scene_2.6 validated in output/scene directory
-Precheck: File missing for scene_1.3 - marking as not completed
-Precheck: ✓ scene_1.4 validated in output/scene directory
-Precheck: File missing for scene_1.6 - marking as not completed
-Precheck: ✓ scene_2.4 validated in output/scene directory
-Precheck: Cleared LoRA progress for scene_1.3
-Precheck: Cleared LoRA progress for scene_1.6
-Precheck: Cleaned up 2 invalid entries from checkpoint
-Precheck completed: 2 invalid entries removed from checkpoint
-Found 10 completed scenes: ['scene_1.1', 'scene_1.2', 'scene_1.4', 'scene_1.5', 'scene_2.1', 'scene_2.2', 'scene_2.3', 'scene_2.4', 'scene_2.5', 'scene_2.6']
-Processing 2 scenes, skipped 10
-📊 Total scene words: 143
+Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.av\output\tracking
+No existing checkpoint found - starting fresh
+🎬 Starting AV video generation process...
+📁 Story:     ../input/1.story.txt
+🖼️  Images:    ../../gen.image/output/scene
+🎥 Output:    ../output
+📋 Loaded 12 scenes with dialogue from ../input/1.story.txt
+🎬 Loaded 12 master prompts
+🔗 Combined 12 timeline entries into 12 unique scenes
+📋 scene_1.1: 16.750s (1 segments)
+📋 scene_1.2: 12.500s (1 segments)
+📋 scene_1.3: 13.000s (1 segments)
+📋 scene_1.4: 13.000s (1 segments)
+📋 scene_1.5: 14.250s (1 segments)
+📋 scene_1.6: 9.500s (1 segments)
+📋 scene_2.1: 13.250s (1 segments)
+📋 scene_2.2: 10.250s (1 segments)
+📋 scene_2.3: 12.250s (1 segments)
+📋 scene_2.4: 11.500s (1 segments)
+📋 scene_2.5: 9.500s (1 segments)
+📋 scene_2.6: 11.500s (1 segments)
+Processing 12 unique scenes, skipped 0
+📊 Total video words: 1,474
+📊 Total video duration: 147.2 seconds (2.5 minutes)
 ============================================================
 
-📊 SCENE GENERATION PROGRESS
-====================================================================================================
-🔄 Scene 1/2 - {{loc_1}}, {Weather/Season/Time: clear winter morn - Processing...
-📊 Estimated time remaining: ~43s (?)
-Generating scene: scene_1.3 with characters: male_doctor_watson (Serial LoRA mode)
+📊 AV VIDEO GENERATION PROGRESS
+========================================================================================================================
+🔄 Scene 1/12 - "It was upon a winter morning of deceptive calm th (16.75s) - Processing...
+📊 Estimated time remaining: ~1.2h (?)
+Generating video for scene: scene_1.1
+Duration: 16.75s, Frames: 402
+Video chunks: 6
+Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_1.1.png
+Generating chunk: scene_1.1_1 (73 frames)
+💬 Chunk 1 dialogue (3.04s, 12 words): "It was upon a winter morning of deceptive calm th...
+🎬 Using master prompt for 1.1
+💬 Added dialogue chunk to prompt: "It was upon a winter morning of deceptive calm th...
+Full prompt: Style: realistic - cinematic - The man in the white shirt sits in an armchair by the fireplace, reading the morning newspaper with focused attention. His fingers gently turn the pages as he scans the text. In the background, the fire crackles softly, casting warm light across the room. A second man stands by the window, calmly examining footprints on the sill through a magnifying glass. The sound of the wind outside is faintly audible, and the occasional creak of the wooden floorboards accompanies his movements.
 
-Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
-  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
-Serial LoRA mode enabled - will create separate workflow
-Building workflow for serial LoRA mode: scene_1.3
-Compressed male_doctor_watson image: 102.7KB → 56.4KB (45.1% reduction)
-Added 1 character images to stitching process
-Compressed loc_1 image: 1063.5KB → 494.3KB (53.5% reduction)
-Added 1 location images to stitching process
-Character mode: IMAGE, Location mode: IMAGE, Total images: 2
-Image stitching: 1 character images → 1 groups, 1 location images → 1 groups (total: 2 groups)
-Using cascaded reference conditioning
-Using latent mode with dimensions: 1280x800
-Negative prompt disabled - using ConditioningZeroOut
-Seed set to: 2186117654
-
-
-
-
-Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
-        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
-        
- __NOTE__:Keep both of the character's hands separate and clearly visible. Include only one character in the scene. Avoid textual elements. Use logos or icons only when necessary.
-ADD ,LEFTMOST SCENE in Image 2, , as background of the entire illustration., {Weather/Season/Time: clear winter morning}; {shot_type: over-shoulder from Holmes to Watson} {camera_angle: eye level} {camera_movement: slow pan right} {lens: 35mm} {depth_of_field: moderate, Watson in focus} {lighting: balanced warm fill, gentle shadows} {color_tone: warm neutral} {transition: dissolve}; 
-ADD ,LEFTMOST CHARACTER in Image 1, , as one of the main characters of the illustration.{face relative direction: toward Holmes}{looking relative direction: up from newspaper}{facial expression: puzzled, earnest}, {relative location: seated left of sofa},{body facing relative direction: toward Holmes},{body posture: slightly leaning forward},{primary action: lowering newspaper} {movement: slow hand movement, brow furrowing};
-
-  Model strength: 3.0
-  CLIP strength: 3.0
-  Seed set to: 560604989
-  Using latent mode with dimensions: 1280x800
-  Using LoRA denoising_strength: 1
-  Steps: 9, Denoising: 1
+Dialogue: ""It was upon a winter morning of deceptive calm that this curious"
 got prompt
-  Waiting for LoRA 1 generation to complete...
-Using pytorch attention in VAE
-Using pytorch attention in VAE
+Waiting for video generation completion (prompt_id: 3b341ea5-f2a9-4d1c-b8f9-81f07981de92)...
 VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
+Requested to load VideoVAE
+loaded completely; 9606.80 MB usable, 2378.23 MB loaded, full load: True
+FETCH ComfyRegistry Data: 20/120
 FETCH ComfyRegistry Data: 25/120
-clip missing: ['text_projection.weight']
 CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
+Requested to load LTXAVTEModel_
+FETCH ComfyRegistry Data: 30/120
+loaded partially; 9562.80 MB usable, 735.62 MB loaded, 25228.59 MB offloaded, 8827.18 MB buffer reserved, lowvram patches: 0
+FETCH ComfyRegistry Data: 35/120
+gguf qtypes: F32 (2140), BF16 (26), Q4_K (1008), Q6_K (336)
 model weight dtype torch.bfloat16, manual cast: None
 model_type FLUX
-FETCH ComfyRegistry Data: 30/120
-FETCH ComfyRegistry Data: 35/120
+Requested to load LTXAV
 FETCH ComfyRegistry Data: 40/120
-Requested to load FluxClipModel_
 FETCH ComfyRegistry Data: 45/120
-loaded completely; 9606.80 MB usable, 9319.23 MB loaded, full load: True
-Requested to load AutoencodingEngine
-Unloaded partially: 3628.23 MB freed, 5691.00 MB remains loaded, 936.38 MB buffer reserved, lowvram patches: 0
-loaded completely; 1143.91 MB usable, 159.87 MB loaded, full load: True
-Requested to load Flux
 FETCH ComfyRegistry Data: 50/120
-loaded partially; 7341.24 MB usable, 5284.03 MB loaded, 17416.11 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 266
-  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 55/120
-FETCH ComfyRegistry Data: 60/120
- 11%|█         | 1/9 [00:10<01:23, 10.39s/it]FETCH ComfyRegistry Data: 65/120
- 22%|██▏       | 2/9 [00:17<00:59,  8.52s/it]FETCH ComfyRegistry Data: 70/120
- 33%|███▎      | 3/9 [00:24<00:47,  7.94s/it]FETCH ComfyRegistry Data: 75/120
- 44%|████▍     | 4/9 [00:32<00:38,  7.67s/it]FETCH ComfyRegistry Data: 80/120
-FETCH ComfyRegistry Data: 85/120
- 56%|█████▌    | 5/9 [00:39<00:30,  7.52s/it]FETCH ComfyRegistry Data: 90/120
- 67%|██████▋   | 6/9 [00:46<00:22,  7.42s/it]FETCH ComfyRegistry Data: 95/120
- 78%|███████▊  | 7/9 [00:53<00:14,  7.38s/it]FETCH ComfyRegistry Data: 100/120
- 89%|████████▉ | 8/9 [01:01<00:07,  7.34s/it]FETCH ComfyRegistry Data: 105/120
-100%|██████████| 9/9 [01:08<00:00,  7.35s/it]100%|██████████| 9/9 [01:08<00:00,  7.61s/it]
-Requested to load AutoencodingEngine
-loaded completely; 824.94 MB usable, 159.87 MB loaded, full load: True
+FETCH ComfyRegistry Data: 55/120
+loaded partially; 9541.56 MB usable, 9388.43 MB loaded, 2853.54 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
+  0%|          | 0/8 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 60/120
+ 12%|█▎        | 1/8 [00:08<01:02,  8.90s/it]FETCH ComfyRegistry Data: 65/120
+ 25%|██▌       | 2/8 [00:13<00:37,  6.26s/it]FETCH ComfyRegistry Data: 70/120
+ 38%|███▊      | 3/8 [00:17<00:26,  5.38s/it] 50%|█████     | 4/8 [00:22<00:19,  4.98s/it]FETCH ComfyRegistry Data: 75/120
+ 62%|██████▎   | 5/8 [00:26<00:14,  4.85s/it]FETCH ComfyRegistry Data: 80/120
+ 75%|███████▌  | 6/8 [00:31<00:09,  4.80s/it]FETCH ComfyRegistry Data: 85/120
+ 88%|████████▊ | 7/8 [00:35<00:04,  4.67s/it]FETCH ComfyRegistry Data: 90/120
+100%|██████████| 8/8 [00:40<00:00,  4.58s/it]100%|██████████| 8/8 [00:40<00:00,  5.01s/it]
+Requested to load VideoVAE
+Unloaded partially: 2398.64 MB freed, 6989.78 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 211
+loaded completely; 2648.72 MB usable, 2378.23 MB loaded, full load: True
+loaded partially; 8881.53 MB usable, 8704.04 MB loaded, 3537.93 MB offloaded, 177.49 MB buffer reserved, lowvram patches: 0
+  0%|          | 0/3 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 95/120
+FETCH ComfyRegistry Data: 100/120
+ 33%|███▎      | 1/3 [00:10<00:21, 10.87s/it]FETCH ComfyRegistry Data: 105/120
 FETCH ComfyRegistry Data: 110/120
-Prompt executed in 105.98 seconds
-  Saved LoRA result: ../output/lora\scene_1.3.FLUX1_Turbo_Alphasafetensors.png
-  LoRA 1 completed successfully
-  Saved LoRA progress: 1/1 completed
-Saved: ../output/scene\scene_1.3.png
-  Preserved LoRA progress for completed scene
-✅ Scene 1/2 - {{loc_1}}, {Weather/Season/Time: clear winter morn - Completed in 1.8m
-📊 Estimated time remaining: ~1.7m (?)
-[OK] Generated: scene_1.3
-🔄 Scene 2/2 - {{loc_2}}, {Weather/Season/Time: clear winter morn - Processing...
-📊 Estimated time remaining: ~1.7m (?)
-Generating scene: scene_1.6 with characters: male_detective_holmes (Serial LoRA mode)
-
-Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
-  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
-Serial LoRA mode enabled - will create separate workflow
-Building workflow for serial LoRA mode: scene_1.6
-Compressed male_detective_holmes image: 100.8KB → 47.2KB (53.2% reduction)
-Added 1 character images to stitching process
-Compressed loc_2 image: 947.6KB → 455.7KB (51.9% reduction)
-Added 1 location images to stitching process
-Character mode: IMAGE, Location mode: IMAGE, Total images: 2
-Image stitching: 1 character images → 1 groups, 1 location images → 1 groups (total: 2 groups)
-Using cascaded reference conditioning
-Using latent mode with dimensions: 1280x800
-Negative prompt disabled - using ConditioningZeroOut
-Seed set to: 2870809626
-
-
-
-
-Text prompt: Create a 16K ultra-high-resolution, illustration (with non-black and non-white background) in the style of Realistic Anime, 
-        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
-        
- __NOTE__:Keep both of the character's hands separate and clearly visible. Include only one character in the scene. Avoid textual elements. Use logos or icons only when necessary.
-ADD ,LEFTMOST SCENE in Image 2, , as background of the entire illustration., {Weather/Season/Time: clear winter morning}; {shot_type: two-shot} {camera_angle: eye level} {camera_movement: static} {lens: 35mm} {depth_of_field: moderate, both in focus} {lighting: balanced key and fill, intellectual calm} {color_tone: neutral with cool accents} {transition: fade out}; 
-ADD ,LEFTMOST CHARACTER in Image 1, , as one of the main characters of the illustration.{face relative direction: toward Watson}{looking relative direction: confidently at Watson}{facial expression: calm certainty}, {relative location: beside mantel},{body facing relative direction: toward Watson},{body posture: composed, hands clasped behind back},{primary action: lecturing calmly} {movement: minimal, controlled head nod};
-
-  Model strength: 3.0
-  CLIP strength: 3.0
-  Seed set to: 692754029
-  Using latent mode with dimensions: 1280x800
-  Using LoRA denoising_strength: 1
-  Steps: 9, Denoising: 1
-got prompt
-  Waiting for LoRA 1 generation to complete...
-Requested to load FluxClipModel_
-loaded completely; 9543.67 MB usable, 9319.23 MB loaded, full load: True
-Requested to load AutoencodingEngine
-FETCH ComfyRegistry Data: 115/120
-Unloaded partially: 3628.23 MB freed, 5691.00 MB remains loaded, 936.38 MB buffer reserved, lowvram patches: 0
-loaded completely; 1143.91 MB usable, 159.87 MB loaded, full load: True
-Requested to load Flux
-loaded partially; 7341.24 MB usable, 5284.03 MB loaded, 17416.11 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 266
-  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 120/120
+ 67%|██████▋   | 2/3 [00:21<00:10, 10.57s/it]FETCH ComfyRegistry Data: 115/120
+FETCH ComfyRegistry Data: 120/120
 FETCH ComfyRegistry Data [DONE]
 [ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
 FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
 [ComfyUI-Manager] All startup tasks have been completed.
- 11%|█         | 1/9 [00:07<00:59,  7.39s/it] 22%|██▏       | 2/9 [00:14<00:51,  7.30s/it] 33%|███▎      | 3/9 [00:21<00:43,  7.28s/it] 44%|████▍     | 4/9 [00:29<00:36,  7.27s/it] 56%|█████▌    | 5/9 [00:36<00:29,  7.27s/it] 67%|██████▋   | 6/9 [00:43<00:21,  7.28s/it] 78%|███████▊  | 7/9 [00:51<00:14,  7.30s/it] 89%|████████▉ | 8/9 [00:58<00:07,  7.30s/it]100%|██████████| 9/9 [01:05<00:00,  7.30s/it]100%|██████████| 9/9 [01:05<00:00,  7.30s/it]
-Requested to load AutoencodingEngine
-loaded completely; 824.94 MB usable, 159.87 MB loaded, full load: True
-Prompt executed in 72.16 seconds
-  Saved LoRA result: ../output/lora\scene_1.6.FLUX1_Turbo_Alphasafetensors.png
-  LoRA 1 completed successfully
-  Saved LoRA progress: 1/1 completed
-Saved: ../output/scene\scene_1.6.png
-  Preserved LoRA progress for completed scene
-✅ Scene 2/2 - {{loc_2}}, {Weather/Season/Time: clear winter morn - Completed in 1.3m
-📊 Estimated time remaining: ~0s (?)
-[OK] Generated: scene_1.6
+100%|██████████| 3/3 [00:31<00:00, 10.48s/it]100%|██████████| 3/3 [00:31<00:00, 10.53s/it]
+Requested to load VideoVAE
+ERROR: Failed to generate video for scene_1.1: HTTPConnectionPool(host='127.0.0.1', port=8188): Max retries exceeded with url: /history/3b341ea5-f2a9-4d1c-b8f9-81f07981de92 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001CDB055DE20>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+❌ Scene 1/12 - "It was upon a winter morning of deceptive calm th (16.75s) - Failed after 2.1m
+📊 Estimated time remaining: ~18.2m (?)
+❌ Failed: scene_1.1
+🔄 Scene 2/12 - "You observe nothing unusual because you expect no (12.50s) - Processing...
+📊 Estimated time remaining: ~21.4m (?)
+Generating video for scene: scene_1.2
+Duration: 12.50s, Frames: 300
+Video chunks: 5
+Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_1.2.png
+Generating chunk: scene_1.2_1 (73 frames)
+💬 Chunk 1 dialogue (3.04s, 12 words): "You observe nothing unusual because you expect no...
+🎬 Using master prompt for 1.2
+💬 Added dialogue chunk to prompt: "You observe nothing unusual because you expect no...
+Full prompt: Style: realistic - cinematic - The male detective stands near the window, his finger extended as he points at the sill. His expression is keen and focused. The male doctor leans forward in the armchair, lowering the newspaper to examine the scene with a curious look. Outside, snow falls steadily onto the windowpane. A low crackling sound of fire from the fireplace provides a soft ambient backdrop, mingling with the quiet whoosh of wind against the glass.
 
-Generated 2 scenes in 184.68s:
-  scene_1.3: ../output/scene\scene_1.3.png
-  scene_1.6: ../output/scene\scene_1.6.png
-All operations completed successfully
-Final progress: Progress: Scenes(12/12)
-All operations completed successfully - tracking files preserved
+Dialogue: ""You observe nothing unusual because you expect nothing unusual, Watson, yet the"
+ERROR: Failed to generate video for scene_1.2: HTTPConnectionPool(host='127.0.0.1', port=8188): Max retries exceeded with url: /prompt (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001CDB05786E0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+❌ Scene 2/12 - "You observe nothing unusual because you expect no (12.50s) - Failed after 2.1s
+📊 Estimated time remaining: ~9.0m (?)
+❌ Failed: scene_1.2
+🔄 Scene 3/12 - "I confess that beyond the comfortable familiarity (13.00s) - Processing...
+📊 Estimated time remaining: ~9.8m (?)
+Generating video for scene: scene_1.3
+Duration: 13.00s, Frames: 312
+Video chunks: 5
+Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_1.3.png
+Generating chunk: scene_1.3_1 (73 frames)
+💬 Chunk 1 dialogue (3.04s, 12 words): "I confess that beyond the comfortable familiarity...
+🎬 Using master prompt for 1.3
+💬 Added dialogue chunk to prompt: "I confess that beyond the comfortable familiarity...
+Full prompt: Style: cinematic - realistic - The cold winter morning light filters through the tall windows, casting long shadows across the plush green carpet. In a deep red armchair near the fireplace, Dr. Watson sits with his legs crossed, arms resting on the chair's arms, and his eyes fixed intently on Holmes. His expression is one of incredulous focus as he watches the detective closely. On the round wooden table before him are books, papers, and a small brass globe. The fire crackles steadily in the fireplace behind him, its warm glow contrasting with the cool light from outside.
 
-===== END D:\.comfyui\gen.image\scripts\3.scene.py @ 2026-01-20 09:33:32 (exit=0, took=184.94s) =====
+Dialogue: ""I confess that beyond the comfortable familiarity of our sitting room and"
+ERROR: Failed to generate video for scene_1.3: HTTPConnectionPool(host='127.0.0.1', port=8188): Max retries exceeded with url: /prompt (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001CDB0527BC0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+❌ Scene 3/12 - "I confess that beyond the comfortable familiarity (13.00s) - Failed after 2.0s
+📊 Estimated time remaining: ~5.6m (~)
+❌ Failed: scene_1.3
+🔄 Scene 4/12 - "Then allow me to direct your attention to the man (13.00s) - Processing...
+📊 Estimated time remaining: ~5.9m (~)
+Generating video for scene: scene_1.4
+Duration: 13.00s, Frames: 312
+Video chunks: 5
+Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_1.4.png
+Generating chunk: scene_1.4_1 (73 frames)
+💬 Chunk 1 dialogue (3.04s, 12 words): "Then allow me to direct your attention to the man...
+🎬 Using master prompt for 1.4
+💬 Added dialogue chunk to prompt: "Then allow me to direct your attention to the man...
+Full prompt: Style: realistic - cinematic - The scene opens in a dimly lit study during a cold winter morning. A tall man with sharp features, dressed in a dark coat and scarf, stands beside the large window, his breath visible in the frigid air. He leans forward, examining the window sill closely, his gloved hand tracing the edge as he searches for evidence. Standing just behind him, a shorter man with a kind face watches intently, his eyes scanning the details with focused attention. The faint sound of wind howling outside blends with the soft creaking of wooden floorboards beneath their feet.
+
+Dialogue: ""Then allow me to direct your attention to the mantelpiece, where five"
+ERROR: Failed to generate video for scene_1.4: HTTPConnectionPool(host='127.0.0.1', port=8188): Max retries exceeded with url: /prompt (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001CDB055F530>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+❌ Scene 4/12 - "Then allow me to direct your attention to the man (13.00s) - Failed after 2.1s
+📊 Estimated time remaining: ~3.8m (~)
+❌ Failed: scene_1.4
+🔄 Scene 5/12 - "The sight of those coins, previously lost to my n (14.25s) - Processing...
+📊 Estimated time remaining: ~3.9m (~)
+Generating video for scene: scene_1.5
+Duration: 14.25s, Frames: 342
+Video chunks: 5
+Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_1.5.png
+Generating chunk: scene_1.5_1 (73 frames)
+💬 Chunk 1 dialogue (3.04s, 12 words): "The sight of those coins, previously lost to my n...
+🎬 Using master prompt for 1.5
+💬 Added dialogue chunk to prompt: "The sight of those coins, previously lost to my n...
+Full prompt: Style: realistic - cinematic - The man stands in the center of a dimly lit living room, sunlight streaming through the window. He is dressed in a white shirt with a red emblem on the pocket and khaki pants. His expression is calm as he looks toward the fireplace. As the scene progresses, another figure enters from the left side of the frame. This second man walks slowly across the room, his posture composed. He carries a glass in one hand, which he places gently upon the wooden table beside the mantel. The sound of soft footsteps on tile echoes subtly beneath the quiet ambiance of the cold winter morning.
+
+Dialogue: ""The sight of those coins, previously lost to my notice, struck me"
+ERROR: Failed to generate video for scene_1.5: HTTPConnectionPool(host='127.0.0.1', port=8188): Max retries exceeded with url: /prompt (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001CDB0578320>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+❌ Scene 5/12 - "The sight of those coins, previously lost to my n (14.25s) - Failed after 2.0s
+📊 Estimated time remaining: ~2.7m (✓)
+❌ Failed: scene_1.5
+🔄 Scene 6/12 - "Fear is unnecessary, Watson, but curiosity is man (9.50s) - Processing...
+📊 Estimated time remaining: ~2.7m (✓)
+Generating video for scene: scene_1.6
+Duration: 9.50s, Frames: 228
+Video chunks: 4
+Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_1.6.png
+Generating chunk: scene_1.6_1 (73 frames)
+💬 Chunk 1 dialogue (3.04s, 12 words): "Fear is unnecessary, Watson, but curiosity is man...
+🎬 Using master prompt for 1.6
+💬 Added dialogue chunk to prompt: "Fear is unnecessary, Watson, but curiosity is man...
+Full prompt: Style: realistic - cinematic - The male detective stands by the small mahogany table beside the hearth, his eyes focused on a tiny velvet box. He reaches out and opens the box with careful fingers, revealing its contents in dim winter light. The male doctor stands opposite the table, peering inside as he says in an intrigued tone, "What could possibly be hidden here?" His voice carries a note of wonder, while soft footsteps echo across the room. Sunlight filters through a window, illuminating dust motes and casting long shadows over cluttered papers and pipes on the table.
+
+Dialogue: ""Fear is unnecessary, Watson, but curiosity is mandatory, for these coins announce"
+ERROR: Failed to generate video for scene_1.6: HTTPConnectionPool(host='127.0.0.1', port=8188): Max retries exceeded with url: /prompt (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001CDB0527950>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+❌ Scene 6/12 - "Fear is unnecessary, Watson, but curiosity is man (9.50s) - Failed after 2.0s
+📊 Estimated time remaining: ~2.0m (✓)
+❌ Failed: scene_1.6
+🔄 Scene 7/12 - "Holmes proceeded to dismantle the mystery with su (13.25s) - Processing...
+📊 Estimated time remaining: ~1.9m (✓)
+Generating video for scene: scene_2.1
+Duration: 13.25s, Frames: 318
+Video chunks: 5
+Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_2.1.png
+Generating chunk: scene_2.1_1 (73 frames)
+💬 Chunk 1 dialogue (3.04s, 12 words): "Holmes proceeded to dismantle the mystery with su...
+🎬 Using master prompt for 2.1
+💬 Added dialogue chunk to prompt: "Holmes proceeded to dismantle the mystery with su...
+Full prompt: Style: cinematic - realistic - The image transitions from a bright daytime interior to a foggy Victorian street. A man in a light-colored shirt sits at a wooden table near large windows overlooking green trees, then the scene shifts. Now on a cold evening, a mist shrouds cobblestone streets outside 221B Baker Street. Horse-drawn carriages line the road as street lamps glow softly through the fog. A man in a dark coat stands beside another, adjusting his collar while holding a lantern. Beside him, a nervous woman sits inside a carriage, clutching a satchel tightly. The sound of hooves on stone and distant chatter blends with the quiet rustle of wind against wet pavement.
+
+Dialogue: ""Holmes proceeded to dismantle the mystery with such methodical grace that I"
+ERROR: Failed to generate video for scene_2.1: HTTPConnectionPool(host='127.0.0.1', port=8188): Max retries exceeded with url: /prompt (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001CDB05788C0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+❌ Scene 7/12 - "Holmes proceeded to dismantle the mystery with su (13.25s) - Failed after 2.1s
+📊 Estimated time remaining: ~1.4m (✓)
+❌ Failed: scene_2.1
+🔄 Scene 8/12 - "Each coin represents a location visited in revers (10.25s) - Processing...
+📊 Estimated time remaining: ~1.3m (✓)
+Generating video for scene: scene_2.2
+Duration: 10.25s, Frames: 246
+Video chunks: 4
+Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_2.2.png
+Generating chunk: scene_2.2_1 (73 frames)
+💬 Chunk 1 dialogue (3.04s, 12 words): "Each coin represents a location visited in revers...
+🎬 Using master prompt for 2.2
+💬 Added dialogue chunk to prompt: "Each coin represents a location visited in revers...
+Full prompt: Style: anime - cinematic - The young man with brown hair and blue eyes sits at a wooden table in a sunlit room, arranging small metal discs. He wears a dark sweater over a white collared shirt with a large bow tie. As he moves the disks, his expression shifts from focused to slightly smug. Outside the window, green trees sway gently under a bright sky. The soft clinking of metal pieces on wood and distant birdsong fill the quiet room.
+
+Dialogue: ""Each coin represents a location visited in reverse order, the scratches indicating"
+ERROR: Failed to generate video for scene_2.2: HTTPConnectionPool(host='127.0.0.1', port=8188): Max retries exceeded with url: /prompt (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001CDB0526540>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+❌ Scene 8/12 - "Each coin represents a location visited in revers (10.25s) - Failed after 2.0s
+📊 Estimated time remaining: ~1.0m (✓)
+❌ Failed: scene_2.2
+🔄 Scene 9/12 - "Your reasoning, though dazzling, left me grasping (12.25s) - Processing...
+📊 Estimated time remaining: ~53s (✓)
+Generating video for scene: scene_2.3
+Duration: 12.25s, Frames: 294
+Video chunks: 5
+Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_2.3.png
+Generating chunk: scene_2.3_1 (73 frames)
+💬 Chunk 1 dialogue (3.04s, 12 words): "Your reasoning, though dazzling, left me grasping...
+🎬 Using master prompt for 2.3
+💬 Added dialogue chunk to prompt: "Your reasoning, though dazzling, left me grasping...
+Full prompt: Style: cinematic - The young man stands in a sunlit dining room, giving a thumbs-up with a warm smile. He is wearing a white button-down shirt with a red logo and tan pants. Outside the large window, green trees sway gently in a bright breeze under a clear blue sky. Sunlight streams across the wooden table where a teacup and small vase sit undisturbed. The atmosphere is calm and cheerful, contrasting sharply with the foggy, cold evening scene described in the prompt.
+
+Dialogue: ""Your reasoning, though dazzling, left me grasping at fragments, and I could"
+ERROR: Failed to generate video for scene_2.3: HTTPConnectionPool(host='127.0.0.1', port=8188): Max retries exceeded with url: /prompt (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001CDB055F4D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+❌ Scene 9/12 - "Your reasoning, though dazzling, left me grasping (12.25s) - Failed after 2.0s
+📊 Estimated time remaining: ~42s (✓)
+❌ Failed: scene_2.3
+🔄 Scene 10/12 - "That, my dear Watson, is precisely the point, for (11.50s) - Processing...
+📊 Estimated time remaining: ~32s (✓)
+Generating video for scene: scene_2.4
+Duration: 11.50s, Frames: 276
+Video chunks: 4
+Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_2.4.png
+Generating chunk: scene_2.4_1 (73 frames)
+💬 Chunk 1 dialogue (3.04s, 12 words): "That, my dear Watson, is precisely the point, for...
+🎬 Using master prompt for 2.4
+💬 Added dialogue chunk to prompt: "That, my dear Watson, is precisely the point, for...
+Full prompt: Style: realistic - cinematic - The man with orange hair sits in a horse-drawn cab, his blue eyes focused as he holds a velvet box on his lap. He speaks in a low, gravelly voice, "The evidence points to the carriage driver." The woman beside him clutches her satchel tightly, her face pale and uneasy. She looks toward Holmes with wide eyes. A soft lantern sways from the ceiling, casting flickering light across the fogged windows. Outside, cold evening mist drifts past the glass while faint horse hooves echo on wet pavement.
+
+Dialogue: ""That, my dear Watson, is precisely the point, for the culprit intended"
+ERROR: Failed to generate video for scene_2.4: HTTPConnectionPool(host='127.0.0.1', port=8188): Max retries exceeded with url: /prompt (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001CDB0578230>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+❌ Scene 10/12 - "That, my dear Watson, is precisely the point, for (11.50s) - Failed after 2.0s
+📊 Estimated time remaining: ~24s (✓)
+❌ Failed: scene_2.4
+🔄 Scene 11/12 - "I felt then the familiar thrill of impending purs (9.50s) - Processing...
+📊 Estimated time remaining: ~15s (✓)
+Generating video for scene: scene_2.5
+Duration: 9.50s, Frames: 228
+Video chunks: 4
+Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_2.5.png
+Generating chunk: scene_2.5_1 (73 frames)
+💬 Chunk 1 dialogue (3.04s, 12 words): "I felt then the familiar thrill of impending purs...
+🎬 Using master prompt for 2.5
+💬 Added dialogue chunk to prompt: "I felt then the familiar thrill of impending purs...
+Full prompt: Style: cinematic - realistic - The woman stands in the dimly lit room, her head bowed as she looks down at the satchel in her hands. She speaks softly, her voice trembling with sorrow: "It was supposed to be a new beginning... but now it's just another end." Her fingers trace the worn leather of the bag as she speaks. The detective stands nearby, his eyes fixed on her with quiet intensity, holding an ornate ring between his fingertips, studying her every movement. Beside him, the doctor leans forward slightly, his expression filled with sympathy, listening intently to each word. Outside, cold evening fog drifts across the grounds of {{loc_6}}, muffling all sound except for the crackle of the fire in the hearth and the soft rustle of the woman’s breath as she speaks.
+
+Dialogue: ""I felt then the familiar thrill of impending pursuit, tempered by the"
+ERROR: Failed to generate video for scene_2.5: HTTPConnectionPool(host='127.0.0.1', port=8188): Max retries exceeded with url: /prompt (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001CDB05261B0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+❌ Scene 11/12 - "I felt then the familiar thrill of impending purs (9.50s) - Failed after 2.1s
+📊 Estimated time remaining: ~13s (✓)
+❌ Failed: scene_2.5
+🔄 Scene 12/12 - "Come, Watson, fetch your coat and revolver, for t (11.50s) - Processing...
+📊 Estimated time remaining: ~0s (✓)
+Generating video for scene: scene_2.6
+Duration: 11.50s, Frames: 276
+Video chunks: 4
+Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_2.6.png
+Generating chunk: scene_2.6_1 (73 frames)
+💬 Chunk 1 dialogue (3.04s, 12 words): "Come, Watson, fetch your coat and revolver, for t...
+🎬 Using master prompt for 2.6
+💬 Added dialogue chunk to prompt: "Come, Watson, fetch your coat and revolver, for t...
+Full prompt: Style: cinematic - realistic - The young man stands in the snow outside a warmly lit house. He is holding an envelope in his right hand. As he looks down at it with concern, he opens the envelope and pulls out a worn piece of paper. The camera focuses on the letter as he unfolds it. A faint whispering voice speaks from inside the house: "The cold evening fog has come again." Holmes steps forward from the doorway into the snow. He takes the letter gently from the man's hand with his left hand, his expression analytical and focused. Watson stands beside him, peering out at the fog-covered forest through a window, then turns back to watch Holmes examine the paper intently. The soft crunch of footsteps in fresh snow continues under the ambient sound of a winter breeze.
+
+Dialogue: ""Come, Watson, fetch your coat and revolver, for the five coin heap"
+ERROR: Failed to generate video for scene_2.6: HTTPConnectionPool(host='127.0.0.1', port=8188): Max retries exceeded with url: /prompt (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001CDB0578EF0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+❌ Scene 12/12 - "Come, Watson, fetch your coat and revolver, for t (11.50s) - Failed after 2.0s
+📊 Estimated time remaining: ~0s (✓)
+❌ Failed: scene_2.6
+
+🔗 Merging all chunks after scene generation...
+✅ No chunks to merge - all scenes are single videos
+
+📊 AV GENERATION SUMMARY:
+   • Total story entries: 12
+   • Unique scenes:         12
+   • Scenes with images:    12
+   • Videos created:        0 (0 scenes)
+   • Skipped existing:      0
+   • Missing images:        0
+   • Time:                  150.67s
+
+⚠️ No new videos generated
+
+===== END D:\.comfyui\gen.av\scripts\2.av.py @ 2026-01-20 12:49:43 (exit=1, took=150.83s) =====
 Stopping ComfyUI backend...
-ComfyUI still responding; waiting for shutdown...
-ComfyUI appears stopped (after 2 checks).
-Starting LM Studio backend via lms CLI...
-Command: lms server start
-Success! Server is now running on port 1234
-Waiting for LM Studio to become ready (polling every 15s)...
-LM Studio is ready after 0.0s (attempt 1).
-
-===== START D:\.comfyui\gen.video\scripts\2.motion.py @ 2026-01-20 09:33:36 =====
-Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.video\output\tracking
-Found existing checkpoint: D:\.comfyui\gen.video\output\tracking\2.motion.state.json
-Progress: Prompt Entries(12/12)
-🚀 Starting Master Prompt Generation...
-📁 Reading story from: ../input/1.story.txt
-Warning: Scene image not found for scene_1.7.png
-Warning: Scene image not found for scene_1.8.png
-Warning: Scene image not found for scene_1.9.png
-Warning: Scene image not found for scene_1.10.png
-Warning: Scene image not found for scene_1.11.png
-Warning: Scene image not found for scene_1.12.png
-Warning: Scene image not found for scene_1.13.png
-Warning: Scene image not found for scene_1.14.png
-Warning: Scene image not found for scene_1.15.png
-Warning: Scene image not found for scene_1.16.png
-Warning: Scene image not found for scene_1.17.png
-Warning: Scene image not found for scene_2.7.png
-Warning: Scene image not found for scene_2.8.png
-Warning: Scene image not found for scene_2.9.png
-Warning: Scene image not found for scene_2.10.png
-Warning: Scene image not found for scene_2.11.png
-Warning: Scene image not found for scene_2.12.png
-Warning: Scene image not found for scene_2.13.png
-Warning: Scene image not found for scene_2.14.png
-Warning: Scene image not found for scene_2.15.png
-Warning: Scene image not found for scene_2.16.png
-Warning: Scene image not found for scene_2.17.png
-Warning: Scene image not found for scene_2.18.png
-Warning: Scene image not found for scene_3.1.png
-Warning: Scene image not found for scene_3.2.png
-Warning: Scene image not found for scene_3.3.png
-Warning: Scene image not found for scene_3.4.png
-Warning: Scene image not found for scene_3.5.png
-Warning: Scene image not found for scene_3.6.png
-Warning: Scene image not found for scene_3.7.png
-Warning: Scene image not found for scene_3.8.png
-Warning: Scene image not found for scene_3.9.png
-Warning: Scene image not found for scene_3.10.png
-Warning: Scene image not found for scene_3.11.png
-Warning: Scene image not found for scene_3.12.png
-Warning: Scene image not found for scene_3.13.png
-Warning: Scene image not found for scene_3.14.png
-Warning: Scene image not found for scene_3.15.png
-Warning: Scene image not found for scene_3.16.png
-Warning: Scene image not found for scene_3.17.png
-Warning: Scene image not found for scene_3.18.png
-Warning: Scene image not found for scene_3.19.png
-Warning: Scene image not found for scene_4.1.png
-Warning: Scene image not found for scene_4.2.png
-Warning: Scene image not found for scene_4.3.png
-Warning: Scene image not found for scene_4.4.png
-Warning: Scene image not found for scene_4.5.png
-Warning: Scene image not found for scene_4.6.png
-Warning: Scene image not found for scene_4.7.png
-Warning: Scene image not found for scene_4.8.png
-Warning: Scene image not found for scene_4.9.png
-Warning: Scene image not found for scene_4.10.png
-Warning: Scene image not found for scene_4.11.png
-Warning: Scene image not found for scene_4.12.png
-Warning: Scene image not found for scene_4.13.png
-Warning: Scene image not found for scene_4.14.png
-Warning: Scene image not found for scene_4.15.png
-Warning: Scene image not found for scene_4.16.png
-Warning: Scene image not found for scene_4.17.png
-Warning: Scene image not found for scene_4.18.png
-Warning: Scene image not found for scene_4.19.png
-Warning: Scene image not found for scene_4.20.png
-Warning: Scene image not found for scene_4.21.png
-Warning: Scene image not found for scene_5.1.png
-Warning: Scene image not found for scene_5.2.png
-Warning: Scene image not found for scene_5.3.png
-Warning: Scene image not found for scene_5.4.png
-Warning: Scene image not found for scene_5.5.png
-Warning: Scene image not found for scene_5.6.png
-Warning: Scene image not found for scene_5.7.png
-Warning: Scene image not found for scene_5.8.png
-Warning: Scene image not found for scene_5.9.png
-Warning: Scene image not found for scene_5.10.png
-📋 Parsed 12 story scenes with dialogue and corresponding images
-📊 Found 12 story scenes
-📊 Story contains 648 words
-
-📊 MASTER PROMPT GENERATION PROGRESS
-====================================================================================================
-💾 Scene 1/12 (1.1) - It was one of those grey London mornings when the  - Cached
-📊 Estimated time remaining: ~39s (?)
-💾 Scene 2/12 (1.2) - Observe, Watson, our nocturnal visitor has been mo - Cached
-📊 Estimated time remaining: ~36s (?)
-💾 Scene 3/12 (1.3) - She, Holmes? You are certain the visitor was a lad - Cached
-📊 Estimated time remaining: ~32s (?)
-💾 Scene 4/12 (1.4) - Indisputably. The narrow breadth of the heel, the  - Cached
-📊 Estimated time remaining: ~29s (?)
-💾 Scene 5/12 (1.5) - You astonish me, Holmes. Are you implying that a w - Cached
-📊 Estimated time remaining: ~26s (?)
-💾 Scene 6/12 (1.6) - Indeed. And she left in haste, dropping this token - Cached
-📊 Estimated time remaining: ~23s (?)
-💾 Scene 7/12 (2.1) - By the time the afternoon lamps flickered alive in - Cached
-📊 Estimated time remaining: ~19s (?)
-💾 Scene 8/12 (2.2) - Watson, bring your revolver. The situation promise - Cached
-📊 Estimated time remaining: ~16s (?)
-💾 Scene 9/12 (2.3) - Holmes, you speak as though peril already walks be - Cached
-📊 Estimated time remaining: ~13s (?)
-💾 Scene 10/12 (2.4) - When a mystery begins with soil from the Amazon an - Cached
-📊 Estimated time remaining: ~10s (?)
-💾 Scene 11/12 (2.5) - Miss de Alvarado, your letter spoke of your father - Cached
-📊 Estimated time remaining: ~6s (?)
-💾 Scene 12/12 (2.6) - Yes, Mr. Holmes. He led a small team seeking ancie - Cached
-📊 Estimated time remaining: ~3s (?)
-💾 Saved 12 master prompts to ../../gen.av/input/2.motion.txt
-
-🎉 Master prompt generation completed successfully!
-📄 Output saved to: ../../gen.av/input/2.motion.txt
-⏱️  Total processing time: 0.00 seconds
-All operations completed successfully
-Final progress: Progress: Prompt Entries(12/12)
-All operations completed successfully - tracking files preserved
-
-===== END D:\.comfyui\gen.video\scripts\2.motion.py @ 2026-01-20 09:33:37 (exit=0, took=0.18s) =====
-Stopping LM Studio backend via lms CLI...
-Command: lms server stop
-Unloading all models from LM Studio...
-Command: lms unload --all
-No models to unload.
-Stopped the server on port 1234.
-LM Studio appears stopped (after 1 checks).
-
-Log time stats: writes=0.000s, flushes=0.001s, total=0.001s (~0.00% of runtime)
-
-All scripts completed successfully.
+ComfyUI appears stopped (after 1 checks).
+ABORTING: 2.av.py exited with code 1.

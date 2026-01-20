@@ -389,7 +389,7 @@ def start_comfyui(working_dir: str, log_handle) -> subprocess.Popen:
         env = os.environ.copy()
         env.setdefault("PYTHONIOENCODING", "utf-8")
         proc = subprocess.Popen(
-            [sys.executable, "main.py", "--disable-pinned-memory", "--async-offload", "16"],
+            [sys.executable, "main.py",  "--async-offload", "16"],
             cwd=comfy_dir,
             stdout=log_handle,
             stderr=log_handle,
@@ -400,7 +400,7 @@ def start_comfyui(working_dir: str, log_handle) -> subprocess.Popen:
     else:
         # Non-Windows fallback
         proc = subprocess.Popen(
-            [sys.executable, "main.py", "--disable-pinned-memory", "--async-offload", "16"],
+            [sys.executable, "main.py",  "--async-offload", "16"],
             cwd=comfy_dir,
             stdout=log_handle,
             stderr=log_handle,
