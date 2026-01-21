@@ -2,18 +2,125 @@ Workflow runner started. Python executable: D:\.comfyui\.venv\Scripts\python.exe
 Working directory: D:\.comfyui\gen.av
 Emptying ComfyUI input and output folders...
 Removed directory: D:\.comfyui\ComfyUI\input\3d
-Removed directory: D:\.comfyui\ComfyUI\output\audio
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_1.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_10.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_11.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_2.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_3.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_4.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_5.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_6.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_7.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_8.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_9.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.2.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_1.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_10.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_11.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_2.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_3.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_4.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_5.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_6.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_7.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_8.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_9.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.3.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.3_1.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.3_2.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.3_3.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.3_4.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.3_5.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.3_6.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.3_7.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.3_8.wav
+Removed file: D:\.comfyui\ComfyUI\output\._00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00002_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00003_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00004_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00005_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00006_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00007_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00008_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00009_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00010_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00011_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00012_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00013_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00014_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00015_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00016_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00017_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00018_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00019_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00020_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00021_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00022_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00023_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00024_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00025_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00026_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00027_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00028_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00029_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00030_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00031_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00032_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00033_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00034_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00035_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00036_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00037_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00038_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00039_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00040_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00041_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00042_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00043_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00044_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00045_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00046_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00047_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00048_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00049_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00050_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00051_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00052_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00053_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00054_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00055_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00056_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00057_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00058_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00059_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00060_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00061_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00062_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00063_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00064_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00065_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00066_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00067_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00068_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00069_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00070_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00071_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00072_.png
+Removed file: D:\.comfyui\ComfyUI\output\._00073_.png
+Removed directory: D:\.comfyui\ComfyUI\output\video
 Successfully emptied ComfyUI input and output folders.
-All tracked files unchanged. Preserving output directories.
+Tracking directory created with file hashes.
 Starting LM Studio backend via lms CLI...
 Command: lms server start
 Success! Server is now running on port 1234
 Waiting for LM Studio to become ready (polling every 15s)...
-LM Studio is ready after 0.0s (attempt 1).
+LM Studio is ready after 0.1s (attempt 1).
 
-===== START D:\.comfyui\gen.video\scripts\2.motion.py @ 2026-01-21 09:13:57 =====
+===== START D:\.comfyui\gen.video\scripts\2.motion.py @ 2026-01-21 12:07:49 =====
 Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.video\output\tracking
-No existing checkpoint found - starting fresh
+Found existing checkpoint: D:\.comfyui\gen.video\output\tracking\2.motion.state.json
+Progress: Prompt Entries(15/15)
 🚀 Starting Master Prompt Generation...
 📁 Reading story from: ../input/1.story.txt
 Warning: Scene image not found for scene_1.4.png
@@ -92,121 +199,60 @@ Warning: Scene image not found for scene_5.10.png
 
 📊 MASTER PROMPT GENERATION PROGRESS
 ====================================================================================================
-🔄 Scene 1/15 (1.1) - It was one of those grey London mornings when the  - Processing...
+💾 Scene 1/15 (1.1) - It was one of those grey London mornings when the  - Cached
 📊 Estimated time remaining: ~47s (?)
-🖼️  Including image: scene_1.1.png (base64 length: 2054486 chars)
-✅ Scene 1/15 (1.1) - It was one of those grey London mornings when the  - Completed in 29.1s
-📊 Estimated time remaining: ~3.0m (?)
-🎬 Output: (motion_1.1) Style: realistic - cinematic - The man sits in an armchair near the fireplace, his hands resting on ...
-🔄 Scene 2/15 (1.2) - Observe, Watson, our nocturnal visitor has been mo - Processing...
-📊 Estimated time remaining: ~3.0m (?)
-🖼️  Including image: scene_1.2.png (base64 length: 2157782 chars)
-✅ Scene 2/15 (1.2) - Observe, Watson, our nocturnal visitor has been mo - Completed in 6.5s
-📊 Estimated time remaining: ~2.5m (?)
-🎬 Output: (motion_1.2) Style: realistic - cinematic - The male detective Holmes stands still on a cold winter morning in th...
-🔄 Scene 3/15 (1.3) - She, Holmes? You are certain the visitor was a lad - Processing...
-📊 Estimated time remaining: ~2.5m (?)
-🖼️  Including image: scene_1.3.png (base64 length: 2017290 chars)
-✅ Scene 3/15 (1.3) - She, Holmes? You are certain the visitor was a lad - Completed in 8.2s
-📊 Estimated time remaining: ~2.5m (~)
-🎬 Output: (motion_1.3) Style: anime - cozy living room - The young man sits in a dark blue armchair near a fireplace, his h...
-🔄 Scene 4/15 (1.5) - You astonish me, Holmes. Are you implying that a w - Processing...
-📊 Estimated time remaining: ~2.5m (~)
-🖼️  Including image: scene_1.5.png (base64 length: 2041402 chars)
-✅ Scene 4/15 (1.5) - You astonish me, Holmes. Are you implying that a w - Completed in 8.5s
-📊 Estimated time remaining: ~2.3m (~)
-🎬 Output: (motion_1.5) Style: realistic - cinematic - The man with brown hair sits in a plush armchair by the fireplace, hi...
-🔄 Scene 5/15 (1.7) - A ring! - Processing...
-📊 Estimated time remaining: ~2.3m (~)
-🖼️  Including image: scene_1.7.png (base64 length: 1929402 chars)
-✅ Scene 5/15 (1.7) - A ring! - Completed in 8.2s
-📊 Estimated time remaining: ~2.3m (✓)
-🎬 Output: (motion_1.7) Style: realistic - cinematic - The man is sitting in a dark armchair in a cozy living room with sunl...
-🔄 Scene 6/15 (1.8) - A remarkable one. Note the carving upon its surfac - Processing...
-📊 Estimated time remaining: ~2.3m (✓)
-🖼️  Including image: scene_1.8.png (base64 length: 1963434 chars)
-✅ Scene 6/15 (1.8) - A remarkable one. Note the carving upon its surfac - Completed in 7.4s
-📊 Estimated time remaining: ~1.9m (✓)
-🎬 Output: (motion_1.8) Style: animated - realistic - The man in the black uniform stands upright near the wooden table, hol...
-🔄 Scene 7/15 (2.1) - By the time the afternoon lamps flickered alive in - Processing...
-📊 Estimated time remaining: ~1.9m (✓)
-🖼️  Including image: scene_2.1.png (base64 length: 2482674 chars)
-✅ Scene 7/15 (2.1) - By the time the afternoon lamps flickered alive in - Completed in 8.0s
-📊 Estimated time remaining: ~1.3m (✓)
-🎬 Output: (motion_2.1) Style: realistic - cinematic - A man with brown hair stands near a small pond in a sunlit park. He i...
-🔄 Scene 8/15 (2.3) - Holmes, you speak as though peril already walks be - Processing...
-📊 Estimated time remaining: ~1.3m (✓)
-🖼️  Including image: scene_2.3.png (base64 length: 2457410 chars)
-✅ Scene 8/15 (2.3) - Holmes, you speak as though peril already walks be - Completed in 8.6s
-📊 Estimated time remaining: ~1.3m (✓)
-🎬 Output: (motion_2.3) Style: cinematic - realistic - The man stands motionless in a sun-drenched park, hands at his sides....
-🔄 Scene 9/15 (2.4) - When a mystery begins with soil from the Amazon an - Processing...
-📊 Estimated time remaining: ~1.3m (✓)
-🖼️  Including image: scene_2.4.png (base64 length: 2441154 chars)
-✅ Scene 9/15 (2.4) - When a mystery begins with soil from the Amazon an - Completed in 8.3s
-📊 Estimated time remaining: ~60s (✓)
-🎬 Output: (motion_2.4) Style: realistic - cinematic - The man stands still in a sunlit park, his white hair catching the li...
-🔄 Scene 10/15 (2.5) - Miss de Alvarado, your letter spoke of your father - Processing...
-📊 Estimated time remaining: ~60s (✓)
-🖼️  Including image: scene_2.5.png (base64 length: 2467778 chars)
-✅ Scene 10/15 (2.5) - Miss de Alvarado, your letter spoke of your father - Completed in 11.5s
-📊 Estimated time remaining: ~53s (✓)
-🎬 Output: (motion_2.5) Style: realistic - cinematic - A young man stands in a sunlit garden beside a pond, surrounded by lu...
-🔄 Scene 11/15 (2.6) - Yes, Mr. Holmes. He led a small team seeking ancie - Processing...
-📊 Estimated time remaining: ~53s (✓)
-🖼️  Including image: scene_2.6.png (base64 length: 2424550 chars)
-✅ Scene 11/15 (2.6) - Yes, Mr. Holmes. He led a small team seeking ancie - Completed in 7.7s
-📊 Estimated time remaining: ~40s (✓)
-🎬 Output: (motion_2.6) Style: cinematic - The man stands still in the garden as a cold evening fog begins to roll in from b...
-🔄 Scene 12/15 (2.7) - The handwriting differs from your father’s. Yet th - Processing...
-📊 Estimated time remaining: ~40s (✓)
-🖼️  Including image: scene_2.7.png (base64 length: 2463314 chars)
-✅ Scene 12/15 (2.7) - The handwriting differs from your father’s. Yet th - Completed in 9.3s
-📊 Estimated time remaining: ~30s (✓)
-🎬 Output: (motion_2.7) Style: anime - cinematic  
-The man stands by the lantern, his face alight with excitement as he hold...
-🔄 Scene 13/15 (2.8) - But how could Amazon soil appear upon paper in Lon - Processing...
-📊 Estimated time remaining: ~30s (✓)
-🖼️  Including image: scene_2.8.png (base64 length: 2426942 chars)
-✅ Scene 13/15 (2.8) - But how could Amazon soil appear upon paper in Lon - Completed in 6.0s
-📊 Estimated time remaining: ~24s (✓)
-🎬 Output: (motion_2.8) Style: realistic - cinematic - The man stands in a garden beside a pond, his hands at his sides. He ...
-🔄 Scene 14/15 (2.9) - Ah, my dear Watson, that is precisely the question - Processing...
-📊 Estimated time remaining: ~24s (✓)
-🖼️  Including image: scene_2.9.png (base64 length: 2463194 chars)
-✅ Scene 14/15 (2.9) - Ah, my dear Watson, that is precisely the question - Completed in 7.9s
-📊 Estimated time remaining: ~6s (✓)
-🎬 Output: (motion_2.9) Style: realistic - cinematic - The man stands still in a sunlit park, his hands resting at his sides...
-🔄 Scene 15/15 (2.10) - This place looks abandoned, Holmes. Yet the lock a - Processing...
-📊 Estimated time remaining: ~6s (✓)
-🖼️  Including image: scene_2.10.png (base64 length: 2440558 chars)
-✅ Scene 15/15 (2.10) - This place looks abandoned, Holmes. Yet the lock a - Completed in 7.0s
-📊 Estimated time remaining: ~0s (✓)
-🎬 Output: (motion_2.10) Style: realistic - cinematic - The man stands still at the edge of a sunlit park, his gaze fixed on ...
+💾 Scene 2/15 (1.2) - Observe, Watson, our nocturnal visitor has been mo - Cached
+📊 Estimated time remaining: ~44s (?)
+💾 Scene 3/15 (1.3) - She, Holmes? You are certain the visitor was a lad - Cached
+📊 Estimated time remaining: ~41s (?)
+💾 Scene 4/15 (1.5) - You astonish me, Holmes. Are you implying that a w - Cached
+📊 Estimated time remaining: ~38s (?)
+💾 Scene 5/15 (1.7) - A ring! - Cached
+📊 Estimated time remaining: ~35s (?)
+💾 Scene 6/15 (1.8) - A remarkable one. Note the carving upon its surfac - Cached
+📊 Estimated time remaining: ~32s (?)
+💾 Scene 7/15 (2.1) - By the time the afternoon lamps flickered alive in - Cached
+📊 Estimated time remaining: ~29s (?)
+💾 Scene 8/15 (2.3) - Holmes, you speak as though peril already walks be - Cached
+📊 Estimated time remaining: ~26s (?)
+💾 Scene 9/15 (2.4) - When a mystery begins with soil from the Amazon an - Cached
+📊 Estimated time remaining: ~22s (?)
+💾 Scene 10/15 (2.5) - Miss de Alvarado, your letter spoke of your father - Cached
+📊 Estimated time remaining: ~19s (?)
+💾 Scene 11/15 (2.6) - Yes, Mr. Holmes. He led a small team seeking ancie - Cached
+📊 Estimated time remaining: ~16s (?)
+💾 Scene 12/15 (2.7) - The handwriting differs from your father’s. Yet th - Cached
+📊 Estimated time remaining: ~13s (?)
+💾 Scene 13/15 (2.8) - But how could Amazon soil appear upon paper in Lon - Cached
+📊 Estimated time remaining: ~10s (?)
+💾 Scene 14/15 (2.9) - Ah, my dear Watson, that is precisely the question - Cached
+📊 Estimated time remaining: ~7s (?)
+💾 Scene 15/15 (2.10) - This place looks abandoned, Holmes. Yet the lock a - Cached
+📊 Estimated time remaining: ~4s (?)
 💾 Saved 15 master prompts to ../../gen.av/input/2.motion.txt
 
 🎉 Master prompt generation completed successfully!
 📄 Output saved to: ../../gen.av/input/2.motion.txt
-⏱️  Total processing time: 156.18 seconds
+⏱️  Total processing time: 0.00 seconds
 All operations completed successfully
 Final progress: Progress: Prompt Entries(15/15)
 All operations completed successfully - tracking files preserved
 
-===== END D:\.comfyui\gen.video\scripts\2.motion.py @ 2026-01-21 09:16:33 (exit=0, took=156.33s) =====
+===== END D:\.comfyui\gen.video\scripts\2.motion.py @ 2026-01-21 12:07:49 (exit=0, took=0.21s) =====
 Stopping LM Studio backend via lms CLI...
 Command: lms server stop
 Unloading all models from LM Studio...
 Command: lms unload --all
-Unloading "qwen_qwen3-vl-30b-a3b-instruct"...
-Unloaded 1 model.
+No models to unload.
 Stopped the server on port 1234.
 LM Studio appears stopped (after 1 checks).
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
+ComfyUI not ready yet (attempt 1). Retrying in 15s...
 [START] Security scan
 [DONE] Security scan
 ## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2026-01-21 09:16:36.815
+** ComfyUI startup time: 2026-01-21 12:07:53.918
 ** Platform: Windows
 ** Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
 ** Python executable: D:\.comfyui\.venv\Scripts\python.exe
@@ -215,10 +261,9 @@ Waiting for ComfyUI to become ready (polling every 15s)...
 ** User directory: D:\.comfyui\ComfyUI\user
 ** ComfyUI-Manager config path: D:\.comfyui\ComfyUI\user\__manager\config.ini
 ** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
-ComfyUI not ready yet (attempt 1). Retrying in 15s...
 
 Prestartup times for custom nodes:
-   2.3 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   2.9 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
 
 Checkpoint files will always be loaded safely.
 Total VRAM 12227 MB, total RAM 64957 MB
@@ -228,9 +273,9 @@ Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
 Using async weight offloading with 16 streams
 Enabled pinned memory 29230.0
 working around nvidia conv3d memory bug.
+Found comfy_kitchen backend triton: {'available': True, 'disabled': True, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8']}
 Found comfy_kitchen backend eager: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
 Found comfy_kitchen backend cuda: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
-Found comfy_kitchen backend triton: {'available': True, 'disabled': True, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8']}
 Using pytorch attention
 Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
 ComfyUI version: 0.10.0
@@ -240,19 +285,21 @@ ComfyUI-GGUF: Allowing full torch compile
 ### Loading: ComfyUI-Manager (V3.39.2)
 [ComfyUI-Manager] network_mode: public
 [ComfyUI-Manager] ComfyUI per-queue preview override detected (PR #11261). Manager's preview method feature is disabled. Use ComfyUI's --preview-method CLI option or 'Settings > Execution > Live preview method'.
-### ComfyUI Version: v0.10.0-4-g8ccc0c94 | Released on '2026-01-20'
-
-[32mInitializing ControlAltAI Nodes[0m
+### ComfyUI Version: v0.10.0-9-g0fc15700 | Released on '2026-01-20'
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
+
+[32mInitializing ControlAltAI Nodes[0m
+ComfyUI not ready yet (attempt 2). Retrying in 15s...
 ✅ ChatterboxTTS loaded from bundled package
 ✅ ChatterboxVC loaded from bundled package
 FETCH ComfyRegistry Data: 5/120
 ✅ F5-TTS loaded from system package
 🎭 Character voices: Found 61 characters, 2 aliases
+FETCH ComfyRegistry Data: 10/120
 ✅ SRT modules loaded from system package
 🔧 Registering TTS Audio Suite nodes...
 ======================================================================
@@ -285,21 +332,30 @@ Import times for custom nodes:
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyMath
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
-   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
-   0.4 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-   0.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
-   7.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
+   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
+   0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
+   0.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   1.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
+  12.3 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
 
 Context impl SQLiteImpl.
 Will assume non-transactional DDL.
-Assets scan(roots=['models']) completed in 0.021s (created=0, skipped_existing=29, total_seen=30)
+Assets scan(roots=['models']) completed in 0.031s (created=0, skipped_existing=29, total_seen=30)
 Starting server
 
 To see the GUI go to: http://127.0.0.1:8188
-ComfyUI is ready after 17.1s (attempt 2).
+FETCH ComfyRegistry Data: 15/120
+ComfyUI is ready after 34.1s (attempt 3).
 
-===== START D:\.comfyui\gen.av\scripts\2.av.py @ 2026-01-21 09:16:52 =====
+===== START D:\.comfyui\gen.av\scripts\2.av.py @ 2026-01-21 12:08:25 =====
+Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
 Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.av\output\tracking
 No existing checkpoint found - starting fresh
 🎬 Starting AV video generation process...
@@ -363,61 +419,61 @@ Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_1.1.png
 Generating chunk: scene_1.1_1 (73 frames)
 ✅ Split audio chunk: scene_1.1_1.wav (3.042s, start: 0.000s)
 🎬 Using master prompt for 1.1
-Full prompt: Style: realistic - cinematic - The man sits in an armchair near the fireplace, his hands resting on the open newspaper. He is reading intently, the flickering firelight casting warm shadows across his face and the surrounding room. Outside the large window, a cold winter morning unfolds with bare trees against a pale sky. A tall man stands by the window, examining footprints on the sill through a magnifying glass. The soft crackle of burning wood blends with the quiet rustling of pages as he turns them one by one.
+🎤 Added comprehensive talking instructions for AUDIO mode
+🚫 Added negative prompt to prevent static facial expressions
+Full prompt: Close-up shot, person speaking directly to camera. Natural lip synchronization with audio, mouth opening and closing in rhythm with speech. Realistic facial expressions: eyebrow movements, eye contact, subtle head gestures. Authentic speaking animation with varied mouth shapes (phonemes). Natural breathing pauses, micro-expressions during dialogue. Professional quality talking head video, well-lit face, clear facial features. Style: realistic - cinematic - The man sits in an armchair near the fireplace, his hands resting on the open newspaper. He is reading intently, the flickering firelight casting warm shadows across his face and the surrounding room. Outside the large window, a cold winter morning unfolds with bare trees against a pale sky. A tall man stands by the window, examining footprints on the sill through a magnifying glass. The soft crackle of burning wood blends with the quiet rustling of pages as he turns them one by one.
 got prompt
-Waiting for video generation completion (prompt_id: fd1504c3-b30d-49b7-bc36-60b8c07f41f1)...
+Waiting for video generation completion (prompt_id: 9ab4b051-6376-4fb3-856f-005cdcedad82)...
 VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
 Requested to load VideoVAE
 loaded completely; 9606.80 MB usable, 2378.23 MB loaded, full load: True
-FETCH ComfyRegistry Data: 10/120
-FETCH ComfyRegistry Data: 15/120
+FETCH ComfyRegistry Data: 20/120
+FETCH ComfyRegistry Data: 25/120
 CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
 Requested to load LTXAVTEModel_
-FETCH ComfyRegistry Data: 20/120
+FETCH ComfyRegistry Data: 30/120
 loaded partially; 9562.80 MB usable, 735.62 MB loaded, 25228.59 MB offloaded, 8827.18 MB buffer reserved, lowvram patches: 0
 Requested to load AudioVAE
 loaded completely; 8808.05 MB usable, 415.20 MB loaded, full load: True
+FETCH ComfyRegistry Data: 35/120
 gguf qtypes: F32 (2140), BF16 (26), Q4_K (1008), Q6_K (336)
-FETCH ComfyRegistry Data: 25/120
 model weight dtype torch.bfloat16, manual cast: None
 model_type FLUX
 Requested to load LTXAV
-FETCH ComfyRegistry Data: 30/120
-FETCH ComfyRegistry Data: 35/120
 FETCH ComfyRegistry Data: 40/120
-loaded partially; 9534.19 MB usable, 9381.06 MB loaded, 2860.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 45/120
+FETCH ComfyRegistry Data: 45/120
 FETCH ComfyRegistry Data: 50/120
 FETCH ComfyRegistry Data: 55/120
- 12%|█▎        | 1/8 [00:14<01:38, 14.09s/it]FETCH ComfyRegistry Data: 60/120
- 25%|██▌       | 2/8 [00:20<00:56,  9.45s/it]FETCH ComfyRegistry Data: 65/120
- 38%|███▊      | 3/8 [00:26<00:40,  8.00s/it]FETCH ComfyRegistry Data: 70/120
- 50%|█████     | 4/8 [00:32<00:29,  7.30s/it]FETCH ComfyRegistry Data: 75/120
- 62%|██████▎   | 5/8 [00:38<00:20,  6.90s/it]FETCH ComfyRegistry Data: 80/120
- 75%|███████▌  | 6/8 [00:45<00:13,  6.64s/it]FETCH ComfyRegistry Data: 85/120
- 88%|████████▊ | 7/8 [00:51<00:06,  6.54s/it]FETCH ComfyRegistry Data: 90/120
-100%|██████████| 8/8 [00:57<00:00,  6.46s/it]100%|██████████| 8/8 [00:57<00:00,  7.22s/it]
-Requested to load VideoVAE
+loaded partially; 9534.19 MB usable, 9381.06 MB loaded, 2860.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
+  0%|          | 0/8 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 60/120
+FETCH ComfyRegistry Data: 65/120
+ 12%|█▎        | 1/8 [00:14<01:41, 14.44s/it]FETCH ComfyRegistry Data: 70/120
+ 25%|██▌       | 2/8 [00:20<00:57,  9.62s/it]FETCH ComfyRegistry Data: 75/120
+ 38%|███▊      | 3/8 [00:26<00:40,  8.06s/it]FETCH ComfyRegistry Data: 80/120
+ 50%|█████     | 4/8 [00:33<00:29,  7.32s/it]FETCH ComfyRegistry Data: 85/120
+ 62%|██████▎   | 5/8 [00:39<00:20,  6.96s/it]FETCH ComfyRegistry Data: 90/120
 FETCH ComfyRegistry Data: 95/120
+ 75%|███████▌  | 6/8 [00:45<00:13,  6.72s/it]FETCH ComfyRegistry Data: 100/120
+ 88%|████████▊ | 7/8 [00:51<00:06,  6.52s/it]FETCH ComfyRegistry Data: 105/120
+100%|██████████| 8/8 [00:57<00:00,  6.43s/it]100%|██████████| 8/8 [00:57<00:00,  7.25s/it]
+Requested to load VideoVAE
 Unloaded partially: 2301.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 201
 loaded completely; 2645.74 MB usable, 2378.23 MB loaded, full load: True
 loaded partially; 9388.59 MB usable, 9235.17 MB loaded, 3006.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 100/120
-FETCH ComfyRegistry Data: 105/120
- 33%|███▎      | 1/3 [00:10<00:20, 10.30s/it]FETCH ComfyRegistry Data: 110/120
+  0%|          | 0/3 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 110/120
 FETCH ComfyRegistry Data: 115/120
- 67%|██████▋   | 2/3 [00:19<00:09,  9.94s/it]FETCH ComfyRegistry Data: 120/120
+ 33%|███▎      | 1/3 [00:09<00:19,  9.94s/it]FETCH ComfyRegistry Data: 120/120
 FETCH ComfyRegistry Data [DONE]
 [ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
 FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
 [ComfyUI-Manager] All startup tasks have been completed.
-100%|██████████| 3/3 [00:29<00:00,  9.88s/it]100%|██████████| 3/3 [00:29<00:00,  9.93s/it]
+ 67%|██████▋   | 2/3 [00:19<00:09,  9.94s/it]100%|██████████| 3/3 [00:29<00:00,  9.82s/it]100%|██████████| 3/3 [00:29<00:00,  9.85s/it]
 Requested to load VideoVAE
 Unloaded partially: 9235.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 681
 loaded completely; 3602.88 MB usable, 2378.23 MB loaded, full load: True
 Requested to load AudioVAE
 loaded completely; 7155.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 145.86 seconds
+Prompt executed in 150.00 seconds
 Saved video: ../output\scene_1.1_1.mp4
 💾 Checkpoint saved for chunk: scene_1.1_1
 Generating chunk: scene_1.1_2 (73 frames)
@@ -425,22 +481,24 @@ Generating chunk: scene_1.1_2 (73 frames)
 ⚠️ Failed to find last saved frame from previous chunk, using original image
 ✅ Split audio chunk: scene_1.1_2.wav (3.042s, start: 3.042s)
 🎬 Using master prompt for 1.1
-Full prompt: Style: realistic - cinematic - The man sits in an armchair near the fireplace, his hands resting on the open newspaper. He is reading intently, the flickering firelight casting warm shadows across his face and the surrounding room. Outside the large window, a cold winter morning unfolds with bare trees against a pale sky. A tall man stands by the window, examining footprints on the sill through a magnifying glass. The soft crackle of burning wood blends with the quiet rustling of pages as he turns them one by one.
+🎤 Added comprehensive talking instructions for AUDIO mode
+🚫 Added negative prompt to prevent static facial expressions
+Full prompt: Close-up shot, person speaking directly to camera. Natural lip synchronization with audio, mouth opening and closing in rhythm with speech. Realistic facial expressions: eyebrow movements, eye contact, subtle head gestures. Authentic speaking animation with varied mouth shapes (phonemes). Natural breathing pauses, micro-expressions during dialogue. Professional quality talking head video, well-lit face, clear facial features. Style: realistic - cinematic - The man sits in an armchair near the fireplace, his hands resting on the open newspaper. He is reading intently, the flickering firelight casting warm shadows across his face and the surrounding room. Outside the large window, a cold winter morning unfolds with bare trees against a pale sky. A tall man stands by the window, examining footprints on the sill through a magnifying glass. The soft crackle of burning wood blends with the quiet rustling of pages as he turns them one by one.
 got prompt
-Waiting for video generation completion (prompt_id: 7a140beb-0d20-4320-8bec-669ce81fec50)...
+Waiting for video generation completion (prompt_id: f4094720-0460-4a09-b945-c4e347005562)...
 loaded partially; 9532.19 MB usable, 9379.06 MB loaded, 2862.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:48,  6.87s/it] 25%|██▌       | 2/8 [00:13<00:39,  6.52s/it] 38%|███▊      | 3/8 [00:19<00:31,  6.40s/it] 50%|█████     | 4/8 [00:25<00:25,  6.37s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.32s/it] 75%|███████▌  | 6/8 [00:38<00:12,  6.33s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.33s/it]100%|██████████| 8/8 [00:51<00:00,  6.36s/it]100%|██████████| 8/8 [00:51<00:00,  6.38s/it]
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:46,  6.67s/it] 25%|██▌       | 2/8 [00:12<00:38,  6.36s/it] 38%|███▊      | 3/8 [00:19<00:31,  6.30s/it] 50%|█████     | 4/8 [00:25<00:25,  6.27s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.31s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.25s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.28s/it]100%|██████████| 8/8 [00:50<00:00,  6.28s/it]100%|██████████| 8/8 [00:50<00:00,  6.30s/it]
 Requested to load VideoVAE
 Unloaded partially: 2299.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 882
 loaded completely; 2645.74 MB usable, 2378.23 MB loaded, full load: True
 loaded partially; 9388.59 MB usable, 9235.17 MB loaded, 3006.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:10<00:20, 10.08s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.89s/it]100%|██████████| 3/3 [00:29<00:00,  9.85s/it]100%|██████████| 3/3 [00:29<00:00,  9.88s/it]
+  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:10<00:20, 10.22s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.89s/it]100%|██████████| 3/3 [00:29<00:00,  9.84s/it]100%|██████████| 3/3 [00:29<00:00,  9.89s/it]
 Requested to load VideoVAE
 Unloaded partially: 9235.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 1362
 loaded completely; 3602.88 MB usable, 2378.23 MB loaded, full load: True
 Requested to load AudioVAE
 loaded completely; 7155.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 99.54 seconds
+Prompt executed in 96.34 seconds
 Saved video: ../output\scene_1.1_2.mp4
 💾 Checkpoint saved for chunk: scene_1.1_2
 Generating chunk: scene_1.1_3 (73 frames)
@@ -448,22 +506,24 @@ Generating chunk: scene_1.1_3 (73 frames)
 ⚠️ Failed to find last saved frame from previous chunk, using original image
 ✅ Split audio chunk: scene_1.1_3.wav (3.042s, start: 6.083s)
 🎬 Using master prompt for 1.1
-Full prompt: Style: realistic - cinematic - The man sits in an armchair near the fireplace, his hands resting on the open newspaper. He is reading intently, the flickering firelight casting warm shadows across his face and the surrounding room. Outside the large window, a cold winter morning unfolds with bare trees against a pale sky. A tall man stands by the window, examining footprints on the sill through a magnifying glass. The soft crackle of burning wood blends with the quiet rustling of pages as he turns them one by one.
+🎤 Added comprehensive talking instructions for AUDIO mode
+🚫 Added negative prompt to prevent static facial expressions
+Full prompt: Close-up shot, person speaking directly to camera. Natural lip synchronization with audio, mouth opening and closing in rhythm with speech. Realistic facial expressions: eyebrow movements, eye contact, subtle head gestures. Authentic speaking animation with varied mouth shapes (phonemes). Natural breathing pauses, micro-expressions during dialogue. Professional quality talking head video, well-lit face, clear facial features. Style: realistic - cinematic - The man sits in an armchair near the fireplace, his hands resting on the open newspaper. He is reading intently, the flickering firelight casting warm shadows across his face and the surrounding room. Outside the large window, a cold winter morning unfolds with bare trees against a pale sky. A tall man stands by the window, examining footprints on the sill through a magnifying glass. The soft crackle of burning wood blends with the quiet rustling of pages as he turns them one by one.
 got prompt
-Waiting for video generation completion (prompt_id: 9e2fa600-790d-452c-81aa-bfe36502e3f5)...
+Waiting for video generation completion (prompt_id: 55c9e419-56be-470e-a73e-696a40bcd65d)...
 loaded partially; 9532.19 MB usable, 9379.06 MB loaded, 2862.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:45,  6.46s/it] 25%|██▌       | 2/8 [00:12<00:38,  6.35s/it] 38%|███▊      | 3/8 [00:19<00:31,  6.39s/it] 50%|█████     | 4/8 [00:25<00:25,  6.36s/it] 62%|██████▎   | 5/8 [00:31<00:19,  6.36s/it] 75%|███████▌  | 6/8 [00:38<00:12,  6.30s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.30s/it]100%|██████████| 8/8 [00:50<00:00,  6.34s/it]100%|██████████| 8/8 [00:50<00:00,  6.34s/it]
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:43,  6.23s/it] 25%|██▌       | 2/8 [00:12<00:37,  6.25s/it] 38%|███▊      | 3/8 [00:19<00:32,  6.42s/it] 50%|█████     | 4/8 [00:25<00:25,  6.37s/it] 62%|██████▎   | 5/8 [00:31<00:19,  6.36s/it] 75%|███████▌  | 6/8 [00:38<00:12,  6.46s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.37s/it]100%|██████████| 8/8 [00:50<00:00,  6.35s/it]100%|██████████| 8/8 [00:50<00:00,  6.36s/it]
 Requested to load VideoVAE
 Unloaded partially: 2299.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 1563
 loaded completely; 2645.74 MB usable, 2378.23 MB loaded, full load: True
 loaded partially; 9388.59 MB usable, 9235.17 MB loaded, 3006.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.91s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.86s/it]100%|██████████| 3/3 [00:29<00:00,  9.86s/it]100%|██████████| 3/3 [00:29<00:00,  9.86s/it]
+  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:10<00:20, 10.17s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.94s/it]100%|██████████| 3/3 [00:29<00:00,  9.91s/it]100%|██████████| 3/3 [00:29<00:00,  9.94s/it]
 Requested to load VideoVAE
 Unloaded partially: 9235.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 2043
 loaded completely; 3602.88 MB usable, 2378.23 MB loaded, full load: True
 Requested to load AudioVAE
 loaded completely; 7155.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 98.45 seconds
+Prompt executed in 97.16 seconds
 Saved video: ../output\scene_1.1_3.mp4
 💾 Checkpoint saved for chunk: scene_1.1_3
 Generating chunk: scene_1.1_4 (73 frames)
@@ -471,22 +531,24 @@ Generating chunk: scene_1.1_4 (73 frames)
 ⚠️ Failed to find last saved frame from previous chunk, using original image
 ✅ Split audio chunk: scene_1.1_4.wav (3.042s, start: 9.125s)
 🎬 Using master prompt for 1.1
-Full prompt: Style: realistic - cinematic - The man sits in an armchair near the fireplace, his hands resting on the open newspaper. He is reading intently, the flickering firelight casting warm shadows across his face and the surrounding room. Outside the large window, a cold winter morning unfolds with bare trees against a pale sky. A tall man stands by the window, examining footprints on the sill through a magnifying glass. The soft crackle of burning wood blends with the quiet rustling of pages as he turns them one by one.
+🎤 Added comprehensive talking instructions for AUDIO mode
+🚫 Added negative prompt to prevent static facial expressions
+Full prompt: Close-up shot, person speaking directly to camera. Natural lip synchronization with audio, mouth opening and closing in rhythm with speech. Realistic facial expressions: eyebrow movements, eye contact, subtle head gestures. Authentic speaking animation with varied mouth shapes (phonemes). Natural breathing pauses, micro-expressions during dialogue. Professional quality talking head video, well-lit face, clear facial features. Style: realistic - cinematic - The man sits in an armchair near the fireplace, his hands resting on the open newspaper. He is reading intently, the flickering firelight casting warm shadows across his face and the surrounding room. Outside the large window, a cold winter morning unfolds with bare trees against a pale sky. A tall man stands by the window, examining footprints on the sill through a magnifying glass. The soft crackle of burning wood blends with the quiet rustling of pages as he turns them one by one.
 got prompt
-Waiting for video generation completion (prompt_id: 67ca14c2-16a7-4821-b5a4-b3a535e75769)...
+Waiting for video generation completion (prompt_id: 4fc56f18-0ec3-4146-8b01-1c441e5ac41e)...
 loaded partially; 9532.19 MB usable, 9379.06 MB loaded, 2862.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:46,  6.68s/it] 25%|██▌       | 2/8 [00:12<00:38,  6.37s/it] 38%|███▊      | 3/8 [00:19<00:31,  6.39s/it] 50%|█████     | 4/8 [00:25<00:25,  6.37s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.30s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.24s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.22s/it]100%|██████████| 8/8 [00:50<00:00,  6.28s/it]100%|██████████| 8/8 [00:50<00:00,  6.31s/it]
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:45,  6.46s/it] 25%|██▌       | 2/8 [00:12<00:37,  6.33s/it] 38%|███▊      | 3/8 [00:19<00:31,  6.34s/it] 50%|█████     | 4/8 [00:25<00:25,  6.45s/it] 62%|██████▎   | 5/8 [00:32<00:19,  6.46s/it] 75%|███████▌  | 6/8 [00:38<00:12,  6.40s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.40s/it]100%|██████████| 8/8 [00:51<00:00,  6.39s/it]100%|██████████| 8/8 [00:51<00:00,  6.40s/it]
 Requested to load VideoVAE
 Unloaded partially: 2299.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 2244
 loaded completely; 2645.74 MB usable, 2378.23 MB loaded, full load: True
 loaded partially; 9388.59 MB usable, 9235.17 MB loaded, 3006.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.83s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.69s/it]100%|██████████| 3/3 [00:29<00:00,  9.70s/it]100%|██████████| 3/3 [00:29<00:00,  9.71s/it]
+  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:10<00:20, 10.08s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.88s/it]100%|██████████| 3/3 [00:29<00:00,  9.78s/it]100%|██████████| 3/3 [00:29<00:00,  9.83s/it]
 Requested to load VideoVAE
 Unloaded partially: 9235.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 2724
 loaded completely; 3602.88 MB usable, 2378.23 MB loaded, full load: True
 Requested to load AudioVAE
 loaded completely; 7155.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 96.69 seconds
+Prompt executed in 96.81 seconds
 Saved video: ../output\scene_1.1_4.mp4
 💾 Checkpoint saved for chunk: scene_1.1_4
 Generating chunk: scene_1.1_5 (73 frames)
@@ -494,533 +556,15 @@ Generating chunk: scene_1.1_5 (73 frames)
 ⚠️ Failed to find last saved frame from previous chunk, using original image
 ✅ Split audio chunk: scene_1.1_5.wav (3.042s, start: 12.167s)
 🎬 Using master prompt for 1.1
-Full prompt: Style: realistic - cinematic - The man sits in an armchair near the fireplace, his hands resting on the open newspaper. He is reading intently, the flickering firelight casting warm shadows across his face and the surrounding room. Outside the large window, a cold winter morning unfolds with bare trees against a pale sky. A tall man stands by the window, examining footprints on the sill through a magnifying glass. The soft crackle of burning wood blends with the quiet rustling of pages as he turns them one by one.
+🎤 Added comprehensive talking instructions for AUDIO mode
+🚫 Added negative prompt to prevent static facial expressions
+Full prompt: Close-up shot, person speaking directly to camera. Natural lip synchronization with audio, mouth opening and closing in rhythm with speech. Realistic facial expressions: eyebrow movements, eye contact, subtle head gestures. Authentic speaking animation with varied mouth shapes (phonemes). Natural breathing pauses, micro-expressions during dialogue. Professional quality talking head video, well-lit face, clear facial features. Style: realistic - cinematic - The man sits in an armchair near the fireplace, his hands resting on the open newspaper. He is reading intently, the flickering firelight casting warm shadows across his face and the surrounding room. Outside the large window, a cold winter morning unfolds with bare trees against a pale sky. A tall man stands by the window, examining footprints on the sill through a magnifying glass. The soft crackle of burning wood blends with the quiet rustling of pages as he turns them one by one.
 got prompt
-Waiting for video generation completion (prompt_id: ab05ffb0-5fd7-4245-b985-33ea17f160c5)...
+Waiting for video generation completion (prompt_id: 29fcec34-e9d4-4d14-88ab-01e63bc9c4c8)...
 loaded partially; 9532.19 MB usable, 9379.06 MB loaded, 2862.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:43,  6.19s/it] 25%|██▌       | 2/8 [00:12<00:37,  6.21s/it] 38%|███▊      | 3/8 [00:18<00:31,  6.28s/it] 50%|█████     | 4/8 [00:25<00:25,  6.32s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.27s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.33s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.33s/it]100%|██████████| 8/8 [00:50<00:00,  6.34s/it]100%|██████████| 8/8 [00:50<00:00,  6.31s/it]
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:44,  6.29s/it] 25%|██▌       | 2/8 [00:12<00:37,  6.29s/it] 38%|███▊      | 3/8 [00:18<00:31,  6.32s/it] 50%|█████     | 4/8 [00:25<00:25,  6.29s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.31s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.31s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.36s/it]100%|██████████| 8/8 [00:50<00:00,  6.30s/it]100%|██████████| 8/8 [00:50<00:00,  6.31s/it]
 Requested to load VideoVAE
 Unloaded partially: 2299.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 2925
 loaded completely; 2645.74 MB usable, 2378.23 MB loaded, full load: True
 loaded partially; 9388.59 MB usable, 9235.17 MB loaded, 3006.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.89s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.76s/it]100%|██████████| 3/3 [00:29<00:00,  9.73s/it]100%|██████████| 3/3 [00:29<00:00,  9.75s/it]
-Requested to load VideoVAE
-Unloaded partially: 9235.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 3405
-loaded completely; 3602.88 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 7155.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 96.60 seconds
-Saved video: ../output\scene_1.1_5.mp4
-💾 Checkpoint saved for chunk: scene_1.1_5
-Generating chunk: scene_1.1_6 (73 frames)
-🔍 Frame prefix: scene_1.1_5.frame_
-⚠️ Failed to find last saved frame from previous chunk, using original image
-✅ Split audio chunk: scene_1.1_6.wav (3.042s, start: 15.208s)
-🎬 Using master prompt for 1.1
-Full prompt: Style: realistic - cinematic - The man sits in an armchair near the fireplace, his hands resting on the open newspaper. He is reading intently, the flickering firelight casting warm shadows across his face and the surrounding room. Outside the large window, a cold winter morning unfolds with bare trees against a pale sky. A tall man stands by the window, examining footprints on the sill through a magnifying glass. The soft crackle of burning wood blends with the quiet rustling of pages as he turns them one by one.
-got prompt
-Waiting for video generation completion (prompt_id: bd1b6c80-5eca-40b2-a3ca-0372431560ca)...
-loaded partially; 9532.19 MB usable, 9379.06 MB loaded, 2862.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:43,  6.15s/it] 25%|██▌       | 2/8 [00:12<00:37,  6.24s/it] 38%|███▊      | 3/8 [00:18<00:31,  6.31s/it] 50%|█████     | 4/8 [00:25<00:25,  6.27s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.26s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.28s/it] 88%|████████▊ | 7/8 [00:43<00:06,  6.28s/it]100%|██████████| 8/8 [00:50<00:00,  6.28s/it]100%|██████████| 8/8 [00:50<00:00,  6.27s/it]
-Requested to load VideoVAE
-Unloaded partially: 2299.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 3606
-loaded completely; 2645.74 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9388.59 MB usable, 9235.17 MB loaded, 3006.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.86s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.83s/it]100%|██████████| 3/3 [00:29<00:00,  9.83s/it]100%|██████████| 3/3 [00:29<00:00,  9.84s/it]
-Requested to load VideoVAE
-Unloaded partially: 9235.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 4086
-loaded completely; 3602.88 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 7155.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 96.47 seconds
-Saved video: ../output\scene_1.1_6.mp4
-💾 Checkpoint saved for chunk: scene_1.1_6
-Generating chunk: scene_1.1_7 (73 frames)
-🔍 Frame prefix: scene_1.1_6.frame_
-⚠️ Failed to find last saved frame from previous chunk, using original image
-✅ Split audio chunk: scene_1.1_7.wav (3.042s, start: 18.250s)
-🎬 Using master prompt for 1.1
-Full prompt: Style: realistic - cinematic - The man sits in an armchair near the fireplace, his hands resting on the open newspaper. He is reading intently, the flickering firelight casting warm shadows across his face and the surrounding room. Outside the large window, a cold winter morning unfolds with bare trees against a pale sky. A tall man stands by the window, examining footprints on the sill through a magnifying glass. The soft crackle of burning wood blends with the quiet rustling of pages as he turns them one by one.
-got prompt
-Waiting for video generation completion (prompt_id: 517f595b-5923-48aa-b7e0-62ddf0074b0b)...
-loaded partially; 9532.19 MB usable, 9379.06 MB loaded, 2862.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:44,  6.41s/it] 25%|██▌       | 2/8 [00:12<00:37,  6.27s/it] 38%|███▊      | 3/8 [00:18<00:31,  6.30s/it] 50%|█████     | 4/8 [00:25<00:25,  6.33s/it] 62%|██████▎   | 5/8 [00:31<00:19,  6.35s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.31s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.32s/it]100%|██████████| 8/8 [00:50<00:00,  6.29s/it]100%|██████████| 8/8 [00:50<00:00,  6.31s/it]
-Requested to load VideoVAE
-Unloaded partially: 2299.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 4287
-loaded completely; 2645.74 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9388.59 MB usable, 9235.17 MB loaded, 3006.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.85s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.74s/it]100%|██████████| 3/3 [00:29<00:00,  9.72s/it]100%|██████████| 3/3 [00:29<00:00,  9.74s/it]
-Requested to load VideoVAE
-Unloaded partially: 9235.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 4767
-loaded completely; 3602.88 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 7155.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 96.47 seconds
-Saved video: ../output\scene_1.1_7.mp4
-💾 Checkpoint saved for chunk: scene_1.1_7
-Generating chunk: scene_1.1_8 (73 frames)
-🔍 Frame prefix: scene_1.1_7.frame_
-⚠️ Failed to find last saved frame from previous chunk, using original image
-✅ Split audio chunk: scene_1.1_8.wav (3.042s, start: 21.292s)
-🎬 Using master prompt for 1.1
-Full prompt: Style: realistic - cinematic - The man sits in an armchair near the fireplace, his hands resting on the open newspaper. He is reading intently, the flickering firelight casting warm shadows across his face and the surrounding room. Outside the large window, a cold winter morning unfolds with bare trees against a pale sky. A tall man stands by the window, examining footprints on the sill through a magnifying glass. The soft crackle of burning wood blends with the quiet rustling of pages as he turns them one by one.
-got prompt
-Waiting for video generation completion (prompt_id: cb6c12af-e781-40ed-a38b-5fefa2b501c2)...
-loaded partially; 9532.19 MB usable, 9379.06 MB loaded, 2862.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:43,  6.26s/it] 25%|██▌       | 2/8 [00:12<00:37,  6.25s/it] 38%|███▊      | 3/8 [00:18<00:31,  6.33s/it] 50%|█████     | 4/8 [00:25<00:25,  6.38s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.32s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.31s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.30s/it]100%|██████████| 8/8 [00:50<00:00,  6.31s/it]100%|██████████| 8/8 [00:50<00:00,  6.31s/it]
-Requested to load VideoVAE
-Unloaded partially: 2299.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 4968
-loaded completely; 2645.74 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9388.59 MB usable, 9235.17 MB loaded, 3006.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.82s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.73s/it]100%|██████████| 3/3 [00:29<00:00,  9.70s/it]100%|██████████| 3/3 [00:29<00:00,  9.72s/it]
-Requested to load VideoVAE
-Unloaded partially: 9235.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 5448
-loaded completely; 3602.88 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 7155.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 96.17 seconds
-Saved video: ../output\scene_1.1_8.mp4
-💾 Checkpoint saved for chunk: scene_1.1_8
-Generating chunk: scene_1.1_9 (73 frames)
-🔍 Frame prefix: scene_1.1_8.frame_
-⚠️ Failed to find last saved frame from previous chunk, using original image
-✅ Split audio chunk: scene_1.1_9.wav (3.042s, start: 24.333s)
-🎬 Using master prompt for 1.1
-Full prompt: Style: realistic - cinematic - The man sits in an armchair near the fireplace, his hands resting on the open newspaper. He is reading intently, the flickering firelight casting warm shadows across his face and the surrounding room. Outside the large window, a cold winter morning unfolds with bare trees against a pale sky. A tall man stands by the window, examining footprints on the sill through a magnifying glass. The soft crackle of burning wood blends with the quiet rustling of pages as he turns them one by one.
-got prompt
-Waiting for video generation completion (prompt_id: 9d27ed2f-e129-4630-8992-4d82a8c97304)...
-loaded partially; 9532.19 MB usable, 9379.06 MB loaded, 2862.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:43,  6.20s/it] 25%|██▌       | 2/8 [00:12<00:37,  6.19s/it] 38%|███▊      | 3/8 [00:18<00:31,  6.21s/it] 50%|█████     | 4/8 [00:24<00:24,  6.25s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.21s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.27s/it] 88%|████████▊ | 7/8 [00:43<00:06,  6.26s/it]100%|██████████| 8/8 [00:49<00:00,  6.25s/it]100%|██████████| 8/8 [00:49<00:00,  6.24s/it]
-Requested to load VideoVAE
-Unloaded partially: 2299.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 5649
-loaded completely; 2645.74 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9388.59 MB usable, 9235.17 MB loaded, 3006.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.93s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.77s/it]100%|██████████| 3/3 [00:29<00:00,  9.74s/it]100%|██████████| 3/3 [00:29<00:00,  9.76s/it]
-Requested to load VideoVAE
-Unloaded partially: 9235.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 6129
-loaded completely; 3602.88 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 7155.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 95.57 seconds
-Saved video: ../output\scene_1.1_9.mp4
-💾 Checkpoint saved for chunk: scene_1.1_9
-Generating chunk: scene_1.1_10 (73 frames)
-🔍 Frame prefix: scene_1.1_9.frame_
-⚠️ Failed to find last saved frame from previous chunk, using original image
-✅ Split audio chunk: scene_1.1_10.wav (3.042s, start: 27.375s)
-🎬 Using master prompt for 1.1
-Full prompt: Style: realistic - cinematic - The man sits in an armchair near the fireplace, his hands resting on the open newspaper. He is reading intently, the flickering firelight casting warm shadows across his face and the surrounding room. Outside the large window, a cold winter morning unfolds with bare trees against a pale sky. A tall man stands by the window, examining footprints on the sill through a magnifying glass. The soft crackle of burning wood blends with the quiet rustling of pages as he turns them one by one.
-got prompt
-Waiting for video generation completion (prompt_id: 4339ce50-b042-4e95-8583-17083fe3ba72)...
-loaded partially; 9532.19 MB usable, 9379.06 MB loaded, 2862.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:44,  6.38s/it] 25%|██▌       | 2/8 [00:12<00:37,  6.31s/it] 38%|███▊      | 3/8 [00:18<00:31,  6.24s/it] 50%|█████     | 4/8 [00:25<00:24,  6.23s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.29s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.33s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.33s/it]100%|██████████| 8/8 [00:50<00:00,  6.37s/it]100%|██████████| 8/8 [00:50<00:00,  6.32s/it]
-Requested to load VideoVAE
-Unloaded partially: 2299.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 6330
-loaded completely; 2645.74 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9388.59 MB usable, 9235.17 MB loaded, 3006.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.74s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.73s/it]100%|██████████| 3/3 [00:29<00:00,  9.71s/it]100%|██████████| 3/3 [00:29<00:00,  9.72s/it]
-Requested to load VideoVAE
-Unloaded partially: 9235.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 6810
-loaded completely; 3602.88 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 7155.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 96.19 seconds
-Saved video: ../output\scene_1.1_10.mp4
-💾 Checkpoint saved for chunk: scene_1.1_10
-Generating chunk: scene_1.1_11 (11 frames)
-🔍 Frame prefix: scene_1.1_10.frame_
-⚠️ Failed to find last saved frame from previous chunk, using original image
-✅ Split audio chunk: scene_1.1_11.wav (0.458s, start: 30.417s)
-🎬 Using master prompt for 1.1
-Full prompt: Style: realistic - cinematic - The man sits in an armchair near the fireplace, his hands resting on the open newspaper. He is reading intently, the flickering firelight casting warm shadows across his face and the surrounding room. Outside the large window, a cold winter morning unfolds with bare trees against a pale sky. A tall man stands by the window, examining footprints on the sill through a magnifying glass. The soft crackle of burning wood blends with the quiet rustling of pages as he turns them one by one.
-got prompt
-Waiting for video generation completion (prompt_id: cfd2a95f-a21c-4279-a6b1-58ca31cd97f7)...
-loaded partially; 9533.38 MB usable, 9380.25 MB loaded, 2861.72 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:05<00:40,  5.73s/it] 25%|██▌       | 2/8 [00:11<00:33,  5.53s/it] 38%|███▊      | 3/8 [00:16<00:27,  5.42s/it] 50%|█████     | 4/8 [00:21<00:21,  5.43s/it] 62%|██████▎   | 5/8 [00:27<00:16,  5.42s/it] 75%|███████▌  | 6/8 [00:32<00:10,  5.43s/it] 88%|████████▊ | 7/8 [00:38<00:05,  5.40s/it]100%|██████████| 8/8 [00:43<00:00,  5.44s/it]100%|██████████| 8/8 [00:43<00:00,  5.45s/it]
-Requested to load VideoVAE
-Unloaded partially: 2300.31 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 7011
-loaded completely; 2645.74 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9724.54 MB usable, 9571.40 MB loaded, 2670.57 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:06<00:12,  6.15s/it] 67%|██████▋   | 2/3 [00:12<00:06,  6.03s/it]100%|██████████| 3/3 [00:18<00:00,  6.03s/it]100%|██████████| 3/3 [00:18<00:00,  6.04s/it]
-Requested to load VideoVAE
-Unloaded partially: 3023.39 MB freed, 6548.02 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 7271
-loaded completely; 2646.86 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 799.36 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 70.34 seconds
-Saved video: ../output\scene_1.1_11.mp4
-💾 Checkpoint saved for chunk: scene_1.1_11
-📦 Keeping 11 chunks for scene_1.1 (will merge after all scenes complete)
-✅ Scene 1/3 - {{loc_1, Victorian living room sofa fireplace wind (30.88s) - Completed in 19.1m
-📊 Estimated time remaining: ~38.7m (?)
-✅ Generated 11 video chunks: scene_1.1
-   Chunk 1: scene_1.1_1.mp4
-   Chunk 2: scene_1.1_2.mp4
-   Chunk 3: scene_1.1_3.mp4
-   Chunk 4: scene_1.1_4.mp4
-   Chunk 5: scene_1.1_5.mp4
-   Chunk 6: scene_1.1_6.mp4
-   Chunk 7: scene_1.1_7.mp4
-   Chunk 8: scene_1.1_8.mp4
-   Chunk 9: scene_1.1_9.mp4
-   Chunk 10: scene_1.1_10.mp4
-   Chunk 11: scene_1.1_11.mp4
-🔄 Scene 2/3 - {{loc_1, Victorian living room sofa fireplace wind (31.48s) - Processing...
-📊 Estimated time remaining: ~19.1m (?)
-Generating video for scene: scene_1.2
-Duration: 31.48s, Frames: 755
-Video chunks: 11
-Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_1.2.png
-Generating chunk: scene_1.2_1 (73 frames)
-✅ Split audio chunk: scene_1.2_1.wav (3.042s, start: 0.000s)
-🎬 Using master prompt for 1.2
-Full prompt: Style: realistic - cinematic - The male detective Holmes stands still on a cold winter morning in the snow-covered forest, his expression keen as he points at the window sill. The male doctor Watson leans forward in an armchair, lowering his newspaper with curiosity. The sound of wind rustling through pine trees blends with faint footsteps crunching in snow, while a soft creak from the wooden armchair underscores Watson’s movement.
-got prompt
-Waiting for video generation completion (prompt_id: c42b99b8-8a3e-4332-8cf5-2e25143bf256)...
-Requested to load LTXAVTEModel_
-loaded partially; 9531.67 MB usable, 704.50 MB loaded, 25260.46 MB offloaded, 8827.18 MB buffer reserved, lowvram patches: 0
-Requested to load AudioVAE
-loaded completely; 8827.18 MB usable, 415.20 MB loaded, full load: True
-Requested to load LTXAV
-loaded partially; 9530.19 MB usable, 9377.06 MB loaded, 2864.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:44,  6.43s/it] 25%|██▌       | 2/8 [00:12<00:38,  6.36s/it] 38%|███▊      | 3/8 [00:18<00:31,  6.30s/it] 50%|█████     | 4/8 [00:25<00:25,  6.30s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.28s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.29s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.28s/it]100%|██████████| 8/8 [00:50<00:00,  6.29s/it]100%|██████████| 8/8 [00:50<00:00,  6.30s/it]
-Requested to load VideoVAE
-Unloaded partially: 2297.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 201
-loaded completely; 2643.74 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9386.59 MB usable, 9233.17 MB loaded, 3008.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.97s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.84s/it]100%|██████████| 3/3 [00:29<00:00,  9.79s/it]100%|██████████| 3/3 [00:29<00:00,  9.81s/it]
-Requested to load VideoVAE
-Unloaded partially: 9233.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 681
-loaded completely; 3600.88 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 7153.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 105.99 seconds
-Saved video: ../output\scene_1.2_1.mp4
-💾 Checkpoint saved for chunk: scene_1.2_1
-Generating chunk: scene_1.2_2 (73 frames)
-🔍 Frame prefix: scene_1.2_1.frame_
-⚠️ Failed to find last saved frame from previous chunk, using original image
-✅ Split audio chunk: scene_1.2_2.wav (3.042s, start: 3.042s)
-🎬 Using master prompt for 1.2
-Full prompt: Style: realistic - cinematic - The male detective Holmes stands still on a cold winter morning in the snow-covered forest, his expression keen as he points at the window sill. The male doctor Watson leans forward in an armchair, lowering his newspaper with curiosity. The sound of wind rustling through pine trees blends with faint footsteps crunching in snow, while a soft creak from the wooden armchair underscores Watson’s movement.
-got prompt
-Waiting for video generation completion (prompt_id: f00094c3-61e5-4047-b939-faef386eaf5d)...
-loaded partially; 9530.19 MB usable, 9377.06 MB loaded, 2864.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:44,  6.29s/it] 25%|██▌       | 2/8 [00:12<00:37,  6.33s/it] 38%|███▊      | 3/8 [00:18<00:31,  6.28s/it] 50%|█████     | 4/8 [00:25<00:25,  6.31s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.30s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.24s/it] 88%|████████▊ | 7/8 [00:43<00:06,  6.24s/it]100%|██████████| 8/8 [00:50<00:00,  6.30s/it]100%|██████████| 8/8 [00:50<00:00,  6.29s/it]
-Requested to load VideoVAE
-Unloaded partially: 2297.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 882
-loaded completely; 2643.74 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9386.59 MB usable, 9233.17 MB loaded, 3008.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.79s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.71s/it]100%|██████████| 3/3 [00:29<00:00,  9.69s/it]100%|██████████| 3/3 [00:29<00:00,  9.70s/it]
-Requested to load VideoVAE
-Unloaded partially: 9233.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 1362
-loaded completely; 3600.88 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 7153.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 95.71 seconds
-Saved video: ../output\scene_1.2_2.mp4
-💾 Checkpoint saved for chunk: scene_1.2_2
-Generating chunk: scene_1.2_3 (73 frames)
-🔍 Frame prefix: scene_1.2_2.frame_
-⚠️ Failed to find last saved frame from previous chunk, using original image
-✅ Split audio chunk: scene_1.2_3.wav (3.042s, start: 6.083s)
-🎬 Using master prompt for 1.2
-Full prompt: Style: realistic - cinematic - The male detective Holmes stands still on a cold winter morning in the snow-covered forest, his expression keen as he points at the window sill. The male doctor Watson leans forward in an armchair, lowering his newspaper with curiosity. The sound of wind rustling through pine trees blends with faint footsteps crunching in snow, while a soft creak from the wooden armchair underscores Watson’s movement.
-got prompt
-Waiting for video generation completion (prompt_id: 3db95a34-9d79-4ff9-b4bd-99d52012b6f5)...
-loaded partially; 9530.19 MB usable, 9377.06 MB loaded, 2864.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:44,  6.37s/it] 25%|██▌       | 2/8 [00:12<00:38,  6.37s/it] 38%|███▊      | 3/8 [00:19<00:31,  6.33s/it] 50%|█████     | 4/8 [00:25<00:24,  6.24s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.25s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.24s/it] 88%|████████▊ | 7/8 [00:43<00:06,  6.22s/it]100%|██████████| 8/8 [00:50<00:00,  6.24s/it]100%|██████████| 8/8 [00:50<00:00,  6.26s/it]
-Requested to load VideoVAE
-Unloaded partially: 2297.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 1563
-loaded completely; 2643.74 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9386.59 MB usable, 9233.17 MB loaded, 3008.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.74s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.67s/it]100%|██████████| 3/3 [00:29<00:00,  9.68s/it]100%|██████████| 3/3 [00:29<00:00,  9.68s/it]
-Requested to load VideoVAE
-Unloaded partially: 9233.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 2043
-loaded completely; 3600.88 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 7153.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 95.55 seconds
-Saved video: ../output\scene_1.2_3.mp4
-💾 Checkpoint saved for chunk: scene_1.2_3
-Generating chunk: scene_1.2_4 (73 frames)
-🔍 Frame prefix: scene_1.2_3.frame_
-⚠️ Failed to find last saved frame from previous chunk, using original image
-✅ Split audio chunk: scene_1.2_4.wav (3.042s, start: 9.125s)
-🎬 Using master prompt for 1.2
-Full prompt: Style: realistic - cinematic - The male detective Holmes stands still on a cold winter morning in the snow-covered forest, his expression keen as he points at the window sill. The male doctor Watson leans forward in an armchair, lowering his newspaper with curiosity. The sound of wind rustling through pine trees blends with faint footsteps crunching in snow, while a soft creak from the wooden armchair underscores Watson’s movement.
-got prompt
-Waiting for video generation completion (prompt_id: ac1afb01-0889-468f-ad94-e28830b2a6de)...
-loaded partially; 9530.19 MB usable, 9377.06 MB loaded, 2864.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:44,  6.36s/it] 25%|██▌       | 2/8 [00:12<00:38,  6.35s/it] 38%|███▊      | 3/8 [00:18<00:31,  6.32s/it] 50%|█████     | 4/8 [00:25<00:25,  6.30s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.31s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.32s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.30s/it]100%|██████████| 8/8 [00:50<00:00,  6.29s/it]100%|██████████| 8/8 [00:50<00:00,  6.31s/it]
-Requested to load VideoVAE
-Unloaded partially: 2297.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 2244
-loaded completely; 2643.74 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9386.59 MB usable, 9233.17 MB loaded, 3008.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.87s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.73s/it]100%|██████████| 3/3 [00:29<00:00,  9.70s/it]100%|██████████| 3/3 [00:29<00:00,  9.72s/it]
-Requested to load VideoVAE
-Unloaded partially: 9233.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 2724
-loaded completely; 3600.88 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 7153.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 96.01 seconds
-Saved video: ../output\scene_1.2_4.mp4
-💾 Checkpoint saved for chunk: scene_1.2_4
-Generating chunk: scene_1.2_5 (73 frames)
-🔍 Frame prefix: scene_1.2_4.frame_
-⚠️ Failed to find last saved frame from previous chunk, using original image
-✅ Split audio chunk: scene_1.2_5.wav (3.042s, start: 12.167s)
-🎬 Using master prompt for 1.2
-Full prompt: Style: realistic - cinematic - The male detective Holmes stands still on a cold winter morning in the snow-covered forest, his expression keen as he points at the window sill. The male doctor Watson leans forward in an armchair, lowering his newspaper with curiosity. The sound of wind rustling through pine trees blends with faint footsteps crunching in snow, while a soft creak from the wooden armchair underscores Watson’s movement.
-got prompt
-Waiting for video generation completion (prompt_id: eb27c3bd-b179-40a5-8c46-762ef0a05e5a)...
-loaded partially; 9530.19 MB usable, 9377.06 MB loaded, 2864.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:44,  6.36s/it] 25%|██▌       | 2/8 [00:12<00:37,  6.27s/it] 38%|███▊      | 3/8 [00:18<00:31,  6.30s/it] 50%|█████     | 4/8 [00:25<00:25,  6.37s/it] 62%|██████▎   | 5/8 [00:31<00:19,  6.34s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.32s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.32s/it]100%|██████████| 8/8 [00:50<00:00,  6.30s/it]100%|██████████| 8/8 [00:50<00:00,  6.31s/it]
-Requested to load VideoVAE
-Unloaded partially: 2297.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 2925
-loaded completely; 2643.74 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9386.59 MB usable, 9233.17 MB loaded, 3008.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.85s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.79s/it]100%|██████████| 3/3 [00:29<00:00,  9.74s/it]100%|██████████| 3/3 [00:29<00:00,  9.76s/it]
-Requested to load VideoVAE
-Unloaded partially: 9233.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 3405
-loaded completely; 3600.88 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 7153.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 96.26 seconds
-Saved video: ../output\scene_1.2_5.mp4
-💾 Checkpoint saved for chunk: scene_1.2_5
-Generating chunk: scene_1.2_6 (73 frames)
-🔍 Frame prefix: scene_1.2_5.frame_
-⚠️ Failed to find last saved frame from previous chunk, using original image
-✅ Split audio chunk: scene_1.2_6.wav (3.042s, start: 15.208s)
-🎬 Using master prompt for 1.2
-Full prompt: Style: realistic - cinematic - The male detective Holmes stands still on a cold winter morning in the snow-covered forest, his expression keen as he points at the window sill. The male doctor Watson leans forward in an armchair, lowering his newspaper with curiosity. The sound of wind rustling through pine trees blends with faint footsteps crunching in snow, while a soft creak from the wooden armchair underscores Watson’s movement.
-got prompt
-Waiting for video generation completion (prompt_id: 47c3ea9f-7b2d-4ac0-87ca-2f696b2d2bd4)...
-loaded partially; 9530.19 MB usable, 9377.06 MB loaded, 2864.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:44,  6.32s/it] 25%|██▌       | 2/8 [00:12<00:37,  6.29s/it] 38%|███▊      | 3/8 [00:18<00:31,  6.24s/it] 50%|█████     | 4/8 [00:25<00:24,  6.25s/it] 62%|██████▎   | 5/8 [00:31<00:19,  6.34s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.37s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.33s/it]100%|██████████| 8/8 [00:50<00:00,  6.25s/it]100%|██████████| 8/8 [00:50<00:00,  6.29s/it]
-Requested to load VideoVAE
-Unloaded partially: 2297.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 3606
-loaded completely; 2643.74 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9386.59 MB usable, 9233.17 MB loaded, 3008.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.83s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.77s/it]100%|██████████| 3/3 [00:29<00:00,  9.71s/it]100%|██████████| 3/3 [00:29<00:00,  9.73s/it]
-Requested to load VideoVAE
-Unloaded partially: 9233.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 4086
-loaded completely; 3600.88 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 7153.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 96.12 seconds
-Saved video: ../output\scene_1.2_6.mp4
-💾 Checkpoint saved for chunk: scene_1.2_6
-Generating chunk: scene_1.2_7 (73 frames)
-🔍 Frame prefix: scene_1.2_6.frame_
-⚠️ Failed to find last saved frame from previous chunk, using original image
-✅ Split audio chunk: scene_1.2_7.wav (3.042s, start: 18.250s)
-🎬 Using master prompt for 1.2
-Full prompt: Style: realistic - cinematic - The male detective Holmes stands still on a cold winter morning in the snow-covered forest, his expression keen as he points at the window sill. The male doctor Watson leans forward in an armchair, lowering his newspaper with curiosity. The sound of wind rustling through pine trees blends with faint footsteps crunching in snow, while a soft creak from the wooden armchair underscores Watson’s movement.
-got prompt
-Waiting for video generation completion (prompt_id: 135b91a2-65e9-4a36-8542-81213b747e40)...
-loaded partially; 9530.19 MB usable, 9377.06 MB loaded, 2864.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:45,  6.55s/it] 25%|██▌       | 2/8 [00:12<00:38,  6.35s/it] 38%|███▊      | 3/8 [00:19<00:31,  6.39s/it] 50%|█████     | 4/8 [00:25<00:25,  6.32s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.31s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.28s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.30s/it]100%|██████████| 8/8 [00:50<00:00,  6.29s/it]100%|██████████| 8/8 [00:50<00:00,  6.31s/it]
-Requested to load VideoVAE
-Unloaded partially: 2297.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 4287
-loaded completely; 2643.74 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9386.59 MB usable, 9233.17 MB loaded, 3008.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.91s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.85s/it]100%|██████████| 3/3 [00:29<00:00,  9.83s/it]100%|██████████| 3/3 [00:29<00:00,  9.84s/it]
-Requested to load VideoVAE
-Unloaded partially: 9233.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 4767
-loaded completely; 3600.88 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 7153.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 97.55 seconds
-Saved video: ../output\scene_1.2_7.mp4
-💾 Checkpoint saved for chunk: scene_1.2_7
-Generating chunk: scene_1.2_8 (73 frames)
-🔍 Frame prefix: scene_1.2_7.frame_
-⚠️ Failed to find last saved frame from previous chunk, using original image
-✅ Split audio chunk: scene_1.2_8.wav (3.042s, start: 21.292s)
-🎬 Using master prompt for 1.2
-Full prompt: Style: realistic - cinematic - The male detective Holmes stands still on a cold winter morning in the snow-covered forest, his expression keen as he points at the window sill. The male doctor Watson leans forward in an armchair, lowering his newspaper with curiosity. The sound of wind rustling through pine trees blends with faint footsteps crunching in snow, while a soft creak from the wooden armchair underscores Watson’s movement.
-got prompt
-Waiting for video generation completion (prompt_id: 5cc0252b-3e67-4577-b384-113ff692d845)...
-loaded partially; 9530.19 MB usable, 9377.06 MB loaded, 2864.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:44,  6.40s/it] 25%|██▌       | 2/8 [00:12<00:37,  6.33s/it] 38%|███▊      | 3/8 [00:18<00:31,  6.32s/it] 50%|█████     | 4/8 [00:25<00:25,  6.35s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.32s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.32s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.33s/it]100%|██████████| 8/8 [00:50<00:00,  6.30s/it]100%|██████████| 8/8 [00:50<00:00,  6.32s/it]
-Requested to load VideoVAE
-Unloaded partially: 2297.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 4968
-loaded completely; 2643.74 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9386.59 MB usable, 9233.17 MB loaded, 3008.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.80s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.72s/it]100%|██████████| 3/3 [00:29<00:00,  9.73s/it]100%|██████████| 3/3 [00:29<00:00,  9.73s/it]
-Requested to load VideoVAE
-Unloaded partially: 9233.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 5448
-loaded completely; 3600.88 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 7153.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 96.44 seconds
-Saved video: ../output\scene_1.2_8.mp4
-💾 Checkpoint saved for chunk: scene_1.2_8
-Generating chunk: scene_1.2_9 (73 frames)
-🔍 Frame prefix: scene_1.2_8.frame_
-⚠️ Failed to find last saved frame from previous chunk, using original image
-✅ Split audio chunk: scene_1.2_9.wav (3.042s, start: 24.333s)
-🎬 Using master prompt for 1.2
-Full prompt: Style: realistic - cinematic - The male detective Holmes stands still on a cold winter morning in the snow-covered forest, his expression keen as he points at the window sill. The male doctor Watson leans forward in an armchair, lowering his newspaper with curiosity. The sound of wind rustling through pine trees blends with faint footsteps crunching in snow, while a soft creak from the wooden armchair underscores Watson’s movement.
-got prompt
-Waiting for video generation completion (prompt_id: 7ec4930e-93f1-47b7-875b-e06883172b3b)...
-loaded partially; 9530.19 MB usable, 9377.06 MB loaded, 2864.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:44,  6.33s/it] 25%|██▌       | 2/8 [00:12<00:37,  6.33s/it] 38%|███▊      | 3/8 [00:18<00:31,  6.26s/it] 50%|█████     | 4/8 [00:25<00:25,  6.27s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.25s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.23s/it] 88%|████████▊ | 7/8 [00:43<00:06,  6.26s/it]100%|██████████| 8/8 [00:50<00:00,  6.31s/it]100%|██████████| 8/8 [00:50<00:00,  6.28s/it]
-Requested to load VideoVAE
-Unloaded partially: 2297.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 5649
-loaded completely; 2643.74 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9386.59 MB usable, 9233.17 MB loaded, 3008.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.85s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.76s/it]100%|██████████| 3/3 [00:29<00:00,  9.72s/it]100%|██████████| 3/3 [00:29<00:00,  9.74s/it]
-Requested to load VideoVAE
-Unloaded partially: 9233.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 6129
-loaded completely; 3600.88 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 7153.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 96.16 seconds
-Saved video: ../output\scene_1.2_9.mp4
-💾 Checkpoint saved for chunk: scene_1.2_9
-Generating chunk: scene_1.2_10 (73 frames)
-🔍 Frame prefix: scene_1.2_9.frame_
-⚠️ Failed to find last saved frame from previous chunk, using original image
-✅ Split audio chunk: scene_1.2_10.wav (3.042s, start: 27.375s)
-🎬 Using master prompt for 1.2
-Full prompt: Style: realistic - cinematic - The male detective Holmes stands still on a cold winter morning in the snow-covered forest, his expression keen as he points at the window sill. The male doctor Watson leans forward in an armchair, lowering his newspaper with curiosity. The sound of wind rustling through pine trees blends with faint footsteps crunching in snow, while a soft creak from the wooden armchair underscores Watson’s movement.
-got prompt
-Waiting for video generation completion (prompt_id: 8cc8f525-19a3-4018-981e-db4643f9f717)...
-loaded partially; 9530.19 MB usable, 9377.06 MB loaded, 2864.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:44,  6.38s/it] 25%|██▌       | 2/8 [00:12<00:38,  6.34s/it] 38%|███▊      | 3/8 [00:19<00:31,  6.33s/it] 50%|█████     | 4/8 [00:25<00:25,  6.29s/it] 62%|██████▎   | 5/8 [00:31<00:19,  6.35s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.32s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.31s/it]100%|██████████| 8/8 [00:50<00:00,  6.26s/it]100%|██████████| 8/8 [00:50<00:00,  6.30s/it]
-Requested to load VideoVAE
-Unloaded partially: 2297.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 6330
-loaded completely; 2643.74 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9386.59 MB usable, 9233.17 MB loaded, 3008.80 MB offloaded, 153.41 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.85s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.81s/it]100%|██████████| 3/3 [00:29<00:00,  9.74s/it]100%|██████████| 3/3 [00:29<00:00,  9.76s/it]
-Requested to load VideoVAE
-Unloaded partially: 9233.17 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 6810
-loaded completely; 3600.88 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 7153.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 96.83 seconds
-Saved video: ../output\scene_1.2_10.mp4
-💾 Checkpoint saved for chunk: scene_1.2_10
-Generating chunk: scene_1.2_11 (25 frames)
-🔍 Frame prefix: scene_1.2_10.frame_
-⚠️ Failed to find last saved frame from previous chunk, using original image
-✅ Split audio chunk: scene_1.2_11.wav (1.042s, start: 30.417s)
-🎬 Using master prompt for 1.2
-Full prompt: Style: realistic - cinematic - The male detective Holmes stands still on a cold winter morning in the snow-covered forest, his expression keen as he points at the window sill. The male doctor Watson leans forward in an armchair, lowering his newspaper with curiosity. The sound of wind rustling through pine trees blends with faint footsteps crunching in snow, while a soft creak from the wooden armchair underscores Watson’s movement.
-got prompt
-Waiting for video generation completion (prompt_id: 63f17b2a-7291-4fbc-bcd1-ce63487d9f0f)...
-loaded partially; 9531.09 MB usable, 9377.95 MB loaded, 2864.02 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:44,  6.39s/it] 25%|██▌       | 2/8 [00:11<00:35,  5.88s/it] 38%|███▊      | 3/8 [00:17<00:28,  5.80s/it] 50%|█████     | 4/8 [00:23<00:22,  5.69s/it] 62%|██████▎   | 5/8 [00:28<00:17,  5.70s/it] 75%|███████▌  | 6/8 [00:34<00:11,  5.64s/it] 88%|████████▊ | 7/8 [00:40<00:05,  5.64s/it]100%|██████████| 8/8 [00:45<00:00,  5.63s/it]100%|██████████| 8/8 [00:45<00:00,  5.70s/it]
-Requested to load VideoVAE
-Unloaded partially: 2298.02 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 7011
-loaded completely; 2641.74 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9719.40 MB usable, 9566.27 MB loaded, 2675.70 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:06<00:13,  6.92s/it] 67%|██████▋   | 2/3 [00:13<00:06,  6.87s/it]100%|██████████| 3/3 [00:20<00:00,  6.96s/it]100%|██████████| 3/3 [00:20<00:00,  6.94s/it]
-Requested to load VideoVAE
-Unloaded partially: 4570.34 MB freed, 4995.92 MB remains loaded, 379.78 MB buffer reserved, lowvram patches: 7381
-loaded completely; 2844.95 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 2347.45 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 78.30 seconds
-Saved video: ../output\scene_1.2_11.mp4
-💾 Checkpoint saved for chunk: scene_1.2_11
-📦 Keeping 11 chunks for scene_1.2 (will merge after all scenes complete)
-✅ Scene 2/3 - {{loc_1, Victorian living room sofa fireplace wind (31.48s) - Completed in 18.4m
-📊 Estimated time remaining: ~19.2m (?)
-✅ Generated 11 video chunks: scene_1.2
-   Chunk 1: scene_1.2_1.mp4
-   Chunk 2: scene_1.2_2.mp4
-   Chunk 3: scene_1.2_3.mp4
-   Chunk 4: scene_1.2_4.mp4
-   Chunk 5: scene_1.2_5.mp4
-   Chunk 6: scene_1.2_6.mp4
-   Chunk 7: scene_1.2_7.mp4
-   Chunk 8: scene_1.2_8.mp4
-   Chunk 9: scene_1.2_9.mp4
-   Chunk 10: scene_1.2_10.mp4
-   Chunk 11: scene_1.2_11.mp4
-🔄 Scene 3/3 - {{loc_1, Victorian living room sofa fireplace wind (22.84s) - Processing...
-📊 Estimated time remaining: ~0s (?)
-Generating video for scene: scene_1.3
-Duration: 22.84s, Frames: 548
-Video chunks: 8
-Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_1.3.png
-Generating chunk: scene_1.3_1 (73 frames)
-✅ Split audio chunk: scene_1.3_1.wav (3.042s, start: 0.000s)
-🎬 Using master prompt for 1.3
-Full prompt: Style: anime - cozy living room - The young man sits in a dark blue armchair near a fireplace, his hand outstretched as he speaks. He is talking in an incredulous tone saying: "You expect me to believe that?". His brow furrows with skepticism while the fire crackles softly behind him. To the right, another figure stands by a large window overlooking green trees and distant hills under a cloudy sky. This person holds a magnifying glass upright near their face, examining something intently in silence. The only sounds are the gentle pop of the fireplace flames, the soft creaking of wooden furniture settling, and the faint whisper of wind outside the window.
-got prompt
-Waiting for video generation completion (prompt_id: 95faae96-d44c-40b0-bd6f-502bd1268fc7)...
-Requested to load LTXAVTEModel_
-loaded partially; 9529.67 MB usable, 702.50 MB loaded, 25261.59 MB offloaded, 8827.18 MB buffer reserved, lowvram patches: 0
-Requested to load AudioVAE
-loaded completely; 8827.18 MB usable, 415.20 MB loaded, full load: True
-Requested to load LTXAV
-loaded partially; 9528.19 MB usable, 9375.06 MB loaded, 2866.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:46,  6.64s/it] 25%|██▌       | 2/8 [00:12<00:38,  6.38s/it] 38%|███▊      | 3/8 [00:19<00:31,  6.29s/it] 50%|█████     | 4/8 [00:25<00:25,  6.28s/it] 62%|██████▎   | 5/8 [00:31<00:18,  6.22s/it] 75%|███████▌  | 6/8 [00:37<00:12,  6.24s/it] 88%|████████▊ | 7/8 [00:44<00:06,  6.27s/it]100%|██████████| 8/8 [00:50<00:00,  6.33s/it]100%|██████████| 8/8 [00:50<00:00,  6.31s/it]
-Requested to load VideoVAE
-Unloaded partially: 2295.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 201
-loaded completely; 2641.74 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9384.59 MB usable, 9231.14 MB loaded, 3010.83 MB offloaded, 153.44 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:10<00:20, 10.34s/it] 67%|██████▋   | 2/3 [00:20<00:10, 10.13s/it]100%|██████████| 3/3 [00:30<00:00, 10.01s/it]100%|██████████| 3/3 [00:30<00:00, 10.06s/it]
-Requested to load VideoVAE
-Unloaded partially: 9231.14 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 681
-loaded completely; 3598.88 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 7151.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 105.26 seconds
-Saved video: ../output\scene_1.3_1.mp4
-💾 Checkpoint saved for chunk: scene_1.3_1
-Generating chunk: scene_1.3_2 (73 frames)
-🔍 Frame prefix: scene_1.3_1.frame_
-⚠️ Failed to find last saved frame from previous chunk, using original image
-✅ Split audio chunk: scene_1.3_2.wav (3.042s, start: 3.042s)
-🎬 Using master prompt for 1.3
-Full prompt: Style: anime - cozy living room - The young man sits in a dark blue armchair near a fireplace, his hand outstretched as he speaks. He is talking in an incredulous tone saying: "You expect me to believe that?". His brow furrows with skepticism while the fire crackles softly behind him. To the right, another figure stands by a large window overlooking green trees and distant hills under a cloudy sky. This person holds a magnifying glass upright near their face, examining something intently in silence. The only sounds are the gentle pop of the fireplace flames, the soft creaking of wooden furniture settling, and the faint whisper of wind outside the window.
-got prompt
-Waiting for video generation completion (prompt_id: 3af48fba-e673-43ab-b9ec-b630df8250fb)...
-loaded partially; 9528.19 MB usable, 9375.06 MB loaded, 2866.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:48,  6.95s/it] 25%|██▌       | 2/8 [00:13<00:40,  6.68s/it] 38%|███▊      | 3/8 [00:19<00:32,  6.58s/it] 50%|█████     | 4/8 [00:26<00:26,  6.53s/it] 62%|██████▎   | 5/8 [00:32<00:19,  6.49s/it] 75%|███████▌  | 6/8 [00:39<00:12,  6.42s/it] 88%|████████▊ | 7/8 [00:45<00:06,  6.40s/it]100%|██████████| 8/8 [00:51<00:00,  6.35s/it]100%|██████████| 8/8 [00:51<00:00,  6.46s/it]
-Requested to load VideoVAE
-Unloaded partially: 2295.12 MB freed, 7079.94 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 882
-loaded completely; 2641.74 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9384.59 MB usable, 9231.14 MB loaded, 3010.83 MB offloaded, 153.44 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.91s/it] 67%|██████▋   | 2/3 [00:19<00:09,  9.86s/it]100%|██████████| 3/3 [00:30<00:00, 10.07s/it]100%|██████████| 3/3 [00:30<00:00, 10.02s/it]
-Requested to load VideoVAE
-Unloaded partially: 9231.14 MB freed, 0.00 MB remains loaded, 1224.34 MB buffer reserved, lowvram patches: 1362
-loaded completely; 3598.88 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 7151.37 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 100.08 seconds
-Saved video: ../output\scene_1.3_2.mp4
-💾 Checkpoint saved for chunk: scene_1.3_2
-Generating chunk: scene_1.3_3 (73 frames)
-🔍 Frame prefix: scene_1.3_2.frame_
-⚠️ Failed to find last saved frame from previous chunk, using original image
-✅ Split audio chunk: scene_1.3_3.wav (3.042s, start: 6.083s)
-🎬 Using master prompt for 1.3
-Full prompt: Style: anime - cozy living room - The young man sits in a dark blue armchair near a fireplace, his hand outstretched as he speaks. He is talking in an incredulous tone saying: "You expect me to believe that?". His brow furrows with skepticism while the fire crackles softly behind him. To the right, another figure stands by a large window overlooking green trees and distant hills under a cloudy sky. This person holds a magnifying glass upright near their face, examining something intently in silence. The only sounds are the gentle pop of the fireplace flames, the soft creaking of wooden furniture settling, and the faint whisper of wind outside the window.
-got prompt
-Waiting for video generation completion (prompt_id: 61c349da-5f02-43a4-a402-5cd981d9bfef)...
-loaded partially; 9528.19 MB usable, 9375.06 MB loaded, 2866.91 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:06<00:47,  6.81s/it] 25%|██▌       | 2/8 [00:13<00:39,  6.56s/it] 38%|███▊      | 3/8 [00:19<00:32,  6.57s/it] 50%|█████     | 4/8 [00:26<00:26,  6.56s/it]Traceback (most recent call last):
-  File "D:\.comfyui\gen.av\scripts\2.av.py", line 1942, in <module>
-    exit(main())
-         ^^^^^^
-  File "D:\.comfyui\gen.av\scripts\2.av.py", line 1916, in main
-    results = generator.generate_all_videos(force_regenerate=args.force, resumable_state=resumable_state)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\.comfyui\gen.av\scripts\2.av.py", line 1688, in generate_all_videos
-    output_paths = self._generate_video(scene_name, description, image_path, duration, motion_data, resumable_state, dialogue, scene_description_only, audio_file)
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\.comfyui\gen.av\scripts\2.av.py", line 1340, in _generate_video
-    time.sleep(3)  # Video generation takes longer
-    ^^^^^^^^^^^^^
-KeyboardInterrupt
-Received signal 2. Cleaning up services...
-Stopping ComfyUI backend...
-ComfyUI still responding; waiting for shutdown...
-ComfyUI appears stopped (after 2 checks).
+  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:09<00:19,  9.88s/it]

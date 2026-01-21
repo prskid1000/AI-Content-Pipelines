@@ -20,8 +20,8 @@ CONCAT_AFTER_COMPLETION = True  # Set to True to merge chunks at the end after a
 SOUND_MODE = "AUDIO"  # "TEXT" for text dialogues, "AUDIO" for audio file inputs
 
 # Video configuration constants
-VIDEO_WIDTH = 960
-VIDEO_HEIGHT = 540
+VIDEO_WIDTH = 1280
+VIDEO_HEIGHT = 720
 FRAMES_PER_SECOND = 24
 CHUNK_SIZE = 3  # Maximum seconds per chunk (3 seconds max for AV)
 
