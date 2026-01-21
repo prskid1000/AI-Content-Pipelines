@@ -14,16 +14,6 @@ ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 WORKFLOW_SUMMARY_ENABLED = False # Set to True to enable workflow summary printing
 
-# Image resizing configuration
-# Character image resize factor: 0.125 (12.5% of original size) - Better aspect ratio for stitching
-CHARACTER_RESIZE_FACTOR = 10.0
-# Location image resize factor: 1.0 = no resize, 2.0 = double size, 0.5 = half size
-LOCATION_RESIZE_FACTOR = 10.0
-
-# Image compression configuration
-# JPEG quality: 1-100 (100 = best quality, larger file; 1 = worst quality, smaller file)
-IMAGE_COMPRESSION_QUALITY = 100
-
 # Character prompt handling modes
 # "IMAGE_TEXT" Send character images + character details appended from characters.txt
 # "TEXT" Only character details from characters.txt
@@ -800,117 +790,45 @@ class SceneGenerator:
         return image_path if os.path.exists(image_path) else None
 
     def _copy_character_images_to_comfyui(self, character_names: list[str]) -> dict[str, str]:
-        """Copy, resize, and compress character images to ComfyUI input directory."""
+        """Copy character images to ComfyUI input directory."""
         copied_images = {}
         for char_name in character_names:
             source_path = self._get_character_image_path(char_name)
             if source_path:
                 clean_name = re.sub(r'[^\w\s.-]', '', char_name).strip()
                 clean_name = re.sub(r'[-\s]+', '_', clean_name)
-                dest_path = os.path.join(self.comfyui_input_folder, f"{clean_name}.jpg")
+                # Preserve original file extension
+                source_ext = os.path.splitext(source_path)[1]
+                dest_path = os.path.join(self.comfyui_input_folder, f"{clean_name}{source_ext}")
                 
                 try:
-                    # Open, resize, compress and save the image
-                    with Image.open(source_path) as img:
-                        # Convert RGBA to RGB if necessary (for JPEG compatibility)
-                        if img.mode in ('RGBA', 'LA'):
-                            # Create white background
-                            background = Image.new('RGB', img.size, (255, 255, 255))
-                            if img.mode == 'RGBA':
-                                background.paste(img, mask=img.split()[-1])  # Use alpha channel as mask
-                            else:
-                                background.paste(img)
-                            img = background
-                        elif img.mode != 'RGB':
-                            img = img.convert('RGB')
-                        
-                        # Resize the image using the resize factor
-                        if CHARACTER_RESIZE_FACTOR != 1.0:
-                            original_width, original_height = img.width, img.height
-                            new_width = int(img.width * CHARACTER_RESIZE_FACTOR)
-                            new_height = int(img.height * CHARACTER_RESIZE_FACTOR)
-                            
-                            print(f"Resizing {char_name} image: {original_width}x{original_height} → {new_width}x{new_height} (factor: {CHARACTER_RESIZE_FACTOR}x)")
-                            
-                            # Resize with aspect ratio preserved
-                            img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
-                        else:
-                            print(f"Skipping resize for {char_name} image (factor: {CHARACTER_RESIZE_FACTOR})")
-                        
-                        # Save with compression
-                        img.save(dest_path, 'JPEG', quality=IMAGE_COMPRESSION_QUALITY, optimize=True)
-                    
+                    shutil.copy2(source_path, dest_path)
                     copied_images[char_name] = dest_path
-                    
-                    # Get file sizes for logging
-                    original_size = os.path.getsize(source_path) / 1024  # KB
-                    compressed_size = os.path.getsize(dest_path) / 1024  # KB
-                    compression_ratio = (1 - compressed_size / original_size) * 100
-                    
-                    print(f"Compressed {char_name} image: {original_size:.1f}KB → {compressed_size:.1f}KB ({compression_ratio:.1f}% reduction)")
-                    
+                    print(f"Copied {char_name} image to {dest_path}")
                 except Exception as e:
-                    print(f"ERROR: Failed to compress image for {char_name}: {e}")
-                    # Fallback to simple copy
-                    shutil.copy2(source_path, dest_path.replace('.jpg', '.png'))
-                    copied_images[char_name] = dest_path.replace('.jpg', '.png')
+                    print(f"ERROR: Failed to copy image for {char_name}: {e}")
             else:
                 print(f"WARNING: Character image not found for: {char_name}")
         return copied_images
 
     def _copy_location_images_to_comfyui(self, location_ids: list[str]) -> dict[str, str]:
-        """Copy, resize, and compress location images to ComfyUI input directory."""
+        """Copy location images to ComfyUI input directory."""
         copied_images = {}
         for location_id in location_ids:
             source_path = self._get_location_image_path(location_id)
             if source_path:
                 clean_name = re.sub(r'[^\w\s.-]', '', location_id).strip()
                 clean_name = re.sub(r'[-\s]+', '_', clean_name)
-                dest_path = os.path.join(self.comfyui_input_folder, f"loc_{clean_name}.jpg")
+                # Preserve original file extension
+                source_ext = os.path.splitext(source_path)[1]
+                dest_path = os.path.join(self.comfyui_input_folder, f"loc_{clean_name}{source_ext}")
                 
                 try:
-                    # Open, resize, compress and save the image
-                    with Image.open(source_path) as img:
-                        # Convert RGBA to RGB if necessary (for JPEG compatibility)
-                        if img.mode in ('RGBA', 'LA'):
-                            # Create white background
-                            background = Image.new('RGB', img.size, (255, 255, 255))
-                            if img.mode == 'RGBA':
-                                background.paste(img, mask=img.split()[-1])  # Use alpha channel as mask
-                            else:
-                                background.paste(img)
-                            img = background
-                        elif img.mode != 'RGB':
-                            img = img.convert('RGB')
-                        
-                        # Resize the image using the location resize factor (separate from character resize)
-                        if LOCATION_RESIZE_FACTOR != 1.0:
-                            original_width, original_height = img.width, img.height
-                            new_width = int(img.width * LOCATION_RESIZE_FACTOR)
-                            new_height = int(img.height * LOCATION_RESIZE_FACTOR)
-                            print(f"Resizing {location_id} image: {original_width}x{original_height} → {new_width}x{new_height} (factor: {LOCATION_RESIZE_FACTOR}x)")
-                            # Resize with aspect ratio preserved
-                            img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
-                        else:
-                            print(f"Skipping resize for {location_id} image (factor: {LOCATION_RESIZE_FACTOR})")
-                        
-                        # Save with compression
-                        img.save(dest_path, 'JPEG', quality=IMAGE_COMPRESSION_QUALITY, optimize=True)
-                    
+                    shutil.copy2(source_path, dest_path)
                     copied_images[location_id] = dest_path
-                    
-                    # Get file sizes for logging
-                    original_size = os.path.getsize(source_path) / 1024  # KB
-                    compressed_size = os.path.getsize(dest_path) / 1024  # KB
-                    compression_ratio = (1 - compressed_size / original_size) * 100
-                    
-                    print(f"Compressed {location_id} image: {original_size:.1f}KB → {compressed_size:.1f}KB ({compression_ratio:.1f}% reduction)")
-                    
+                    print(f"Copied {location_id} image to {dest_path}")
                 except Exception as e:
-                    print(f"ERROR: Failed to compress image for {location_id}: {e}")
-                    # Fallback to simple copy
-                    shutil.copy2(source_path, dest_path.replace('.jpg', '.png'))
-                    copied_images[location_id] = dest_path.replace('.jpg', '.png')
+                    print(f"ERROR: Failed to copy image for {location_id}: {e}")
             else:
                 print(f"WARNING: Location image not found for: {location_id}")
         return copied_images

@@ -829,9 +829,6 @@ ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False
 IMAGE_WIDTH = 1280
 IMAGE_HEIGHT = 720
-CHARACTER_RESIZE_FACTOR = 1  # 100% original size
-LOCATION_RESIZE_FACTOR = 1.0  # Location resize: 1.0 = no resize, 2.0 = double size, 0.5 = half size
-IMAGE_COMPRESSION_QUALITY = 95
 ACTIVE_CHARACTER_MODE = "IMAGE"  # "IMAGE_TEXT", "TEXT", "IMAGE", "NONE"
 ACTIVE_LOCATION_MODE = "TEXT"   # "IMAGE_TEXT", "TEXT", "IMAGE", "NONE"
 LATENT_MODE = "LATENT"
@@ -1996,11 +1993,6 @@ WORKFLOW_SUMMARY_ENABLED = False
 # Image Resolution
 IMAGE_WIDTH = 1280
 IMAGE_HEIGHT = 720
-
-# Image Processing
-CHARACTER_RESIZE_FACTOR = 1  # Character resize: 1 = 100% original size
-LOCATION_RESIZE_FACTOR = 1.0  # Location resize: 1.0 = no resize, 2.0 = double size, 0.5 = half size
-IMAGE_COMPRESSION_QUALITY = 95  # JPEG quality: 1-100
 
 # Prompt Handling Modes
 ACTIVE_CHARACTER_MODE = "IMAGE"  # "IMAGE_TEXT", "TEXT", "IMAGE", "NONE"
@@ -3332,8 +3324,6 @@ This is a modular system designed for easy extension. Each script is self-contai
 | **Character Mode** | ❌ N/A | ❌ N/A | ✅ IMAGE_TEXT | How characters are handled |
 | **Location Mode** | ❌ N/A | ❌ N/A | ✅ TEXT | How locations are handled |
 | **Image Stitching** | ❌ N/A | ❌ N/A | ✅ 1 image | Combine multiple images |
-| **Character Resize** | ❌ N/A | ❌ N/A | ✅ 0.5 (50%) | Resize factor for stitching |
-| **Compression Quality** | ❌ N/A | ❌ N/A | ✅ 90 | JPEG quality 1-100 |
 | **Title Text Overlay** | ❌ N/A | ❌ N/A | ❌ N/A | Thumbnail only |
 | **Title Position** | ❌ N/A | ❌ N/A | ❌ N/A | Thumbnail only |
 | **Workflow Summary** | ✅ Enabled | ❌ Disabled | ❌ Disabled | Debug mode |
