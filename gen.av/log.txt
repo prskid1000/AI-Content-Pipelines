@@ -10,7 +10,6 @@ Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_4.wav
 Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_5.wav
 Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_6.wav
 Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_7.wav
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_8.wav
 Removed file: D:\.comfyui\ComfyUI\output\._00001_.png
 Removed file: D:\.comfyui\ComfyUI\output\._00002_.png
 Removed file: D:\.comfyui\ComfyUI\output\._00003_.png
@@ -91,9 +90,9 @@ Starting LM Studio backend via lms CLI...
 Command: lms server start
 Success! Server is now running on port 1234
 Waiting for LM Studio to become ready (polling every 15s)...
-LM Studio is ready after 0.1s (attempt 1).
+LM Studio is ready after 0.0s (attempt 1).
 
-===== START D:\.comfyui\gen.video\scripts\2.motion.py @ 2026-01-21 12:22:47 =====
+===== START D:\.comfyui\gen.video\scripts\2.motion.py @ 2026-01-21 13:25:43 =====
 Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.video\output\tracking
 Found existing checkpoint: D:\.comfyui\gen.video\output\tracking\2.motion.state.json
 Progress: Prompt Entries(15/15)
@@ -214,10 +213,15 @@ All operations completed successfully
 Final progress: Progress: Prompt Entries(15/15)
 All operations completed successfully - tracking files preserved
 
-===== END D:\.comfyui\gen.video\scripts\2.motion.py @ 2026-01-21 12:22:47 (exit=0, took=0.20s) =====
+===== END D:\.comfyui\gen.video\scripts\2.motion.py @ 2026-01-21 13:25:43 (exit=0, took=0.20s) =====
 Stopping LM Studio backend via lms CLI...
 Command: lms server stop
 Unloading all models from LM Studio...
 Command: lms unload --all
 No models to unload.
 Stopped the server on port 1234.
+LM Studio appears stopped (after 1 checks).
+
+Log time stats: writes=0.000s, flushes=0.000s, total=0.000s (~0.01% of runtime)
+
+All scripts completed successfully.

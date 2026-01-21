@@ -35,7 +35,7 @@ WORDS_TO_SPEECH_RATIO = 0.25  # 0.25 seconds per word (approximately 4 words per
 # Each switch controls a specific part of the LoRA chain
 ENABLE_SWITCH_279_286 = True   # Node 279:286 - Controls depth-control LoRA (ltx-2-19b-ic-lora-depth-control.safetensors)
 ENABLE_SWITCH_279_288 = True   # Node 279:288 - Controls canny-control LoRA (ltx-2-19b-ic-lora-canny-control.safetensors)
-ENABLE_SWITCH_279_289 = True   # Node 279:289 - Controls pose-control LoRA (ltx-2-19b-ic-lora-pose-control.safetensors)
+ENABLE_SWITCH_279_289 = False   # Node 279:289 - Controls pose-control LoRA (ltx-2-19b-ic-lora-pose-control.safetensors)
 ENABLE_SWITCH_279_290 = True   # Node 279:290 - Controls detailer LoRA (ltx-2-19b-ic-lora-detailer.safetensors)
 ENABLE_SWITCH_279_291 = True   # Node 279:291 - Final switch for first CFGGuider (279:239)
 ENABLE_SWITCH_279_292 = True   # Node 279:292 - Final switch for second CFGGuider (279:252)
@@ -1034,14 +1034,11 @@ class AVVideoGenerator:
             print_flush(f"💬 Added dialogue chunk to prompt: {dialogue[:50]}...")
         
 
-        # More detailed and technical talking instructions for better results
+        # Simplified talking instructions to reduce artifacts
         talking_instructions = (
-            "Close-up shot, person speaking directly to camera. "
-            "Natural lip synchronization with audio, mouth opening and closing in rhythm with speech. "
-            "Realistic facial expressions: eyebrow movements, eye contact, subtle head gestures. "
-            "Authentic speaking animation with varied mouth shapes (phonemes). "
-            "Natural breathing pauses, micro-expressions during dialogue. "
-            "Professional quality talking head video, well-lit face, clear facial features."
+            "Scene Includes a Dialogue spoken by a character."
+            "Natural lip sync with audio, smooth mouth movement. "
+            "Clear facial features, well-lit face."
         )
         
         if positive_prompt:

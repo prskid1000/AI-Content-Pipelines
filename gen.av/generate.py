@@ -75,7 +75,7 @@ SCRIPTS = [
 
     #Video
     "../gen.video/scripts/2.motion.py",
-    "2.av.py",
+    # "2.av.py",
 
     #Thumbnail
     # "../gen.audio/scripts/9.media.py",
