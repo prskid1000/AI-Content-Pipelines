@@ -1,53 +1,97 @@
 Workflow runner started. Python executable: D:\.comfyui\.venv\Scripts\python.exe
 Working directory: D:\.comfyui\gen.av
 Emptying ComfyUI input and output folders...
+Removed directory: D:\.comfyui\ComfyUI\input\3d
+Removed directory: D:\.comfyui\ComfyUI\output\audio
 Successfully emptied ComfyUI input and output folders.
-Tracking directory created with file hashes.
-Starting ComfyUI backend using Windows cmd style...
-Waiting for ComfyUI to become ready (polling every 15s)...
-[START] Security scan
-[DONE] Security scan
-## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2026-01-20 15:57:19.677
-** Platform: Windows
-** Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
-** Python executable: D:\.comfyui\.venv\Scripts\python.exe
-** ComfyUI Path: D:\.comfyui\ComfyUI
-** ComfyUI Base Folder Path: D:\.comfyui\ComfyUI
-** User directory: D:\.comfyui\ComfyUI\user
-** ComfyUI-Manager config path: D:\.comfyui\ComfyUI\user\__manager\config.ini
-** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
-ComfyUI not ready yet (attempt 1). Retrying in 15s...
+All tracked files unchanged. Preserving output directories.
+Starting LM Studio backend via lms CLI...
+Command: lms server start
+Success! Server is now running on port 1234
+Waiting for LM Studio to become ready (polling every 15s)...
+LM Studio is ready after 0.0s (attempt 1).
 
-Prestartup times for custom nodes:
-   2.4 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+===== START D:\.comfyui\gen.video\scripts\2.motion.py @ 2026-01-21 09:13:57 =====
+Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.video\output\tracking
+No existing checkpoint found - starting fresh
+🚀 Starting Master Prompt Generation...
+📁 Reading story from: ../input/1.story.txt
+Warning: Scene image not found for scene_1.4.png
+Warning: Scene image not found for scene_1.6.png
+Warning: Scene image not found for scene_1.9.png
+Warning: Scene image not found for scene_1.10.png
+Warning: Scene image not found for scene_1.11.png
+Warning: Scene image not found for scene_1.12.png
+Warning: Scene image not found for scene_1.13.png
+Warning: Scene image not found for scene_1.14.png
+Warning: Scene image not found for scene_1.15.png
+Warning: Scene image not found for scene_1.16.png
+Warning: Scene image not found for scene_1.17.png
+Warning: Scene image not found for scene_2.2.png
+Warning: Scene image not found for scene_2.11.png
+Warning: Scene image not found for scene_2.12.png
+Warning: Scene image not found for scene_2.13.png
+Warning: Scene image not found for scene_2.14.png
+Warning: Scene image not found for scene_2.15.png
+Warning: Scene image not found for scene_2.16.png
+Warning: Scene image not found for scene_2.17.png
+Warning: Scene image not found for scene_2.18.png
+Warning: Scene image not found for scene_3.1.png
+Warning: Scene image not found for scene_3.2.png
+Warning: Scene image not found for scene_3.3.png
+Warning: Scene image not found for scene_3.4.png
+Warning: Scene image not found for scene_3.5.png
+Warning: Scene image not found for scene_3.6.png
+Warning: Scene image not found for scene_3.7.png
+Warning: Scene image not found for scene_3.8.png
+Warning: Scene image not found for scene_3.9.png
+Warning: Scene image not found for scene_3.10.png
+Warning: Scene image not found for scene_3.11.png
+Warning: Scene image not found for scene_3.12.png
+Warning: Scene image not found for scene_3.13.png
+Warning: Scene image not found for scene_3.14.png
+Warning: Scene image not found for scene_3.15.png
+Warning: Scene image not found for scene_3.16.png
+Warning: Scene image not found for scene_3.17.png
+Warning: Scene image not found for scene_3.18.png
+Warning: Scene image not found for scene_3.19.png
+Warning: Scene image not found for scene_4.1.png
+Warning: Scene image not found for scene_4.2.png
+Warning: Scene image not found for scene_4.3.png
+Warning: Scene image not found for scene_4.4.png
+Warning: Scene image not found for scene_4.5.png
+Warning: Scene image not found for scene_4.6.png
+Warning: Scene image not found for scene_4.7.png
+Warning: Scene image not found for scene_4.8.png
+Warning: Scene image not found for scene_4.9.png
+Warning: Scene image not found for scene_4.10.png
+Warning: Scene image not found for scene_4.11.png
+Warning: Scene image not found for scene_4.12.png
+Warning: Scene image not found for scene_4.13.png
+Warning: Scene image not found for scene_4.14.png
+Warning: Scene image not found for scene_4.15.png
+Warning: Scene image not found for scene_4.16.png
+Warning: Scene image not found for scene_4.17.png
+Warning: Scene image not found for scene_4.18.png
+Warning: Scene image not found for scene_4.19.png
+Warning: Scene image not found for scene_4.20.png
+Warning: Scene image not found for scene_4.21.png
+Warning: Scene image not found for scene_5.1.png
+Warning: Scene image not found for scene_5.2.png
+Warning: Scene image not found for scene_5.3.png
+Warning: Scene image not found for scene_5.4.png
+Warning: Scene image not found for scene_5.5.png
+Warning: Scene image not found for scene_5.6.png
+Warning: Scene image not found for scene_5.7.png
+Warning: Scene image not found for scene_5.8.png
+Warning: Scene image not found for scene_5.9.png
+Warning: Scene image not found for scene_5.10.png
+📋 Parsed 15 story scenes with dialogue and corresponding images
+📊 Found 15 story scenes
+📊 Story contains 790 words
 
-Checkpoint files will always be loaded safely.
-Total VRAM 12227 MB, total RAM 64957 MB
-pytorch version: 2.9.1+cu130
-Set vram state to: NORMAL_VRAM
-Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
-Using async weight offloading with 16 streams
-Enabled pinned memory 29230.0
-working around nvidia conv3d memory bug.
-Found comfy_kitchen backend triton: {'available': True, 'disabled': True, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8']}
-Found comfy_kitchen backend cuda: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
-Found comfy_kitchen backend eager: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
-Using pytorch attention
-Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
-ComfyUI version: 0.10.0
-ComfyUI frontend version: 1.37.11
-[Prompt Server] web root: D:\.comfyui\.venv\Lib\site-packages\comfyui_frontend_package\static
-ComfyUI-GGUF: Allowing full torch compile
-### Loading: ComfyUI-Manager (V3.39.2)
-[ComfyUI-Manager] network_mode: public
-[ComfyUI-Manager] ComfyUI per-queue preview override detected (PR #11261). Manager's preview method feature is disabled. Use ComfyUI's --preview-method CLI option or 'Settings > Execution > Live preview method'.
-### ComfyUI Version: v0.10.0-4-g8ccc0c94 | Released on '2026-01-20'
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
-
-[32mInitializing ControlAltAI Nodes[0m
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
-ComfyUI not ready yet (attempt 2). Retrying in 15s...
+📊 MASTER PROMPT GENERATION PROGRESS
+====================================================================================================
+🔄 Scene 1/15 (1.1) - It was one of those grey London mornings when the  - Processing...
+📊 Estimated time remaining: ~47s (?)
+🖼️  Including image: scene_1.1.png (base64 length: 2054486 chars)

@@ -16,6 +16,9 @@ WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary print
 ENABLE_DIALOGUE_CHUNKS = True  # Set to True to include dialogue chunks in ComfyUI prompts, False to exclude dialogue
 CONCAT_AFTER_COMPLETION = True  # Set to True to merge chunks at the end after all scenes are done, False to merge immediately after each scene
 
+# Sound mode configuration
+SOUND_MODE = "AUDIO"  # "TEXT" for text dialogues, "AUDIO" for audio file inputs
+
 # Video configuration constants
 VIDEO_WIDTH = 1024
 VIDEO_HEIGHT = 576
@@ -224,6 +227,10 @@ class AVVideoGenerator:
         self.workflow_file = "../workflow/movie.json"
         # Motion data file (master prompts generated in 2.motion.py)
         self.motion_file = "../input/2.motion.txt"
+        # Audio input directory (for audio files when SOUND_MODE=AUDIO)
+        self.audio_input_dir = "../input/audio"
+        # Audio chunks directory from story.py output (when SOUND_MODE=AUDIO)
+        self.story_audio_output_dir = "../../gen.audio/output/story"
 
         # Time estimation tracking
         self.processing_times = []
@@ -366,10 +373,13 @@ class AVVideoGenerator:
             return f"{hours:.1f}h"
 
     def read_story_data(self) -> Tuple[List[float], List[Dict[str, str]]]:
-        """Read and parse story file to extract scenes with dialogue and calculate durations.
+        """Read and parse story file to extract scenes with dialogue/audio and calculate durations.
+        
+        When SOUND_MODE=AUDIO, uses audio chunks from story.py output (gen.audio/output/story/)
+        instead of reading audio filenames from story.txt.
         
         Returns:
-            Tuple of (durations, scenes) where scenes contain scene_name, scene_id, description, dialogue
+            Tuple of (durations, scenes) where scenes contain scene_name, scene_id, description, dialogue/audio_file
         """
         durations: List[float] = []
         scenes: List[Dict[str, str]] = []
@@ -388,16 +398,52 @@ class AVVideoGenerator:
         while i < len(lines):
             line = lines[i].strip()
             
-            # Look for dialogue lines (format: [speaker] dialogue text...)
+            # Look for dialogue/audio lines (format: [speaker] dialogue text... or [speaker] audio_file.wav)
             if line.startswith('[') and ']' in line:
-                # Extract dialogue
+                # Extract speaker and content
                 dialogue_end = line.find(']')
                 speaker = line[1:dialogue_end]
-                dialogue_text = line[dialogue_end + 1:].strip()
+                content = line[dialogue_end + 1:].strip()
                 
-                # Count words in dialogue
-                word_count = len(dialogue_text.split())
-                duration = word_count * WORDS_TO_SPEECH_RATIO
+                duration = 0.0
+                dialogue_text = ""
+                audio_file = None
+                
+                if SOUND_MODE == "AUDIO":
+                    # Use audio chunks from story.py output (gen.audio/output/story/)
+                    # Dialogue line number (1-indexed) - this dialogue is on line i+1
+                    dialogue_line_num = i + 1
+                    
+                    # Look for audio chunk file: {start_line}_{end_line}.wav
+                    # story.py creates chunks based on CHUNK_SIZE
+                    # If CHUNK_SIZE=1, each dialogue gets its own chunk: {line_num}_{line_num}.wav
+                    # If CHUNK_SIZE > 1, chunks contain multiple dialogues: {start}_{end}.wav
+                    # We find the chunk that contains this dialogue line number
+                    audio_file = self._find_audio_chunk_for_line(dialogue_line_num)
+                    
+                    if not audio_file:
+                        print_flush(f"⚠️ Audio chunk not found for dialogue on line {dialogue_line_num}")
+                        i += 1
+                        continue
+                    
+                    # Get duration from audio chunk
+                    audio_path = os.path.join(self.story_audio_output_dir, audio_file)
+                    if not os.path.exists(audio_path):
+                        print_flush(f"⚠️ Audio chunk file not found: {audio_path}")
+                        i += 1
+                        continue
+                    
+                    duration = self._get_audio_duration(audio_path)
+                    if duration <= 0:
+                        print_flush(f"⚠️ Could not get duration for audio chunk: {audio_file}")
+                        i += 1
+                        continue
+                else:
+                    # Content is dialogue text
+                    dialogue_text = content
+                    # Count words in dialogue
+                    word_count = len(dialogue_text.split())
+                    duration = word_count * WORDS_TO_SPEECH_RATIO
                 
                 # Look for the next scene line
                 j = i + 1
@@ -417,23 +463,38 @@ class AVVideoGenerator:
                 
                 if scene_id and scene_description:
                     scene_name = f"scene_{scene_id}"
-                    # Build description from dialogue + scene description
-                    full_description = f"{dialogue_text}\n{scene_description}"
+                    
+                    if SOUND_MODE == "AUDIO":
+                        # Build description from scene description only (no dialogue text)
+                        full_description = scene_description
+                        scenes.append({
+                            "scene_name": scene_name,
+                            "scene_id": scene_id,
+                            "description": full_description,
+                            "dialogue": "",  # No dialogue text in audio mode
+                            "speaker": speaker,
+                            "audio_file": audio_file  # Store audio filename
+                        })
+                    else:
+                        # Build description from dialogue + scene description
+                        full_description = f"{dialogue_text}\n{scene_description}"
+                        scenes.append({
+                            "scene_name": scene_name,
+                            "scene_id": scene_id,
+                            "description": full_description,
+                            "dialogue": dialogue_text,
+                            "speaker": speaker,
+                            "audio_file": None
+                        })
                     
                     durations.append(duration)
-                    scenes.append({
-                        "scene_name": scene_name,
-                        "scene_id": scene_id,
-                        "description": full_description,
-                        "dialogue": dialogue_text,
-                        "speaker": speaker
-                    })
                 
                 i = j + 1 if scene_id else i + 1
             else:
                 i += 1
         
-        print_flush(f"📋 Loaded {len(durations)} scenes with dialogue from {self.story_file}")
+        mode_str = "audio files" if SOUND_MODE == "AUDIO" else "dialogue"
+        print_flush(f"📋 Loaded {len(durations)} scenes with {mode_str} from {self.story_file}")
         return durations, scenes
 
     def _read_motion_data(self) -> dict[str, str]:
@@ -503,6 +564,7 @@ class AVVideoGenerator:
                     "dialogue": dialogue,
                     "speaker": speaker,
                     "scene_description": scene_description,  # Store scene description separately
+                    "audio_file": scene.get("audio_file"),  # Store audio filename if in AUDIO mode
                     "total_duration": duration,
                     "first_occurrence": i,
                     "occurrences": [i]
@@ -684,6 +746,136 @@ class AVVideoGenerator:
             print(f"❌ Error finding last saved frame: {e}")
             return None
 
+    def _find_audio_chunk_for_line(self, line_num: int) -> str | None:
+        """Find audio chunk file that corresponds to a specific line number.
+        
+        Audio chunks from story.py are named {start_line}_{end_line}.wav
+        We need to find the chunk that contains this line number.
+        
+        Args:
+            line_num: Line number (1-indexed) of the dialogue
+            
+        Returns:
+            Audio chunk filename (e.g., "5_5.wav") or None if not found
+        """
+        try:
+            if not os.path.exists(self.story_audio_output_dir):
+                print_flush(f"⚠️ Audio output directory not found: {self.story_audio_output_dir}")
+                return None
+            
+            # List all audio chunk files
+            audio_files = [f for f in os.listdir(self.story_audio_output_dir) 
+                          if f.endswith('.wav')]
+            
+            if not audio_files:
+                print_flush(f"⚠️ No audio chunks found in {self.story_audio_output_dir}")
+                return None
+            
+            # Parse filenames to find chunk containing this line
+            # Format: {start_line}_{end_line}.wav
+            for audio_file in sorted(audio_files):
+                # Extract start and end line numbers from filename
+                base_name = os.path.splitext(audio_file)[0]  # Remove .wav
+                if '_' in base_name:
+                    try:
+                        parts = base_name.split('_')
+                        start_line = int(parts[0])
+                        end_line = int(parts[1])
+                        
+                        # Check if this line number is within this chunk's range
+                        if start_line <= line_num <= end_line:
+                            return audio_file
+                    except ValueError:
+                        # Skip files that don't match the expected format
+                        continue
+            
+            # If no exact match, try to find by line number alone (for single-line chunks)
+            # Look for {line_num}_{line_num}.wav
+            expected_filename = f"{line_num}_{line_num}.wav"
+            if expected_filename in audio_files:
+                return expected_filename
+            
+            print_flush(f"⚠️ No audio chunk found for line {line_num}")
+            return None
+            
+        except Exception as e:
+            print_flush(f"❌ Error finding audio chunk for line {line_num}: {e}")
+            return None
+
+    def _get_audio_duration(self, audio_path: str) -> float:
+        """Get audio file duration in seconds using ffprobe.
+        
+        Args:
+            audio_path: Path to audio file
+            
+        Returns:
+            Duration in seconds, or 0.0 if error
+        """
+        try:
+            duration_cmd = [
+                'ffprobe',
+                '-v', 'quiet',
+                '-show_entries', 'format=duration',
+                '-of', 'default=noprint_wrappers=1:nokey=1',
+                audio_path
+            ]
+            
+            duration_result = subprocess.run(duration_cmd, capture_output=True, text=True, timeout=30)
+            
+            if duration_result.returncode == 0:
+                duration = float(duration_result.stdout.strip())
+                return duration
+            else:
+                print_flush(f"⚠️ Could not get audio duration for {audio_path}")
+                return 0.0
+        except Exception as e:
+            print_flush(f"❌ Error getting audio duration for {audio_path}: {e}")
+            return 0.0
+
+    def _split_audio_file(self, audio_path: str, chunk_duration: float, start_time: float, chunk_scene_id: str) -> str | None:
+        """Split audio file into chunk and copy to ComfyUI input folder.
+        
+        Each dialogue line has one audio file from story.py. If that audio file
+        duration > CHUNK_SIZE (3 seconds), we split it into multiple chunks to
+        match the video chunks exactly.
+        
+        Args:
+            audio_path: Path to source audio file (one audio file per dialogue line from story.py)
+            chunk_duration: Duration of this chunk in seconds (must match video chunk duration exactly)
+            start_time: Start time in seconds within the audio file (cumulative from previous chunks)
+            chunk_scene_id: Scene ID for naming the chunk file
+            
+        Returns:
+            Filename of the audio chunk in ComfyUI input folder, or None if error
+        """
+        try:
+            
+            # Generate output filename
+            audio_filename = f"{chunk_scene_id}.wav"
+            dest_path = os.path.join(self.comfyui_input_folder, audio_filename)
+            
+            # Use ffmpeg to extract the chunk
+            cmd = [
+                'ffmpeg',
+                '-i', audio_path,
+                '-ss', str(start_time),
+                '-t', str(chunk_duration),
+                '-y',  # Overwrite output file
+                dest_path
+            ]
+            
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+            
+            if result.returncode == 0:
+                print_flush(f"✅ Split audio chunk: {audio_filename} ({chunk_duration:.3f}s, start: {start_time:.3f}s)")
+                return audio_filename
+            else:
+                print_flush(f"❌ Error splitting audio chunk: {result.stderr}")
+                return None
+        except Exception as e:
+            print_flush(f"❌ Error splitting audio file: {e}")
+            return None
+
     def _extract_last_frame(self, video_path: str, output_image_path: str) -> bool:
         """Extract the last frame from a video file using ffmpeg.
         
@@ -790,7 +982,7 @@ class AVVideoGenerator:
             print(f"ERROR: Failed to copy image {image_path}: {e}")
             return None
 
-    def _build_av_workflow(self, chunk_scene_id: str, scene_description: str, image_filename: str, duration: float = None, motion_data: dict[str, str] = None, frame_count: int = None, dialogue: str = "") -> dict:
+    def _build_av_workflow(self, chunk_scene_id: str, scene_description: str, image_filename: str, duration: float = None, motion_data: dict[str, str] = None, frame_count: int = None, dialogue: str = "", audio_filename: str = None) -> dict:
         """Build AV workflow with scene image and description.
         
         Args:
@@ -801,6 +993,7 @@ class AVVideoGenerator:
             motion_data: Master prompts for scenes (generated in 2.motion.py)
             frame_count: Number of frames to generate (overrides duration)
             dialogue: Dialogue text for this chunk (optional, only used if ENABLE_DIALOGUE_CHUNKS is True)
+            audio_filename: Audio filename in ComfyUI input folder (optional, only used if SOUND_MODE=AUDIO)
         """
         workflow = self._load_base_workflow()
         if not workflow:
@@ -875,6 +1068,28 @@ class AVVideoGenerator:
         if "3000" in workflow:
             workflow["3000"]["inputs"]["filename_prefix"] = f"{chunk_scene_id}_frame"
         
+        # Configure audio input and switch (when SOUND_MODE=AUDIO)
+        if SOUND_MODE == "AUDIO" and audio_filename:
+            # Node "281" is the audio input (LoadAudio) - set audio filename
+            if "281" in workflow:
+                workflow["281"]["inputs"]["audio"] = audio_filename
+            
+            # Node "279:298" is the audio switch - enable audio (set to True)
+            if "279:298" in workflow:
+                workflow["279:298"]["inputs"]["switch"] = True
+            
+            # Node "279:304" calculates duration from frame_count - update if needed
+            # Duration calculation: frame_count / fps = duration in seconds
+            if "279:303" in workflow and "279:304" in workflow:
+                # Node "279:303" converts frame_count (int) to float
+                # Node "279:304" divides by fps (24) to get duration
+                # The duration is already calculated correctly from frame_count
+                pass
+        else:
+            # Disable audio switch when not using audio
+            if "279:298" in workflow:
+                workflow["279:298"]["inputs"]["switch"] = False
+        
         # Configure LoRA switches (6 switches total)
         # Node "279:286" - Depth Control LoRA switch
         if "279:286" in workflow:
@@ -909,7 +1124,7 @@ class AVVideoGenerator:
             return chunk_scene_id[6:]  # Remove "scene_" (6 chars)
         return chunk_scene_id
 
-    def _generate_video(self, scene_id: str, scene_description: str, image_path: str, duration: float = None, motion_data: dict[str, str] = None, resumable_state=None, dialogue: str = "", scene_description_only: str = "") -> List[str] | None:
+    def _generate_video(self, scene_id: str, scene_description: str, image_path: str, duration: float = None, motion_data: dict[str, str] = None, resumable_state=None, dialogue: str = "", scene_description_only: str = "", audio_file: str = None) -> List[str] | None:
         """Generate video(s) from a scene image using ComfyUI with frame continuity between chunks.
         
         Args:
@@ -921,6 +1136,7 @@ class AVVideoGenerator:
             resumable_state: Resumable state manager
             dialogue: Dialogue text (will be split across chunks)
             scene_description_only: Scene description without dialogue (used for all chunks)
+            audio_file: Audio filename (when SOUND_MODE=AUDIO)
         
         Returns:
             List of generated video file paths, or None if failed
@@ -977,6 +1193,7 @@ class AVVideoGenerator:
 
             generated_videos = []
             current_input_image = image_filename  # Track the current input image for continuity
+            cumulative_audio_time = 0.0  # Track cumulative audio time for accurate splitting
             
             for chunk_idx, (chunk_suffix, chunk_frames, chunk_duration) in enumerate(chunks):
                 chunk_scene_id = f"{scene_id}{chunk_suffix}"
@@ -1040,9 +1257,44 @@ class AVVideoGenerator:
                         print(f"⚠️ Failed to find last saved frame from previous chunk, using original image")
                         current_input_image = image_filename
                 
-                # Split dialogue for this chunk if dialogue exists
+                # Handle audio or dialogue for this chunk
                 chunk_dialogue = ""
-                if dialogue:
+                audio_filename = None
+                
+                if SOUND_MODE == "AUDIO" and audio_file:
+                    # Each dialogue line has one audio file from story.py output
+                    # If that audio file duration > CHUNK_SIZE, we split it into chunks
+                    source_audio_path = os.path.join(self.story_audio_output_dir, audio_file)
+                    
+                    if not os.path.exists(source_audio_path):
+                        print(f"❌ Audio chunk not found: {source_audio_path}")
+                        continue
+                    
+                    # Get the duration of the audio file
+                    audio_duration = self._get_audio_duration(source_audio_path)
+                    
+                    # If audio duration > CHUNK_SIZE, split it into chunks matching video chunks
+                    if audio_duration > CHUNK_SIZE:
+                        # Extract the portion of audio for this video chunk
+                        # Use cumulative_audio_time to ensure exact alignment with video chunk
+                        audio_filename = self._split_audio_file(source_audio_path, chunk_duration, cumulative_audio_time, chunk_scene_id)
+                        if not audio_filename:
+                            print(f"❌ Failed to split audio chunk {chunk_idx + 1}")
+                            continue
+                        # Update cumulative time for next chunk
+                        cumulative_audio_time += chunk_duration
+                    else:
+                        # Audio duration <= CHUNK_SIZE - use the whole audio file (single chunk)
+                        audio_filename = f"{chunk_scene_id}.wav"
+                        dest_audio_path = os.path.join(self.comfyui_input_folder, audio_filename)
+                        try:
+                            shutil.copy2(source_audio_path, dest_audio_path)
+                            print_flush(f"✅ Copied audio file: {audio_file} -> {audio_filename} ({audio_duration:.2f}s)")
+                        except Exception as e:
+                            print(f"❌ Failed to copy audio file: {e}")
+                            continue
+                elif dialogue:
+                    # Split dialogue for this chunk if dialogue exists
                     chunk_dialogue = self._split_dialogue_for_chunk(dialogue, chunk_idx)
                     if chunk_dialogue:
                         word_count = len(chunk_dialogue.split())
@@ -1056,7 +1308,7 @@ class AVVideoGenerator:
                     chunk_description = scene_description_only if scene_description_only else scene_description
                 
                 # Build workflow for this chunk (single image only, no guide images)
-                workflow = self._build_av_workflow(chunk_scene_id, chunk_description, current_input_image, chunk_duration, motion_data, chunk_frames, chunk_dialogue)
+                workflow = self._build_av_workflow(chunk_scene_id, chunk_description, current_input_image, chunk_duration, motion_data, chunk_frames, chunk_dialogue, audio_filename)
                 if not workflow:
                     print(f"ERROR: Failed to build workflow for {chunk_scene_id}")
                     continue
@@ -1425,6 +1677,7 @@ class AVVideoGenerator:
             description = scene_info["description"]
             image_path = scene_info["image_path"]
             dialogue = scene_info.get("dialogue", "")
+            audio_file = scene_info.get("audio_file")  # Get audio filename if in AUDIO mode
             scene_description_only = scene_info.get("scene_description", description)
             frame_count = self._calculate_frame_count(duration)
             
@@ -1432,7 +1685,7 @@ class AVVideoGenerator:
             print_flush(f"🔄 Scene {i}/{len(scenes_to_process)} - {description[:50]} ({duration:.2f}s) - Processing...")
             print_flush(f"📊 Estimated time remaining: {eta}")
             
-            output_paths = self._generate_video(scene_name, description, image_path, duration, motion_data, resumable_state, dialogue, scene_description_only)
+            output_paths = self._generate_video(scene_name, description, image_path, duration, motion_data, resumable_state, dialogue, scene_description_only, audio_file)
             
             scene_processing_time = time.time() - scene_start_time
             self.processing_times.append(scene_processing_time)

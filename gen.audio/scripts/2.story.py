@@ -110,11 +110,12 @@ class ResumableState:
         )
 
 class StoryProcessor:
-    def __init__(self, comfyui_url="http://127.0.0.1:8188/"):
+    def __init__(self, comfyui_url="http://127.0.0.1:8188/", chunk_size=CHUNK_SIZE):
         self.comfyui_url = comfyui_url
         self.output_folder = "../../ComfyUI/output/audio"
         self.final_output = "../output/story.wav"
         self.chunk_output_dir = "../output/story"
+        self.chunk_size = chunk_size  # Store chunk size as instance variable
         
         # Time estimation tracking
         self.processing_times = []
@@ -599,10 +600,10 @@ class StoryProcessor:
         print(f"📊 Story contains {total_story_words:,} words")
         
         # Split story into chunks
-        chunks = self.split_story_into_chunks(story_text)
+        chunks = self.split_story_into_chunks(story_text, self.chunk_size)
         total_chunks = len(chunks)
         
-        print(f"Story split into {total_chunks} chunks of {CHUNK_SIZE} lines each")
+        print(f"Story split into {total_chunks} chunks of {self.chunk_size} lines each")
         
         chunk_files = []
         successful_chunks = 0
@@ -822,8 +823,8 @@ if __name__ == "__main__":
         print("Exiting due to story file error.")
         exit(1)
     
-    # Create processor and run
-    processor = StoryProcessor()
+    # Create processor and run (pass chunk_size from args)
+    processor = StoryProcessor(chunk_size=args.chunk_size)
     
     # Time the story processing
     processing_start = time.time()
