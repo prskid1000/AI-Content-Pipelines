@@ -1381,6 +1381,20 @@ class AVVideoGenerator:
                 print(f"Saved video: {final_path}")
                 generated_videos.append(final_path)
                 
+                # Find the actual last generated frame from this chunk for continuity
+                last_generated_frame = self._find_last_saved_frame(scene_id, chunk_suffix)
+                last_frame_filename_for_checkpoint = current_input_image  # Default fallback
+                
+                if last_generated_frame:
+                    # Copy the last frame to ComfyUI input folder for use by next chunk
+                    next_chunk_last_frame_name = f"{chunk_scene_id}_last_frame.png"
+                    comfyui_frame_path = os.path.join(self.comfyui_input_folder, next_chunk_last_frame_name)
+                    shutil.copy2(last_generated_frame, comfyui_frame_path)
+                    last_frame_filename_for_checkpoint = next_chunk_last_frame_name
+                    print(f"💾 Saved last frame for continuity: {next_chunk_last_frame_name}")
+                else:
+                    print(f"⚠️ Could not find last generated frame for {chunk_scene_id}, using input image in checkpoint")
+                
                 # Save chunk to checkpoint
                 if resumable_state:
                     chunk_result = {
@@ -1390,7 +1404,7 @@ class AVVideoGenerator:
                         'chunk_idx': chunk_idx,
                         'chunk_suffix': chunk_suffix,
                         'frame_count': chunk_frames,
-                        'last_frame_filename': current_input_image
+                        'last_frame_filename': last_frame_filename_for_checkpoint
                     }
                     resumable_state.set_chunk_result(chunk_scene_id, chunk_result)
                     print(f"💾 Checkpoint saved for chunk: {chunk_scene_id}")
