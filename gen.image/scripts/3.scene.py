@@ -16,9 +16,9 @@ WORKFLOW_SUMMARY_ENABLED = False # Set to True to enable workflow summary printi
 
 # Image resizing configuration
 # Character image resize factor: 0.125 (12.5% of original size) - Better aspect ratio for stitching
-CHARACTER_RESIZE_FACTOR = 1.0
+CHARACTER_RESIZE_FACTOR = 10.0
 # Location image resize factor: 1.0 = no resize, 2.0 = double size, 0.5 = half size
-LOCATION_RESIZE_FACTOR = 1.0
+LOCATION_RESIZE_FACTOR = 10.0
 
 # Image compression configuration
 # JPEG quality: 1-100 (100 = best quality, larger file; 1 = worst quality, smaller file)
@@ -825,11 +825,17 @@ class SceneGenerator:
                             img = img.convert('RGB')
                         
                         # Resize the image using the resize factor
-                        new_width = int(img.width * CHARACTER_RESIZE_FACTOR)
-                        new_height = int(img.height * CHARACTER_RESIZE_FACTOR)
-                        
-                        # Resize with aspect ratio preserved
-                        img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+                        if CHARACTER_RESIZE_FACTOR != 1.0:
+                            original_width, original_height = img.width, img.height
+                            new_width = int(img.width * CHARACTER_RESIZE_FACTOR)
+                            new_height = int(img.height * CHARACTER_RESIZE_FACTOR)
+                            
+                            print(f"Resizing {char_name} image: {original_width}x{original_height} → {new_width}x{new_height} (factor: {CHARACTER_RESIZE_FACTOR}x)")
+                            
+                            # Resize with aspect ratio preserved
+                            img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+                        else:
+                            print(f"Skipping resize for {char_name} image (factor: {CHARACTER_RESIZE_FACTOR})")
                         
                         # Save with compression
                         img.save(dest_path, 'JPEG', quality=IMAGE_COMPRESSION_QUALITY, optimize=True)
@@ -879,10 +885,14 @@ class SceneGenerator:
                         
                         # Resize the image using the location resize factor (separate from character resize)
                         if LOCATION_RESIZE_FACTOR != 1.0:
+                            original_width, original_height = img.width, img.height
                             new_width = int(img.width * LOCATION_RESIZE_FACTOR)
                             new_height = int(img.height * LOCATION_RESIZE_FACTOR)
+                            print(f"Resizing {location_id} image: {original_width}x{original_height} → {new_width}x{new_height} (factor: {LOCATION_RESIZE_FACTOR}x)")
                             # Resize with aspect ratio preserved
                             img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+                        else:
+                            print(f"Skipping resize for {location_id} image (factor: {LOCATION_RESIZE_FACTOR})")
                         
                         # Save with compression
                         img.save(dest_path, 'JPEG', quality=IMAGE_COMPRESSION_QUALITY, optimize=True)
