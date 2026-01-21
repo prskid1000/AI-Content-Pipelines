@@ -1080,6 +1080,12 @@ class AVVideoGenerator:
         if "228" in workflow:
             workflow["228"]["inputs"]["image"] = image_filename
         
+        # Node "229" is the ResizeImageMaskNode - set width and height
+        if "229" in workflow:
+            workflow["229"]["inputs"]["resize_type.width"] = VIDEO_WIDTH
+            workflow["229"]["inputs"]["resize_type.height"] = VIDEO_HEIGHT
+            print_flush(f"📐 Set video dimensions: {VIDEO_WIDTH}x{VIDEO_HEIGHT}")
+        
         # Node "279:277" is the length (PrimitiveInt) - frame count
         if "279:277" in workflow:
             workflow["279:277"]["inputs"]["value"] = frame_count
