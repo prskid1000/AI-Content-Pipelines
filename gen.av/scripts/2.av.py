@@ -20,8 +20,8 @@ CONCAT_AFTER_COMPLETION = True  # Set to True to merge chunks at the end after a
 SOUND_MODE = "AUDIO"  # "TEXT" for text dialogues, "AUDIO" for audio file inputs
 
 # Video configuration constants
-VIDEO_WIDTH = 1024
-VIDEO_HEIGHT = 576
+VIDEO_WIDTH = 960
+VIDEO_HEIGHT = 540
 FRAMES_PER_SECOND = 24
 CHUNK_SIZE = 3  # Maximum seconds per chunk (3 seconds max for AV)
 
@@ -1032,6 +1032,34 @@ class AVVideoGenerator:
                 # Use dialogue as prompt if no motion data
                 positive_prompt = f"Dialogue: \"{dialogue}\""
             print_flush(f"💬 Added dialogue chunk to prompt: {dialogue[:50]}...")
+        
+
+        # More detailed and technical talking instructions for better results
+        talking_instructions = (
+            "Close-up shot, person speaking directly to camera. "
+            "Natural lip synchronization with audio, mouth opening and closing in rhythm with speech. "
+            "Realistic facial expressions: eyebrow movements, eye contact, subtle head gestures. "
+            "Authentic speaking animation with varied mouth shapes (phonemes). "
+            "Natural breathing pauses, micro-expressions during dialogue. "
+            "Professional quality talking head video, well-lit face, clear facial features."
+        )
+        
+        if positive_prompt:
+            # Prepend talking instructions for higher priority in generation
+            positive_prompt = f"{talking_instructions} {positive_prompt}"
+            print_flush(f"🎤 Added comprehensive talking instructions for {SOUND_MODE} mode")
+        else:
+            # Use detailed talking instructions as primary prompt
+            positive_prompt = talking_instructions
+            print_flush(f"🎤 Using talking instructions as primary prompt for {SOUND_MODE} mode")
+        
+        # Add negative prompt suggestions to avoid static faces
+        audio_negative = "static face, frozen expression, closed mouth, no lip movement, silent, motionless lips"
+        if negative_prompt:
+            negative_prompt = f"{negative_prompt}, {audio_negative}"
+        else:
+            negative_prompt = audio_negative
+        print_flush(f"🚫 Added negative prompt to prevent static facial expressions")
         
         # Use provided frame count or calculate from duration
         if frame_count is None:

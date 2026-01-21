@@ -374,11 +374,14 @@ All scripts listed in `gen.audio/generate.py`:
 
 ### Key Features
 - **Character Voice Assignment**: Automatic gender detection and voice selection with resumable processing
-- **Chunked Story Audio**: TTS processing with progress tracking and resumable recovery (5-line chunks)
+- **Chunked Story Audio**: TTS processing with progress tracking and resumable recovery (configurable chunk size, default: 15 lines)
+- **Individual Chunk Storage**: Each chunk saved as `{start_line}_{end_line}.wav` for integration with AV pipeline
+- **Chunk Size Override**: Use `--chunk-size` argument to customize (e.g., `--chunk-size 1` for one chunk per dialogue)
 - **Multi-Character TTS**: Narration with voice consistency across characters
 - **AI-Generated SFX**: Sound effects with precise timing and resumable generation
 - **Professional Mixing**: Audio combination using PyTorch/Torchaudio
 - **YouTube Integration**: Automated upload with metadata and Shorts generation
+- **AV Pipeline Integration**: Audio chunks can be used by `2.av.py` when `SOUND_MODE=AUDIO`
 
 ### Audio Pipeline File Structure
 
@@ -400,10 +403,11 @@ gen.audio/
 │       ├── m_*.wav            # Male voice samples
 │       └── f_*.wav            # Female voice samples
 ├── output/                     # Output files
-│   ├── story/                 # Individual chunk files
-│   │   ├── 1_5.wav           # Lines 1-5 audio
-│   │   ├── 6_10.wav          # Lines 6-10 audio
-│   │   └── ...
+│   ├── story/                 # Individual chunk files (format: {start_line}_{end_line}.wav)
+│   │   ├── 1_15.wav          # Lines 1-15 audio (default chunk size: 15)
+│   │   ├── 16_30.wav         # Lines 16-30 audio
+│   │   ├── 1_1.wav           # Line 1 only (when --chunk-size 1)
+│   │   └── ...               # Used by AV pipeline when SOUND_MODE=AUDIO
 │   ├── sfx/                   # Generated sound effects
 │   ├── shorts/                # YouTube Shorts videos
 │   │   ├── shorts.v1.mp4
@@ -434,15 +438,18 @@ gen.audio/
 The story audio generation supports advanced resumable processing with chunked generation:
 
 #### Key Features
-- **Chunked Processing**: Splits story into 5-line chunks (configurable)
+- **Chunked Processing**: Splits story into configurable line chunks (default: 15 lines, override with `--chunk-size`)
 - **Progress Tracking**: Real-time percentage completion with detailed status
-- **Individual Chunk Output**: Saves each chunk as `output/story/{start}_{end}.wav`
+- **Individual Chunk Output**: Saves each chunk as `output/story/{start_line}_{end_line}.wav`
+  - Example: `1_15.wav` (lines 1-15), `16_30.wav` (lines 16-30)
+  - Set `--chunk-size 1` to get individual chunk for each dialogue line
 - **Final Concatenation**: Combines all chunks into final `story.wav`
 - **Checkpoint Recovery**: Resumes from any completed chunk if interrupted
+- **Chunk Storage**: All chunks stored in `gen.audio/output/story/` directory
 
 #### CLI Arguments
 ```bash
-# Basic resumable processing
+# Basic resumable processing (default: 15 lines per chunk)
 python 2.story.py
 
 # Force start from beginning
@@ -453,6 +460,18 @@ python 2.story.py --disable-resumable
 
 # Custom chunk size (3 lines per chunk)
 python 2.story.py --chunk-size 3
+
+# Individual chunk per dialogue line (1 line per chunk)
+python 2.story.py --chunk-size 1
+```
+
+#### Chunk Storage Format
+```
+gen.audio/output/story/
+├── 1_15.wav      # Lines 1-15 audio chunk
+├── 16_30.wav     # Lines 16-30 audio chunk
+├── 31_45.wav     # Lines 31-45 audio chunk
+└── ...
 ```
 
 ### Audio Pipeline Configuration Constants
@@ -472,11 +491,15 @@ CLEANUP_TRACKING_FILES = False
 
 ##### `2.story.py` - Story Audio Generation  
 ```python
-CHUNK_SIZE = 5  # Lines per chunk
+CHUNK_SIZE = 15  # Number of dialogues/lines per chunk (default, can be overridden with --chunk-size)
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False
 WORKFLOW_SUMMARY_ENABLED = False
 comfyui_url = "http://127.0.0.1:8188/"
+
+# Output Configuration
+chunk_output_dir = "../output/story"  # Individual chunks stored here as {start_line}_{end_line}.wav
+final_output = "../output/story.wav"  # Final concatenated audio
 ```
 
 ##### `5.timeline.py` - SFX Timeline Generation
@@ -1049,7 +1072,7 @@ All scripts listed in `gen.av/generate.py`:
 | Images | `gen.image/scripts/2.location.py` | Location image generation | Location inputs | `gen.image/output/locations/*.png` | **ComfyUI** | ❌ |
 | Images | `gen.image/scripts/3.scene.py` | Scene image generation | Scene inputs | `gen.image/output/scene/*.png` | **ComfyUI** | ❌ |
 | Video | `gen.video/scripts/2.motion.py` (shared) | Generate master prompts for video generation | `gen.av/input/1.story.txt`, `gen.image/output/scene/*.png` (optional), `gen.image/input/2.character.txt` (optional), `gen.image/input/2.location.txt` (optional) | `gen.av/input/2.motion.txt` | **LM Studio** | ✅ |
-| Video | `gen.av/scripts/2.av.py` | Generate AV videos with built-in audio | `gen.av/input/1.story.txt`, `gen.image/output/scene/*.png`, `gen.av/input/2.motion.txt` (master prompts) | `gen.av/output/scene_*.mp4` | **ComfyUI** | ✅ |
+| Video | `gen.av/scripts/2.av.py` | Generate AV videos with built-in audio | `gen.av/input/1.story.txt`, `gen.image/output/scene/*.png`, `gen.av/input/2.motion.txt` (master prompts), `gen.audio/output/story/*.wav` (optional, when SOUND_MODE=AUDIO) | `gen.av/output/scene_*.mp4` | **ComfyUI** | ✅ |
 | Thumbnail | `gen.audio/scripts/9.media.py` | Media processing | Media inputs | Media outputs | **ComfyUI** | ❌ |
 | Thumbnail | `gen.audio/scripts/10.thumbnail.py` | Thumbnail generation | Thumbnail inputs | Thumbnail outputs | **ComfyUI** | ❌ |
 | YouTube | `gen.av/scripts/3.video.py` | Combine scene videos | `gen.av/output/scene_*.mp4` | `gen.av/output/final.mp4` | FFmpeg | ❌ |
@@ -1057,9 +1080,12 @@ All scripts listed in `gen.av/generate.py`:
 | YouTube | `gen.audio/scripts/12.youtube.py` | YouTube upload | Video file | YouTube upload | YouTube API | ❌ |
 
 ### Key Features
-- **Built-in Audio**: Videos include audio generated directly by the workflow (no separate audio pipeline needed)
-- **Dialogue-based Duration**: Video length calculated from dialogue word count using `WORDS_TO_SPEECH_RATIO`
-- **5-Second Chunking**: Automatic splitting of longer scenes into 5-second chunks for generation
+- **Sound Mode Configuration**: Supports TEXT mode (text dialogues) or AUDIO mode (audio chunks from story.py)
+- **Built-in Audio**: Videos include audio generated directly by the workflow or from audio chunks
+- **Dialogue-based Duration**: Video length calculated from dialogue word count (`WORDS_TO_SPEECH_RATIO`) or audio file duration
+- **3-Second Chunking**: Automatic splitting of longer scenes into 3-second max chunks for generation
+- **Exact Audio-Video Sync**: Audio chunks split to match video chunk durations exactly
+- **Talking Instructions**: Automatic prompt enhancement for better facial/mouth movement (both modes)
 - **Frame Continuity**: Smooth transitions between chunks using last frame as input
 - **Master Prompt Generation**: `2.motion.py` generates complete video prompts with integrated audio, motion, and scene descriptions
 - **Shared Motion Script**: Both video and AV pipelines use the same `gen.video/scripts/2.motion.py` script with configurable output paths
@@ -1083,7 +1109,7 @@ gen.av/
 │   └── final.mp4              # Final combined video with audio
 ├── scripts/                    # Processing scripts (3)
 │   ├── 1.story.py            # Story parsing for image pipeline
-│   ├── 2.av.py                # AV video generation with built-in audio
+│   ├── 2.av.py                # AV video generation with built-in audio (supports TEXT/AUDIO modes)
 │   └── 3.video.py             # Final video compilation
 │   # Note: 2.motion.py is shared from gen.video/scripts/ (see Video Pipeline section)
 └── workflow/                   # ComfyUI workflows
@@ -1135,19 +1161,23 @@ ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
 CONCAT_AFTER_COMPLETION = True  # Set to True to merge chunks at the end after all scenes are done, False to merge immediately after each scene
+ENABLE_DIALOGUE_CHUNKS = True  # Set to True to include dialogue chunks in ComfyUI prompts, False to exclude dialogue
+
+# Sound Mode Configuration
+SOUND_MODE = "TEXT"  # "TEXT" for text dialogues, "AUDIO" for audio file inputs from story.py output
 
 # Feature flags (moved to 2.motion.py)
 # Note: Master prompts are now generated in 2.motion.py with all features integrated
 
 # Video Configuration Constants
-VIDEO_WIDTH = 1024
-VIDEO_HEIGHT = 576
+VIDEO_WIDTH = 960
+VIDEO_HEIGHT = 540
 FRAMES_PER_SECOND = 24
-CHUNK_SIZE = 5  # Maximum seconds per chunk (5 seconds max for AV)
+CHUNK_SIZE = 3  # Maximum seconds per chunk (3 seconds max for AV)
 
 # Duration Calculation
 # Words to speech ratio: seconds per word
-WORDS_TO_SPEECH_RATIO = 0.15  # 0.15 seconds per word (approximately 6.67 words per second)
+WORDS_TO_SPEECH_RATIO = 0.25  # 0.25 seconds per word (approximately 4 words per second)
 
 # LoRA Switch Configuration (controls LoRA chain in movie.json workflow)
 # Each switch controls a specific part of the LoRA chain
@@ -1163,6 +1193,14 @@ story_file = "../input/1.story.txt"
 motion_file = "../input/2.motion.txt"
 workflow_file = "../workflow/movie.json"
 scene_images_dir = "../../gen.image/output/scene"
+story_audio_output_dir = "../../gen.audio/output/story"  # Audio chunks from story.py (when SOUND_MODE=AUDIO)
+
+# Audio Integration (SOUND_MODE=AUDIO)
+# - Uses audio chunks from gen.audio/output/story/ (generated by 2.story.py)
+# - Each dialogue line maps to one audio file: {start_line}_{end_line}.wav
+# - Audio files are split into chunks matching video duration if > CHUNK_SIZE
+# - Audio chunks are copied to ComfyUI input folder for workflow processing
+# - Talking instructions are automatically added to prompts for better facial/mouth movement
 ```
 
 ##### `3.video.py` - Final Video Compilation
@@ -1192,6 +1230,7 @@ graph TD
     A --> I[gen.av/scripts/2.av.py]
     F --> I
     G --> I
+    Q[gen.audio/output/story/*.wav] -.->|SOUND_MODE=AUDIO| I
     I --> L2[gen.av/output/scene_*.mp4 with audio]
     I -.-> M[ComfyUI movie.json]
     
@@ -1206,19 +1245,111 @@ graph TD
     style D fill:#ffebee
     style L2 fill:#e8f5e8
     style E fill:#fff3e0
+    style Q fill:#fff9c4
+```
+
+### Sound Mode Configuration (`2.av.py`)
+
+The AV pipeline supports two sound modes for dialogue handling:
+
+#### TEXT Mode (Default)
+- **Dialogue Source**: Text dialogues from `story.txt`
+- **Duration Calculation**: Based on word count (`WORDS_TO_SPEECH_RATIO = 0.25s/word`)
+- **Processing**: Dialogue text is split into chunks matching video chunks
+- **Prompt Enhancement**: Talking instructions added for facial/mouth movement
+
+#### AUDIO Mode
+- **Dialogue Source**: Audio chunks from `gen.audio/output/story/` (generated by `2.story.py`)
+- **Audio Matching**: Each dialogue line maps to audio file `{start_line}_{end_line}.wav`
+- **Duration Calculation**: Direct from audio file duration using `ffprobe`
+- **Audio Splitting**: 
+  - If audio duration > `CHUNK_SIZE` (3s), splits into chunks matching video chunks
+  - Each video chunk gets corresponding audio portion with exact duration match
+  - Audio chunks copied to ComfyUI input folder for workflow processing
+- **Workflow Integration**: 
+  - Audio input node (`281`) set to chunk filename
+  - Audio switch (`279:298`) enabled
+  - Talking instructions prepended to prompts for better lip sync
+
+#### Configuration
+```python
+SOUND_MODE = "TEXT"  # or "AUDIO"
+```
+
+#### Audio Integration Flow (AUDIO Mode)
+```
+1. Run 2.story.py → Generates audio chunks in gen.audio/output/story/
+   └─> Format: {start_line}_{end_line}.wav (e.g., 14_14.wav for line 14)
+
+2. Run 2.av.py with SOUND_MODE="AUDIO"
+   ├─> Reads story.txt to find dialogue lines
+   ├─> Matches each dialogue to audio chunk by line number
+   ├─> Gets audio duration from file
+   ├─> Splits video into chunks (max 3s each)
+   └─> Splits audio to match video chunks exactly
+       ├─> Chunk 1: 0.000s → 3.042s from audio file
+       ├─> Chunk 2: 3.042s → 6.084s from audio file
+       └─> Chunk N: cumulative_time → cumulative_time + chunk_duration
+```
+
+#### Talking Instructions (Both Modes)
+When generating videos, comprehensive talking instructions are automatically added:
+- Close-up shot, person speaking directly to camera
+- Natural lip synchronization with audio
+- Realistic facial expressions (eyebrows, eye contact, head gestures)
+- Authentic speaking animation with varied mouth shapes (phonemes)
+- Natural breathing pauses and micro-expressions
+- Professional quality talking head video
+
+Negative prompts also added to prevent static faces.
+
+### Audio Chunk Processing Flow (AUDIO Mode)
+
+| Step | Process | Input | Output | Details |
+|------|---------|-------|--------|---------|
+| 1 | Story Audio Generation | `1.story.txt` | `gen.audio/output/story/{line}_{line}.wav` | Run `2.story.py` to generate audio chunks |
+| 2 | Dialogue Line Mapping | `1.story.txt` (dialogue line 14) | Audio file: `14_14.wav` | Match dialogue line number to audio chunk filename |
+| 3 | Duration Calculation | Audio file (17s) | Duration: 17.0s | Use `ffprobe` to get exact audio duration |
+| 4 | Video Chunking | Duration: 17.0s | 6 chunks (5×3.042s + 1×1.790s) | Split into max 3-second chunks |
+| 5 | Audio Splitting | Audio: 17s, Chunks: 6 | 6 audio chunks matching video | Extract exact portions: 0→3.042s, 3.042→6.084s, etc. |
+| 6 | Workflow Integration | Audio chunks + Scene images | Video with synchronized audio | Copy chunks to ComfyUI input, enable audio switch |
+
+#### Example: Dialogue Line 14 (17-second audio)
+
+**Video Chunks:**
+```
+Chunk 1: 0.000s → 3.042s (73 frames)
+Chunk 2: 3.042s → 6.084s (73 frames)
+Chunk 3: 6.084s → 9.126s (73 frames)
+Chunk 4: 9.126s → 12.168s (73 frames)
+Chunk 5: 12.168s → 15.210s (73 frames)
+Chunk 6: 15.210s → 17.000s (43 frames)
+```
+
+**Audio Chunks (exact match):**
+```
+Audio 1: Extract 0.000s → 3.042s from 14_14.wav → scene_X.X_1.wav
+Audio 2: Extract 3.042s → 6.084s from 14_14.wav → scene_X.X_2.wav
+Audio 3: Extract 6.084s → 9.126s from 14_14.wav → scene_X.X_3.wav
+Audio 4: Extract 9.126s → 12.168s from 14_14.wav → scene_X.X_4.wav
+Audio 5: Extract 12.168s → 15.210s from 14_14.wav → scene_X.X_5.wav
+Audio 6: Extract 15.210s → 17.000s from 14_14.wav → scene_X.X_6.wav
 ```
 
 ### Differences from Video Pipeline
 
 | Feature | Video Pipeline | AV Pipeline |
 |---------|---------------|-------------|
-| **Audio Source** | Separate audio file (`final.wav`) | Built-in audio generation |
-| **Duration Calculation** | Timeline-based | Dialogue word count (`WORDS_TO_SPEECH_RATIO`) |
-| **Chunking** | Timeline-based chunks | 5-second max chunks |
-| **Workflow** | `animate.json` | `movie.json` |
+| **Audio Source** | Separate audio file (`final.wav`) | Built-in audio generation or audio chunks from `story.py` |
+| **Duration Calculation** | Timeline-based | Dialogue word count (`WORDS_TO_SPEECH_RATIO`) or audio file duration |
+| **Chunking** | Timeline-based chunks | 3-second max chunks (configurable) |
+| **Workflow** | `animate.json` | `movie.json` (with audio input support) |
 | **Input Images** | Single scene image | Single scene image (no multi-image support) |
 | **Motion** | Optional from `2.motion.txt` (master prompts) | Optional from `2.motion.txt` (master prompts) |
 | **Output Format** | `animation/*.mp4` | `scene_*.mp4` |
+| **Sound Mode** | N/A | TEXT or AUDIO (configurable) |
+| **Video Dimensions** | 1024x576 | 960x540 |
+| **Talking Instructions** | N/A | Automatic (both modes) for better facial/mouth movement |
 
 ---
 
@@ -1292,10 +1423,14 @@ final.wav      │         ↓             │
 - `gen.image/input/2.character.txt` → `gen.video/scripts/2.motion.py` (integrated into master prompts)
 - `gen.image/input/2.location.txt` → `gen.video/scripts/2.motion.py` (integrated into master prompts)
 
+#### Audio → AV (when SOUND_MODE=AUDIO)
+- `gen.audio/output/story/*.wav` → `gen.av/scripts/2.av.py` (audio chunks matched by dialogue line number)
+
 #### AV → AV (Internal)
 - `gen.av/input/1.story.txt` → `gen.av/scripts/1.story.py` → `gen.image/input/1.story.txt`
 - `gen.av/input/1.story.txt` → `gen.video/scripts/2.motion.py` (via --output argument) → `gen.av/input/2.motion.txt`
 - `gen.av/input/1.story.txt` + `gen.av/input/2.motion.txt` → `gen.av/scripts/2.av.py` → `gen.av/output/scene_*.mp4`
+- `gen.audio/output/story/*.wav` → `gen.av/scripts/2.av.py` (when SOUND_MODE=AUDIO, audio chunks matched by line number)
 - `gen.av/output/scene_*.mp4` → `gen.av/scripts/3.video.py` → `gen.av/output/final.mp4`
 
 ---
@@ -1428,7 +1563,7 @@ output_file = "../input/2.character.txt"
 ##### `2.story.py` - Story Audio Generation
 ```python
 # Configuration Constants
-CHUNK_SIZE = 5  # Number of dialogues/lines per chunk
+CHUNK_SIZE = 15  # Number of dialogues/lines per chunk (default, can be overridden with --chunk-size argument)
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
@@ -1437,7 +1572,7 @@ WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary print
 comfyui_url = "http://127.0.0.1:8188/"
 output_folder = "../../ComfyUI/output/audio"
 final_output = "../output/story.wav"
-chunk_output_dir = "../output/story"
+chunk_output_dir = "../output/story"  # Individual chunks: {start_line}_{end_line}.wav
 checkpoint_dir = "../output/tracking"
 
 # Input Files
@@ -1445,11 +1580,15 @@ story_file = "../input/1.story.txt"
 character_file = "../input/2.character.txt"
 
 # Processing Features
-# - Chunked Processing: Splits story into manageable chunks
-# - Progress Tracking: Real-time percentage completion
-# - Individual Chunk Output: Saves each chunk as output/story/{start}_{end}.wav
+# - Chunked Processing: Splits story into configurable chunks (default: 15 lines)
+# - Chunk Size Override: Use --chunk-size argument to customize (e.g., --chunk-size 1 for individual chunks)
+# - Progress Tracking: Real-time percentage completion with word count and WPM
+# - Individual Chunk Output: Saves each chunk as output/story/{start_line}_{end_line}.wav
+#   * Example: 1_15.wav (lines 1-15), 16_30.wav (lines 16-30)
+#   * Set --chunk-size 1 to get one chunk per dialogue line
 # - Final Concatenation: Combines all chunks into final story.wav
 # - Checkpoint Recovery: Resumes from any completed chunk if interrupted
+# - Audio Chunk Integration: Chunks can be used by AV pipeline (2.av.py) when SOUND_MODE=AUDIO
 ```
 
 ##### `3.transcribe.py` - Audio Transcription
@@ -2882,6 +3021,7 @@ All scripts listed in `gen.av/generate.py`:
 - `gen.av/input/1.story.txt` → `gen.av/scripts/1.story.py` → `gen.image/input/1.story.txt`
 - `gen.av/input/1.story.txt` → `gen.video/scripts/2.motion.py` (via --output argument) → `gen.av/input/2.motion.txt`
 - `gen.av/input/1.story.txt` + `gen.av/input/2.motion.txt` → `gen.av/scripts/2.av.py` → `gen.av/output/scene_*.mp4`
+- `gen.audio/output/story/*.wav` → `gen.av/scripts/2.av.py` (when SOUND_MODE=AUDIO, audio chunks matched by line number)
 - `gen.av/output/scene_*.mp4` → `gen.av/scripts/3.video.py` → `gen.av/output/final.mp4`
 
 ## 🔍 File Formats
@@ -3313,7 +3453,7 @@ This is a modular system designed for easy extension. Each script is self-contai
 
 **Note**: This system requires significant computational resources. For optimal performance, use a CUDA-compatible GPU with 8GB+ VRAM and ensure adequate cooling during extended generation sessions. The resumable processing system allows for safe interruption and recovery of long-running operations, making it suitable for extended generation sessions across multiple days.
 
-**Last Updated**: December 2024 - Consolidated motion.py scripts into a single shared script with configurable output paths, implemented master prompt generation with advanced system instructions, simplified animate.py and av.py by removing redundant functions, and enhanced prompt generation with integrated character/location data support.
+**Last Updated**: December 2024 - Added SOUND_MODE configuration (TEXT/AUDIO) to AV pipeline, integrated audio chunks from story.py output, implemented exact audio-video chunk duration matching, added comprehensive talking instructions for better facial/mouth movement, updated video dimensions to 960x540, and added chunk size override support to story.py with `--chunk-size` argument. Consolidated motion.py scripts into a single shared script with configurable output paths, implemented master prompt generation with advanced system instructions, simplified animate.py and av.py by removing redundant functions, and enhanced prompt generation with integrated character/location data support.
 
 ---
 
