@@ -716,7 +716,7 @@ class SceneGenerator:
     def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
         return """Create a 16K ultra-high-resolution,Extremely Detailed, Scenes(only visible scenes) and Characters(only visible characters), illustration (with non-black and non-white background) in the style of {ART_STYLE}, 
-        with shot taken with camera placed at very large distance(at least 20 meters away from the scenes and characters) and ultra wide angle(160 degrees) lens such area with width of at least 20 meters and height of at least 20 meters visible.
+        with shot taken with camera placed at very large distance and ultra wide angle(160 degrees) lens such as very large area is visible.
         **PHYSICAL SIZE, VISUAL SIZE, AND APPEARANCE OF CHARACTERS AND ALL OTHER OBJECTS IN THE SCENE SHOULD BE RELATIVE TO THE SCENE AND SHOULD NOT FOLLOW REAL WORLD PHYSICAL SIZE.**
         """.format(ART_STYLE=ART_STYLE) +  "\n __NOTE__:" + " ".join(EXTRA_PROMPT_PHRASES)
 
