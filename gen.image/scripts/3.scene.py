@@ -46,7 +46,7 @@ LATENT_MODE = "LATENT"  # "LATENT" for normal noise generation, "IMAGE" for load
 LATENT_DENOISING_STRENGTH = 1.0  # Denoising strength when using IMAGE mode (0.0-1.0, higher = more change)
 
 # Image Stitching Configuration (1-5)
-IMAGE_STITCH_COUNT = 3  # Number of images to stitch together in each group
+IMAGE_STITCH_COUNT = 1  # Number of images to stitch together in each group
 
 # LoRA Configuration
 USE_LORA = True  # Set to False to disable LoRA usage in workflow
@@ -498,87 +498,87 @@ class SceneGenerator:
         """Get position description for character placement."""
         if IMAGE_STITCH_COUNT == 1:
             # When only one character per image, use simpler description
-            return f"CHARACTER in Image {group_number},"
+            return f"VISIBLE CHARACTER of Image {group_number},"
         elif IMAGE_STITCH_COUNT == 2:
             if position_in_group == 1:
                 # When two characters per image, use simple description
-                return f"LEFTMOST CHARACTER in Image {group_number},"
+                return f"LEFTMOST VISIBLE CHARACTER of Image {group_number},"
             else:
-                return f"RIGHTMOST CHARACTER in Image {group_number},"
+                return f"RIGHTMOST VISIBLE CHARACTER of Image {group_number},"
         elif IMAGE_STITCH_COUNT == 3:
             if position_in_group == 1:
-                return f"LEFTMOST CHARACTER in Image {group_number},"
+                return f"LEFTMOST VISIBLE CHARACTER of Image {group_number},"
             elif position_in_group == 2:
-                return f"MIDDLE CHARACTER in Image {group_number},"
+                return f"MIDDLE VISIBLE CHARACTER of Image {group_number},"
             else:
-                return f"RIGHTMOST CHARACTER in Image {group_number},"
+                return f"RIGHTMOST VISIBLE CHARACTER of Image {group_number},"
         elif IMAGE_STITCH_COUNT == 4:
             if position_in_group == 1:
-                return f"LEFTMOST CHARACTER in Image {group_number},"
+                return f"LEFTMOST VISIBLE CHARACTER of Image {group_number},"
             elif position_in_group == 2:
-                return f"MIDDLE LEFT CHARACTER in Image {group_number},"
+                return f"MIDDLE LEFT VISIBLE CHARACTER of Image {group_number},"
             elif position_in_group == 3:
-                return f"MIDDLE RIGHT CHARACTER in Image {group_number},"
+                return f"MIDDLE RIGHT VISIBLE CHARACTER of Image {group_number},"
             else:
-                return f"RIGHTMOST CHARACTER in Image {group_number},"
+                return f"RIGHTMOST VISIBLE CHARACTER of Image {group_number},"
         elif IMAGE_STITCH_COUNT == 5:
             if position_in_group == 1:
-                return f"LEFTMOST CHARACTER in Image {group_number},"
+                return f"LEFTMOST VISIBLE CHARACTER of Image {group_number},"
             elif position_in_group == 2:
-                return f"MIDDLE LEFT CHARACTER in Image {group_number},"
+                return f"MIDDLE LEFT VISIBLE CHARACTER of Image {group_number},"
             elif position_in_group == 3:
-                return f"MIDDLE RIGHT CHARACTER in Image {group_number},"
+                return f"MIDDLE RIGHT VISIBLE CHARACTER of Image {group_number},"
             elif position_in_group == 4:
-                return f"RIGHTMOST CHARACTER in Image {group_number},"
+                return f"RIGHTMOST VISIBLE CHARACTER of Image {group_number},"
             else:
-                return f"CENTER CHARACTER in Image {group_number},"
+                return f"CENTER VISIBLE CHARACTER of Image {group_number},"
         else:
             # When multiple characters per image, use ordinal position
             ordinal_suffix = self._get_ordinal_suffix(position_in_group)
-            return f"{position_in_group}{ordinal_suffix} Character from Left in Image {group_number},"
+            return f"{position_in_group}{ordinal_suffix} VISIBLE CHARACTER of Image {group_number} from Left,"
 
     def _get_location_position_description(self, position_in_group: int, group_number: int) -> str:
         """Get position description for location placement."""
         if IMAGE_STITCH_COUNT == 1:
             # When only one location per image, use simpler description
-            return f"SCENE in Image {group_number},"
+            return f"VISIBLE SCENE of Image {group_number},"
         elif IMAGE_STITCH_COUNT == 2:
             if position_in_group == 1:
                 # When two locations per image, use simple description
-                return f"LEFTMOST SCENE in Image {group_number},"
+                return f"LEFTMOST VISIBLE SCENE of Image {group_number},"
             else:
-                return f"RIGHTMOST SCENE in Image {group_number},"
+                return f"RIGHTMOST VISIBLE SCENE of Image {group_number},"
         elif IMAGE_STITCH_COUNT == 3:
             if position_in_group == 1:
-                return f"LEFTMOST SCENE in Image {group_number},"
+                return f"LEFTMOST VISIBLE SCENE of Image {group_number},"
             elif position_in_group == 2:
-                return f"MIDDLE SCENE in Image {group_number},"
+                return f"MIDDLE VISIBLE SCENE of Image {group_number},"
             else:
-                return f"RIGHTMOST SCENE in Image {group_number},"
+                return f"RIGHTMOST VISIBLE SCENE of Image {group_number},"
         elif IMAGE_STITCH_COUNT == 4:
             if position_in_group == 1:
-                return f"LEFTMOST SCENE in Image {group_number},"
+                return f"LEFTMOST VISIBLE SCENE of Image {group_number},"
             elif position_in_group == 2:
-                return f"MIDDLE LEFT SCENE in Image {group_number},"
+                return f"MIDDLE LEFT VISIBLE SCENE of Image {group_number},"
             elif position_in_group == 3:
-                return f"MIDDLE RIGHT SCENE in Image {group_number},"
+                return f"MIDDLE RIGHT VISIBLE SCENE of Image {group_number},"
             else:
-                return f"RIGHTMOST SCENE in Image {group_number},"
+                return f"RIGHTMOST VISIBLE SCENE of Image {group_number},"
         elif IMAGE_STITCH_COUNT == 5:
             if position_in_group == 1:
-                return f"LEFTMOST SCENE in Image {group_number},"
+                return f"LEFTMOST VISIBLE SCENE of Image {group_number},"
             elif position_in_group == 2:
-                return f"MIDDLE LEFT SCENE in Image {group_number},"
+                return f"MIDDLE LEFT VISIBLE SCENE of Image {group_number},"
             elif position_in_group == 3:
-                return f"MIDDLE RIGHT SCENE in Image {group_number},"
+                return f"MIDDLE RIGHT VISIBLE SCENE of Image {group_number},"
             elif position_in_group == 4:
-                return f"RIGHTMOST SCENE in Image {group_number},"
+                return f"RIGHTMOST VISIBLE SCENE of Image {group_number},"
             else:
-                return f"CENTER SCENE in Image {group_number},"
+                return f"CENTER VISIBLE SCENE of Image {group_number},"
         else:
             # When multiple locations per image, use ordinal position
             ordinal_suffix = self._get_ordinal_suffix(position_in_group)
-            return f"{position_in_group}{ordinal_suffix} SCENE from Left in Image {group_number},"
+            return f"{position_in_group}{ordinal_suffix} VISIBLE SCENE of Image {group_number} from Left,"
 
     def _build_reference_order_map(self, scene_description: str, location_ids: list[str], character_names: list[str]) -> dict:
         """Build a mapping of references to their sequential image numbers.
@@ -672,7 +672,7 @@ class SceneGenerator:
                 
                 # Only add location details in TEXT and IMAGE_TEXT modes, skip in NONE and IMAGE mode
                 # Only add position description in IMAGE and IMAGE_TEXT modes, skip in NONE and TEXT mode
-                return f"{ "ADD ," +position_desc if self.location_mode in ['IMAGE', 'IMAGE_TEXT'] else 'ADD SCENE,'} { "which should look like," + locations_data.get(loc_id, '')[:(LOCATION_WORD_LIMIT * WORD_FACTOR)] if self.location_mode in ['TEXT', 'IMAGE_TEXT'] else ''}, as background of the entire illustration."
+                return f"{ "ADD ," +position_desc if self.location_mode in ['IMAGE', 'IMAGE_TEXT'] else 'ADD VISIBLE SCENE,'} { "which should look like," + locations_data.get(loc_id, '')[:(LOCATION_WORD_LIMIT * WORD_FACTOR)] if self.location_mode in ['TEXT', 'IMAGE_TEXT'] else ''}, as background of the entire illustration."
             else:
                 # Location not found in the list, keep original
                 return full_match
@@ -704,7 +704,7 @@ class SceneGenerator:
                 # Create position description using helper method
                 position_desc = self._get_position_description(position_in_group, group_number)
                 # Only add character details in TEXT and IMAGE_TEXT modes, skip in NONE  and IMAGE mode.Only add position description in IMAGE and IMAGE_TEXT modes, skip in NONE and TEXT mode.
-                return f"\n{ "ADD ," +position_desc if self.character_mode in ['IMAGE', 'IMAGE_TEXT'] else 'ADD CHARACTER,'} { "which should look like," + characters_data[char_name][:(CHARACTER_WORD_LIMIT * WORD_FACTOR)] if self.character_mode in ['TEXT', 'IMAGE_TEXT'] else ''}, as one of the main characters of the illustration."
+                return f"\n{ "ADD ," +position_desc if self.character_mode in ['IMAGE', 'IMAGE_TEXT'] else 'ADD VISIBLE CHARACTER,'} { "which should look like," + characters_data[char_name][:(CHARACTER_WORD_LIMIT * WORD_FACTOR)] if self.character_mode in ['TEXT', 'IMAGE_TEXT'] else ''}, as one of the main characters of the illustration."
             else:
                 # Character not found in the list, keep original
                 return full_match
@@ -715,8 +715,8 @@ class SceneGenerator:
 
     def _get_master_prompt(self) -> str:
         """Get the master prompt content."""
-        return """Create a 16K ultra-high-resolution,Extremely Detailed, Scene with Characters and Location, illustration (with non-black and non-white background) in the style of {ART_STYLE}, 
-        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        return """Create a 16K ultra-high-resolution,Extremely Detailed, Scenes(only visible scenes) and Characters(only visible characters), illustration (with non-black and non-white background) in the style of {ART_STYLE} in **BIRD's EYE VIEW**, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible, and each visible character height at least 1.5 meters and at most 1.7 meters.
         """.format(ART_STYLE=ART_STYLE) +  "\n __NOTE__:" + " ".join(EXTRA_PROMPT_PHRASES)
 
     def _get_seed(self) -> int:
