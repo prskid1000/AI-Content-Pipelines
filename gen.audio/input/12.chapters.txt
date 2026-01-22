@@ -1,10 +1,10 @@
-20%: A Calm Morning's Disturbance
-SHORT_SUMMARY : Watson reflects on ordinary winter mornings while Holmes notices subtle disorder.
-40%: The Coin Arrangement
-SHORT_SUMMARY : Holmes draws Watson's attention to an odd heap of coins on the mantelpiece.
-60%: Unsettling Implications
-SHORT_SUMMARY : Watson recognizes the coins' significance and fears unseen intrusion.
-80%: Holmes’ Interpretation
-SHORT_SUMMARY : Holmes deciphers meaning from coin arrangement through methodical logic.
-100%: A Challenge Accepted
-SHORT_SUMMARY : Holmes invites Watson into a new investigation with dramatic confidence.
+20%: The Unseen Pattern
+SHORT_SUMMARY : Holmes deduces infant movement stems from shadow rhythm not illness.
+40%: Deduction Over Fear
+SHORT_SUMMARY : Holmes replaces supernatural fear with rational cause for infant’s motion.
+60%: The Window's Influence
+SHORT_SUMMARY : Light shifts provoke rhythmic infant reactions through shadow play.
+80%: Reason as Remedy
+SHORT_SUMMARY : Holmes transforms maternal terror into confidence through observation.
+100%: The Science of Observation
+SHORT_SUMMARY : Holmes models observation as discipline for solving trivial yet telling mysteries.

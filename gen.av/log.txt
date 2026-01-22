@@ -1,248 +1,425 @@
 Workflow runner started. Python executable: D:\.comfyui\.venv\Scripts\python.exe
 Working directory: D:\.comfyui\gen.av
 Emptying ComfyUI input and output folders...
+Removed directory: D:\.comfyui\ComfyUI\input\3d
+Removed file: D:\.comfyui\ComfyUI\input\loc_loc_1.png
+Removed file: D:\.comfyui\ComfyUI\input\loc_loc_2.png
+Removed file: D:\.comfyui\ComfyUI\input\male_detective_holmes.png
+Removed file: D:\.comfyui\ComfyUI\input\male_doctor_watson.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.3.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.4.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.5.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.6.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.7.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.8.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.9.FLUX1_Turbo_Alphasafetensors_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00002_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00003_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00004_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00005_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00006_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00007_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00008_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00009_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_1_00010_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_2_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\stitched_group_2_00002_.png
 Successfully emptied ComfyUI input and output folders.
 All tracked files unchanged. Preserving output directories.
-Starting LM Studio backend via lms CLI...
-Command: lms server start
-Success! Server is now running on port 1234
-Waiting for LM Studio to become ready (polling every 15s)...
-LM Studio is ready after 0.0s (attempt 1).
+Starting ComfyUI backend using Windows cmd style...
+Waiting for ComfyUI to become ready (polling every 15s)...
+ComfyUI not ready yet (attempt 1). Retrying in 15s...
+[START] Security scan
+[DONE] Security scan
+## ComfyUI-Manager: installing dependencies done.
+** ComfyUI startup time: 2026-01-22 15:45:15.414
+** Platform: Windows
+** Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
+** Python executable: D:\.comfyui\.venv\Scripts\python.exe
+** ComfyUI Path: D:\.comfyui\ComfyUI
+** ComfyUI Base Folder Path: D:\.comfyui\ComfyUI
+** User directory: D:\.comfyui\ComfyUI\user
+** ComfyUI-Manager config path: D:\.comfyui\ComfyUI\user\__manager\config.ini
+** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
 
-===== START D:\.comfyui\gen.video\scripts\2.motion.py @ 2026-01-21 13:49:22 =====
-Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.video\output\tracking
-No existing checkpoint found - starting fresh
-🚀 Starting Master Prompt Generation...
-📁 Reading story from: ../input/1.story.txt
-Warning: Scene image not found for scene_1.4.png
-Warning: Scene image not found for scene_1.6.png
-Warning: Scene image not found for scene_1.9.png
-Warning: Scene image not found for scene_1.10.png
-Warning: Scene image not found for scene_1.11.png
-Warning: Scene image not found for scene_1.12.png
-Warning: Scene image not found for scene_1.13.png
-Warning: Scene image not found for scene_1.14.png
-Warning: Scene image not found for scene_1.15.png
-Warning: Scene image not found for scene_1.16.png
-Warning: Scene image not found for scene_1.17.png
-Warning: Scene image not found for scene_2.2.png
-Warning: Scene image not found for scene_2.11.png
-Warning: Scene image not found for scene_2.12.png
-Warning: Scene image not found for scene_2.13.png
-Warning: Scene image not found for scene_2.14.png
-Warning: Scene image not found for scene_2.15.png
-Warning: Scene image not found for scene_2.16.png
-Warning: Scene image not found for scene_2.17.png
-Warning: Scene image not found for scene_2.18.png
-Warning: Scene image not found for scene_3.1.png
-Warning: Scene image not found for scene_3.2.png
-Warning: Scene image not found for scene_3.3.png
-Warning: Scene image not found for scene_3.4.png
-Warning: Scene image not found for scene_3.5.png
-Warning: Scene image not found for scene_3.6.png
-Warning: Scene image not found for scene_3.7.png
-Warning: Scene image not found for scene_3.8.png
-Warning: Scene image not found for scene_3.9.png
-Warning: Scene image not found for scene_3.10.png
-Warning: Scene image not found for scene_3.11.png
-Warning: Scene image not found for scene_3.12.png
-Warning: Scene image not found for scene_3.13.png
-Warning: Scene image not found for scene_3.14.png
-Warning: Scene image not found for scene_3.15.png
-Warning: Scene image not found for scene_3.16.png
-Warning: Scene image not found for scene_3.17.png
-Warning: Scene image not found for scene_3.18.png
-Warning: Scene image not found for scene_3.19.png
-Warning: Scene image not found for scene_4.1.png
-Warning: Scene image not found for scene_4.2.png
-Warning: Scene image not found for scene_4.3.png
-Warning: Scene image not found for scene_4.4.png
-Warning: Scene image not found for scene_4.5.png
-Warning: Scene image not found for scene_4.6.png
-Warning: Scene image not found for scene_4.7.png
-Warning: Scene image not found for scene_4.8.png
-Warning: Scene image not found for scene_4.9.png
-Warning: Scene image not found for scene_4.10.png
-Warning: Scene image not found for scene_4.11.png
-Warning: Scene image not found for scene_4.12.png
-Warning: Scene image not found for scene_4.13.png
-Warning: Scene image not found for scene_4.14.png
-Warning: Scene image not found for scene_4.15.png
-Warning: Scene image not found for scene_4.16.png
-Warning: Scene image not found for scene_4.17.png
-Warning: Scene image not found for scene_4.18.png
-Warning: Scene image not found for scene_4.19.png
-Warning: Scene image not found for scene_4.20.png
-Warning: Scene image not found for scene_4.21.png
-Warning: Scene image not found for scene_5.1.png
-Warning: Scene image not found for scene_5.2.png
-Warning: Scene image not found for scene_5.3.png
-Warning: Scene image not found for scene_5.4.png
-Warning: Scene image not found for scene_5.5.png
-Warning: Scene image not found for scene_5.6.png
-Warning: Scene image not found for scene_5.7.png
-Warning: Scene image not found for scene_5.8.png
-Warning: Scene image not found for scene_5.9.png
-Warning: Scene image not found for scene_5.10.png
-📋 Parsed 15 story scenes with dialogue and corresponding images
-📊 Found 15 story scenes
-📊 Story contains 790 words
+Prestartup times for custom nodes:
+   2.7 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
 
-📊 MASTER PROMPT GENERATION PROGRESS
+Checkpoint files will always be loaded safely.
+Total VRAM 12227 MB, total RAM 64957 MB
+pytorch version: 2.9.1+cu130
+Set vram state to: NORMAL_VRAM
+Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
+Using async weight offloading with 16 streams
+Enabled pinned memory 29230.0
+working around nvidia conv3d memory bug.
+Found comfy_kitchen backend eager: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
+Found comfy_kitchen backend cuda: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
+Found comfy_kitchen backend triton: {'available': True, 'disabled': True, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8']}
+Using pytorch attention
+Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
+ComfyUI version: 0.10.0
+ComfyUI frontend version: 1.37.11
+[Prompt Server] web root: D:\.comfyui\.venv\Lib\site-packages\comfyui_frontend_package\static
+ComfyUI-GGUF: Allowing full torch compile
+### Loading: ComfyUI-Manager (V3.39.2)
+[ComfyUI-Manager] network_mode: public
+[ComfyUI-Manager] ComfyUI per-queue preview override detected (PR #11261). Manager's preview method feature is disabled. Use ComfyUI's --preview-method CLI option or 'Settings > Execution > Live preview method'.
+### ComfyUI Version: v0.10.0-9-g0fc15700 | Released on '2026-01-20'
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
+
+[32mInitializing ControlAltAI Nodes[0m
+✅ ChatterboxTTS loaded from bundled package
+✅ ChatterboxVC loaded from bundled package
+FETCH ComfyRegistry Data: 5/121
+ComfyUI not ready yet (attempt 2). Retrying in 15s...
+✅ F5-TTS loaded from system package
+🎭 Character voices: Found 61 characters, 3 aliases
+✅ SRT modules loaded from system package
+🔧 Registering TTS Audio Suite nodes...
+======================================================================
+🚀 TTS Audio Suite v4.2.1
+Universal multi-engine TTS extension for ComfyUI
+⚠️ No local ChatterBox models found - will download from Hugging Face
+💡 Tip: First generation will download models (~1GB)
+   Models will be saved locally for future use
+✅ TTS Audio Suite v4.2.1 loaded with 16 nodes:
+   • ⚙️ ChatterBox TTS Engine
+   • ⚙️ F5 TTS Engine
+   • ⚙️ RVC Engine
+   • 🌊 Audio Wave Analyzer
+   • 🎙️ Voice Capture
+   • 🎤 TTS Text
+   • 🎭 Character Voices
+   • 🎭 Load RVC Character Model
+   • 👄 F5-TTS Speech Editor
+   • 📺 TTS SRT
+   • 🔄 Voice Changer
+   • 🔧 Audio Analyzer Options
+   • 🔧 F5-TTS Edit Options
+   • 🔧 RVC Pitch Extraction Options
+   • 🤐 Noise or Vocal Removal
+   • 🥪 Merge Audio
+======================================================================
+
+Import times for custom nodes:
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyMath
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
+   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
+   0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
+   0.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   1.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
+  11.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
+
+Context impl SQLiteImpl.
+Will assume non-transactional DDL.
+Assets scan(roots=['models']) completed in 0.023s (created=0, skipped_existing=29, total_seen=30)
+Starting server
+
+To see the GUI go to: http://127.0.0.1:8188
+FETCH ComfyRegistry Data: 10/121
+FETCH ComfyRegistry Data: 15/121
+ComfyUI is ready after 34.1s (attempt 3).
+
+===== START D:\.comfyui\gen.image\scripts\3.scene.py @ 2026-01-22 15:45:47 =====
+Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.image\output\tracking
+Found existing checkpoint: D:\.comfyui\gen.image\output\tracking\3.scene.state.json
+Progress: Scenes(9/9)
+Character mode: IMAGE
+Location mode: IMAGE
+Validating cache against output/scene directory: ../output/scene
+Scanning output/scene directory for untracked files: ../output/scene
+No untracked scenes found in output/scene directory
+Validating 9 completed scenes against output/scene directory...
+Precheck: File missing for scene_1.1 - marking as not completed
+Precheck: File missing for scene_1.2 - marking as not completed
+Precheck: File missing for scene_1.3 - marking as not completed
+Precheck: File missing for scene_1.4 - marking as not completed
+Precheck: File missing for scene_1.5 - marking as not completed
+Precheck: File missing for scene_1.6 - marking as not completed
+Precheck: File missing for scene_1.7 - marking as not completed
+Precheck: File missing for scene_1.8 - marking as not completed
+Precheck: File missing for scene_1.9 - marking as not completed
+Precheck: Cleared LoRA progress for scene_1.1
+Precheck: Cleared LoRA progress for scene_1.2
+Precheck: Cleared LoRA progress for scene_1.3
+Precheck: Cleared LoRA progress for scene_1.4
+Precheck: Cleared LoRA progress for scene_1.5
+Precheck: Cleared LoRA progress for scene_1.6
+Precheck: Cleared LoRA progress for scene_1.7
+Precheck: Cleared LoRA progress for scene_1.8
+Precheck: Cleared LoRA progress for scene_1.9
+Precheck: Cleaned up 9 invalid entries from checkpoint
+Precheck completed: 9 invalid entries removed from checkpoint
+Processing 56 scenes, skipped 0
+📊 Total scene words: 1,661
+============================================================
+
+📊 SCENE GENERATION PROGRESS
 ====================================================================================================
-🔄 Scene 1/15 (1.1) - It was one of those grey London mornings when the  - Processing...
-📊 Estimated time remaining: ~47s (?)
-🖼️  Including image: scene_1.1.png (base64 length: 2054486 chars)
-✅ Scene 1/15 (1.1) - It was one of those grey London mornings when the  - Completed in 17.1s
-📊 Estimated time remaining: ~1.7m (?)
-🎬 Output: (motion_1.1) A medium shot captures a young man with brown hair and bright blue eyes seated in a dark leather arm...
-🔄 Scene 2/15 (1.2) - Observe, Watson, our nocturnal visitor has been mo - Processing...
-📊 Estimated time remaining: ~1.7m (?)
-🖼️  Including image: scene_1.2.png (base64 length: 2157782 chars)
-✅ Scene 2/15 (1.2) - Observe, Watson, our nocturnal visitor has been mo - Completed in 7.8s
-📊 Estimated time remaining: ~1.7m (?)
-🎬 Output: (motion_1.2) A wide shot captures a man with white hair and glasses standing in the snow beside a blue sofa. He w...
-🔄 Scene 3/15 (1.3) - She, Holmes? You are certain the visitor was a lad - Processing...
-📊 Estimated time remaining: ~1.7m (?)
-🖼️  Including image: scene_1.3.png (base64 length: 2017290 chars)
-✅ Scene 3/15 (1.3) - She, Holmes? You are certain the visitor was a lad - Completed in 8.9s
-📊 Estimated time remaining: ~1.9m (~)
-🎬 Output: (motion_1.3) A medium shot captures a young man with spiky brown hair and bright blue eyes sitting comfortably in...
-🔄 Scene 4/15 (1.5) - You astonish me, Holmes. Are you implying that a w - Processing...
-📊 Estimated time remaining: ~1.9m (~)
-🖼️  Including image: scene_1.5.png (base64 length: 2041402 chars)
-✅ Scene 4/15 (1.5) - You astonish me, Holmes. Are you implying that a w - Completed in 8.7s
-📊 Estimated time remaining: ~1.8m (~)
-🎬 Output: (motion_1.5) A medium shot captures a young man with brown hair sitting in a plush armchair beside a crackling fi...
-🔄 Scene 5/15 (1.7) - A ring! - Processing...
-📊 Estimated time remaining: ~1.8m (~)
-🖼️  Including image: scene_1.7.png (base64 length: 1929402 chars)
-✅ Scene 5/15 (1.7) - A ring! - Completed in 10.9s
-📊 Estimated time remaining: ~2.1m (✓)
-🎬 Output: (motion_1.7) A medium shot captures a young man with spiky brown hair and bright blue eyes seated in a dark leath...
-🔄 Scene 6/15 (1.8) - A remarkable one. Note the carving upon its surfac - Processing...
-📊 Estimated time remaining: ~2.1m (✓)
-🖼️  Including image: scene_1.8.png (base64 length: 1963434 chars)
-✅ Scene 6/15 (1.8) - A remarkable one. Note the carving upon its surfac - Completed in 8.8s
-📊 Estimated time remaining: ~1.7m (✓)
-🎬 Output: (motion_1.8) A medium shot captures a man in a dark uniform standing upright beside an ornate wooden table, his p...
-🔄 Scene 7/15 (2.1) - By the time the afternoon lamps flickered alive in - Processing...
-📊 Estimated time remaining: ~1.7m (✓)
-🖼️  Including image: scene_2.1.png (base64 length: 2482674 chars)
-✅ Scene 7/15 (2.1) - By the time the afternoon lamps flickered alive in - Completed in 8.9s
-📊 Estimated time remaining: ~1.2m (✓)
-🎬 Output: (motion_2.1) A medium shot captures a man standing on a stone path in a sunlit park, surrounded by lush green gra...
-🔄 Scene 8/15 (2.3) - Holmes, you speak as though peril already walks be - Processing...
-📊 Estimated time remaining: ~1.2m (✓)
-🖼️  Including image: scene_2.3.png (base64 length: 2457410 chars)
-✅ Scene 8/15 (2.3) - Holmes, you speak as though peril already walks be - Completed in 9.1s
-📊 Estimated time remaining: ~1.2m (✓)
-🎬 Output: (motion_2.3) A medium shot captures a young man with brown hair and blue eyes standing in a sunlit park. He wears...
-🔄 Scene 9/15 (2.4) - When a mystery begins with soil from the Amazon an - Processing...
-📊 Estimated time remaining: ~1.2m (✓)
-🖼️  Including image: scene_2.4.png (base64 length: 2441154 chars)
-✅ Scene 9/15 (2.4) - When a mystery begins with soil from the Amazon an - Completed in 8.5s
-📊 Estimated time remaining: ~57s (✓)
-🎬 Output: (motion_2.4) A medium shot captures an elderly man with white hair and glasses standing in a sunlit park. He wear...
-🔄 Scene 10/15 (2.5) - Miss de Alvarado, your letter spoke of your father - Processing...
-📊 Estimated time remaining: ~57s (✓)
-🖼️  Including image: scene_2.5.png (base64 length: 2467778 chars)
-✅ Scene 10/15 (2.5) - Miss de Alvarado, your letter spoke of your father - Completed in 9.8s
-📊 Estimated time remaining: ~50s (✓)
-🎬 Output: (motion_2.5) A medium shot captures a young man standing in the center of a lush garden courtyard during bright d...
-🔄 Scene 11/15 (2.6) - Yes, Mr. Holmes. He led a small team seeking ancie - Processing...
-📊 Estimated time remaining: ~50s (✓)
-🖼️  Including image: scene_2.6.png (base64 length: 2424550 chars)
-✅ Scene 11/15 (2.6) - Yes, Mr. Holmes. He led a small team seeking ancie - Completed in 9.1s
-📊 Estimated time remaining: ~38s (✓)
-🎬 Output: (motion_2.6) A medium shot captures a man standing on a stone-paved patio in front of a circular pool with lily p...
-🔄 Scene 12/15 (2.7) - The handwriting differs from your father’s. Yet th - Processing...
-📊 Estimated time remaining: ~38s (✓)
-🖼️  Including image: scene_2.7.png (base64 length: 2463314 chars)
-✅ Scene 12/15 (2.7) - The handwriting differs from your father’s. Yet th - Completed in 7.5s
-📊 Estimated time remaining: ~28s (✓)
-🎬 Output: (motion_2.7) A medium shot captures a young man with brown hair standing beside a circular pond filled with lily ...
-🔄 Scene 13/15 (2.8) - But how could Amazon soil appear upon paper in Lon - Processing...
-📊 Estimated time remaining: ~28s (✓)
-🖼️  Including image: scene_2.8.png (base64 length: 2426942 chars)
-✅ Scene 13/15 (2.8) - But how could Amazon soil appear upon paper in Lon - Completed in 8.2s
-📊 Estimated time remaining: ~23s (✓)
-🎬 Output: (motion_2.8) A medium shot captures an elderly man with white hair and glasses standing in a lush garden beside a...
-🔄 Scene 14/15 (2.9) - Ah, my dear Watson, that is precisely the question - Processing...
-📊 Estimated time remaining: ~23s (✓)
-🖼️  Including image: scene_2.9.png (base64 length: 2463194 chars)
-✅ Scene 14/15 (2.9) - Ah, my dear Watson, that is precisely the question - Completed in 10.3s
-📊 Estimated time remaining: ~6s (✓)
-🎬 Output: (motion_2.9) A wide shot captures a young man with brown hair standing in the foreground of a sunlit park. He wea...
-🔄 Scene 15/15 (2.10) - This place looks abandoned, Holmes. Yet the lock a - Processing...
-📊 Estimated time remaining: ~6s (✓)
-🖼️  Including image: scene_2.10.png (base64 length: 2440558 chars)
-Traceback (most recent call last):
-  File "D:\.comfyui\.venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
-    sock.connect(sa)
-ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+🔄 Scene 1/56 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Processing...
+📊 Estimated time remaining: ~8.3m (?)
+Generating scene: scene_1.1 with characters: male_doctor_watson (Serial LoRA mode)
 
-During handling of the above exception, another exception occurred:
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_1.1
+Copied male_doctor_watson image to ../../ComfyUI/input\male_doctor_watson.png
+Added 1 character images to stitching process
+Copied loc_1 image to ../../ComfyUI/input\loc_loc_1.png
+Added 1 location images to stitching process
+Character mode: IMAGE, Location mode: IMAGE, Total images: 2
+Image stitching: 1 character images → 1 groups, 1 location images → 1 groups (total: 2 groups)
+Using cascaded reference conditioning
+Using latent mode with dimensions: 1280x800
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 2512093377
 
-Traceback (most recent call last):
-  File "D:\.comfyui\gen.video\scripts\2.motion.py", line 834, in <module>
-    exit(main())
-         ^^^^^^
-  File "D:\.comfyui\gen.video\scripts\2.motion.py", line 816, in main
-    success = generator.process_story(args.story_file, resumable_state)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\.comfyui\gen.video\scripts\2.motion.py", line 718, in process_story
-    response = self.call_lm_studio_api(raw_input_prompt, image_path)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\.comfyui\gen.video\scripts\2.motion.py", line 493, in call_lm_studio_api
-    response = requests.post(
-               ^^^^^^^^^^^^^^
-  File "D:\.comfyui\.venv\Lib\site-packages\requests\api.py", line 115, in post
-    return request("post", url, data=data, json=json, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\.comfyui\.venv\Lib\site-packages\requests\api.py", line 59, in request
-    return session.request(method=method, url=url, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\.comfyui\.venv\Lib\site-packages\requests\sessions.py", line 589, in request
-    resp = self.send(prep, **send_kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\.comfyui\.venv\Lib\site-packages\requests\sessions.py", line 703, in send
-    r = adapter.send(request, **kwargs)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\.comfyui\.venv\Lib\site-packages\requests\adapters.py", line 644, in send
-    resp = conn.urlopen(
-           ^^^^^^^^^^^^^
-  File "D:\.comfyui\.venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
-    response = self._make_request(
-               ^^^^^^^^^^^^^^^^^^^
-  File "D:\.comfyui\.venv\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
-    conn.request(
-  File "D:\.comfyui\.venv\Lib\site-packages\urllib3\connection.py", line 494, in request
-    self.endheaders()
-  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\http\client.py", line 1331, in endheaders
-    self._send_output(message_body, encode_chunked=encode_chunked)
-  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\http\client.py", line 1091, in _send_output
-    self.send(msg)
-  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\http\client.py", line 1035, in send
-    self.connect()
-  File "D:\.comfyui\.venv\Lib\site-packages\urllib3\connection.py", line 325, in connect
-    self.sock = self._new_conn()
-                ^^^^^^^^^^^^^^^^
-  File "D:\.comfyui\.venv\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
-    sock = connection.create_connection(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\.comfyui\.venv\Lib\site-packages\urllib3\util\connection.py", line 81, in create_connection
-    sock.close()
-  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\socket.py", line 501, in close
-    def close(self):
 
-KeyboardInterrupt
-Received signal 2. Cleaning up services...
-Stopping LM Studio backend via lms CLI...
-Command: lms server stop
-Unloading all models from LM Studio...
-Command: lms unload --all
-Unloading "qwen_qwen3-vl-30b-a3b-instruct"...
-Unloaded 1 model.
-Stopped the server on port 1234.
-LM Studio appears stopped (after 1 checks).
+
+
+Text prompt: Create a 16K ultra-high-resolution,Extremely Detailed, Scenes(only visible scenes) and Characters(only visible characters), illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        **PHYSICAL SIZE AND VISUAL SIZE, AND APPEARANCE OF CHARACTERS SHOULD BE RELATIVE TO THE SCENE AND ITS OBJECTS AND SHOULD NOT FOLLOW REAL WORLD PHYSICAL SIZE.**
+        
+ __NOTE__:Keep both of the character's hands separate and clearly visible. Include only one character in the scene. Avoid textual elements. Use logos or icons only when necessary.
+ADD ,VISIBLE SCENE of Image 2, , as background of the entire illustration., {Weather/Season/Time: sunny winter morning};
+ADD ,VISIBLE CHARACTER of Image 1, , as one of the main characters of the illustration.{Face Relative Direction: toward fireplace}{Looking Relative Direction: at newspaper}{Facial Expression: contemplative}, {Relative Location: left side of sofa},{Body Facing Relative Direction: toward fireplace},{Body Posture: sitting},{Primary Action: reading};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 3088979997
+  Using latent mode with dimensions: 1280x800
+  Using LoRA denoising_strength: 1
+  Steps: 9, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Using pytorch attention in VAE
+Using pytorch attention in VAE
+VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
+FETCH ComfyRegistry Data: 20/121
+clip missing: ['text_projection.weight']
+CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
+model weight dtype torch.bfloat16, manual cast: None
+model_type FLUX
+FETCH ComfyRegistry Data: 25/121
+FETCH ComfyRegistry Data: 30/121
+FETCH ComfyRegistry Data: 35/121
+Requested to load FluxClipModel_
+FETCH ComfyRegistry Data: 40/121
+FETCH ComfyRegistry Data: 45/121
+loaded completely; 9606.80 MB usable, 9319.23 MB loaded, full load: True
+Requested to load AutoencodingEngine
+Unloaded partially: 3628.23 MB freed, 5691.00 MB remains loaded, 936.38 MB buffer reserved, lowvram patches: 0
+loaded completely; 1143.91 MB usable, 159.87 MB loaded, full load: True
+Requested to load Flux
+FETCH ComfyRegistry Data: 50/121
+FETCH ComfyRegistry Data: 55/121
+loaded partially; 7341.24 MB usable, 5284.03 MB loaded, 17416.11 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 266
+  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 60/121
+ 11%|█         | 1/9 [00:07<01:03,  7.91s/it]FETCH ComfyRegistry Data: 65/121
+ 22%|██▏       | 2/9 [00:14<00:51,  7.35s/it]FETCH ComfyRegistry Data: 70/121
+FETCH ComfyRegistry Data: 75/121
+ 33%|███▎      | 3/9 [00:21<00:43,  7.18s/it]FETCH ComfyRegistry Data: 80/121
+ 44%|████▍     | 4/9 [00:28<00:35,  7.10s/it]FETCH ComfyRegistry Data: 85/121
+ 56%|█████▌    | 5/9 [00:35<00:28,  7.05s/it]FETCH ComfyRegistry Data: 90/121
+ 67%|██████▋   | 6/9 [00:42<00:21,  7.03s/it]FETCH ComfyRegistry Data: 95/121
+ 78%|███████▊  | 7/9 [00:49<00:14,  7.02s/it]FETCH ComfyRegistry Data: 100/121
+FETCH ComfyRegistry Data: 105/121
+ 89%|████████▉ | 8/9 [00:56<00:07,  7.01s/it]FETCH ComfyRegistry Data: 110/121
+100%|██████████| 9/9 [01:03<00:00,  7.01s/it]100%|██████████| 9/9 [01:03<00:00,  7.09s/it]
+Requested to load AutoencodingEngine
+loaded completely; 824.94 MB usable, 159.87 MB loaded, full load: True
+Prompt executed in 111.26 seconds
+  Saved LoRA result: ../output/lora\scene_1.1.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/scene\scene_1.1.png
+  Preserved LoRA progress for completed scene
+✅ Scene 1/56 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Completed in 1.9m
+📊 Estimated time remaining: ~1.7h (?)
+[OK] Generated: scene_1.1
+🔄 Scene 2/56 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Processing...
+📊 Estimated time remaining: ~1.7h (?)
+Generating scene: scene_1.2 with characters: male_detective_holmes (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_1.2
+Copied male_detective_holmes image to ../../ComfyUI/input\male_detective_holmes.png
+Added 1 character images to stitching process
+Copied loc_1 image to ../../ComfyUI/input\loc_loc_1.png
+Added 1 location images to stitching process
+Character mode: IMAGE, Location mode: IMAGE, Total images: 2
+Image stitching: 1 character images → 1 groups, 1 location images → 1 groups (total: 2 groups)
+Using cascaded reference conditioning
+Using latent mode with dimensions: 1280x800
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 1431410212
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution,Extremely Detailed, Scenes(only visible scenes) and Characters(only visible characters), illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        **PHYSICAL SIZE AND VISUAL SIZE, AND APPEARANCE OF CHARACTERS SHOULD BE RELATIVE TO THE SCENE AND ITS OBJECTS AND SHOULD NOT FOLLOW REAL WORLD PHYSICAL SIZE.**
+        
+ __NOTE__:Keep both of the character's hands separate and clearly visible. Include only one character in the scene. Avoid textual elements. Use logos or icons only when necessary.
+ADD ,VISIBLE SCENE of Image 2, , as background of the entire illustration., {Weather/Season/Time: sunny winter morning};
+ADD ,VISIBLE CHARACTER of Image 1, , as one of the main characters of the illustration.{Face Relative Direction: toward Watson}{Looking Relative Direction: at Watson}{Facial Expression: mildly amused}, {Relative Location: standing near fireplace},{Body Facing Relative Direction: toward Watson},{Body Posture: standing},{Primary Action: adjusting dressing gown};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 3489376194
+  Using latent mode with dimensions: 1280x800
+  Using LoRA denoising_strength: 1
+  Steps: 9, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+FETCH ComfyRegistry Data: 115/121
+loaded completely; 9543.67 MB usable, 9319.23 MB loaded, full load: True
+Requested to load AutoencodingEngine
+Unloaded partially: 3628.23 MB freed, 5691.00 MB remains loaded, 936.38 MB buffer reserved, lowvram patches: 0
+loaded completely; 1138.74 MB usable, 159.87 MB loaded, full load: True
+Requested to load Flux
+FETCH ComfyRegistry Data: 120/121
+loaded partially; 7341.24 MB usable, 5284.03 MB loaded, 17416.11 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 266
+  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data [DONE]
+[ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
+FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
+[ComfyUI-Manager] All startup tasks have been completed.
+ 11%|█         | 1/9 [00:07<00:56,  7.06s/it] 22%|██▏       | 2/9 [00:14<00:49,  7.02s/it] 33%|███▎      | 3/9 [00:21<00:42,  7.01s/it] 44%|████▍     | 4/9 [00:28<00:35,  7.01s/it] 56%|█████▌    | 5/9 [00:35<00:28,  7.00s/it] 67%|██████▋   | 6/9 [00:42<00:21,  7.01s/it] 78%|███████▊  | 7/9 [00:49<00:14,  7.00s/it] 89%|████████▉ | 8/9 [00:56<00:07,  7.00s/it]100%|██████████| 9/9 [01:03<00:00,  7.00s/it]100%|██████████| 9/9 [01:03<00:00,  7.01s/it]
+Requested to load AutoencodingEngine
+loaded completely; 824.94 MB usable, 159.87 MB loaded, full load: True
+Prompt executed in 71.36 seconds
+  Saved LoRA result: ../output/lora\scene_1.2.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/scene\scene_1.2.png
+  Preserved LoRA progress for completed scene
+✅ Scene 2/56 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Completed in 1.2m
+📊 Estimated time remaining: ~1.3h (?)
+[OK] Generated: scene_1.2
+🔄 Scene 3/56 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Processing...
+📊 Estimated time remaining: ~1.3h (?)
+Generating scene: scene_1.3 with characters: male_doctor_watson (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_1.3
+Copied male_doctor_watson image to ../../ComfyUI/input\male_doctor_watson.png
+Added 1 character images to stitching process
+Copied loc_1 image to ../../ComfyUI/input\loc_loc_1.png
+Added 1 location images to stitching process
+Character mode: IMAGE, Location mode: IMAGE, Total images: 2
+Image stitching: 1 character images → 1 groups, 1 location images → 1 groups (total: 2 groups)
+Using cascaded reference conditioning
+Using latent mode with dimensions: 1280x800
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 4168177325
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution,Extremely Detailed, Scenes(only visible scenes) and Characters(only visible characters), illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        **PHYSICAL SIZE AND VISUAL SIZE, AND APPEARANCE OF CHARACTERS SHOULD BE RELATIVE TO THE SCENE AND ITS OBJECTS AND SHOULD NOT FOLLOW REAL WORLD PHYSICAL SIZE.**
+        
+ __NOTE__:Keep both of the character's hands separate and clearly visible. Include only one character in the scene. Avoid textual elements. Use logos or icons only when necessary.
+ADD ,VISIBLE SCENE of Image 2, , as background of the entire illustration., {Weather/Season/Time: sunny winter morning};
+ADD ,VISIBLE CHARACTER of Image 1, , as one of the main characters of the illustration.{Face Relative Direction: toward Holmes}{Looking Relative Direction: at Holmes}{Facial Expression: thoughtful}, {Relative Location: left side of sofa},{Body Facing Relative Direction: toward Holmes},{Body Posture: sitting},{Primary Action: folding newspaper};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 3450017800
+  Using latent mode with dimensions: 1280x800
+  Using LoRA denoising_strength: 1
+  Steps: 9, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely; 9543.67 MB usable, 9319.23 MB loaded, full load: True
+Requested to load AutoencodingEngine
+Unloaded partially: 3628.23 MB freed, 5691.00 MB remains loaded, 936.38 MB buffer reserved, lowvram patches: 0
+loaded completely; 1138.74 MB usable, 159.87 MB loaded, full load: True
+Requested to load Flux
+loaded partially; 7341.24 MB usable, 5284.03 MB loaded, 17416.11 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 266
+  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:07<00:56,  7.08s/it] 22%|██▏       | 2/9 [00:14<00:49,  7.04s/it] 33%|███▎      | 3/9 [00:21<00:42,  7.03s/it] 44%|████▍     | 4/9 [00:28<00:35,  7.02s/it] 56%|█████▌    | 5/9 [00:35<00:28,  7.02s/it] 67%|██████▋   | 6/9 [00:42<00:21,  7.02s/it] 78%|███████▊  | 7/9 [00:49<00:14,  7.01s/it] 89%|████████▉ | 8/9 [00:56<00:07,  7.01s/it]100%|██████████| 9/9 [01:03<00:00,  7.01s/it]100%|██████████| 9/9 [01:03<00:00,  7.02s/it]
+Requested to load AutoencodingEngine
+loaded completely; 824.94 MB usable, 159.87 MB loaded, full load: True
+Prompt executed in 72.23 seconds
+  Saved LoRA result: ../output/lora\scene_1.3.FLUX1_Turbo_Alphasafetensors.png
+  LoRA 1 completed successfully
+  Saved LoRA progress: 1/1 completed
+Saved: ../output/scene\scene_1.3.png
+  Preserved LoRA progress for completed scene
+✅ Scene 3/56 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Completed in 1.3m
+📊 Estimated time remaining: ~1.2h (~)
+[OK] Generated: scene_1.3
+🔄 Scene 4/56 - {{loc_1}}, {Weather/Season/Time: sunny winter morn - Processing...
+📊 Estimated time remaining: ~1.2h (~)
+Generating scene: scene_1.4 with characters: male_detective_holmes (Serial LoRA mode)
+
+Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
+  Using current LoRA configuration for FLUX.1-Turbo-Alpha.safetensors
+Serial LoRA mode enabled - will create separate workflow
+Building workflow for serial LoRA mode: scene_1.4
+Copied male_detective_holmes image to ../../ComfyUI/input\male_detective_holmes.png
+Added 1 character images to stitching process
+Copied loc_1 image to ../../ComfyUI/input\loc_loc_1.png
+Added 1 location images to stitching process
+Character mode: IMAGE, Location mode: IMAGE, Total images: 2
+Image stitching: 1 character images → 1 groups, 1 location images → 1 groups (total: 2 groups)
+Using cascaded reference conditioning
+Using latent mode with dimensions: 1280x800
+Negative prompt disabled - using ConditioningZeroOut
+Seed set to: 535735670
+
+
+
+
+Text prompt: Create a 16K ultra-high-resolution,Extremely Detailed, Scenes(only visible scenes) and Characters(only visible characters), illustration (with non-black and non-white background) in the style of Realistic Anime, 
+        with shot taken with camera placed at very large distance(at least 12 meters away) and ultra wide angle(160 degrees) lens such area with width of at least 10 meters and height of at least 10 meters visible.
+        **PHYSICAL SIZE AND VISUAL SIZE, AND APPEARANCE OF CHARACTERS SHOULD BE RELATIVE TO THE SCENE AND ITS OBJECTS AND SHOULD NOT FOLLOW REAL WORLD PHYSICAL SIZE.**
+        
+ __NOTE__:Keep both of the character's hands separate and clearly visible. Include only one character in the scene. Avoid textual elements. Use logos or icons only when necessary.
+ADD ,VISIBLE SCENE of Image 2, , as background of the entire illustration., {Weather/Season/Time: sunny winter morning};
+ADD ,VISIBLE CHARACTER of Image 1, , as one of the main characters of the illustration.{Face Relative Direction: toward fireplace}{Looking Relative Direction: at fire}{Facial Expression: analytical}, {Relative Location: standing near fireplace},{Body Facing Relative Direction: toward fireplace},{Body Posture: standing},{Primary Action: warming hands};
+
+  Model strength: 3.0
+  CLIP strength: 3.0
+  Seed set to: 3420093280
+  Using latent mode with dimensions: 1280x800
+  Using LoRA denoising_strength: 1
+  Steps: 9, Denoising: 1
+got prompt
+  Waiting for LoRA 1 generation to complete...
+Requested to load FluxClipModel_
+loaded completely; 9543.67 MB usable, 9319.23 MB loaded, full load: True
+Requested to load AutoencodingEngine
+Unloaded partially: 3628.23 MB freed, 5691.00 MB remains loaded, 936.38 MB buffer reserved, lowvram patches: 0
+loaded completely; 1138.74 MB usable, 159.87 MB loaded, full load: True
+Requested to load Flux
+loaded partially; 7341.24 MB usable, 5284.03 MB loaded, 17416.11 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 266
+  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:07<00:57,  7.17s/it] 22%|██▏       | 2/9 [00:14<00:49,  7.07s/it] 33%|███▎      | 3/9 [00:21<00:42,  7.04s/it] 44%|████▍     | 4/9 [00:28<00:35,  7.03s/it] 56%|█████▌    | 5/9 [00:35<00:28,  7.02s/it]
