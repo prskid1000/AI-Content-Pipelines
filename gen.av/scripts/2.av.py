@@ -376,8 +376,10 @@ class AVVideoGenerator:
     def read_story_data(self) -> Tuple[List[float], List[Dict[str, str]]]:
         """Read and parse story file to extract scenes with dialogue/audio and calculate durations.
         
-        Format: Dialogue lines [speaker] "dialogue text" followed by (scene_X.Y) definitions.
-        The script reads scene IDs from the file instead of auto-generating them.
+        Format: Each scene is exactly 3 lines:
+        1. Dialogue line: [speaker] "dialogue text"
+        2. Scene definition: (scene_X.Y) ...
+        3. Empty line
         
         When SOUND_MODE=AUDIO, uses audio chunks from story.py output (gen.audio/output/story/)
         instead of reading audio filenames from story.txt.
@@ -398,97 +400,101 @@ class AVVideoGenerator:
             print_flush(f"❌ Error reading story file: {e}")
             return [], []
         
-        # First pass: collect scene definitions and their line numbers
-        scene_definitions = {}  # Maps line number to scene_id
-        for i, line in enumerate(lines, start=1):
-            line_stripped = line.strip()
-            # Look for scene definitions: (scene_X.Y)
-            if line_stripped.startswith('(scene_') and ')' in line_stripped:
-                # Extract scene ID: (scene_1.1) -> scene_1.1
-                scene_match = re.match(r'\(scene_([^)]+)\)', line_stripped)
-                if scene_match:
-                    scene_id = scene_match.group(1)
-                    scene_definitions[i] = scene_id
+        # Process file in 3-line chunks (dialogue, scene definition, empty line)
+        i = 0
+        scene_counter = 0  # Track which scene we're on (for audio file naming)
         
-        # Second pass: process dialogue lines and match with scene definitions
-        for i, line in enumerate(lines, start=1):
-            line = line.strip()
+        while i < len(lines):
+            # Line 1 of 3: Dialogue line
+            dialogue_line = lines[i].strip() if i < len(lines) else ""
+            i += 1
             
-            # Skip empty lines
-            if not line:
+            # Line 2 of 3: Scene definition
+            scene_line = lines[i].strip() if i < len(lines) else ""
+            i += 1
+            
+            # Line 3 of 3: Empty line (skip it)
+            if i < len(lines):
+                empty_line = lines[i].strip()
+                i += 1
+            
+            # Skip if dialogue line is empty or doesn't match expected format
+            if not dialogue_line or not dialogue_line.startswith('[') or ']' not in dialogue_line:
+                # If we hit a non-standard format, try to continue
+                if dialogue_line:
+                    print_flush(f"⚠️ Unexpected format at line {i-2}: expected dialogue line, got: {dialogue_line[:50]}...")
                 continue
             
-            # Look for dialogue/audio lines (format: [speaker] "dialogue text")
-            if line.startswith('[') and ']' in line:
-                # Extract speaker and content
-                dialogue_end = line.find(']')
-                speaker = line[1:dialogue_end]
-                content = line[dialogue_end + 1:].strip()
+            # Extract speaker and dialogue content
+            dialogue_end = dialogue_line.find(']')
+            speaker = dialogue_line[1:dialogue_end]
+            content = dialogue_line[dialogue_end + 1:].strip()
+            
+            # Remove quotes if present
+            if content.startswith('"') and content.endswith('"'):
+                content = content[1:-1]
+            
+            # Extract scene ID from scene definition line
+            scene_id = None
+            if scene_line.startswith('(scene_') and ')' in scene_line:
+                scene_match = re.match(r'\(scene_([^)]+)\)', scene_line)
+                if scene_match:
+                    scene_id = scene_match.group(1)
+                else:
+                    print_flush(f"⚠️ Could not parse scene ID from line {i-1}: {scene_line[:50]}...")
+                    continue
+            else:
+                print_flush(f"⚠️ Expected scene definition on line {i-1}, got: {scene_line[:50]}...")
+                continue
+            
+            scene_counter += 1
+            duration = 0.0
+            dialogue_text = ""
+            audio_file = None
+            
+            if SOUND_MODE == "AUDIO":
+                # Use audio chunks from story.py output (gen.audio/output/story/)
+                # Audio files are named by sequential scene order (not scene ID):
+                # 1st scene (scene_1.1) -> 1_1.wav
+                # 2nd scene (scene_1.2) -> 2_2.wav
+                # 3rd scene (scene_2.1) -> 3_3.wav
+                # etc.
+                audio_file = self._find_audio_chunk_for_line(scene_counter)
                 
-                # Remove quotes if present
-                if content.startswith('"') and content.endswith('"'):
-                    content = content[1:-1]
-                
-                # Find the corresponding scene definition (look ahead in next few lines)
-                scene_id = None
-                for j in range(i + 1, min(i + 3, len(lines) + 1)):  # Check next 2 lines
-                    if j in scene_definitions:
-                        scene_id = scene_definitions[j]
-                        break
-                
-                # If no scene definition found, skip this dialogue (or use fallback)
-                if not scene_id:
-                    print_flush(f"⚠️ No scene definition found for dialogue on line {i}, skipping")
+                if not audio_file:
+                    print_flush(f"⚠️ Audio chunk not found for scene {scene_counter} (expected {scene_counter}_{scene_counter}.wav)")
                     continue
                 
-                duration = 0.0
-                dialogue_text = ""
-                audio_file = None
+                # Get duration from audio chunk
+                audio_path = os.path.join(self.story_audio_output_dir, audio_file)
+                if not os.path.exists(audio_path):
+                    print_flush(f"⚠️ Audio chunk file not found: {audio_path}")
+                    continue
                 
-                if SOUND_MODE == "AUDIO":
-                    # Use audio chunks from story.py output (gen.audio/output/story/)
-                    # Dialogue line number (1-indexed)
-                    dialogue_line_num = i
-                    
-                    # Look for audio chunk file: {line_num}_{line_num}.wav
-                    # For AV pipeline, story.py is run with --chunk-size 1, so each dialogue line
-                    # gets its own audio file: {line_num}_{line_num}.wav (e.g., 14_14.wav for line 14)
-                    audio_file = self._find_audio_chunk_for_line(dialogue_line_num)
-                    
-                    if not audio_file:
-                        print_flush(f"⚠️ Audio chunk not found for dialogue on line {dialogue_line_num}")
-                        continue
-                    
-                    # Get duration from audio chunk
-                    audio_path = os.path.join(self.story_audio_output_dir, audio_file)
-                    if not os.path.exists(audio_path):
-                        print_flush(f"⚠️ Audio chunk file not found: {audio_path}")
-                        continue
-                    
-                    duration = self._get_audio_duration(audio_path)
-                    if duration <= 0:
-                        print_flush(f"⚠️ Could not get duration for audio chunk: {audio_file}")
-                        continue
-                else:
-                    # Content is dialogue text
-                    dialogue_text = content
-                    # Count words in dialogue
-                    word_count = len(dialogue_text.split())
-                    duration = word_count * WORDS_TO_SPEECH_RATIO
-                
-                # Use scene ID from file
-                scene_name = f"scene_{scene_id}"
-                
-                # Store dialogue text (same for both modes)
-                scenes.append({
-                    "scene_name": scene_name,
-                    "scene_id": scene_id,
-                    "dialogue": content,  # Store dialogue text (even in AUDIO mode for logging)
-                    "speaker": speaker,
-                    "audio_file": audio_file if SOUND_MODE == "AUDIO" else None
-                })
-                
-                durations.append(duration)
+                duration = self._get_audio_duration(audio_path)
+                if duration <= 0:
+                    print_flush(f"⚠️ Could not get duration for audio chunk: {audio_file}")
+                    continue
+            else:
+                # Content is dialogue text
+                dialogue_text = content
+                # Count words in dialogue
+                word_count = len(dialogue_text.split())
+                duration = word_count * WORDS_TO_SPEECH_RATIO
+            
+            # Use scene ID from file
+            scene_name = f"scene_{scene_id}"
+            
+            # Store dialogue text (same for both modes)
+            scenes.append({
+                "scene_name": scene_name,
+                "scene_id": scene_id,
+                "dialogue": content,  # Store dialogue text (even in AUDIO mode for logging)
+                "speaker": speaker,
+                "audio_file": audio_file if SOUND_MODE == "AUDIO" else None
+            })
+            
+            durations.append(duration)
         
         mode_str = "audio files" if SOUND_MODE == "AUDIO" else "dialogue"
         print_flush(f"📋 Loaded {len(durations)} scenes with {mode_str} from {self.story_file}")
@@ -713,35 +719,38 @@ class AVVideoGenerator:
             print(f"❌ Error finding last saved frame: {e}")
             return None
 
-    def _find_audio_chunk_for_line(self, line_num: int) -> str | None:
-        """Find audio chunk file that corresponds to a specific line number.
+    def _find_audio_chunk_for_line(self, scene_seq_num: int) -> str | None:
+        """Find audio chunk file that corresponds to a sequential scene number.
         
-        For AV pipeline, story.py is run with --chunk-size 1, so each dialogue line
-        has its own audio file named {line_num}_{line_num}.wav (e.g., 14_14.wav for line 14).
+        Audio files are named by the sequential order of scenes in the story file:
+        - Scene 1 (first scene, e.g., scene_1.1) -> 1_1.wav
+        - Scene 2 (second scene, e.g., scene_1.2) -> 2_2.wav
+        - Scene 3 (third scene, e.g., scene_2.1) -> 3_3.wav
+        - etc.
         
         Args:
-            line_num: Line number (1-indexed) of the dialogue
+            scene_seq_num: Sequential scene number (1-indexed, first scene = 1, second scene = 2, etc.)
             
         Returns:
-            Audio chunk filename (e.g., "14_14.wav") or None if not found
+            Audio chunk filename (e.g., "1_1.wav", "2_2.wav") or None if not found
         """
         try:
             if not os.path.exists(self.story_audio_output_dir):
                 print_flush(f"⚠️ Audio output directory not found: {self.story_audio_output_dir}")
                 return None
             
-            # Each dialogue line has exactly one audio file: {line_num}_{line_num}.wav
-            expected_filename = f"{line_num}_{line_num}.wav"
+            # Audio files are named by sequential scene number: {seq_num}_{seq_num}.wav
+            expected_filename = f"{scene_seq_num}_{scene_seq_num}.wav"
             expected_path = os.path.join(self.story_audio_output_dir, expected_filename)
             
             if os.path.exists(expected_path):
                 return expected_filename
             
-            print_flush(f"⚠️ No audio chunk found for line {line_num} (expected {expected_filename})")
+            print_flush(f"⚠️ No audio chunk found for scene {scene_seq_num} (expected {expected_filename})")
             return None
             
         except Exception as e:
-            print_flush(f"❌ Error finding audio chunk for line {line_num}: {e}")
+            print_flush(f"❌ Error finding audio chunk for scene {scene_seq_num}: {e}")
             return None
 
     def _get_audio_duration(self, audio_path: str) -> float:
@@ -897,7 +906,7 @@ class AVVideoGenerator:
 
     def _get_negative_prompt(self) -> str:
         """Get the negative prompt for animation."""
-        return "worst quality, low quality, blurry, distortion, artifacts, noisy,logo,text, words, letters, writing, caption, subtitle, title, label, watermark, text, extra limbs, extra fingers, bad anatomy, poorly drawn face, asymmetrical features, plastic texture, uncanny valley"
+        return "blurry, low resolution, distorted, painting, illustration, cartoon, anime, sketch, oversaturated, watermark, text, signature, distorted face, asymmetric features, extra limbs, deformed hands, blurry eyes, disfigured, low quality, bad anatomy, poorly drawn face, cluttered, busy background, distracting elements, multiple objects, messy, chaotic, excessive detail, noise, shaky, pixelated, compression artifacts, distorted motion, flickering, frame drops, poor lighting, artificial, computer-generated, synthetic, plastic, uncanny valley, overly smooth, fake, robotic"
 
     def _get_positive_prompt(self) -> str:
         """Get the positive prompt for animation."""
@@ -992,7 +1001,7 @@ class AVVideoGenerator:
             print_flush(f"🎤 Using talking instructions as primary prompt for {SOUND_MODE} mode")
         
         # Add negative prompt suggestions to avoid static faces
-        audio_negative = "static face, frozen expression, closed mouth, no lip movement, silent, motionless lips"
+        audio_negative = ""
         if negative_prompt:
             negative_prompt = f"{negative_prompt}, {audio_negative}"
         else:
@@ -1008,11 +1017,20 @@ class AVVideoGenerator:
                 frame_count = 121  # Default fallback
 
         print_flush(f"Full prompt: {positive_prompt}")
+        print_flush(f"Negative prompt: {negative_prompt}")
         
         # Update workflow nodes for movie.json
         # Node "204" is the text input (PrimitiveStringMultiline) - set to positive prompt
         if "204" in workflow:
             workflow["204"]["inputs"]["value"] = positive_prompt
+        
+        # Node "282" is the CLIPTextEncode for negative prompt - set negative prompt text
+        # Check if negative prompt node exists (user may have added it to workflow)
+        if "282" in workflow:
+            workflow["282"]["inputs"]["text"] = negative_prompt
+            print_flush(f"✅ Set negative prompt in node 282")
+        else:
+            print_flush(f"⚠️ Negative prompt node 282 not found in workflow - negative prompt will not be set")
         
         # Node "228" is the image input (LoadImage)
         if "228" in workflow:

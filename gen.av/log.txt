@@ -2,248 +2,80 @@ Workflow runner started. Python executable: D:\.comfyui\.venv\Scripts\python.exe
 Working directory: D:\.comfyui\gen.av
 Emptying ComfyUI input and output folders...
 Removed directory: D:\.comfyui\ComfyUI\input\3d
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.1.png
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_1.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.2.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_1_last_frame.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_2_last_frame.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_3.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_3_last_frame.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.3.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.3_1.wav
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00002_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00003_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00004_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00005_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00006_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00007_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00008_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00009_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00010_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00011_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00012_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00013_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00014_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00015_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00016_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00017_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00018_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00019_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00020_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00021_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00022_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00023_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00024_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00025_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00026_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00027_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00028_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00029_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00030_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00031_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00032_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00033_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00034_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00035_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00036_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00037_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00038_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00039_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00040_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00041_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00042_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00043_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00044_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00045_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00046_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00047_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00048_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00049_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00050_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00051_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00052_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00053_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00054_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00055_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00056_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00057_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00058_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00059_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00060_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00061_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00062_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00063_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00064_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00065_.png
+Removed directory: D:\.comfyui\ComfyUI\output\video
 Successfully emptied ComfyUI input and output folders.
-All tracked files unchanged. Preserving output directories.
+Tracking directory created with file hashes.
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
-[START] Security scan
-[DONE] Security scan
-## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2026-01-23 10:45:56.873
-** Platform: Windows
-** Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
-** Python executable: D:\.comfyui\.venv\Scripts\python.exe
-** ComfyUI Path: D:\.comfyui\ComfyUI
-** ComfyUI Base Folder Path: D:\.comfyui\ComfyUI
-** User directory: D:\.comfyui\ComfyUI\user
-** ComfyUI-Manager config path: D:\.comfyui\ComfyUI\user\__manager\config.ini
-** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
-ComfyUI not ready yet (attempt 1). Retrying in 15s...
-
-Prestartup times for custom nodes:
-   2.4 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-
-Checkpoint files will always be loaded safely.
-Total VRAM 12227 MB, total RAM 64957 MB
-pytorch version: 2.9.1+cu130
-Set vram state to: NORMAL_VRAM
-Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
-Using async weight offloading with 16 streams
-Enabled pinned memory 29230.0
-working around nvidia conv3d memory bug.
-Found comfy_kitchen backend eager: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
-Found comfy_kitchen backend triton: {'available': True, 'disabled': True, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8']}
-Found comfy_kitchen backend cuda: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
-Using pytorch attention
-Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
-ComfyUI version: 0.10.0
-ComfyUI frontend version: 1.37.11
-[Prompt Server] web root: D:\.comfyui\.venv\Lib\site-packages\comfyui_frontend_package\static
-ComfyUI-GGUF: Allowing full torch compile
-### Loading: ComfyUI-Manager (V3.39.2)
-[ComfyUI-Manager] network_mode: public
-[ComfyUI-Manager] ComfyUI per-queue preview override detected (PR #11261). Manager's preview method feature is disabled. Use ComfyUI's --preview-method CLI option or 'Settings > Execution > Live preview method'.
-### ComfyUI Version: v0.10.0-17-g72f6be16 | Released on '2026-01-21'
-
-[32mInitializing ControlAltAI Nodes[0m
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
-✅ ChatterboxTTS loaded from bundled package
-✅ ChatterboxVC loaded from bundled package
-FETCH ComfyRegistry Data: 5/121
-✅ F5-TTS loaded from system package
-🎭 Character voices: Found 61 characters, 3 aliases
-✅ SRT modules loaded from system package
-🔧 Registering TTS Audio Suite nodes...
-======================================================================
-🚀 TTS Audio Suite v4.2.1
-Universal multi-engine TTS extension for ComfyUI
-⚠️ No local ChatterBox models found - will download from Hugging Face
-💡 Tip: First generation will download models (~1GB)
-   Models will be saved locally for future use
-✅ TTS Audio Suite v4.2.1 loaded with 16 nodes:
-   • ⚙️ ChatterBox TTS Engine
-   • ⚙️ F5 TTS Engine
-   • ⚙️ RVC Engine
-   • 🌊 Audio Wave Analyzer
-   • 🎙️ Voice Capture
-   • 🎤 TTS Text
-   • 🎭 Character Voices
-   • 🎭 Load RVC Character Model
-   • 👄 F5-TTS Speech Editor
-   • 📺 TTS SRT
-   • 🔄 Voice Changer
-   • 🔧 Audio Analyzer Options
-   • 🔧 F5-TTS Edit Options
-   • 🔧 RVC Pitch Extraction Options
-   • 🤐 Noise or Vocal Removal
-   • 🥪 Merge Audio
-======================================================================
-
-Import times for custom nodes:
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyMath
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
-   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
-   0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-   0.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
-   7.4 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
-
-Context impl SQLiteImpl.
-Will assume non-transactional DDL.
-Assets scan(roots=['models']) completed in 0.020s (created=0, skipped_existing=29, total_seen=30)
-Starting server
-
-To see the GUI go to: http://127.0.0.1:8188
-ComfyUI is ready after 17.1s (attempt 2).
-
-===== START D:\.comfyui\gen.av\scripts\2.av.py @ 2026-01-23 10:46:12 =====
-Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
-handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
-Traceback (most recent call last):
-  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\events.py", line 88, in _run
-    self._context.run(self._callback, *self._args)
-  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
-    self._sock.shutdown(socket.SHUT_RDWR)
-ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
-Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.av\output\tracking
-No existing checkpoint found - starting fresh
-🎬 Starting AV video generation process...
-📁 Story:     ../input/1.story.txt
-🖼️  Images:    ../../gen.image/output/scene
-🎥 Output:    ../output
-⚠️ No audio chunk found for line 58 (expected 58_58.wav)
-⚠️ Audio chunk not found for dialogue on line 58
-⚠️ No audio chunk found for line 61 (expected 61_61.wav)
-⚠️ Audio chunk not found for dialogue on line 61
-⚠️ No audio chunk found for line 64 (expected 64_64.wav)
-⚠️ Audio chunk not found for dialogue on line 64
-⚠️ No audio chunk found for line 67 (expected 67_67.wav)
-⚠️ Audio chunk not found for dialogue on line 67
-⚠️ No audio chunk found for line 70 (expected 70_70.wav)
-⚠️ Audio chunk not found for dialogue on line 70
-⚠️ No audio chunk found for line 73 (expected 73_73.wav)
-⚠️ Audio chunk not found for dialogue on line 73
-⚠️ No audio chunk found for line 76 (expected 76_76.wav)
-⚠️ Audio chunk not found for dialogue on line 76
-⚠️ No audio chunk found for line 79 (expected 79_79.wav)
-⚠️ Audio chunk not found for dialogue on line 79
-⚠️ No audio chunk found for line 82 (expected 82_82.wav)
-⚠️ Audio chunk not found for dialogue on line 82
-⚠️ No audio chunk found for line 85 (expected 85_85.wav)
-⚠️ Audio chunk not found for dialogue on line 85
-⚠️ No audio chunk found for line 88 (expected 88_88.wav)
-⚠️ Audio chunk not found for dialogue on line 88
-⚠️ No audio chunk found for line 91 (expected 91_91.wav)
-⚠️ Audio chunk not found for dialogue on line 91
-⚠️ No audio chunk found for line 94 (expected 94_94.wav)
-⚠️ Audio chunk not found for dialogue on line 94
-⚠️ No audio chunk found for line 97 (expected 97_97.wav)
-⚠️ Audio chunk not found for dialogue on line 97
-⚠️ No audio chunk found for line 100 (expected 100_100.wav)
-⚠️ Audio chunk not found for dialogue on line 100
-⚠️ No audio chunk found for line 103 (expected 103_103.wav)
-⚠️ Audio chunk not found for dialogue on line 103
-⚠️ No audio chunk found for line 106 (expected 106_106.wav)
-⚠️ Audio chunk not found for dialogue on line 106
-⚠️ No audio chunk found for line 109 (expected 109_109.wav)
-⚠️ Audio chunk not found for dialogue on line 109
-⚠️ No audio chunk found for line 112 (expected 112_112.wav)
-⚠️ Audio chunk not found for dialogue on line 112
-⚠️ No audio chunk found for line 115 (expected 115_115.wav)
-⚠️ Audio chunk not found for dialogue on line 115
-⚠️ No audio chunk found for line 118 (expected 118_118.wav)
-⚠️ Audio chunk not found for dialogue on line 118
-⚠️ No audio chunk found for line 121 (expected 121_121.wav)
-⚠️ Audio chunk not found for dialogue on line 121
-⚠️ No audio chunk found for line 124 (expected 124_124.wav)
-⚠️ Audio chunk not found for dialogue on line 124
-⚠️ No audio chunk found for line 127 (expected 127_127.wav)
-⚠️ Audio chunk not found for dialogue on line 127
-⚠️ No audio chunk found for line 130 (expected 130_130.wav)
-⚠️ Audio chunk not found for dialogue on line 130
-⚠️ No audio chunk found for line 133 (expected 133_133.wav)
-⚠️ Audio chunk not found for dialogue on line 133
-⚠️ No audio chunk found for line 136 (expected 136_136.wav)
-⚠️ Audio chunk not found for dialogue on line 136
-⚠️ No audio chunk found for line 139 (expected 139_139.wav)
-⚠️ Audio chunk not found for dialogue on line 139
-⚠️ No audio chunk found for line 142 (expected 142_142.wav)
-⚠️ Audio chunk not found for dialogue on line 142
-⚠️ No audio chunk found for line 145 (expected 145_145.wav)
-⚠️ Audio chunk not found for dialogue on line 145
-⚠️ No audio chunk found for line 148 (expected 148_148.wav)
-⚠️ Audio chunk not found for dialogue on line 148
-⚠️ No audio chunk found for line 151 (expected 151_151.wav)
-⚠️ Audio chunk not found for dialogue on line 151
-⚠️ No audio chunk found for line 154 (expected 154_154.wav)
-⚠️ Audio chunk not found for dialogue on line 154
-⚠️ No audio chunk found for line 157 (expected 157_157.wav)
-⚠️ Audio chunk not found for dialogue on line 157
-⚠️ No audio chunk found for line 160 (expected 160_160.wav)
-⚠️ Audio chunk not found for dialogue on line 160
-⚠️ No audio chunk found for line 163 (expected 163_163.wav)
-⚠️ Audio chunk not found for dialogue on line 163
-⚠️ No audio chunk found for line 166 (expected 166_166.wav)
-⚠️ Audio chunk not found for dialogue on line 166
-📋 Loaded 19 scenes with audio files from ../input/1.story.txt
-🎬 Loaded 56 master prompts
-📋 Loaded 19 scenes from story file
-⚠️ Missing images for 1 scenes:
-   - scene_1.19
-Processing 18 unique scenes, skipped 0
-📊 Total video words: 490
-📊 Total video duration: 183.6 seconds (3.1 minutes)
-============================================================
-
-📊 AV VIDEO GENERATION PROGRESS
-========================================================================================================================
-🔄 Scene 1/18 - "It was upon a crisp winter morning, when the pale (16.64s) - Processing...
-📊 Estimated time remaining: ~1.5h (?)
-Generating video for scene: scene_1.1
-Duration: 16.64s, Frames: 399
-Video chunks: 4
-Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_1.1.png
-Generating chunk: scene_1.1_1 (121 frames)
-✅ Split audio chunk: scene_1.1_1.wav (5.042s, start: 0.000s)
-🎬 Using master prompt for 1.1
-🎤 Added comprehensive talking instructions for AUDIO mode
-🚫 Added negative prompt to prevent static facial expressions
-Full prompt: Scene Includes a Dialogue spoken by a character.Natural lip sync with audio, smooth mouth movement. Clear facial features, well-lit face. In a sunlit Victorian sitting room on a bright winter morning, soft golden light streams through the large window, illuminating the warm wooden furniture. A man with blond hair sits on the left side of a plush red sofa, wearing a white dress shirt and dark tie, his body angled toward the fireplace as he reads a newspaper held in both hands. He has blue eyes that gaze intently at the pages, his expression deeply contemplative. As the camera slowly dollies forward, focusing on his concentrated face, sunlight casts long shadows across the ornate rug beneath him. The room is rich with texture—wood paneling, patterned carpet, a small potted plant on the round table beside him—and the gentle glow of a lamp on a side table enhances the cozy atmosphere. His posture remains still and upright as he continues reading, his gaze fixed on the newspaper in his hands.
-📐 Set video dimensions: 1024x576
-got prompt
-Waiting for video generation completion (prompt_id: bdda27bb-69c4-42a7-a9ea-de21e92e620b)...
-VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
-Requested to load VideoVAE
-loaded completely; 9606.80 MB usable, 2378.23 MB loaded, full load: True
-FETCH ComfyRegistry Data: 10/121
-CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
-FETCH ComfyRegistry Data: 15/121
-Requested to load LTXAVTEModel_
-loaded partially; 9562.80 MB usable, 735.62 MB loaded, 25228.59 MB offloaded, 8827.18 MB buffer reserved, lowvram patches: 0
-FETCH ComfyRegistry Data: 20/121
-Traceback (most recent call last):
-  File "D:\.comfyui\gen.av\scripts\2.av.py", line 1898, in <module>
-    exit(main())
-         ^^^^^^
-  File "D:\.comfyui\gen.av\scripts\2.av.py", line 1872, in main
-    results = generator.generate_all_videos(force_regenerate=args.force, resumable_state=resumable_state)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\.comfyui\gen.av\scripts\2.av.py", line 1644, in generate_all_videos
-    output_paths = self._generate_video(scene_name, dialogue, image_path, duration, motion_data, resumable_state, audio_file)
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\.comfyui\gen.av\scripts\2.av.py", line 1284, in _generate_video
-    time.sleep(3)  # Video generation takes longer
-    ^^^^^^^^^^^^^
-KeyboardInterrupt
-Received signal 2. Cleaning up services...
-Stopping ComfyUI backend...
-ComfyUI still responding; waiting for shutdown...
-ComfyUI appears stopped (after 2 checks).
