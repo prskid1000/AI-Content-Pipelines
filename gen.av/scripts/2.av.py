@@ -1095,9 +1095,9 @@ class AVVideoGenerator:
         if "104" in workflow:
             workflow["104"]["inputs"]["filename_prefix"] = f"video/AV-{chunk_scene_id}"
         
-        # Node "3000" is the save image (SaveImage) - set filename prefix for frames
-        if "3000" in workflow:
-            workflow["3000"]["inputs"]["filename_prefix"] = f"{chunk_scene_id}_frame"
+        # Node "279:307" is the save image (SaveImage) - set filename prefix for frames
+        if "279:307" in workflow:
+            workflow["279:307"]["inputs"]["filename_prefix"] = f"{chunk_scene_id}_frame"
         
         # Configure audio input and switch (when SOUND_MODE=AUDIO)
         if SOUND_MODE == "AUDIO" and audio_filename:
