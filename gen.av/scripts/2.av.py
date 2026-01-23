@@ -222,7 +222,7 @@ class AVVideoGenerator:
         # Directory for storing extracted frames
         self.frames_output_dir = "../output/frames"
         # Story input file (instead of timeline)
-        self.story_file = "../../gen.audio/input/1.story.txt"
+        self.story_file = "../input/1.story.txt"
         # Movie workflow file
         self.workflow_file = "../workflow/movie.json"
         # Motion data file (master prompts generated in 2.motion.py)
@@ -376,7 +376,8 @@ class AVVideoGenerator:
     def read_story_data(self) -> Tuple[List[float], List[Dict[str, str]]]:
         """Read and parse story file to extract scenes with dialogue/audio and calculate durations.
         
-        Format: Dialogue lines [speaker] "dialogue text" - creates scenes automatically.
+        Format: Dialogue lines [speaker] "dialogue text" followed by (scene_X.Y) definitions.
+        The script reads scene IDs from the file instead of auto-generating them.
         
         When SOUND_MODE=AUDIO, uses audio chunks from story.py output (gen.audio/output/story/)
         instead of reading audio filenames from story.txt.
@@ -397,8 +398,19 @@ class AVVideoGenerator:
             print_flush(f"❌ Error reading story file: {e}")
             return [], []
         
-        scene_counter = 1  # For auto-generating scene IDs
+        # First pass: collect scene definitions and their line numbers
+        scene_definitions = {}  # Maps line number to scene_id
+        for i, line in enumerate(lines, start=1):
+            line_stripped = line.strip()
+            # Look for scene definitions: (scene_X.Y)
+            if line_stripped.startswith('(scene_') and ')' in line_stripped:
+                # Extract scene ID: (scene_1.1) -> scene_1.1
+                scene_match = re.match(r'\(scene_([^)]+)\)', line_stripped)
+                if scene_match:
+                    scene_id = scene_match.group(1)
+                    scene_definitions[i] = scene_id
         
+        # Second pass: process dialogue lines and match with scene definitions
         for i, line in enumerate(lines, start=1):
             line = line.strip()
             
@@ -416,6 +428,18 @@ class AVVideoGenerator:
                 # Remove quotes if present
                 if content.startswith('"') and content.endswith('"'):
                     content = content[1:-1]
+                
+                # Find the corresponding scene definition (look ahead in next few lines)
+                scene_id = None
+                for j in range(i + 1, min(i + 3, len(lines) + 1)):  # Check next 2 lines
+                    if j in scene_definitions:
+                        scene_id = scene_definitions[j]
+                        break
+                
+                # If no scene definition found, skip this dialogue (or use fallback)
+                if not scene_id:
+                    print_flush(f"⚠️ No scene definition found for dialogue on line {i}, skipping")
+                    continue
                 
                 duration = 0.0
                 dialogue_text = ""
@@ -452,10 +476,8 @@ class AVVideoGenerator:
                     word_count = len(dialogue_text.split())
                     duration = word_count * WORDS_TO_SPEECH_RATIO
                 
-                # Create scene from dialogue (auto-generate scene ID)
-                scene_id = f"1.{scene_counter}"
+                # Use scene ID from file
                 scene_name = f"scene_{scene_id}"
-                scene_counter += 1
                 
                 # Store dialogue text (same for both modes)
                 scenes.append({

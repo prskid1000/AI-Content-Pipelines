@@ -336,12 +336,11 @@ class PromptGenerator:
 **CRITICAL: If the user prompt mentions elements NOT in the image, IGNORE those elements completely.**
 
 #### PROMPT STRUCTURE (Single Flowing Paragraph):
-1. Shot Establishment: Start with camera type and framing (close-up, medium shot, wide shot, tracking shot)
-2. Scene Setting: Lighting (soft morning light, harsh shadows, golden hour), color palette, textures, atmosphere
-3. Action Sequence: Chronological movement in present tense - what happens first, then next, then finally
-4. Character Details: Visible features (age range, hair, clothing) and physical emotion cues (posture, gestures, facial expressions)
-5. Camera Behavior: How the lens moves (dollies in, pans left, tilts up) and what it focuses on
-6. Visual Style: Aesthetic references (film noir, analog film grain, painterly, cinematographic style)
+1. Scene Setting: Lighting (soft morning light, harsh shadows, golden hour), color palette, textures, atmosphere
+2. Action Sequence: Chronological movement in present tense - what happens first, then next, then finally
+3. Character Details: Visible features (age range, hair, clothing) and physical emotion cues (posture, gestures, facial expressions)
+4. Camera Behavior: How the lens moves (dollies in, pans left, tilts up) and what it focuses on. Optionally include shot type (close-up, medium shot, wide shot) only if relevant to the action.
+5. Visual Style: Aesthetic references (film noir, analog film grain, painterly, cinematographic style)
 
 #### WHAT TO INCLUDE (ONLY IF VISIBLE IN IMAGE):
 - Subjects actually shown in the image (exact number of people/animals)
@@ -375,7 +374,7 @@ class PromptGenerator:
 Single flowing paragraph with no titles, headings, code fences, or markdown. Start directly with the shot description.
 
 #### EXAMPLE OUTPUT:
-A medium shot captures a man seated in a worn leather armchair positioned beside a crackling stone fireplace. Soft morning light filters through the tall window behind him, casting gentle shadows across the room's wooden paneling. He wears a dark wool coat and slowly lifts his gaze from the flames to look toward the window. Outside, bare winter trees stand against a pale gray sky, their branches swaying slightly in the cold wind. The camera subtly pushes in, focusing on his weathered face as he reaches forward to adjust the fire with an iron poker. The warm orange glow from the fireplace contrasts with the cool blue tones of the winter scene beyond the glass. His breath is visible in the chilly air of the room as he settles back into the chair, his expression contemplative."""
+Scene of a man seated in a worn leather armchair positioned beside a crackling stone fireplace. Soft morning light filters through the tall window behind him, casting gentle shadows across the room's wooden paneling. He wears a dark wool coat and slowly lifts his gaze from the flames to look toward the window. Outside, bare winter trees stand against a pale gray sky, their branches swaying slightly in the cold wind. The camera subtly pushes in, focusing on his weathered face as he reaches forward to adjust the fire with an iron poker. The warm orange glow from the fireplace contrasts with the cool blue tones of the winter scene beyond the glass. His breath is visible in the chilly air of the room as he settles back into the chair, his expression contemplative."""
         else:
             # System prompt for text-to-video generation
             return """You are an expert video prompt writer for LTX-2, specializing in text-to-video generation. Given user input, create a flowing, chronological prompt that describes a complete visual narrative with natural action and movement.
@@ -436,7 +435,7 @@ A medium shot captures a man seated in a worn leather armchair positioned beside
 Single flowing paragraph with no titles, headings, prefaces, code fences, or markdown. Start directly with the shot description. If input is unsafe or invalid, return a safe simplified version.
 
 #### EXAMPLE OUTPUT:
-A wide shot reveals a woman in a cream-colored sweater sitting at a small wooden table near a large café window. Soft afternoon sunlight streams through the glass, creating warm pools of light on the table's surface and highlighting dust particles in the air. She holds a smartphone to her ear with her right hand while her left hand absently turns a white ceramic coffee cup. The camera slowly dollies in to a medium shot as she glances outside at the passing pedestrians on the busy street. Her expression shifts from neutral to a slight smile, her eyes brightening as she leans forward slightly. The background blurs into soft bokeh, with the warm interior lighting contrasting against the cooler tones of the street visible through the window. She sets the cup down gently and runs her free hand through her shoulder-length brown hair."""
+Scene of a woman in a cream-colored sweater sitting at a small wooden table near a large café window. Soft afternoon sunlight streams through the glass, creating warm pools of light on the table's surface and highlighting dust particles in the air. She holds a smartphone to her ear with her right hand while her left hand absently turns a white ceramic coffee cup. The camera slowly dollies in to a medium shot as she glances outside at the passing pedestrians on the busy street. Her expression shifts from neutral to a slight smile, her eyes brightening as she leans forward slightly. The background blurs into soft bokeh, with the warm interior lighting contrasting against the cooler tones of the street visible through the window. She sets the cup down gently and runs her free hand through her shoulder-length brown hair."""
 
     def call_lm_studio_api(self, raw_input_prompt: str, image_path: str = None) -> str:
         """Call LM Studio API to generate master prompt with optional image input"""
@@ -780,7 +779,7 @@ def main():
     import argparse
     
     parser = argparse.ArgumentParser(description="Generate master prompts for story scenes")
-    parser.add_argument("story_file", nargs="?", default="../input/1.story.txt",
+    parser.add_argument("--input", default="../input/1.story.txt",
                        help="Path to story file (default: ../input/1.story.txt)")
     parser.add_argument("--output", default="../input/2.motion.txt",
                        help="Output file path for motion prompts (default: ../input/2.motion.txt)")
@@ -790,9 +789,9 @@ def main():
     args = parser.parse_args()
         
     # Check if story file exists
-    if not os.path.exists(args.story_file):
-        print(f"❌ Story file '{args.story_file}' not found")
-        print("Usage: python 2.motion.py [story_file] [--output OUTPUT_FILE] [--force-start]")
+    if not os.path.exists(args.input):
+        print(f"❌ Story file '{args.input}' not found")
+        print("Usage: python 2.motion.py [--input INPUT_FILE] [--output OUTPUT_FILE] [--force-start]")
         return 1
     
     # Initialize resumable state if enabled
@@ -813,7 +812,7 @@ def main():
     generator = PromptGenerator(output_file=args.output)
     
     start_time = time.time()
-    success = generator.process_story(args.story_file, resumable_state)
+    success = generator.process_story(args.input, resumable_state)
     end_time = time.time()
     
     if success:

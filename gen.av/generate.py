@@ -71,10 +71,10 @@ SCRIPTS = [
     #Images
     # "../gen.image/scripts/2.character.py",
     # "../gen.image/scripts/2.location.py",
-    "../gen.image/scripts/3.scene.py",
+    # "../gen.image/scripts/3.scene.py",
 
     #Video
-    "../gen.video/scripts/2.motion.py",
+    # "../gen.video/scripts/2.motion.py",
     "2.av.py",
 
     #Thumbnail
@@ -96,7 +96,7 @@ NEEDS_LMSTUDIO = {"1.character.py", "1.story.py", "2.motion.py", "5.timeline.py"
 SCRIPT_ARGS = {
     "2.story.py": ["--chunk-size", "1"],
     "1.character.py": ["--auto-gender", "m", "--auto-confirm", "y", "--change-settings", "n"],
-    "2.motion.py": ["--output", "../../gen.av/input/2.motion.txt"],  # Output path for AV motion prompts (relative to gen.video/scripts/)
+    "2.motion.py": ["--input", "../../gen.av/input/1.story.txt", "--output", "../../gen.av/input/2.motion.txt"],  # Input/output paths for AV motion prompts (relative to gen.video/scripts/)
     "11.video.py": ["--video-file", "../../gen.av/output/final.mp4"],
     "12.youtube.py": ["--video-file", "../../gen.av/output/final.mp4", "--upload-shorts", "--shorts-dir", "../../gen.audio/output"],
 }
