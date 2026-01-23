@@ -25,7 +25,7 @@ echo.
 
 REM Install PyTorch first
 echo [1/4] Installing PyTorch (nightly with CUDA 13.0)...
-.venv\Scripts\python.exe -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu130
+.venv\Scripts\python.exe -m pip install torch==2.9.1 torchvision==0.24.1 torchaudio==2.9.1 --index-url https://download.pytorch.org/whl/cu130
 if errorlevel 1 (
     echo ERROR: Failed to install PyTorch
     pause
