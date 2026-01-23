@@ -967,7 +967,7 @@ class AVVideoGenerator:
 
     def _get_positive_prompt(self) -> str:
         """Get the positive prompt for animation."""
-        return "Video Shot of a Character Speaking Dialogue(with lip, face, and body language **SYNC WITH AUDIO**) and Acting according to Script in a Scene."
+        return "Video Shot(taken with Still Camera Position, Camera Angle and Camera Focus) of a Character Speaking Dialogue(with lip, face, and body language **SYNC WITH AUDIO**) and Acting according to Script in a Scene."
 
     def _load_base_workflow(self) -> dict:
         """Load the base movie workflow."""
