@@ -951,6 +951,9 @@ VIDEO_HEIGHT = 576
 FRAMES_PER_SECOND = 24
 CHUNK_SIZE = 3  # Maximum seconds per chunk (3 seconds max for video animation)
 
+# Negative Prompt Configuration
+ENABLE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to disable
+
 # Feature flags (moved to 2.motion.py)
 # Note: Master prompts are now generated in 2.motion.py with all features integrated
 
@@ -1180,6 +1183,9 @@ CHUNK_SIZE = 3  # Maximum seconds per chunk (3 seconds max for AV)
 # Words to speech ratio: seconds per word
 WORDS_TO_SPEECH_RATIO = 0.25  # 0.25 seconds per word (approximately 4 words per second)
 
+# Negative Prompt Configuration
+ENABLE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to disable
+
 # LoRA Switch Configuration (controls LoRA chain in movie.json workflow)
 # Each switch controls a specific part of the LoRA chain
 ENABLE_SWITCH_279_286 = True   # Node 279:286 - Controls depth-control LoRA (ltx-2-19b-ic-lora-depth-control.safetensors)
@@ -1310,7 +1316,36 @@ When generating videos, comprehensive talking instructions are automatically add
 - Natural breathing pauses and micro-expressions
 - Professional quality talking head video
 
-Negative prompts also added to prevent static faces.
+### Negative Prompt Configuration (`2.av.py` and `3.animate.py`)
+
+Both video generation scripts (`2.av.py` and `3.animate.py`) support configurable negative prompts to improve video quality and prevent common artifacts.
+
+#### Configuration
+```python
+ENABLE_NEGATIVE_PROMPT = True  # Set to True to enable negative prompts, False to disable
+```
+
+#### Default Negative Prompt
+When enabled, the following negative prompt is used:
+```
+"blurry, low resolution, distorted, oversaturated, watermark, text, signature, 
+distorted face, asymmetric features, extra limbs, deformed hands, blurry eyes, 
+disfigured, low quality, bad anatomy, poorly drawn face, messy, noise, shaky, 
+pixelated, compression artifacts, distorted motion, flickering, frame drops, 
+poor lighting"
+```
+
+#### Usage
+- **Enabled (True)**: Negative prompts are applied to the workflow to help prevent artifacts and improve quality
+- **Disabled (False)**: No negative prompts are used (empty string is passed to the workflow)
+
+#### When to Disable
+You may want to disable negative prompts if:
+- You're experimenting with different generation styles
+- The negative prompt is interfering with desired artistic effects
+- You want to rely solely on positive prompts for control
+
+**Note**: Negative prompts are particularly useful for preventing static faces and improving motion quality in character animations.
 
 ### Audio Chunk Processing Flow (AUDIO Mode)
 

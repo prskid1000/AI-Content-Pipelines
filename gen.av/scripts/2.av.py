@@ -22,7 +22,7 @@ SOUND_MODE = "AUDIO"  # "TEXT" for text dialogues, "AUDIO" for audio file inputs
 VIDEO_WIDTH = 1024
 VIDEO_HEIGHT = 576
 FRAMES_PER_SECOND = 24
-CHUNK_SIZE = 5  # Maximum seconds per chunk (3 seconds max for AV)
+CHUNK_SIZE = 10  # Maximum seconds per chunk (6 seconds max for AV)
 
 # Feature flags (moved to 2.motion.py)
 # Note: Master prompts are now generated in 2.motion.py with all features integrated
@@ -30,11 +30,14 @@ CHUNK_SIZE = 5  # Maximum seconds per chunk (3 seconds max for AV)
 # Words to speech ratio: seconds per word
 WORDS_TO_SPEECH_RATIO = 0.25  # 0.25 seconds per word (approximately 4 words per second)
 
+# Negative Prompt Configuration
+ENABLE_NEGATIVE_PROMPT = False  # Set to True to enable negative prompts, False to disable
+
 # LoRA Switch Configuration (controls LoRA chain in movie.json workflow)
 # Each switch controls a specific part of the LoRA chain
 ENABLE_SWITCH_279_286 = True   # Node 279:286 - Controls depth-control LoRA (ltx-2-19b-ic-lora-depth-control.safetensors)
 ENABLE_SWITCH_279_288 = True   # Node 279:288 - Controls canny-control LoRA (ltx-2-19b-ic-lora-canny-control.safetensors)
-ENABLE_SWITCH_279_289 = False   # Node 279:289 - Controls pose-control LoRA (ltx-2-19b-ic-lora-pose-control.safetensors)
+ENABLE_SWITCH_279_289 = True   # Node 279:289 - Controls pose-control LoRA (ltx-2-19b-ic-lora-pose-control.safetensors)
 ENABLE_SWITCH_279_290 = False   # Node 279:290 - Controls detailer LoRA (ltx-2-19b-ic-lora-detailer.safetensors)
 ENABLE_SWITCH_279_291 = True   # Node 279:291 - Final switch for first CFGGuider (279:239)
 ENABLE_SWITCH_279_292 = False   # Node 279:292 - Final switch for second CFGGuider (279:252)
@@ -826,6 +829,59 @@ class AVVideoGenerator:
             print_flush(f"❌ Error splitting audio file: {e}")
             return None
 
+    def _trim_first_frame(self, video_path: str) -> bool:
+        """Trim 0.1 seconds from the start of a video file using ffmpeg.
+        
+        Args:
+            video_path: Path to video file (will be modified in place)
+            
+        Returns:
+            True if successful, False otherwise
+        """
+        try:
+            # Create a temporary output file
+            temp_path = video_path + ".tmp.mp4"
+            
+            # Use ffmpeg to trim 0.1 seconds from the start
+            # -ss before -i provides more accurate seeking
+            # -c copy avoids re-encoding for speed
+            cmd = [
+                'ffmpeg',
+                '-ss', '0.1',  # Skip first 0.1 seconds
+                '-i', video_path,
+                '-c', 'copy',  # Copy streams without re-encoding
+                '-y',  # Overwrite output file
+                temp_path
+            ]
+            
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+            
+            if result.returncode == 0:
+                # Replace original file with trimmed version
+                shutil.move(temp_path, video_path)
+                print_flush(f"✅ Trimmed 0.1s from start: {os.path.basename(video_path)}")
+                return True
+            else:
+                # Clean up temp file on error
+                if os.path.exists(temp_path):
+                    try:
+                        os.remove(temp_path)
+                    except OSError:
+                        pass
+                print_flush(f"⚠️ Failed to trim video: {result.stderr}")
+                return False
+                
+        except Exception as e:
+            print_flush(f"❌ Error trimming video: {e}")
+            # Clean up temp file on error
+            temp_path = video_path + ".tmp.mp4"
+            if os.path.exists(temp_path):
+                try:
+                    os.remove(temp_path)
+                except OSError:
+                    pass
+            return False
+
     def _extract_last_frame(self, video_path: str, output_image_path: str) -> bool:
         """Extract the last frame from a video file using ffmpeg.
         
@@ -905,11 +961,13 @@ class AVVideoGenerator:
 
     def _get_negative_prompt(self) -> str:
         """Get the negative prompt for animation."""
+        if not ENABLE_NEGATIVE_PROMPT:
+            return ""
         return "blurry, low resolution, distorted, oversaturated, watermark, text, signature, distorted face, asymmetric features, extra limbs, deformed hands, blurry eyes, disfigured, low quality, bad anatomy, poorly drawn face, messy, noise, shaky, pixelated, compression artifacts, distorted motion, flickering, frame drops, poor lighting"
 
     def _get_positive_prompt(self) -> str:
         """Get the positive prompt for animation."""
-        return "Audio-Visual Shot of a Character Speaking Dialogue and Acting according to Script in a Scene."
+        return "Video Shot of a Character Speaking Dialogue(with lip, face, and body language **SYNC WITH AUDIO**) and Acting according to Script in a Scene."
 
     def _load_base_workflow(self) -> dict:
         """Load the base movie workflow."""
@@ -1306,6 +1364,13 @@ class AVVideoGenerator:
                 final_path = os.path.join(self.final_output_dir, f"{chunk_scene_id}.mp4")
                 shutil.copy2(generated_video, final_path)
                 print(f"Saved video: {final_path}")
+                
+                # Trim first frame if this is chunk 1 (first chunk) for multiple chunks or single chunk
+                should_trim = (chunk_idx == 0 and len(chunks) > 1) or len(chunks) == 1
+                if should_trim:
+                    print(f"✂️ Trimming first frame from chunk 1: {chunk_scene_id}")
+                    self._trim_first_frame(final_path)
+                
                 generated_videos.append(final_path)
                 
                 # Find the actual last generated frame from this chunk for continuity

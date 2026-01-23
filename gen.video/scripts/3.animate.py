@@ -21,6 +21,9 @@ VIDEO_HEIGHT = 576
 FRAMES_PER_SECOND = 24
 CHUNK_SIZE = 3
 
+# Negative Prompt Configuration
+ENABLE_NEGATIVE_PROMPT = False  # Set to True to enable negative prompts, False to disable
+
 # Feature flags (moved to 2.motion.py)
 # Note: Master prompts are now generated in 2.motion.py with all features integrated
 
@@ -1147,11 +1150,13 @@ class VideoAnimator:
 
     def _get_negative_prompt(self) -> str:
         """Get the negative prompt for animation."""
+        if not ENABLE_NEGATIVE_PROMPT:
+            return ""
         return "blurry, low resolution, distorted, oversaturated, watermark, text, signature, distorted face, asymmetric features, extra limbs, deformed hands, blurry eyes, disfigured, low quality, bad anatomy, poorly drawn face, messy, noise, shaky, pixelated, compression artifacts, distorted motion, flickering, frame drops, poor lighting"
 
     def _get_positive_prompt(self) -> str:
         """Get the negative prompt for animation."""
-        return "Audio-Visual Shot of a Character Speaking Dialogue and Acting according to Script in a Scene."
+        return "Video Shot of a Character Speaking Dialogue(with lip, face, and body language sync) and Acting according to Script in a Scene."
 
     def _load_base_workflow(self) -> dict:
         """Load the base animation workflow."""
