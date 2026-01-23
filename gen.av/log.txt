@@ -4,6 +4,376 @@ Emptying ComfyUI input and output folders...
 Removed directory: D:\.comfyui\ComfyUI\input\3d
 Removed file: D:\.comfyui\ComfyUI\input\scene_1.1.png
 Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_1.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_1_last_frame.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_2.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_2_last_frame.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_3.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_3_last_frame.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_4.wav
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00002_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00003_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00004_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00005_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00006_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00007_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00008_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00009_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00010_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00011_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00012_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00013_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00014_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00015_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00016_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00017_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00018_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00019_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00020_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00021_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00022_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00023_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00024_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00025_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00026_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00027_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00028_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00029_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00030_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00031_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00032_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00033_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00034_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00035_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00036_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00037_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00038_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00039_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00040_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00041_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00042_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00043_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00044_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00045_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00046_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00047_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00048_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00049_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00050_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00051_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00052_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00053_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00054_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00055_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00056_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00057_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00058_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00059_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00060_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00061_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00062_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00063_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00064_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00065_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00066_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00067_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00068_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00069_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00070_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00071_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00072_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00073_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00074_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00075_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00076_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00077_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00078_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00079_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00080_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00081_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00082_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00083_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00084_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00085_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00086_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00087_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00088_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00089_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00090_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00091_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00092_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00093_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00094_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00095_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00096_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00097_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00098_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00099_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00100_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00101_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00102_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00103_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00104_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00105_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00106_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00107_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00108_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00109_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00110_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00111_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00112_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00113_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00114_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00115_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00116_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00117_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00118_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00119_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00120_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00121_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00002_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00003_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00004_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00005_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00006_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00007_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00008_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00009_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00010_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00011_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00012_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00013_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00014_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00015_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00016_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00017_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00018_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00019_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00020_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00021_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00022_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00023_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00024_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00025_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00026_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00027_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00028_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00029_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00030_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00031_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00032_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00033_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00034_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00035_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00036_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00037_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00038_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00039_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00040_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00041_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00042_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00043_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00044_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00045_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00046_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00047_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00048_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00049_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00050_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00051_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00052_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00053_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00054_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00055_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00056_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00057_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00058_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00059_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00060_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00061_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00062_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00063_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00064_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00065_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00066_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00067_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00068_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00069_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00070_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00071_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00072_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00073_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00074_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00075_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00076_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00077_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00078_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00079_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00080_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00081_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00082_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00083_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00084_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00085_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00086_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00087_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00088_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00089_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00090_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00091_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00092_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00093_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00094_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00095_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00096_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00097_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00098_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00099_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00100_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00101_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00102_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00103_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00104_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00105_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00106_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00107_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00108_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00109_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00110_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00111_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00112_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00113_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00114_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00115_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00116_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00117_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00118_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00119_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00120_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_2_frame_00121_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00002_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00003_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00004_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00005_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00006_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00007_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00008_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00009_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00010_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00011_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00012_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00013_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00014_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00015_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00016_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00017_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00018_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00019_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00020_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00021_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00022_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00023_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00024_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00025_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00026_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00027_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00028_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00029_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00030_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00031_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00032_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00033_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00034_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00035_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00036_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00037_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00038_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00039_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00040_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00041_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00042_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00043_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00044_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00045_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00046_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00047_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00048_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00049_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00050_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00051_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00052_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00053_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00054_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00055_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00056_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00057_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00058_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00059_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00060_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00061_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00062_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00063_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00064_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00065_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00066_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00067_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00068_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00069_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00070_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00071_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00072_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00073_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00074_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00075_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00076_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00077_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00078_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00079_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00080_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00081_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00082_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00083_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00084_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00085_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00086_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00087_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00088_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00089_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00090_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00091_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00092_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00093_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00094_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00095_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00096_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00097_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00098_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00099_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00100_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00101_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00102_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00103_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00104_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00105_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00106_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00107_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00108_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00109_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00110_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00111_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00112_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00113_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00114_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00115_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00116_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00117_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00118_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00119_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00120_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_3_frame_00121_.png
+Removed directory: D:\.comfyui\ComfyUI\output\video
 Successfully emptied ComfyUI input and output folders.
 Tracking directory created with file hashes.
 Starting ComfyUI backend using Windows cmd style...
@@ -12,7 +382,7 @@ ComfyUI not ready yet (attempt 1). Retrying in 15s...
 [START] Security scan
 [DONE] Security scan
 ## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2026-01-23 12:07:55.570
+** ComfyUI startup time: 2026-01-23 12:15:35.431
 ** Platform: Windows
 ** Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
 ** Python executable: D:\.comfyui\.venv\Scripts\python.exe
@@ -23,7 +393,7 @@ ComfyUI not ready yet (attempt 1). Retrying in 15s...
 ** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
 
 Prestartup times for custom nodes:
-   2.7 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   2.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
 
 Checkpoint files will always be loaded safely.
 Total VRAM 12227 MB, total RAM 64957 MB
@@ -33,9 +403,9 @@ Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
 Using async weight offloading with 16 streams
 Enabled pinned memory 29230.0
 working around nvidia conv3d memory bug.
-Found comfy_kitchen backend triton: {'available': True, 'disabled': True, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8']}
-Found comfy_kitchen backend eager: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
 Found comfy_kitchen backend cuda: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
+Found comfy_kitchen backend eager: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
+Found comfy_kitchen backend triton: {'available': True, 'disabled': True, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8']}
 Using pytorch attention
 Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
 ComfyUI version: 0.10.0
@@ -47,12 +417,12 @@ ComfyUI-GGUF: Allowing full torch compile
 [ComfyUI-Manager] ComfyUI per-queue preview override detected (PR #11261). Manager's preview method feature is disabled. Use ComfyUI's --preview-method CLI option or 'Settings > Execution > Live preview method'.
 ### ComfyUI Version: v0.10.0-17-g72f6be16 | Released on '2026-01-21'
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
 
 [32mInitializing ControlAltAI Nodes[0m
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
 [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
 ✅ ChatterboxTTS loaded from bundled package
 ✅ ChatterboxVC loaded from bundled package
 FETCH ComfyRegistry Data: 5/121
@@ -93,13 +463,13 @@ Import times for custom nodes:
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
    0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
    0.4 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
-   0.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
    0.8 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
-  10.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
+   8.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
 
 Context impl SQLiteImpl.
 Will assume non-transactional DDL.
-Assets scan(roots=['models']) completed in 0.027s (created=0, skipped_existing=29, total_seen=30)
+Assets scan(roots=['models']) completed in 0.021s (created=0, skipped_existing=29, total_seen=30)
 Starting server
 
 To see the GUI go to: http://127.0.0.1:8188
@@ -107,7 +477,7 @@ FETCH ComfyRegistry Data: 10/121
 FETCH ComfyRegistry Data: 15/121
 ComfyUI is ready after 34.1s (attempt 3).
 
-===== START D:\.comfyui\gen.av\scripts\2.av.py @ 2026-01-23 12:08:27 =====
+===== START D:\.comfyui\gen.av\scripts\2.av.py @ 2026-01-23 12:16:07 =====
 Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
 handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
 Traceback (most recent call last):
@@ -122,7 +492,6 @@ No existing checkpoint found - starting fresh
 📁 Story:     ../input/1.story.txt
 🖼️  Images:    ../../gen.image/output/scene
 🎥 Output:    ../output
-FETCH ComfyRegistry Data: 20/121
 📋 Loaded 56 scenes with audio files from ../input/1.story.txt
 🎬 Loaded 56 master prompts
 📋 Loaded 56 scenes from story file
@@ -142,53 +511,54 @@ Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_1.1.png
 Generating chunk: scene_1.1_1 (121 frames)
 ✅ Split audio chunk: scene_1.1_1.wav (5.042s, start: 0.000s)
 🎬 Using master prompt for 1.1
-🚫 Added negative prompt to prevent static facial expressions
+🚫 Added negative prompt
 Full prompt: In a sunlit Victorian sitting room on a bright winter morning, soft golden light streams through the large window, illuminating the warm wooden furniture. A man with blond hair sits on the left side of a plush red sofa, wearing a white dress shirt and dark tie, his body angled toward the fireplace as he reads a newspaper held in both hands. He has blue eyes that gaze intently at the pages, his expression deeply contemplative. As the camera slowly dollies forward, focusing on his concentrated face, sunlight casts long shadows across the ornate rug beneath him. The room is rich with texture—wood paneling, patterned carpet, a small potted plant on the round table beside him—and the gentle glow of a lamp on a side table enhances the cozy atmosphere. His posture remains still and upright as he continues reading, his gaze fixed on the newspaper in his hands.
-Negative prompt: blurry, low resolution, distorted, painting, illustration, cartoon, anime, sketch, oversaturated, watermark, text, signature, distorted face, asymmetric features, extra limbs, deformed hands, blurry eyes, disfigured, low quality, bad anatomy, poorly drawn face, cluttered, busy background, distracting elements, multiple objects, messy, chaotic, excessive detail, noise, shaky, pixelated, compression artifacts, distorted motion, flickering, frame drops, poor lighting, artificial, computer-generated, synthetic, plastic, uncanny valley, overly smooth, fake, robotic, 
+Negative prompt: blurry, low resolution, distorted, oversaturated, watermark, text, signature, distorted face, asymmetric features, extra limbs, deformed hands, blurry eyes, disfigured, low quality, bad anatomy, poorly drawn face, distracting elements, multiple objects, messy, chaotic, excessive detail, noise, shaky, pixelated, compression artifacts, distorted motion, flickering, frame drops, poor lighting, artificial, uncanny valley, overly smooth, fake, robotic, 
 📐 Set video dimensions: 1024x576
 got prompt
-Waiting for video generation completion (prompt_id: 28714f7b-450b-4ab9-ba45-dc5ff105bb87)...
+Waiting for video generation completion (prompt_id: 07ddefd6-8688-4485-ba20-ac41120931ef)...
+FETCH ComfyRegistry Data: 20/121
 VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
 Requested to load VideoVAE
 loaded completely; 9606.80 MB usable, 2378.23 MB loaded, full load: True
 FETCH ComfyRegistry Data: 25/121
-FETCH ComfyRegistry Data: 30/121
 CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
+FETCH ComfyRegistry Data: 30/121
 Requested to load LTXAVTEModel_
 loaded partially; 9562.80 MB usable, 735.62 MB loaded, 25228.59 MB offloaded, 8827.18 MB buffer reserved, lowvram patches: 0
-FETCH ComfyRegistry Data: 35/121
 Requested to load AudioVAE
 loaded completely; 8808.05 MB usable, 415.20 MB loaded, full load: True
 gguf qtypes: F32 (2140), BF16 (26), Q4_K (1008), Q6_K (336)
 model weight dtype torch.bfloat16, manual cast: None
 model_type FLUX
 Requested to load LTXAV
+FETCH ComfyRegistry Data: 35/121
 FETCH ComfyRegistry Data: 40/121
 FETCH ComfyRegistry Data: 45/121
 FETCH ComfyRegistry Data: 50/121
-FETCH ComfyRegistry Data: 55/121
 loaded partially; 9533.35 MB usable, 9380.21 MB loaded, 2861.75 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 60/121
- 12%|█▎        | 1/8 [00:03<00:26,  3.84s/it] 25%|██▌       | 2/8 [00:07<00:22,  3.69s/it]FETCH ComfyRegistry Data: 65/121
- 38%|███▊      | 3/8 [00:11<00:18,  3.65s/it] 50%|█████     | 4/8 [00:14<00:14,  3.58s/it]FETCH ComfyRegistry Data: 70/121
- 62%|██████▎   | 5/8 [00:17<00:10,  3.49s/it] 75%|███████▌  | 6/8 [00:21<00:06,  3.47s/it]FETCH ComfyRegistry Data: 75/121
- 88%|████████▊ | 7/8 [00:24<00:03,  3.47s/it]100%|██████████| 8/8 [00:28<00:00,  3.45s/it]100%|██████████| 8/8 [00:28<00:00,  3.52s/it]
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:04<00:28,  4.02s/it]FETCH ComfyRegistry Data: 55/121
+ 25%|██▌       | 2/8 [00:07<00:21,  3.64s/it]FETCH ComfyRegistry Data: 60/121
+ 38%|███▊      | 3/8 [00:10<00:17,  3.55s/it] 50%|█████     | 4/8 [00:14<00:14,  3.55s/it]FETCH ComfyRegistry Data: 65/121
+ 62%|██████▎   | 5/8 [00:17<00:10,  3.49s/it]FETCH ComfyRegistry Data: 70/121
+ 75%|███████▌  | 6/8 [00:21<00:06,  3.46s/it] 88%|████████▊ | 7/8 [00:24<00:03,  3.49s/it]FETCH ComfyRegistry Data: 75/121
+100%|██████████| 8/8 [00:28<00:00,  3.48s/it]100%|██████████| 8/8 [00:28<00:00,  3.52s/it]
 Unloaded partially: 30.62 MB freed, 9349.59 MB remains loaded, 153.13 MB buffer reserved, lowvram patches: 0
-FETCH ComfyRegistry Data: 80/121
 Requested to load VideoVAE
 Unloaded partially: 2244.88 MB freed, 7104.71 MB remains loaded, 153.27 MB buffer reserved, lowvram patches: 0
 loaded completely; 2620.96 MB usable, 2378.23 MB loaded, full load: True
 Requested to load LTXAV
-FETCH ComfyRegistry Data: 85/121
+FETCH ComfyRegistry Data: 80/121
 loaded partially; 8703.96 MB usable, 8531.45 MB loaded, 3710.52 MB offloaded, 177.49 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 90/121
+  0%|          | 0/3 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 85/121
+FETCH ComfyRegistry Data: 90/121
 FETCH ComfyRegistry Data: 95/121
- 33%|███▎      | 1/3 [00:13<00:26, 13.07s/it]FETCH ComfyRegistry Data: 100/121
- 67%|██████▋   | 2/3 [00:24<00:12, 12.06s/it]FETCH ComfyRegistry Data: 105/121
-FETCH ComfyRegistry Data: 110/121
-100%|██████████| 3/3 [00:36<00:00, 11.92s/it]100%|██████████| 3/3 [00:36<00:00, 12.06s/it]
-Requested to load VideoVAE
+ 33%|███▎      | 1/3 [00:13<00:27, 13.62s/it]FETCH ComfyRegistry Data: 100/121
+FETCH ComfyRegistry Data: 105/121
+ 67%|██████▋   | 2/3 [00:25<00:12, 12.55s/it]FETCH ComfyRegistry Data: 110/121
 FETCH ComfyRegistry Data: 115/121
+100%|██████████| 3/3 [00:36<00:00, 12.05s/it]100%|██████████| 3/3 [00:36<00:00, 12.29s/it]
+Requested to load VideoVAE
 0 models unloaded.
 loaded partially; 0.00 MB usable, 0.00 MB loaded, 2378.23 MB offloaded, 1728.05 MB buffer reserved, lowvram patches: 0
 FETCH ComfyRegistry Data: 120/121
@@ -198,7 +568,7 @@ FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main
 [ComfyUI-Manager] All startup tasks have been completed.
 Requested to load AudioVAE
 loaded completely; 9533.67 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 131.42 seconds
+Prompt executed in 132.66 seconds
 ✅ Copied 121 frames for scene_1.1_1
 Saved video: ../output\scene_1.1_1.mp4
 🔍 Frame prefix: scene_1.1_1.frame_
@@ -214,29 +584,29 @@ Generating chunk: scene_1.1_2 (121 frames)
 📁 Frame stored: ../output/frames\scene_1.1_2_last_frame.png
 ✅ Split audio chunk: scene_1.1_2.wav (5.042s, start: 5.042s)
 🎬 Using master prompt for 1.1
-🚫 Added negative prompt to prevent static facial expressions
+🚫 Added negative prompt
 Full prompt: In a sunlit Victorian sitting room on a bright winter morning, soft golden light streams through the large window, illuminating the warm wooden furniture. A man with blond hair sits on the left side of a plush red sofa, wearing a white dress shirt and dark tie, his body angled toward the fireplace as he reads a newspaper held in both hands. He has blue eyes that gaze intently at the pages, his expression deeply contemplative. As the camera slowly dollies forward, focusing on his concentrated face, sunlight casts long shadows across the ornate rug beneath him. The room is rich with texture—wood paneling, patterned carpet, a small potted plant on the round table beside him—and the gentle glow of a lamp on a side table enhances the cozy atmosphere. His posture remains still and upright as he continues reading, his gaze fixed on the newspaper in his hands.
-Negative prompt: blurry, low resolution, distorted, painting, illustration, cartoon, anime, sketch, oversaturated, watermark, text, signature, distorted face, asymmetric features, extra limbs, deformed hands, blurry eyes, disfigured, low quality, bad anatomy, poorly drawn face, cluttered, busy background, distracting elements, multiple objects, messy, chaotic, excessive detail, noise, shaky, pixelated, compression artifacts, distorted motion, flickering, frame drops, poor lighting, artificial, computer-generated, synthetic, plastic, uncanny valley, overly smooth, fake, robotic, 
+Negative prompt: blurry, low resolution, distorted, oversaturated, watermark, text, signature, distorted face, asymmetric features, extra limbs, deformed hands, blurry eyes, disfigured, low quality, bad anatomy, poorly drawn face, distracting elements, multiple objects, messy, chaotic, excessive detail, noise, shaky, pixelated, compression artifacts, distorted motion, flickering, frame drops, poor lighting, artificial, uncanny valley, overly smooth, fake, robotic, 
 📐 Set video dimensions: 1024x576
 got prompt
-Waiting for video generation completion (prompt_id: 31d5f723-614e-448b-b398-339191b34e36)...
+Waiting for video generation completion (prompt_id: 2ff94db8-a809-405c-98cb-f044ded5e981)...
 loaded completely; 9118.48 MB usable, 2378.23 MB loaded, full load: True
 Requested to load LTXAV
 loaded partially; 9531.35 MB usable, 9378.21 MB loaded, 2863.75 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:03<00:26,  3.78s/it] 25%|██▌       | 2/8 [00:07<00:21,  3.56s/it] 38%|███▊      | 3/8 [00:10<00:17,  3.49s/it] 50%|█████     | 4/8 [00:14<00:13,  3.47s/it] 62%|██████▎   | 5/8 [00:17<00:10,  3.47s/it] 75%|███████▌  | 6/8 [00:20<00:06,  3.43s/it] 88%|████████▊ | 7/8 [00:24<00:03,  3.43s/it]100%|██████████| 8/8 [00:27<00:00,  3.47s/it]100%|██████████| 8/8 [00:27<00:00,  3.48s/it]
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:03<00:27,  3.98s/it] 25%|██▌       | 2/8 [00:07<00:22,  3.71s/it] 38%|███▊      | 3/8 [00:10<00:18,  3.61s/it] 50%|█████     | 4/8 [00:14<00:14,  3.60s/it] 62%|██████▎   | 5/8 [00:18<00:10,  3.59s/it] 75%|███████▌  | 6/8 [00:21<00:07,  3.58s/it] 88%|████████▊ | 7/8 [00:25<00:03,  3.57s/it]100%|██████████| 8/8 [00:28<00:00,  3.55s/it]100%|██████████| 8/8 [00:28<00:00,  3.60s/it]
 Unloaded partially: 28.62 MB freed, 9349.59 MB remains loaded, 153.13 MB buffer reserved, lowvram patches: 0
 Requested to load VideoVAE
 Unloaded partially: 2244.88 MB freed, 7104.71 MB remains loaded, 153.27 MB buffer reserved, lowvram patches: 0
 loaded completely; 2620.96 MB usable, 2378.23 MB loaded, full load: True
 Requested to load LTXAV
 loaded partially; 8703.96 MB usable, 8531.45 MB loaded, 3710.52 MB offloaded, 177.49 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:11<00:22, 11.38s/it] 67%|██████▋   | 2/3 [00:22<00:11, 11.31s/it]100%|██████████| 3/3 [00:33<00:00, 11.28s/it]100%|██████████| 3/3 [00:33<00:00, 11.30s/it]
+  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:12<00:24, 12.43s/it] 67%|██████▋   | 2/3 [00:24<00:12, 12.00s/it]100%|██████████| 3/3 [00:35<00:00, 11.71s/it]100%|██████████| 3/3 [00:35<00:00, 11.83s/it]
 Requested to load VideoVAE
 0 models unloaded.
 loaded partially; 0.00 MB usable, 0.00 MB loaded, 2378.23 MB offloaded, 1728.05 MB buffer reserved, lowvram patches: 0
 Requested to load AudioVAE
 loaded completely; 9533.67 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 88.08 seconds
+Prompt executed in 91.27 seconds
 ✅ Copied 121 frames for scene_1.1_2
 Saved video: ../output\scene_1.1_2.mp4
 🔍 Frame prefix: scene_1.1_2.frame_
@@ -252,13 +622,30 @@ Generating chunk: scene_1.1_3 (121 frames)
 📁 Frame stored: ../output/frames\scene_1.1_3_last_frame.png
 ✅ Split audio chunk: scene_1.1_3.wav (5.042s, start: 10.083s)
 🎬 Using master prompt for 1.1
-🚫 Added negative prompt to prevent static facial expressions
+🚫 Added negative prompt
 Full prompt: In a sunlit Victorian sitting room on a bright winter morning, soft golden light streams through the large window, illuminating the warm wooden furniture. A man with blond hair sits on the left side of a plush red sofa, wearing a white dress shirt and dark tie, his body angled toward the fireplace as he reads a newspaper held in both hands. He has blue eyes that gaze intently at the pages, his expression deeply contemplative. As the camera slowly dollies forward, focusing on his concentrated face, sunlight casts long shadows across the ornate rug beneath him. The room is rich with texture—wood paneling, patterned carpet, a small potted plant on the round table beside him—and the gentle glow of a lamp on a side table enhances the cozy atmosphere. His posture remains still and upright as he continues reading, his gaze fixed on the newspaper in his hands.
-Negative prompt: blurry, low resolution, distorted, painting, illustration, cartoon, anime, sketch, oversaturated, watermark, text, signature, distorted face, asymmetric features, extra limbs, deformed hands, blurry eyes, disfigured, low quality, bad anatomy, poorly drawn face, cluttered, busy background, distracting elements, multiple objects, messy, chaotic, excessive detail, noise, shaky, pixelated, compression artifacts, distorted motion, flickering, frame drops, poor lighting, artificial, computer-generated, synthetic, plastic, uncanny valley, overly smooth, fake, robotic, 
+Negative prompt: blurry, low resolution, distorted, oversaturated, watermark, text, signature, distorted face, asymmetric features, extra limbs, deformed hands, blurry eyes, disfigured, low quality, bad anatomy, poorly drawn face, distracting elements, multiple objects, messy, chaotic, excessive detail, noise, shaky, pixelated, compression artifacts, distorted motion, flickering, frame drops, poor lighting, artificial, uncanny valley, overly smooth, fake, robotic, 
 📐 Set video dimensions: 1024x576
 got prompt
-Waiting for video generation completion (prompt_id: bf38a2c6-d2c2-4cdf-a437-50e9def87917)...
+Waiting for video generation completion (prompt_id: ad694333-cea8-4cc0-a2ff-938ba87d5afe)...
 loaded completely; 9118.48 MB usable, 2378.23 MB loaded, full load: True
 Requested to load LTXAV
 loaded partially; 9531.35 MB usable, 9378.21 MB loaded, 2863.75 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s]
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:03<00:25,  3.66s/it] 25%|██▌       | 2/8 [00:07<00:21,  3.55s/it] 38%|███▊      | 3/8 [00:10<00:17,  3.50s/it] 50%|█████     | 4/8 [00:14<00:13,  3.50s/it] 62%|██████▎   | 5/8 [00:17<00:10,  3.53s/it] 75%|███████▌  | 6/8 [00:21<00:07,  3.53s/it]Traceback (most recent call last):
+  File "D:\.comfyui\gen.av\scripts\2.av.py", line 1918, in <module>
+    exit(main())
+         ^^^^^^
+  File "D:\.comfyui\gen.av\scripts\2.av.py", line 1892, in main
+    results = generator.generate_all_videos(force_regenerate=args.force, resumable_state=resumable_state)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\.comfyui\gen.av\scripts\2.av.py", line 1664, in generate_all_videos
+    output_paths = self._generate_video(scene_name, dialogue, image_path, duration, motion_data, resumable_state, audio_file)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\.comfyui\gen.av\scripts\2.av.py", line 1304, in _generate_video
+    time.sleep(3)  # Video generation takes longer
+    ^^^^^^^^^^^^^
+KeyboardInterrupt
+Received signal 2. Cleaning up services...
+Stopping ComfyUI backend...
+ComfyUI still responding; waiting for shutdown...
+ComfyUI appears stopped (after 2 checks).

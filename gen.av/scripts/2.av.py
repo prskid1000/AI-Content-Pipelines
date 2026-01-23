@@ -37,7 +37,7 @@ ENABLE_SWITCH_279_286 = True   # Node 279:286 - Controls depth-control LoRA (ltx
 ENABLE_SWITCH_279_288 = True   # Node 279:288 - Controls canny-control LoRA (ltx-2-19b-ic-lora-canny-control.safetensors)
 ENABLE_SWITCH_279_289 = False   # Node 279:289 - Controls pose-control LoRA (ltx-2-19b-ic-lora-pose-control.safetensors)
 ENABLE_SWITCH_279_290 = False   # Node 279:290 - Controls detailer LoRA (ltx-2-19b-ic-lora-detailer.safetensors)
-ENABLE_SWITCH_279_291 = False   # Node 279:291 - Final switch for first CFGGuider (279:239)
+ENABLE_SWITCH_279_291 = True   # Node 279:291 - Final switch for first CFGGuider (279:239)
 ENABLE_SWITCH_279_292 = True   # Node 279:292 - Final switch for second CFGGuider (279:252)
 
 class ResumableState:
@@ -906,11 +906,11 @@ class AVVideoGenerator:
 
     def _get_negative_prompt(self) -> str:
         """Get the negative prompt for animation."""
-        return "blurry, low resolution, distorted, painting, illustration, cartoon, anime, sketch, oversaturated, watermark, text, signature, distorted face, asymmetric features, extra limbs, deformed hands, blurry eyes, disfigured, low quality, bad anatomy, poorly drawn face, cluttered, busy background, distracting elements, multiple objects, messy, chaotic, excessive detail, noise, shaky, pixelated, compression artifacts, distorted motion, flickering, frame drops, poor lighting, artificial, computer-generated, synthetic, plastic, uncanny valley, overly smooth, fake, robotic"
+        return "blurry, low resolution, distorted, oversaturated, watermark, text, signature, distorted face, asymmetric features, extra limbs, deformed hands, blurry eyes, disfigured, low quality, bad anatomy, poorly drawn face, distracting elements, multiple objects, messy, chaotic, excessive detail, noise, shaky, pixelated, compression artifacts, distorted motion, flickering, frame drops, poor lighting, artificial, uncanny valley, overly smooth, fake, robotic"
 
     def _get_positive_prompt(self) -> str:
         """Get the positive prompt for animation."""
-        return "Shot taken with Fixed Camera Position, Camera Angle and Camera Focus."
+        return "Audio-Visual Shot of the scene."
 
     def _load_base_workflow(self) -> dict:
         """Load the base movie workflow."""
