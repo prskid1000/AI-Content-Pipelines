@@ -983,30 +983,13 @@ class AVVideoGenerator:
                 positive_prompt = f"Dialogue: \"{dialogue}\""
             print_flush(f"💬 Added dialogue chunk to prompt: {dialogue[:50]}...")
         
-
-        # Simplified talking instructions to reduce artifacts
-        talking_instructions = (
-            "Scene Includes a Dialogue spoken by a character."
-            "Natural lip sync with audio, smooth mouth movement. "
-            "Clear facial features, well-lit face."
-        )
-        
-        if positive_prompt:
-            # Prepend talking instructions for higher priority in generation
-            positive_prompt = f"{talking_instructions} {positive_prompt}"
-            print_flush(f"🎤 Added comprehensive talking instructions for {SOUND_MODE} mode")
-        else:
-            # Use detailed talking instructions as primary prompt
-            positive_prompt = talking_instructions
-            print_flush(f"🎤 Using talking instructions as primary prompt for {SOUND_MODE} mode")
-        
         # Add negative prompt suggestions to avoid static faces
         audio_negative = ""
         if negative_prompt:
             negative_prompt = f"{negative_prompt}, {audio_negative}"
         else:
             negative_prompt = audio_negative
-        print_flush(f"🚫 Added negative prompt to prevent static facial expressions")
+        print_flush(f"🚫 Added negative prompt")
         
         # Use provided frame count or calculate from duration
         if frame_count is None:
@@ -1028,9 +1011,6 @@ class AVVideoGenerator:
         # Check if negative prompt node exists (user may have added it to workflow)
         if "282" in workflow:
             workflow["282"]["inputs"]["text"] = negative_prompt
-            print_flush(f"✅ Set negative prompt in node 282")
-        else:
-            print_flush(f"⚠️ Negative prompt node 282 not found in workflow - negative prompt will not be set")
         
         # Node "228" is the image input (LoadImage)
         if "228" in workflow:

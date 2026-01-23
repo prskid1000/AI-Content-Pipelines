@@ -2,80 +2,263 @@ Workflow runner started. Python executable: D:\.comfyui\.venv\Scripts\python.exe
 Working directory: D:\.comfyui\gen.av
 Emptying ComfyUI input and output folders...
 Removed directory: D:\.comfyui\ComfyUI\input\3d
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.2.png
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_1_last_frame.png
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_2_last_frame.png
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_3.wav
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_3_last_frame.png
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.3.png
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.3_1.wav
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00002_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00003_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00004_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00005_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00006_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00007_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00008_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00009_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00010_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00011_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00012_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00013_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00014_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00015_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00016_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00017_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00018_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00019_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00020_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00021_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00022_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00023_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00024_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00025_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00026_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00027_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00028_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00029_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00030_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00031_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00032_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00033_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00034_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00035_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00036_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00037_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00038_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00039_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00040_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00041_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00042_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00043_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00044_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00045_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00046_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00047_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00048_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00049_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00050_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00051_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00052_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00053_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00054_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00055_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00056_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00057_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00058_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00059_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00060_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00061_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00062_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00063_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00064_.png
-Removed file: D:\.comfyui\ComfyUI\output\scene_1.2_3_frame_00065_.png
-Removed directory: D:\.comfyui\ComfyUI\output\video
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_1.wav
 Successfully emptied ComfyUI input and output folders.
 Tracking directory created with file hashes.
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
+ComfyUI not ready yet (attempt 1). Retrying in 15s...
+[START] Security scan
+[DONE] Security scan
+## ComfyUI-Manager: installing dependencies done.
+** ComfyUI startup time: 2026-01-23 12:07:55.570
+** Platform: Windows
+** Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
+** Python executable: D:\.comfyui\.venv\Scripts\python.exe
+** ComfyUI Path: D:\.comfyui\ComfyUI
+** ComfyUI Base Folder Path: D:\.comfyui\ComfyUI
+** User directory: D:\.comfyui\ComfyUI\user
+** ComfyUI-Manager config path: D:\.comfyui\ComfyUI\user\__manager\config.ini
+** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
+
+Prestartup times for custom nodes:
+   2.7 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+
+Checkpoint files will always be loaded safely.
+Total VRAM 12227 MB, total RAM 64957 MB
+pytorch version: 2.9.1+cu130
+Set vram state to: NORMAL_VRAM
+Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
+Using async weight offloading with 16 streams
+Enabled pinned memory 29230.0
+working around nvidia conv3d memory bug.
+Found comfy_kitchen backend triton: {'available': True, 'disabled': True, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8']}
+Found comfy_kitchen backend eager: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
+Found comfy_kitchen backend cuda: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
+Using pytorch attention
+Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
+ComfyUI version: 0.10.0
+ComfyUI frontend version: 1.37.11
+[Prompt Server] web root: D:\.comfyui\.venv\Lib\site-packages\comfyui_frontend_package\static
+ComfyUI-GGUF: Allowing full torch compile
+### Loading: ComfyUI-Manager (V3.39.2)
+[ComfyUI-Manager] network_mode: public
+[ComfyUI-Manager] ComfyUI per-queue preview override detected (PR #11261). Manager's preview method feature is disabled. Use ComfyUI's --preview-method CLI option or 'Settings > Execution > Live preview method'.
+### ComfyUI Version: v0.10.0-17-g72f6be16 | Released on '2026-01-21'
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
+
+[32mInitializing ControlAltAI Nodes[0m
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
+✅ ChatterboxTTS loaded from bundled package
+✅ ChatterboxVC loaded from bundled package
+FETCH ComfyRegistry Data: 5/121
+ComfyUI not ready yet (attempt 2). Retrying in 15s...
+✅ F5-TTS loaded from system package
+🎭 Character voices: Found 61 characters, 3 aliases
+✅ SRT modules loaded from system package
+🔧 Registering TTS Audio Suite nodes...
+======================================================================
+🚀 TTS Audio Suite v4.2.1
+Universal multi-engine TTS extension for ComfyUI
+⚠️ No local ChatterBox models found - will download from Hugging Face
+💡 Tip: First generation will download models (~1GB)
+   Models will be saved locally for future use
+✅ TTS Audio Suite v4.2.1 loaded with 16 nodes:
+   • ⚙️ ChatterBox TTS Engine
+   • ⚙️ F5 TTS Engine
+   • ⚙️ RVC Engine
+   • 🌊 Audio Wave Analyzer
+   • 🎙️ Voice Capture
+   • 🎤 TTS Text
+   • 🎭 Character Voices
+   • 🎭 Load RVC Character Model
+   • 👄 F5-TTS Speech Editor
+   • 📺 TTS SRT
+   • 🔄 Voice Changer
+   • 🔧 Audio Analyzer Options
+   • 🔧 F5-TTS Edit Options
+   • 🔧 RVC Pitch Extraction Options
+   • 🤐 Noise or Vocal Removal
+   • 🥪 Merge Audio
+======================================================================
+
+Import times for custom nodes:
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyMath
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
+   0.4 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
+   0.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   0.8 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
+  10.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
+
+Context impl SQLiteImpl.
+Will assume non-transactional DDL.
+Assets scan(roots=['models']) completed in 0.027s (created=0, skipped_existing=29, total_seen=30)
+Starting server
+
+To see the GUI go to: http://127.0.0.1:8188
+FETCH ComfyRegistry Data: 10/121
+FETCH ComfyRegistry Data: 15/121
+ComfyUI is ready after 34.1s (attempt 3).
+
+===== START D:\.comfyui\gen.av\scripts\2.av.py @ 2026-01-23 12:08:27 =====
+Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.av\output\tracking
+No existing checkpoint found - starting fresh
+🎬 Starting AV video generation process...
+📁 Story:     ../input/1.story.txt
+🖼️  Images:    ../../gen.image/output/scene
+🎥 Output:    ../output
+FETCH ComfyRegistry Data: 20/121
+📋 Loaded 56 scenes with audio files from ../input/1.story.txt
+🎬 Loaded 56 master prompts
+📋 Loaded 56 scenes from story file
+Processing 56 unique scenes, skipped 0
+📊 Total video words: 1,351
+📊 Total video duration: 583.7 seconds (9.7 minutes)
+============================================================
+
+📊 AV VIDEO GENERATION PROGRESS
+========================================================================================================================
+🔄 Scene 1/56 - "It was upon a crisp winter morning, when the pale (16.64s) - Processing...
+📊 Estimated time remaining: ~4.9h (?)
+Generating video for scene: scene_1.1
+Duration: 16.64s, Frames: 399
+Video chunks: 4
+Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_1.1.png
+Generating chunk: scene_1.1_1 (121 frames)
+✅ Split audio chunk: scene_1.1_1.wav (5.042s, start: 0.000s)
+🎬 Using master prompt for 1.1
+🚫 Added negative prompt to prevent static facial expressions
+Full prompt: In a sunlit Victorian sitting room on a bright winter morning, soft golden light streams through the large window, illuminating the warm wooden furniture. A man with blond hair sits on the left side of a plush red sofa, wearing a white dress shirt and dark tie, his body angled toward the fireplace as he reads a newspaper held in both hands. He has blue eyes that gaze intently at the pages, his expression deeply contemplative. As the camera slowly dollies forward, focusing on his concentrated face, sunlight casts long shadows across the ornate rug beneath him. The room is rich with texture—wood paneling, patterned carpet, a small potted plant on the round table beside him—and the gentle glow of a lamp on a side table enhances the cozy atmosphere. His posture remains still and upright as he continues reading, his gaze fixed on the newspaper in his hands.
+Negative prompt: blurry, low resolution, distorted, painting, illustration, cartoon, anime, sketch, oversaturated, watermark, text, signature, distorted face, asymmetric features, extra limbs, deformed hands, blurry eyes, disfigured, low quality, bad anatomy, poorly drawn face, cluttered, busy background, distracting elements, multiple objects, messy, chaotic, excessive detail, noise, shaky, pixelated, compression artifacts, distorted motion, flickering, frame drops, poor lighting, artificial, computer-generated, synthetic, plastic, uncanny valley, overly smooth, fake, robotic, 
+📐 Set video dimensions: 1024x576
+got prompt
+Waiting for video generation completion (prompt_id: 28714f7b-450b-4ab9-ba45-dc5ff105bb87)...
+VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
+Requested to load VideoVAE
+loaded completely; 9606.80 MB usable, 2378.23 MB loaded, full load: True
+FETCH ComfyRegistry Data: 25/121
+FETCH ComfyRegistry Data: 30/121
+CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
+Requested to load LTXAVTEModel_
+loaded partially; 9562.80 MB usable, 735.62 MB loaded, 25228.59 MB offloaded, 8827.18 MB buffer reserved, lowvram patches: 0
+FETCH ComfyRegistry Data: 35/121
+Requested to load AudioVAE
+loaded completely; 8808.05 MB usable, 415.20 MB loaded, full load: True
+gguf qtypes: F32 (2140), BF16 (26), Q4_K (1008), Q6_K (336)
+model weight dtype torch.bfloat16, manual cast: None
+model_type FLUX
+Requested to load LTXAV
+FETCH ComfyRegistry Data: 40/121
+FETCH ComfyRegistry Data: 45/121
+FETCH ComfyRegistry Data: 50/121
+FETCH ComfyRegistry Data: 55/121
+loaded partially; 9533.35 MB usable, 9380.21 MB loaded, 2861.75 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
+  0%|          | 0/8 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 60/121
+ 12%|█▎        | 1/8 [00:03<00:26,  3.84s/it] 25%|██▌       | 2/8 [00:07<00:22,  3.69s/it]FETCH ComfyRegistry Data: 65/121
+ 38%|███▊      | 3/8 [00:11<00:18,  3.65s/it] 50%|█████     | 4/8 [00:14<00:14,  3.58s/it]FETCH ComfyRegistry Data: 70/121
+ 62%|██████▎   | 5/8 [00:17<00:10,  3.49s/it] 75%|███████▌  | 6/8 [00:21<00:06,  3.47s/it]FETCH ComfyRegistry Data: 75/121
+ 88%|████████▊ | 7/8 [00:24<00:03,  3.47s/it]100%|██████████| 8/8 [00:28<00:00,  3.45s/it]100%|██████████| 8/8 [00:28<00:00,  3.52s/it]
+Unloaded partially: 30.62 MB freed, 9349.59 MB remains loaded, 153.13 MB buffer reserved, lowvram patches: 0
+FETCH ComfyRegistry Data: 80/121
+Requested to load VideoVAE
+Unloaded partially: 2244.88 MB freed, 7104.71 MB remains loaded, 153.27 MB buffer reserved, lowvram patches: 0
+loaded completely; 2620.96 MB usable, 2378.23 MB loaded, full load: True
+Requested to load LTXAV
+FETCH ComfyRegistry Data: 85/121
+loaded partially; 8703.96 MB usable, 8531.45 MB loaded, 3710.52 MB offloaded, 177.49 MB buffer reserved, lowvram patches: 0
+  0%|          | 0/3 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 90/121
+FETCH ComfyRegistry Data: 95/121
+ 33%|███▎      | 1/3 [00:13<00:26, 13.07s/it]FETCH ComfyRegistry Data: 100/121
+ 67%|██████▋   | 2/3 [00:24<00:12, 12.06s/it]FETCH ComfyRegistry Data: 105/121
+FETCH ComfyRegistry Data: 110/121
+100%|██████████| 3/3 [00:36<00:00, 11.92s/it]100%|██████████| 3/3 [00:36<00:00, 12.06s/it]
+Requested to load VideoVAE
+FETCH ComfyRegistry Data: 115/121
+0 models unloaded.
+loaded partially; 0.00 MB usable, 0.00 MB loaded, 2378.23 MB offloaded, 1728.05 MB buffer reserved, lowvram patches: 0
+FETCH ComfyRegistry Data: 120/121
+FETCH ComfyRegistry Data [DONE]
+[ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
+FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
+[ComfyUI-Manager] All startup tasks have been completed.
+Requested to load AudioVAE
+loaded completely; 9533.67 MB usable, 415.20 MB loaded, full load: True
+Prompt executed in 131.42 seconds
+✅ Copied 121 frames for scene_1.1_1
+Saved video: ../output\scene_1.1_1.mp4
+🔍 Frame prefix: scene_1.1_1.frame_
+🔍 Matching frames: 121
+🔍 Found last frame: scene_1.1_1.frame_121.png (frame #121)
+💾 Saved last frame for continuity: scene_1.1_1_last_frame.png
+💾 Checkpoint saved for chunk: scene_1.1_1
+Generating chunk: scene_1.1_2 (121 frames)
+🔍 Frame prefix: scene_1.1_1.frame_
+🔍 Matching frames: 121
+🔍 Found last frame: scene_1.1_1.frame_121.png (frame #121)
+🔄 Using last saved frame from previous chunk as input for scene_1.1_2
+📁 Frame stored: ../output/frames\scene_1.1_2_last_frame.png
+✅ Split audio chunk: scene_1.1_2.wav (5.042s, start: 5.042s)
+🎬 Using master prompt for 1.1
+🚫 Added negative prompt to prevent static facial expressions
+Full prompt: In a sunlit Victorian sitting room on a bright winter morning, soft golden light streams through the large window, illuminating the warm wooden furniture. A man with blond hair sits on the left side of a plush red sofa, wearing a white dress shirt and dark tie, his body angled toward the fireplace as he reads a newspaper held in both hands. He has blue eyes that gaze intently at the pages, his expression deeply contemplative. As the camera slowly dollies forward, focusing on his concentrated face, sunlight casts long shadows across the ornate rug beneath him. The room is rich with texture—wood paneling, patterned carpet, a small potted plant on the round table beside him—and the gentle glow of a lamp on a side table enhances the cozy atmosphere. His posture remains still and upright as he continues reading, his gaze fixed on the newspaper in his hands.
+Negative prompt: blurry, low resolution, distorted, painting, illustration, cartoon, anime, sketch, oversaturated, watermark, text, signature, distorted face, asymmetric features, extra limbs, deformed hands, blurry eyes, disfigured, low quality, bad anatomy, poorly drawn face, cluttered, busy background, distracting elements, multiple objects, messy, chaotic, excessive detail, noise, shaky, pixelated, compression artifacts, distorted motion, flickering, frame drops, poor lighting, artificial, computer-generated, synthetic, plastic, uncanny valley, overly smooth, fake, robotic, 
+📐 Set video dimensions: 1024x576
+got prompt
+Waiting for video generation completion (prompt_id: 31d5f723-614e-448b-b398-339191b34e36)...
+loaded completely; 9118.48 MB usable, 2378.23 MB loaded, full load: True
+Requested to load LTXAV
+loaded partially; 9531.35 MB usable, 9378.21 MB loaded, 2863.75 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:03<00:26,  3.78s/it] 25%|██▌       | 2/8 [00:07<00:21,  3.56s/it] 38%|███▊      | 3/8 [00:10<00:17,  3.49s/it] 50%|█████     | 4/8 [00:14<00:13,  3.47s/it] 62%|██████▎   | 5/8 [00:17<00:10,  3.47s/it] 75%|███████▌  | 6/8 [00:20<00:06,  3.43s/it] 88%|████████▊ | 7/8 [00:24<00:03,  3.43s/it]100%|██████████| 8/8 [00:27<00:00,  3.47s/it]100%|██████████| 8/8 [00:27<00:00,  3.48s/it]
+Unloaded partially: 28.62 MB freed, 9349.59 MB remains loaded, 153.13 MB buffer reserved, lowvram patches: 0
+Requested to load VideoVAE
+Unloaded partially: 2244.88 MB freed, 7104.71 MB remains loaded, 153.27 MB buffer reserved, lowvram patches: 0
+loaded completely; 2620.96 MB usable, 2378.23 MB loaded, full load: True
+Requested to load LTXAV
+loaded partially; 8703.96 MB usable, 8531.45 MB loaded, 3710.52 MB offloaded, 177.49 MB buffer reserved, lowvram patches: 0
+  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:11<00:22, 11.38s/it] 67%|██████▋   | 2/3 [00:22<00:11, 11.31s/it]100%|██████████| 3/3 [00:33<00:00, 11.28s/it]100%|██████████| 3/3 [00:33<00:00, 11.30s/it]
+Requested to load VideoVAE
+0 models unloaded.
+loaded partially; 0.00 MB usable, 0.00 MB loaded, 2378.23 MB offloaded, 1728.05 MB buffer reserved, lowvram patches: 0
+Requested to load AudioVAE
+loaded completely; 9533.67 MB usable, 415.20 MB loaded, full load: True
+Prompt executed in 88.08 seconds
+✅ Copied 121 frames for scene_1.1_2
+Saved video: ../output\scene_1.1_2.mp4
+🔍 Frame prefix: scene_1.1_2.frame_
+🔍 Matching frames: 121
+🔍 Found last frame: scene_1.1_2.frame_121.png (frame #121)
+💾 Saved last frame for continuity: scene_1.1_2_last_frame.png
+💾 Checkpoint saved for chunk: scene_1.1_2
+Generating chunk: scene_1.1_3 (121 frames)
+🔍 Frame prefix: scene_1.1_2.frame_
+🔍 Matching frames: 121
+🔍 Found last frame: scene_1.1_2.frame_121.png (frame #121)
+🔄 Using last saved frame from previous chunk as input for scene_1.1_3
+📁 Frame stored: ../output/frames\scene_1.1_3_last_frame.png
+✅ Split audio chunk: scene_1.1_3.wav (5.042s, start: 10.083s)
+🎬 Using master prompt for 1.1
+🚫 Added negative prompt to prevent static facial expressions
+Full prompt: In a sunlit Victorian sitting room on a bright winter morning, soft golden light streams through the large window, illuminating the warm wooden furniture. A man with blond hair sits on the left side of a plush red sofa, wearing a white dress shirt and dark tie, his body angled toward the fireplace as he reads a newspaper held in both hands. He has blue eyes that gaze intently at the pages, his expression deeply contemplative. As the camera slowly dollies forward, focusing on his concentrated face, sunlight casts long shadows across the ornate rug beneath him. The room is rich with texture—wood paneling, patterned carpet, a small potted plant on the round table beside him—and the gentle glow of a lamp on a side table enhances the cozy atmosphere. His posture remains still and upright as he continues reading, his gaze fixed on the newspaper in his hands.
+Negative prompt: blurry, low resolution, distorted, painting, illustration, cartoon, anime, sketch, oversaturated, watermark, text, signature, distorted face, asymmetric features, extra limbs, deformed hands, blurry eyes, disfigured, low quality, bad anatomy, poorly drawn face, cluttered, busy background, distracting elements, multiple objects, messy, chaotic, excessive detail, noise, shaky, pixelated, compression artifacts, distorted motion, flickering, frame drops, poor lighting, artificial, computer-generated, synthetic, plastic, uncanny valley, overly smooth, fake, robotic, 
+📐 Set video dimensions: 1024x576
+got prompt
+Waiting for video generation completion (prompt_id: bf38a2c6-d2c2-4cdf-a437-50e9def87917)...
+loaded completely; 9118.48 MB usable, 2378.23 MB loaded, full load: True
+Requested to load LTXAV
+loaded partially; 9531.35 MB usable, 9378.21 MB loaded, 2863.75 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
+  0%|          | 0/8 [00:00<?, ?it/s]
