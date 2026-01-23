@@ -71,10 +71,10 @@ SCRIPTS = [
     #Images
     # "../gen.image/scripts/2.character.py",
     # "../gen.image/scripts/2.location.py",
-    # "../gen.image/scripts/3.scene.py",
+    "../gen.image/scripts/3.scene.py",
 
     #Video
-    # "../gen.video/scripts/2.motion.py",
+    "../gen.video/scripts/2.motion.py",
     "2.av.py",
 
     #Thumbnail

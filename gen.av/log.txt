@@ -3,684 +3,133 @@ Working directory: D:\.comfyui\gen.av
 Emptying ComfyUI input and output folders...
 Removed directory: D:\.comfyui\ComfyUI\input\3d
 Removed file: D:\.comfyui\ComfyUI\input\scene_1.1.png
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_4.wav
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_5.wav
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_6.wav
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.2.png
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_1.wav
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_2.wav
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_3.wav
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_4.wav
-Removed file: D:\.comfyui\ComfyUI\input\scene_1.2_5.wav
-Removed file: D:\.comfyui\ComfyUI\output\._00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00002_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00003_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00004_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00005_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00006_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00007_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00008_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00009_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00010_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00011_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00012_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00013_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00014_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00015_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00016_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00017_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00018_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00019_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00020_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00021_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00022_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00023_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00024_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00025_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00026_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00027_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00028_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00029_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00030_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00031_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00032_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00033_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00034_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00035_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00036_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00037_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00038_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00039_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00040_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00041_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00042_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00043_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00044_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00045_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00046_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00047_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00048_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00049_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00050_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00051_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00052_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00053_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00054_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00055_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00056_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00057_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00058_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00059_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00060_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00061_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00062_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00063_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00064_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00065_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00066_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00067_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00068_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00069_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00070_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00071_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00072_.png
-Removed file: D:\.comfyui\ComfyUI\output\._00073_.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_1.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_1_last_frame.png
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_2.wav
+Removed file: D:\.comfyui\ComfyUI\input\scene_1.1_2_last_frame.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00002_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00003_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00004_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00005_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00006_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00007_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00008_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00009_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00010_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00011_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00012_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00013_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00014_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00015_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00016_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00017_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00018_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00019_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00020_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00021_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00022_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00023_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00024_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00025_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00026_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00027_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00028_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00029_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00030_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00031_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00032_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00033_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00034_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00035_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00036_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00037_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00038_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00039_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00040_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00041_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00042_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00043_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00044_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00045_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00046_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00047_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00048_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00049_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00050_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00051_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00052_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00053_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00054_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00055_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00056_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00057_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00058_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00059_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00060_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00061_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00062_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00063_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00064_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00065_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00066_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00067_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00068_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00069_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00070_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00071_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00072_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00073_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00074_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00075_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00076_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00077_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00078_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00079_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00080_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00081_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00082_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00083_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00084_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00085_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00086_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00087_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00088_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00089_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00090_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00091_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00092_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00093_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00094_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00095_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00096_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00097_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00098_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00099_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00100_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00101_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00102_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00103_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00104_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00105_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00106_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00107_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00108_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00109_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00110_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00111_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00112_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00113_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00114_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00115_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00116_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00117_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00118_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00119_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00120_.png
+Removed file: D:\.comfyui\ComfyUI\output\scene_1.1_1_frame_00121_.png
 Removed directory: D:\.comfyui\ComfyUI\output\video
 Successfully emptied ComfyUI input and output folders.
 Tracking directory created with file hashes.
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
-ComfyUI not ready yet (attempt 1). Retrying in 15s...
-[START] Security scan
-[DONE] Security scan
-## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2026-01-23 08:03:48.482
-** Platform: Windows
-** Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
-** Python executable: D:\.comfyui\.venv\Scripts\python.exe
-** ComfyUI Path: D:\.comfyui\ComfyUI
-** ComfyUI Base Folder Path: D:\.comfyui\ComfyUI
-** User directory: D:\.comfyui\ComfyUI\user
-** ComfyUI-Manager config path: D:\.comfyui\ComfyUI\user\__manager\config.ini
-** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
-
-Prestartup times for custom nodes:
-   6.7 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-
-Checkpoint files will always be loaded safely.
-Total VRAM 12227 MB, total RAM 64957 MB
-pytorch version: 2.9.1+cu130
-Set vram state to: NORMAL_VRAM
-Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
-Using async weight offloading with 16 streams
-Enabled pinned memory 29230.0
-working around nvidia conv3d memory bug.
-Found comfy_kitchen backend triton: {'available': True, 'disabled': True, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8']}
-Found comfy_kitchen backend cuda: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
-Found comfy_kitchen backend eager: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
-Using pytorch attention
-ComfyUI not ready yet (attempt 2). Retrying in 15s...
-Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
-ComfyUI version: 0.10.0
-ComfyUI frontend version: 1.37.11
-[Prompt Server] web root: D:\.comfyui\.venv\Lib\site-packages\comfyui_frontend_package\static
-ComfyUI-GGUF: Allowing full torch compile
-### Loading: ComfyUI-Manager (V3.39.2)
-[ComfyUI-Manager] network_mode: public
-[ComfyUI-Manager] ComfyUI per-queue preview override detected (PR #11261). Manager's preview method feature is disabled. Use ComfyUI's --preview-method CLI option or 'Settings > Execution > Live preview method'.
-### ComfyUI Version: v0.10.0-17-g72f6be16 | Released on '2026-01-21'
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
-
-[32mInitializing ControlAltAI Nodes[0m
-✅ ChatterboxTTS loaded from bundled package
-✅ ChatterboxVC loaded from bundled package
-ComfyUI not ready yet (attempt 3). Retrying in 15s...
-FETCH ComfyRegistry Data: 5/121
-✅ F5-TTS loaded from system package
-🎭 Character voices: Found 61 characters, 3 aliases
-✅ SRT modules loaded from system package
-🔧 Registering TTS Audio Suite nodes...
-======================================================================
-🚀 TTS Audio Suite v4.2.1
-Universal multi-engine TTS extension for ComfyUI
-⚠️ No local ChatterBox models found - will download from Hugging Face
-💡 Tip: First generation will download models (~1GB)
-   Models will be saved locally for future use
-✅ TTS Audio Suite v4.2.1 loaded with 16 nodes:
-   • ⚙️ ChatterBox TTS Engine
-   • ⚙️ F5 TTS Engine
-   • ⚙️ RVC Engine
-   • 🌊 Audio Wave Analyzer
-   • 🎙️ Voice Capture
-   • 🎤 TTS Text
-   • 🎭 Character Voices
-   • 🎭 Load RVC Character Model
-   • 👄 F5-TTS Speech Editor
-   • 📺 TTS SRT
-   • 🔄 Voice Changer
-   • 🔧 Audio Analyzer Options
-   • 🔧 F5-TTS Edit Options
-   • 🔧 RVC Pitch Extraction Options
-   • 🤐 Noise or Vocal Removal
-   • 🥪 Merge Audio
-======================================================================
-
-Import times for custom nodes:
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyMath
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
-   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
-   0.4 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
-   0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-   2.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
-  11.8 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
-
-Context impl SQLiteImpl.
-Will assume non-transactional DDL.
-Assets scan(roots=['models']) completed in 0.078s (created=0, skipped_existing=29, total_seen=30)
-Starting server
-
-To see the GUI go to: http://127.0.0.1:8188
-FETCH ComfyRegistry Data: 10/121
-FETCH ComfyRegistry Data: 15/121
-ComfyUI is ready after 51.2s (attempt 4).
-
-===== START D:\.comfyui\gen.av\scripts\2.av.py @ 2026-01-23 08:04:33 =====
-Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.av\output\tracking
-No existing checkpoint found - starting fresh
-🎬 Starting AV video generation process...
-📁 Story:     ../input/1.story.txt
-🖼️  Images:    ../../gen.image/output/scene
-🎥 Output:    ../output
-⚠️ No audio chunk found for line 58
-⚠️ Audio chunk not found for dialogue on line 58
-⚠️ No audio chunk found for line 61
-⚠️ Audio chunk not found for dialogue on line 61
-⚠️ No audio chunk found for line 64
-⚠️ Audio chunk not found for dialogue on line 64
-⚠️ No audio chunk found for line 67
-⚠️ Audio chunk not found for dialogue on line 67
-⚠️ No audio chunk found for line 70
-⚠️ Audio chunk not found for dialogue on line 70
-⚠️ No audio chunk found for line 73
-⚠️ Audio chunk not found for dialogue on line 73
-⚠️ No audio chunk found for line 76
-⚠️ Audio chunk not found for dialogue on line 76
-⚠️ No audio chunk found for line 79
-⚠️ Audio chunk not found for dialogue on line 79
-⚠️ No audio chunk found for line 82
-⚠️ Audio chunk not found for dialogue on line 82
-⚠️ No audio chunk found for line 85
-⚠️ Audio chunk not found for dialogue on line 85
-⚠️ No audio chunk found for line 88
-⚠️ Audio chunk not found for dialogue on line 88
-⚠️ No audio chunk found for line 91
-⚠️ Audio chunk not found for dialogue on line 91
-⚠️ No audio chunk found for line 94
-⚠️ Audio chunk not found for dialogue on line 94
-⚠️ No audio chunk found for line 97
-⚠️ Audio chunk not found for dialogue on line 97
-⚠️ No audio chunk found for line 100
-⚠️ Audio chunk not found for dialogue on line 100
-⚠️ No audio chunk found for line 103
-⚠️ Audio chunk not found for dialogue on line 103
-⚠️ No audio chunk found for line 106
-⚠️ Audio chunk not found for dialogue on line 106
-⚠️ No audio chunk found for line 109
-⚠️ Audio chunk not found for dialogue on line 109
-⚠️ No audio chunk found for line 112
-⚠️ Audio chunk not found for dialogue on line 112
-⚠️ No audio chunk found for line 115
-⚠️ Audio chunk not found for dialogue on line 115
-⚠️ No audio chunk found for line 118
-⚠️ Audio chunk not found for dialogue on line 118
-⚠️ No audio chunk found for line 121
-⚠️ Audio chunk not found for dialogue on line 121
-⚠️ No audio chunk found for line 124
-⚠️ Audio chunk not found for dialogue on line 124
-⚠️ No audio chunk found for line 127
-⚠️ Audio chunk not found for dialogue on line 127
-⚠️ No audio chunk found for line 130
-⚠️ Audio chunk not found for dialogue on line 130
-⚠️ No audio chunk found for line 133
-⚠️ Audio chunk not found for dialogue on line 133
-⚠️ No audio chunk found for line 136
-⚠️ Audio chunk not found for dialogue on line 136
-⚠️ No audio chunk found for line 139
-⚠️ Audio chunk not found for dialogue on line 139
-⚠️ No audio chunk found for line 142
-⚠️ Audio chunk not found for dialogue on line 142
-⚠️ No audio chunk found for line 145
-⚠️ Audio chunk not found for dialogue on line 145
-⚠️ No audio chunk found for line 148
-⚠️ Audio chunk not found for dialogue on line 148
-⚠️ No audio chunk found for line 151
-⚠️ Audio chunk not found for dialogue on line 151
-⚠️ No audio chunk found for line 154
-⚠️ Audio chunk not found for dialogue on line 154
-⚠️ No audio chunk found for line 157
-⚠️ Audio chunk not found for dialogue on line 157
-⚠️ No audio chunk found for line 160
-⚠️ Audio chunk not found for dialogue on line 160
-⚠️ No audio chunk found for line 163
-⚠️ Audio chunk not found for dialogue on line 163
-⚠️ No audio chunk found for line 166
-⚠️ Audio chunk not found for dialogue on line 166
-📋 Loaded 19 scenes with audio files from ../input/1.story.txt
-🎬 Loaded 51 master prompts
-🔗 Combined 19 timeline entries into 19 unique scenes
-📋 scene_1.1: 16.640s (1 segments)
-📋 scene_1.2: 17.120s (1 segments)
-📋 scene_1.3: 7.920s (1 segments)
-📋 scene_1.4: 8.600s (1 segments)
-📋 scene_1.5: 9.600s (1 segments)
-📋 scene_1.6: 13.400s (1 segments)
-📋 scene_1.7: 9.320s (1 segments)
-📋 scene_1.8: 9.800s (1 segments)
-📋 scene_1.9: 15.840s (1 segments)
-📋 scene_1.10: 7.400s (1 segments)
-📋 scene_1.11: 6.320s (1 segments)
-📋 scene_1.12: 8.160s (1 segments)
-📋 scene_1.13: 14.160s (1 segments)
-📋 scene_1.14: 6.160s (1 segments)
-📋 scene_1.15: 11.240s (1 segments)
-📋 scene_1.16: 7.560s (1 segments)
-📋 scene_1.17: 7.920s (1 segments)
-📋 scene_1.18: 6.480s (1 segments)
-📋 scene_2.1: 9.120s (1 segments)
-Processing 19 unique scenes, skipped 0
-📊 Total video words: 669
-📊 Total video duration: 192.8 seconds (3.2 minutes)
-============================================================
-
-📊 AV VIDEO GENERATION PROGRESS
-========================================================================================================================
-🔄 Scene 1/19 - {{loc_1, Victorian sitting room sofa fireplace}},  (16.64s) - Processing...
-📊 Estimated time remaining: ~1.6h (?)
-Generating video for scene: scene_1.1
-Duration: 16.64s, Frames: 399
-Video chunks: 6
-Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_1.1.png
-Generating chunk: scene_1.1_1 (73 frames)
-✅ Split audio chunk: scene_1.1_1.wav (3.042s, start: 0.000s)
-🎬 Using master prompt for 1.1
-🎤 Added comprehensive talking instructions for AUDIO mode
-🚫 Added negative prompt to prevent static facial expressions
-Full prompt: Scene Includes a Dialogue spoken by a character.Natural lip sync with audio, smooth mouth movement. Clear facial features, well-lit face. A medium shot captures a man in a white dress shirt and dark tie sitting upright in a plush maroon armchair. Soft morning light streams through large multi-paned windows to his right, casting warm rectangular patches across the floor and illuminating dust particles in the air. He holds an open newspaper with both hands, his gaze focused downward on the text as he reads intently. His blonde hair is neatly styled and falls just above his forehead, framing sharp blue eyes that remain fixed on the paper. To his left, a wooden side table holds a lit lamp casting a warm glow against the cool green walls of the room. The camera remains steady, focusing on his concentrated expression as he reads.
-📐 Set video dimensions: 1280x720
-got prompt
-Waiting for video generation completion (prompt_id: 0db97bfa-5bd7-4462-8907-86ba27e86674)...
-VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
-FETCH ComfyRegistry Data: 20/121
-Requested to load VideoVAE
-loaded completely; 9606.80 MB usable, 2378.23 MB loaded, full load: True
-FETCH ComfyRegistry Data: 25/121
-FETCH ComfyRegistry Data: 30/121
-CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
-Requested to load LTXAVTEModel_
-loaded partially; 9562.80 MB usable, 735.62 MB loaded, 25228.59 MB offloaded, 8827.18 MB buffer reserved, lowvram patches: 0
-FETCH ComfyRegistry Data: 35/121
-Requested to load AudioVAE
-loaded completely; 8808.05 MB usable, 415.20 MB loaded, full load: True
-gguf qtypes: F32 (2140), BF16 (26), Q4_K (1008), Q6_K (336)
-model weight dtype torch.bfloat16, manual cast: None
-model_type FLUX
-FETCH ComfyRegistry Data: 40/121
-Requested to load LTXAV
-FETCH ComfyRegistry Data: 45/121
-FETCH ComfyRegistry Data: 50/121
-FETCH ComfyRegistry Data: 55/121
-loaded partially; 9533.45 MB usable, 9380.32 MB loaded, 2861.65 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 60/121
-FETCH ComfyRegistry Data: 65/121
-FETCH ComfyRegistry Data: 70/121
- 12%|█▎        | 1/8 [00:14<01:39, 14.27s/it]FETCH ComfyRegistry Data: 75/121
- 25%|██▌       | 2/8 [00:23<01:09, 11.57s/it]FETCH ComfyRegistry Data: 80/121
-FETCH ComfyRegistry Data: 85/121
- 38%|███▊      | 3/8 [00:33<00:53, 10.71s/it]FETCH ComfyRegistry Data: 90/121
- 50%|█████     | 4/8 [00:43<00:41, 10.32s/it]FETCH ComfyRegistry Data: 95/121
-FETCH ComfyRegistry Data: 100/121
- 62%|██████▎   | 5/8 [00:53<00:30, 10.15s/it]FETCH ComfyRegistry Data: 105/121
- 75%|███████▌  | 6/8 [01:03<00:20, 10.04s/it]FETCH ComfyRegistry Data: 110/121
-FETCH ComfyRegistry Data: 115/121
- 88%|████████▊ | 7/8 [01:12<00:09,  9.97s/it]FETCH ComfyRegistry Data: 120/121
-FETCH ComfyRegistry Data [DONE]
-[ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
-FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
-[ComfyUI-Manager] All startup tasks have been completed.
-100%|██████████| 8/8 [01:22<00:00,  9.99s/it]100%|██████████| 8/8 [01:22<00:00, 10.36s/it]
-Requested to load VideoVAE
-Unloaded partially: 2444.63 MB freed, 6935.69 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 217
-loaded completely; 2646.69 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 8786.37 MB usable, 8612.59 MB loaded, 3629.38 MB offloaded, 177.49 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:21<00:43, 21.78s/it] 67%|██████▋   | 2/3 [00:43<00:21, 21.78s/it]100%|██████████| 3/3 [01:05<00:00, 21.78s/it]100%|██████████| 3/3 [01:05<00:00, 21.78s/it]
-Requested to load VideoVAE
-loaded partially; 40.38 MB usable, 0.00 MB loaded, 2378.23 MB offloaded, 1728.05 MB buffer reserved, lowvram patches: 0
-Requested to load AudioVAE
-loaded completely; 9533.67 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 230.38 seconds
-✅ Copied 73 frames for scene_1.1_1
-Saved video: ../output\scene_1.1_1.mp4
-🔍 Frame prefix: scene_1.1_1.frame_
-🔍 Matching frames: 73
-🔍 Found last frame: scene_1.1_1.frame_073.png (frame #73)
-💾 Saved last frame for continuity: scene_1.1_1_last_frame.png
-💾 Checkpoint saved for chunk: scene_1.1_1
-Generating chunk: scene_1.1_2 (73 frames)
-🔍 Frame prefix: scene_1.1_1.frame_
-🔍 Matching frames: 73
-🔍 Found last frame: scene_1.1_1.frame_073.png (frame #73)
-🔄 Using last saved frame from previous chunk as input for scene_1.1_2
-📁 Frame stored: ../output/frames\scene_1.1_2_last_frame.png
-✅ Split audio chunk: scene_1.1_2.wav (3.042s, start: 3.042s)
-🎬 Using master prompt for 1.1
-🎤 Added comprehensive talking instructions for AUDIO mode
-🚫 Added negative prompt to prevent static facial expressions
-Full prompt: Scene Includes a Dialogue spoken by a character.Natural lip sync with audio, smooth mouth movement. Clear facial features, well-lit face. A medium shot captures a man in a white dress shirt and dark tie sitting upright in a plush maroon armchair. Soft morning light streams through large multi-paned windows to his right, casting warm rectangular patches across the floor and illuminating dust particles in the air. He holds an open newspaper with both hands, his gaze focused downward on the text as he reads intently. His blonde hair is neatly styled and falls just above his forehead, framing sharp blue eyes that remain fixed on the paper. To his left, a wooden side table holds a lit lamp casting a warm glow against the cool green walls of the room. The camera remains steady, focusing on his concentrated expression as he reads.
-📐 Set video dimensions: 1280x720
-got prompt
-Waiting for video generation completion (prompt_id: f62bddb9-dbaf-4362-a0f6-70c163b2f8b2)...
-loaded completely; 9118.48 MB usable, 2378.23 MB loaded, full load: True
-Requested to load LTXAV
-loaded partially; 9531.45 MB usable, 9378.32 MB loaded, 2863.65 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:10<01:10, 10.09s/it] 25%|██▌       | 2/8 [00:19<00:59,  9.91s/it] 38%|███▊      | 3/8 [00:29<00:49,  9.85s/it] 50%|█████     | 4/8 [00:39<00:39,  9.83s/it] 62%|██████▎   | 5/8 [00:49<00:29,  9.81s/it] 75%|███████▌  | 6/8 [00:59<00:19,  9.81s/it] 88%|████████▊ | 7/8 [01:08<00:09,  9.81s/it]100%|██████████| 8/8 [01:18<00:00,  9.86s/it]100%|██████████| 8/8 [01:18<00:00,  9.85s/it]
-Requested to load VideoVAE
-Unloaded partially: 2442.63 MB freed, 6935.69 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 217
-loaded completely; 2646.69 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 8786.37 MB usable, 8612.59 MB loaded, 3629.38 MB offloaded, 177.49 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:21<00:43, 21.77s/it] 67%|██████▋   | 2/3 [00:43<00:21, 21.78s/it]100%|██████████| 3/3 [01:05<00:00, 21.77s/it]100%|██████████| 3/3 [01:05<00:00, 21.77s/it]
-Requested to load VideoVAE
-loaded partially; 40.38 MB usable, 0.00 MB loaded, 2378.23 MB offloaded, 1728.05 MB buffer reserved, lowvram patches: 0
-Requested to load AudioVAE
-loaded completely; 9533.67 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 176.56 seconds
-✅ Copied 73 frames for scene_1.1_2
-Saved video: ../output\scene_1.1_2.mp4
-🔍 Frame prefix: scene_1.1_2.frame_
-🔍 Matching frames: 73
-🔍 Found last frame: scene_1.1_2.frame_073.png (frame #73)
-💾 Saved last frame for continuity: scene_1.1_2_last_frame.png
-💾 Checkpoint saved for chunk: scene_1.1_2
-Generating chunk: scene_1.1_3 (73 frames)
-🔍 Frame prefix: scene_1.1_2.frame_
-🔍 Matching frames: 73
-🔍 Found last frame: scene_1.1_2.frame_073.png (frame #73)
-🔄 Using last saved frame from previous chunk as input for scene_1.1_3
-📁 Frame stored: ../output/frames\scene_1.1_3_last_frame.png
-✅ Split audio chunk: scene_1.1_3.wav (3.042s, start: 6.083s)
-🎬 Using master prompt for 1.1
-🎤 Added comprehensive talking instructions for AUDIO mode
-🚫 Added negative prompt to prevent static facial expressions
-Full prompt: Scene Includes a Dialogue spoken by a character.Natural lip sync with audio, smooth mouth movement. Clear facial features, well-lit face. A medium shot captures a man in a white dress shirt and dark tie sitting upright in a plush maroon armchair. Soft morning light streams through large multi-paned windows to his right, casting warm rectangular patches across the floor and illuminating dust particles in the air. He holds an open newspaper with both hands, his gaze focused downward on the text as he reads intently. His blonde hair is neatly styled and falls just above his forehead, framing sharp blue eyes that remain fixed on the paper. To his left, a wooden side table holds a lit lamp casting a warm glow against the cool green walls of the room. The camera remains steady, focusing on his concentrated expression as he reads.
-📐 Set video dimensions: 1280x720
-got prompt
-Waiting for video generation completion (prompt_id: 9f1d0a46-00e2-497c-a040-c86322afe964)...
-loaded completely; 9118.48 MB usable, 2378.23 MB loaded, full load: True
-Requested to load LTXAV
-loaded partially; 9531.45 MB usable, 9378.32 MB loaded, 2863.65 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:10<01:10, 10.08s/it] 25%|██▌       | 2/8 [00:20<00:59,  9.99s/it] 38%|███▊      | 3/8 [00:30<00:49, 10.00s/it] 50%|█████     | 4/8 [00:40<00:40, 10.03s/it] 62%|██████▎   | 5/8 [00:50<00:30, 10.03s/it] 75%|███████▌  | 6/8 [01:00<00:20, 10.03s/it] 88%|████████▊ | 7/8 [01:10<00:10, 10.03s/it]100%|██████████| 8/8 [01:20<00:00, 10.06s/it]100%|██████████| 8/8 [01:20<00:00, 10.04s/it]
-Requested to load VideoVAE
-Unloaded partially: 2442.63 MB freed, 6935.69 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 217
-loaded completely; 2646.69 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 8786.37 MB usable, 8612.59 MB loaded, 3629.38 MB offloaded, 177.49 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:21<00:43, 21.81s/it] 67%|██████▋   | 2/3 [00:43<00:21, 21.90s/it]100%|██████████| 3/3 [01:05<00:00, 21.92s/it]100%|██████████| 3/3 [01:05<00:00, 21.91s/it]
-Requested to load VideoVAE
-loaded partially; 40.38 MB usable, 0.00 MB loaded, 2378.23 MB offloaded, 1728.05 MB buffer reserved, lowvram patches: 0
-Requested to load AudioVAE
-loaded completely; 9533.67 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 178.32 seconds
-✅ Copied 73 frames for scene_1.1_3
-Saved video: ../output\scene_1.1_3.mp4
-🔍 Frame prefix: scene_1.1_3.frame_
-🔍 Matching frames: 73
-🔍 Found last frame: scene_1.1_3.frame_073.png (frame #73)
-💾 Saved last frame for continuity: scene_1.1_3_last_frame.png
-💾 Checkpoint saved for chunk: scene_1.1_3
-Generating chunk: scene_1.1_4 (73 frames)
-🔍 Frame prefix: scene_1.1_3.frame_
-🔍 Matching frames: 73
-🔍 Found last frame: scene_1.1_3.frame_073.png (frame #73)
-🔄 Using last saved frame from previous chunk as input for scene_1.1_4
-📁 Frame stored: ../output/frames\scene_1.1_4_last_frame.png
-✅ Split audio chunk: scene_1.1_4.wav (3.042s, start: 9.125s)
-🎬 Using master prompt for 1.1
-🎤 Added comprehensive talking instructions for AUDIO mode
-🚫 Added negative prompt to prevent static facial expressions
-Full prompt: Scene Includes a Dialogue spoken by a character.Natural lip sync with audio, smooth mouth movement. Clear facial features, well-lit face. A medium shot captures a man in a white dress shirt and dark tie sitting upright in a plush maroon armchair. Soft morning light streams through large multi-paned windows to his right, casting warm rectangular patches across the floor and illuminating dust particles in the air. He holds an open newspaper with both hands, his gaze focused downward on the text as he reads intently. His blonde hair is neatly styled and falls just above his forehead, framing sharp blue eyes that remain fixed on the paper. To his left, a wooden side table holds a lit lamp casting a warm glow against the cool green walls of the room. The camera remains steady, focusing on his concentrated expression as he reads.
-📐 Set video dimensions: 1280x720
-got prompt
-Waiting for video generation completion (prompt_id: ebe61df0-a98e-49a8-99b1-f11d7cb9c233)...
-loaded completely; 9118.48 MB usable, 2378.23 MB loaded, full load: True
-Requested to load LTXAV
-loaded partially; 9531.45 MB usable, 9378.32 MB loaded, 2863.65 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:10<01:12, 10.33s/it] 25%|██▌       | 2/8 [00:20<01:00, 10.08s/it] 38%|███▊      | 3/8 [00:30<00:50, 10.00s/it] 50%|█████     | 4/8 [00:40<00:39,  9.97s/it] 62%|██████▎   | 5/8 [00:49<00:29,  9.95s/it] 75%|███████▌  | 6/8 [00:59<00:19,  9.94s/it] 88%|████████▊ | 7/8 [01:09<00:09,  9.93s/it]100%|██████████| 8/8 [01:19<00:00,  9.95s/it]100%|██████████| 8/8 [01:19<00:00,  9.97s/it]
-Requested to load VideoVAE
-Unloaded partially: 2442.63 MB freed, 6935.69 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 217
-loaded completely; 2646.69 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 8786.37 MB usable, 8612.59 MB loaded, 3629.38 MB offloaded, 177.49 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:21<00:43, 21.81s/it] 67%|██████▋   | 2/3 [00:43<00:21, 21.85s/it]100%|██████████| 3/3 [01:05<00:00, 21.88s/it]100%|██████████| 3/3 [01:05<00:00, 21.87s/it]
-Requested to load VideoVAE
-loaded partially; 40.38 MB usable, 0.00 MB loaded, 2378.23 MB offloaded, 1728.05 MB buffer reserved, lowvram patches: 0
-Requested to load AudioVAE
-loaded completely; 9533.67 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 174.87 seconds
-✅ Copied 73 frames for scene_1.1_4
-Saved video: ../output\scene_1.1_4.mp4
-🔍 Frame prefix: scene_1.1_4.frame_
-🔍 Matching frames: 73
-🔍 Found last frame: scene_1.1_4.frame_073.png (frame #73)
-💾 Saved last frame for continuity: scene_1.1_4_last_frame.png
-💾 Checkpoint saved for chunk: scene_1.1_4
-Generating chunk: scene_1.1_5 (73 frames)
-🔍 Frame prefix: scene_1.1_4.frame_
-🔍 Matching frames: 73
-🔍 Found last frame: scene_1.1_4.frame_073.png (frame #73)
-🔄 Using last saved frame from previous chunk as input for scene_1.1_5
-📁 Frame stored: ../output/frames\scene_1.1_5_last_frame.png
-✅ Split audio chunk: scene_1.1_5.wav (3.042s, start: 12.167s)
-🎬 Using master prompt for 1.1
-🎤 Added comprehensive talking instructions for AUDIO mode
-🚫 Added negative prompt to prevent static facial expressions
-Full prompt: Scene Includes a Dialogue spoken by a character.Natural lip sync with audio, smooth mouth movement. Clear facial features, well-lit face. A medium shot captures a man in a white dress shirt and dark tie sitting upright in a plush maroon armchair. Soft morning light streams through large multi-paned windows to his right, casting warm rectangular patches across the floor and illuminating dust particles in the air. He holds an open newspaper with both hands, his gaze focused downward on the text as he reads intently. His blonde hair is neatly styled and falls just above his forehead, framing sharp blue eyes that remain fixed on the paper. To his left, a wooden side table holds a lit lamp casting a warm glow against the cool green walls of the room. The camera remains steady, focusing on his concentrated expression as he reads.
-📐 Set video dimensions: 1280x720
-got prompt
-Waiting for video generation completion (prompt_id: 34ae76c3-8410-463f-8647-3f8fc4cb04ab)...
-loaded completely; 9118.48 MB usable, 2378.23 MB loaded, full load: True
-Requested to load LTXAV
-loaded partially; 9531.45 MB usable, 9378.32 MB loaded, 2863.65 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:10<01:11, 10.15s/it] 25%|██▌       | 2/8 [00:20<01:00, 10.07s/it] 38%|███▊      | 3/8 [00:30<00:50, 10.01s/it] 50%|█████     | 4/8 [00:40<00:40, 10.01s/it] 62%|██████▎   | 5/8 [00:50<00:30, 10.00s/it] 75%|███████▌  | 6/8 [01:00<00:20, 10.00s/it] 88%|████████▊ | 7/8 [01:10<00:10, 10.01s/it]100%|██████████| 8/8 [01:20<00:00, 10.02s/it]100%|██████████| 8/8 [01:20<00:00, 10.02s/it]
-Requested to load VideoVAE
-Unloaded partially: 2442.63 MB freed, 6935.69 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 217
-loaded completely; 2646.69 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 8786.37 MB usable, 8612.59 MB loaded, 3629.38 MB offloaded, 177.49 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:21<00:43, 21.91s/it] 67%|██████▋   | 2/3 [00:43<00:21, 21.95s/it]100%|██████████| 3/3 [01:05<00:00, 21.98s/it]100%|██████████| 3/3 [01:05<00:00, 21.97s/it]
-Requested to load VideoVAE
-loaded partially; 40.38 MB usable, 0.00 MB loaded, 2378.23 MB offloaded, 1728.05 MB buffer reserved, lowvram patches: 0
-Requested to load AudioVAE
-loaded completely; 9533.67 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 177.85 seconds
-✅ Copied 73 frames for scene_1.1_5
-Saved video: ../output\scene_1.1_5.mp4
-🔍 Frame prefix: scene_1.1_5.frame_
-🔍 Matching frames: 73
-🔍 Found last frame: scene_1.1_5.frame_073.png (frame #73)
-💾 Saved last frame for continuity: scene_1.1_5_last_frame.png
-💾 Checkpoint saved for chunk: scene_1.1_5
-Generating chunk: scene_1.1_6 (34 frames)
-🔍 Frame prefix: scene_1.1_5.frame_
-🔍 Matching frames: 73
-🔍 Found last frame: scene_1.1_5.frame_073.png (frame #73)
-🔄 Using last saved frame from previous chunk as input for scene_1.1_6
-📁 Frame stored: ../output/frames\scene_1.1_6_last_frame.png
-✅ Split audio chunk: scene_1.1_6.wav (1.417s, start: 15.208s)
-🎬 Using master prompt for 1.1
-🎤 Added comprehensive talking instructions for AUDIO mode
-🚫 Added negative prompt to prevent static facial expressions
-Full prompt: Scene Includes a Dialogue spoken by a character.Natural lip sync with audio, smooth mouth movement. Clear facial features, well-lit face. A medium shot captures a man in a white dress shirt and dark tie sitting upright in a plush maroon armchair. Soft morning light streams through large multi-paned windows to his right, casting warm rectangular patches across the floor and illuminating dust particles in the air. He holds an open newspaper with both hands, his gaze focused downward on the text as he reads intently. His blonde hair is neatly styled and falls just above his forehead, framing sharp blue eyes that remain fixed on the paper. To his left, a wooden side table holds a lit lamp casting a warm glow against the cool green walls of the room. The camera remains steady, focusing on his concentrated expression as he reads.
-📐 Set video dimensions: 1280x720
-got prompt
-Waiting for video generation completion (prompt_id: b06e9c76-3e5e-4a9d-8579-60ed87b7afbe)...
-loaded completely; 9118.48 MB usable, 2378.23 MB loaded, full load: True
-Requested to load LTXAV
-loaded partially; 9532.57 MB usable, 9379.43 MB loaded, 2862.54 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:08<01:02,  8.90s/it] 25%|██▌       | 2/8 [00:17<00:51,  8.57s/it] 38%|███▊      | 3/8 [00:25<00:42,  8.47s/it] 50%|█████     | 4/8 [00:33<00:33,  8.40s/it] 62%|██████▎   | 5/8 [00:42<00:25,  8.36s/it] 75%|███████▌  | 6/8 [00:50<00:16,  8.33s/it] 88%|████████▊ | 7/8 [00:58<00:08,  8.35s/it]100%|██████████| 8/8 [01:07<00:00,  8.33s/it]100%|██████████| 8/8 [01:07<00:00,  8.39s/it]
-Requested to load VideoVAE
-Unloaded partially: 2443.74 MB freed, 6935.69 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 217
-loaded completely; 2646.69 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 9666.12 MB usable, 9512.98 MB loaded, 2728.99 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:13<00:27, 13.93s/it] 67%|██████▋   | 2/3 [00:27<00:13, 13.62s/it]100%|██████████| 3/3 [00:40<00:00, 13.50s/it]100%|██████████| 3/3 [00:40<00:00, 13.56s/it]
-Requested to load VideoVAE
-Unloaded partially: 7710.97 MB freed, 1802.02 MB remains loaded, 1073.31 MB buffer reserved, lowvram patches: 670
-loaded completely; 3584.61 MB usable, 2378.23 MB loaded, full load: True
-Requested to load AudioVAE
-loaded completely; 5543.36 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 128.58 seconds
-✅ Copied 33 frames for scene_1.1_6
-Saved video: ../output\scene_1.1_6.mp4
-🔍 Frame prefix: scene_1.1_6.frame_
-🔍 Matching frames: 33
-🔍 Found last frame: scene_1.1_6.frame_033.png (frame #33)
-💾 Saved last frame for continuity: scene_1.1_6_last_frame.png
-💾 Checkpoint saved for chunk: scene_1.1_6
-📦 Keeping 6 chunks for scene_1.1 (will merge after all scenes complete)
-✅ Scene 1/19 - {{loc_1, Victorian sitting room sofa fireplace}},  (16.64s) - Completed in 18.2m
-📊 Estimated time remaining: ~5.5h (?)
-✅ Generated 6 video chunks: scene_1.1
-   Chunk 1: scene_1.1_1.mp4
-   Chunk 2: scene_1.1_2.mp4
-   Chunk 3: scene_1.1_3.mp4
-   Chunk 4: scene_1.1_4.mp4
-   Chunk 5: scene_1.1_5.mp4
-   Chunk 6: scene_1.1_6.mp4
-🔄 Scene 2/19 - {{loc_1, Victorian sitting room sofa fireplace}},  (17.12s) - Processing...
-📊 Estimated time remaining: ~5.2h (?)
-Generating video for scene: scene_1.2
-Duration: 17.12s, Frames: 410
-Video chunks: 6
-Copied scene image to ComfyUI input: ../../ComfyUI/input\scene_1.2.png
-Generating chunk: scene_1.2_1 (73 frames)
-✅ Split audio chunk: scene_1.2_1.wav (3.042s, start: 0.000s)
-🎬 Using master prompt for 1.2
-🎤 Added comprehensive talking instructions for AUDIO mode
-🚫 Added negative prompt to prevent static facial expressions
-Full prompt: Scene Includes a Dialogue spoken by a character.Natural lip sync with audio, smooth mouth movement. Clear facial features, well-lit face. A medium shot captures a young man with black hair standing in a cozy living room. He wears a blue button-down shirt and black shorts, his hands clasped together as he looks toward the camera. Sunlight streams through two large windows behind him, casting long shadows across the wooden floor and illuminating the room's warm colors—deep green walls, rich red furniture, and a patterned area rug. The camera remains steady as he shifts his weight slightly, then begins to take a small step forward with one foot. Outside, a city skyline stretches beneath a bright blue sky dotted with fluffy white clouds.
-📐 Set video dimensions: 1280x720
-got prompt
-Waiting for video generation completion (prompt_id: 91386e73-21d1-4714-acde-4cf70c99d258)...
-Requested to load LTXAVTEModel_
-loaded partially; 9531.67 MB usable, 704.50 MB loaded, 25260.46 MB offloaded, 8827.18 MB buffer reserved, lowvram patches: 0
-Requested to load AudioVAE
-loaded completely; 8827.18 MB usable, 415.20 MB loaded, full load: True
-Requested to load LTXAV
-loaded partially; 9529.45 MB usable, 9376.32 MB loaded, 2865.65 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:10<01:10, 10.14s/it] 25%|██▌       | 2/8 [00:20<01:00, 10.01s/it] 38%|███▊      | 3/8 [00:30<00:50, 10.03s/it] 50%|█████     | 4/8 [00:40<00:40, 10.01s/it] 62%|██████▎   | 5/8 [00:50<00:30, 10.02s/it] 75%|███████▌  | 6/8 [01:00<00:20, 10.01s/it] 88%|████████▊ | 7/8 [01:10<00:10, 10.01s/it]100%|██████████| 8/8 [01:20<00:00, 10.01s/it]100%|██████████| 8/8 [01:20<00:00, 10.02s/it]
-Requested to load VideoVAE
-Unloaded partially: 2440.63 MB freed, 6935.69 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 217
-loaded completely; 2644.69 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 8784.37 MB usable, 8612.59 MB loaded, 3629.38 MB offloaded, 177.49 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:21<00:43, 21.91s/it] 67%|██████▋   | 2/3 [00:43<00:21, 21.76s/it]100%|██████████| 3/3 [01:04<00:00, 21.59s/it]100%|██████████| 3/3 [01:04<00:00, 21.65s/it]
-Requested to load VideoVAE
-loaded partially; 38.38 MB usable, 0.00 MB loaded, 2378.23 MB offloaded, 1728.05 MB buffer reserved, lowvram patches: 0
-Requested to load AudioVAE
-loaded completely; 9531.67 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 217.33 seconds
-✅ Copied 73 frames for scene_1.2_1
-Saved video: ../output\scene_1.2_1.mp4
-🔍 Frame prefix: scene_1.2_1.frame_
-🔍 Matching frames: 73
-🔍 Found last frame: scene_1.2_1.frame_073.png (frame #73)
-💾 Saved last frame for continuity: scene_1.2_1_last_frame.png
-💾 Checkpoint saved for chunk: scene_1.2_1
-Generating chunk: scene_1.2_2 (73 frames)
-🔍 Frame prefix: scene_1.2_1.frame_
-🔍 Matching frames: 73
-🔍 Found last frame: scene_1.2_1.frame_073.png (frame #73)
-🔄 Using last saved frame from previous chunk as input for scene_1.2_2
-📁 Frame stored: ../output/frames\scene_1.2_2_last_frame.png
-✅ Split audio chunk: scene_1.2_2.wav (3.042s, start: 3.042s)
-🎬 Using master prompt for 1.2
-🎤 Added comprehensive talking instructions for AUDIO mode
-🚫 Added negative prompt to prevent static facial expressions
-Full prompt: Scene Includes a Dialogue spoken by a character.Natural lip sync with audio, smooth mouth movement. Clear facial features, well-lit face. A medium shot captures a young man with black hair standing in a cozy living room. He wears a blue button-down shirt and black shorts, his hands clasped together as he looks toward the camera. Sunlight streams through two large windows behind him, casting long shadows across the wooden floor and illuminating the room's warm colors—deep green walls, rich red furniture, and a patterned area rug. The camera remains steady as he shifts his weight slightly, then begins to take a small step forward with one foot. Outside, a city skyline stretches beneath a bright blue sky dotted with fluffy white clouds.
-📐 Set video dimensions: 1280x720
-got prompt
-Waiting for video generation completion (prompt_id: cc5e1a43-6159-4e40-891e-ef16a7c19de5)...
-loaded completely; 9116.48 MB usable, 2378.23 MB loaded, full load: True
-Requested to load LTXAV
-loaded partially; 9529.45 MB usable, 9376.32 MB loaded, 2865.65 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:10<01:11, 10.25s/it] 25%|██▌       | 2/8 [00:20<01:00, 10.06s/it] 38%|███▊      | 3/8 [00:30<00:50, 10.05s/it] 50%|█████     | 4/8 [00:40<00:40, 10.04s/it] 62%|██████▎   | 5/8 [00:50<00:30, 10.02s/it] 75%|███████▌  | 6/8 [01:00<00:20, 10.01s/it] 88%|████████▊ | 7/8 [01:10<00:09,  9.99s/it]100%|██████████| 8/8 [01:19<00:00,  9.93s/it]100%|██████████| 8/8 [01:19<00:00, 10.00s/it]
-Requested to load VideoVAE
-Unloaded partially: 2440.63 MB freed, 6935.69 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 217
-loaded completely; 2644.69 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 8784.37 MB usable, 8612.59 MB loaded, 3629.38 MB offloaded, 177.49 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:21<00:43, 21.94s/it] 67%|██████▋   | 2/3 [00:43<00:21, 21.95s/it]100%|██████████| 3/3 [01:05<00:00, 21.96s/it]100%|██████████| 3/3 [01:05<00:00, 21.95s/it]
-Requested to load VideoVAE
-loaded partially; 38.38 MB usable, 0.00 MB loaded, 2378.23 MB offloaded, 1728.05 MB buffer reserved, lowvram patches: 0
-Requested to load AudioVAE
-loaded completely; 9531.67 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 173.29 seconds
-✅ Copied 73 frames for scene_1.2_2
-Saved video: ../output\scene_1.2_2.mp4
-🔍 Frame prefix: scene_1.2_2.frame_
-🔍 Matching frames: 73
-🔍 Found last frame: scene_1.2_2.frame_073.png (frame #73)
-💾 Saved last frame for continuity: scene_1.2_2_last_frame.png
-💾 Checkpoint saved for chunk: scene_1.2_2
-Generating chunk: scene_1.2_3 (73 frames)
-🔍 Frame prefix: scene_1.2_2.frame_
-🔍 Matching frames: 73
-🔍 Found last frame: scene_1.2_2.frame_073.png (frame #73)
-🔄 Using last saved frame from previous chunk as input for scene_1.2_3
-📁 Frame stored: ../output/frames\scene_1.2_3_last_frame.png
-✅ Split audio chunk: scene_1.2_3.wav (3.042s, start: 6.083s)
-🎬 Using master prompt for 1.2
-🎤 Added comprehensive talking instructions for AUDIO mode
-🚫 Added negative prompt to prevent static facial expressions
-Full prompt: Scene Includes a Dialogue spoken by a character.Natural lip sync with audio, smooth mouth movement. Clear facial features, well-lit face. A medium shot captures a young man with black hair standing in a cozy living room. He wears a blue button-down shirt and black shorts, his hands clasped together as he looks toward the camera. Sunlight streams through two large windows behind him, casting long shadows across the wooden floor and illuminating the room's warm colors—deep green walls, rich red furniture, and a patterned area rug. The camera remains steady as he shifts his weight slightly, then begins to take a small step forward with one foot. Outside, a city skyline stretches beneath a bright blue sky dotted with fluffy white clouds.
-📐 Set video dimensions: 1280x720
-got prompt
-Waiting for video generation completion (prompt_id: ea59a2d2-0f2d-4a86-900c-e740552b6677)...
-loaded completely; 9116.48 MB usable, 2378.23 MB loaded, full load: True
-Requested to load LTXAV
-loaded partially; 9529.45 MB usable, 9376.32 MB loaded, 2865.65 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:09<01:09,  9.94s/it] 25%|██▌       | 2/8 [00:19<00:59,  9.91s/it] 38%|███▊      | 3/8 [00:29<00:49,  9.93s/it] 50%|█████     | 4/8 [00:39<00:39,  9.94s/it] 62%|██████▎   | 5/8 [00:49<00:29,  9.93s/it] 75%|███████▌  | 6/8 [00:59<00:19,  9.94s/it] 88%|████████▊ | 7/8 [01:09<00:09,  9.95s/it]100%|██████████| 8/8 [01:19<00:00,  9.95s/it]100%|██████████| 8/8 [01:19<00:00,  9.94s/it]
-Requested to load VideoVAE
-Unloaded partially: 2440.63 MB freed, 6935.69 MB remains loaded, 177.49 MB buffer reserved, lowvram patches: 217
-loaded completely; 2644.69 MB usable, 2378.23 MB loaded, full load: True
-loaded partially; 8784.37 MB usable, 8612.59 MB loaded, 3629.38 MB offloaded, 177.49 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:21<00:43, 21.87s/it] 67%|██████▋   | 2/3 [00:43<00:21, 21.88s/it]100%|██████████| 3/3 [01:05<00:00, 21.76s/it]100%|██████████| 3/3 [01:05<00:00, 21.79s/it]
-Requested to load VideoVAE
-loaded partially; 38.38 MB usable, 0.00 MB loaded, 2378.23 MB offloaded, 1728.05 MB buffer reserved, lowvram patches: 0
-Requested to load AudioVAE
-loaded completely; 9531.67 MB usable, 415.20 MB loaded, full load: True
-Prompt executed in 171.14 seconds
-✅ Copied 73 frames for scene_1.2_3
-Saved video: ../output\scene_1.2_3.mp4
-🔍 Frame prefix: scene_1.2_3.frame_
-🔍 Matching frames: 73
-🔍 Found last frame: scene_1.2_3.frame_073.png (frame #73)
-💾 Saved last frame for continuity: scene_1.2_3_last_frame.png
-💾 Checkpoint saved for chunk: scene_1.2_3
-Generating chunk: scene_1.2_4 (73 frames)
-🔍 Frame prefix: scene_1.2_3.frame_
-🔍 Matching frames: 73
-🔍 Found last frame: scene_1.2_3.frame_073.png (frame #73)
-🔄 Using last saved frame from previous chunk as input for scene_1.2_4
-📁 Frame stored: ../output/frames\scene_1.2_4_last_frame.png
-✅ Split audio chunk: scene_1.2_4.wav (3.042s, start: 9.125s)
-🎬 Using master prompt for 1.2
-🎤 Added comprehensive talking instructions for AUDIO mode
-🚫 Added negative prompt to prevent static facial expressions
-Full prompt: Scene Includes a Dialogue spoken by a character.Natural lip sync with audio, smooth mouth movement. Clear facial features, well-lit face. A medium shot captures a young man with black hair standing in a cozy living room. He wears a blue button-down shirt and black shorts, his hands clasped together as he looks toward the camera. Sunlight streams through two large windows behind him, casting long shadows across the wooden floor and illuminating the room's warm colors—deep green walls, rich red furniture, and a patterned area rug. The camera remains steady as he shifts his weight slightly, then begins to take a small step forward with one foot. Outside, a city skyline stretches beneath a bright blue sky dotted with fluffy white clouds.
-📐 Set video dimensions: 1280x720
-got prompt
-Waiting for video generation completion (prompt_id: 73d53c90-f922-4652-9598-602fb57abc14)...
-loaded completely; 9116.48 MB usable, 2378.23 MB loaded, full load: True
-Requested to load LTXAV
-loaded partially; 9529.45 MB usable, 9376.32 MB loaded, 2865.65 MB offloaded, 153.13 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:10<01:10, 10.02s/it] 25%|██▌       | 2/8 [00:19<00:59,  9.99s/it] 38%|███▊      | 3/8 [00:29<00:49,  9.98s/it] 50%|█████     | 4/8 [00:40<00:40, 10.02s/it] 62%|██████▎   | 5/8 [00:50<00:30, 10.06s/it] 75%|███████▌  | 6/8 [01:00<00:20, 10.07s/it] 88%|████████▊ | 7/8 [01:10<00:10, 10.05s/it]
