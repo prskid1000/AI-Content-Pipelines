@@ -35,9 +35,9 @@ ENABLE_NEGATIVE_PROMPT = False  # Set to True to enable negative prompts, False 
 
 # LoRA Switch Configuration (controls LoRA chain in movie.json workflow)
 # Each switch controls a specific part of the LoRA chain
-ENABLE_SWITCH_279_286 = True   # Node 279:286 - Controls depth-control LoRA (ltx-2-19b-ic-lora-depth-control.safetensors)
+ENABLE_SWITCH_279_286 = False   # Node 279:286 - Controls depth-control LoRA (ltx-2-19b-ic-lora-depth-control.safetensors)
 ENABLE_SWITCH_279_288 = True   # Node 279:288 - Controls canny-control LoRA (ltx-2-19b-ic-lora-canny-control.safetensors)
-ENABLE_SWITCH_279_289 = True   # Node 279:289 - Controls pose-control LoRA (ltx-2-19b-ic-lora-pose-control.safetensors)
+ENABLE_SWITCH_279_289 = False   # Node 279:289 - Controls pose-control LoRA (ltx-2-19b-ic-lora-pose-control.safetensors)
 ENABLE_SWITCH_279_290 = False   # Node 279:290 - Controls detailer LoRA (ltx-2-19b-ic-lora-detailer.safetensors)
 ENABLE_SWITCH_279_291 = True   # Node 279:291 - Final switch for first CFGGuider (279:239)
 ENABLE_SWITCH_279_292 = False   # Node 279:292 - Final switch for second CFGGuider (279:252)
