@@ -1147,11 +1147,11 @@ class VideoAnimator:
 
     def _get_negative_prompt(self) -> str:
         """Get the negative prompt for animation."""
-        return "worst quality, low quality, blurry, distortion, artifacts, noisy,logo,text, words, letters, writing, caption, subtitle, title, label, watermark, text, extra limbs, extra fingers, bad anatomy, poorly drawn face, asymmetrical features, plastic texture, uncanny valley"
+        return "blurry, low resolution, distorted, oversaturated, watermark, text, signature, distorted face, asymmetric features, extra limbs, deformed hands, blurry eyes, disfigured, low quality, bad anatomy, poorly drawn face, messy, noise, shaky, pixelated, compression artifacts, distorted motion, flickering, frame drops, poor lighting"
 
     def _get_positive_prompt(self) -> str:
         """Get the negative prompt for animation."""
-        return "Shot taken with Fixed Camera Position, Camera Angle and Camera Focus."
+        return "Audio-Visual Shot of a Character Speaking Dialogue and Acting according to Script in a Scene."
 
     def _load_base_workflow(self) -> dict:
         """Load the base animation workflow."""
@@ -1193,7 +1193,7 @@ class VideoAnimator:
         negative_prompt = self._get_negative_prompt()
         
         # Use motion data directly as the master prompt (generated in 2.motion.py)
-        positive_prompt = ""
+        positive_prompt = self._get_positive_prompt()
         if motion_data:
             # Try to find matching motion for this scene
             # Extract scene ID (remove "scene_" prefix if present, then remove chunk suffix)
@@ -1207,16 +1207,8 @@ class VideoAnimator:
                 clean_scene_id = clean_scene_id.rsplit('_', 1)[0]
             scene_motion_id = f"motion_{clean_scene_id}"
             if scene_motion_id in motion_data:
-                positive_prompt = motion_data[scene_motion_id]
+                positive_prompt = f"{positive_prompt} \n\n {motion_data[scene_motion_id]}"
                 print_flush(f"🎬 Using master prompt for {clean_scene_id}")
-            else:
-                print_flush(f"⚠️ No motion data found for scene {clean_scene_id} (looking for {scene_motion_id})")
-                # Fallback to base prompt if no motion data
-                positive_prompt = self._get_positive_prompt()
-        else:
-            # Fallback to base prompt if no motion data available
-            positive_prompt = self._get_positive_prompt()
-            print_flush("⚠️ No motion data available - using base prompt only")
         
         # Use provided frame count or calculate from duration
         if frame_count is None:

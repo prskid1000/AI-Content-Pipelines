@@ -13,7 +13,6 @@ from typing import List, Dict, Optional, Tuple
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
-ENABLE_DIALOGUE_CHUNKS = True  # Set to True to include dialogue chunks in ComfyUI prompts, False to exclude dialogue
 CONCAT_AFTER_COMPLETION = True  # Set to True to merge chunks at the end after all scenes are done, False to merge immediately after each scene
 
 # Sound mode configuration
@@ -38,7 +37,7 @@ ENABLE_SWITCH_279_288 = True   # Node 279:288 - Controls canny-control LoRA (ltx
 ENABLE_SWITCH_279_289 = False   # Node 279:289 - Controls pose-control LoRA (ltx-2-19b-ic-lora-pose-control.safetensors)
 ENABLE_SWITCH_279_290 = False   # Node 279:290 - Controls detailer LoRA (ltx-2-19b-ic-lora-detailer.safetensors)
 ENABLE_SWITCH_279_291 = True   # Node 279:291 - Final switch for first CFGGuider (279:239)
-ENABLE_SWITCH_279_292 = True   # Node 279:292 - Final switch for second CFGGuider (279:252)
+ENABLE_SWITCH_279_292 = False   # Node 279:292 - Final switch for second CFGGuider (279:252)
 
 class ResumableState:
     """Manages resumable state for expensive video animation operations."""
@@ -906,11 +905,11 @@ class AVVideoGenerator:
 
     def _get_negative_prompt(self) -> str:
         """Get the negative prompt for animation."""
-        return "blurry, low resolution, distorted, oversaturated, watermark, text, signature, distorted face, asymmetric features, extra limbs, deformed hands, blurry eyes, disfigured, low quality, bad anatomy, poorly drawn face, distracting elements, multiple objects, messy, chaotic, excessive detail, noise, shaky, pixelated, compression artifacts, distorted motion, flickering, frame drops, poor lighting, artificial, uncanny valley, overly smooth, fake, robotic"
+        return "blurry, low resolution, distorted, oversaturated, watermark, text, signature, distorted face, asymmetric features, extra limbs, deformed hands, blurry eyes, disfigured, low quality, bad anatomy, poorly drawn face, messy, noise, shaky, pixelated, compression artifacts, distorted motion, flickering, frame drops, poor lighting"
 
     def _get_positive_prompt(self) -> str:
         """Get the positive prompt for animation."""
-        return "Audio-Visual Shot of the scene."
+        return "Audio-Visual Shot of a Character Speaking Dialogue and Acting according to Script in a Scene."
 
     def _load_base_workflow(self) -> dict:
         """Load the base movie workflow."""
@@ -942,7 +941,7 @@ class AVVideoGenerator:
             duration: Duration of video in seconds
             motion_data: Master prompts for scenes (generated in 2.motion.py)
             frame_count: Number of frames to generate (overrides duration)
-            dialogue: Dialogue text for this chunk (optional, only used if ENABLE_DIALOGUE_CHUNKS is True)
+            dialogue: Dialogue text for this chunk (optional, only added to prompt in TEXT mode)
             audio_filename: Audio filename in ComfyUI input folder (optional, only used if SOUND_MODE=AUDIO)
         """
         workflow = self._load_base_workflow()
@@ -953,7 +952,7 @@ class AVVideoGenerator:
         negative_prompt = self._get_negative_prompt()
         
         # Use motion data directly as the master prompt (generated in 2.motion.py)
-        positive_prompt = ""
+        positive_prompt = self._get_positive_prompt()
         if motion_data:
             # Try to find matching motion for this scene
             clean_scene_id = self._extract_scene_id(chunk_scene_id)
@@ -962,26 +961,18 @@ class AVVideoGenerator:
                 clean_scene_id = clean_scene_id.rsplit('_', 1)[0]
             scene_motion_id = f"motion_{clean_scene_id}"
             if scene_motion_id in motion_data:
-                positive_prompt = motion_data[scene_motion_id]
+                positive_prompt = f"{positive_prompt} \n\n {motion_data[scene_motion_id]}"
                 print_flush(f"🎬 Using master prompt for {clean_scene_id}")
-            else:
-                print_flush(f"⚠️ No motion data found for scene {clean_scene_id} (looking for {scene_motion_id})")
-                # Fallback to base prompt if no motion data
-                positive_prompt = self._get_positive_prompt()
-        else:
-            # Fallback to base prompt if no motion data available
-            positive_prompt = self._get_positive_prompt()
-            print_flush("⚠️ No motion data available - using base prompt only")
         
         # Add dialogue chunk to prompt if enabled
-        if ENABLE_DIALOGUE_CHUNKS and dialogue:
+        if SOUND_MODE == "TEXT" and dialogue:
             if positive_prompt:
                 # Append dialogue to existing prompt
                 positive_prompt = f"{positive_prompt}\n\nDialogue: \"{dialogue}\""
             else:
                 # Use dialogue as prompt if no motion data
                 positive_prompt = f"Dialogue: \"{dialogue}\""
-            print_flush(f"💬 Added dialogue chunk to prompt: {dialogue[:50]}...")
+            print_flush(f"💬 Added dialogue chunk to prompt: {dialogue}...")
         
         # Add negative prompt suggestions to avoid static faces
         audio_negative = ""
