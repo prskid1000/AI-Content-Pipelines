@@ -10,11 +10,11 @@ import builtins as _builtins
 print = partial(_builtins.print, flush=True)
 
 # Model constants for easy switching
-MODEL_MEDIA_TAGS = "nvidia_nemotron-3-nano-30b-a3b"  # Model for generating YouTube tags
-MODEL_MEDIA_TITLE = "nvidia_nemotron-3-nano-30b-a3b"  # Model for generating YouTube titles
-MODEL_MEDIA_HOOK = "nvidia_nemotron-3-nano-30b-a3b"  # Model for generating YouTube hooks
-MODEL_MEDIA_BULLETS = "nvidia_nemotron-3-nano-30b-a3b"  # Model for generating YouTube bullet points
-MODEL_DESCRIPTION_GENERATION = "nvidia_nemotron-3-nano-30b-a3b"  # Model for description generation
+MODEL_MEDIA_TAGS = "nvidia/nemotron-3-nano"  # Model for generating YouTube tags
+MODEL_MEDIA_TITLE = "nvidia/nemotron-3-nano"  # Model for generating YouTube titles
+MODEL_MEDIA_HOOK = "nvidia/nemotron-3-nano"  # Model for generating YouTube hooks
+MODEL_MEDIA_BULLETS = "nvidia/nemotron-3-nano"  # Model for generating YouTube bullet points
+MODEL_DESCRIPTION_GENERATION = "nvidia/nemotron-3-nano"  # Model for description generation
 
 WORD_FACTOR = 6  # Approximate factor to convert words to characters
 THUMBNAIL_CHARACTER_MIN = 200 * WORD_FACTOR

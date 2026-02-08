@@ -11,7 +11,7 @@ from pathlib import Path
 print = partial(_builtins.print, flush=True)
 
 # Model constants for easy switching
-MODEL_MOTION_GENERATION = "qwen_qwen3-vl-30b-a3b-instruct"  # Vision model for motion generation
+MODEL_MOTION_GENERATION = "qwen/qwen3-vl-30b"  # Vision model for motion generation
 
 # Feature flags
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
