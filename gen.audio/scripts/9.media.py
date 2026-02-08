@@ -11,11 +11,11 @@ print = partial(_builtins.print, flush=True)
 
 # Model constants for easy switching
 MODEL_THUMBNAIL_GENERATION = "qwen/qwen3-vl-30b"  # Model for generating thumbnail prompts
-MODEL_MEDIA_TAGS = "nvidia/nemotron-3-nano"  # Model for generating YouTube tags
-MODEL_MEDIA_TITLE = "nvidia/nemotron-3-nano"  # Model for generating YouTube titles
-MODEL_MEDIA_HOOK = "nvidia/nemotron-3-nano"  # Model for generating YouTube hooks
-MODEL_MEDIA_BULLETS = "nvidia/nemotron-3-nano"  # Model for generating YouTube bullet points
-MODEL_DESCRIPTION_GENERATION = "nvidia/nemotron-3-nano"  # Model for description generation
+MODEL_MEDIA_TAGS = "qwen/qwen-2.5-72b"  # Model for generating YouTube tags
+MODEL_MEDIA_TITLE = "qwen/qwen-2.5-72b"  # Model for generating YouTube titles
+MODEL_MEDIA_HOOK = "qwen/qwen-2.5-72b"  # Model for generating YouTube hooks
+MODEL_MEDIA_BULLETS = "qwen/qwen-2.5-72b"  # Model for generating YouTube bullet points
+MODEL_DESCRIPTION_GENERATION = "qwen/qwen-2.5-72b"  # Model for description generation
 
 WORD_FACTOR = 6  # Approximate factor to convert words to characters
 THUMBNAIL_CHARACTER_MIN = 200 * WORD_FACTOR
@@ -37,7 +37,7 @@ class DiffusionPromptGenerator:
             return None
 
     def _write_text(self, path: str, content: str) -> None:
-        with open(path, "w", encoding="utf-8") as f:
+        with open(path, "w", encoding="utf-8", errors="replace") as f:
             f.write(content)
 
     def _schema_prompt(self) -> Dict[str, object]:
