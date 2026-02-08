@@ -11,11 +11,11 @@ print = partial(_builtins.print, flush=True)
 
 # Model constants for easy switching
 MODEL_THUMBNAIL_GENERATION = "qwen/qwen3-vl-30b"  # Model for generating thumbnail prompts
-MODEL_MEDIA_TAGS = "qwen/qwen-2.5-72b"  # Model for generating YouTube tags
-MODEL_MEDIA_TITLE = "qwen/qwen-2.5-72b"  # Model for generating YouTube titles
-MODEL_MEDIA_HOOK = "qwen/qwen-2.5-72b"  # Model for generating YouTube hooks
-MODEL_MEDIA_BULLETS = "qwen/qwen-2.5-72b"  # Model for generating YouTube bullet points
-MODEL_DESCRIPTION_GENERATION = "qwen/qwen-2.5-72b"  # Model for description generation
+MODEL_MEDIA_TAGS = "qwen/qwen3-vl-30b"  # Model for generating YouTube tags
+MODEL_MEDIA_TITLE = "qwen/qwen3-vl-30b"  # Model for generating YouTube titles
+MODEL_MEDIA_HOOK = "qwen/qwen3-vl-30b"  # Model for generating YouTube hooks
+MODEL_MEDIA_BULLETS = "qwen/qwen3-vl-30b"  # Model for generating YouTube bullet points
+MODEL_DESCRIPTION_GENERATION = "qwen/qwen3-vl-30b"  # Model for description generation
 
 WORD_FACTOR = 6  # Approximate factor to convert words to characters
 THUMBNAIL_CHARACTER_MIN = 200 * WORD_FACTOR

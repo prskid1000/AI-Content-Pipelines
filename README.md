@@ -526,11 +526,11 @@ max_workers = 3  # Concurrent processing
 ##### `9.media.py` - YouTube Metadata
 ```python
 MODEL_THUMBNAIL_GENERATION = "qwen/qwen3-vl-30b"  # Vision model for thumbnail prompts
-MODEL_MEDIA_TAGS = "qwen/qwen-2.5-72b"  # Model for generating YouTube tags
-MODEL_MEDIA_TITLE = "qwen/qwen-2.5-72b"  # Model for generating YouTube titles
-MODEL_MEDIA_HOOK = "qwen/qwen-2.5-72b"  # Model for generating YouTube hooks
-MODEL_MEDIA_BULLETS = "qwen/qwen-2.5-72b"  # Model for generating YouTube bullet points
-MODEL_DESCRIPTION_GENERATION = "qwen/qwen-2.5-72b"  # Model for description generation
+MODEL_MEDIA_TAGS = "qwen/qwen3-vl-30b"  # Model for generating YouTube tags
+MODEL_MEDIA_TITLE = "qwen/qwen3-vl-30b"  # Model for generating YouTube titles
+MODEL_MEDIA_HOOK = "qwen/qwen3-vl-30b"  # Model for generating YouTube hooks
+MODEL_MEDIA_BULLETS = "qwen/qwen3-vl-30b"  # Model for generating YouTube bullet points
+MODEL_DESCRIPTION_GENERATION = "qwen/qwen3-vl-30b"  # Model for description generation
 ```
 
 ##### `10.thumbnail.py` - Thumbnail Generation
