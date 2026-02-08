@@ -10,6 +10,7 @@ import builtins as _builtins
 print = partial(_builtins.print, flush=True)
 
 # Model constants for easy switching
+MODEL_THUMBNAIL_GENERATION = "qwen/qwen3-vl-30b"  # Model for generating thumbnail prompts
 MODEL_MEDIA_TAGS = "nvidia/nemotron-3-nano"  # Model for generating YouTube tags
 MODEL_MEDIA_TITLE = "nvidia/nemotron-3-nano"  # Model for generating YouTube titles
 MODEL_MEDIA_HOOK = "nvidia/nemotron-3-nano"  # Model for generating YouTube hooks
@@ -21,7 +22,7 @@ THUMBNAIL_CHARACTER_MIN = 200 * WORD_FACTOR
 THUMBNAIL_CHARACTER_MAX = 250 * WORD_FACTOR
 
 class DiffusionPromptGenerator:
-    def __init__(self, lm_studio_url: str = "http://localhost:1234/v1", model: str = MODEL_DESCRIPTION_GENERATION):
+    def __init__(self, lm_studio_url: str = "http://localhost:1234/v1", model: str = MODEL_THUMBNAIL_GENERATION):
         self.lm_studio_url = lm_studio_url
         self.model = model
         self.input_file = "../input/9.summary.txt"

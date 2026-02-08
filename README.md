@@ -525,6 +525,7 @@ max_workers = 3  # Concurrent processing
 
 ##### `9.media.py` - YouTube Metadata
 ```python
+MODEL_THUMBNAIL_GENERATION = "qwen/qwen3-vl-30b"  # Vision model for thumbnail prompts
 MODEL_MEDIA_TAGS = "nvidia/nemotron-3-nano"
 MODEL_MEDIA_TITLE = "nvidia/nemotron-3-nano"
 MODEL_DESCRIPTION_GENERATION = "nvidia/nemotron-3-nano"
