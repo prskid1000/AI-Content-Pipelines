@@ -200,12 +200,18 @@ def create_shorts_title(title: str, shorts_num: int) -> str:
     shorts_title = f"{title} #Shorts (Part {shorts_num})"
     return shorts_title
 
-def create_shorts_description(description: str, shorts_num: int) -> str:
+def create_shorts_description(description: str, shorts_num: int, main_video_id: str = None) -> str:
     """Create a description for shorts video."""
-    shorts_desc = f"🎬 Shorts Version {shorts_num} - {description}\n\n#Shorts #trendingshorts #viralshorts #YouTubeShorts"
+    shorts_desc = f"🎬 Shorts Version {shorts_num} - {description}\n\n"
+    
+    # Add link to main video if available
+    if main_video_id:
+        shorts_desc += f"▶️ Watch Full Video: https://www.youtube.com/watch?v={main_video_id}\n\n"
+    
+    shorts_desc += "#Shorts #trendingshorts #viralshorts #YouTubeShorts"
     return shorts_desc
 
-def upload_shorts_videos(youtube_service, shorts_dir: str, base_title: str, base_description: str, tags: list) -> list[str]:
+def upload_shorts_videos(youtube_service, shorts_dir: str, base_title: str, base_description: str, tags: list, main_video_id: str = None) -> list[str]:
     """Upload all shorts videos to YouTube."""
     shorts_videos = find_shorts_videos(shorts_dir)
     
@@ -226,7 +232,7 @@ def upload_shorts_videos(youtube_service, shorts_dir: str, base_title: str, base
         
         # Create shorts-specific title and description
         shorts_title = create_shorts_title(base_title, i)
-        shorts_description = create_shorts_description(base_description, i)
+        shorts_description = create_shorts_description(base_description, i, main_video_id)
         
         # Add shorts-specific tags
         shorts_tags = tags + ["#Shorts", "#YouTubeShorts", f"Part{i}"]
@@ -287,8 +293,9 @@ def main():
         youtube_service = get_authenticated_service()
         
         uploaded_videos = []
+        main_video_id = None
         
-        # Upload main video (unless shorts-only mode)
+        # Upload main video first (unless shorts-only mode)
         if not args.shorts_only:
             print(f"\n{'='*60}")
             print("Uploading Main Video")
@@ -297,6 +304,7 @@ def main():
             video_id = upload_video(youtube_service, str(video_path), title, description, tags)
             
             if video_id:
+                main_video_id = video_id
                 uploaded_videos.append(video_id)
                 print(f"\n🎉 Main video uploaded successfully!")
                 print(f"Remember: The video is set to 'private' by default.")
@@ -306,7 +314,7 @@ def main():
                 if not args.upload_shorts:
                     sys.exit(1)
         
-        # Upload shorts videos (if requested or shorts-only mode)
+        # Upload shorts videos AFTER main video (if requested or shorts-only mode)
         if args.upload_shorts or args.shorts_only:
             # Use provided shorts directory or default to ../output
             if args.shorts_dir:
@@ -323,7 +331,11 @@ def main():
                 print(f"Error: '{shorts_dir}' is not a directory!")
                 sys.exit(1)
             
-            shorts_video_ids = upload_shorts_videos(youtube_service, shorts_dir, title, description, tags)
+            # Pass main_video_id so shorts can link to the full video
+            if main_video_id:
+                print(f"\n🔗 Shorts will include link to main video: https://www.youtube.com/watch?v={main_video_id}")
+            
+            shorts_video_ids = upload_shorts_videos(youtube_service, shorts_dir, title, description, tags, main_video_id)
             uploaded_videos.extend(shorts_video_ids)
             
             if shorts_video_ids:
