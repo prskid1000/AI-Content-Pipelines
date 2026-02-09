@@ -103,6 +103,8 @@ In the center-left of the composition, a middle-aged detective in a dark brown t
 Your output quality directly impacts thumbnail generation success. Generate a visually rich, detailed, and coherent prompt.""".format(THUMBNAIL_CHARACTER_MIN=THUMBNAIL_CHARACTER_MIN, THUMBNAIL_CHARACTER_MAX=THUMBNAIL_CHARACTER_MAX)
 
     def _build_user_prompt(self, story_desc: str) -> str:
+        # Sanitize input to prevent LLM issues with emojis/special chars
+        story_desc = self._sanitize_for_llm(story_desc)
         return f"""STORY SUMMARY: {story_desc}"""
 
     def _call_lm_studio(self, system_prompt: str, user_prompt: str, response_format: Dict[str, object] | None = None) -> str:
@@ -138,6 +140,17 @@ Your output quality directly impacts thumbnail generation success. Generate a vi
             return json.loads(text)
         except Exception:
             return None
+
+    def _sanitize_for_llm(self, text: str) -> str:
+        """Remove emojis and special characters that can cause LLM issues."""
+        if not text:
+            return ""
+        # Remove emojis and special Unicode characters
+        # Keep only ASCII printable characters, basic punctuation, and common symbols
+        text = re.sub(r'[^\x00-\x7F]+', ' ', text)  # Remove non-ASCII
+        text = re.sub(r'[\r\n\t]+', ' ', text)  # Collapse newlines/tabs
+        text = re.sub(r'\s+', ' ', text)  # Collapse whitespace
+        return text.strip()
 
     def _sanitize_single_paragraph(self, text: str) -> str:
         if not text:
@@ -340,6 +353,17 @@ class YouTubeDescriptionGenerator:
             raise RuntimeError("LM Studio returned no choices")
         return data["choices"][0]["message"]["content"]
 
+    def _sanitize_for_llm(self, text: str) -> str:
+        """Remove emojis and special characters that can cause LLM issues."""
+        if not text:
+            return ""
+        # Remove emojis and special Unicode characters
+        # Keep only ASCII printable characters, basic punctuation, and common symbols
+        text = re.sub(r'[^\x00-\x7F]+', ' ', text)  # Remove non-ASCII
+        text = re.sub(r'[\r\n\t]+', ' ', text)  # Collapse newlines/tabs
+        text = re.sub(r'\s+', ' ', text)  # Collapse whitespace
+        return text.strip()
+
     def _parse_structured_response(self, content: str) -> Dict[str, object] | None:
         text = content.strip()
         if text.startswith("```"):
@@ -360,57 +384,60 @@ class YouTubeDescriptionGenerator:
                     "type": "object",
                     "additionalProperties": False,
                     "description": "Tags for a YouTube video",
-                    "maxLength": 500,
-                    "minLength": 475,
                     "properties": {
                         "core_sherlock_holmes_terms": {
                             "type": "array",
                             "items": {"type": "string"},
-                            "minItems": 15,
-                            "maxItems": 10,
+                            "minItems": 8,
+                            "maxItems": 15,
                             "description": "Core Sherlock Holmes Story terms"
                         },
                         "audience_targeting": {
                             "type": "array",
                             "items": {"type": "string"},
-                            "minItems": 30,
-                            "maxItems": 30,
+                            "minItems": 15,
+                            "maxItems": 25,
                             "description": "Tags targeting mystery fans, audiobook listeners, commuters"
                         },
                         "story_specific_elements": {
                             "type": "array",
                             "items": {"type": "string"},
-                            "minItems": 15,
-                            "maxItems": 15,
+                            "minItems": 10,
+                            "maxItems": 20,
                             "description": "Story-specific plot and character elements"
                         }
                     },
-                    "required": ["core_sherlock_holmes_terms", "audience_targeting", "audio_format_appeal", "story_specific_elements"],
+                    "required": ["core_sherlock_holmes_terms", "audience_targeting", "story_specific_elements"],
                 },
                 "strict": True,
             },
         }
 
     def _gen_tags_initial(self, title: str, summary: str) -> List[str]:
+        # Sanitize inputs to prevent LLM issues
+        title = self._sanitize_for_llm(title)
+        summary = self._sanitize_for_llm(summary)
+        
         sys = (
-            "TASK: Using the story title and summary, create 60 YouTube tags for an audio story channel.\n"
+            "TASK: Using the story title and summary, create YouTube tags for an audio story channel.\n"
             "- No repeated words across all tags.\n"
             "- Include story-specific characters/plot elements.\n"
             "- Target: mystery fans, audiobook listeners, commuters.\n"
             "- Mix popular + niche terms for discovery.\n"
-            "- Two/One word tags only.\n\n"
-            "- core_sherlock_holmes_terms: 15 tags (Sherlock Holmes, Watson, detective, mystery, etc.)\n"
-            "- audience_targeting: 20 tags (audiobook, podcast, commute, bedtime story, etc.)\n"
-            "- story_specific_elements: 15 tags (specific plot points, characters, locations from the story)\n\n"
-            "Return JSON with the four arrays as specified in the schema; no commentary."
+            "- One or two word tags only.\n\n"
+            "Generate three categories:\n"
+            "- core_sherlock_holmes_terms: 8-15 tags (Sherlock Holmes, Watson, detective, mystery, etc.)\n"
+            "- audience_targeting: 15-25 tags (audiobook, podcast, commute, bedtime story, etc.)\n"
+            "- story_specific_elements: 10-20 tags (specific plot points, characters, locations from the story)\n\n"
+            "Return JSON with the three arrays as specified in the schema; no commentary."
         )
         payload = {"title": title, "summary": summary}
-        raw = self._call_lm_studio(sys, json.dumps(payload, ensure_ascii=False), response_format=self._schema_tags(), model=MODEL_MEDIA_TAGS)
+        raw = self._call_lm_studio(sys, json.dumps(payload, ensure_ascii=True), response_format=self._schema_tags(), model=MODEL_MEDIA_TAGS)
         obj = self._parse_structured_response(raw) or {}
         
         # Combine all tag categories into a single list
         all_tags = []
-        for category in ["core_sherlock_holmes_terms", "audience_targeting", "audio_format_appeal", "story_specific_elements"]:
+        for category in ["core_sherlock_holmes_terms", "audience_targeting", "story_specific_elements"]:
             category_tags = obj.get(category, [])
             all_tags.extend([str(t).strip() for t in category_tags if str(t).strip()])
         
@@ -598,6 +625,10 @@ class YouTubeDescriptionGenerator:
 
     # ---------- Part generators ----------
     def _gen_title_line(self, title: str, summary: str) -> str:
+        # Sanitize inputs to prevent LLM issues
+        title = self._sanitize_for_llm(title)
+        summary = self._sanitize_for_llm(summary)
+        
         sys = (
             "You are a YouTube content editor. Generate a title and genre/content type label for YouTube.\n"
             "The title should start with an emoji and be engaging.\n"
@@ -605,18 +636,21 @@ class YouTubeDescriptionGenerator:
             "Keep both concise and appropriate to the summary."
         )
         payload = {"title": title, "summary": summary}
-        raw = self._call_lm_studio(sys, json.dumps(payload, ensure_ascii=False), response_format=self._schema_title(), model=MODEL_MEDIA_TITLE)
+        raw = self._call_lm_studio(sys, json.dumps(payload, ensure_ascii=True), response_format=self._schema_title(), model=MODEL_MEDIA_TITLE)
         obj = self._parse_structured_response(raw) or {}
         title_part = str(obj.get("title", title)).strip()
         genre_part = str(obj.get("genre", "Audiobook")).strip()
         return f"{title_part} | {genre_part}"
 
     def _gen_hook(self, summary: str, hook_limit: int) -> str:
+        # Sanitize input to prevent LLM issues
+        summary = self._sanitize_for_llm(summary)
+        
         sys = (
             f"Write a single-sentence hook (<= {hook_limit} chars), engaging and spoiler-light, starting with an emoji. Return JSON."
         )
         payload = {"summary": summary, "constraints": {"max_chars": hook_limit}}
-        raw = self._call_lm_studio(sys, json.dumps(payload, ensure_ascii=False), response_format=self._schema_hook(), model=MODEL_MEDIA_HOOK)
+        raw = self._call_lm_studio(sys, json.dumps(payload, ensure_ascii=True), response_format=self._schema_hook(), model=MODEL_MEDIA_HOOK)
         obj = self._parse_structured_response(raw) or {}
         hook = str(obj.get("hook", "")).strip()
         if len(hook) > hook_limit:
@@ -624,11 +658,14 @@ class YouTubeDescriptionGenerator:
         return hook
 
     def _gen_bullets(self, summary: str) -> List[str]:
+        # Sanitize input to prevent LLM issues
+        summary = self._sanitize_for_llm(summary)
+        
         sys = (
             "Produce 3–5 concise bullet lines starting with an emoji, highlighting appeal and features. Return JSON."
         )
         payload = {"summary": summary}
-        raw = self._call_lm_studio(sys, json.dumps(payload, ensure_ascii=False), response_format=self._schema_bullets(), model=MODEL_MEDIA_BULLETS)
+        raw = self._call_lm_studio(sys, json.dumps(payload, ensure_ascii=True), response_format=self._schema_bullets(), model=MODEL_MEDIA_BULLETS)
         obj = self._parse_structured_response(raw) or {}
         bullets = obj.get("bullets") or []
         return [str(b).strip() for b in bullets if str(b).strip()]
