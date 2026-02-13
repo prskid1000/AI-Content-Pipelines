@@ -1,10 +1,10 @@
-20%: The Unseen Pattern
-SHORT_SUMMARY : Holmes deduces infant movement stems from shadow rhythm not illness.
-40%: Deduction Over Fear
-SHORT_SUMMARY : Holmes replaces supernatural fear with rational cause for infant’s motion.
-60%: The Window's Influence
-SHORT_SUMMARY : Light shifts provoke rhythmic infant reactions through shadow play.
-80%: Reason as Remedy
-SHORT_SUMMARY : Holmes transforms maternal terror into confidence through observation.
-100%: The Science of Observation
-SHORT_SUMMARY : Holmes models observation as discipline for solving trivial yet telling mysteries.
+20%: The Green Stone Appears
+SHORT_SUMMARY : Lady Winterbourne seeks Holmes about a stolen jewel called the Cat's Eye.
+40%: Hidden Plans in Kensington
+SHORT_SUMMARY : Holmes interrogates Winterbourne House's household for clues about stolen jewel theft.
+60%: Cat Leads to Clues
+SHORT_SUMMARY : Trained cat reveals stolen jewel's path through basement theatre theft plot.
+80%: Stage Deception Exposed
+SHORT_SUMMARY : Shaw caught handling stolen jewel after cat delivers evidence backstage at theatre.
+100%: Resolution and Restoration
+SHORT_SUMMARY : Jewel recovered through clever deduction restoring Winterbourne reputation quietly.
