@@ -56,9 +56,19 @@ echo.
 @REM echo SUCCESS: sage-attn installed
 @REM echo.
 
-REM Install ONNX Runtime GPU (nightly CUDA 13.0)
+REM Install ONNX Runtime GPU deps first (required for CUDA 13 nightly; see microsoft/onnxruntime#26568)
+echo Installing ONNX Runtime GPU dependencies...
+.venv\Scripts\python.exe -m pip install coloredlogs flatbuffers numpy packaging protobuf sympy
+if errorlevel 1 (
+    echo ERROR: Failed to install ONNX Runtime GPU dependencies
+    pause
+    exit /b 1
+)
+echo.
+
+REM Install ONNX Runtime GPU (nightly CUDA 13 - pin version + --no-deps to avoid pip downloading many nightlies)
 echo [4/4] Installing ONNX Runtime GPU (nightly CUDA 13.0)...
-.venv\Scripts\python.exe -m pip install --pre --index-url https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/ort-cuda-13-nightly/pypi/simple/ onnxruntime-gpu
+.venv\Scripts\python.exe -m pip install --pre --no-deps --index-url https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/ort-cuda-13-nightly/pypi/simple/ onnxruntime-gpu==1.25.0.dev20260213001
 if errorlevel 1 (
     echo ERROR: Failed to install ONNX Runtime GPU
     pause
@@ -67,7 +77,7 @@ if errorlevel 1 (
 echo SUCCESS: ONNX Runtime GPU installed
 echo.
 
-REM Install additional required Python packages
+REM Install additional required Python packages (if not already installed)
 echo Installing additional required Python packages...
 .venv\Scripts\python.exe -m pip install coloredlogs flatbuffers numpy packaging protobuf sympy
 if errorlevel 1 (
@@ -143,7 +153,7 @@ echo.
 
 REM Install Triton
 echo Installing Triton...
-.venv\Scripts\python.exe -m pip3 install triton-windows
+.venv\Scripts\python.exe -m pip install triton-windows
 if errorlevel 1 (
     echo ERROR: Failed to install Triton
     pause
