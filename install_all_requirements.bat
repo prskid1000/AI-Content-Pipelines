@@ -34,27 +34,27 @@ if errorlevel 1 (
 echo SUCCESS: PyTorch installed
 echo.
 
-REM Install flash-attn (pre-built wheel for Python 3.12 + CUDA 13.0)
-echo [2/4] Installing flash-attn (pre-built wheel for CUDA 13.0)...
-.venv\Scripts\python.exe -m pip install https://huggingface.co/ussoewwin/Flash-Attention-2_for_Windows/resolve/main/flash_attn-2.8.3+cu130torch2.9.0cxx11abiTRUE-cp312-cp312-win_amd64.whl
-if errorlevel 1 (
-    echo ERROR: Failed to install flash-attn
-    pause
-    exit /b 1
-)
-echo SUCCESS: flash-attn installed
-echo.
+@REM REM Install flash-attn (pre-built wheel for Python 3.12 + CUDA 13.0)
+@REM echo [2/4] Installing flash-attn (pre-built wheel for CUDA 13.0)...
+@REM .venv\Scripts\python.exe -m pip install https://huggingface.co/ussoewwin/Flash-Attention-2_for_Windows/resolve/main/flash_attn-2.8.3+cu130torch2.9.0cxx11abiTRUE-cp312-cp312-win_amd64.whl
+@REM if errorlevel 1 (
+@REM     echo ERROR: Failed to install flash-attn
+@REM     pause
+@REM     exit /b 1
+@REM )
+@REM echo SUCCESS: flash-attn installed
+@REM echo.
 
-REM Install sage-attn (pre-built wheel for Python 3.12 + CUDA 13.0)
-echo [3/4] Installing sage-attn (pre-built wheel for CUDA 13.0)...
-.venv\Scripts\python.exe -m pip install https://github.com/woct0rdho/SageAttention/releases/download/v2.2.0-windows.post4/sageattention-2.2.0+cu130torch2.9.0andhigher.post4-cp39-abi3-win_amd64.whl
-if errorlevel 1 (
-    echo ERROR: Failed to install sage-attn
-    pause
-    exit /b 1
-)
-echo SUCCESS: sage-attn installed
-echo.
+@REM REM Install sage-attn (pre-built wheel for Python 3.12 + CUDA 13.0)
+@REM echo [3/4] Installing sage-attn (pre-built wheel for CUDA 13.0)...
+@REM .venv\Scripts\python.exe -m pip install https://github.com/woct0rdho/SageAttention/releases/download/v2.2.0-windows.post4/sageattention-2.2.0+cu130torch2.9.0andhigher.post4-cp39-abi3-win_amd64.whl
+@REM if errorlevel 1 (
+@REM     echo ERROR: Failed to install sage-attn
+@REM     pause
+@REM     exit /b 1
+@REM )
+@REM echo SUCCESS: sage-attn installed
+@REM echo.
 
 REM Install ONNX Runtime GPU (nightly CUDA 13.0)
 echo [4/4] Installing ONNX Runtime GPU (nightly CUDA 13.0)...
@@ -141,8 +141,8 @@ if errorlevel 1 (
 )
 echo.
 
-REM Install PyTorch first
-echo [0/3] Installing Triton
+REM Install Triton
+echo Installing Triton...
 .venv\Scripts\python.exe -m pip3 install triton-windows
 if errorlevel 1 (
     echo ERROR: Failed to install Triton
