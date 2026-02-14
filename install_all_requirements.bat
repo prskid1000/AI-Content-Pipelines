@@ -162,17 +162,6 @@ if errorlevel 1 (
 echo SUCCESS: Triton installed
 echo.
 
-REM Install xformers (last)
-echo Installing xformers...
-.venv\Scripts\python.exe -m pip install xformers==0.0.33.post2
-if errorlevel 1 (
-    echo ERROR: Failed to install xformers
-    pause
-    exit /b 1
-)
-echo SUCCESS: xformers installed
-echo.
-
 echo ========================================
 echo Installing Additional Tools via winget...
 REM Install ffmpeg
