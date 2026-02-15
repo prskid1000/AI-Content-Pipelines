@@ -2585,6 +2585,27 @@ git clone https://github.com/city96/ComfyUI-GGUF.git
 git clone https://github.com/kijai/ComfyUI-KJNodes.git
 ```
 
+##### ComfyUI-Hunyuan3d-2-1 (3D / Hunyuan3D) — Windows
+
+For **3D generation** with [ComfyUI-Hunyuan3d-2-1](https://github.com/visualbruno/ComfyUI-Hunyuan3d-2-1), use the one-click installer:
+
+**Prerequisites**
+- A virtual environment must exist (e.g. `.venv` in the repo root).
+- Run the script from the repository root (same folder as `ComfyUI/`).
+
+**Install**
+```batch
+install_hunyuan3d.bat
+```
+
+The script will:
+1. Clone `ComfyUI-Hunyuan3d-2-1` into `ComfyUI/custom_nodes/` if not already present.
+2. Install the node’s `requirements.txt` into the active venv.
+3. Install **rembg** (for BackgroundRemover).
+4. Install **custom_rasterizer** and **mesh_inpaint_processor** wheels from the node’s `hy3dpaint` subfolders, if the prebuilt `.whl` files exist.
+
+If the wheels are missing, the script reports a warning; you may need to build them from the node’s source (see the [ComfyUI-Hunyuan3d-2-1](https://github.com/visualbruno/ComfyUI-Hunyuan3d-2-1) repo). Python dependencies reference: [deepwiki – ComfyUI-Hunyuan3d-2-1](https://deepwiki.com/visualbruno/ComfyUI-Hunyuan3d-2-1/2.1-python-dependencies).
+
 #### 4. LTX2 Workflow Setup (Text-to-Video & Image-to-Video)
 
 LTX2 is the latest high-quality video generation model supporting both Text-to-Video (T2V) and Image-to-Video (I2V) workflows.
