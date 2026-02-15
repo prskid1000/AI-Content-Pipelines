@@ -142,12 +142,12 @@ echo Applying compatibility fixes...
 echo ========================================
 echo.
 echo Installing exact versions for librosa compatibility...
-.venv\Scripts\python.exe -m pip install "numba==0.59.1" "numpy==1.26.4" "librosa==0.11.0"
+.venv\Scripts\python.exe -m pip install "numba==0.59.1" "numpy==1.26.4" "librosa==0.11.0" "SQLAlchemy==2.0.46"
 if errorlevel 1 (
     echo WARNING: Failed to install compatible versions
     echo You may encounter issues with TTS Audio Suite
 ) else (
-    echo SUCCESS: numba 0.59.1, numpy 1.26.4, librosa 0.11.0 installed
+    echo SUCCESS: numba 0.59.1, numpy 1.26.4, librosa 0.11.0, SQLAlchemy 2.0.46 installed
 )
 echo.
 
