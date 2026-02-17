@@ -1,0 +1,9 @@
+# 2D assets input — one asset per line.
+# Format: [asset_name]....description
+# (four dots between name and description)
+#
+# Examples:
+
+[inventory_icon]....Bag/chest icon for inventory toggle
+[health_potion]....Small red potion bottle icon, game item
+[sword_icon]....Pixel art sword icon for RPG inventory
