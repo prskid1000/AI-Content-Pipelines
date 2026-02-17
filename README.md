@@ -23,7 +23,7 @@ The AI Content Studio is built on a modular pipeline architecture with four main
 - **Whisper** - Audio transcription
 
 ### Pipeline Orchestration
-Each pipeline (`gen.audio`, `gen.image`, `gen.video`, `gen.av`) includes:
+Each pipeline (`gen.audio`, `gen.image`, `gen.video`, `gen.av`, `gen.2d`) includes:
 - **Service Management** - Automatic startup/shutdown of ComfyUI and LM Studio
 - **Dependency Detection** - Smart service lifecycle management
 - **Error Handling** - Graceful cleanup on failures
@@ -49,6 +49,7 @@ Text Story → Image Pipeline → AV Pipeline → YouTube
 - **Image Pipeline** (`gen.image/`) - 6 scripts for character/scene generation  
 - **Video Pipeline** (`gen.video/`) - 4 scripts for animation and compilation (includes shared `2.motion.py`)
 - **AV Pipeline** (`gen.av/`) - 3 scripts for audio-visual video generation with built-in audio (uses shared `2.motion.py` from video folder)
+- **2D Asset Pipeline** (`gen.2d/`) - 2D asset generation (resize + background removal)
 
 ## 📁 Project Structure
 
@@ -116,6 +117,16 @@ Text Story → Image Pipeline → AV Pipeline → YouTube
 │   │   ├── character_location.json # Character/location workflow
 │   │   └── scene.json           # Scene generation workflow
 │   └── prompt.story.image.txt  # Image generation prompts
+├── gen.2d/                     # 2D asset pipeline
+│   ├── generate.py             # Main orchestrator
+│   ├── input/                  # Input files
+│   │   └── input.txt           # Asset list: [asset_name]....description
+│   ├── output/                 # Generated assets (png with alpha)
+│   │   └── tracking/           # Resumable checkpoints (*.state.json)
+│   ├── scripts/                # Processing scripts
+│   │   └── 1.assets.py         # Generate assets via ComfyUI workflow
+│   └── workflow/               # ComfyUI workflows
+│       └── assets2d.json       # Flux → resize → RMBG → SaveImage
 └── gen.video/                  # Video pipeline (4 scripts)
     ├── generate.py             # Main orchestrator
     ├── input/                  # Input files
@@ -168,6 +179,9 @@ cd gen.audio && python generate.py
 # Image Pipeline (6 scripts) 
 cd gen.image && python generate.py
 
+# 2D Asset Pipeline
+cd gen.2d && python generate.py
+
 # Video Pipeline (4 scripts)
 cd gen.video && python generate.py
 
@@ -180,6 +194,7 @@ cd gen.av && python generate.py
 # Individual scripts with resumable processing
 cd gen.image/scripts && python 1.story.py
 cd gen.image/scripts && python 2.character.py --force-start
+cd gen.2d/scripts && python 1.assets.py
 cd gen.audio/scripts && python 7.sfx.py --auto-confirm y
 
 # Check progress and resume from interruptions
