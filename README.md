@@ -18,7 +18,7 @@ The AI Content Studio is built on a modular pipeline architecture with four main
 
 ### Core Services
 - **ComfyUI** (Port 8188) - AI model inference server for TTS, image generation, and video animation
-- **LM Studio** (Port 1234) - Local language model (nvidia/nemotron-3-nano) for text processing and content analysis
+- **LM Studio** (Port 1234) - Local language model (qwen3.5-35b-a3b_moe) for text processing and content analysis
 - **FFmpeg** - Video/audio processing and compilation
 - **Whisper** - Audio transcription
 
@@ -166,7 +166,7 @@ Text Story → Image Pipeline → AV Pipeline → YouTube
 
 ### Prerequisites
 1. **ComfyUI** - AI model server for TTS, image, and video generation
-2. **LM Studio** - Local language model (nvidia/nemotron-3-nano) 
+2. **LM Studio** - Local language model (qwen3.5-35b-a3b_moe) 
 3. **FFmpeg** - Video/audio processing
 4. **Python Dependencies** - `pip install -r requirements.txt`
 5. **YouTube API** (optional) - For automated uploads
@@ -496,7 +496,7 @@ gen.audio/output/story/
 ```python
 LANGUAGE = "en"
 REGION = "in"
-MODEL_CHARACTER_CHAPTER_SUMMARY = "nvidia/nemotron-3-nano"
+MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen3.5-35b-a3b_moe"
 CHUNK_SIZE = 50  # Lines per chapter chunk
 GENERATE_TITLE = True
 ENABLE_RESUMABLE_MODE = True
@@ -518,14 +518,14 @@ final_output = "../output/story.wav"  # Final concatenated audio
 
 ##### `5.timeline.py` - SFX Timeline Generation
 ```python
-MODEL_TIMELINE_GENERATION = "nvidia/nemotron-3-nano"
+MODEL_TIMELINE_GENERATION = "qwen3.5-35b-a3b_moe"
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False
 ```
 
 ##### `6.timing.py` - SFX Timing Refinement
 ```python
-MODEL_TIMING_GENERATION = "nvidia/nemotron-3-nano"
+MODEL_TIMING_GENERATION = "qwen3.5-35b-a3b_moe"
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False
 ```
@@ -540,12 +540,12 @@ max_workers = 3  # Concurrent processing
 
 ##### `9.media.py` - YouTube Metadata
 ```python
-MODEL_THUMBNAIL_GENERATION = "qwen/qwen3-vl-30b"  # Vision model for thumbnail prompts
-MODEL_MEDIA_TAGS = "qwen/qwen3-vl-30b"  # Model for generating YouTube tags
-MODEL_MEDIA_TITLE = "qwen/qwen3-vl-30b"  # Model for generating YouTube titles
-MODEL_MEDIA_HOOK = "qwen/qwen3-vl-30b"  # Model for generating YouTube hooks
-MODEL_MEDIA_BULLETS = "qwen/qwen3-vl-30b"  # Model for generating YouTube bullet points
-MODEL_DESCRIPTION_GENERATION = "qwen/qwen3-vl-30b"  # Model for description generation
+MODEL_THUMBNAIL_GENERATION = "qwen3.5-35b-a3b_moe"  # Vision model for thumbnail prompts
+MODEL_MEDIA_TAGS = "qwen3.5-35b-a3b_moe"  # Model for generating YouTube tags
+MODEL_MEDIA_TITLE = "qwen3.5-35b-a3b_moe"  # Model for generating YouTube titles
+MODEL_MEDIA_HOOK = "qwen3.5-35b-a3b_moe"  # Model for generating YouTube hooks
+MODEL_MEDIA_BULLETS = "qwen3.5-35b-a3b_moe"  # Model for generating YouTube bullet points
+MODEL_DESCRIPTION_GENERATION = "qwen3.5-35b-a3b_moe"  # Model for description generation
 ```
 
 ##### `10.thumbnail.py` - Thumbnail Generation
@@ -793,8 +793,8 @@ CHARACTER_SUMMARY_WORD_MIN = 60
 CHARACTER_SUMMARY_WORD_MAX = 120
 LOCATION_SUMMARY_WORD_MIN = 60
 LOCATION_SUMMARY_WORD_MAX = 120
-MODEL_STORY_DESCRIPTION = "nvidia/nemotron-3-nano"
-MODEL_CHARACTER_GENERATION = "nvidia/nemotron-3-nano"
+MODEL_STORY_DESCRIPTION = "qwen3.5-35b-a3b_moe"
+MODEL_CHARACTER_GENERATION = "qwen3.5-35b-a3b_moe"
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False
 ART_STYLE = "Realistic Anime"
@@ -994,7 +994,7 @@ output_file = "../output/final_sd.mp4"
 
 ```python
 # Model Constants for easy switching
-MODEL_MOTION_GENERATION = "qwen/qwen3-vl-30b"  # Vision model for motion generation
+MODEL_MOTION_GENERATION = "qwen3.5-35b-a3b_moe"  # Vision model for motion generation
 
 # Feature Flags
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
@@ -1147,7 +1147,7 @@ External Input Files:
 
 ```python
 # Model Configuration
-MODEL_MOTION_GENERATION = "qwen/qwen3-vl-30b"  # Vision model
+MODEL_MOTION_GENERATION = "qwen3.5-35b-a3b_moe"  # Vision model
 
 # Feature Flags
 ENABLE_RESUMABLE_MODE = True
@@ -1511,7 +1511,7 @@ comfyui_input_folder = "../../ComfyUI/input"
 #### LM Studio Configuration
 ```python
 LM_STUDIO_BASE_URL = "http://127.0.0.1:1234/v1"  # Default URL
-LM_STUDIO_MODEL = "nvidia/nemotron-3-nano"  # Default model
+LM_STUDIO_MODEL = "qwen3.5-35b-a3b_moe"  # Default model
 models_url = "http://127.0.0.1:1234/v1/models"
 ```
 
@@ -1524,7 +1524,7 @@ COMFYUI_DIR=/path/to/ComfyUI
 LM_STUDIO_CMD=lms
 
 # Model Configuration
-LM_STUDIO_MODEL=nvidia/nemotron-3-nano
+LM_STUDIO_MODEL=qwen3.5-35b-a3b_moe
 PYTHONIOENCODING=utf-8
 PYTHONUNBUFFERED=1
 
@@ -1598,10 +1598,10 @@ LANGUAGE = "en"
 REGION = "in"
 
 # Model Configuration
-MODEL_CHARACTER_CHAPTER_SUMMARY = "nvidia/nemotron-3-nano"
-MODEL_CHARACTER_TITLE_GENERATION = "nvidia/nemotron-3-nano"
-MODEL_CHARACTER_META_SUMMARY = "nvidia/nemotron-3-nano"
-MODEL_DESCRIPTION_GENERATION = "nvidia/nemotron-3-nano"
+MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen3.5-35b-a3b_moe"
+MODEL_CHARACTER_TITLE_GENERATION = "qwen3.5-35b-a3b_moe"
+MODEL_CHARACTER_META_SUMMARY = "qwen3.5-35b-a3b_moe"
+MODEL_DESCRIPTION_GENERATION = "qwen3.5-35b-a3b_moe"
 
 # Story Processing
 CHUNK_SIZE = 50  # Lines per chapter chunk
@@ -1682,7 +1682,7 @@ transcription_file = "../input/2.story.str.txt"
 ##### `5.timeline.py` - SFX Timeline Generation
 ```python
 # Model Configuration
-MODEL_TIMELINE_GENERATION = "nvidia/nemotron-3-nano"
+MODEL_TIMELINE_GENERATION = "qwen3.5-35b-a3b_moe"
 
 # Feature Flags
 ENABLE_RESUMABLE_MODE = True
@@ -1697,7 +1697,7 @@ checkpoint_dir = "../output/tracking"
 ##### `6.timing.py` - SFX Timing Refinement
 ```python
 # Model Configuration
-MODEL_TIMING_GENERATION = "nvidia/nemotron-3-nano"
+MODEL_TIMING_GENERATION = "qwen3.5-35b-a3b_moe"
 
 # Feature Flags
 ENABLE_RESUMABLE_MODE = True
@@ -1740,11 +1740,11 @@ final_output_path = "../output/final.wav"
 ##### `9.media.py` - YouTube Metadata Generation
 ```python
 # Model Configuration
-MODEL_MEDIA_TAGS = "nvidia/nemotron-3-nano"
-MODEL_MEDIA_TITLE = "nvidia/nemotron-3-nano"
-MODEL_MEDIA_HOOK = "nvidia/nemotron-3-nano"
-MODEL_MEDIA_BULLETS = "nvidia/nemotron-3-nano"
-MODEL_DESCRIPTION_GENERATION = "nvidia/nemotron-3-nano"
+MODEL_MEDIA_TAGS = "qwen3.5-35b-a3b_moe"
+MODEL_MEDIA_TITLE = "qwen3.5-35b-a3b_moe"
+MODEL_MEDIA_HOOK = "qwen3.5-35b-a3b_moe"
+MODEL_MEDIA_BULLETS = "qwen3.5-35b-a3b_moe"
+MODEL_DESCRIPTION_GENERATION = "qwen3.5-35b-a3b_moe"
 
 # File Paths
 story_file = "../input/1.story.txt"
@@ -1875,10 +1875,10 @@ ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False
 
 # Model Configuration
-MODEL_STORY_DESCRIPTION = "nvidia/nemotron-3-nano"
-MODEL_CHARACTER_GENERATION = "nvidia/nemotron-3-nano"
-MODEL_CHARACTER_SUMMARY = "nvidia/nemotron-3-nano"
-MODEL_LOCATION_EXPANSION = "nvidia/nemotron-3-nano"
+MODEL_STORY_DESCRIPTION = "qwen3.5-35b-a3b_moe"
+MODEL_CHARACTER_GENERATION = "qwen3.5-35b-a3b_moe"
+MODEL_CHARACTER_SUMMARY = "qwen3.5-35b-a3b_moe"
+MODEL_LOCATION_EXPANSION = "qwen3.5-35b-a3b_moe"
 
 ART_STYLE = "Realistic Anime"
 
@@ -2331,7 +2331,7 @@ COMFYUI_DIR=/path/to/ComfyUI
 LM_STUDIO_CMD=lms
 
 # Model Configuration
-LM_STUDIO_MODEL=nvidia/nemotron-3-nano
+LM_STUDIO_MODEL=qwen3.5-35b-a3b_moe
 PYTHONIOENCODING=utf-8
 PYTHONUNBUFFERED=1
 
@@ -2358,7 +2358,7 @@ YOUTUBE_CATEGORY_ID=22
 
 #### LM Studio
 - **Purpose**: Local language model for text processing and content analysis
-- **Model**: nvidia/nemotron-3-nano (default)
+- **Model**: qwen3.5-35b-a3b_moe (default)
 - **Port**: 1234 (default)
 - **Required For**:
   - **Audio Pipeline**: `1.character.py` (character analysis), `5.timeline.py` (SFX descriptions), `6.timing.py` (timing refinement), `9.media.py` (thumbnail prompts & metadata), `12.youtube.py` (YouTube upload)
@@ -2412,7 +2412,7 @@ YOUTUBE_CATEGORY_ID=22
 
 ### Prerequisites
 1. Install ComfyUI and required custom nodes
-2. Install LM Studio and load nvidia/nemotron-3-nano model
+2. Install LM Studio and load qwen3.5-35b-a3b_moe model
 3. Install FFmpeg
 4. Install Python dependencies: `pip install -r requirements.txt`
 5. Set up YouTube API credentials (optional)
@@ -2423,7 +2423,7 @@ The AI Content Studio requires several AI models for different generation tasks.
 
 ### LM Studio Models (Language Processing)
 
-#### Primary Model: nvidia/nemotron-3-nano
+#### Primary Model: qwen3.5-35b-a3b_moe
 - **Format**: GGUF (recommended for LM Studio)
 - **Size**: ~8GB (Q4_K_M quantization)
 - **Download Sources**:
@@ -2434,12 +2434,12 @@ The AI Content Studio requires several AI models for different generation tasks.
   - **LM Studio Hub**: Search "qwen" in LM Studio interface
   - **Direct Download**: Use LM Studio's built-in model browser
 
-#### Vision Model: qwen/qwen3-vl-30b
+#### Vision Model: qwen3.5-35b-a3b_moe
 - **Format**: GGUF (for motion generation)
 - **Size**: ~4GB (Q4_K_M quantization)
 - **Purpose**: Master prompt generation for video (integrates dialogue, scene, motion, audio, character, and location data)
 - **Download Sources**:
-  - **Hugging Face**: [Qwen/qwen/qwen3-vl-30b-GGUF](https://huggingface.co/Qwen/qwen/qwen3-vl-30b-GGUF)
+  - **Hugging Face**: [Qwen/qwen3.5-35b-a3b_moe-GGUF](https://huggingface.co/Qwen/qwen3.5-35b-a3b_moe-GGUF)
   - **Local AI Zone**: [Qwen2.5-VL Models](https://local-ai-zone.github.io/)
 
 #### Recommended Quantization Levels
@@ -3233,7 +3233,7 @@ Where `{size}` can be "small", "medium", or "large" based on `IMAGE_LATENT_SIZE`
 - `LM_STUDIO_CMD` - Custom LM Studio command (overrides default lms)
 
 #### Model Configuration
-- `LM_STUDIO_MODEL` - Model name (default: nvidia/nemotron-3-nano)
+- `LM_STUDIO_MODEL` - Model name (default: qwen3.5-35b-a3b_moe)
 - `PYTHONIOENCODING` - Python encoding (default: utf-8)
 - `PYTHONUNBUFFERED` - Python output buffering (default: 1)
 
@@ -3492,7 +3492,7 @@ This is a modular system designed for easy extension. Each script is self-contai
 - **YouTube**: `description.txt`, `tags.txt` (enhanced metadata generation)
 
 ### Model Configuration
-- **LM Studio Model**: `nvidia/nemotron-3-nano` (14B parameter language model)
+- **LM Studio Model**: `qwen3.5-35b-a3b_moe` (14B parameter language model)
 - **Image Models**: FLUX.1, SD 3.5, HiDream, Qwen Image (GGUF format)
 - **Video Models**: LTX Video, Wan 2.1/2.2 (GGUF format)
 - **LoRA**: FLUX.1-Turbo-Alpha (primary LoRA for all scripts)

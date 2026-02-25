@@ -60,7 +60,7 @@ Stopping LM Studio backend via lms CLI...
 Command: lms server stop
 Unloading all models from LM Studio...
 Command: lms unload --all
-Unloading "qwen/qwen3-vl-30b"...
+Unloading "qwen3.5-35b-a3b_moe"...
 Unloaded 1 model.
 Stopped the server on port 1234.
 LM Studio appears stopped (after 1 checks).
@@ -217,10 +217,21 @@ FETCH ComfyRegistry Data: 45/124
 Requested to load Flux
 FETCH ComfyRegistry Data: 50/124
 loaded partially; 9470.07 MB usable, 7462.74 MB loaded, 15237.40 MB offloaded, 1998.51 MB buffer reserved, lowvram patches: 246
-  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 55/124
- 11%|█         | 1/9 [00:03<00:24,  3.02s/it] 22%|██▏       | 2/9 [00:04<00:16,  2.40s/it] 33%|███▎      | 3/9 [00:06<00:13,  2.20s/it]FETCH ComfyRegistry Data: 60/124
- 44%|████▍     | 4/9 [00:08<00:10,  2.10s/it] 56%|█████▌    | 5/9 [00:10<00:08,  2.05s/it] 67%|██████▋   | 6/9 [00:12<00:06,  2.02s/it]FETCH ComfyRegistry Data: 65/124
- 78%|███████▊  | 7/9 [00:14<00:03,  2.00s/it] 89%|████████▉ | 8/9 [00:16<00:01,  1.99s/it]100%|██████████| 9/9 [00:18<00:00,  1.98s/it]100%|██████████| 9/9 [00:18<00:00,  2.08s/it]
+
+  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 55/124
+
+ 11%|█         | 1/9 [00:03<00:24,  3.02s/it]
+ 22%|██▏       | 2/9 [00:04<00:16,  2.40s/it]
+ 33%|███▎      | 3/9 [00:06<00:13,  2.20s/it]FETCH ComfyRegistry Data: 60/124
+
+ 44%|████▍     | 4/9 [00:08<00:10,  2.10s/it]
+ 56%|█████▌    | 5/9 [00:10<00:08,  2.05s/it]
+ 67%|██████▋   | 6/9 [00:12<00:06,  2.02s/it]FETCH ComfyRegistry Data: 65/124
+
+ 78%|███████▊  | 7/9 [00:14<00:03,  2.00s/it]
+ 89%|████████▉ | 8/9 [00:16<00:01,  1.99s/it]
+100%|██████████| 9/9 [00:18<00:00,  1.98s/it]
+100%|██████████| 9/9 [00:18<00:00,  2.08s/it]
 Requested to load AutoencodingEngine
 Unloaded partially: 1160.69 MB freed, 6302.05 MB remains loaded, 1998.51 MB buffer reserved, lowvram patches: 262
 loaded completely; 232.31 MB usable, 159.87 MB loaded, full load: True
@@ -251,13 +262,24 @@ Using latent mode with dimensions: 1080x1920
 got prompt
   Waiting for LoRA 1 generation to complete...
 loaded partially; 8354.07 MB usable, 6292.33 MB loaded, 16407.80 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 1
-  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 75/124
- 11%|█         | 1/9 [00:04<00:35,  4.50s/it] 22%|██▏       | 2/9 [00:08<00:30,  4.43s/it]FETCH ComfyRegistry Data: 80/124
- 33%|███▎      | 3/9 [00:13<00:26,  4.43s/it]FETCH ComfyRegistry Data: 85/124
- 44%|████▍     | 4/9 [00:17<00:22,  4.42s/it] 56%|█████▌    | 5/9 [00:22<00:17,  4.42s/it]FETCH ComfyRegistry Data: 90/124
- 67%|██████▋   | 6/9 [00:26<00:13,  4.42s/it]FETCH ComfyRegistry Data: 95/124
- 78%|███████▊  | 7/9 [00:30<00:08,  4.42s/it]FETCH ComfyRegistry Data: 100/124
- 89%|████████▉ | 8/9 [00:35<00:04,  4.42s/it]100%|██████████| 9/9 [00:39<00:00,  4.43s/it]100%|██████████| 9/9 [00:39<00:00,  4.43s/it]
+
+  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 75/124
+
+ 11%|█         | 1/9 [00:04<00:35,  4.50s/it]
+ 22%|██▏       | 2/9 [00:08<00:30,  4.43s/it]FETCH ComfyRegistry Data: 80/124
+
+ 33%|███▎      | 3/9 [00:13<00:26,  4.43s/it]FETCH ComfyRegistry Data: 85/124
+
+ 44%|████▍     | 4/9 [00:17<00:22,  4.42s/it]
+ 56%|█████▌    | 5/9 [00:22<00:17,  4.42s/it]FETCH ComfyRegistry Data: 90/124
+
+ 67%|██████▋   | 6/9 [00:26<00:13,  4.42s/it]FETCH ComfyRegistry Data: 95/124
+
+ 78%|███████▊  | 7/9 [00:30<00:08,  4.42s/it]FETCH ComfyRegistry Data: 100/124
+
+ 89%|████████▉ | 8/9 [00:35<00:04,  4.42s/it]
+100%|██████████| 9/9 [00:39<00:00,  4.43s/it]
+100%|██████████| 9/9 [00:39<00:00,  4.43s/it]
 Requested to load AutoencodingEngine
 Unloaded partially: 5266.00 MB freed, 1026.33 MB remains loaded, 2394.70 MB buffer reserved, lowvram patches: 312
 loaded completely; 614.35 MB usable, 159.87 MB loaded, full load: True
@@ -287,15 +309,26 @@ Using latent mode with dimensions: 1080x1920
 got prompt
   Waiting for LoRA 1 generation to complete...
 loaded partially; 8246.04 MB usable, 6184.30 MB loaded, 16515.84 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 105/124
- 11%|█         | 1/9 [00:04<00:35,  4.42s/it] 22%|██▏       | 2/9 [00:08<00:30,  4.43s/it]FETCH ComfyRegistry Data: 110/124
- 33%|███▎      | 3/9 [00:13<00:26,  4.43s/it]FETCH ComfyRegistry Data: 115/124
- 44%|████▍     | 4/9 [00:17<00:22,  4.43s/it] 56%|█████▌    | 5/9 [00:22<00:17,  4.44s/it]FETCH ComfyRegistry Data: 120/124
- 67%|██████▋   | 6/9 [00:26<00:13,  4.44s/it]FETCH ComfyRegistry Data [DONE]
+
+  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 105/124
+
+ 11%|█         | 1/9 [00:04<00:35,  4.42s/it]
+ 22%|██▏       | 2/9 [00:08<00:30,  4.43s/it]FETCH ComfyRegistry Data: 110/124
+
+ 33%|███▎      | 3/9 [00:13<00:26,  4.43s/it]FETCH ComfyRegistry Data: 115/124
+
+ 44%|████▍     | 4/9 [00:17<00:22,  4.43s/it]
+ 56%|█████▌    | 5/9 [00:22<00:17,  4.44s/it]FETCH ComfyRegistry Data: 120/124
+
+ 67%|██████▋   | 6/9 [00:26<00:13,  4.44s/it]FETCH ComfyRegistry Data [DONE]
 [ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
 FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
 [ComfyUI-Manager] All startup tasks have been completed.
- 78%|███████▊  | 7/9 [00:31<00:08,  4.45s/it] 89%|████████▉ | 8/9 [00:35<00:04,  4.45s/it]100%|██████████| 9/9 [00:39<00:00,  4.45s/it]100%|██████████| 9/9 [00:39<00:00,  4.44s/it]
+
+ 78%|███████▊  | 7/9 [00:31<00:08,  4.45s/it]
+ 89%|████████▉ | 8/9 [00:35<00:04,  4.45s/it]
+100%|██████████| 9/9 [00:39<00:00,  4.45s/it]
+100%|██████████| 9/9 [00:39<00:00,  4.44s/it]
 Requested to load AutoencodingEngine
 Unloaded partially: 5049.93 MB freed, 1134.37 MB remains loaded, 2394.70 MB buffer reserved, lowvram patches: 359
 loaded completely; 614.35 MB usable, 159.87 MB loaded, full load: True
@@ -325,7 +358,18 @@ Using latent mode with dimensions: 1080x1920
 got prompt
   Waiting for LoRA 1 generation to complete...
 loaded partially; 8354.07 MB usable, 6292.33 MB loaded, 16407.80 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:04<00:35,  4.43s/it] 22%|██▏       | 2/9 [00:08<00:31,  4.43s/it] 33%|███▎      | 3/9 [00:13<00:26,  4.44s/it] 44%|████▍     | 4/9 [00:17<00:22,  4.44s/it] 56%|█████▌    | 5/9 [00:22<00:17,  4.44s/it] 67%|██████▋   | 6/9 [00:26<00:13,  4.44s/it] 78%|███████▊  | 7/9 [00:31<00:08,  4.44s/it] 89%|████████▉ | 8/9 [00:35<00:04,  4.45s/it]100%|██████████| 9/9 [00:39<00:00,  4.45s/it]100%|██████████| 9/9 [00:39<00:00,  4.44s/it]
+
+  0%|          | 0/9 [00:00<?, ?it/s]
+ 11%|█         | 1/9 [00:04<00:35,  4.43s/it]
+ 22%|██▏       | 2/9 [00:08<00:31,  4.43s/it]
+ 33%|███▎      | 3/9 [00:13<00:26,  4.44s/it]
+ 44%|████▍     | 4/9 [00:17<00:22,  4.44s/it]
+ 56%|█████▌    | 5/9 [00:22<00:17,  4.44s/it]
+ 67%|██████▋   | 6/9 [00:26<00:13,  4.44s/it]
+ 78%|███████▊  | 7/9 [00:31<00:08,  4.44s/it]
+ 89%|████████▉ | 8/9 [00:35<00:04,  4.45s/it]
+100%|██████████| 9/9 [00:39<00:00,  4.45s/it]
+100%|██████████| 9/9 [00:39<00:00,  4.44s/it]
 Requested to load AutoencodingEngine
 Unloaded partially: 5157.96 MB freed, 1134.37 MB remains loaded, 2394.70 MB buffer reserved, lowvram patches: 407
 loaded completely; 614.35 MB usable, 159.87 MB loaded, full load: True
@@ -355,7 +399,18 @@ Using latent mode with dimensions: 1080x1920
 got prompt
   Waiting for LoRA 1 generation to complete...
 loaded partially; 8354.07 MB usable, 6292.33 MB loaded, 16407.80 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:04<00:35,  4.46s/it] 22%|██▏       | 2/9 [00:08<00:31,  4.45s/it] 33%|███▎      | 3/9 [00:13<00:26,  4.45s/it] 44%|████▍     | 4/9 [00:17<00:22,  4.45s/it] 56%|█████▌    | 5/9 [00:22<00:17,  4.46s/it] 67%|██████▋   | 6/9 [00:26<00:13,  4.45s/it] 78%|███████▊  | 7/9 [00:31<00:08,  4.45s/it] 89%|████████▉ | 8/9 [00:35<00:04,  4.46s/it]100%|██████████| 9/9 [00:40<00:00,  4.46s/it]100%|██████████| 9/9 [00:40<00:00,  4.45s/it]
+
+  0%|          | 0/9 [00:00<?, ?it/s]
+ 11%|█         | 1/9 [00:04<00:35,  4.46s/it]
+ 22%|██▏       | 2/9 [00:08<00:31,  4.45s/it]
+ 33%|███▎      | 3/9 [00:13<00:26,  4.45s/it]
+ 44%|████▍     | 4/9 [00:17<00:22,  4.45s/it]
+ 56%|█████▌    | 5/9 [00:22<00:17,  4.46s/it]
+ 67%|██████▋   | 6/9 [00:26<00:13,  4.45s/it]
+ 78%|███████▊  | 7/9 [00:31<00:08,  4.45s/it]
+ 89%|████████▉ | 8/9 [00:35<00:04,  4.46s/it]
+100%|██████████| 9/9 [00:40<00:00,  4.46s/it]
+100%|██████████| 9/9 [00:40<00:00,  4.45s/it]
 Requested to load AutoencodingEngine
 Unloaded partially: 5157.96 MB freed, 1134.37 MB remains loaded, 2394.70 MB buffer reserved, lowvram patches: 455
 loaded completely; 614.35 MB usable, 159.87 MB loaded, full load: True
@@ -385,7 +440,18 @@ Using latent mode with dimensions: 1080x1920
 got prompt
   Waiting for LoRA 1 generation to complete...
 loaded partially; 8354.07 MB usable, 6292.33 MB loaded, 16407.80 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 0
-  0%|          | 0/9 [00:00<?, ?it/s] 11%|█         | 1/9 [00:04<00:35,  4.43s/it] 22%|██▏       | 2/9 [00:08<00:31,  4.43s/it] 33%|███▎      | 3/9 [00:13<00:26,  4.44s/it] 44%|████▍     | 4/9 [00:17<00:22,  4.44s/it] 56%|█████▌    | 5/9 [00:22<00:17,  4.44s/it] 67%|██████▋   | 6/9 [00:26<00:13,  4.45s/it] 78%|███████▊  | 7/9 [00:31<00:08,  4.45s/it] 89%|████████▉ | 8/9 [00:35<00:04,  4.45s/it]100%|██████████| 9/9 [00:40<00:00,  4.45s/it]100%|██████████| 9/9 [00:40<00:00,  4.45s/it]
+
+  0%|          | 0/9 [00:00<?, ?it/s]
+ 11%|█         | 1/9 [00:04<00:35,  4.43s/it]
+ 22%|██▏       | 2/9 [00:08<00:31,  4.43s/it]
+ 33%|███▎      | 3/9 [00:13<00:26,  4.44s/it]
+ 44%|████▍     | 4/9 [00:17<00:22,  4.44s/it]
+ 56%|█████▌    | 5/9 [00:22<00:17,  4.44s/it]
+ 67%|██████▋   | 6/9 [00:26<00:13,  4.45s/it]
+ 78%|███████▊  | 7/9 [00:31<00:08,  4.45s/it]
+ 89%|████████▉ | 8/9 [00:35<00:04,  4.45s/it]
+100%|██████████| 9/9 [00:40<00:00,  4.45s/it]
+100%|██████████| 9/9 [00:40<00:00,  4.45s/it]
 Requested to load AutoencodingEngine
 Unloaded partially: 5157.96 MB freed, 1134.37 MB remains loaded, 2394.70 MB buffer reserved, lowvram patches: 503
 loaded completely; 614.35 MB usable, 159.87 MB loaded, full load: True
