@@ -24,6 +24,14 @@ USE_LOCATION = False  # Set to True to include location data from 3.location.txt
 USE_CHARACTER = False  # Set to True to include character data from 2.character.txt
 USE_SUMMARY_TEXT = False  # Set to True to use summary text files (3.character.txt, 3.location.txt) instead of 2.character.txt, 2.location.txt
 
+
+def _strip_think_tags(text: str) -> str:
+    """Remove <think>...</think> tags and their content from LM Studio output."""
+    if not text:
+        return text
+    return re.sub(r"<think>[\s\S]*?</think>", "", text, flags=re.IGNORECASE | re.DOTALL).strip()
+
+
 # Resumable state management
 class ResumableState:
     """Manages resumable state for expensive LLM operations."""
@@ -499,7 +507,7 @@ A woman in a cream-colored sweater sitting at a small wooden table near a large 
                 result = response.json()
                 if 'choices' in result and len(result['choices']) > 0:
                     content = result['choices'][0]['message']['content']
-                    return content
+                    return _strip_think_tags(content)
                 else:
                     raise Exception("No content in API response")
             else:

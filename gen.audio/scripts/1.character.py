@@ -28,6 +28,14 @@ STORY_DESCRIPTION_WORD_MAX = 600
 STORY_DESCRIPTION_CHARACTER_MIN = WORD_FACTOR * STORY_DESCRIPTION_WORD_MIN
 STORY_DESCRIPTION_CHARACTER_MAX = WORD_FACTOR * STORY_DESCRIPTION_WORD_MAX
 
+
+def _strip_think_tags(text: str) -> str:
+    """Remove <think>...</think> tags and their content from LM Studio output."""
+    if not text:
+        return text
+    return re.sub(r"<think>[\s\S]*?</think>", "", text, flags=re.IGNORECASE | re.DOTALL).strip()
+
+
 STORY_DESCRIPTION_PARTS = 5
 
 # Story processing configuration
@@ -559,7 +567,7 @@ class CharacterManager:
             if not data.get("choices"):
                 raise RuntimeError("LM Studio returned no choices")
             content = data["choices"][0]["message"]["content"]
-            return content
+            return _strip_think_tags(content)
         except requests.exceptions.Timeout:
             raise RuntimeError("LM Studio API request timed out after 5 minutes")
         except requests.exceptions.ConnectionError:

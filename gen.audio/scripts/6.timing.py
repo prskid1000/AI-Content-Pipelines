@@ -17,6 +17,14 @@ ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 # Feature flags
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 
+
+def _strip_think_tags(text: str) -> str:
+    """Remove <think>...</think> tags and their content from LM Studio output."""
+    if not text:
+        return text
+    return re.sub(r"<think>[\s\S]*?</think>", "", text, flags=re.IGNORECASE | re.DOTALL).strip()
+
+
 # Resumable state management
 class ResumableState:
     """Manages resumable state for expensive LLM operations."""
@@ -257,7 +265,7 @@ OUTPUT: JSON with realistic_duration_seconds and position_float fields. Only use
                 result = response.json()
                 if 'choices' in result and len(result['choices']) > 0:
                     content = result['choices'][0]['message']['content']
-                    return content
+                    return _strip_think_tags(content)
                 else:
                     raise Exception("No content in API response")
             else:

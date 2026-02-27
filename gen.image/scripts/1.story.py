@@ -812,6 +812,13 @@ def _build_location_summary_user_prompt(location_id: str, detailed_description: 
     )
 
 
+def _strip_think_tags(text: str) -> str:
+    """Remove <think>...</think> tags and their content from LM Studio output."""
+    if not text:
+        return text
+    return re.sub(r"<think>[\s\S]*?</think>", "", text, flags=re.IGNORECASE | re.DOTALL).strip()
+
+
 def _call_lm_studio(system_prompt: str, user_prompt: str, lm_studio_url: str, model: str, response_format: dict[str, object] | None = None, temperature: float = 1.0) -> str:
     headers = {"Content-Type": "application/json"}
     messages = [{"role": "system", "content": system_prompt + "\nOnly use English Language for Input, Thinking, and Output\n/no_think"}, {"role": "user", "content": user_prompt + "\nOnly use English Language for Input, Thinking, and Output\n/no_think"}]
@@ -832,7 +839,8 @@ def _call_lm_studio(system_prompt: str, user_prompt: str, lm_studio_url: str, mo
     if not data.get("choices"):
         raise RuntimeError("LM Studio returned no choices")
 
-    return data["choices"][0]["message"]["content"]
+    content = data["choices"][0]["message"]["content"]
+    return _strip_think_tags(content)
 
 
 def _parse_structured_response(content: str) -> dict[str, object] | None:

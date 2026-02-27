@@ -21,6 +21,14 @@ WORD_FACTOR = 6  # Approximate factor to convert words to characters
 THUMBNAIL_CHARACTER_MIN = 200 * WORD_FACTOR
 THUMBNAIL_CHARACTER_MAX = 250 * WORD_FACTOR
 
+
+def _strip_think_tags(text: str) -> str:
+    """Remove <think>...</think> tags and their content from LM Studio output."""
+    if not text:
+        return text
+    return re.sub(r"<think>[\s\S]*?</think>", "", text, flags=re.IGNORECASE | re.DOTALL).strip()
+
+
 class DiffusionPromptGenerator:
     def __init__(self, lm_studio_url: str = "http://localhost:1234/v1", model: str = MODEL_THUMBNAIL_GENERATION):
         self.lm_studio_url = lm_studio_url
@@ -128,6 +136,7 @@ Your output quality directly impacts thumbnail generation success. Generate a vi
         if not data.get("choices"):
             raise RuntimeError("LM Studio returned no choices")
         content = data["choices"][0]["message"]["content"]
+        content = _strip_think_tags(content)
         return content
 
     def _parse_structured_response(self, content: str) -> Dict[str, object] | None:
@@ -351,7 +360,9 @@ class YouTubeDescriptionGenerator:
         data = resp.json()
         if not data.get("choices"):
             raise RuntimeError("LM Studio returned no choices")
-        return data["choices"][0]["message"]["content"]
+        content = data["choices"][0]["message"]["content"]
+        content = _strip_think_tags(content)
+        return content
 
     def _sanitize_for_llm(self, text: str) -> str:
         """Remove emojis and special characters that can cause LLM issues."""
