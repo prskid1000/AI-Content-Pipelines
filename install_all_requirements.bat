@@ -34,6 +34,17 @@ if errorlevel 1 (
 echo SUCCESS: PyTorch installed
 echo.
 
+REM Install TorchCodec (required for torchaudio save/load, e.g. ComfyUI-Whisper, MediaUtilities)
+echo Installing TorchCodec 0.9.1...
+.venv\Scripts\python.exe -m pip install torchcodec==0.9.1
+if errorlevel 1 (
+    echo ERROR: Failed to install TorchCodec
+    pause
+    exit /b 1
+)
+echo SUCCESS: TorchCodec installed
+echo.
+
 @REM REM Install flash-attn (pre-built wheel for Python 3.12 + CUDA 13.0)
 @REM echo [2/4] Installing flash-attn (pre-built wheel for CUDA 13.0)...
 @REM .venv\Scripts\python.exe -m pip install https://huggingface.co/ussoewwin/Flash-Attention-2_for_Windows/resolve/main/flash_attn-2.8.3+cu130torch2.9.0cxx11abiTRUE-cp312-cp312-win_amd64.whl
