@@ -2469,7 +2469,7 @@ The AI Content Studio requires several AI models for different generation tasks.
 
 ##### Image Generation (UNET Directory)
 - **SD 3.5 Large**: `sd3.5_large-Q8_0.gguf` - Text-to-Image (8B params)
-- **Flux Kontext**: `flux1-kontext-dev-Q8_0.gguf` - Image-to-Image editing (11.9B params)
+- **Flux Kontext**: `flux1-kontext-dev-Q8_0.gguf` - Image-to-Image editing (11.9B params). Workflows use **UnetLoaderGGUF** (ComfyUI-GGUF); see `gen.image/workflow/character_location.json`, `gen.image/workflow/scene.json`, `gen.audio/workflow/thumbnail.json`, `gen.2d/workflow/assets2d.json`.
 - **Flux.1 Dev**: [city96/FLUX.1-dev-gguf](https://huggingface.co/city96/FLUX.1-dev-gguf) - Text-to-Image (12B params)
 - **Flux.1 Schnell**: [city96/FLUX.1-schnell-gguf](https://huggingface.co/city96/FLUX.1-schnell-gguf) - Fast Text-to-Image (12B params)
 - **Flux.1 Kontext Dev**: [QuantStack/FLUX.1-Kontext-dev-GGUF](https://huggingface.co/QuantStack/FLUX.1-Kontext-dev-GGUF) - Image-to-Image editing (11.9B params)
@@ -2506,7 +2506,7 @@ The AI Content Studio requires several AI models for different generation tasks.
 ##### CLIP Models (CLIP Directory)
 - **CLIP G**: `clip_g.safetensors` - Large CLIP model
 - **CLIP L**: `clip_l.safetensors` - Standard CLIP model
-- **T5 XXL**: `t5xxl_fp16.safetensors` - T5 text encoder
+- **T5 XXL**: `t5xxl_fp8_e4m3fn.safetensors` - T5 text encoder
 
 ##### Vision Models (CLIP_VISION Directory)
 - **CLIP ViT BigG**: `CLIP-ViT-bigG-14-laion2B-39B-b160k.safetensors` - Large vision model
@@ -2593,7 +2593,7 @@ git clone https://github.com/BlenderNeko/ComfyUI_TTS.git
 # Install video animation nodes
 git clone https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved.git
 
-# Install ComfyUI-GGUF (required for GGUF image/video models)
+# Install ComfyUI-GGUF (required for GGUF image/video models and Flux Kontext workflows)
 git clone https://github.com/city96/ComfyUI-GGUF.git
 
 # Install ComfyUI-KJNodes (required for LTX2 workflows)
@@ -2777,7 +2777,7 @@ echo "Total LoRA models: $(find loras -name "*.safetensors" 2>/dev/null | wc -l)
 
 #### Specialized GGUF Collections
 - **city96's GGUF Image Models**: [city96 GGUF Image Model Quants](https://huggingface.co/city96) - Comprehensive collection of text-to-image GGUF models
-  - **FLUX Models**: FLUX.1-dev, FLUX.1-schnell, FLUX.1-Kontext
+  - **FLUX Models**: FLUX.1-dev, FLUX.1-schnell, FLUX.1-Kontext (workflows use **UnetLoaderGGUF** with `flux1-kontext-dev-Q8_0.gguf`)
   - **Stable Diffusion 3.5**: Large and Large Turbo variants
   - **HiDream Models**: I1 Fast, Full, and Dev versions
   - **Qwen Image**: Advanced text-to-image generation
@@ -3493,7 +3493,7 @@ This is a modular system designed for easy extension. Each script is self-contai
 
 ### Model Configuration
 - **LM Studio Model**: `qwen3.5-35b-a3b_moe` (14B parameter language model)
-- **Image Models**: FLUX.1, SD 3.5, HiDream, Qwen Image (GGUF format)
+- **Image Models**: FLUX.1, SD 3.5, HiDream, Qwen Image (GGUF format). Flux Kontext workflows use **UnetLoaderGGUF** with `flux1-kontext-dev-Q8_0.gguf`.
 - **Video Models**: LTX Video, Wan 2.1/2.2 (GGUF format)
 - **LoRA**: FLUX.1-Turbo-Alpha (primary LoRA for all scripts)
 - **VAE**: Flux Kontext, LTX Video, SD 3.5, Wan 2.1 decoders
@@ -3508,7 +3508,7 @@ This is a modular system designed for easy extension. Each script is self-contai
 
 **Note**: This system requires significant computational resources. For optimal performance, use a CUDA-compatible GPU with 8GB+ VRAM and ensure adequate cooling during extended generation sessions. The resumable processing system allows for safe interruption and recovery of long-running operations, making it suitable for extended generation sessions across multiple days.
 
-**Last Updated**: December 2024 - Added SOUND_MODE configuration (TEXT/AUDIO) to AV pipeline, integrated audio chunks from story.py output, implemented exact audio-video chunk duration matching, added comprehensive talking instructions for better facial/mouth movement, updated video dimensions to 960x540, and added chunk size override support to story.py with `--chunk-size` argument. Consolidated motion.py scripts into a single shared script with configurable output paths, implemented master prompt generation with advanced system instructions, simplified animate.py and av.py by removing redundant functions, and enhanced prompt generation with integrated character/location data support.
+**Last Updated**: March 2025 - Flux Kontext workflows switched to GGUF loader (UnetLoaderGGUF) with `flux1-kontext-dev-Q8_0.gguf` in gen.image, gen.audio, and gen.2d workflows. December 2024 - Added SOUND_MODE configuration (TEXT/AUDIO) to AV pipeline, integrated audio chunks from story.py output, implemented exact audio-video chunk duration matching, added comprehensive talking instructions for better facial/mouth movement, updated video dimensions to 960x540, and added chunk size override support to story.py with `--chunk-size` argument. Consolidated motion.py scripts into a single shared script with configurable output paths, implemented master prompt generation with advanced system instructions, simplified animate.py and av.py by removing redundant functions, and enhanced prompt generation with integrated character/location data support.
 
 ---
 

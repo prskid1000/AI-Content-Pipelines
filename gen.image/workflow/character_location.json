@@ -1,7 +1,7 @@
 {
   "10": {
     "inputs": {
-      "clip_name1": "t5xxl_fp16.safetensors",
+      "clip_name1": "t5xxl_fp8_e4m3fn.safetensors",
       "clip_name2": "clip_l.safetensors",
       "type": "flux",
       "device": "default"
@@ -117,12 +117,11 @@
   },
   "41": {
     "inputs": {
-      "unet_name": "flux1-kontext-dev.safetensors",
-        "weight_dtype": "default"
+      "unet_name": "flux1-kontext-dev-Q8_0.gguf"
     },
-    "class_type": "UNETLoader",
+    "class_type": "UnetLoaderGGUF",
     "_meta": {
-      "title": "Load Diffusion Model"
+      "title": "Unet Loader (GGUF)"
     }
   }
 }
