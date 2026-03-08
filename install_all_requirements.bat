@@ -25,7 +25,7 @@ echo.
 
 REM Install PyTorch first
 echo [1/4] Installing PyTorch (nightly with CUDA 13.0)...
-.venv\Scripts\python.exe -m pip install torch==2.9.1 torchvision==0.24.1 torchaudio==2.9.1 --index-url https://download.pytorch.org/whl/cu130
+.venv\Scripts\python.exe -m pip install torch==2.9.0 torchvision==0.24.0 torchaudio==2.9.0 --index-url https://download.pytorch.org/whl/cu130
 if errorlevel 1 (
     echo ERROR: Failed to install PyTorch
     pause
@@ -34,7 +34,7 @@ if errorlevel 1 (
 echo SUCCESS: PyTorch installed
 echo.
 
-REM Install TorchCodec (required for torchaudio save/load, e.g. ComfyUI-Whisper, MediaUtilities)
+REM Install TorchCodec (required for torchaudio save/load; 0.9.1 for PyTorch 2.9.x)
 echo Installing TorchCodec 0.9.1...
 .venv\Scripts\python.exe -m pip install torchcodec==0.9.1
 if errorlevel 1 (
@@ -45,27 +45,38 @@ if errorlevel 1 (
 echo SUCCESS: TorchCodec installed
 echo.
 
-@REM REM Install flash-attn (pre-built wheel for Python 3.12 + CUDA 13.0)
-@REM echo [2/4] Installing flash-attn (pre-built wheel for CUDA 13.0)...
-@REM .venv\Scripts\python.exe -m pip install https://huggingface.co/ussoewwin/Flash-Attention-2_for_Windows/resolve/main/flash_attn-2.8.3+cu130torch2.9.0cxx11abiTRUE-cp312-cp312-win_amd64.whl
-@REM if errorlevel 1 (
-@REM     echo ERROR: Failed to install flash-attn
-@REM     pause
-@REM     exit /b 1
-@REM )
-@REM echo SUCCESS: flash-attn installed
-@REM echo.
+REM Install xformers (attention backend for PyTorch 2.9 + CUDA 13.0; use PyTorch index for cu130 wheel)
+echo Installing xformers...
+.venv\Scripts\python.exe -m pip install xformers==0.0.33 --extra-index-url https://download.pytorch.org/whl/cu130
+if errorlevel 1 (
+    echo ERROR: Failed to install xformers
+    pause
+    exit /b 1
+)
+echo SUCCESS: xformers installed
+echo.
 
-@REM REM Install sage-attn (pre-built wheel for Python 3.12 + CUDA 13.0)
-@REM echo [3/4] Installing sage-attn (pre-built wheel for CUDA 13.0)...
-@REM .venv\Scripts\python.exe -m pip install https://github.com/woct0rdho/SageAttention/releases/download/v2.2.0-windows.post4/sageattention-2.2.0+cu130torch2.9.0andhigher.post4-cp39-abi3-win_amd64.whl
-@REM if errorlevel 1 (
-@REM     echo ERROR: Failed to install sage-attn
-@REM     pause
-@REM     exit /b 1
-@REM )
-@REM echo SUCCESS: sage-attn installed
-@REM echo.
+REM Install flash-attn (pre-built wheel for Python 3.12 + CUDA 13.0)
+echo [2/4] Installing flash-attn (pre-built wheel for CUDA 13.0)...
+.venv\Scripts\python.exe -m pip install https://huggingface.co/ussoewwin/Flash-Attention-2_for_Windows/resolve/main/flash_attn-2.8.3+cu130torch2.9.0cxx11abiTRUE-cp312-cp312-win_amd64.whl
+if errorlevel 1 (
+    echo ERROR: Failed to install flash-attn
+    pause
+    exit /b 1
+)
+echo SUCCESS: flash-attn installed
+echo.
+
+REM Install sage-attn (pre-built wheel for Python 3.12 + CUDA 13.0)
+echo [3/4] Installing sage-attn (pre-built wheel for CUDA 13.0)...
+.venv\Scripts\python.exe -m pip install https://github.com/woct0rdho/SageAttention/releases/download/v2.2.0-windows.post4/sageattention-2.2.0+cu130torch2.9.0andhigher.post4-cp39-abi3-win_amd64.whl
+if errorlevel 1 (
+    echo ERROR: Failed to install sage-attn
+    pause
+    exit /b 1
+)
+echo SUCCESS: sage-attn installed
+echo.
 
 REM Install ONNX Runtime GPU deps first (required for CUDA 13 nightly; see microsoft/onnxruntime#26568)
 echo Installing ONNX Runtime GPU dependencies...
@@ -79,7 +90,7 @@ echo.
 
 REM Install ONNX Runtime GPU (nightly CUDA 13 - pin version + --no-deps to avoid pip downloading many nightlies)
 echo [4/4] Installing ONNX Runtime GPU (nightly CUDA 13.0)...
-.venv\Scripts\python.exe -m pip install --pre --no-deps --index-url https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/ort-cuda-13-nightly/pypi/simple/ onnxruntime-gpu==1.25.0.dev20260213001
+.venv\Scripts\python.exe -m pip install --pre --index-url https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/ort-cuda-13-nightly/pypi/simple/ onnxruntime-gpu
 if errorlevel 1 (
     echo ERROR: Failed to install ONNX Runtime GPU
     pause
