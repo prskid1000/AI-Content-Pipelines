@@ -140,6 +140,62 @@ if exist "ComfyUI\requirements.txt" (
 )
 echo.
 
+REM Clone custom nodes if missing
+echo ========================================
+echo Cloning missing custom nodes...
+echo ========================================
+echo.
+
+if not exist "ComfyUI\custom_nodes\ComfyMath" (
+    echo Cloning ComfyMath...
+    git clone https://github.com/evanspearman/ComfyMath "ComfyUI\custom_nodes\ComfyMath"
+)
+if not exist "ComfyUI\custom_nodes\ComfyUI-LTXVideo" (
+    echo Cloning ComfyUI-LTXVideo...
+    git clone https://github.com/Lightricks/ComfyUI-LTXVideo "ComfyUI\custom_nodes\ComfyUI-LTXVideo"
+)
+if not exist "ComfyUI\custom_nodes\ComfyUI-MediaUtilities" (
+    echo Cloning ComfyUI-MediaUtilities...
+    git clone https://github.com/ThanaritKanjanametawatAU/ComfyUI-MediaUtilities "ComfyUI\custom_nodes\ComfyUI-MediaUtilities"
+)
+if not exist "ComfyUI\custom_nodes\ComfyUI-Whisper" (
+    echo Cloning ComfyUI-Whisper...
+    git clone https://github.com/yuvraj108c/ComfyUI-Whisper "ComfyUI\custom_nodes\ComfyUI-Whisper"
+)
+if not exist "ComfyUI\custom_nodes\ComfyUI_LoadImageFromHttpURL" (
+    echo Cloning ComfyUI_LoadImageFromHttpURL...
+    git clone https://github.com/jerrywap/ComfyUI_LoadImageFromHttpURL "ComfyUI\custom_nodes\ComfyUI_LoadImageFromHttpURL"
+)
+if not exist "ComfyUI\custom_nodes\comfyui-manager" (
+    echo Cloning ComfyUI-Manager...
+    git clone https://github.com/ltdrdata/ComfyUI-Manager "ComfyUI\custom_nodes\comfyui-manager"
+)
+if not exist "ComfyUI\custom_nodes\controlaltai-nodes" (
+    echo Cloning ControlAltAI-Nodes...
+    git clone https://github.com/gseth/ControlAltAI-Nodes "ComfyUI\custom_nodes\controlaltai-nodes"
+)
+if not exist "ComfyUI\custom_nodes\ComfyUI-GGUF" (
+    echo Cloning ComfyUI-GGUF...
+    git clone https://github.com/city96/ComfyUI-GGUF "ComfyUI\custom_nodes\ComfyUI-GGUF"
+)
+if not exist "ComfyUI\custom_nodes\comfyui-kjnodes" (
+    echo Cloning ComfyUI-KJNodes...
+    git clone https://github.com/kijai/ComfyUI-KJNodes "ComfyUI\custom_nodes\comfyui-kjnodes"
+)
+if not exist "ComfyUI\custom_nodes\comfyui-rmbg" (
+    echo Cloning ComfyUI-RMBG...
+    git clone https://github.com/1038lab/ComfyUI-RMBG "ComfyUI\custom_nodes\comfyui-rmbg"
+)
+if not exist "ComfyUI\custom_nodes\comfyui-videohelpersuite" (
+    echo Cloning ComfyUI-VideoHelperSuite...
+    git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite "ComfyUI\custom_nodes\comfyui-videohelpersuite"
+)
+if not exist "ComfyUI\custom_nodes\tts_audio_suite" (
+    echo Cloning TTS-Audio-Suite...
+    git clone https://github.com/diodiogod/TTS-Audio-Suite "ComfyUI\custom_nodes\tts_audio_suite"
+)
+echo.
+
 REM Install all custom_nodes requirements.txt
 echo [3/3] Installing custom nodes requirements...
 echo.
