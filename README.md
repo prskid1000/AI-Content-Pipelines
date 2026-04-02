@@ -2490,7 +2490,8 @@ The AI Content Studio requires several AI models for different generation tasks.
 - **Wan 2.2 T2V High Noise**: `Wan2.2-T2V-A14B-HighNoise-Q4_0.gguf` - Text-to-Video (14B params)
 
 ##### LTX2 Video Models (Latest - GGUF Format)
-- **LTX2 GGUF Models**: [Kijai/LTXV2_comfy](https://huggingface.co/Kijai/LTXV2_comfy/tree/main) - Text-to-Video and Image-to-Video (19B params)
+- **LTX 2.3 GGUF Models**: [Lightricks/LTX-Video](https://huggingface.co/Lightricks/LTX-Video) - Text-to-Video and Image-to-Video (22B params)
+  - `ltx-2.3-22b-distilled-Q4_K_M.gguf` - Recommended for gen.av pipeline
   - Download one GGUF model of your choice from the `diffusion_models` folder
   - Recommended: Q4_0 or Q6_K for best quality/performance balance
 
@@ -2500,7 +2501,8 @@ The AI Content Studio requires several AI models for different generation tasks.
 ##### Text Encoders (TEXT_ENCODERS Directory)
 - **T5 Base**: `t5-base.safetensors` - Text encoding
 - **UMT5 XXL**: `umt5_xxl_fp8_e4m3fn_scaled.safetensors` - Advanced text encoding
-- **LTX2 Embeddings Connector**: `ltx-2-19b-embeddings_connector_bf16.safetensors` - LTX2 text encoding ([Download](https://huggingface.co/Kijai/LTXV2_comfy/blob/main/ltx-2-19b-embeddings_connector_bf16.safetensors))
+- **LTX 2.3 Embeddings Connector**: `ltx-2.3-22b-distilled_embeddings_connectors.safetensors` - LTX 2.3 text encoding ([Download](https://huggingface.co/Lightricks/LTX-Video))
+- **LTX2 Embeddings Connector (Legacy)**: `ltx-2-19b-embeddings_connector_bf16.safetensors` - LTX2 text encoding ([Download](https://huggingface.co/Kijai/LTXV2_comfy/blob/main/ltx-2-19b-embeddings_connector_bf16.safetensors))
 - **Gemma 3 12B FP8**: `gemma_3_12B_it_fp8_e4m3fn.safetensors` - Alternative text encoder ([Download](https://huggingface.co/GitMylo/LTX-2-comfy_gemma_fp8_e4m3fn/blob/main/gemma_3_12B_it_fp8_e4m3fn.safetensors))
 
 ##### CLIP Models (CLIP Directory)
@@ -2526,14 +2528,17 @@ The AI Content Studio requires several AI models for different generation tasks.
 - **LTX Video VAE**: `LTXV-13B-0.9.8-dev-VAE.safetensors` - Video decoder
 - **SD 3.5 VAE**: `sd3.5_vae.safetensors` - SD 3.5 decoder
 - **Wan 2.1 VAE**: `wan2.1_vae.safetensors` - Wan video decoder
-- **LTX2 Video VAE (Old)**: `LTX2_video_vae_old_bf16.safetensors` - LTX2 video decoder, rename to `LTX2_video_vae_bf16.safetensors` ([Download](https://huggingface.co/Kijai/LTXV2_comfy/blob/main/VAE/LTX2_video_vae_old_bf16.safetensors))
-- **LTX2 Audio VAE**: `LTX2_audio_vae_bf16.safetensors` - LTX2 audio decoder ([Download](https://huggingface.co/Kijai/LTXV2_comfy/blob/main/LTX2_audio_vae_bf16.safetensors))
+- **LTX 2.3 Video VAE**: `ltx-2.3-22b-distilled_video_vae.safetensors` - LTX 2.3 video decoder ([Download](https://huggingface.co/Lightricks/LTX-Video))
+- **LTX 2.3 Audio VAE**: `ltx-2.3-22b-distilled_audio_vae.safetensors` - LTX 2.3 audio decoder ([Download](https://huggingface.co/Lightricks/LTX-Video))
+- **LTX2 Video VAE (Legacy)**: `LTX2_video_vae_old_bf16.safetensors` - LTX2 video decoder, rename to `LTX2_video_vae_bf16.safetensors` ([Download](https://huggingface.co/Kijai/LTXV2_comfy/blob/main/VAE/LTX2_video_vae_old_bf16.safetensors))
+- **LTX2 Audio VAE (Legacy)**: `LTX2_audio_vae_bf16.safetensors` - LTX2 audio decoder ([Download](https://huggingface.co/Kijai/LTXV2_comfy/blob/main/LTX2_audio_vae_bf16.safetensors))
 
 ##### Upscale Models (UPSCALE_MODELS Directory)
 - **LTXV Spatial Upscaler**: `ltxv-spatial-upscaler-0.9.8.safetensors` - Video upscaling
 
 ##### Latent Upscale Models (LATENT_UPSCALE_MODELS Directory)
-- **LTX2 Spatial Upscaler**: `ltx-2-spatial-upscaler-x2-1.0.safetensors` - LTX2 2x spatial upscaling ([Download](https://huggingface.co/Lightricks/LTX-2/blob/main/ltx-2-spatial-upscaler-x2-1.0.safetensors))
+- **LTX 2.3 Spatial Upscaler**: `ltx-2.3-spatial-upscaler-x2-1.1.safetensors` - LTX 2.3 2x spatial upscaling ([Download](https://huggingface.co/Lightricks/LTX-Video))
+- **LTX2 Spatial Upscaler (Legacy)**: `ltx-2-spatial-upscaler-x2-1.0.safetensors` - LTX2 2x spatial upscaling ([Download](https://huggingface.co/Lightricks/LTX-2/blob/main/ltx-2-spatial-upscaler-x2-1.0.safetensors))
 
 ##### Detection Models (ULTRALYTICS Directory)
 - **Face Detection**: `face_yolov8m.pt` - Face detection
@@ -2600,31 +2605,31 @@ git clone https://github.com/city96/ComfyUI-GGUF.git
 git clone https://github.com/kijai/ComfyUI-KJNodes.git
 ```
 
-#### 4. LTX2 Workflow Setup (Text-to-Video & Image-to-Video)
+#### 4. LTX 2.3 Workflow Setup (Text-to-Video & Image-to-Video)
 
-LTX2 is the latest high-quality video generation model supporting both Text-to-Video (T2V) and Image-to-Video (I2V) workflows.
+LTX 2.3 (upgraded from LTX 2.0) is the latest high-quality video generation model supporting both Text-to-Video (T2V) and Image-to-Video (I2V) workflows with 22B parameters.
 
 ##### Workflow Files
 - **Text-to-Video (T2V)**: [LTX2_T2V_GGUF.json](https://github.com/HerrDehy/SharePublic/blob/main/LTX2_T2V_GGUF.json)
 - **Image-to-Video (I2V)**: [LTX2_I2V_GGUF v0.3.json](https://github.com/HerrDehy/SharePublic/blob/main/LTX2_I2V_GGUF%20v0.3.json)
 
 ##### Required Models
-Download from [Kijai/LTXV2_comfy](https://huggingface.co/Kijai/LTXV2_comfy/tree/main):
+Download from [Lightricks/LTX-Video](https://huggingface.co/Lightricks/LTX-Video):
 
 **VAE Models** (Place in `models/vae/`):
-- `LTX2_audio_vae_bf16.safetensors`
-- `LTX2_video_vae_old_bf16.safetensors` rename to `LTX2_video_vae_bf16.safetensors`
+- `ltx-2.3-22b-distilled_audio_vae.safetensors`
+- `ltx-2.3-22b-distilled_video_vae.safetensors`
 
 **Text Encoders** (Place in `models/text_encoders/`):
-- `ltx-2-19b-embeddings_connector_bf16.safetensors`
+- `ltx-2.3-22b-distilled_embeddings_connectors.safetensors`
 - `gemma_3_12B_it_fp8_e4m3fn.safetensors` ([Alternative download](https://huggingface.co/GitMylo/LTX-2-comfy_gemma_fp8_e4m3fn/blob/main/gemma_3_12B_it_fp8_e4m3fn.safetensors))
 
 **Diffusion Models** (Place in `models/unet/` or `models/diffusion_models/`):
-- Choose one GGUF model from the `diffusion_models` folder
-- Recommended: Q4_0 or Q6_K for best quality/performance balance
+- `ltx-2.3-22b-distilled-Q4_K_M.gguf` (recommended)
+- Or choose another GGUF quantization from the repository
 
 **Optional Models**:
-- **Latent Upscaler** (Place in `models/latent_upscale_models/`): [ltx-2-spatial-upscaler-x2-1.0.safetensors](https://huggingface.co/Lightricks/LTX-2/blob/main/ltx-2-spatial-upscaler-x2-1.0.safetensors)
+- **Latent Upscaler** (Place in `models/latent_upscale_models/`): `ltx-2.3-spatial-upscaler-x2-1.1.safetensors` ([Download](https://huggingface.co/Lightricks/LTX-Video))
 - **LoRA** (Place in `models/loras/`): [ltx-2-19b-distilled-lora-384.safetensors](https://huggingface.co/Lightricks/LTX-2/blob/main/ltx-2-19b-distilled-lora-384.safetensors)
 
 ##### Installation Steps

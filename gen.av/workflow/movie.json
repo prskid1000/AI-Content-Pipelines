@@ -83,11 +83,19 @@
   },
   "279:236": {
     "inputs": {
-      "sigmas": "1., 0.99375, 0.9875, 0.98125, 0.975, 0.909375, 0.725, 0.421875, 0.0"
+      "steps": 20,
+      "max_shift": 2.05,
+      "base_shift": 0.95,
+      "stretch": true,
+      "terminal": 0.1,
+      "latent": [
+        "279:267",
+        0
+      ]
     },
-    "class_type": "ManualSigmas",
+    "class_type": "LTXVScheduler",
     "_meta": {
-      "title": "ManualSigmas"
+      "title": "LTXVScheduler"
     }
   },
   "279:237": {
@@ -129,7 +137,7 @@
   "279:251": {
     "inputs": {
       "clip_name1": "gemma_3_12B_it_fp8_e4m3fn.safetensors",
-      "clip_name2": "ltx-2-19b-embeddings_connector_distill_bf16.safetensors",
+      "clip_name2": "ltx-2.3-22b-distilled_embeddings_connectors.safetensors",
       "type": "ltxv",
       "device": "default"
     },
@@ -140,7 +148,7 @@
   },
   "279:262": {
     "inputs": {
-      "model_name": "ltx-2-spatial-upscaler-x2-1.0.safetensors"
+      "model_name": "ltx-2.3-spatial-upscaler-x2-1.1.safetensors"
     },
     "class_type": "LatentUpscaleModelLoader",
     "_meta": {
@@ -149,7 +157,7 @@
   },
   "279:265": {
     "inputs": {
-      "vae_name": "LTX2_audio_vae_bf16.safetensors",
+      "vae_name": "ltx-2.3-22b-distilled_audio_vae.safetensors",
       "device": "main_device",
       "weight_dtype": "bf16"
     },
@@ -169,7 +177,7 @@
   },
   "279:271": {
     "inputs": {
-      "vae_name": "LTX2_video_vae_bf16.safetensors"
+      "vae_name": "ltx-2.3-22b-distilled_video_vae.safetensors"
     },
     "class_type": "VAELoader",
     "_meta": {
@@ -187,7 +195,7 @@
   },
   "279:275": {
     "inputs": {
-      "unet_name": "ltx-2-19b-distilled_Q4_K_M.gguf"
+      "unet_name": "ltx-2.3-22b-distilled-Q4_K_M.gguf"
     },
     "class_type": "UnetLoaderGGUF",
     "_meta": {
@@ -203,10 +211,40 @@
       "title": "IntToFloat"
     }
   },
+  "279:308": {
+    "inputs": {
+      "prompt": [
+        "204",
+        0
+      ],
+      "max_length": 256,
+      "sampling_mode": "on",
+      "sampling_mode.temperature": 0.7,
+      "sampling_mode.top_k": 64,
+      "sampling_mode.top_p": 0.95,
+      "sampling_mode.min_p": 0.05,
+      "sampling_mode.repetition_penalty": 1.05,
+      "sampling_mode.seed": 0,
+      "sampling_mode.presence_penalty": 0,
+      "thinking": false,
+      "clip": [
+        "279:251",
+        0
+      ],
+      "image": [
+        "228",
+        0
+      ]
+    },
+    "class_type": "TextGenerateLTX2Prompt",
+    "_meta": {
+      "title": "TextGenerateLTX2Prompt"
+    }
+  },
   "279:250": {
     "inputs": {
       "text": [
-        "204",
+        "279:308",
         0
       ],
       "clip": [
