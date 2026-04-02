@@ -377,7 +377,7 @@
           "localized_name": "model",
           "name": "model",
           "type": "MODEL",
-          "link": 689
+          "link": 695
         },
         {
           "localized_name": "positive",
@@ -1115,7 +1115,7 @@
           "localized_name": "model",
           "name": "model",
           "type": "MODEL",
-          "link": 688
+          "link": 696
         },
         {
           "localized_name": "positive",
@@ -2337,8 +2337,8 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            688,
-            689
+            694,
+            696
           ]
         }
       ],
@@ -2712,6 +2712,66 @@
         0.95,
         true,
         0.1
+      ]
+    },
+    {
+      "id": 350,
+      "type": "LoraLoaderModelOnly",
+      "pos": [
+        3500,
+        6200
+      ],
+      "size": [
+        315,
+        82
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "model",
+          "name": "model",
+          "type": "MODEL",
+          "link": 694
+        },
+        {
+          "localized_name": "lora_name",
+          "name": "lora_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "lora_name"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "strength_model",
+          "name": "strength_model",
+          "type": "FLOAT",
+          "widget": {
+            "name": "strength_model"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "MODEL",
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            695
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.5.1",
+        "Node name for S&R": "LoraLoaderModelOnly"
+      },
+      "widgets_values": [
+        "ltx-2-19b-ic-lora-detailer.safetensors",
+        0.8
       ]
     }
   ],
@@ -3157,22 +3217,6 @@
       "SIGMAS"
     ],
     [
-      688,
-      348,
-      0,
-      328,
-      0,
-      "MODEL"
-    ],
-    [
-      689,
-      348,
-      0,
-      317,
-      0,
-      "MODEL"
-    ],
-    [
       690,
       329,
       0,
@@ -3195,6 +3239,30 @@
       369,
       1,
       "IMAGE"
+    ],
+    [
+      694,
+      348,
+      0,
+      350,
+      0,
+      "MODEL"
+    ],
+    [
+      695,
+      350,
+      0,
+      317,
+      0,
+      "MODEL"
+    ],
+    [
+      696,
+      348,
+      0,
+      328,
+      0,
+      "MODEL"
     ]
   ],
   "groups": [
