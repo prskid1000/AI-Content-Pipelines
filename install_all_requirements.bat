@@ -190,9 +190,9 @@ if not exist "ComfyUI\custom_nodes\comfyui-videohelpersuite" (
     echo Cloning ComfyUI-VideoHelperSuite...
     git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite "ComfyUI\custom_nodes\comfyui-videohelpersuite"
 )
-if not exist "ComfyUI\custom_nodes\tts_audio_suite" (
-    echo Cloning TTS-Audio-Suite...
-    git clone https://github.com/diodiogod/TTS-Audio-Suite "ComfyUI\custom_nodes\tts_audio_suite"
+if not exist "ComfyUI\custom_nodes\ComfyUI-OmniVoice-TTS" (
+    echo Cloning ComfyUI-OmniVoice-TTS...
+    git clone https://github.com/Saganaki22/ComfyUI-OmniVoice-TTS.git "ComfyUI\custom_nodes\ComfyUI-OmniVoice-TTS"
 )
 echo.
 
@@ -215,22 +215,10 @@ for /d %%i in (ComfyUI\custom_nodes\*) do (
     )
 )
 
-echo ========================================
-echo Applying compatibility fixes...
-echo ========================================
-echo.
-echo Installing exact versions for librosa compatibility...
-.venv\Scripts\python.exe -m pip install "numba==0.59.1" "numpy==1.26.4" "librosa==0.11.0" "SQLAlchemy==2.0.46"
-if errorlevel 1 (
-    echo WARNING: Failed to install compatible versions
-    echo You may encounter issues with TTS Audio Suite
-) else (
-    echo SUCCESS: numba 0.59.1, numpy 1.26.4, librosa 0.11.0, SQLAlchemy 2.0.46 installed
-)
-echo.
-
 REM Install Triton
-echo Installing Triton...
+echo ========================================
+echo Installing Triton (triton-windows)...
+echo ========================================
 .venv\Scripts\python.exe -m pip install triton-windows
 if errorlevel 1 (
     echo ERROR: Failed to install Triton
