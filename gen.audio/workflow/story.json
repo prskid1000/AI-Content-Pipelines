@@ -1,57 +1,38 @@
 {
-  "43": {
+  "70": {
     "inputs": {
-      "value": ""
-    },
-    "class_type": "PrimitiveStringMultiline",
-    "_meta": {
-      "title": "String (Multiline)"
-    }
-  },
-  "47": {
-    "inputs": {
-      "text": [
-        "43",
-        0
-      ],
-      "narrator_voice": "voices_examples/narrator.wav",
-      "seed": 333555666,
-      "enable_chunking": true,
-      "max_chars_per_chunk": 100,
-      "chunk_combination_method": "silence_padding",
-      "silence_between_chunks_ms": 500,
-      "enable_audio_cache": false,
-      "TTS_engine": [
-        "64",
-        0
-      ]
-    },
-    "class_type": "UnifiedTTSTextNode",
-    "_meta": {
-      "title": "TTS Text"
-    }
-  },
-  "64": {
-    "inputs": {
-      "language": "English",
+      "model": "OmniVoice (auto download)",
+      "text": "",
+      "steps": 32,
+      "guidance_scale": 2.0,
+      "t_shift": 0.1,
+      "speed": 1.0,
+      "pause_between_speakers": 0.3,
       "device": "auto",
-      "exaggeration": 0.8,
-      "temperature": 1.0000000000000002,
-      "cfg_weight": 0.2,
-      "crash_protection_template": ""
+      "dtype": "auto",
+      "attention": "auto",
+      "position_temperature": 5.0,
+      "class_temperature": 0.0,
+      "layer_penalty_factor": 5.0,
+      "denoise": true,
+      "preprocess_prompt": true,
+      "postprocess_output": true,
+      "seed": 0,
+      "keep_model_loaded": true,
+      "num_speakers": "2"
     },
-    "class_type": "ChatterBoxEngineNode",
+    "class_type": "OmniVoiceMultiSpeakerTTS",
     "_meta": {
-      "title": "ChatterBox TTS Engine"
+      "title": "OmniVoice Multi-Speaker TTS"
     }
   },
-  "69": {
+  "73": {
     "inputs": {
       "filename_prefix": "audio",
       "quality": "V0",
       "audioUI": "",
       "audio": [
-        "47",
+        "70",
         0
       ]
     },

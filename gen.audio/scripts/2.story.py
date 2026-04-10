@@ -5,6 +5,7 @@ import os
 import shutil
 import re
 import argparse
+import glob
 from pydub import AudioSegment
 from functools import partial
 import builtins as _builtins
@@ -16,6 +17,15 @@ CHUNK_SIZE = 15  # Number of dialogues/lines per chunk
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion
 WORKFLOW_SUMMARY_ENABLED = False  # Set to True to enable workflow summary printing
+
+# OmniVoice hard limit (see ComfyUI-OmniVoice-TTS/nodes/multi_speaker_node.py)
+MAX_SPEAKERS_PER_CHUNK = 10
+
+# Paths for speaker/voice resolution
+SPEAKER_MAP_FILE = "../input/1.story.speakers.txt"
+VOICES_ROOT = "../voices"
+COMFYUI_INPUT_DIR = "../../ComfyUI/input"
+STAGED_VOICE_PREFIX = "gen.audio."
 
 # Resumable state management
 class ResumableState:
@@ -116,18 +126,163 @@ class StoryProcessor:
         self.final_output = "../output/story.wav"
         self.chunk_output_dir = "../output/story"
         self.chunk_size = chunk_size  # Store chunk size as instance variable
-        
+
         # Time estimation tracking
         self.processing_times = []
         self.start_time = None
-        
+
         # Create chunk output directory
         os.makedirs(self.chunk_output_dir, exist_ok=True)
-        
+
         # Clear the final output file if it exists
         if os.path.exists(self.final_output):
             os.remove(self.final_output)
             print(f"Removed existing final output: {self.final_output}")
+
+        # Load character -> voice stem mapping and resolve each voice
+        # { char_tag: { "stem": str, "wav": abs_path, "ref_text": str,
+        #               "comfy_filename": str } }
+        self.speaker_map = self._load_speaker_map(SPEAKER_MAP_FILE)
+
+    # ------------------------------------------------------------------
+    # Speaker map + voice resolution
+    # ------------------------------------------------------------------
+
+    def _load_speaker_map(self, path: str) -> dict:
+        """Parse character -> voice-stem mapping and stage each voice."""
+        if not os.path.exists(path):
+            raise FileNotFoundError(
+                f"Speaker map not found: {path}\n"
+                f"Create it with lines of '<char_tag>  <voice_stem>'."
+            )
+
+        mapping: dict = {}
+        with open(path, "r", encoding="utf-8") as f:
+            for lineno, raw in enumerate(f, 1):
+                line = raw.strip()
+                if not line or line.startswith("#"):
+                    continue
+                parts = line.split()
+                if len(parts) < 2:
+                    raise ValueError(
+                        f"{path}:{lineno}: expected '<char_tag>  <voice_stem>', got: {raw!r}"
+                    )
+                char_tag, stem = parts[0], parts[1]
+                wav_path, ref_text = self._resolve_voice(stem)
+                comfy_filename = self._stage_voice_to_comfyui(wav_path)
+                mapping[char_tag] = {
+                    "stem": stem,
+                    "wav": wav_path,
+                    "ref_text": ref_text,
+                    "comfy_filename": comfy_filename,
+                }
+
+        if not mapping:
+            raise ValueError(f"Speaker map is empty: {path}")
+
+        print(f"Loaded {len(mapping)} character -> voice mappings from {path}")
+        return mapping
+
+    def _resolve_voice(self, stem: str) -> tuple:
+        """Glob voices/**/<stem>.wav; return (wav_path, reference_text)."""
+        pattern = os.path.join(VOICES_ROOT, "**", f"{stem}.wav")
+        matches = glob.glob(pattern, recursive=True)
+        if not matches:
+            raise FileNotFoundError(
+                f"Voice stem '{stem}' not found under {VOICES_ROOT} "
+                f"(pattern: {pattern})"
+            )
+        if len(matches) > 1:
+            print(f"WARNING: stem '{stem}' matched multiple files, using {matches[0]}")
+        wav_path = os.path.abspath(matches[0])
+
+        ref_text_path = os.path.splitext(wav_path)[0] + ".reference.txt"
+        if not os.path.exists(ref_text_path):
+            raise FileNotFoundError(
+                f"Reference transcript missing for '{stem}': {ref_text_path}"
+            )
+        with open(ref_text_path, "r", encoding="utf-8") as f:
+            ref_text = f.read().strip()
+        if not ref_text:
+            raise ValueError(f"Reference transcript is empty: {ref_text_path}")
+        return wav_path, ref_text
+
+    def _stage_voice_to_comfyui(self, wav_path: str) -> str:
+        """Copy a voice WAV into ComfyUI/input/ with a stable name.
+
+        Returns the filename (not full path) that LoadAudio will reference.
+        """
+        os.makedirs(COMFYUI_INPUT_DIR, exist_ok=True)
+        stem = os.path.splitext(os.path.basename(wav_path))[0]
+        comfy_filename = f"{STAGED_VOICE_PREFIX}{stem}.wav"
+        target = os.path.join(COMFYUI_INPUT_DIR, comfy_filename)
+
+        need_copy = True
+        if os.path.exists(target):
+            src_stat = os.stat(wav_path)
+            dst_stat = os.stat(target)
+            if (src_stat.st_size == dst_stat.st_size
+                    and abs(src_stat.st_mtime - dst_stat.st_mtime) < 1):
+                need_copy = False
+        if need_copy:
+            shutil.copy2(wav_path, target)
+            print(f"Staged voice: {wav_path} -> {target}")
+        return comfy_filename
+
+    # ------------------------------------------------------------------
+    # Chunk-level speaker parsing + text rewrite
+    # ------------------------------------------------------------------
+
+    _CHAR_TAG_RE = re.compile(r"^\[([a-zA-Z0-9_]+)\]\s*")
+
+    def _parse_chunk_speakers(self, chunk_text: str) -> list:
+        """Return ordered list of unique character tags used in chunk_text.
+
+        Order is by first appearance so [Speaker_N] assignment is stable.
+        Raises if any tag is missing from the speaker map or if the chunk
+        uses more than MAX_SPEAKERS_PER_CHUNK unique characters.
+        """
+        seen: list = []
+        for line in chunk_text.splitlines():
+            m = self._CHAR_TAG_RE.match(line)
+            if not m:
+                continue
+            tag = m.group(1)
+            if tag not in seen:
+                if tag not in self.speaker_map:
+                    raise KeyError(
+                        f"Character '[{tag}]' is not in the speaker map. "
+                        f"Add it to {SPEAKER_MAP_FILE}."
+                    )
+                seen.append(tag)
+        if len(seen) > MAX_SPEAKERS_PER_CHUNK:
+            raise ValueError(
+                f"Chunk uses {len(seen)} unique characters "
+                f"(OmniVoice max = {MAX_SPEAKERS_PER_CHUNK}). "
+                f"Reduce --chunk-size so fewer characters appear per chunk. "
+                f"Characters seen: {seen}"
+            )
+        if not seen:
+            raise ValueError(
+                "Chunk has no [character] tags — cannot build multi-speaker input."
+            )
+        return seen
+
+    def _rewrite_chunk_text(self, chunk_text: str, char_to_slot: dict) -> str:
+        """Replace '[char_tag] text' with '[Speaker_N]: text' per slot map."""
+        out_lines = []
+        for line in chunk_text.splitlines():
+            m = self._CHAR_TAG_RE.match(line)
+            if not m:
+                # Non-tagged lines get attached to whatever came before — OmniVoice
+                # merges them into the previous turn. Keep as-is.
+                out_lines.append(line)
+                continue
+            tag = m.group(1)
+            slot = char_to_slot[tag]
+            rest = line[m.end():]
+            out_lines.append(f"[Speaker_{slot}]: {rest}")
+        return "\n".join(out_lines)
     
     def split_story_into_chunks(self, story_text: str, chunk_size: int = CHUNK_SIZE) -> list:
         """Split story into chunks of specified line count"""
@@ -258,20 +413,85 @@ class StoryProcessor:
         wf = '../workflow/story.json'
         with open(wf, 'r') as f:
             return json.load(f)
-    
+
     def find_node_by_type(self, workflow, node_type):
         """Find a node by its type"""
         for node_id, node in workflow.items():
             if node.get('class_type') == node_type:
                 return node
         return None
-    
-    def update_workflow_text(self, workflow, story_text):
-        """Update the text prompt in the workflow"""
-        # Find the PrimitiveStringMultiline node and update its text
-        node = self.find_node_by_type(workflow, 'PrimitiveStringMultiline')
-        if node:
-            node['inputs']['value'] = story_text
+
+    def _find_node_id_by_type(self, workflow, node_type):
+        """Return the first node_id whose class_type matches, else None."""
+        for node_id, node in workflow.items():
+            if node.get('class_type') == node_type:
+                return node_id
+        return None
+
+    def build_chunk_workflow(self, chunk_text: str, chunk_number: int) -> dict:
+        """Construct an API-format workflow for one chunk of multi-speaker text.
+
+        Steps:
+          1. Load the story.json template (OmniVoice + SaveAudioMP3 skeleton).
+          2. Parse which characters appear in this chunk and assign Speaker_N slots.
+          3. Rewrite the chunk text with [Speaker_N]: markers.
+          4. Add one LoadAudio node per active speaker and wire it to the
+             OmniVoice node's num_speakers.speaker_N_audio input.
+          5. Fill ref_text for each speaker (skips Whisper auto-transcription).
+          6. Set filename_prefix on the save node.
+        """
+        workflow = self.load_story_workflow()
+
+        omni_id = self._find_node_id_by_type(workflow, 'OmniVoiceMultiSpeakerTTS')
+        save_id = self._find_node_id_by_type(workflow, 'SaveAudioMP3')
+        if omni_id is None or save_id is None:
+            raise RuntimeError(
+                "workflow/story.json must contain OmniVoiceMultiSpeakerTTS and SaveAudioMP3 nodes"
+            )
+
+        # Determine active speakers (in first-appearance order) and their slots
+        active_tags = self._parse_chunk_speakers(chunk_text)
+        char_to_slot = {tag: idx + 1 for idx, tag in enumerate(active_tags)}
+        n = len(active_tags)
+
+        # Rewrite chunk text using generic Speaker_N markers
+        rewritten = self._rewrite_chunk_text(chunk_text, char_to_slot)
+
+        # Allocate LoadAudio node IDs starting from 100 (outside template range)
+        load_audio_base = 100
+        omni_inputs = workflow[omni_id]['inputs']
+
+        # Strip any pre-existing num_speakers.* keys from the template so each
+        # chunk starts with a clean slate.
+        for key in list(omni_inputs.keys()):
+            if key.startswith("num_speakers."):
+                del omni_inputs[key]
+
+        for slot_idx, tag in enumerate(active_tags, start=1):
+            voice = self.speaker_map[tag]
+            load_id = str(load_audio_base + slot_idx)
+            workflow[load_id] = {
+                "inputs": {
+                    "audio": voice["comfy_filename"],
+                    "audioUI": ""
+                },
+                "class_type": "LoadAudio",
+                "_meta": {
+                    "title": f"Load Audio ({tag})"
+                }
+            }
+            omni_inputs[f"num_speakers.speaker_{slot_idx}_audio"] = [load_id, 0]
+            omni_inputs[f"num_speakers.speaker_{slot_idx}_ref_text"] = voice["ref_text"]
+            omni_inputs[f"num_speakers.speaker_{slot_idx}_instruct"] = ""
+
+        # Core OmniVoice fields for this chunk
+        omni_inputs["text"] = rewritten
+        omni_inputs["num_speakers"] = str(n)
+        omni_inputs["seed"] = (chunk_number * 2654435761) & 0x7FFFFFFF  # deterministic per chunk
+
+        # Save filename
+        workflow[save_id]['inputs']['filename_prefix'] = f"audio/chunk_{chunk_number}"
+
         return workflow
     
     def _print_workflow_summary(self, workflow: dict, title: str) -> None:
@@ -436,14 +656,6 @@ class StoryProcessor:
                 if isinstance(value, (str, int, float, bool)) and len(str(value)) < 50:
                     print(f"{indent}⚙️ {key}: {value}")
     
-    def update_workflow_filename(self, workflow, filename):
-        """Update the filename in the SaveAudioMP3 node"""
-        # Find the SaveAudioMP3 node and update its filename
-        node = self.find_node_by_type(workflow, 'SaveAudioMP3')
-        if node:
-            node['inputs']['filename_prefix'] = f"audio/{filename}"
-        return workflow
-    
     def generate_chunk_audio(self, chunk_text, chunk_number, start_line, end_line):
         """Generate audio for a single chunk and save to output/story/start_line_end_line.wav"""
         try:
@@ -457,13 +669,8 @@ class StoryProcessor:
             print(f"Generating audio for chunk {chunk_number} (lines {start_line}-{end_line})...")
             print(f"Chunk length: {len(chunk_text)} characters")
             
-            # Load and update workflow
-            workflow = self.load_story_workflow()
-            workflow = self.update_workflow_text(workflow, chunk_text)
-            workflow = self.update_workflow_filename(workflow, f"chunk_{chunk_number}")
-            
-            # Print workflow summary
-            self._print_workflow_summary(workflow, f"Story Chunk {chunk_number}")
+            # Build the OmniVoice multi-speaker workflow for this chunk
+            workflow = self.build_chunk_workflow(chunk_text, chunk_number)
             
             # Send workflow to ComfyUI
             print(f"Sending workflow to ComfyUI...")

@@ -1,6 +1,20 @@
 Workflow runner started. Python executable: D:\.comfyui\.venv\Scripts\python.exe
 Working directory: D:\.comfyui\gen.audio
 Emptying ComfyUI input and output folders for audio generation...
+Removed file: D:\.comfyui\ComfyUI\input\gen.audio.aisha_en.wav
+Removed file: D:\.comfyui\ComfyUI\input\gen.audio.alok_en.wav
+Removed file: D:\.comfyui\ComfyUI\input\gen.audio.ayesha_en.wav
+Removed file: D:\.comfyui\ComfyUI\input\gen.audio.bala_en.wav
+Removed file: D:\.comfyui\ComfyUI\input\gen.audio.deshna_en.wav
+Removed file: D:\.comfyui\ComfyUI\input\gen.audio.gaurav_en.wav
+Removed file: D:\.comfyui\ComfyUI\input\gen.audio.himanshu_en.wav
+Removed file: D:\.comfyui\ComfyUI\input\gen.audio.indrajeet_en.wav
+Removed file: D:\.comfyui\ComfyUI\input\gen.audio.nikhil_en.wav
+Removed file: D:\.comfyui\ComfyUI\input\gen.audio.ramesh_en.wav
+Removed file: D:\.comfyui\ComfyUI\input\gen.audio.sarang_en.wav
+Removed file: D:\.comfyui\ComfyUI\input\gen.audio.sid_en.wav
+Removed file: D:\.comfyui\ComfyUI\input\gen.audio.yuvraj_en.wav
+Removed directory: D:\.comfyui\ComfyUI\output\audio
 Successfully emptied ComfyUI input and output folders.
 All tracked files unchanged. Preserving output directory.
 Starting LM Studio backend via lms CLI...
@@ -9,67 +23,246 @@ Success! Server is now running on port 1234
 Waiting for LM Studio to become ready (polling every 15s)...
 LM Studio is ready after 0.0s (attempt 1).
 
-===== START D:\.comfyui\gen.audio\scripts\9.media.py @ 2026-02-09 08:47:50 =====
-🖼️ Generating thumbnail prompt...
-Characters: 1500
-Words: 266
-⚠️ WARNING: Word count (266) is outside the expected range of 200 to 250 words.
-✅ Thumbnail prompt generated: ../input/10.thumbnail.txt
-📝 Generating YouTube description...
-🔍 Reading diffusion text...
-✅ Read 1987 characters from diffusion file
-📖 Reading title...
-✅ Title: The Case of the Green Cat's Eye
-⏱️ Calculating audio duration...
-✅ Total duration: 57:42 (3462.8s)
-🎯 Generating title line...
-✅ Title line: 🔥 The Case of the Green Cat's Eye | Detective Story
-🪝 Generating hook...
-✅ Hook: 🕵️‍♂️ When a priceless stone vanishes from a locked case in front of a dozen guests, Holmes must unravel a web of theatrical deception, poisoned plots, and a black cat carrying velvet… before the real culprit burns the evidence alive.
-📋 Generating bullet points...
-✅ Generated 5 bullet points
-📚 Generating chapters from file...
-✅ Generated 5 chapters
-   00:00 - The Green Stone Appears
-   34:37 - Hidden Plans in Kensington
-   23:05 - Cat Leads to Clues
-   11:32 - Stage Deception Exposed
-   00:00 - Resolution and Restoration
-📢 Generating CTAs...
-✅ Generated 3 CTAs
-🏷️ Generating hashtags...
-✅ Hashtags: #SherlockHolmes #AudioDrama #MysteryStory #VictorianLondon #DetectiveFiction #ClassicLiterature #Audiobook #CrimeMystery #221BBakerStreet #DrWatson #ConanDoyle #Suspense #FullAudiobook #VictorianMystery #Case
-📝 Rendering final description...
-✅ Description rendered (1972 characters)
-💾 Saving description to ../output/description.txt...
-✅ Description saved
-🏷️ Generating YouTube tags...
-✅ Generated 59 initial tags
-🧹 Normalizing and trimming tags...
-✅ After normalization: 53 tags
-🔄 Deduplicating tags...
-✅ After deduplication: 53 tags
-✂️ Fitting to 500 character limit...
-✅ Final tags: 53 tags (447 chars)
-💾 Saving tags to ../output/tags.txt...
-✅ Tags saved
-Saved YouTube description to: ../output/description.txt (took 36.09s)
+===== START D:\.comfyui\gen.audio\scripts\1.character.py @ 2026-04-10 15:28:34 =====
+Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.audio\output\tracking
+Found existing checkpoint: D:\.comfyui\gen.audio\output\tracking\1.character.state.json
+Progress: Voices(✓) Meta-Summary(✗) Title(✗)
+=== VOICE REGION AND LANGUAGE SELECTION ===
+Available regions: in
+Available languages: ba, en, hi
+Current region: in, Current language: en
+[AUTO] Using --change-settings='n'
+=== STORY PREPROCESSING ===
+Found 14 unique characters: male_silas_morn, male_colonel_rookwood, male_doctor_watson, female_aristocrat_lady_winterbourne, male_sir_lionel_greaves, female_helena_shaw, male_lord_winterbourne, male_inspector_scotland_yard, female_maid_elsie, male_stage_manager_mr_blinch, male_reverend_merriweather, male_landlady_mrs_hudson, male_percival_shaw, male_detective_holmes
 
-===== END D:\.comfyui\gen.audio\scripts\9.media.py @ 2026-02-09 08:48:27 (exit=0, took=36.24s) =====
+Available male voices: alok_en, bala_en, gaurav_en, himanshu_en, indrajeet_en, nikhil_en, ramesh_en, sarang_en, sid_en, yuvraj_en
+Available female voices: aisha_en, ayesha_en, deshna_en, henna_en, koku_en, maya_en, mona_en, mridula_en, paavni_en, vidya_en
+Using cached character voice assignments from checkpoint
+
+=== CHAPTER GENERATION FROM META-SUMMARY ===
+📊 Story Statistics:
+   📏 Total characters (excluding [names]): 51,341
+   📝 Total words: 9,365
+   📄 Total lines: 322
+
+=== GENERATING META-SUMMARY ===
+🔄 Summarizing story content into 5 parts...
+Validating part 1/5:
+✓ Summary within limits: 388 characters, 63 words
+Validating part 2/5:
+✓ Summary within limits: 396 characters, 74 words
+Validating part 3/5:
+✓ Summary within limits: 435 characters, 74 words
+Validating part 4/5:
+✓ Summary within limits: 406 characters, 73 words
+Validating part 5/5:
+✓ Summary within limits: 433 characters, 73 words
+
+📝 Meta-summary statistics:
+   🎯 Total Words: 357 (target: 300-600)
+   📏 Total Characters: 2058 (target: 1800-3600)
+   📦 Parts: 5 (expected: 5)
+   ⏱️  Generation time: 36.89s
+
+Validating total summary:
+✓ Summary within limits: 2062 characters, 357 words
+✅ Meta-summary meets word count target
+✅ Meta-summary generated successfully
+
+Converting 5 meta-summary parts to chapters...
+✅ Chapter 1/5:
+   📖 Title: The Vanishing Jewel
+   📝 Summary words: 63
+   🔸 Short summary words: 10
+✅ Chapter 2/5:
+   📖 Title: The Trained Feline Clue
+   📝 Summary words: 74
+   🔸 Short summary words: 12
+✅ Chapter 3/5:
+   📖 Title: The Theater Conspiracy
+   📝 Summary words: 74
+   🔸 Short summary words: 12
+✅ Chapter 4/5:
+   📖 Title: The Stage Hand Trap
+   📝 Summary words: 73
+   🔸 Short summary words: 12
+✅ Chapter 5/5:
+   📖 Title: The Silent Restoration
+   📝 Summary words: 73
+   🔸 Short summary words: 11
+📄 Chapters saved to: ../input\12.chapters.txt
+
+📚 CHAPTER BREAKDOWN
+==========================================================================================
+%    Chapter Title                  Words    Short    Status  
+------------------------------------------------------------------------------------------
+ 20% The Vanishing Jewel            63       10       ✅ OK    
+ 40% The Trained Feline Clue        74       12       ✅ OK    
+ 60% The Theater Conspiracy         74       12       ✅ OK    
+ 80% The Stage Hand Trap            73       12       ✅ OK    
+100% The Silent Restoration         73       11       ✅ OK    
+------------------------------------------------------------------------------------------
+TOT  5/5 chapters generated         -        -        DONE    
+==========================================================================================
+📄 Summary saved to: ../input\9.summary.txt
+📝 Total words: 357
+📏 Total characters: 2062
+
+📊 CHAPTER STATISTICS
+================================================================================
+Part   Title                          Words      Chars      Short Words 
+--------------------------------------------------------------------------------
+1      The Vanishing Jewel            63         388        10          
+2      The Trained Feline Clue        74         396        12          
+3      The Theater Conspiracy         74         435        12          
+4      The Stage Hand Trap            73         406        12          
+5      The Silent Restoration         73         433        11          
+--------------------------------------------------------------------------------
+TOTAL  5 chapters                     357        2062       -           
+================================================================================
+
+=== GENERATING STORY TITLE ===
+✅ Story title generated:
+   📖 Title: The Case of the Silent Feline
+   ⏱️  Generation time: 3.69s
+📄 Story title saved to: ../input\10.title.txt
+
+🎉 Chapter generation completed!
+📊 Successfully generated 5 chapters from meta-summary
+
+📚 Generated 5 chapter summaries
+All operations completed successfully
+Final progress: Progress: Voices(✓) Meta-Summary(✓) Title(✓)
+All operations completed successfully - tracking files preserved
+
+==================================================
+⏱️  TIMING SUMMARY
+==================================================
+⚙️  Setup time: 0.000 seconds
+📖 Story reading time: 0.000 seconds
+👥 Character preprocessing time: 40.583 seconds
+⏱️  Total execution time: 40.588 seconds (0.676 minutes)
+==================================================
+
+===== END D:\.comfyui\gen.audio\scripts\1.character.py @ 2026-04-10 15:29:15 (exit=0, took=40.75s) =====
 Stopping LM Studio backend via lms CLI...
 Command: lms server stop
 Unloading all models from LM Studio...
 Command: lms unload --all
-Unloading "qwen3.5-35b-a3b_moe"...
+Unloading "qwen3.5-35b-a3b"...
 Unloaded 1 model.
 Stopped the server on port 1234.
 LM Studio appears stopped (after 1 checks).
 Starting ComfyUI backend using Windows cmd style...
 Waiting for ComfyUI to become ready (polling every 15s)...
+ComfyUI is ready after 0.0s (attempt 1).
+
+===== START D:\.comfyui\gen.audio\scripts\2.story.py @ 2026-04-10 15:29:16 =====
+✅ Resumable mode enabled (use --disable-resumable to disable)
+Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.audio\output\tracking
+No existing checkpoint found - starting fresh
+Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\alok_en.wav -> ../../ComfyUI/input\gen.audio.alok_en.wav
+Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\ramesh_en.wav -> ../../ComfyUI/input\gen.audio.ramesh_en.wav
+Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\bala_en.wav -> ../../ComfyUI/input\gen.audio.bala_en.wav
+Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\gaurav_en.wav -> ../../ComfyUI/input\gen.audio.gaurav_en.wav
+Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\himanshu_en.wav -> ../../ComfyUI/input\gen.audio.himanshu_en.wav
+Staged voice: D:\.comfyui\gen.audio\voices\female\in\en\aisha_en.wav -> ../../ComfyUI/input\gen.audio.aisha_en.wav
+Staged voice: D:\.comfyui\gen.audio\voices\female\in\en\ayesha_en.wav -> ../../ComfyUI/input\gen.audio.ayesha_en.wav
+Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\indrajeet_en.wav -> ../../ComfyUI/input\gen.audio.indrajeet_en.wav
+Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\nikhil_en.wav -> ../../ComfyUI/input\gen.audio.nikhil_en.wav
+Staged voice: D:\.comfyui\gen.audio\voices\female\in\en\deshna_en.wav -> ../../ComfyUI/input\gen.audio.deshna_en.wav
+Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\sarang_en.wav -> ../../ComfyUI/input\gen.audio.sarang_en.wav
+Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\sid_en.wav -> ../../ComfyUI/input\gen.audio.sid_en.wav
+Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\yuvraj_en.wav -> ../../ComfyUI/input\gen.audio.yuvraj_en.wav
+Loaded 14 character -> voice mappings from ../input/1.story.speakers.txt
+Processing story...
+Processing story in chunks...
+📊 Story contains 9,365 words
+Story split into 22 chunks of 15 lines each
+
+📊 STORY PROCESSING PROGRESS
+====================================================================================================
+🎵 Chunk 1 (1-15) - 5.3% complete - Processing...
+📊 Estimated time remaining: ~46.8m (?)
+Generating audio for chunk 1 (lines 1-15)...
+Chunk length: 3104 characters
+Sending workflow to ComfyUI...
+Response status: 200
+Response JSON: {'prompt_id': '7770ede1-b43d-4e69-8efc-b2ba2f7b7a54', 'number': 1, 'node_errors': {}}
+Workflow sent successfully, prompt_id: 7770ede1-b43d-4e69-8efc-b2ba2f7b7a54
+Waiting for audio generation to complete...
+
+Prestartup times for custom nodes:
+   3.3 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+
+Found comfy_kitchen backend eager: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_mxfp8', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_mxfp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_mxfp8', 'scaled_mm_nvfp4']}
+Found comfy_kitchen backend triton: {'available': True, 'disabled': True, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_mxfp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8']}
+Found comfy_kitchen backend cuda: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_mxfp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
+Checkpoint files will always be loaded safely.
+Total VRAM 12227 MB, total RAM 64957 MB
+pytorch version: 2.9.0+cu130
+xformers version: 0.0.33
+Set vram state to: NORMAL_VRAM
+Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
+Using async weight offloading with 16 streams
+Enabled pinned memory 25982.0
+working around nvidia conv3d memory bug.
+Using xformers attention
+aimdo: src-win/cuda-detour.c:77:INFO:aimdo_setup_hooks: found driver at 00007FF89FA00000, installing 4 hooks
+aimdo: src-win/cuda-detour.c:61:DEBUG:install_hook_entrys: hooks successfully installed
+aimdo: src/control.c:69:INFO:comfy-aimdo inited for GPU: NVIDIA GeForce RTX 5070 Ti Laptop GPU (VRAM: 12226 MB)
+DynamicVRAM support detected and enabled
+Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
+ComfyUI version: 0.18.1
+comfy-aimdo version: 0.2.12
+comfy-kitchen version: 0.2.8
+ComfyUI frontend version: 1.42.8
+[Prompt Server] web root: D:\.comfyui\.venv\Lib\site-packages\comfyui_frontend_package\static
+Asset seeder disabled
+ComfyUI-GGUF: Allowing full torch compile
+### Loading: ComfyUI-Manager (V3.39.2)
+[ComfyUI-Manager] network_mode: public
+[ComfyUI-Manager] ComfyUI per-queue preview override detected (PR #11261). Manager's preview method feature is disabled. Use ComfyUI's --preview-method CLI option or 'Settings > Execution > Live preview method'.
+### ComfyUI Version: v0.18.1-41-g0c63b4f6 | Released on '2026-04-01'
+torchcodec blocked (incompatible PyTorch build) — using soundfile fallback
+[OmniVoice] HuggingFace cache set to: D:\.comfyui\ComfyUI\models\audio_encoders
+[OmniVoice] Models folder registered: D:\.comfyui\ComfyUI\models\omnivoice
+[OmniVoice] Registered 5 nodes (v0.3.8): OmniVoice Whisper Loader, OmniVoice Longform TTS, OmniVoice Voice Clone TTS, OmniVoice Voice Design TTS, OmniVoice Multi-Speaker TTS
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
+[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
+D:\.comfyui\.venv\Lib\site-packages\timm\models\layers\__init__.py:49: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+D:\.comfyui\.venv\Lib\site-packages\torch\backends\__init__.py:46: UserWarning: Please use the new API settings to control TF32 behavior, such as torch.backends.cudnn.conv.fp32_precision = 'tf32' or torch.backends.cuda.matmul.fp32_precision = 'ieee'. Old settings, e.g, torch.backends.cuda.matmul.allow_tf32 = True, torch.backends.cudnn.allow_tf32 = True, allowTF32CuDNN() and allowTF32CuBLAS() will be deprecated after Pytorch 2.9. Please see https://pytorch.org/docs/main/notes/cuda.html#tensorfloat-32-tf32-on-ampere-and-later-devices (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\aten\src\ATen\Context.cpp:85.)
+  self.setter(val)
+
+Import times for custom nodes:
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI_LoadImageFromHttpURL
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-MediaUtilities
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyMath
+   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
+   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
+   0.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-OmniVoice-TTS
+   0.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
+   0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-Whisper
+   0.7 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
+   1.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
+   2.4 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
+   5.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-rmbg
+
+Context impl SQLiteImpl.
+Will assume non-transactional DDL.
+Failed to initialize database. Please ensure you have installed the latest requirements. If the error persists, please report this as in future the database will be required: Could not acquire lock on database 'D:\.comfyui\ComfyUI\user\comfyui.db'. Another ComfyUI process may already be using it. Use --database-url to specify a separate database file.
+Starting server
+
 [START] Security scan
 [DONE] Security scan
+[ComfyUI-Manager] Logging failed: [WinError 32] The process cannot access the file because it is being used by another process: 'D:\\.comfyui\\ComfyUI\\user\\comfyui.log' -> 'D:\\.comfyui\\ComfyUI\\user\\comfyui.prev.log'
 ## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2026-02-09 08:48:30.390
+** ComfyUI startup time: 2026-04-10 15:29:19.248
 ** Platform: Windows
 ** Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
 ** Python executable: D:\.comfyui\.venv\Scripts\python.exe
@@ -78,630 +271,181 @@ Waiting for ComfyUI to become ready (polling every 15s)...
 ** User directory: D:\.comfyui\ComfyUI\user
 ** ComfyUI-Manager config path: D:\.comfyui\ComfyUI\user\__manager\config.ini
 ** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
-ComfyUI not ready yet (attempt 1). Retrying in 15s...
-
-Prestartup times for custom nodes:
-   2.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-
-Checkpoint files will always be loaded safely.
-Total VRAM 12227 MB, total RAM 64957 MB
-pytorch version: 2.9.1+cu130
-Set vram state to: NORMAL_VRAM
-Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
-Using async weight offloading with 16 streams
-Enabled pinned memory 29230.0
-working around nvidia conv3d memory bug.
-Found comfy_kitchen backend triton: {'available': True, 'disabled': True, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8']}
-Found comfy_kitchen backend cuda: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
-Found comfy_kitchen backend eager: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
-Using pytorch attention
-ComfyUI not ready yet (attempt 2). Retrying in 15s...
-Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
-ComfyUI version: 0.10.0
-ComfyUI frontend version: 1.37.11
-[Prompt Server] web root: D:\.comfyui\.venv\Lib\site-packages\comfyui_frontend_package\static
-ComfyUI-GGUF: Allowing full torch compile
-### Loading: ComfyUI-Manager (V3.39.2)
-[ComfyUI-Manager] network_mode: public
-[ComfyUI-Manager] ComfyUI per-queue preview override detected (PR #11261). Manager's preview method feature is disabled. Use ComfyUI's --preview-method CLI option or 'Settings > Execution > Live preview method'.
-### ComfyUI Version: v0.10.0-17-g72f6be16 | Released on '2026-01-21'
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
+[34m[ComfyUI-RMBG][0m v[93m3.0.0[0m | [93m43 nodes[0m [92mLoaded[0m
+FETCH ComfyRegistry Data: 5/138
 
 [32mInitializing ControlAltAI Nodes[0m
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
-✅ ChatterboxTTS loaded from bundled package
-✅ ChatterboxVC loaded from bundled package
-FETCH ComfyRegistry Data: 5/124
-ComfyUI not ready yet (attempt 3). Retrying in 15s...
-✅ F5-TTS loaded from system package
-🎭 Character voices: Found 61 characters, 14 aliases
-✅ SRT modules loaded from system package
-🔧 Registering TTS Audio Suite nodes...
-======================================================================
-🚀 TTS Audio Suite v4.2.1
-Universal multi-engine TTS extension for ComfyUI
-⚠️ No local ChatterBox models found - will download from Hugging Face
-💡 Tip: First generation will download models (~1GB)
-   Models will be saved locally for future use
-✅ TTS Audio Suite v4.2.1 loaded with 16 nodes:
-   • ⚙️ ChatterBox TTS Engine
-   • ⚙️ F5 TTS Engine
-   • ⚙️ RVC Engine
-   • 🌊 Audio Wave Analyzer
-   • 🎙️ Voice Capture
-   • 🎤 TTS Text
-   • 🎭 Character Voices
-   • 🎭 Load RVC Character Model
-   • 👄 F5-TTS Speech Editor
-   • 📺 TTS SRT
-   • 🔄 Voice Changer
-   • 🔧 Audio Analyzer Options
-   • 🔧 F5-TTS Edit Options
-   • 🔧 RVC Pitch Extraction Options
-   • 🤐 Noise or Vocal Removal
-   • 🥪 Merge Audio
-======================================================================
-
-Import times for custom nodes:
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyMath
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
-   0.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
-   0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
-   0.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-   1.9 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
-  12.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\tts_audio_suite
-
-Context impl SQLiteImpl.
-Will assume non-transactional DDL.
-Assets scan(roots=['models']) completed in 0.024s (created=0, skipped_existing=29, total_seen=30)
-Starting server
-
-To see the GUI go to: http://127.0.0.1:8188
-FETCH ComfyRegistry Data: 10/124
-FETCH ComfyRegistry Data: 15/124
-ComfyUI is ready after 51.1s (attempt 4).
-
-===== START D:\.comfyui\gen.audio\scripts\10.thumbnail.py @ 2026-02-09 08:49:19 =====
-Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
-handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
 Traceback (most recent call last):
-  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\events.py", line 88, in _run
-    self._context.run(self._callback, *self._args)
-  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
-    self._sock.shutdown(socket.SHUT_RDWR)
-ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
-Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.audio\output\tracking
-No existing checkpoint found - starting fresh
-Validating and syncing with output directory: ../output
-Scanning output directory for untracked files: ../output
-No untracked thumbnail files found in output directory
-Validating 0 completed thumbnails against output directory...
-Generating main thumbnail...
-Generating thumbnail (Serial LoRA mode)
-
-Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
-Serial LoRA mode: 1 LoRAs will run independently
-Note: Serial mode requires separate workflow execution for each LoRA
-LoRA enabled in thumbnail workflow
-Sampling steps set to: 25
-Negative prompt disabled - using ConditioningZeroOut
-  Model strength: 2.0
-  CLIP strength: 2.0
-Using latent mode with dimensions: 1280x720
-  Seed set to: 2523356620
-  Using latent mode with dimensions: 1280x720
-  Using LoRA denoising_strength: 0.8
-  Steps: 9, Denoising: 0.8
-got prompt
-  Waiting for LoRA 1 generation to complete...
-Using pytorch attention in VAE
-Using pytorch attention in VAE
-VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
-FETCH ComfyRegistry Data: 20/124
-clip missing: ['text_projection.weight']
-CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
-model weight dtype torch.bfloat16, manual cast: None
-model_type FLUX
-FETCH ComfyRegistry Data: 25/124
-FETCH ComfyRegistry Data: 30/124
-FETCH ComfyRegistry Data: 35/124
-FETCH ComfyRegistry Data: 40/124
-Requested to load FluxClipModel_
-loaded completely; 9606.80 MB usable, 9319.23 MB loaded, full load: True
-FETCH ComfyRegistry Data: 45/124
-Requested to load Flux
-FETCH ComfyRegistry Data: 50/124
-loaded partially; 9470.07 MB usable, 7462.74 MB loaded, 15237.40 MB offloaded, 1998.51 MB buffer reserved, lowvram patches: 246
-
-  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 55/124
-
- 11%|█         | 1/9 [00:03<00:24,  3.02s/it]
- 22%|██▏       | 2/9 [00:04<00:16,  2.40s/it]
- 33%|███▎      | 3/9 [00:06<00:13,  2.20s/it]FETCH ComfyRegistry Data: 60/124
-
- 44%|████▍     | 4/9 [00:08<00:10,  2.10s/it]
- 56%|█████▌    | 5/9 [00:10<00:08,  2.05s/it]
- 67%|██████▋   | 6/9 [00:12<00:06,  2.02s/it]FETCH ComfyRegistry Data: 65/124
-
- 78%|███████▊  | 7/9 [00:14<00:03,  2.00s/it]
- 89%|████████▉ | 8/9 [00:16<00:01,  1.99s/it]
-100%|██████████| 9/9 [00:18<00:00,  1.98s/it]
-100%|██████████| 9/9 [00:18<00:00,  2.08s/it]
-Requested to load AutoencodingEngine
-Unloaded partially: 1160.69 MB freed, 6302.05 MB remains loaded, 1998.51 MB buffer reserved, lowvram patches: 262
-loaded completely; 232.31 MB usable, 159.87 MB loaded, full load: True
-Prompt executed in 64.22 seconds
-FETCH ComfyRegistry Data: 70/124
-  Saved LoRA result: ../output/lora\thumbnail.FLUX1_Turbo_Alphasafetensors.png
-  LoRA 1 completed successfully
-  Saved LoRA progress: 1/1 completed
-  Preserved LoRA progress for completed thumbnail
-Saved: ../output\thumbnail.png
-Generated: ../output\thumbnail.png
-Generating shorts thumbnail 1/5...
-Generating thumbnail (Serial LoRA mode)
-
-Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
-Serial LoRA mode: 1 LoRAs will run independently
-Note: Serial mode requires separate workflow execution for each LoRA
-LoRA enabled in thumbnail workflow
-Sampling steps set to: 25
-Negative prompt disabled - using ConditioningZeroOut
-  Model strength: 2.0
-  CLIP strength: 2.0
-Using latent mode with dimensions: 1080x1920
-  Seed set to: 3341396027
-  Using latent mode with dimensions: 1080x1920
-  Using LoRA denoising_strength: 0.8
-  Steps: 9, Denoising: 0.8
-got prompt
-  Waiting for LoRA 1 generation to complete...
-loaded partially; 8354.07 MB usable, 6292.33 MB loaded, 16407.80 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 1
-
-  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 75/124
-
- 11%|█         | 1/9 [00:04<00:35,  4.50s/it]
- 22%|██▏       | 2/9 [00:08<00:30,  4.43s/it]FETCH ComfyRegistry Data: 80/124
-
- 33%|███▎      | 3/9 [00:13<00:26,  4.43s/it]FETCH ComfyRegistry Data: 85/124
-
- 44%|████▍     | 4/9 [00:17<00:22,  4.42s/it]
- 56%|█████▌    | 5/9 [00:22<00:17,  4.42s/it]FETCH ComfyRegistry Data: 90/124
-
- 67%|██████▋   | 6/9 [00:26<00:13,  4.42s/it]FETCH ComfyRegistry Data: 95/124
-
- 78%|███████▊  | 7/9 [00:30<00:08,  4.42s/it]FETCH ComfyRegistry Data: 100/124
-
- 89%|████████▉ | 8/9 [00:35<00:04,  4.42s/it]
-100%|██████████| 9/9 [00:39<00:00,  4.43s/it]
-100%|██████████| 9/9 [00:39<00:00,  4.43s/it]
-Requested to load AutoencodingEngine
-Unloaded partially: 5266.00 MB freed, 1026.33 MB remains loaded, 2394.70 MB buffer reserved, lowvram patches: 312
-loaded completely; 614.35 MB usable, 159.87 MB loaded, full load: True
-Prompt executed in 41.45 seconds
-  Saved LoRA result: ../output/lora\thumbnail.shorts.v1.FLUX1_Turbo_Alphasafetensors.png
-  LoRA 1 completed successfully
-  Saved LoRA progress: 1/1 completed
-  Preserved LoRA progress for completed thumbnail
-Saved: ../output\thumbnail.shorts.v1.png
-Generated: ../output\thumbnail.shorts.v1.png
-Generating shorts thumbnail 2/5...
-Generating thumbnail (Serial LoRA mode)
-
-Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
-Serial LoRA mode: 1 LoRAs will run independently
-Note: Serial mode requires separate workflow execution for each LoRA
-LoRA enabled in thumbnail workflow
-Sampling steps set to: 25
-Negative prompt disabled - using ConditioningZeroOut
-  Model strength: 2.0
-  CLIP strength: 2.0
-Using latent mode with dimensions: 1080x1920
-  Seed set to: 2015213668
-  Using latent mode with dimensions: 1080x1920
-  Using LoRA denoising_strength: 0.8
-  Steps: 9, Denoising: 0.8
-got prompt
-  Waiting for LoRA 1 generation to complete...
-loaded partially; 8246.04 MB usable, 6184.30 MB loaded, 16515.84 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 0
-
-  0%|          | 0/9 [00:00<?, ?it/s]FETCH ComfyRegistry Data: 105/124
-
- 11%|█         | 1/9 [00:04<00:35,  4.42s/it]
- 22%|██▏       | 2/9 [00:08<00:30,  4.43s/it]FETCH ComfyRegistry Data: 110/124
-
- 33%|███▎      | 3/9 [00:13<00:26,  4.43s/it]FETCH ComfyRegistry Data: 115/124
-
- 44%|████▍     | 4/9 [00:17<00:22,  4.43s/it]
- 56%|█████▌    | 5/9 [00:22<00:17,  4.44s/it]FETCH ComfyRegistry Data: 120/124
-
- 67%|██████▋   | 6/9 [00:26<00:13,  4.44s/it]FETCH ComfyRegistry Data [DONE]
-[ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
-FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json [DONE]
+  File "D:\.comfyui\ComfyUI\main.py", line 526, in <module>
+    event_loop.run_until_complete(x)
+  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\.comfyui\ComfyUI\main.py", line 500, in start_all
+    await run(prompt_server, address=args.listen, port=args.port, verbose=not args.dont_print_server, call_on_start=call_on_start)
+  File "D:\.comfyui\ComfyUI\main.py", line 372, in run
+    await asyncio.gather(
+  File "D:\.comfyui\ComfyUI\server.py", line 1244, in start_multi_address
+    await site.start()
+  File "D:\.comfyui\.venv\Lib\site-packages\aiohttp\web_runner.py", line 121, in start
+    self._server = await loop.create_server(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\base_events.py", line 1571, in create_server
+    raise OSError(err.errno, msg) from None
+PermissionError: [Errno 13] error while attempting to bind on address ('127.0.0.1', 8188): [winerror 10013] an attempt was made to access a socket in a way forbidden by its access permissions
+Cannot connect to comfyregistry.
+FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json[ComfyUI-Manager] Due to a network error, switching to local mode.
+=> custom-node-list.json
+=> cannot schedule new futures after shutdown
 [ComfyUI-Manager] All startup tasks have been completed.
+FETCH DATA from: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager\custom-node-list.json [DONE]
+[W410 15:29:51.000000000 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator ())
+Looking for generated audio file in ../../ComfyUI/output/audio
+Files in folder: ['chunk_1_00001_.mp3']
+Found generated file: ../../ComfyUI/output/audio\chunk_1_00001_.mp3
+Converting ../../ComfyUI/output/audio\chunk_1_00001_.mp3 to WAV format...
+Converted and saved as ../output/story\1_15.wav
+✅ Chunk 1 (1-15) - 5.3% complete - Completed in 43.3s - 1_15.wav (WPM: 722)
+📊 Estimated time remaining: ~12.2m (?)
+🎵 Chunk 2 (16-30) - 10.6% complete - Processing...
+📊 Estimated time remaining: ~12.2m (?)
+Generating audio for chunk 2 (lines 16-30)...
+Chunk length: 3109 characters
+Sending workflow to ComfyUI...
+Response status: 200
+Response JSON: {'prompt_id': '391fcc46-c14b-4029-a4ef-be40100614d6', 'number': 2, 'node_errors': {}}
+Workflow sent successfully, prompt_id: 391fcc46-c14b-4029-a4ef-be40100614d6
+Waiting for audio generation to complete...
+Looking for generated audio file in ../../ComfyUI/output/audio
+Files in folder: ['chunk_1_00001_.mp3', 'chunk_2_00001_.mp3']
+Found generated file: ../../ComfyUI/output/audio\chunk_2_00001_.mp3
+Converting ../../ComfyUI/output/audio\chunk_2_00001_.mp3 to WAV format...
+Converted and saved as ../output/story\16_30.wav
+✅ Chunk 2 (16-30) - 10.6% complete - Completed in 48.3s - 16_30.wav (WPM: 616)
+📊 Estimated time remaining: ~12.5m (?)
+🎵 Chunk 3 (31-45) - 15.3% complete - Processing...
+📊 Estimated time remaining: ~12.5m (?)
+Generating audio for chunk 3 (lines 31-45)...
+Chunk length: 2741 characters
+Sending workflow to ComfyUI...
+Response status: 200
+Response JSON: {'prompt_id': '1d2d8664-82d1-4fb7-a350-852ebb67727c', 'number': 3, 'node_errors': {}}
+Workflow sent successfully, prompt_id: 1d2d8664-82d1-4fb7-a350-852ebb67727c
+Waiting for audio generation to complete...
+Looking for generated audio file in ../../ComfyUI/output/audio
+Files in folder: ['chunk_1_00001_.mp3', 'chunk_2_00001_.mp3', 'chunk_3_00001_.mp3']
+Found generated file: ../../ComfyUI/output/audio\chunk_3_00001_.mp3
+Converting ../../ComfyUI/output/audio\chunk_3_00001_.mp3 to WAV format...
+Converted and saved as ../output/story\31_45.wav
+✅ Chunk 3 (31-45) - 15.3% complete - Completed in 43.2s - 31_45.wav (WPM: 600)
+📊 Estimated time remaining: ~12.3m (~)
+🎵 Chunk 4 (46-60) - 20.2% complete - Processing...
+📊 Estimated time remaining: ~12.3m (~)
+Generating audio for chunk 4 (lines 46-60)...
+Chunk length: 2863 characters
+Sending workflow to ComfyUI...
+Response status: 200
+Response JSON: {'prompt_id': '05358bd3-aaed-498b-a3d7-3c2b8003f13d', 'number': 4, 'node_errors': {}}
+Workflow sent successfully, prompt_id: 05358bd3-aaed-498b-a3d7-3c2b8003f13d
+Waiting for audio generation to complete...
+Looking for generated audio file in ../../ComfyUI/output/audio
+Files in folder: ['chunk_1_00001_.mp3', 'chunk_2_00001_.mp3', 'chunk_3_00001_.mp3', 'chunk_4_00001_.mp3']
+Found generated file: ../../ComfyUI/output/audio\chunk_4_00001_.mp3
+Converting ../../ComfyUI/output/audio\chunk_4_00001_.mp3 to WAV format...
+Converted and saved as ../output/story\46_60.wav
+✅ Chunk 4 (46-60) - 20.2% complete - Completed in 48.2s - 46_60.wav (WPM: 575)
+📊 Estimated time remaining: ~11.9m (~)
+🎵 Chunk 5 (61-75) - 24.8% complete - Processing...
+📊 Estimated time remaining: ~11.9m (~)
+Generating audio for chunk 5 (lines 61-75)...
+Chunk length: 2710 characters
+Sending workflow to ComfyUI...
+Response status: 200
+Response JSON: {'prompt_id': '0e919a8e-f439-4647-80ee-8dbf78c18334', 'number': 5, 'node_errors': {}}
+Workflow sent successfully, prompt_id: 0e919a8e-f439-4647-80ee-8dbf78c18334
+Waiting for audio generation to complete...
+Looking for generated audio file in ../../ComfyUI/output/audio
+Files in folder: ['chunk_1_00001_.mp3', 'chunk_2_00001_.mp3', 'chunk_3_00001_.mp3', 'chunk_4_00001_.mp3', 'chunk_5_00001_.mp3']
+Found generated file: ../../ComfyUI/output/audio\chunk_5_00001_.mp3
+Converting ../../ComfyUI/output/audio\chunk_5_00001_.mp3 to WAV format...
+Converted and saved as ../output/story\61_75.wav
+✅ Chunk 5 (61-75) - 24.8% complete - Completed in 43.5s - 61_75.wav (WPM: 596)
+📊 Estimated time remaining: ~11.3m (✓)
+🎵 Chunk 6 (76-90) - 29.5% complete - Processing...
+📊 Estimated time remaining: ~11.3m (✓)
+Generating audio for chunk 6 (lines 76-90)...
+Chunk length: 2772 characters
+Sending workflow to ComfyUI...
+Response status: 200
+Response JSON: {'prompt_id': '74c9fd6f-299b-4bd8-bee9-58dbe96dccb3', 'number': 6, 'node_errors': {}}
+Workflow sent successfully, prompt_id: 74c9fd6f-299b-4bd8-bee9-58dbe96dccb3
+Waiting for audio generation to complete...
+Looking for generated audio file in ../../ComfyUI/output/audio
+Files in folder: ['chunk_1_00001_.mp3', 'chunk_2_00001_.mp3', 'chunk_3_00001_.mp3', 'chunk_4_00001_.mp3', 'chunk_5_00001_.mp3', 'chunk_6_00001_.mp3']
+Found generated file: ../../ComfyUI/output/audio\chunk_6_00001_.mp3
+Converting ../../ComfyUI/output/audio\chunk_6_00001_.mp3 to WAV format...
+Converted and saved as ../output/story\76_90.wav
+✅ Chunk 6 (76-90) - 29.5% complete - Completed in 48.2s - 76_90.wav (WPM: 577)
+📊 Estimated time remaining: ~10.7m (✓)
+🎵 Chunk 7 (91-105) - 34.3% complete - Processing...
+📊 Estimated time remaining: ~10.7m (✓)
+Generating audio for chunk 7 (lines 91-105)...
+Chunk length: 2792 characters
+Sending workflow to ComfyUI...
+Response status: 200
+Response JSON: {'prompt_id': '79bf00ee-79f6-437d-8694-cb4066d3c015', 'number': 7, 'node_errors': {}}
+Workflow sent successfully, prompt_id: 79bf00ee-79f6-437d-8694-cb4066d3c015
+Waiting for audio generation to complete...
+Looking for generated audio file in ../../ComfyUI/output/audio
+Files in folder: ['chunk_1_00001_.mp3', 'chunk_2_00001_.mp3', 'chunk_3_00001_.mp3', 'chunk_4_00001_.mp3', 'chunk_5_00001_.mp3', 'chunk_6_00001_.mp3', 'chunk_7_00001_.mp3']
+Found generated file: ../../ComfyUI/output/audio\chunk_7_00001_.mp3
+Converting ../../ComfyUI/output/audio\chunk_7_00001_.mp3 to WAV format...
+Converted and saved as ../output/story\91_105.wav
+✅ Chunk 7 (91-105) - 34.3% complete - Completed in 48.3s - 91_105.wav (WPM: 537)
+📊 Estimated time remaining: ~10.2m (✓)
+🎵 Chunk 8 (106-120) - 38.8% complete - Processing...
+📊 Estimated time remaining: ~10.2m (✓)
+Generating audio for chunk 8 (lines 106-120)...
+Chunk length: 2634 characters
+Sending workflow to ComfyUI...
+Response status: 200
+Response JSON: {'prompt_id': 'b6380471-e26d-42c0-ba1b-089a8c7377e6', 'number': 8, 'node_errors': {}}
+Workflow sent successfully, prompt_id: b6380471-e26d-42c0-ba1b-089a8c7377e6
+Waiting for audio generation to complete...
+Looking for generated audio file in ../../ComfyUI/output/audio
+Files in folder: ['chunk_1_00001_.mp3', 'chunk_2_00001_.mp3', 'chunk_3_00001_.mp3', 'chunk_4_00001_.mp3', 'chunk_5_00001_.mp3', 'chunk_6_00001_.mp3', 'chunk_7_00001_.mp3', 'chunk_8_00001_.mp3']
+Found generated file: ../../ComfyUI/output/audio\chunk_8_00001_.mp3
+Converting ../../ComfyUI/output/audio\chunk_8_00001_.mp3 to WAV format...
+Converted and saved as ../output/story\106_120.wav
+✅ Chunk 8 (106-120) - 38.8% complete - Completed in 48.2s - 106_120.wav (WPM: 530)
+📊 Estimated time remaining: ~9.6m (✓)
+🎵 Chunk 9 (121-135) - 43.6% complete - Processing...
+📊 Estimated time remaining: ~9.6m (✓)
+Generating audio for chunk 9 (lines 121-135)...
+Chunk length: 2822 characters
+Sending workflow to ComfyUI...
+Response status: 200
+Response JSON: {'prompt_id': '93900987-8950-4572-876a-6f03575d27b0', 'number': 9, 'node_errors': {}}
+Workflow sent successfully, prompt_id: 93900987-8950-4572-876a-6f03575d27b0
+Waiting for audio generation to complete...
+Looking for generated audio file in ../../ComfyUI/output/audio
+Files in folder: ['chunk_1_00001_.mp3', 'chunk_2_00001_.mp3', 'chunk_3_00001_.mp3', 'chunk_4_00001_.mp3', 'chunk_5_00001_.mp3', 'chunk_6_00001_.mp3', 'chunk_7_00001_.mp3', 'chunk_8_00001_.mp3', 'chunk_9_00001_.mp3']
+Found generated file: ../../ComfyUI/output/audio\chunk_9_00001_.mp3
+Converting ../../ComfyUI/output/audio\chunk_9_00001_.mp3 to WAV format...
+Converted and saved as ../output/story\121_135.wav
+✅ Chunk 9 (121-135) - 43.6% complete - Completed in 53.3s - 121_135.wav (WPM: 517)
+📊 Estimated time remaining: ~9.0m (✓)
+🎵 Chunk 10 (136-150) - 48.0% complete - Processing...
+📊 Estimated time remaining: ~9.0m (✓)
+Generating audio for chunk 10 (lines 136-150)...
+Chunk length: 2601 characters
+Sending workflow to ComfyUI...
+Response status: 200
+Response JSON: {'prompt_id': '1b8d278b-4688-4bbc-9377-847320fe78c1', 'number': 10, 'node_errors': {}}
+Workflow sent successfully, prompt_id: 1b8d278b-4688-4bbc-9377-847320fe78c1
+Waiting for audio generation to complete...
 
- 78%|███████▊  | 7/9 [00:31<00:08,  4.45s/it]
- 89%|████████▉ | 8/9 [00:35<00:04,  4.45s/it]
-100%|██████████| 9/9 [00:39<00:00,  4.45s/it]
-100%|██████████| 9/9 [00:39<00:00,  4.44s/it]
-Requested to load AutoencodingEngine
-Unloaded partially: 5049.93 MB freed, 1134.37 MB remains loaded, 2394.70 MB buffer reserved, lowvram patches: 359
-loaded completely; 614.35 MB usable, 159.87 MB loaded, full load: True
-Prompt executed in 42.38 seconds
-  Saved LoRA result: ../output/lora\thumbnail.shorts.v2.FLUX1_Turbo_Alphasafetensors.png
-  LoRA 1 completed successfully
-  Saved LoRA progress: 1/1 completed
-  Preserved LoRA progress for completed thumbnail
-Saved: ../output\thumbnail.shorts.v2.png
-Generated: ../output\thumbnail.shorts.v2.png
-Generating shorts thumbnail 3/5...
-Generating thumbnail (Serial LoRA mode)
-
-Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
-Serial LoRA mode: 1 LoRAs will run independently
-Note: Serial mode requires separate workflow execution for each LoRA
-LoRA enabled in thumbnail workflow
-Sampling steps set to: 25
-Negative prompt disabled - using ConditioningZeroOut
-  Model strength: 2.0
-  CLIP strength: 2.0
-Using latent mode with dimensions: 1080x1920
-  Seed set to: 2457074957
-  Using latent mode with dimensions: 1080x1920
-  Using LoRA denoising_strength: 0.8
-  Steps: 9, Denoising: 0.8
-got prompt
-  Waiting for LoRA 1 generation to complete...
-loaded partially; 8354.07 MB usable, 6292.33 MB loaded, 16407.80 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 0
-
-  0%|          | 0/9 [00:00<?, ?it/s]
- 11%|█         | 1/9 [00:04<00:35,  4.43s/it]
- 22%|██▏       | 2/9 [00:08<00:31,  4.43s/it]
- 33%|███▎      | 3/9 [00:13<00:26,  4.44s/it]
- 44%|████▍     | 4/9 [00:17<00:22,  4.44s/it]
- 56%|█████▌    | 5/9 [00:22<00:17,  4.44s/it]
- 67%|██████▋   | 6/9 [00:26<00:13,  4.44s/it]
- 78%|███████▊  | 7/9 [00:31<00:08,  4.44s/it]
- 89%|████████▉ | 8/9 [00:35<00:04,  4.45s/it]
-100%|██████████| 9/9 [00:39<00:00,  4.45s/it]
-100%|██████████| 9/9 [00:39<00:00,  4.44s/it]
-Requested to load AutoencodingEngine
-Unloaded partially: 5157.96 MB freed, 1134.37 MB remains loaded, 2394.70 MB buffer reserved, lowvram patches: 407
-loaded completely; 614.35 MB usable, 159.87 MB loaded, full load: True
-Prompt executed in 42.39 seconds
-  Saved LoRA result: ../output/lora\thumbnail.shorts.v3.FLUX1_Turbo_Alphasafetensors.png
-  LoRA 1 completed successfully
-  Saved LoRA progress: 1/1 completed
-  Preserved LoRA progress for completed thumbnail
-Saved: ../output\thumbnail.shorts.v3.png
-Generated: ../output\thumbnail.shorts.v3.png
-Generating shorts thumbnail 4/5...
-Generating thumbnail (Serial LoRA mode)
-
-Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
-Serial LoRA mode: 1 LoRAs will run independently
-Note: Serial mode requires separate workflow execution for each LoRA
-LoRA enabled in thumbnail workflow
-Sampling steps set to: 25
-Negative prompt disabled - using ConditioningZeroOut
-  Model strength: 2.0
-  CLIP strength: 2.0
-Using latent mode with dimensions: 1080x1920
-  Seed set to: 1591485557
-  Using latent mode with dimensions: 1080x1920
-  Using LoRA denoising_strength: 0.8
-  Steps: 9, Denoising: 0.8
-got prompt
-  Waiting for LoRA 1 generation to complete...
-loaded partially; 8354.07 MB usable, 6292.33 MB loaded, 16407.80 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 0
-
-  0%|          | 0/9 [00:00<?, ?it/s]
- 11%|█         | 1/9 [00:04<00:35,  4.46s/it]
- 22%|██▏       | 2/9 [00:08<00:31,  4.45s/it]
- 33%|███▎      | 3/9 [00:13<00:26,  4.45s/it]
- 44%|████▍     | 4/9 [00:17<00:22,  4.45s/it]
- 56%|█████▌    | 5/9 [00:22<00:17,  4.46s/it]
- 67%|██████▋   | 6/9 [00:26<00:13,  4.45s/it]
- 78%|███████▊  | 7/9 [00:31<00:08,  4.45s/it]
- 89%|████████▉ | 8/9 [00:35<00:04,  4.46s/it]
-100%|██████████| 9/9 [00:40<00:00,  4.46s/it]
-100%|██████████| 9/9 [00:40<00:00,  4.45s/it]
-Requested to load AutoencodingEngine
-Unloaded partially: 5157.96 MB freed, 1134.37 MB remains loaded, 2394.70 MB buffer reserved, lowvram patches: 455
-loaded completely; 614.35 MB usable, 159.87 MB loaded, full load: True
-Prompt executed in 42.43 seconds
-  Saved LoRA result: ../output/lora\thumbnail.shorts.v4.FLUX1_Turbo_Alphasafetensors.png
-  LoRA 1 completed successfully
-  Saved LoRA progress: 1/1 completed
-  Preserved LoRA progress for completed thumbnail
-Saved: ../output\thumbnail.shorts.v4.png
-Generated: ../output\thumbnail.shorts.v4.png
-Generating shorts thumbnail 5/5...
-Generating thumbnail (Serial LoRA mode)
-
-Processing LoRA 1/1: FLUX.1-Turbo-Alpha.safetensors
-Serial LoRA mode: 1 LoRAs will run independently
-Note: Serial mode requires separate workflow execution for each LoRA
-LoRA enabled in thumbnail workflow
-Sampling steps set to: 25
-Negative prompt disabled - using ConditioningZeroOut
-  Model strength: 2.0
-  CLIP strength: 2.0
-Using latent mode with dimensions: 1080x1920
-  Seed set to: 4135148029
-  Using latent mode with dimensions: 1080x1920
-  Using LoRA denoising_strength: 0.8
-  Steps: 9, Denoising: 0.8
-got prompt
-  Waiting for LoRA 1 generation to complete...
-loaded partially; 8354.07 MB usable, 6292.33 MB loaded, 16407.80 MB offloaded, 2052.60 MB buffer reserved, lowvram patches: 0
-
-  0%|          | 0/9 [00:00<?, ?it/s]
- 11%|█         | 1/9 [00:04<00:35,  4.43s/it]
- 22%|██▏       | 2/9 [00:08<00:31,  4.43s/it]
- 33%|███▎      | 3/9 [00:13<00:26,  4.44s/it]
- 44%|████▍     | 4/9 [00:17<00:22,  4.44s/it]
- 56%|█████▌    | 5/9 [00:22<00:17,  4.44s/it]
- 67%|██████▋   | 6/9 [00:26<00:13,  4.45s/it]
- 78%|███████▊  | 7/9 [00:31<00:08,  4.45s/it]
- 89%|████████▉ | 8/9 [00:35<00:04,  4.45s/it]
-100%|██████████| 9/9 [00:40<00:00,  4.45s/it]
-100%|██████████| 9/9 [00:40<00:00,  4.45s/it]
-Requested to load AutoencodingEngine
-Unloaded partially: 5157.96 MB freed, 1134.37 MB remains loaded, 2394.70 MB buffer reserved, lowvram patches: 503
-loaded completely; 614.35 MB usable, 159.87 MB loaded, full load: True
-Prompt executed in 42.24 seconds
-  Saved LoRA result: ../output/lora\thumbnail.shorts.v5.FLUX1_Turbo_Alphasafetensors.png
-  LoRA 1 completed successfully
-  Saved LoRA progress: 1/1 completed
-  Preserved LoRA progress for completed thumbnail
-Saved: ../output\thumbnail.shorts.v5.png
-Generated: ../output\thumbnail.shorts.v5.png
-
-Generated 6 thumbnail images:
-  thumbnail: ../output\thumbnail.png
-  thumbnail.shorts.v1: ../output\thumbnail.shorts.v1.png
-  thumbnail.shorts.v2: ../output\thumbnail.shorts.v2.png
-  thumbnail.shorts.v3: ../output\thumbnail.shorts.v3.png
-  thumbnail.shorts.v4: ../output\thumbnail.shorts.v4.png
-  thumbnail.shorts.v5: ../output\thumbnail.shorts.v5.png
-All thumbnail generation completed successfully
-Final progress: Progress: Thumbnails(5/7)
-Final state saved to checkpoint
-All operations completed successfully - tracking files preserved
-
-===== END D:\.comfyui\gen.audio\scripts\10.thumbnail.py @ 2026-02-09 08:54:17 (exit=0, took=297.13s) =====
+===== END D:\.comfyui\gen.audio\scripts\2.story.py @ 2026-04-10 15:36:39 (exit=3221225786, took=442.91s) =====
 Stopping ComfyUI backend...
-ComfyUI still responding; waiting for shutdown...
-ComfyUI appears stopped (after 2 checks).
-
-===== START D:\.comfyui\gen.audio\scripts\11.video.py @ 2026-02-09 08:54:21 =====
-Creating regular video...
-Running: ffmpeg -y -loop 1 -i D:\.comfyui\gen.audio\output\thumbnail.png -i D:\.comfyui\gen.audio\output\final.wav -c:v libx264 -profile:v high -level:v 4.2 -tune stillimage -preset medium -crf 18 -pix_fmt yuv420p -color_primaries bt709 -color_trc bt709 -colorspace bt709 -r 30 -g 60 -movflags +faststart -c:a aac -b:a 192k -ar 48000 -ac 2 -shortest D:\.comfyui\gen.audio\output\final.mp4
-Regular video written to D:\.comfyui\gen.audio\output\final.mp4
-Creating 5 shorts videos...
-Each video will be 30 seconds long
-
-Creating shorts video 1/5:
-  Thumbnail: thumbnail.shorts.v1.png
-  Audio segment: 1089.18s - 1119.18s
-  Output: shorts.v1.mp4
-  ✓ Success: D:\.comfyui\gen.audio\output\shorts.v1.mp4
-
-Creating shorts video 2/5:
-  Thumbnail: thumbnail.shorts.v2.png
-  Audio segment: 1445.98s - 1475.98s
-  Output: shorts.v2.mp4
-  ✓ Success: D:\.comfyui\gen.audio\output\shorts.v2.mp4
-
-Creating shorts video 3/5:
-  Thumbnail: thumbnail.shorts.v3.png
-  Audio segment: 2616.94s - 2646.94s
-  Output: shorts.v3.mp4
-  ✓ Success: D:\.comfyui\gen.audio\output\shorts.v3.mp4
-
-Creating shorts video 4/5:
-  Thumbnail: thumbnail.shorts.v4.png
-  Audio segment: 2040.90s - 2070.90s
-  Output: shorts.v4.mp4
-  ✓ Success: D:\.comfyui\gen.audio\output\shorts.v4.mp4
-
-Creating shorts video 5/5:
-  Thumbnail: thumbnail.shorts.v5.png
-  Audio segment: 1717.87s - 1747.87s
-  Output: shorts.v5.mp4
-  ✓ Success: D:\.comfyui\gen.audio\output\shorts.v5.mp4
-
-Completed: 5/5 shorts videos created
-
-===== END D:\.comfyui\gen.audio\scripts\11.video.py @ 2026-02-09 09:05:21 (exit=0, took=660.39s) =====
-
-===== START D:\.comfyui\gen.audio\scripts\12.youtube.py @ 2026-02-09 09:05:21 =====
-Reading video metadata...
-Title: 🔥 The Case of the Green Cat's Eye | Detective Story
-Description length: 1919 characters
-Number of tags: 15
-
-Authenticating with YouTube API...
-
-============================================================
-Uploading Main Video
-============================================================
-Uploading video: ..\output\final.mp4
-Title: 🔥 The Case of the Green Cat's Eye | Detective Story
-Tags: Sherlock, Holmes, Watson, detective, mystery, solving, crime, investigation, deduction, Baker, Scotland, agent, case, clue, audiobook
-Description preview: 🕵️‍♂️ When a priceless stone vanishes from a locked case in front of a dozen guests, Holmes must unr...
-
-Starting upload...
-Upload progress: 1% (elapsed: 12s)
-Upload progress: 3% (elapsed: 21s)
-Upload progress: 5% (elapsed: 30s)
-Upload progress: 7% (elapsed: 39s)
-Upload progress: 8% (elapsed: 47s)
-Upload progress: 10% (elapsed: 56s)
-Upload progress: 12% (elapsed: 65s)
-Upload progress: 14% (elapsed: 73s)
-Upload progress: 16% (elapsed: 82s)
-Upload progress: 17% (elapsed: 91s)
-Upload progress: 19% (elapsed: 100s)
-Upload progress: 21% (elapsed: 108s)
-Upload progress: 23% (elapsed: 117s)
-Upload progress: 25% (elapsed: 126s)
-Upload progress: 26% (elapsed: 135s)
-Upload progress: 28% (elapsed: 143s)
-Upload progress: 30% (elapsed: 152s)
-Upload progress: 32% (elapsed: 161s)
-Upload progress: 33% (elapsed: 170s)
-Upload progress: 35% (elapsed: 178s)
-Upload progress: 37% (elapsed: 187s)
-Upload progress: 39% (elapsed: 196s)
-Upload progress: 41% (elapsed: 204s)
-Upload progress: 42% (elapsed: 213s)
-Upload progress: 44% (elapsed: 222s)
-Upload progress: 46% (elapsed: 231s)
-Upload progress: 48% (elapsed: 239s)
-Upload progress: 50% (elapsed: 248s)
-Upload progress: 51% (elapsed: 257s)
-Upload progress: 53% (elapsed: 266s)
-Upload progress: 55% (elapsed: 274s)
-Upload progress: 57% (elapsed: 283s)
-Upload progress: 58% (elapsed: 292s)
-Upload progress: 60% (elapsed: 301s)
-Upload progress: 62% (elapsed: 310s)
-Upload progress: 64% (elapsed: 318s)
-Upload progress: 66% (elapsed: 327s)
-Upload progress: 67% (elapsed: 336s)
-Upload progress: 69% (elapsed: 344s)
-Upload progress: 71% (elapsed: 354s)
-Upload progress: 73% (elapsed: 362s)
-Upload progress: 75% (elapsed: 371s)
-Upload progress: 76% (elapsed: 380s)
-Upload progress: 78% (elapsed: 388s)
-Upload progress: 80% (elapsed: 397s)
-Upload progress: 82% (elapsed: 406s)
-Upload progress: 84% (elapsed: 415s)
-Upload progress: 85% (elapsed: 424s)
-Upload progress: 87% (elapsed: 433s)
-Upload progress: 89% (elapsed: 442s)
-Upload progress: 91% (elapsed: 450s)
-Upload progress: 92% (elapsed: 459s)
-Upload progress: 94% (elapsed: 468s)
-Upload progress: 96% (elapsed: 477s)
-Upload progress: 98% (elapsed: 486s)
-
-✅ Upload successful!
-Video ID: gGqOkXf3fvg
-Video URL: https://www.youtube.com/watch?v=gGqOkXf3fvg
-
-🎉 Main video uploaded successfully!
-Remember: The video is set to 'private' by default.
-You can change the privacy settings in YouTube Studio.
-
-Found 5 shorts videos to upload:
-  - shorts.v1.mp4
-  - shorts.v2.mp4
-  - shorts.v3.mp4
-  - shorts.v4.mp4
-  - shorts.v5.mp4
-
-============================================================
-Uploading Shorts Video 1/5: shorts.v1.mp4
-============================================================
-Uploading video: D:\.comfyui\gen.audio\output\shorts.v1.mp4
-Title: 🔥 The Case of the Green Cat's Eye | Detective Story #Shorts (Part 1)
-Tags: Sherlock, Holmes, Watson, detective, mystery, solving, crime, investigation, deduction, Baker, Scotland, agent, case, clue, audiobook, #Shorts, #YouTubeShorts, Part1
-Description preview: 🎬 Shorts Version 1 - 🕵️‍♂️ When a priceless stone vanishes from a locked case in front of a dozen gu...
-
-Starting upload...
-
-✅ Upload successful!
-Video ID: 4mcc_f2_ocQ
-Video URL: https://www.youtube.com/watch?v=4mcc_f2_ocQ
-✅ Shorts video 1 uploaded successfully!
-
-============================================================
-Uploading Shorts Video 2/5: shorts.v2.mp4
-============================================================
-Uploading video: D:\.comfyui\gen.audio\output\shorts.v2.mp4
-Title: 🔥 The Case of the Green Cat's Eye | Detective Story #Shorts (Part 2)
-Tags: Sherlock, Holmes, Watson, detective, mystery, solving, crime, investigation, deduction, Baker, Scotland, agent, case, clue, audiobook, #Shorts, #YouTubeShorts, Part2
-Description preview: 🎬 Shorts Version 2 - 🕵️‍♂️ When a priceless stone vanishes from a locked case in front of a dozen gu...
-
-Starting upload...
-
-✅ Upload successful!
-Video ID: LyTopd9y5dQ
-Video URL: https://www.youtube.com/watch?v=LyTopd9y5dQ
-✅ Shorts video 2 uploaded successfully!
-
-============================================================
-Uploading Shorts Video 3/5: shorts.v3.mp4
-============================================================
-Uploading video: D:\.comfyui\gen.audio\output\shorts.v3.mp4
-Title: 🔥 The Case of the Green Cat's Eye | Detective Story #Shorts (Part 3)
-Tags: Sherlock, Holmes, Watson, detective, mystery, solving, crime, investigation, deduction, Baker, Scotland, agent, case, clue, audiobook, #Shorts, #YouTubeShorts, Part3
-Description preview: 🎬 Shorts Version 3 - 🕵️‍♂️ When a priceless stone vanishes from a locked case in front of a dozen gu...
-
-Starting upload...
-
-✅ Upload successful!
-Video ID: 7twFV8RRE_Y
-Video URL: https://www.youtube.com/watch?v=7twFV8RRE_Y
-✅ Shorts video 3 uploaded successfully!
-
-============================================================
-Uploading Shorts Video 4/5: shorts.v4.mp4
-============================================================
-Uploading video: D:\.comfyui\gen.audio\output\shorts.v4.mp4
-Title: 🔥 The Case of the Green Cat's Eye | Detective Story #Shorts (Part 4)
-Tags: Sherlock, Holmes, Watson, detective, mystery, solving, crime, investigation, deduction, Baker, Scotland, agent, case, clue, audiobook, #Shorts, #YouTubeShorts, Part4
-Description preview: 🎬 Shorts Version 4 - 🕵️‍♂️ When a priceless stone vanishes from a locked case in front of a dozen gu...
-
-Starting upload...
-
-✅ Upload successful!
-Video ID: PQ0ucOKupKc
-Video URL: https://www.youtube.com/watch?v=PQ0ucOKupKc
-✅ Shorts video 4 uploaded successfully!
-
-============================================================
-Uploading Shorts Video 5/5: shorts.v5.mp4
-============================================================
-Uploading video: D:\.comfyui\gen.audio\output\shorts.v5.mp4
-Title: 🔥 The Case of the Green Cat's Eye | Detective Story #Shorts (Part 5)
-Tags: Sherlock, Holmes, Watson, detective, mystery, solving, crime, investigation, deduction, Baker, Scotland, agent, case, clue, audiobook, #Shorts, #YouTubeShorts, Part5
-Description preview: 🎬 Shorts Version 5 - 🕵️‍♂️ When a priceless stone vanishes from a locked case in front of a dozen gu...
-
-Starting upload...
-
-✅ Upload successful!
-Video ID: TIVpxtg-dRQ
-Video URL: https://www.youtube.com/watch?v=TIVpxtg-dRQ
-✅ Shorts video 5 uploaded successfully!
-
-🎉 5 shorts videos uploaded successfully!
-
-============================================================
-UPLOAD SUMMARY
-============================================================
-Total videos uploaded: 6
-  1. https://www.youtube.com/watch?v=gGqOkXf3fvg
-  2. https://www.youtube.com/watch?v=4mcc_f2_ocQ
-  3. https://www.youtube.com/watch?v=LyTopd9y5dQ
-  4. https://www.youtube.com/watch?v=7twFV8RRE_Y
-  5. https://www.youtube.com/watch?v=PQ0ucOKupKc
-  6. https://www.youtube.com/watch?v=TIVpxtg-dRQ
-
-All videos are set to 'private' by default.
-You can change privacy settings in YouTube Studio.
-
-===== END D:\.comfyui\gen.audio\scripts\12.youtube.py @ 2026-02-09 09:14:33 (exit=0, took=552.12s) =====
-
-Log time stats: writes=0.000s, flushes=0.000s, total=0.001s (~0.00% of runtime)
-
-All scripts completed successfully.
+Received signal 21. Cleaning up services...
+Stopping ComfyUI backend...
