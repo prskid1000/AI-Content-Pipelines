@@ -1,4 +1,4 @@
 @echo off
 cd /d %~dp0
-python ComfyUI\main.py --listen --async-offload 16 --cache-none --disable-smart-memory --reserve-vram 0.3
+python ComfyUI\main.py --listen --async-offload 16 --cache-none --disable-smart-memory --reserve-vram 0.3 --fp16-intermediates
 pause
