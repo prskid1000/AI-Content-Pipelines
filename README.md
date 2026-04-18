@@ -1566,6 +1566,25 @@ SERVICE_KILL_TIMEOUT = 5
 SERVICE_STOPPED_CHECK_INTERVAL = 3
 ```
 
+### External Service Management (`generate.py`)
+
+Each pipeline's `generate.py` exposes two module-level flags that control whether the runner spawns/terminates the backing services or assumes they are already running. Defaults are `True` in all five pipelines (`gen.audio`, `gen.2d`, `gen.av`, `gen.image`, `gen.video`).
+
+```python
+# When True, assume the service is already running externally. The runner
+# will not spawn or terminate it; between script groups it only clears the
+# ComfyUI cache / unloads LM Studio models to free VRAM.
+COMFYUI_MANAGE_ONLY = True
+LMSTUDIO_MANAGE_ONLY = True
+```
+
+| Flag | `True` (default) | `False` |
+|---|---|---|
+| `COMFYUI_MANAGE_ONLY` | Skip `python main.py`. Between script groups, POST `/free` with `{"unload_models": true, "free_memory": true}` to clear the cache. Readiness is still polled — the run aborts if ComfyUI isn't reachable. | Spawn ComfyUI via `python main.py --async-offload 16`, wait for readiness, `terminate()` on teardown. |
+| `LMSTUDIO_MANAGE_ONLY` | Skip `lms server start`. Between script groups, call `lms unload --all` to free VRAM. | Run `lms server start` / `lms server stop` and poll readiness on `/v1/models`. |
+
+Flip either flag to `False` in a given pipeline's `generate.py` when you want the runner to own the service lifecycle end-to-end.
+
 ---
 
 ## 📂 Complete File Inventory

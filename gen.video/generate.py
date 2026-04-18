@@ -102,6 +102,12 @@ SCRIPTS_DIR = "scripts"
 NEEDS_COMFYUI = {"2.story.py", "2.character.py", "3.scene.py", "7.sfx.py", "10.thumbnail.py", "3.animate.py", "2.location.py"}
 NEEDS_LMSTUDIO = {"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py", "9.media.py", "2.motion.py"}
 
+# When True, assume the service is already running externally. The runner
+# will not spawn or terminate it; between script groups it only clears the
+# ComfyUI cache / unloads LM Studio models to free VRAM.
+COMFYUI_MANAGE_ONLY = True
+LMSTUDIO_MANAGE_ONLY = True
+
 # Centralized non-interactive defaults (only change this file)
 SCRIPT_ARGS = {
     # "1.story.py": ["--bypass-validation"],
@@ -368,7 +374,55 @@ def empty_comfyui_folders(base_dir: str, log_handle) -> bool:
     return success
 
 
-def start_comfyui(working_dir: str, log_handle) -> subprocess.Popen:
+class _ExternalServiceHandle:
+    """Placeholder returned in manage-only mode so the main loop can keep
+    using truthiness / poll() checks without knowing the service was not
+    spawned by us."""
+
+    def poll(self):
+        return None
+
+    def terminate(self):
+        pass
+
+    def kill(self):
+        pass
+
+    def wait(self, timeout=None):
+        return 0
+
+
+def clear_comfyui_cache(log_handle) -> None:
+    """Ask a running ComfyUI to unload models and free memory via /free."""
+    base_url = os.environ.get("COMFYUI_BASE_URL", "http://127.0.0.1:8188")
+    url = urljoin(base_url if base_url.endswith('/') else base_url + '/', 'free')
+    payload = json.dumps({"unload_models": True, "free_memory": True}).encode("utf-8")
+
+    log_handle.write(f"Clearing ComfyUI cache via POST {url} ...\n")
+    log_handle.flush()
+
+    req = urllib.request.Request(
+        url,
+        data=payload,
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            log_handle.write(f"ComfyUI /free responded: {resp.status}\n")
+    except Exception as ex:
+        log_handle.write(f"WARNING: Failed to clear ComfyUI cache: {ex}\n")
+    log_handle.flush()
+
+
+def start_comfyui(working_dir: str, log_handle):
+    if COMFYUI_MANAGE_ONLY:
+        log_handle.write(
+            "COMFYUI_MANAGE_ONLY=True: not starting ComfyUI; assuming it is already running.\n"
+        )
+        log_handle.flush()
+        return _ExternalServiceHandle()
+
     comfy_dir = resolve_comfyui_dir(working_dir)
     main_py = os.path.join(comfy_dir, "main.py")
 
@@ -411,8 +465,15 @@ def start_comfyui(working_dir: str, log_handle) -> subprocess.Popen:
     return proc
 
 
-def stop_comfyui(proc: subprocess.Popen, log_handle) -> None:
+def stop_comfyui(proc, log_handle) -> None:
     if proc is None:
+        return
+    if COMFYUI_MANAGE_ONLY:
+        log_handle.write(
+            "COMFYUI_MANAGE_ONLY=True: not stopping ComfyUI; clearing cache instead.\n"
+        )
+        log_handle.flush()
+        clear_comfyui_cache(log_handle)
         return
     log_handle.write("Stopping ComfyUI backend...\n")
     log_handle.flush()
@@ -469,6 +530,13 @@ def run_script(script_name: str, working_dir: str, log_handle) -> int:
 
 
 def start_lmstudio(log_handle) -> bool:
+    if LMSTUDIO_MANAGE_ONLY:
+        log_handle.write(
+            "LMSTUDIO_MANAGE_ONLY=True: not starting LM Studio; assuming it is already running.\n"
+        )
+        log_handle.flush()
+        return True
+
     cmd_env = os.environ.get("LM_STUDIO_CMD")
     if cmd_env:
         try:
@@ -570,6 +638,14 @@ def unload_lmstudio_all_models(log_handle) -> None:
 
 
 def stop_lmstudio(log_handle) -> None:
+    if LMSTUDIO_MANAGE_ONLY:
+        log_handle.write(
+            "LMSTUDIO_MANAGE_ONLY=True: not stopping LM Studio; unloading models instead.\n"
+        )
+        log_handle.flush()
+        unload_lmstudio_all_models(log_handle)
+        return
+
     cmd_env = os.environ.get("LM_STUDIO_CMD")
     if cmd_env:
         try:
@@ -638,7 +714,7 @@ def _http_probe(url: str, timeout: float = 3.0) -> bool:
         return False
 
 
-def wait_for_comfyui_ready(proc: subprocess.Popen, log_handle, interval_seconds: int = 15) -> bool:
+def wait_for_comfyui_ready(proc, log_handle, interval_seconds: int = 15) -> bool:
     base_url = os.environ.get("COMFYUI_BASE_URL", "http://127.0.0.1:8188")
     parsed = urlparse(base_url)
     host = parsed.hostname or "127.0.0.1"
@@ -667,7 +743,7 @@ def wait_for_comfyui_ready(proc: subprocess.Popen, log_handle, interval_seconds:
         time.sleep(interval_seconds)
 
 
-def wait_for_comfyui_stopped(proc: subprocess.Popen, log_handle, interval_seconds: int = 3) -> None:
+def wait_for_comfyui_stopped(proc, log_handle, interval_seconds: int = 3) -> None:
     base_url = os.environ.get("COMFYUI_BASE_URL", "http://127.0.0.1:8188")
     parsed = urlparse(base_url)
     host = parsed.hostname or "127.0.0.1"

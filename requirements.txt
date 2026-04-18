@@ -36,7 +36,5 @@ google-auth-oauthlib
 # - ComfyUI (AI workflow engine)
 # - LM Studio (language model inference)
 
-google-genai
-google-adk
 pydub
 # xformers
