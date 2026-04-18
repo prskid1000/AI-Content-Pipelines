@@ -18,7 +18,7 @@ The AI Content Studio is built on a modular pipeline architecture with four main
 
 ### Core Services
 - **ComfyUI** (Port 8188) - AI model inference server for TTS, image generation, and video animation
-- **LM Studio** (Port 1234) - Local language model (qwen3.5-35b-a3b_moe) for text processing and content analysis
+- **LM Studio** (Port 1234) - Local language model (qwen3.5-35b-a3b) for text processing and content analysis
 - **FFmpeg** - Video/audio processing and compilation
 - **Whisper** - Audio transcription
 
@@ -166,7 +166,7 @@ Text Story → Image Pipeline → AV Pipeline → YouTube
 
 ### Prerequisites
 1. **ComfyUI** - AI model server for TTS, image, and video generation
-2. **LM Studio** - Local language model (qwen3.5-35b-a3b_moe) 
+2. **LM Studio** - Local language model (qwen3.5-35b-a3b) 
 3. **FFmpeg** - Video/audio processing
 4. **Python Dependencies** - `pip install -r requirements.txt`
 5. **YouTube API** (optional) - For automated uploads
@@ -496,7 +496,7 @@ gen.audio/output/story/
 ```python
 LANGUAGE = "en"
 REGION = "in"
-MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen3.5-35b-a3b_moe"
+MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen3.5-35b-a3b"
 CHUNK_SIZE = 50  # Lines per chapter chunk
 GENERATE_TITLE = True
 ENABLE_RESUMABLE_MODE = True
@@ -539,14 +539,14 @@ How it works per chunk:
 
 ##### `5.timeline.py` - SFX Timeline Generation
 ```python
-MODEL_TIMELINE_GENERATION = "qwen3.5-35b-a3b_moe"
+MODEL_TIMELINE_GENERATION = "qwen3.5-35b-a3b"
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False
 ```
 
 ##### `6.timing.py` - SFX Timing Refinement
 ```python
-MODEL_TIMING_GENERATION = "qwen3.5-35b-a3b_moe"
+MODEL_TIMING_GENERATION = "qwen3.5-35b-a3b"
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False
 ```
@@ -561,12 +561,12 @@ max_workers = 3  # Concurrent processing
 
 ##### `9.media.py` - YouTube Metadata
 ```python
-MODEL_THUMBNAIL_GENERATION = "qwen3.5-35b-a3b_moe"  # Vision model for thumbnail prompts
-MODEL_MEDIA_TAGS = "qwen3.5-35b-a3b_moe"  # Model for generating YouTube tags
-MODEL_MEDIA_TITLE = "qwen3.5-35b-a3b_moe"  # Model for generating YouTube titles
-MODEL_MEDIA_HOOK = "qwen3.5-35b-a3b_moe"  # Model for generating YouTube hooks
-MODEL_MEDIA_BULLETS = "qwen3.5-35b-a3b_moe"  # Model for generating YouTube bullet points
-MODEL_DESCRIPTION_GENERATION = "qwen3.5-35b-a3b_moe"  # Model for description generation
+MODEL_THUMBNAIL_GENERATION = "qwen3.5-35b-a3b"  # Vision model for thumbnail prompts
+MODEL_MEDIA_TAGS = "qwen3.5-35b-a3b"  # Model for generating YouTube tags
+MODEL_MEDIA_TITLE = "qwen3.5-35b-a3b"  # Model for generating YouTube titles
+MODEL_MEDIA_HOOK = "qwen3.5-35b-a3b"  # Model for generating YouTube hooks
+MODEL_MEDIA_BULLETS = "qwen3.5-35b-a3b"  # Model for generating YouTube bullet points
+MODEL_DESCRIPTION_GENERATION = "qwen3.5-35b-a3b"  # Model for description generation
 ```
 
 ##### `10.thumbnail.py` - Thumbnail Generation
@@ -814,8 +814,8 @@ CHARACTER_SUMMARY_WORD_MIN = 60
 CHARACTER_SUMMARY_WORD_MAX = 120
 LOCATION_SUMMARY_WORD_MIN = 60
 LOCATION_SUMMARY_WORD_MAX = 120
-MODEL_STORY_DESCRIPTION = "qwen3.5-35b-a3b_moe"
-MODEL_CHARACTER_GENERATION = "qwen3.5-35b-a3b_moe"
+MODEL_STORY_DESCRIPTION = "qwen3.5-35b-a3b"
+MODEL_CHARACTER_GENERATION = "qwen3.5-35b-a3b"
 ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False
 ART_STYLE = "Realistic Anime"
@@ -1015,7 +1015,7 @@ output_file = "../output/final_sd.mp4"
 
 ```python
 # Model Constants for easy switching
-MODEL_MOTION_GENERATION = "qwen3.5-35b-a3b_moe"  # Vision model for motion generation
+MODEL_MOTION_GENERATION = "qwen3.5-35b-a3b"  # Vision model for motion generation
 
 # Feature Flags
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
@@ -1168,7 +1168,7 @@ External Input Files:
 
 ```python
 # Model Configuration
-MODEL_MOTION_GENERATION = "qwen3.5-35b-a3b_moe"  # Vision model
+MODEL_MOTION_GENERATION = "qwen3.5-35b-a3b"  # Vision model
 
 # Feature Flags
 ENABLE_RESUMABLE_MODE = True
@@ -1532,7 +1532,7 @@ comfyui_input_folder = "../../ComfyUI/input"
 #### LM Studio Configuration
 ```python
 LM_STUDIO_BASE_URL = "http://127.0.0.1:1234/v1"  # Default URL
-LM_STUDIO_MODEL = "qwen3.5-35b-a3b_moe"  # Default model
+LM_STUDIO_MODEL = "qwen3.5-35b-a3b"  # Default model
 models_url = "http://127.0.0.1:1234/v1/models"
 ```
 
@@ -1545,7 +1545,7 @@ COMFYUI_DIR=/path/to/ComfyUI
 LM_STUDIO_CMD=lms
 
 # Model Configuration
-LM_STUDIO_MODEL=qwen3.5-35b-a3b_moe
+LM_STUDIO_MODEL=qwen3.5-35b-a3b
 PYTHONIOENCODING=utf-8
 PYTHONUNBUFFERED=1
 
@@ -1638,10 +1638,10 @@ LANGUAGE = "en"
 REGION = "in"
 
 # Model Configuration
-MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen3.5-35b-a3b_moe"
-MODEL_CHARACTER_TITLE_GENERATION = "qwen3.5-35b-a3b_moe"
-MODEL_CHARACTER_META_SUMMARY = "qwen3.5-35b-a3b_moe"
-MODEL_DESCRIPTION_GENERATION = "qwen3.5-35b-a3b_moe"
+MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen3.5-35b-a3b"
+MODEL_CHARACTER_TITLE_GENERATION = "qwen3.5-35b-a3b"
+MODEL_CHARACTER_META_SUMMARY = "qwen3.5-35b-a3b"
+MODEL_DESCRIPTION_GENERATION = "qwen3.5-35b-a3b"
 
 # Story Processing
 CHUNK_SIZE = 50  # Lines per chapter chunk
@@ -1722,7 +1722,7 @@ transcription_file = "../input/2.story.str.txt"
 ##### `5.timeline.py` - SFX Timeline Generation
 ```python
 # Model Configuration
-MODEL_TIMELINE_GENERATION = "qwen3.5-35b-a3b_moe"
+MODEL_TIMELINE_GENERATION = "qwen3.5-35b-a3b"
 
 # Feature Flags
 ENABLE_RESUMABLE_MODE = True
@@ -1737,7 +1737,7 @@ checkpoint_dir = "../output/tracking"
 ##### `6.timing.py` - SFX Timing Refinement
 ```python
 # Model Configuration
-MODEL_TIMING_GENERATION = "qwen3.5-35b-a3b_moe"
+MODEL_TIMING_GENERATION = "qwen3.5-35b-a3b"
 
 # Feature Flags
 ENABLE_RESUMABLE_MODE = True
@@ -1780,11 +1780,11 @@ final_output_path = "../output/final.wav"
 ##### `9.media.py` - YouTube Metadata Generation
 ```python
 # Model Configuration
-MODEL_MEDIA_TAGS = "qwen3.5-35b-a3b_moe"
-MODEL_MEDIA_TITLE = "qwen3.5-35b-a3b_moe"
-MODEL_MEDIA_HOOK = "qwen3.5-35b-a3b_moe"
-MODEL_MEDIA_BULLETS = "qwen3.5-35b-a3b_moe"
-MODEL_DESCRIPTION_GENERATION = "qwen3.5-35b-a3b_moe"
+MODEL_MEDIA_TAGS = "qwen3.5-35b-a3b"
+MODEL_MEDIA_TITLE = "qwen3.5-35b-a3b"
+MODEL_MEDIA_HOOK = "qwen3.5-35b-a3b"
+MODEL_MEDIA_BULLETS = "qwen3.5-35b-a3b"
+MODEL_DESCRIPTION_GENERATION = "qwen3.5-35b-a3b"
 
 # File Paths
 story_file = "../input/1.story.txt"
@@ -1915,10 +1915,10 @@ ENABLE_RESUMABLE_MODE = True
 CLEANUP_TRACKING_FILES = False
 
 # Model Configuration
-MODEL_STORY_DESCRIPTION = "qwen3.5-35b-a3b_moe"
-MODEL_CHARACTER_GENERATION = "qwen3.5-35b-a3b_moe"
-MODEL_CHARACTER_SUMMARY = "qwen3.5-35b-a3b_moe"
-MODEL_LOCATION_EXPANSION = "qwen3.5-35b-a3b_moe"
+MODEL_STORY_DESCRIPTION = "qwen3.5-35b-a3b"
+MODEL_CHARACTER_GENERATION = "qwen3.5-35b-a3b"
+MODEL_CHARACTER_SUMMARY = "qwen3.5-35b-a3b"
+MODEL_LOCATION_EXPANSION = "qwen3.5-35b-a3b"
 
 ART_STYLE = "Realistic Anime"
 
@@ -2371,7 +2371,7 @@ COMFYUI_DIR=/path/to/ComfyUI
 LM_STUDIO_CMD=lms
 
 # Model Configuration
-LM_STUDIO_MODEL=qwen3.5-35b-a3b_moe
+LM_STUDIO_MODEL=qwen3.5-35b-a3b
 PYTHONIOENCODING=utf-8
 PYTHONUNBUFFERED=1
 
@@ -2398,7 +2398,7 @@ YOUTUBE_CATEGORY_ID=22
 
 #### LM Studio
 - **Purpose**: Local language model for text processing and content analysis
-- **Model**: qwen3.5-35b-a3b_moe (default)
+- **Model**: qwen3.5-35b-a3b (default)
 - **Port**: 1234 (default)
 - **Required For**:
   - **Audio Pipeline**: `1.character.py` (character analysis), `5.timeline.py` (SFX descriptions), `6.timing.py` (timing refinement), `9.media.py` (thumbnail prompts & metadata), `12.youtube.py` (YouTube upload)
@@ -2452,7 +2452,7 @@ YOUTUBE_CATEGORY_ID=22
 
 ### Prerequisites
 1. Install ComfyUI and required custom nodes
-2. Install LM Studio and load qwen3.5-35b-a3b_moe model
+2. Install LM Studio and load qwen3.5-35b-a3b model
 3. Install FFmpeg
 4. Install Python dependencies: `pip install -r requirements.txt`
 5. Set up YouTube API credentials (optional)
@@ -2463,7 +2463,7 @@ The AI Content Studio requires several AI models for different generation tasks.
 
 ### LM Studio Models (Language Processing)
 
-#### Primary Model: qwen3.5-35b-a3b_moe
+#### Primary Model: qwen3.5-35b-a3b
 - **Format**: GGUF (recommended for LM Studio)
 - **Size**: ~8GB (Q4_K_M quantization)
 - **Download Sources**:
@@ -2474,12 +2474,12 @@ The AI Content Studio requires several AI models for different generation tasks.
   - **LM Studio Hub**: Search "qwen" in LM Studio interface
   - **Direct Download**: Use LM Studio's built-in model browser
 
-#### Vision Model: qwen3.5-35b-a3b_moe
+#### Vision Model: qwen3.5-35b-a3b
 - **Format**: GGUF (for motion generation)
 - **Size**: ~4GB (Q4_K_M quantization)
 - **Purpose**: Master prompt generation for video (integrates dialogue, scene, motion, audio, character, and location data)
 - **Download Sources**:
-  - **Hugging Face**: [Qwen/qwen3.5-35b-a3b_moe-GGUF](https://huggingface.co/Qwen/qwen3.5-35b-a3b_moe-GGUF)
+  - **Hugging Face**: [Qwen/qwen3.5-35b-a3b-GGUF](https://huggingface.co/Qwen/qwen3.5-35b-a3b-GGUF)
   - **Local AI Zone**: [Qwen2.5-VL Models](https://local-ai-zone.github.io/)
 
 #### Recommended Quantization Levels
@@ -3278,7 +3278,7 @@ Where `{size}` can be "small", "medium", or "large" based on `IMAGE_LATENT_SIZE`
 - `LM_STUDIO_CMD` - Custom LM Studio command (overrides default lms)
 
 #### Model Configuration
-- `LM_STUDIO_MODEL` - Model name (default: qwen3.5-35b-a3b_moe)
+- `LM_STUDIO_MODEL` - Model name (default: qwen3.5-35b-a3b)
 - `PYTHONIOENCODING` - Python encoding (default: utf-8)
 - `PYTHONUNBUFFERED` - Python output buffering (default: 1)
 
@@ -3537,7 +3537,7 @@ This is a modular system designed for easy extension. Each script is self-contai
 - **YouTube**: `description.txt`, `tags.txt` (enhanced metadata generation)
 
 ### Model Configuration
-- **LM Studio Model**: `qwen3.5-35b-a3b_moe` (14B parameter language model)
+- **LM Studio Model**: `qwen3.5-35b-a3b` (14B parameter language model)
 - **Image Models**: FLUX.1, SD 3.5, HiDream, Qwen Image (GGUF format). Flux Kontext workflows use **UnetLoaderGGUF** with `flux1-kontext-dev-Q8_0.gguf`.
 - **Video Models**: LTX Video, Wan 2.1/2.2 (GGUF format)
 - **LoRA**: FLUX.1-Turbo-Alpha (primary LoRA for all scripts)

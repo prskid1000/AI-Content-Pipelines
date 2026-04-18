@@ -1,6 +1,8 @@
 Workflow runner started. Python executable: D:\.comfyui\.venv\Scripts\python.exe
 Working directory: D:\.comfyui\gen.audio
 Emptying ComfyUI input and output folders for audio generation...
+Removed directory: D:\.comfyui\ComfyUI\input\3d
+Removed file: D:\.comfyui\ComfyUI\input\example.png
 Removed file: D:\.comfyui\ComfyUI\input\gen.audio.aisha_en.wav
 Removed file: D:\.comfyui\ComfyUI\input\gen.audio.alok_en.wav
 Removed file: D:\.comfyui\ComfyUI\input\gen.audio.ayesha_en.wav
@@ -14,125 +16,94 @@ Removed file: D:\.comfyui\ComfyUI\input\gen.audio.ramesh_en.wav
 Removed file: D:\.comfyui\ComfyUI\input\gen.audio.sarang_en.wav
 Removed file: D:\.comfyui\ComfyUI\input\gen.audio.sid_en.wav
 Removed file: D:\.comfyui\ComfyUI\input\gen.audio.yuvraj_en.wav
+Removed file: D:\.comfyui\ComfyUI\input\msedge_XHPTFHmQMU.png
 Removed directory: D:\.comfyui\ComfyUI\output\audio
+Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00001_.png
+Removed file: D:\.comfyui\ComfyUI\output\_output_images_will_be_put_here
 Successfully emptied ComfyUI input and output folders.
-All tracked files unchanged. Preserving output directory.
-Starting LM Studio backend via lms CLI...
-Command: lms server start
-Success! Server is now running on port 1234
+File hash changed for key 'story_file': 51f2bd96fc5ce9e1... -> 4cf0470be8e14e0f...
+Tracked file content changed. Deleted and recreated output directory: D:\.comfyui\gen.audio\output
+LMSTUDIO_MANAGE_ONLY=True: not starting LM Studio; assuming it is already running.
 Waiting for LM Studio to become ready (polling every 15s)...
 LM Studio is ready after 0.0s (attempt 1).
 
-===== START D:\.comfyui\gen.audio\scripts\1.character.py @ 2026-04-10 15:28:34 =====
+===== START D:\.comfyui\gen.audio\scripts\1.character.py @ 2026-04-18 13:44:52 =====
 Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.audio\output\tracking
-Found existing checkpoint: D:\.comfyui\gen.audio\output\tracking\1.character.state.json
-Progress: Voices(✓) Meta-Summary(✗) Title(✗)
+No existing checkpoint found - starting fresh
 === VOICE REGION AND LANGUAGE SELECTION ===
 Available regions: in
 Available languages: ba, en, hi
 Current region: in, Current language: en
 [AUTO] Using --change-settings='n'
 === STORY PREPROCESSING ===
-Found 14 unique characters: male_silas_morn, male_colonel_rookwood, male_doctor_watson, female_aristocrat_lady_winterbourne, male_sir_lionel_greaves, female_helena_shaw, male_lord_winterbourne, male_inspector_scotland_yard, female_maid_elsie, male_stage_manager_mr_blinch, male_reverend_merriweather, male_landlady_mrs_hudson, male_percival_shaw, male_detective_holmes
+Found 6 unique characters: male_detective_holmes, male_mysterious_scientist, male_nobleman_mr_ashcroft, female_housekeeper_mrs_hudson, female_housekeeper_mrs_dalrymple, male_doctor_watson
 
 Available male voices: alok_en, bala_en, gaurav_en, himanshu_en, indrajeet_en, nikhil_en, ramesh_en, sarang_en, sid_en, yuvraj_en
 Available female voices: aisha_en, ayesha_en, deshna_en, henna_en, koku_en, maya_en, mona_en, mridula_en, paavni_en, vidya_en
-Using cached character voice assignments from checkpoint
+
+=== CHARACTER VOICE ASSIGNMENT ===
+I found the following characters in your story:
+- male_detective_holmes
+- male_mysterious_scientist
+- male_nobleman_mr_ashcroft
+- female_housekeeper_mrs_hudson
+- female_housekeeper_mrs_dalrymple
+- male_doctor_watson
+
+AUTO_ASSIGN_VOICE=True -> asking LM Studio to cast voices...
+Asking LM Studio to cast 6 characters...
+LLM casting failed (LM Studio API error: 400 {
+    "error": {
+        "message": "No models loaded. Please load a model in the developer page or use the 'lms load' command.",
+        "type": "invalid_request_error",
+        "param": "model",
+        "code": null
+    }
+}); falling back to prefix heuristic.
+
+Currently assigned voices:
+- male_doctor_watson: alok_en
+- male_detective_holmes: ramesh_en
+
+Need to assign voices for: male_mysterious_scientist, male_nobleman_mr_ashcroft, female_housekeeper_mrs_hudson, female_housekeeper_mrs_dalrymple
+Auto-assigned male voice 'bala_en' to 'male_mysterious_scientist' (male_ prefix detected)
+Auto-assigned male voice 'gaurav_en' to 'male_nobleman_mr_ashcroft' (male_ prefix detected)
+Auto-assigned female voice 'aisha_en' to 'female_housekeeper_mrs_hudson' (female_ prefix detected)
+Auto-assigned female voice 'ayesha_en' to 'female_housekeeper_mrs_dalrymple' (female_ prefix detected)
+
+=== FINAL CHARACTER-VOICE MAPPING ===
+- male_detective_holmes: ramesh_en
+- male_mysterious_scientist: bala_en
+- male_nobleman_mr_ashcroft: gaurav_en
+- female_housekeeper_mrs_hudson: aisha_en
+- female_housekeeper_mrs_dalrymple: ayesha_en
+- male_doctor_watson: alok_en
+[AUTO] Using --auto-confirm='y'
+Voice assignment confirmed!
+Created backup: ../input/1.story.speakers.txt.backup
+Wrote speaker map: ../input/1.story.speakers.txt
+Format: <character_tag>  <voice_stem>
 
 === CHAPTER GENERATION FROM META-SUMMARY ===
 📊 Story Statistics:
-   📏 Total characters (excluding [names]): 51,341
-   📝 Total words: 9,365
-   📄 Total lines: 322
+   📏 Total characters (excluding [names]): 36,246
+   📝 Total words: 6,243
+   📄 Total lines: 210
 
 === GENERATING META-SUMMARY ===
 🔄 Summarizing story content into 5 parts...
-Validating part 1/5:
-✓ Summary within limits: 388 characters, 63 words
-Validating part 2/5:
-✓ Summary within limits: 396 characters, 74 words
-Validating part 3/5:
-✓ Summary within limits: 435 characters, 74 words
-Validating part 4/5:
-✓ Summary within limits: 406 characters, 73 words
-Validating part 5/5:
-✓ Summary within limits: 433 characters, 73 words
+❌ Meta-summary generation failed: LM Studio API call failed: LM Studio API error: 400 {
+    "error": {
+        "message": "No models loaded. Please load a model in the developer page or use the 'lms load' command.",
+        "type": "invalid_request_error",
+        "param": "model",
+        "code": null
+    }
+}
 
-📝 Meta-summary statistics:
-   🎯 Total Words: 357 (target: 300-600)
-   📏 Total Characters: 2058 (target: 1800-3600)
-   📦 Parts: 5 (expected: 5)
-   ⏱️  Generation time: 36.89s
-
-Validating total summary:
-✓ Summary within limits: 2062 characters, 357 words
-✅ Meta-summary meets word count target
-✅ Meta-summary generated successfully
-
-Converting 5 meta-summary parts to chapters...
-✅ Chapter 1/5:
-   📖 Title: The Vanishing Jewel
-   📝 Summary words: 63
-   🔸 Short summary words: 10
-✅ Chapter 2/5:
-   📖 Title: The Trained Feline Clue
-   📝 Summary words: 74
-   🔸 Short summary words: 12
-✅ Chapter 3/5:
-   📖 Title: The Theater Conspiracy
-   📝 Summary words: 74
-   🔸 Short summary words: 12
-✅ Chapter 4/5:
-   📖 Title: The Stage Hand Trap
-   📝 Summary words: 73
-   🔸 Short summary words: 12
-✅ Chapter 5/5:
-   📖 Title: The Silent Restoration
-   📝 Summary words: 73
-   🔸 Short summary words: 11
-📄 Chapters saved to: ../input\12.chapters.txt
-
-📚 CHAPTER BREAKDOWN
-==========================================================================================
-%    Chapter Title                  Words    Short    Status  
-------------------------------------------------------------------------------------------
- 20% The Vanishing Jewel            63       10       ✅ OK    
- 40% The Trained Feline Clue        74       12       ✅ OK    
- 60% The Theater Conspiracy         74       12       ✅ OK    
- 80% The Stage Hand Trap            73       12       ✅ OK    
-100% The Silent Restoration         73       11       ✅ OK    
-------------------------------------------------------------------------------------------
-TOT  5/5 chapters generated         -        -        DONE    
-==========================================================================================
-📄 Summary saved to: ../input\9.summary.txt
-📝 Total words: 357
-📏 Total characters: 2062
-
-📊 CHAPTER STATISTICS
-================================================================================
-Part   Title                          Words      Chars      Short Words 
---------------------------------------------------------------------------------
-1      The Vanishing Jewel            63         388        10          
-2      The Trained Feline Clue        74         396        12          
-3      The Theater Conspiracy         74         435        12          
-4      The Stage Hand Trap            73         406        12          
-5      The Silent Restoration         73         433        11          
---------------------------------------------------------------------------------
-TOTAL  5 chapters                     357        2062       -           
-================================================================================
-
-=== GENERATING STORY TITLE ===
-✅ Story title generated:
-   📖 Title: The Case of the Silent Feline
-   ⏱️  Generation time: 3.69s
-📄 Story title saved to: ../input\10.title.txt
-
-🎉 Chapter generation completed!
-📊 Successfully generated 5 chapters from meta-summary
-
-📚 Generated 5 chapter summaries
+📚 Generated 0 chapter summaries
 All operations completed successfully
-Final progress: Progress: Voices(✓) Meta-Summary(✓) Title(✓)
+Final progress: Progress: Voices(✓) Meta-Summary(✗) Title(✗)
 All operations completed successfully - tracking files preserved
 
 ==================================================
@@ -140,24 +111,20 @@ All operations completed successfully - tracking files preserved
 ==================================================
 ⚙️  Setup time: 0.000 seconds
 📖 Story reading time: 0.000 seconds
-👥 Character preprocessing time: 40.583 seconds
-⏱️  Total execution time: 40.588 seconds (0.676 minutes)
+👥 Character preprocessing time: 4.115 seconds
+⏱️  Total execution time: 4.115 seconds (0.069 minutes)
 ==================================================
 
-===== END D:\.comfyui\gen.audio\scripts\1.character.py @ 2026-04-10 15:29:15 (exit=0, took=40.75s) =====
-Stopping LM Studio backend via lms CLI...
-Command: lms server stop
+===== END D:\.comfyui\gen.audio\scripts\1.character.py @ 2026-04-18 13:44:57 (exit=0, took=4.34s) =====
+LMSTUDIO_MANAGE_ONLY=True: not stopping LM Studio; unloading models instead.
 Unloading all models from LM Studio...
 Command: lms unload --all
-Unloading "qwen3.5-35b-a3b"...
-Unloaded 1 model.
-Stopped the server on port 1234.
-LM Studio appears stopped (after 1 checks).
-Starting ComfyUI backend using Windows cmd style...
+No models to unload.
+COMFYUI_MANAGE_ONLY=True: not starting ComfyUI; assuming it is already running.
 Waiting for ComfyUI to become ready (polling every 15s)...
 ComfyUI is ready after 0.0s (attempt 1).
 
-===== START D:\.comfyui\gen.audio\scripts\2.story.py @ 2026-04-10 15:29:16 =====
+===== START D:\.comfyui\gen.audio\scripts\2.story.py @ 2026-04-18 13:44:58 =====
 ✅ Resumable mode enabled (use --disable-resumable to disable)
 Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.audio\output\tracking
 No existing checkpoint found - starting fresh
@@ -165,287 +132,39 @@ Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\alok_en.wav -> ../../Comfy
 Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\ramesh_en.wav -> ../../ComfyUI/input\gen.audio.ramesh_en.wav
 Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\bala_en.wav -> ../../ComfyUI/input\gen.audio.bala_en.wav
 Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\gaurav_en.wav -> ../../ComfyUI/input\gen.audio.gaurav_en.wav
-Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\himanshu_en.wav -> ../../ComfyUI/input\gen.audio.himanshu_en.wav
 Staged voice: D:\.comfyui\gen.audio\voices\female\in\en\aisha_en.wav -> ../../ComfyUI/input\gen.audio.aisha_en.wav
 Staged voice: D:\.comfyui\gen.audio\voices\female\in\en\ayesha_en.wav -> ../../ComfyUI/input\gen.audio.ayesha_en.wav
-Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\indrajeet_en.wav -> ../../ComfyUI/input\gen.audio.indrajeet_en.wav
-Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\nikhil_en.wav -> ../../ComfyUI/input\gen.audio.nikhil_en.wav
-Staged voice: D:\.comfyui\gen.audio\voices\female\in\en\deshna_en.wav -> ../../ComfyUI/input\gen.audio.deshna_en.wav
-Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\sarang_en.wav -> ../../ComfyUI/input\gen.audio.sarang_en.wav
-Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\sid_en.wav -> ../../ComfyUI/input\gen.audio.sid_en.wav
-Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\yuvraj_en.wav -> ../../ComfyUI/input\gen.audio.yuvraj_en.wav
-Loaded 14 character -> voice mappings from ../input/1.story.speakers.txt
+Loaded 6 character -> voice mappings from ../input/1.story.speakers.txt
 Processing story...
 Processing story in chunks...
-📊 Story contains 9,365 words
-Story split into 22 chunks of 15 lines each
+📊 Story contains 6,243 words
+Story split into 14 chunks of 15 lines each
 
 📊 STORY PROCESSING PROGRESS
 ====================================================================================================
-🎵 Chunk 1 (1-15) - 5.3% complete - Processing...
-📊 Estimated time remaining: ~46.8m (?)
+🎵 Chunk 1 (1-15) - 8.3% complete - Processing...
+📊 Estimated time remaining: ~31.2m (?)
 Generating audio for chunk 1 (lines 1-15)...
-Chunk length: 3104 characters
+Chunk length: 3404 characters
 Sending workflow to ComfyUI...
 Response status: 200
-Response JSON: {'prompt_id': '7770ede1-b43d-4e69-8efc-b2ba2f7b7a54', 'number': 1, 'node_errors': {}}
-Workflow sent successfully, prompt_id: 7770ede1-b43d-4e69-8efc-b2ba2f7b7a54
+Response JSON: {'prompt_id': 'cfefa12a-66f4-4546-819e-88fd23fe25f2', 'number': 0, 'node_errors': {}}
+Workflow sent successfully, prompt_id: cfefa12a-66f4-4546-819e-88fd23fe25f2
 Waiting for audio generation to complete...
-
-Prestartup times for custom nodes:
-   3.3 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-
-Found comfy_kitchen backend eager: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_mxfp8', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_mxfp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_mxfp8', 'scaled_mm_nvfp4']}
-Found comfy_kitchen backend triton: {'available': True, 'disabled': True, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_mxfp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8']}
-Found comfy_kitchen backend cuda: {'available': True, 'disabled': False, 'unavailable_reason': None, 'capabilities': ['apply_rope', 'apply_rope1', 'dequantize_nvfp4', 'dequantize_per_tensor_fp8', 'quantize_mxfp8', 'quantize_nvfp4', 'quantize_per_tensor_fp8', 'scaled_mm_nvfp4']}
-Checkpoint files will always be loaded safely.
-Total VRAM 12227 MB, total RAM 64957 MB
-pytorch version: 2.9.0+cu130
-xformers version: 0.0.33
-Set vram state to: NORMAL_VRAM
-Device: cuda:0 NVIDIA GeForce RTX 5070 Ti Laptop GPU : cudaMallocAsync
-Using async weight offloading with 16 streams
-Enabled pinned memory 25982.0
-working around nvidia conv3d memory bug.
-Using xformers attention
-aimdo: src-win/cuda-detour.c:77:INFO:aimdo_setup_hooks: found driver at 00007FF89FA00000, installing 4 hooks
-aimdo: src-win/cuda-detour.c:61:DEBUG:install_hook_entrys: hooks successfully installed
-aimdo: src/control.c:69:INFO:comfy-aimdo inited for GPU: NVIDIA GeForce RTX 5070 Ti Laptop GPU (VRAM: 12226 MB)
-DynamicVRAM support detected and enabled
-Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
-ComfyUI version: 0.18.1
-comfy-aimdo version: 0.2.12
-comfy-kitchen version: 0.2.8
-ComfyUI frontend version: 1.42.8
-[Prompt Server] web root: D:\.comfyui\.venv\Lib\site-packages\comfyui_frontend_package\static
-Asset seeder disabled
-ComfyUI-GGUF: Allowing full torch compile
-### Loading: ComfyUI-Manager (V3.39.2)
-[ComfyUI-Manager] network_mode: public
-[ComfyUI-Manager] ComfyUI per-queue preview override detected (PR #11261). Manager's preview method feature is disabled. Use ComfyUI's --preview-method CLI option or 'Settings > Execution > Live preview method'.
-### ComfyUI Version: v0.18.1-41-g0c63b4f6 | Released on '2026-04-01'
-torchcodec blocked (incompatible PyTorch build) — using soundfile fallback
-[OmniVoice] HuggingFace cache set to: D:\.comfyui\ComfyUI\models\audio_encoders
-[OmniVoice] Models folder registered: D:\.comfyui\ComfyUI\models\omnivoice
-[OmniVoice] Registered 5 nodes (v0.3.8): OmniVoice Whisper Loader, OmniVoice Longform TTS, OmniVoice Voice Clone TTS, OmniVoice Voice Design TTS, OmniVoice Multi-Speaker TTS
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
-[ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
-D:\.comfyui\.venv\Lib\site-packages\timm\models\layers\__init__.py:49: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
-  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
-D:\.comfyui\.venv\Lib\site-packages\torch\backends\__init__.py:46: UserWarning: Please use the new API settings to control TF32 behavior, such as torch.backends.cudnn.conv.fp32_precision = 'tf32' or torch.backends.cuda.matmul.fp32_precision = 'ieee'. Old settings, e.g, torch.backends.cuda.matmul.allow_tf32 = True, torch.backends.cudnn.allow_tf32 = True, allowTF32CuDNN() and allowTF32CuBLAS() will be deprecated after Pytorch 2.9. Please see https://pytorch.org/docs/main/notes/cuda.html#tensorfloat-32-tf32-on-ampere-and-later-devices (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\aten\src\ATen\Context.cpp:85.)
-  self.setter(val)
-
-Import times for custom nodes:
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\websocket_image_save.py
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI_LoadImageFromHttpURL
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-MediaUtilities
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyMath
-   0.0 seconds: D:\.comfyui\ComfyUI\custom_nodes\controlaltai-nodes
-   0.1 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-GGUF
-   0.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-OmniVoice-TTS
-   0.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-kjnodes
-   0.5 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-Whisper
-   0.7 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager
-   1.2 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-videohelpersuite
-   2.4 seconds: D:\.comfyui\ComfyUI\custom_nodes\ComfyUI-LTXVideo
-   5.6 seconds: D:\.comfyui\ComfyUI\custom_nodes\comfyui-rmbg
-
-Context impl SQLiteImpl.
-Will assume non-transactional DDL.
-Failed to initialize database. Please ensure you have installed the latest requirements. If the error persists, please report this as in future the database will be required: Could not acquire lock on database 'D:\.comfyui\ComfyUI\user\comfyui.db'. Another ComfyUI process may already be using it. Use --database-url to specify a separate database file.
-Starting server
-
-[START] Security scan
-[DONE] Security scan
-[ComfyUI-Manager] Logging failed: [WinError 32] The process cannot access the file because it is being used by another process: 'D:\\.comfyui\\ComfyUI\\user\\comfyui.log' -> 'D:\\.comfyui\\ComfyUI\\user\\comfyui.prev.log'
-## ComfyUI-Manager: installing dependencies done.
-** ComfyUI startup time: 2026-04-10 15:29:19.248
-** Platform: Windows
-** Python version: 3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]
-** Python executable: D:\.comfyui\.venv\Scripts\python.exe
-** ComfyUI Path: D:\.comfyui\ComfyUI
-** ComfyUI Base Folder Path: D:\.comfyui\ComfyUI
-** User directory: D:\.comfyui\ComfyUI\user
-** ComfyUI-Manager config path: D:\.comfyui\ComfyUI\user\__manager\config.ini
-** Log path: D:\.comfyui\ComfyUI\user\comfyui.log
-[34m[ComfyUI-RMBG][0m v[93m3.0.0[0m | [93m43 nodes[0m [92mLoaded[0m
-FETCH ComfyRegistry Data: 5/138
-
-[32mInitializing ControlAltAI Nodes[0m
 Traceback (most recent call last):
-  File "D:\.comfyui\ComfyUI\main.py", line 526, in <module>
-    event_loop.run_until_complete(x)
-  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\base_events.py", line 687, in run_until_complete
-    return future.result()
-           ^^^^^^^^^^^^^^^
-  File "D:\.comfyui\ComfyUI\main.py", line 500, in start_all
-    await run(prompt_server, address=args.listen, port=args.port, verbose=not args.dont_print_server, call_on_start=call_on_start)
-  File "D:\.comfyui\ComfyUI\main.py", line 372, in run
-    await asyncio.gather(
-  File "D:\.comfyui\ComfyUI\server.py", line 1244, in start_multi_address
-    await site.start()
-  File "D:\.comfyui\.venv\Lib\site-packages\aiohttp\web_runner.py", line 121, in start
-    self._server = await loop.create_server(
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\prith\.pyenv\pyenv-win\versions\3.12.5\Lib\asyncio\base_events.py", line 1571, in create_server
-    raise OSError(err.errno, msg) from None
-PermissionError: [Errno 13] error while attempting to bind on address ('127.0.0.1', 8188): [winerror 10013] an attempt was made to access a socket in a way forbidden by its access permissions
-Cannot connect to comfyregistry.
-FETCH DATA from: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json[ComfyUI-Manager] Due to a network error, switching to local mode.
-=> custom-node-list.json
-=> cannot schedule new futures after shutdown
-[ComfyUI-Manager] All startup tasks have been completed.
-FETCH DATA from: D:\.comfyui\ComfyUI\custom_nodes\comfyui-manager\custom-node-list.json [DONE]
-[W410 15:29:51.000000000 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator ())
-Looking for generated audio file in ../../ComfyUI/output/audio
-Files in folder: ['chunk_1_00001_.mp3']
-Found generated file: ../../ComfyUI/output/audio\chunk_1_00001_.mp3
-Converting ../../ComfyUI/output/audio\chunk_1_00001_.mp3 to WAV format...
-Converted and saved as ../output/story\1_15.wav
-✅ Chunk 1 (1-15) - 5.3% complete - Completed in 43.3s - 1_15.wav (WPM: 722)
-📊 Estimated time remaining: ~12.2m (?)
-🎵 Chunk 2 (16-30) - 10.6% complete - Processing...
-📊 Estimated time remaining: ~12.2m (?)
-Generating audio for chunk 2 (lines 16-30)...
-Chunk length: 3109 characters
-Sending workflow to ComfyUI...
-Response status: 200
-Response JSON: {'prompt_id': '391fcc46-c14b-4029-a4ef-be40100614d6', 'number': 2, 'node_errors': {}}
-Workflow sent successfully, prompt_id: 391fcc46-c14b-4029-a4ef-be40100614d6
-Waiting for audio generation to complete...
-Looking for generated audio file in ../../ComfyUI/output/audio
-Files in folder: ['chunk_1_00001_.mp3', 'chunk_2_00001_.mp3']
-Found generated file: ../../ComfyUI/output/audio\chunk_2_00001_.mp3
-Converting ../../ComfyUI/output/audio\chunk_2_00001_.mp3 to WAV format...
-Converted and saved as ../output/story\16_30.wav
-✅ Chunk 2 (16-30) - 10.6% complete - Completed in 48.3s - 16_30.wav (WPM: 616)
-📊 Estimated time remaining: ~12.5m (?)
-🎵 Chunk 3 (31-45) - 15.3% complete - Processing...
-📊 Estimated time remaining: ~12.5m (?)
-Generating audio for chunk 3 (lines 31-45)...
-Chunk length: 2741 characters
-Sending workflow to ComfyUI...
-Response status: 200
-Response JSON: {'prompt_id': '1d2d8664-82d1-4fb7-a350-852ebb67727c', 'number': 3, 'node_errors': {}}
-Workflow sent successfully, prompt_id: 1d2d8664-82d1-4fb7-a350-852ebb67727c
-Waiting for audio generation to complete...
-Looking for generated audio file in ../../ComfyUI/output/audio
-Files in folder: ['chunk_1_00001_.mp3', 'chunk_2_00001_.mp3', 'chunk_3_00001_.mp3']
-Found generated file: ../../ComfyUI/output/audio\chunk_3_00001_.mp3
-Converting ../../ComfyUI/output/audio\chunk_3_00001_.mp3 to WAV format...
-Converted and saved as ../output/story\31_45.wav
-✅ Chunk 3 (31-45) - 15.3% complete - Completed in 43.2s - 31_45.wav (WPM: 600)
-📊 Estimated time remaining: ~12.3m (~)
-🎵 Chunk 4 (46-60) - 20.2% complete - Processing...
-📊 Estimated time remaining: ~12.3m (~)
-Generating audio for chunk 4 (lines 46-60)...
-Chunk length: 2863 characters
-Sending workflow to ComfyUI...
-Response status: 200
-Response JSON: {'prompt_id': '05358bd3-aaed-498b-a3d7-3c2b8003f13d', 'number': 4, 'node_errors': {}}
-Workflow sent successfully, prompt_id: 05358bd3-aaed-498b-a3d7-3c2b8003f13d
-Waiting for audio generation to complete...
-Looking for generated audio file in ../../ComfyUI/output/audio
-Files in folder: ['chunk_1_00001_.mp3', 'chunk_2_00001_.mp3', 'chunk_3_00001_.mp3', 'chunk_4_00001_.mp3']
-Found generated file: ../../ComfyUI/output/audio\chunk_4_00001_.mp3
-Converting ../../ComfyUI/output/audio\chunk_4_00001_.mp3 to WAV format...
-Converted and saved as ../output/story\46_60.wav
-✅ Chunk 4 (46-60) - 20.2% complete - Completed in 48.2s - 46_60.wav (WPM: 575)
-📊 Estimated time remaining: ~11.9m (~)
-🎵 Chunk 5 (61-75) - 24.8% complete - Processing...
-📊 Estimated time remaining: ~11.9m (~)
-Generating audio for chunk 5 (lines 61-75)...
-Chunk length: 2710 characters
-Sending workflow to ComfyUI...
-Response status: 200
-Response JSON: {'prompt_id': '0e919a8e-f439-4647-80ee-8dbf78c18334', 'number': 5, 'node_errors': {}}
-Workflow sent successfully, prompt_id: 0e919a8e-f439-4647-80ee-8dbf78c18334
-Waiting for audio generation to complete...
-Looking for generated audio file in ../../ComfyUI/output/audio
-Files in folder: ['chunk_1_00001_.mp3', 'chunk_2_00001_.mp3', 'chunk_3_00001_.mp3', 'chunk_4_00001_.mp3', 'chunk_5_00001_.mp3']
-Found generated file: ../../ComfyUI/output/audio\chunk_5_00001_.mp3
-Converting ../../ComfyUI/output/audio\chunk_5_00001_.mp3 to WAV format...
-Converted and saved as ../output/story\61_75.wav
-✅ Chunk 5 (61-75) - 24.8% complete - Completed in 43.5s - 61_75.wav (WPM: 596)
-📊 Estimated time remaining: ~11.3m (✓)
-🎵 Chunk 6 (76-90) - 29.5% complete - Processing...
-📊 Estimated time remaining: ~11.3m (✓)
-Generating audio for chunk 6 (lines 76-90)...
-Chunk length: 2772 characters
-Sending workflow to ComfyUI...
-Response status: 200
-Response JSON: {'prompt_id': '74c9fd6f-299b-4bd8-bee9-58dbe96dccb3', 'number': 6, 'node_errors': {}}
-Workflow sent successfully, prompt_id: 74c9fd6f-299b-4bd8-bee9-58dbe96dccb3
-Waiting for audio generation to complete...
-Looking for generated audio file in ../../ComfyUI/output/audio
-Files in folder: ['chunk_1_00001_.mp3', 'chunk_2_00001_.mp3', 'chunk_3_00001_.mp3', 'chunk_4_00001_.mp3', 'chunk_5_00001_.mp3', 'chunk_6_00001_.mp3']
-Found generated file: ../../ComfyUI/output/audio\chunk_6_00001_.mp3
-Converting ../../ComfyUI/output/audio\chunk_6_00001_.mp3 to WAV format...
-Converted and saved as ../output/story\76_90.wav
-✅ Chunk 6 (76-90) - 29.5% complete - Completed in 48.2s - 76_90.wav (WPM: 577)
-📊 Estimated time remaining: ~10.7m (✓)
-🎵 Chunk 7 (91-105) - 34.3% complete - Processing...
-📊 Estimated time remaining: ~10.7m (✓)
-Generating audio for chunk 7 (lines 91-105)...
-Chunk length: 2792 characters
-Sending workflow to ComfyUI...
-Response status: 200
-Response JSON: {'prompt_id': '79bf00ee-79f6-437d-8694-cb4066d3c015', 'number': 7, 'node_errors': {}}
-Workflow sent successfully, prompt_id: 79bf00ee-79f6-437d-8694-cb4066d3c015
-Waiting for audio generation to complete...
-Looking for generated audio file in ../../ComfyUI/output/audio
-Files in folder: ['chunk_1_00001_.mp3', 'chunk_2_00001_.mp3', 'chunk_3_00001_.mp3', 'chunk_4_00001_.mp3', 'chunk_5_00001_.mp3', 'chunk_6_00001_.mp3', 'chunk_7_00001_.mp3']
-Found generated file: ../../ComfyUI/output/audio\chunk_7_00001_.mp3
-Converting ../../ComfyUI/output/audio\chunk_7_00001_.mp3 to WAV format...
-Converted and saved as ../output/story\91_105.wav
-✅ Chunk 7 (91-105) - 34.3% complete - Completed in 48.3s - 91_105.wav (WPM: 537)
-📊 Estimated time remaining: ~10.2m (✓)
-🎵 Chunk 8 (106-120) - 38.8% complete - Processing...
-📊 Estimated time remaining: ~10.2m (✓)
-Generating audio for chunk 8 (lines 106-120)...
-Chunk length: 2634 characters
-Sending workflow to ComfyUI...
-Response status: 200
-Response JSON: {'prompt_id': 'b6380471-e26d-42c0-ba1b-089a8c7377e6', 'number': 8, 'node_errors': {}}
-Workflow sent successfully, prompt_id: b6380471-e26d-42c0-ba1b-089a8c7377e6
-Waiting for audio generation to complete...
-Looking for generated audio file in ../../ComfyUI/output/audio
-Files in folder: ['chunk_1_00001_.mp3', 'chunk_2_00001_.mp3', 'chunk_3_00001_.mp3', 'chunk_4_00001_.mp3', 'chunk_5_00001_.mp3', 'chunk_6_00001_.mp3', 'chunk_7_00001_.mp3', 'chunk_8_00001_.mp3']
-Found generated file: ../../ComfyUI/output/audio\chunk_8_00001_.mp3
-Converting ../../ComfyUI/output/audio\chunk_8_00001_.mp3 to WAV format...
-Converted and saved as ../output/story\106_120.wav
-✅ Chunk 8 (106-120) - 38.8% complete - Completed in 48.2s - 106_120.wav (WPM: 530)
-📊 Estimated time remaining: ~9.6m (✓)
-🎵 Chunk 9 (121-135) - 43.6% complete - Processing...
-📊 Estimated time remaining: ~9.6m (✓)
-Generating audio for chunk 9 (lines 121-135)...
-Chunk length: 2822 characters
-Sending workflow to ComfyUI...
-Response status: 200
-Response JSON: {'prompt_id': '93900987-8950-4572-876a-6f03575d27b0', 'number': 9, 'node_errors': {}}
-Workflow sent successfully, prompt_id: 93900987-8950-4572-876a-6f03575d27b0
-Waiting for audio generation to complete...
-Looking for generated audio file in ../../ComfyUI/output/audio
-Files in folder: ['chunk_1_00001_.mp3', 'chunk_2_00001_.mp3', 'chunk_3_00001_.mp3', 'chunk_4_00001_.mp3', 'chunk_5_00001_.mp3', 'chunk_6_00001_.mp3', 'chunk_7_00001_.mp3', 'chunk_8_00001_.mp3', 'chunk_9_00001_.mp3']
-Found generated file: ../../ComfyUI/output/audio\chunk_9_00001_.mp3
-Converting ../../ComfyUI/output/audio\chunk_9_00001_.mp3 to WAV format...
-Converted and saved as ../output/story\121_135.wav
-✅ Chunk 9 (121-135) - 43.6% complete - Completed in 53.3s - 121_135.wav (WPM: 517)
-📊 Estimated time remaining: ~9.0m (✓)
-🎵 Chunk 10 (136-150) - 48.0% complete - Processing...
-📊 Estimated time remaining: ~9.0m (✓)
-Generating audio for chunk 10 (lines 136-150)...
-Chunk length: 2601 characters
-Sending workflow to ComfyUI...
-Response status: 200
-Response JSON: {'prompt_id': '1b8d278b-4688-4bbc-9377-847320fe78c1', 'number': 10, 'node_errors': {}}
-Workflow sent successfully, prompt_id: 1b8d278b-4688-4bbc-9377-847320fe78c1
-Waiting for audio generation to complete...
-
-===== END D:\.comfyui\gen.audio\scripts\2.story.py @ 2026-04-10 15:36:39 (exit=3221225786, took=442.91s) =====
-Stopping ComfyUI backend...
-Received signal 21. Cleaning up services...
-Stopping ComfyUI backend...
+  File "D:\.comfyui\gen.audio\scripts\2.story.py", line 1038, in <module>
+    final_audio = processor.process_story(story_text, resumable_state)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\.comfyui\gen.audio\scripts\2.story.py", line 954, in process_story
+    chunk_files = self.process_story_chunks(story_text, resumable_state)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\.comfyui\gen.audio\scripts\2.story.py", line 859, in process_story_chunks
+    chunk_output = self.generate_chunk_audio(chunk_text, chunk_number, start_line, end_line)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\.comfyui\gen.audio\scripts\2.story.py", line 744, in generate_chunk_audio
+    time.sleep(5)
+KeyboardInterrupt
+Received signal 2. Cleaning up services...
+COMFYUI_MANAGE_ONLY=True: not stopping ComfyUI; clearing cache instead.
+Clearing ComfyUI cache via POST http://127.0.0.1:8188/free ...
+ComfyUI /free responded: 200
