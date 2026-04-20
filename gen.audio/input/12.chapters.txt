@@ -1,10 +1,10 @@
-20%: The Vanishing Jewel
-SHORT_SUMMARY : Lady Winterbourne loses her heirloom stone inside a locked room.
-40%: The Trained Feline Clue
-SHORT_SUMMARY : A black cat carries a velvet scrap from the missing jewel site.
-60%: The Theater Conspiracy
-SHORT_SUMMARY : Holmes tracks the thief to a music hall basement in London town.
-80%: The Stage Hand Trap
-SHORT_SUMMARY : Mr. Percival Shaw attempts to sell the gem backstage during a show.
-100%: The Silent Restoration
-SHORT_SUMMARY : Holmes returns the jewel and protects Lady Winterbourne from public scandal.
+20%: The Urgent Visitor
+SHORT_SUMMARY : Ashcroft arrives at Baker Street with grave news. He tells Holmes of missing servants. Holmes senses deep dread in the叙述
+40%: Journey to the Valley
+SHORT_SUMMARY : Holmes and Watson travel to rural estate. They examine the grounds carefully for clues. Holmes finds hidden path through
+60%: The Secret Lab
+SHORT_SUMMARY : A hollow reveals a hidden door beneath ground. Holmes and Watson descend into dark tunnel. They discover chemical lab
+80%: Confrontation in Shadows
+SHORT_SUMMARY : Holmes challenges the scientist about his cruel methods. Ashcroft condemns the use of servants. Holmes destroys the air
+100%: Justice and Reflection
+SHORT_SUMMARY : Authorities arrest the fleeing scientist at once. The hidden tunnels are sealed permanently. Holmes warns about ethical

@@ -538,8 +538,8 @@ class YouTubeDescriptionGenerator:
                     "type": "object",
                     "additionalProperties": False,
                     "properties": {
-                        "title": {"type": "string"},
-                        "genre": {"type": "string"}
+                        "title": {"type": "string", "maxLength": 83},
+                        "genre": {"type": "string", "maxLength": 30}
                     },
                     "required": ["title", "genre"],
                 },
@@ -644,13 +644,15 @@ class YouTubeDescriptionGenerator:
             "You are a YouTube content editor. Generate a title and genre/content type label for YouTube.\n"
             "The title should start with an emoji and be engaging.\n"
             "The genre should be a concise content type/genre label (e.g., 'Mystery Audiobook', 'Detective Story', 'Audio Drama').\n"
-            "Keep both concise and appropriate to the summary."
+            "Keep both concise and appropriate to the summary.\n"
+            "Hard limits: title max 83 characters, genre max 30 characters."
         )
         payload = {"title": title, "summary": summary}
         raw = self._call_lm_studio(sys, json.dumps(payload, ensure_ascii=True), response_format=self._schema_title(), model=MODEL_MEDIA_TITLE)
         obj = self._parse_structured_response(raw) or {}
         title_part = str(obj.get("title", title)).strip()
         genre_part = str(obj.get("genre", "Audiobook")).strip()
+
         return f"{title_part} | {genre_part}"
 
     def _gen_hook(self, summary: str, hook_limit: int) -> str:

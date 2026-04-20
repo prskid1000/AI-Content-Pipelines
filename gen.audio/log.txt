@@ -1,170 +1,344 @@
 Workflow runner started. Python executable: D:\.comfyui\.venv\Scripts\python.exe
 Working directory: D:\.comfyui\gen.audio
 Emptying ComfyUI input and output folders for audio generation...
-Removed directory: D:\.comfyui\ComfyUI\input\3d
-Removed file: D:\.comfyui\ComfyUI\input\example.png
-Removed file: D:\.comfyui\ComfyUI\input\gen.audio.aisha_en.wav
-Removed file: D:\.comfyui\ComfyUI\input\gen.audio.alok_en.wav
-Removed file: D:\.comfyui\ComfyUI\input\gen.audio.ayesha_en.wav
-Removed file: D:\.comfyui\ComfyUI\input\gen.audio.bala_en.wav
-Removed file: D:\.comfyui\ComfyUI\input\gen.audio.deshna_en.wav
-Removed file: D:\.comfyui\ComfyUI\input\gen.audio.gaurav_en.wav
-Removed file: D:\.comfyui\ComfyUI\input\gen.audio.himanshu_en.wav
-Removed file: D:\.comfyui\ComfyUI\input\gen.audio.indrajeet_en.wav
-Removed file: D:\.comfyui\ComfyUI\input\gen.audio.nikhil_en.wav
-Removed file: D:\.comfyui\ComfyUI\input\gen.audio.ramesh_en.wav
-Removed file: D:\.comfyui\ComfyUI\input\gen.audio.sarang_en.wav
-Removed file: D:\.comfyui\ComfyUI\input\gen.audio.sid_en.wav
-Removed file: D:\.comfyui\ComfyUI\input\gen.audio.yuvraj_en.wav
-Removed file: D:\.comfyui\ComfyUI\input\msedge_XHPTFHmQMU.png
-Removed directory: D:\.comfyui\ComfyUI\output\audio
-Removed file: D:\.comfyui\ComfyUI\output\ComfyUI_00001_.png
-Removed file: D:\.comfyui\ComfyUI\output\_output_images_will_be_put_here
 Successfully emptied ComfyUI input and output folders.
-File hash changed for key 'story_file': 51f2bd96fc5ce9e1... -> 4cf0470be8e14e0f...
-Tracked file content changed. Deleted and recreated output directory: D:\.comfyui\gen.audio\output
+All tracked files unchanged. Preserving output directory.
 LMSTUDIO_MANAGE_ONLY=True: not starting LM Studio; assuming it is already running.
 Waiting for LM Studio to become ready (polling every 15s)...
-LM Studio is ready after 0.0s (attempt 1).
+LM Studio is ready after 0.1s (attempt 1).
 
-===== START D:\.comfyui\gen.audio\scripts\1.character.py @ 2026-04-18 13:44:52 =====
-Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.audio\output\tracking
-No existing checkpoint found - starting fresh
-=== VOICE REGION AND LANGUAGE SELECTION ===
-Available regions: in
-Available languages: ba, en, hi
-Current region: in, Current language: en
-[AUTO] Using --change-settings='n'
-=== STORY PREPROCESSING ===
-Found 6 unique characters: male_detective_holmes, male_mysterious_scientist, male_nobleman_mr_ashcroft, female_housekeeper_mrs_hudson, female_housekeeper_mrs_dalrymple, male_doctor_watson
+===== START D:\.comfyui\gen.audio\scripts\9.media.py @ 2026-04-18 16:55:12 =====
+🖼️ Generating thumbnail prompt...
+Characters: 1499
+Words: 231
+✅ Thumbnail prompt generated: ../input/10.thumbnail.txt
+📝 Generating YouTube description...
+🔍 Reading diffusion text...
+✅ Read 1948 characters from diffusion file
+📖 Reading title...
+✅ Title: The Crimson Rose of Rosemund Valley
+⏱️ Calculating audio duration...
+✅ Total duration: 45:03 (2703.3s)
+🎯 Generating title line...
+✅ Title line: 🌹 Sherlock's Valley Mystery: The Crimson Rose Case! 🧪 | Mystery Audiobook
+🪝 Generating hook...
+✅ Hook: 🌹 When servants vanish in Rosemund Valley marked only by strange crimson roses, Sherlock Holmes uncovers a chilling underground laboratory where a mad scientist trades human blood for his twisted experiments, forcing the detective to race against time before the shadows consume another soul.
+📋 Generating bullet points...
+✅ Generated 4 bullet points
+📚 Generating chapters from file...
+✅ Generated 5 chapters
+   00:00 - The Urgent Visitor
+   27:01 - Journey to the Valley
+   18:01 - The Secret Lab
+   09:00 - Confrontation in Shadows
+   00:00 - Justice and Reflection
+📢 Generating CTAs...
+✅ Generated 3 CTAs
+🏷️ Generating hashtags...
+✅ Hashtags: #SherlockHolmes #AudioDrama #MysteryStory #VictorianLondon #DetectiveFiction #ClassicLiterature #Audiobook #CrimeMystery #221BBakerStreet #DrWatson #ConanDoyle #Suspense #FullAudiobook #VictorianMystery #Case
+📝 Rendering final description...
+✅ Description rendered (1909 characters)
+💾 Saving description to ../output/description.txt...
+✅ Description saved
+🏷️ Generating YouTube tags...
+✅ Generated 59 initial tags
+🧹 Normalizing and trimming tags...
+✅ After normalization: 59 tags
+🔄 Deduplicating tags...
+✅ After deduplication: 59 tags
+✂️ Fitting to 500 character limit...
+✅ Final tags: 59 tags (487 chars)
+💾 Saving tags to ../output/tags.txt...
+✅ Tags saved
+Saved YouTube description to: ../output/description.txt (took 64.66s)
 
-Available male voices: alok_en, bala_en, gaurav_en, himanshu_en, indrajeet_en, nikhil_en, ramesh_en, sarang_en, sid_en, yuvraj_en
-Available female voices: aisha_en, ayesha_en, deshna_en, henna_en, koku_en, maya_en, mona_en, mridula_en, paavni_en, vidya_en
-
-=== CHARACTER VOICE ASSIGNMENT ===
-I found the following characters in your story:
-- male_detective_holmes
-- male_mysterious_scientist
-- male_nobleman_mr_ashcroft
-- female_housekeeper_mrs_hudson
-- female_housekeeper_mrs_dalrymple
-- male_doctor_watson
-
-AUTO_ASSIGN_VOICE=True -> asking LM Studio to cast voices...
-Asking LM Studio to cast 6 characters...
-LLM casting failed (LM Studio API error: 400 {
-    "error": {
-        "message": "No models loaded. Please load a model in the developer page or use the 'lms load' command.",
-        "type": "invalid_request_error",
-        "param": "model",
-        "code": null
-    }
-}); falling back to prefix heuristic.
-
-Currently assigned voices:
-- male_doctor_watson: alok_en
-- male_detective_holmes: ramesh_en
-
-Need to assign voices for: male_mysterious_scientist, male_nobleman_mr_ashcroft, female_housekeeper_mrs_hudson, female_housekeeper_mrs_dalrymple
-Auto-assigned male voice 'bala_en' to 'male_mysterious_scientist' (male_ prefix detected)
-Auto-assigned male voice 'gaurav_en' to 'male_nobleman_mr_ashcroft' (male_ prefix detected)
-Auto-assigned female voice 'aisha_en' to 'female_housekeeper_mrs_hudson' (female_ prefix detected)
-Auto-assigned female voice 'ayesha_en' to 'female_housekeeper_mrs_dalrymple' (female_ prefix detected)
-
-=== FINAL CHARACTER-VOICE MAPPING ===
-- male_detective_holmes: ramesh_en
-- male_mysterious_scientist: bala_en
-- male_nobleman_mr_ashcroft: gaurav_en
-- female_housekeeper_mrs_hudson: aisha_en
-- female_housekeeper_mrs_dalrymple: ayesha_en
-- male_doctor_watson: alok_en
-[AUTO] Using --auto-confirm='y'
-Voice assignment confirmed!
-Created backup: ../input/1.story.speakers.txt.backup
-Wrote speaker map: ../input/1.story.speakers.txt
-Format: <character_tag>  <voice_stem>
-
-=== CHAPTER GENERATION FROM META-SUMMARY ===
-📊 Story Statistics:
-   📏 Total characters (excluding [names]): 36,246
-   📝 Total words: 6,243
-   📄 Total lines: 210
-
-=== GENERATING META-SUMMARY ===
-🔄 Summarizing story content into 5 parts...
-❌ Meta-summary generation failed: LM Studio API call failed: LM Studio API error: 400 {
-    "error": {
-        "message": "No models loaded. Please load a model in the developer page or use the 'lms load' command.",
-        "type": "invalid_request_error",
-        "param": "model",
-        "code": null
-    }
-}
-
-📚 Generated 0 chapter summaries
-All operations completed successfully
-Final progress: Progress: Voices(✓) Meta-Summary(✗) Title(✗)
-All operations completed successfully - tracking files preserved
-
-==================================================
-⏱️  TIMING SUMMARY
-==================================================
-⚙️  Setup time: 0.000 seconds
-📖 Story reading time: 0.000 seconds
-👥 Character preprocessing time: 4.115 seconds
-⏱️  Total execution time: 4.115 seconds (0.069 minutes)
-==================================================
-
-===== END D:\.comfyui\gen.audio\scripts\1.character.py @ 2026-04-18 13:44:57 (exit=0, took=4.34s) =====
+===== END D:\.comfyui\gen.audio\scripts\9.media.py @ 2026-04-18 16:56:17 (exit=0, took=64.90s) =====
 LMSTUDIO_MANAGE_ONLY=True: not stopping LM Studio; unloading models instead.
 Unloading all models from LM Studio...
 Command: lms unload --all
-No models to unload.
+Unloading "qwen3.5-35b-a3b"...
+Unloaded 1 model.
 COMFYUI_MANAGE_ONLY=True: not starting ComfyUI; assuming it is already running.
 Waiting for ComfyUI to become ready (polling every 15s)...
-ComfyUI is ready after 0.0s (attempt 1).
+ComfyUI is ready after 0.1s (attempt 1).
 
-===== START D:\.comfyui\gen.audio\scripts\2.story.py @ 2026-04-18 13:44:58 =====
-✅ Resumable mode enabled (use --disable-resumable to disable)
+===== START D:\.comfyui\gen.audio\scripts\10.thumbnail.py @ 2026-04-18 16:56:17 =====
 Resumable mode enabled - checkpoint directory: D:\.comfyui\gen.audio\output\tracking
-No existing checkpoint found - starting fresh
-Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\alok_en.wav -> ../../ComfyUI/input\gen.audio.alok_en.wav
-Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\ramesh_en.wav -> ../../ComfyUI/input\gen.audio.ramesh_en.wav
-Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\bala_en.wav -> ../../ComfyUI/input\gen.audio.bala_en.wav
-Staged voice: D:\.comfyui\gen.audio\voices\male\in\en\gaurav_en.wav -> ../../ComfyUI/input\gen.audio.gaurav_en.wav
-Staged voice: D:\.comfyui\gen.audio\voices\female\in\en\aisha_en.wav -> ../../ComfyUI/input\gen.audio.aisha_en.wav
-Staged voice: D:\.comfyui\gen.audio\voices\female\in\en\ayesha_en.wav -> ../../ComfyUI/input\gen.audio.ayesha_en.wav
-Loaded 6 character -> voice mappings from ../input/1.story.speakers.txt
-Processing story...
-Processing story in chunks...
-📊 Story contains 6,243 words
-Story split into 14 chunks of 15 lines each
+Found existing checkpoint: D:\.comfyui\gen.audio\output\tracking\10.thumbnail.state.json
+Progress: Thumbnails(5/7)
+Validating and syncing with output directory: ../output
+Scanning output directory for untracked files: ../output
+Auto-detected completed thumbnail: thumbnail -> ../output\thumbnail.png
+Thumbnail already tracked: thumbnail.shorts.v1
+Thumbnail already tracked: thumbnail.shorts.v2
+Thumbnail already tracked: thumbnail.shorts.v3
+Thumbnail already tracked: thumbnail.shorts.v4
+Thumbnail already tracked: thumbnail.shorts.v5
+Auto-detection: Added 1 thumbnails from output directory
+Sync completed: 1 thumbnails auto-detected from output directory
+Validating 6 completed thumbnails against output directory...
+Precheck: ✓ thumbnail.shorts.v1 validated in output directory
+Precheck: ✓ thumbnail.shorts.v2 validated in output directory
+Precheck: ✓ thumbnail.shorts.v3 validated in output directory
+Precheck: ✓ thumbnail.shorts.v4 validated in output directory
+Precheck: ✓ thumbnail.shorts.v5 validated in output directory
+Precheck: ✓ thumbnail validated in output directory
+Generating main thumbnail...
+⏭️  Skipping thumbnail - File already exists: thumbnail.png
+Generated: ../output\thumbnail.png
+Generating shorts thumbnail 1/5...
+Using cached shorts thumbnail: thumbnail.shorts.v1
+Generated: ../output\thumbnail.shorts.v1.png
+Generating shorts thumbnail 2/5...
+Using cached shorts thumbnail: thumbnail.shorts.v2
+Generated: ../output\thumbnail.shorts.v2.png
+Generating shorts thumbnail 3/5...
+Using cached shorts thumbnail: thumbnail.shorts.v3
+Generated: ../output\thumbnail.shorts.v3.png
+Generating shorts thumbnail 4/5...
+Using cached shorts thumbnail: thumbnail.shorts.v4
+Generated: ../output\thumbnail.shorts.v4.png
+Generating shorts thumbnail 5/5...
+Using cached shorts thumbnail: thumbnail.shorts.v5
+Generated: ../output\thumbnail.shorts.v5.png
 
-📊 STORY PROCESSING PROGRESS
-====================================================================================================
-🎵 Chunk 1 (1-15) - 8.3% complete - Processing...
-📊 Estimated time remaining: ~31.2m (?)
-Generating audio for chunk 1 (lines 1-15)...
-Chunk length: 3404 characters
-Sending workflow to ComfyUI...
-Response status: 200
-Response JSON: {'prompt_id': 'cfefa12a-66f4-4546-819e-88fd23fe25f2', 'number': 0, 'node_errors': {}}
-Workflow sent successfully, prompt_id: cfefa12a-66f4-4546-819e-88fd23fe25f2
-Waiting for audio generation to complete...
-Traceback (most recent call last):
-  File "D:\.comfyui\gen.audio\scripts\2.story.py", line 1038, in <module>
-    final_audio = processor.process_story(story_text, resumable_state)
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\.comfyui\gen.audio\scripts\2.story.py", line 954, in process_story
-    chunk_files = self.process_story_chunks(story_text, resumable_state)
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\.comfyui\gen.audio\scripts\2.story.py", line 859, in process_story_chunks
-    chunk_output = self.generate_chunk_audio(chunk_text, chunk_number, start_line, end_line)
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\.comfyui\gen.audio\scripts\2.story.py", line 744, in generate_chunk_audio
-    time.sleep(5)
-KeyboardInterrupt
-Received signal 2. Cleaning up services...
+Generated 6 thumbnail images:
+  thumbnail: ../output\thumbnail.png
+  thumbnail.shorts.v1: ../output\thumbnail.shorts.v1.png
+  thumbnail.shorts.v2: ../output\thumbnail.shorts.v2.png
+  thumbnail.shorts.v3: ../output\thumbnail.shorts.v3.png
+  thumbnail.shorts.v4: ../output\thumbnail.shorts.v4.png
+  thumbnail.shorts.v5: ../output\thumbnail.shorts.v5.png
+All thumbnail generation completed successfully
+Final progress: Progress: Thumbnails(6/6)
+Final state saved to checkpoint
+All operations completed successfully - tracking files preserved
+
+===== END D:\.comfyui\gen.audio\scripts\10.thumbnail.py @ 2026-04-18 16:56:18 (exit=0, took=0.30s) =====
 COMFYUI_MANAGE_ONLY=True: not stopping ComfyUI; clearing cache instead.
 Clearing ComfyUI cache via POST http://127.0.0.1:8188/free ...
 ComfyUI /free responded: 200
+
+===== START D:\.comfyui\gen.audio\scripts\11.video.py @ 2026-04-18 16:56:18 =====
+Creating regular video...
+Running: ffmpeg -y -loop 1 -i D:\.comfyui\gen.audio\output\thumbnail.png -i D:\.comfyui\gen.audio\output\final.wav -c:v libx264 -profile:v high -level:v 4.2 -tune stillimage -preset medium -crf 18 -pix_fmt yuv420p -color_primaries bt709 -color_trc bt709 -colorspace bt709 -r 30 -g 60 -movflags +faststart -c:a aac -b:a 192k -ar 48000 -ac 2 -shortest D:\.comfyui\gen.audio\output\final.mp4
+Regular video written to D:\.comfyui\gen.audio\output\final.mp4
+Creating 5 shorts videos...
+Each video will be 30 seconds long
+
+Creating shorts video 1/5:
+  Thumbnail: thumbnail.shorts.v1.png
+  Audio segment: 1968.62s - 1998.62s
+  Output: shorts.v1.mp4
+  ✓ Success: D:\.comfyui\gen.audio\output\shorts.v1.mp4
+
+Creating shorts video 2/5:
+  Thumbnail: thumbnail.shorts.v2.png
+  Audio segment: 2581.73s - 2611.73s
+  Output: shorts.v2.mp4
+  ✓ Success: D:\.comfyui\gen.audio\output\shorts.v2.mp4
+
+Creating shorts video 3/5:
+  Thumbnail: thumbnail.shorts.v3.png
+  Audio segment: 189.85s - 219.85s
+  Output: shorts.v3.mp4
+  ✓ Success: D:\.comfyui\gen.audio\output\shorts.v3.mp4
+
+Creating shorts video 4/5:
+  Thumbnail: thumbnail.shorts.v4.png
+  Audio segment: 2055.78s - 2085.78s
+  Output: shorts.v4.mp4
+  ✓ Success: D:\.comfyui\gen.audio\output\shorts.v4.mp4
+
+Creating shorts video 5/5:
+  Thumbnail: thumbnail.shorts.v5.png
+  Audio segment: 1636.87s - 1666.87s
+  Output: shorts.v5.mp4
+  ✓ Success: D:\.comfyui\gen.audio\output\shorts.v5.mp4
+
+Completed: 5/5 shorts videos created
+
+===== END D:\.comfyui\gen.audio\scripts\11.video.py @ 2026-04-18 17:07:57 (exit=0, took=699.73s) =====
+
+===== START D:\.comfyui\gen.audio\scripts\12.youtube.py @ 2026-04-18 17:07:57 =====
+Reading video metadata...
+Title: 🌹 Sherlock's Valley Mystery: The Crimson Rose Case! 🧪 | Mystery Audiobook
+Description length: 1834 characters
+Number of tags: 15
+
+Authenticating with YouTube API...
+
+============================================================
+Uploading Main Video
+============================================================
+Uploading video: ..\output\final.mp4
+Title: 🌹 Sherlock's Valley Mystery: The Crimson Rose Case! 🧪 | Mystery Audiobook
+Tags: Sherlock, Holmes, Watson, detective, mystery, investigation, deduction, Baker, Street, crime, clues, enigma, case, suspicion, audiobook
+Description preview: 🌹 When servants vanish in Rosemund Valley marked only by strange crimson roses, Sherlock Holmes unco...
+
+Starting upload...
+Upload progress: 2% (elapsed: 25s)
+Upload progress: 4% (elapsed: 52s)
+Upload progress: 6% (elapsed: 80s)
+Upload progress: 8% (elapsed: 105s)
+Upload progress: 10% (elapsed: 133s)
+Upload progress: 12% (elapsed: 161s)
+Upload progress: 14% (elapsed: 194s)
+Upload progress: 17% (elapsed: 220s)
+Upload progress: 19% (elapsed: 246s)
+Upload progress: 21% (elapsed: 271s)
+Upload progress: 23% (elapsed: 298s)
+Upload progress: 25% (elapsed: 326s)
+Upload progress: 27% (elapsed: 355s)
+Upload progress: 29% (elapsed: 381s)
+Upload progress: 32% (elapsed: 410s)
+Upload progress: 34% (elapsed: 438s)
+Upload progress: 36% (elapsed: 468s)
+Upload progress: 38% (elapsed: 496s)
+Upload progress: 40% (elapsed: 525s)
+Upload progress: 42% (elapsed: 554s)
+Upload progress: 44% (elapsed: 584s)
+Upload progress: 46% (elapsed: 612s)
+Upload progress: 49% (elapsed: 639s)
+Upload progress: 51% (elapsed: 669s)
+Upload progress: 53% (elapsed: 698s)
+Upload progress: 55% (elapsed: 726s)
+Upload progress: 57% (elapsed: 756s)
+Upload progress: 59% (elapsed: 784s)
+Upload progress: 61% (elapsed: 812s)
+Upload progress: 64% (elapsed: 843s)
+Upload progress: 66% (elapsed: 872s)
+Upload progress: 68% (elapsed: 900s)
+Upload progress: 70% (elapsed: 928s)
+Upload progress: 72% (elapsed: 957s)
+Upload progress: 74% (elapsed: 986s)
+Upload progress: 76% (elapsed: 1013s)
+Upload progress: 78% (elapsed: 1043s)
+Upload progress: 81% (elapsed: 1073s)
+Upload progress: 83% (elapsed: 1100s)
+Upload progress: 85% (elapsed: 1128s)
+Upload progress: 87% (elapsed: 1155s)
+Upload progress: 89% (elapsed: 1185s)
+Upload progress: 91% (elapsed: 1215s)
+Upload progress: 93% (elapsed: 1244s)
+Upload progress: 96% (elapsed: 1275s)
+Upload progress: 98% (elapsed: 1305s)
+
+✅ Upload successful!
+Video ID: YmZ5kzno0Lw
+Video URL: https://www.youtube.com/watch?v=YmZ5kzno0Lw
+
+🎉 Main video uploaded successfully!
+Remember: The video is set to 'private' by default.
+You can change the privacy settings in YouTube Studio.
+
+🔗 Shorts will include link to main video: https://www.youtube.com/watch?v=YmZ5kzno0Lw
+
+Found 5 shorts videos to upload:
+  - shorts.v1.mp4
+  - shorts.v2.mp4
+  - shorts.v3.mp4
+  - shorts.v4.mp4
+  - shorts.v5.mp4
+
+============================================================
+Uploading Shorts Video 1/5: shorts.v1.mp4
+============================================================
+Uploading video: D:\.comfyui\gen.audio\output\shorts.v1.mp4
+Title: 🌹 Sherlock's Valley Mystery: The Crimson Rose Case! 🧪 | Mystery Audiobook #Shorts (Part 1)
+Tags: Sherlock, Holmes, Watson, detective, mystery, investigation, deduction, Baker, Street, crime, clues, enigma, case, suspicion, audiobook, #Shorts, #YouTubeShorts, Part1
+Description preview: 🎬 Shorts Version 1 - 🌹 When servants vanish in Rosemund Valley marked only by strange crimson roses,...
+
+Starting upload...
+Upload progress: 92% (elapsed: 31s)
+
+✅ Upload successful!
+Video ID: 33azA4kPbRE
+Video URL: https://www.youtube.com/watch?v=33azA4kPbRE
+✅ Shorts video 1 uploaded successfully!
+
+============================================================
+Uploading Shorts Video 2/5: shorts.v2.mp4
+============================================================
+Uploading video: D:\.comfyui\gen.audio\output\shorts.v2.mp4
+Title: 🌹 Sherlock's Valley Mystery: The Crimson Rose Case! 🧪 | Mystery Audiobook #Shorts (Part 2)
+Tags: Sherlock, Holmes, Watson, detective, mystery, investigation, deduction, Baker, Street, crime, clues, enigma, case, suspicion, audiobook, #Shorts, #YouTubeShorts, Part2
+Description preview: 🎬 Shorts Version 2 - 🌹 When servants vanish in Rosemund Valley marked only by strange crimson roses,...
+
+Starting upload...
+Upload progress: 92% (elapsed: 30s)
+
+✅ Upload successful!
+Video ID: AnPlMD4YH2g
+Video URL: https://www.youtube.com/watch?v=AnPlMD4YH2g
+✅ Shorts video 2 uploaded successfully!
+
+============================================================
+Uploading Shorts Video 3/5: shorts.v3.mp4
+============================================================
+Uploading video: D:\.comfyui\gen.audio\output\shorts.v3.mp4
+Title: 🌹 Sherlock's Valley Mystery: The Crimson Rose Case! 🧪 | Mystery Audiobook #Shorts (Part 3)
+Tags: Sherlock, Holmes, Watson, detective, mystery, investigation, deduction, Baker, Street, crime, clues, enigma, case, suspicion, audiobook, #Shorts, #YouTubeShorts, Part3
+Description preview: 🎬 Shorts Version 3 - 🌹 When servants vanish in Rosemund Valley marked only by strange crimson roses,...
+
+Starting upload...
+Upload progress: 88% (elapsed: 28s)
+
+✅ Upload successful!
+Video ID: j_uzljOv8yQ
+Video URL: https://www.youtube.com/watch?v=j_uzljOv8yQ
+✅ Shorts video 3 uploaded successfully!
+
+============================================================
+Uploading Shorts Video 4/5: shorts.v4.mp4
+============================================================
+Uploading video: D:\.comfyui\gen.audio\output\shorts.v4.mp4
+Title: 🌹 Sherlock's Valley Mystery: The Crimson Rose Case! 🧪 | Mystery Audiobook #Shorts (Part 4)
+Tags: Sherlock, Holmes, Watson, detective, mystery, investigation, deduction, Baker, Street, crime, clues, enigma, case, suspicion, audiobook, #Shorts, #YouTubeShorts, Part4
+Description preview: 🎬 Shorts Version 4 - 🌹 When servants vanish in Rosemund Valley marked only by strange crimson roses,...
+
+Starting upload...
+Upload progress: 95% (elapsed: 33s)
+
+✅ Upload successful!
+Video ID: dm6l1XHkH5Q
+Video URL: https://www.youtube.com/watch?v=dm6l1XHkH5Q
+✅ Shorts video 4 uploaded successfully!
+
+============================================================
+Uploading Shorts Video 5/5: shorts.v5.mp4
+============================================================
+Uploading video: D:\.comfyui\gen.audio\output\shorts.v5.mp4
+Title: 🌹 Sherlock's Valley Mystery: The Crimson Rose Case! 🧪 | Mystery Audiobook #Shorts (Part 5)
+Tags: Sherlock, Holmes, Watson, detective, mystery, investigation, deduction, Baker, Street, crime, clues, enigma, case, suspicion, audiobook, #Shorts, #YouTubeShorts, Part5
+Description preview: 🎬 Shorts Version 5 - 🌹 When servants vanish in Rosemund Valley marked only by strange crimson roses,...
+
+Starting upload...
+Upload progress: 91% (elapsed: 31s)
+
+✅ Upload successful!
+Video ID: _ghMsm60qGE
+Video URL: https://www.youtube.com/watch?v=_ghMsm60qGE
+✅ Shorts video 5 uploaded successfully!
+
+🎉 5 shorts videos uploaded successfully!
+
+============================================================
+UPLOAD SUMMARY
+============================================================
+Total videos uploaded: 6
+  1. https://www.youtube.com/watch?v=YmZ5kzno0Lw
+  2. https://www.youtube.com/watch?v=33azA4kPbRE
+  3. https://www.youtube.com/watch?v=AnPlMD4YH2g
+  4. https://www.youtube.com/watch?v=j_uzljOv8yQ
+  5. https://www.youtube.com/watch?v=dm6l1XHkH5Q
+  6. https://www.youtube.com/watch?v=_ghMsm60qGE
+
+All videos are set to 'private' by default.
+You can change privacy settings in YouTube Studio.
+
+===== END D:\.comfyui\gen.audio\scripts\12.youtube.py @ 2026-04-18 17:33:02 (exit=0, took=1504.15s) =====
+
+Log time stats: writes=0.000s, flushes=0.000s, total=0.000s (~0.00% of runtime)
+
+All scripts completed successfully.

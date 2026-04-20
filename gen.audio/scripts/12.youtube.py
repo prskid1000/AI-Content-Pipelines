@@ -25,6 +25,11 @@ except ImportError as e:
 # YouTube API scopes
 SCOPES = ['https://www.googleapis.com/auth/youtube.upload', 'https://www.googleapis.com/auth/youtube.readonly']
 
+# YouTube metadata limits worth checking before upload
+YOUTUBE_TITLE_MAX_LENGTH = 100
+YOUTUBE_DESCRIPTION_MAX_LENGTH = 5000
+YOUTUBE_TAGS_MAX_LENGTH = 15
+
 # API service name and version
 YOUTUBE_API_SERVICE_NAME = 'youtube'
 YOUTUBE_API_VERSION = 'v3'
@@ -101,6 +106,32 @@ def read_tags_file():
     
     # YouTube allows max 15 tags, so limit to first 15
     return tags[:15]
+
+
+def validate_metadata(title: str, description: str, tags: list[str], label: str) -> bool:
+    """Validate YouTube metadata against common limits."""
+    ok = True
+    title_length = len(title)
+    description_length = len(description)
+    tags_length = len(tags)
+
+    print(f"{label} title: {title}")
+    print(f"{label} title length: {title_length}/{YOUTUBE_TITLE_MAX_LENGTH}")
+    print(f"{label} description length: {description_length}/{YOUTUBE_DESCRIPTION_MAX_LENGTH}")
+    print(f"{label} tags count: {tags_length}/{YOUTUBE_TAGS_MAX_LENGTH}")
+
+    if title_length > YOUTUBE_TITLE_MAX_LENGTH:
+        print(f"Warning: {label} title exceeds YouTube's {YOUTUBE_TITLE_MAX_LENGTH}-character limit.")
+        ok = False
+
+    if description_length > YOUTUBE_DESCRIPTION_MAX_LENGTH:
+        print(f"Warning: {label} description exceeds YouTube's {YOUTUBE_DESCRIPTION_MAX_LENGTH}-character limit.")
+        ok = False
+
+    if tags_length > YOUTUBE_TAGS_MAX_LENGTH:
+        print(f"Warning: {label} has more than {YOUTUBE_TAGS_MAX_LENGTH} tags before trimming.")
+
+    return ok
 
 def upload_video(youtube_service, video_file_path, title, description, tags):
     """Upload video to YouTube."""
@@ -248,12 +279,45 @@ def upload_shorts_videos(youtube_service, shorts_dir: str, base_title: str, base
     
     return uploaded_video_ids
 
+
+def dry_run_upload(video_path: Path | None, shorts_dir: str | None, title: str, description: str, tags: list[str], upload_shorts: bool, shorts_only: bool) -> int:
+    """Validate the upload plan without authenticating or uploading."""
+    print("Dry run mode enabled - no upload will be attempted.")
+    print("\nMetadata checks:")
+    validate_metadata(title, description, tags, "Main video")
+
+    if not shorts_only and video_path is not None:
+        print(f"Main video file: {video_path}")
+        print(f"Main video exists: {video_path.exists()}")
+        print(f"Main video is file: {video_path.is_file()}")
+
+    if upload_shorts or shorts_only:
+        resolved_shorts_dir = Path(shorts_dir) if shorts_dir else Path(__file__).parent.parent / "output"
+        print(f"Shorts directory: {resolved_shorts_dir}")
+        print(f"Shorts directory exists: {resolved_shorts_dir.exists()}")
+        if resolved_shorts_dir.exists():
+            shorts_videos = find_shorts_videos(str(resolved_shorts_dir))
+            if not shorts_videos:
+                print("No shorts videos found.")
+            else:
+                print(f"Found {len(shorts_videos)} shorts video(s):")
+                for index, shorts_video in enumerate(shorts_videos, 1):
+                    shorts_title = create_shorts_title(title, index)
+                    shorts_description = create_shorts_description(description, index)
+                    shorts_tags = tags + ["#Shorts", "#YouTubeShorts", f"Part{index}"]
+                    print(f"  - {os.path.basename(shorts_video)}")
+                    validate_metadata(shorts_title, shorts_description, shorts_tags[:YOUTUBE_TAGS_MAX_LENGTH], f"Shorts {index}")
+
+    print("\nDry run complete. No upload was performed.")
+    return 0
+
 def main():
     parser = argparse.ArgumentParser(description='Upload video to YouTube')
     parser.add_argument('--video-file', required=True, help='Path to the video file to upload')
     parser.add_argument('--shorts-dir', help='Directory containing shorts videos (default: ../output)')
     parser.add_argument('--upload-shorts', action='store_true', help='Also upload shorts videos')
     parser.add_argument('--shorts-only', action='store_true', help='Upload only shorts videos (skip main video)')
+    parser.add_argument('--dry-run', action='store_true', help='Validate metadata and file paths without uploading')
     
     args = parser.parse_args()
     
@@ -287,6 +351,10 @@ def main():
         print(f"Title: {title}")
         print(f"Description length: {len(description)} characters")
         print(f"Number of tags: {len(tags)}")
+
+        if args.dry_run:
+            short_dir = args.shorts_dir if args.shorts_dir else None
+            return dry_run_upload(video_path if not args.shorts_only else None, short_dir, title, description, tags, args.upload_shorts, args.shorts_only)
         
         # Authenticate
         print("\nAuthenticating with YouTube API...")

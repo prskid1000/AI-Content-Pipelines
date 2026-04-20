@@ -1,855 +1,481 @@
-4.83: Silence
-3.47: Silence
-4.86: Silence
-3.1: Silence
-5.3: rattling hansom wheels
-3.96: Silence
-6.36: Silence
-6.63: Silence
-4.01: Silence
-3.79: Silence
-3.1: Silence
-3.53: Crystals crackle softly as they shift on the surface.
-3.39: Silence
-2.69: Silence
-2.86: Silence
-3.44: Silence
-3.04: Silence
-2.4: Silence
-2.0: Silence
-2.94: Silence
-1.39: Silence
-2.61: Bell rings sharply at high pitch
-3.18: Footsteps on wooden stairs
-5.26: Silence
-4.0: 
-5.09: Silence
-3.57: Silence
-1.32: Silence
-6.31: Silence
+2.92: Low distant city ambience with faint car hum
+3.9: Distant low hum of city traffic, faint sirens
 2.65: Silence
-7.0: Silence
-5.18: Silence
-4.61: Silence
-4.11: Silence
-4.56: Silence
-4.8: Silence
-1.47: Silence
-4.61: Silence
-5.96: Silence
-2.82: Silence
-3.39: Silence
-5.49: Silence
-7.24: Silence
-15.49: Silence
-4.68: Silence
-3.54: Silence
-6.24: Silence
-3.84: Silence
-2.83: Silence
-4.11: Silence
-2.99: Silence
-2.98: Silence
-2.42: Silence
-2.17: Silence
-2.7: Silence
-2.12: Silence
-4.03: Silence
-3.56: Silence
-2.1: Silence
-2.82: Silence
-2.44: Silence
-0.94: mechanical ticking
-4.51: Silence
-3.95: Silence
-4.6: Silence
-6.6: Silence
-1.02: Silence
-4.12: Silence
-4.28: Silence
-6.7: Silence
-4.73: Silence
-7.63: Silence
-7.05: Silence
-5.33: Silence
-3.05: Silence
-6.05: Silence
-6.34: Low-frequency hum with subtle metallic resonance
-6.34: Silence
-3.68: Silence
-4.05: Silence
-3.55: Silence
-3.37: Silence
-2.98: Silence
-4.5: Silence
-2.2: Silence
-2.47: Silence
-3.58: Soft rustling of pages turning
-4.21: Silence
-3.43: Silence
-4.54: Silence
-1.18: Silence
-4.18: Silence
-3.65: Silence
-5.09: Silence
-7.92: Silence
-11.24: Silence
-8.62: Silence
-9.31: Soft rustle of fabric
-13.61: Low hum from unseen transmission
-7.08: Silence
-5.24: Silence
-8.3: Silence
-7.72: Silence
-4.9: Silence
-5.32: [Silence]
-3.94: Silence
-5.6: [SFX] Whispered voice interrupting
-4.54: Silence
-5.65: Silence
-6.35: Distant male voice calling out in quiet room
-5.86: Silence
-4.96: Silence
-6.9: Silence
-4.28: Silence
-5.01: Silence
-3.84: Soft dialogue
-2.87: Footsteps rushing in
-4.04: Voices murmur, footsteps echoing softly
-1.2: Silence
-3.92: Silence
-3.32: Silence
-4.22: Silence
-2.0: Silence
-2.02: Silence
-3.06: Silence
-3.87: Silence
-3.37: [SOUND] distant footsteps approaching rapidly
-2.06: Silence
-2.1: Silence
-1.04: Silence
-1.26: Silence
-6.56: Silence
-7.98: Silence
-6.06: Silence
-7.62: Silence
-10.22: Low tension silence with faint metallic clink
-2.3: Silence
-11.0: Silence
-10.04: Silence
-6.16: Silence
-4.21: Silence
-4.77: Silence
-4.91: Silence
-4.11: [Sound of footsteps on polished stone]
-3.13: Whispered voices from distant rooms
+3.79: Soft creaking of leather fabric, faint rustle of wool clothing
 3.93: Silence
-4.07: Soft footsteps on wooden floor
-3.39: low hum
-2.3: Silence
-7.61: Silence
-4.55: Footsteps crunching on gravel
-5.15: [Silence]
-5.86: Footsteps on wooden floorboards
-6.63: Silence
-4.22: Soft metallic creak
-1.2: Silence
-3.97: Silence
-3.57: Silence
-2.68: Soft rustling whispers with low-frequency tremors
-1.02: Silence
-2.16: Soft creak of wood
-1.98: Silence
-4.0: Silence
-1.08: Silence
-2.2: Silence
-6.1: Silence
-5.57: Silence
-3.64: Silence
-8.29: [Silence]
-3.65: Chatter from multiple voices in close proximity
-5.23: Silence
-5.04: Silence
-1.02: Silence
-5.08: Silence
-2.98: Silence
-3.44: Silence
-4.8: Silence
-4.21: Scratching on wooden surface
-3.86: Silence
-5.18: Silence
-3.63: Silence
-3.68: A soft crying sound coming from inside the kitchen.
-1.76: sharp inhalation followed by low-frequency vocal tremor
-8.29: Silence
-5.45: Silence
-5.5: Silence
-4.7: Rustling fabric
-4.38: Silence
-5.16: Silence
-4.59: Cat leaps with soft paws
-6.51: Silence
-5.64: Silence
-5.5: Silence
-5.64: Silence
-4.18: Silence
-1.12: Silence
-4.76: Soft rustle of fur
-4.36: Silence
-0.68: Silence
-7.68: Silence
-4.1: Silence
-5.26: Silent paws brushing fur
-3.58: Silence
-1.04: Silence
-6.8: Silence
-5.05: Foley of metal clinking softly as drawer slides shut
-4.04: Silence
-3.04: Silence
-3.02: Silence
-2.86: Silence
-0.75: Silence
-6.34: Silence
-2.92: Silence
-5.12: Silence
-7.16: Soft rustling of fabric
-5.61: Silence
-7.43: Soft rustling of leaves in a gentle breeze
-8.51: Silence
-9.76: Silence
-5.94: Silence
-11.04: Creaky spoon stirring cream
-6.25: metallic click
-6.0: Silence
-6.99: Silence
-6.45: 
-4.26: Silence
-6.88: loud
-5.83: Silence
-5.33: Silence
-5.08: Silence
-5.22: Silence
-5.26: Silence
-1.04: Silence
-6.9: Silence
-4.72: Silence
-1.0: Silence
-4.34: Silence
-4.17: Silence
-5.21: Silence
-6.7: Footsteps on gravel fading into distant echo
-4.42: Silence
-4.02: Silence
-3.84: Silence
-1.08: Silence
-6.28: Silence
-4.66: Silence
-2.24: Silence
-4.21: Silence
-6.75: Silence
-2.96: Silk tearing softly with a gentle ripping whisper
-9.74: Silence
-5.98: Silence
-2.02: Silence
-6.02: Soft rustling fabric
-4.76: Soft rustling with faint metallic clinks
-1.16: Silence
-4.08: Silence
-5.89: Silence
-6.95: Silence
-7.26: Silence
-7.26: Silence
-5.42: Silence
-7.02: distant footsteps approaching followed by a muffled cough
-5.02: cough
-4.0: [soft breath exhalation]
-4.16: soft dry cough
-5.5: Silence
-1.4: Silence
-3.36: Silence
-3.2: Silence
-2.02: Silence
-10.1: Silence
-6.3: Silence
-7.92: Silence
-6.96: Silence
-10.29: Footsteps approaching with faint echo
-6.13: [Silence]
-5.5: Soft chuckle
-6.09: Silence
-6.81: Silence
-6.9: Soft rustling of fabric
-2.48: Silence
-4.16: Silence
-5.63: Silence
-6.93: Silence
-4.8: Silence
-4.4: Silence
-3.7: Silence
-6.56: Silence
-5.48: Silence
-4.62: Silence
-8.02: Silence
-3.76: Velvet fabric tearing softly
-1.14: Silence
-5.62: Tension-filled silence with implied threat
-4.14: Silence
-4.19: Uncommon whisper of wind chimes
-6.13: 
-3.74: soft rustling of fur
-8.07: Silence
-9.26: Silence
-5.69: Silence
-1.5: Silence
-4.34: Silence
-3.75: Silence
-3.75: Soft rustle of fabric against metal
-4.15: Whispered urgency with low-frequency resonance
-1.28: Silence
-2.35: Silence
-2.24: Silence
+3.49: Silence
 2.72: Silence
-2.61: Silence
-3.93: Silence
-2.5: Silence
-1.32: Silence
-8.9: Silence
-1.08: Silence
-6.75: soft rustle of fabric
-8.43: 
-6.43: [foley] [footsteps]
-4.35: Silence
-6.15: Silence
-6.47: Silence
-3.92: Silence
-5.6: Silence
-2.71: Silence
-3.31: Silence
-4.53: Silence
-5.25: Silence
-1.88: Silence
-5.34: Silence
-2.44: Silence
-2.7: Silence
-2.82: Silence
-3.5: Soft metallic clinking fading into silence
-3.68: Silence
-3.21: Silence
-2.06: Silence
-1.46: Silence
-3.73: Silence
-2.02: Footsteps on wooden floor
-1.86: Silence
-2.31: Silence
-3.09: [Silence]
-2.68: Silence
-5.37: Silence
-4.3: Silence
-1.71: Silence
-3.44: [Sound of footsteps approaching]
-2.14: Silence
-3.52: Silence
-6.04: Silence
-4.32: Silence
-4.64: footsteps echoing faintly in corridor
-6.24: Silence
-5.96: Soft crunching footsteps on gravel
-5.56: Damp earth pattering softly with faint rustle of shifting leaves
-5.66: Silence
-4.76: Silence
-5.46: Silence
-5.94: Silence
-5.12: Silence
-5.59: Silence
-4.15: Silence
-3.98: metallic click
-5.1: Silence
-6.44: Applause fades into murmured negotiation
-6.58: City ambience with distant traffic hum
-1.06: Silence
-5.67: soft footpad contact
-1.74: Silence
-5.66: Silence
-4.63: Footsteps approaching softly
-5.14: distant footsteps on cobblestone
-5.88: Silence
-3.84: Silence
-3.42: low hum with occasional crackle
-5.26: Soft rustling wind over distant rooftops
-2.95: [Ambient rustle of fabric shifting]
-4.41: Silence
-3.0: Silence
-1.12: Silence
-5.89: Silence
-5.99: Silence
-3.14: [Silence]
-2.91: Silence
-1.91: Silence
-3.12: Silence
-3.14: Silence
-2.06: Silence
-3.09: Silence
-4.03: Silence
-2.84: Silence
-2.72: Silence
-7.52: Silence
-5.1: Silence
-4.86: distant brass fanfare
-3.86: Silence
-6.52: Silence
-2.54: Silence
-1.94: Silence
-1.86: Silence
-1.04: Silence
-1.56: Echoing footsteps on marble
-2.1: low hum of overlapping voices
-1.26: Laughter
-1.0: Silence
-2.7: faint brassy wheeze at low amplitude
-1.58: Silence
-1.31: Silence
-0.9: Silence
-1.57: Silence
-1.12: Silence
-1.32: Silence
-2.51: Silence
-2.37: Silence
-3.2: Silence
-4.32: Silence
-3.1: Footsteps echoing off brick walls
-3.35: Silence
-2.91: Rain hitting surface
-1.93: door creaks faintly
-3.02: Silence
-2.48: Silence
-3.05: Silence
-9.46: 
-13.84: Silence
-7.51: creaking wood
-3.51: Footsteps on gravel
-6.36: Heavy footsteps approaching
-3.76: Silence
-7.98: Ink brush squeak
-3.72: Silence
-3.56: Silence
-1.32: Silence
-3.63: Silence
-4.64: Silence
-3.86: Silence
-4.33: Silence
-5.04: Silence
-1.14: Silence
-2.54: Silence
-2.01: Silence
-2.9: Whispered footsteps echoing faintly
-4.1: Silence
-1.91: [Silence]
-4.2: Low hum of tense anticipation with distant crowd murmurs
-1.32: Silence
-2.62: [Silence]
-3.42: Silence
-3.36: Silence
-3.48: Sharp gasp
-1.88: fingertip pressure on skin
-1.7: Silence
-1.72: Silence
-4.18: Silence
-1.35: Silence
-2.85: Silence
-3.02: Silence
-1.37: Silence
-1.15: Silence
-1.44: Silence
-1.63: Silence
-1.11: Silence
-1.06: Silence
-1.62: Silence
-1.94: Silence
-2.4: Silence
-2.1: Silence
-2.68: Silence
-1.08: Silence
-1.46: Metal creaks as it lifts
-1.63: Silent air with faint exhalation
-0.94: Silence
-0.59: Silence
-0.63: Silence
-1.39: Silence
-1.26: Silence
-2.14: Distant metallic creaking
-1.52: Silence
-1.2: Silence
-4.5: Silence
-5.02: Low tense breath
-2.6: Silence
-3.46: Silence
-1.26: Silence
-3.28: Low hum of distant dripping water
-2.04: Silence
-2.88: Silence
-2.89: Soft metallic scraping with faint resonance
-6.33: Silence
-3.18: Silence
-1.74: Silence
-5.86: Silence
-4.67: Soft metallic resonance with faint crystalline chime
-6.47: Silence
-4.26: Silence
-7.6: Silence
-7.28: Silence
-4.67: Silence
-2.11: Silence
-2.7: Silence
-2.46: Silence
-3.45: Silence
-1.81: Silence
-3.56: Silence
-1.94: Silence
-4.28: Silence
-2.58: Soft blink sound with metallic horn resonance
-1.9: Silent pause followed by faint electronic chime
-2.16: Silence
-3.78: Silence
-4.78: Footsteps echoing on concrete
-2.16: Silence
-3.47: Silence
-5.51: Soft metallic creak of rusted hinge
-5.9: River water lapping against wooden planks
-3.58: low hum of dry desert wind
-4.3: Glass clinks softly as liquid is poured.
-5.06: Silence
-5.25: Low distant rumble
-5.35: Silence
-1.1: Silence
-5.82: Silent tension
-2.18: Silence
-0.6: Silence
-1.36: Silence
-5.9: Glass shatter followed by wind gust
-2.51: Silence
-4.32: Silence
-3.04: Silence
-7.62: Silence
-8.44: Oil splashing with a sharp crackle followed by sudden silence
-5.17: Scraping chairs at low amplitude with sharp attack
-3.79: Morn's muffled footsteps approaching
-5.59: 
-7.96: Silence
-4.58: Silence
-6.0: sharp metallic thud
-9.75: Silence
-4.11: Whispered threat with rising tension
-4.43: Silence
-4.99: Silence
-3.87: Silence
-5.37: Soft crackle of ignition
-4.14: Silence
-6.97: Silence
-4.62: Silence
-5.03: [Footsteps approaching]
-3.16: Silence
-5.6: Soft rustling of fabric
-8.62: Soft padding of paws
-1.22: Silence
-3.65: Silence
-4.18: Footsteps ascending stairs with sudden urgency
-4.33: [Sound of a jewel clinking faintly as it moves across stage floor]
-5.36: Silence
-5.92: Swelling orchestral swell with sudden applause
-5.68: dramatic silence with tension
-4.7: Bright cottages shimmer with sudden light
-4.6: Silence
-5.32: Silence
-2.68: Rope hauling sounds
-5.47: Silence
-7.59: Silence
-6.18: Soft metallic clinks from scattered prop weapons
-5.34: Silence
-1.24: Silence
-2.86: Silence
-1.76: Silence
-0.92: Silence
-1.26: Silence
-2.08: Silence
-1.64: Silence
-2.29: Silence
-1.83: Silence
-1.98: Silence
-1.78: Sharp metallic click
-2.51: Silence
-1.81: Silence
-1.86: Silence
-2.04: Soft purring with faint collar jingle
-1.92: Silence
-7.28: Silence
-7.4: Theater ambience with distant footsteps exiting
-4.74: Silence
-1.02: Silence
-8.38: Silence
-3.2: Silence
-2.86: Silence
-5.83: Sharp exclamation with rising pitch
-4.99: Rising angry murmurs crescendo into chaotic shouts
+2.38: Silence
+13.72: Silence
+10.16: Silence
+25.32: Silence
+5.22: Soft footstep, quiet door click
+2.83: Low amplitude metallic clinking of a small silver tray moving
+6.32: Silence
+3.27: Muffled muffled footsteps approaching a door, faint polite knock
 6.06: Silence
-6.16: Silence
-1.04: Silence
-4.52: metallic clink
-2.4: metallic click followed by soft mechanical whir
-4.86: Footsteps on stone
-1.96: pulsing roar
-4.84: Silence
-3.54: Silence
-3.64: Speech
-2.56: Silence
-4.03: Silence
-6.92: Silence
-5.11: 
-4.6: sharp wooden crack
-4.12: hollow, comic clang from falling pistol
-3.5: Soft thud
-5.45: Silent rustle of fabric
-5.14: 
-4.93: Silence
-1.08: Silence
-2.67: Soft whispering murmur
-3.39: Silence
-3.5: Soft fabric rustle
-3.07: Silent impact with faint metallic resonance
-4.54: Silence
-2.68: [Soft metallic creak]
-1.55: projector hum
-4.74: Silence
-1.92: Silence
-4.4: Silence
-2.02: Silence
-1.6: Silence
-1.51: [Silence]
-0.69: Silence
-4.3: Silence
-1.86: Silence
-1.24: Silence
-2.6: Silence
-2.4: Silence
-1.29: Silence
-4.5: Silence
-4.02: Silence
-2.59: muffled crowd noise
-2.82: Sudden laughter crescendo
-2.27: Low murmur of overlapping voices
-5.28: Low chatter hum
-6.23: Silence
-4.42: Quiet footsteps on stone
-7.46: [Silence]
-4.54: Silence
-3.44: Silence
-3.43: Silence
-4.18: Silence
-5.87: Silence
-6.13: [Sound of a heavy wooden box being opened]
-4.09: Drop of metal hitting stone
-1.7: 
-2.78: Silence
-2.2: Horns
-1.55: Silence
-3.38: Silence
-2.43: Silence
-1.82: Silence
-1.74: Silence
-3.86: [Silence]
-1.96: Silence
-1.1: Silence
-2.08: Silence
-2.12: Silence
-6.64: Footsteps approaching rapidly
-2.74: Silence
-4.74: Soft rustle of fabric
-5.1: Silence
-1.69: Silence
-5.23: Silence
-3.92: Silence
-4.97: sharp whistle followed by murmurs
-0.74: Silence
-4.76: Silence
-4.04: Footsteps fading into corridor hum
-3.1: Silence
-1.98: Silence
-2.59: Silence
-6.79: Distant fading applause with sudden silence
-5.23: Silence
-4.76: Glass clinks softly as light glints off its surface
-3.65: Silence
-7.35: Silence
-1.2: Silence
-1.8: Silence
-7.53: Silence
-10.4: Silence
-4.85: Suspenseful orchestral tension with deep strings
-1.87: Silence
-2.31: Silence
-2.56: Silence
-1.08: Silence
-1.23: Silence
-1.87: Sharp digital pulse
-2.64: Silence
-1.8: Silence
-2.01: Silence
-2.63: Silence
-1.03: Silence
-1.34: Silence
-0.78: Silence
-2.17: Rumbling low-frequency earth movement with intermittent high-pitched hoof impacts
-1.4: Silence
-3.07: Silence
-2.45: Silence
-2.18: Horn blare
-2.04: Low rumbling tension
-1.62: Silence
-2.27: Silence
-2.53: Silence
-1.44: Silence
-1.07: Silence
-1.04: Silence
-1.41: Silence
-1.8: Silence
-2.13: Silence
-3.19: Silence
-2.05: Silence
-2.67: Silence
-6.56: Horns blare sharply
-4.97: Silence
-4.42: metal clinks
-4.03: shattered water droplet emitting high-pitched metallic ping
-3.8: Soft rustle of disturbed blades
-5.06: Silence
-6.26: Silence
-3.78: low ambient hum with distant wind chime
-4.36: Silence
-5.08: Silence
-4.94: Silence
-4.6: Silence
-3.36: Fingertip jewelry clinking softly
-3.68: Deep rhythmic pulse
+3.48: Muffled indoor voice speaking in a hushed tone, quiet background room tone.
+4.8: Silence
+6.59: Subtle ambient room tone with faint distant footstep echoes
+3.83: Heavy soft footsteps on floor, gentle fabric rustling
+2.76: Silence
+2.36: Soft leather footsteps on dry surface
+5.38: Silence
+3.28: Silence
 5.68: Silence
-7.48: Silence
-3.2: Silence
-4.44: Silence
-0.5: Silence
-3.25: Silence
-3.39: Silence
-4.26: Soft murmurs spreading faintly
-1.24: Silence
-0.79: Silence
-6.21: [Silence]
-2.84: Silence
-5.14: Silence
-4.82: Silence
-5.04: Low hum of distant machinery
-5.1: Silence
-7.02: Silence
-7.1: Silent
-0.74: Silence
-1.58: Silence
-1.29: Silence
-2.31: Silence
-1.92: Silence
-1.96: Silent tension with subtle mechanical hum
 1.02: Silence
-1.04: Silence
-2.0: Silence
-1.9: Silence
-2.14: Silence
-1.56: Silence
-2.36: Silence
-2.66: Silence
-1.56: Silence
-1.78: Silence
-2.07: Silence
-2.72: Silence
-1.86: Silence
-2.81: Silence
-2.79: Silence
-3.35: Silence
-1.76: Silence
-3.53: Silence
-4.88: Silence
-4.1: Soft gasp with high pitch
-2.19: Silence
-3.25: Silence
-5.82: Silence
-5.59: Silence
-6.79: Silence
-6.97: Silence
-1.98: Silence
-1.04: Silence
-3.17: Silence
-2.42: Silence
-1.83: Silence
-2.92: [Silence]
-3.38: Silence
-2.04: Silence
+6.46: Silence
+8.76: Silence
+8.55: Silence
 3.6: Silence
-3.87: Silence
-2.29: Silence
-5.54: Silence
-4.85: [Silence]
-4.89: Silence
-5.14: Silence
-3.98: Silence
-4.32: Silence
-6.92: Silence
-7.5: Quiet footsteps on marble floor
-6.64: Silence
-6.21: Silence
-1.35: Silence
-5.75: Fury rising with tense breath
-6.33: Silence
-7.72: Silence
-5.64: Silence
-4.33: Silence
-1.87: 
-4.3: Silence
-5.04: Silence
-1.98: Silence
-4.75: Silence
-4.73: Silence
-4.64: Exhale with faint tremor
-2.64: Silence
-16.36: Low hum of tension with faint metallic creaks
-6.04: Silence
-9.68: Silence
-10.09: distant city noise
-8.36: [Silence]
-7.62: Silence
-6.84: Silence
-4.03: Silence
-6.48: Silence
-10.44: Soft stage curtains rustling faintly
-14.56: 
-2.06: Silence
-2.95: Violin bowing softly with wooden resonance
-4.49: Soft piano tones rising in gentle waves
-4.66: low crackling fire ambience
-3.71: Silence
-1.59: Silence
-3.29: Silence
-3.18: Silence
-3.35: Laughter with metallic echo
-2.42: Silence
+2.75: Silence
+5.92: Silence
+3.6: Fabric rustling as body leans forward.
+6.5: Silence
+8.96: Silence
+8.45: Silence
+9.04: Soft wind rustling through rose bushes and distant birds chirping in a quiet valley.
+6.79: Low ominous rumble atmosphere with faint wind howling
+8.1: Silence
+3.99: Silence
+4.37: Silence
+5.22: Silence
+7.37: Silence
+4.14: Subtle ambient room noise at low amplitude
+3.63: Silence
+5.83: Silence
+5.68: Subtle ambient room silence with faint breeze rustling leaves near door.
+3.42: Silence
+5.21: Silence
+2.78: Silence
 6.26: Silence
-4.08: Silence
-1.48: Silence
-4.88: Silence
-4.63: Silence
-4.63: Silence
-2.07: Silence
-2.81: Silence
-2.22: Silence
-2.95: ...
-4.13: Silence
-3.23: Silence
-3.07: Silence
-3.53: Silence
-4.07: Distant traffic rumble
-6.92: High-pitched violin sustain over low-frequency fire crackle
-3.6: Silent anticipation
-0.26: Silence
+10.06: Silence
+1.14: Silence
+6.47: Silence
+5.05: Soft rustling as unseen petals unfurl, followed by a faint ethereal chime.
+7.42: Silence
+1.58: Silence
+12.42: Silence
+7.72: Silence
+2.94: Low frequency moaning drone, slow decay, minor timbre
+3.73: Low frequency wind with soft breathy whisper texture
+4.26: Sharp fabric rustle followed by rapid footsteps on wood floor
+3.87: Silence
+4.8: Silence
+6.84: Silence
+9.39: Silence
+3.49: Silence
+6.28: Silence
+4.92: Silence
+4.36: Silence
+7.12: Silence
+3.5: Silence
+3.91: Silence
+4.49: Silence
+2.38: Silence
+9.0: Silence
+6.02: Silence
+4.14: Silence
+5.8: Silence
+4.81: Silence
+4.35: Silence
+1.24: Silence
+4.75: Silence
+5.66: Silence
+4.77: Silence
+6.12: Low ambient hum of a mysterious forest with distant wind rustling leaves
+5.86: Silence
+6.0: Low rumble of train wheels on track, distant whistle blowing
+5.88: Soft ambient rustling of dry grass and faint distant bird calls in morning silence
+6.4: Silence
+5.64: Silence
+8.24: Silence
+6.32: Silence
+7.36: Silence
+6.08: Silence
+2.95: Silence
+4.36: Silence
+4.91: Silence
+4.12: Silence
+4.29: Silence
+4.77: Distant train wheels rolling on tracks at low frequency.
+2.98: Silence
+2.79: Silence
+4.81: Silence
+1.1: Silence
+2.14: Silence
+3.39: Silence
+4.07: Silence
+1.06: Silence
+3.91: Silence
+4.39: Silence
+7.39: Soft crunching of dry reddish clay under heavy leather boots
+6.23: Silence
+6.18: Silence
+6.78: Silence
+6.46: Wheels rolling on gravel, wooden carriage creaking, distant valley wind
+4.66: Silence
+4.16: Silence
+2.46: Soft wind rushing with low amplitude
+2.04: Silence
+4.6: Silence
+4.5: Silence
+8.05: Silence
+1.92: Silence
+6.02: Silence
+4.91: Silence
+1.04: Silence
+6.18: Silence
+6.4: Silence
+6.23: Silence
+7.01: Silence
+5.88: Silence
+13.99: Silence
+11.39: Subtle, tense human vocalization with underlying anxiety, low amplitude, unstable pitch
+16.16: Silence
+11.12: Soft rustle of cloth, faint wind against glass
+8.34: Silence
+8.37: Silence
+5.61: Ambient quietness with faint wind rustling leaves
+2.3: Silence
+3.47: Silence
+4.64: Silence
+4.67: Silence
+4.83: Silence
+3.77: Silence
+2.14: Silence
+4.28: Gentle rustling of rose leaves in light breeze
+4.94: Silence
+3.26: Silence
+2.74: Silence
+2.5: Silence
+2.61: Silence
+4.69: Silence
+6.28: Silence
+1.58: Silence
+5.27: Soft whispering of a male voice speaking clearly and calmly.
+4.07: Silence
+5.27: Soft fabric rustling, careful footsteps on dry earth, faint wind through window crack
+5.81: Dry soil shifting softly under fingertips.
+19.92: Silence
+5.61: Silence
+5.01: Soft spoken male voice
+9.15: Soft continuous soil disturbance, low amplitude, granular friction noise
+7.05: Soft fabric rustling as body shifts
+6.89: Rustling grass and soft footfalls on dry leaves
+6.67: Light fabric rustling against wood and leaves, subtle dry crackles.
+8.5: Light footstep crunch on dry leaves and twigs
+6.73: Low wind noise, soft rustling leaves, distant ambient forest atmosphere
+8.52: Silence
+12.01: Silence
+9.84: Subtle wind whispering through narrow stone crevices
+16.94: Silence
+6.8: Silence
+1.04: Silence
+10.16: Silence
+5.3: Silence
+4.79: Soft fabric rustling and footsteps on gravel path
+3.09: Soft woody friction of tree branches rustling closed.
+3.02: Low rumble, rising pitch, heavy atmosphere, soft friction
+3.6: Silence
+5.53: Silence
+3.19: Silence
+5.14: Subtle wind blowing through deep hollows with low rumbling resonance
+16.48: Heavy oppressive stillness, low ambient hush, faint rustling of rose thicket.
+7.34: Silence
+7.66: Low frequency rumble, muffled resonance, distorted acoustic texture
+5.67: Silence
+3.91: Silence
+2.6: Silence
+5.13: Silence
+2.29: Human speech sounds of a clear voice stating words.
+1.2: Silence
+3.78: Silence
+5.12: Silence
+3.66: Silence
+1.18: Silence
+4.34: Subtle crunch of dry leaves underfoot on forest path
+5.18: Silence
+3.82: Silence
+4.49: Silence
+7.24: Silence
+4.01: High frequency dry scratching sounds of pruning shears cutting woody branches
+6.04: Faint, rhythmic footstep thuds on dirt
+1.04: Silence
+4.12: Silence
+3.58: Silence
+3.16: Silence
+6.66: Silence
+4.44: Silence
+4.81: Silence
+3.29: Silence
+3.86: Silence
+3.63: Silence
+3.37: Low static hum, faint white noise, continuous atmospheric background.
+5.87: Silence
+2.29: Silence
+5.84: Silence
+1.28: Silence
+2.0: Silence
+3.52: High pitch wooden creaks, sharp gripping friction
+4.67: Silence
+6.31: Silence
+5.9: Silence
+18.28: Silence
+6.5: Silence
+5.68: Silence
+7.37: Soft room tone with subtle acoustic reverb.
+4.52: Silence
+3.15: Light footstep sounds on hard stone surface, low frequency, medium amplitude
+4.76: Silence
+1.02: Silence
+5.32: Silence
+4.46: Silence
+1.1: Silence
+3.13: Silence
+3.88: Liquid spraying sound with low amplitude hiss
+4.39: Silence
+3.4: Silence
+5.16: Silence
+2.8: Silence
+5.68: Silence
+3.8: Silence
+1.06: Silence
+2.22: Soft fabric rustle of lens case, faint click as lens is removed, light plastic tap
+2.88: Silence
+4.8: Silence
+1.18: Silence
+5.48: Silence
+1.1: Silence
+2.4: Silence
+1.1: Silence
+7.02: Silence
+2.52: Silence
+4.09: Silence
+7.39: Silence
+4.46: Silence
+3.52: Faint ambient noise reaching the ears
+5.18: Low pitch mournful sustained tone drifting in clearing
+5.91: Low pitch dread, medium amplitude, recurring mysterious ambient noise in a valley
+2.67: Silence
+9.9: Silence
+1.0: Silence
+7.81: Low rhythmic ambient hum rising and falling in amplitude
+10.94: Soft hiss of air passing through narrow aperture
+6.14: Silence
+3.43: Silence
+3.64: Silence
+1.08: Silence
+2.08: Silence
+3.83: Silence
+4.21: Regular mechanical ticking with steady pitch and moderate amplitude.
+4.98: Silence
+2.06: Silence
+1.02: Silence
+2.15: Soft rustling of dry leaves under footsteps
+4.65: Silence
+5.83: Silence
+3.17: Dry rustling of leaves underfoot
+4.96: Silence
+4.6: Silence
+2.38: Silence
+5.62: Silence
+4.37: Subtle mechanical whirring with low amplitude
+5.89: Silence
+1.16: Silence
+1.35: Silence
+3.53: Low, resonant hollow echo with reverb
+3.68: Silence
+9.08: Silence
+9.37: Subtle rustling of dry leaves underfoot, distant creaking of wooden floorboards
+4.69: Light rustling of dry leaves being scraped across ground
+3.64: Low rumble of heavy wooden panel shifting across dirt floor
+4.99: Silence
+4.32: Heavy metal strain sound with creaking hinges as panel lifts.
+6.34: Silence
+2.92: High friction creaking, loud scraping metal on wood with low pitch rumble
+3.17: Silence
+4.0: Faint, resonant mournful hum with soft amplitude and low frequency.
+9.49: Silence
+15.59: Silence
+6.88: Silence
+3.78: Low rumble of footsteps on stone, faint echo in cavern
+3.6: Silence
+6.07: Subtle wind whispering through a dark cave, low rumble of stone shifting
+5.77: Silence
+2.56: Silence
+8.1: Light metal rattle, soft fabric rustle, low hum of lantern flame
+1.46: Silence
+13.14: Silence
+7.17: Rhythmic descending footfalls on stone, soft fabric rustle, low ambient echo.
+3.69: Silence
+3.21: Silence
+2.09: Deep bass rumble of falling debris, heavy metallic scraping on stone, echoing hollow descent.
+3.9: Silence
+2.96: Low-pitched wooden creaking under heavy weight
+2.28: Silence
+3.54: Silence
+2.75: Silence
+1.33: Silence
+2.14: Low rhythmic industrial construction hum
+1.72: Silence
+7.22: Low creaking wood under pressure, irregular rhythmic wooden thuds.
+5.88: Silence
+1.38: Silence
+3.79: Silence
+3.62: Silence
+3.43: Silence
+12.07: Silence
+11.79: Faint creaking of worn wooden beams, soft crunch of gravel underfoot.
+19.66: Low rumbling footsteps and heavy metal dragging sounds.
+12.23: Silence
+13.79: Silence
+12.34: Silence
+13.58: Silence
+7.03: Heavy bootsteps on rough stone, echoing in dim tunnel
+8.2: Silence
+8.51: Distant mechanical hum of silent laboratory equipment, low frequency static
+19.76: Silence
+11.32: Low frequency moaning echo, increasing amplitude, metallic timbre
+8.92: Low ambient wind, distant unexplained rustling, high-pitched nervous hum
+13.13: Silence
+9.25: Light footsteps on stone, rhythmic fabric rustle, distant echoing steps
+8.08: High-pitched whistling from narrow pipes
+8.76: Continuous low frequency wind noise, moderate amplitude, harsh timbre
+1.4: Silence
+5.34: Silence
+3.3: Low ambient room tone with faint metallic hum
+12.82: Silence
+9.74: Low, rumbling underground ambience with faint, shifting air currents.
+7.54: Subtle floorboard creak and distant faint rustle
+1.3: Silence
+12.48: Silence
+4.78: Low footsteps on gravel, ambient wind rustling leaves
+2.87: Silence
+4.37: Silence
+1.16: Silence
+3.05: Silence
+3.91: Silence
+2.73: Silence
+1.67: Silence
+3.0: Silence
+2.5: Silence
+1.18: Silence
+3.72: Silence
+6.46: Silence
+2.83: Silence
+7.59: Silence
+8.41: low frequency rumble, deep pitch, medium amplitude, dark timbre, continuous
+2.77: Subtle digital glitch hum, low amplitude, medium frequency.
+5.98: Silence
+4.47: Silence
+8.03: Silence
+7.91: Subtle low-frequency rumbling, distant dripping water, faint wind flowing through stone tunnels.
+4.85: Silence
+5.78: Silence
+4.4: Silence
+5.22: Silence
+7.96: Silence
+3.72: Silence
+5.54: Silence
+4.74: Faint low-frequency electronic hum
+2.93: Distant echoing mournful ambient tone
+2.71: Silence
+17.06: Silence
+10.68: Silence
+14.16: Silence
+6.74: Silence
+1.1: Silence
+4.09: Silence
+5.01: Silence
+5.64: Low ambient room tone, subtle footshifts on wooden floor
+5.05: Low frequency drone with subtle rising tension
+5.79: Silence
+5.74: Silence
+4.66: Silence
+12.8: Silence
+3.88: Silence
+5.6: Silence
+6.15: Silence
+3.14: Silence
+5.25: Silence
+1.22: Silence
+5.24: Silence
+5.56: Silence
+1.46: Silence
+4.88: Low amplitude, low frequency vocal sigh with resonant timbre
+5.38: Silence
+4.98: Silence
+5.64: Silence
+12.32: Silence
+1.04: Silence
+6.57: Silence
+9.75: Silence
+4.25: Silence
+6.28: Silence
+3.85: Silence
+6.06: Silence
+4.01: Silence
+2.03: Silence
+6.38: Silence
+3.62: Silence
+3.54: Silence
+3.78: Silence
+4.36: Silence
+2.68: Silence
+3.54: Silence
+10.02: Soft mechanical pumping and faint liquid flow through tubes.
+8.44: Silence
+7.72: Silence
+5.46: Silence
+9.68: Subtle rustling of paper turning rapidly
+6.58: Low fabric rustle, subtle footstep on wood
+10.04: Silence
+8.3: Silence
+6.3: Silence
+5.86: Silence
+5.24: Silence
+5.83: Silence
+4.95: Silence
+4.54: Silence
+7.82: Silence
+9.03: Silence
+8.71: Silence
+7.58: Silence
+6.19: Silence
+8.57: Silence
+6.34: Low frequency rumble of tension building, quiet metallic creaking from tunnel walls.
+4.38: Silence
+3.76: Silence
+5.44: Silence
+2.48: Silence
+4.92: Silence
+4.91: Silence
+2.41: Silence
+7.08: Heavy metallic lever mechanism creaking and clanking with firm pull.
+5.62: Silence
+19.34: Silence
+1.16: Silence
+8.0: Sudden loud rush of air, muffled thud of extinguished wicks
+8.66: Human male voice speaking calmly at low amplitude.
+15.52: Silence
+5.0: Silence
+1.18: Silence
+8.46: Silence
+15.18: Silence
+9.18: Distant muffled voices, approaching footsteps echoing in a tunnel
+9.3: Silence
+11.51: Silence
+11.29: Soft metallic handcuffs click against each other
+11.3: Faint ambient wind through a recovering valley, subtle distant machinery creaking as it stops.
+1.18: Silence
+8.24: Low static hum, 60Hz, soft amplitude, continuous
+7.38: Silence
+11.76: Silence
+16.8: Silence
+7.96: Silence
+2.99: Silence
+7.69: Silence
+5.8: Silence
+6.86: Silence
+0.6: Silence
