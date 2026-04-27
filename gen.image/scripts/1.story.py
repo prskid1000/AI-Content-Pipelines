@@ -43,6 +43,9 @@ STORY_DESCRIPTION_PARTS = 5
 ENABLE_RESUMABLE_MODE = True  # Set to False to disable resumable mode
 CLEANUP_TRACKING_FILES = False  # Set to True to delete tracking JSON files after completion, False to preserve them
 
+# LLM backend base URL — telecode default (port 1235), flip to 1234 for LM Studio.
+LLM_BASE_URL = "http://127.0.0.1:1235/v1"
+
 # Model constants for easy switching
 MODEL_STORY_DESCRIPTION = "qwen3.5-35b-a3b"  # Model for generating story descriptions
 MODEL_CHARACTER_GENERATION = "qwen3.5-35b-a3b"  # Model for character description generation
@@ -1515,7 +1518,7 @@ def main() -> int:
     story_desc = None
     if locations:
         try:
-            lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v1")
+            lm_studio_url = LLM_BASE_URL
             
             # Generate story description from content using qwen3.5-35b-a3b
             story_desc = _generate_story_summary(content, lm_studio_url, resumable_state)
@@ -1554,7 +1557,7 @@ def main() -> int:
         unique_names = sorted(schars)
         if unique_names:
             try:
-                lm_studio_url = os.environ.get("LM_STUDIO_URL", "http://localhost:1234/v1")
+                lm_studio_url = LLM_BASE_URL
                 
                 # Step 1: Generate initial character descriptions
                 name_to_desc = _generate_character_descriptions(story_desc, unique_names, lm_studio_url, resumable_state)

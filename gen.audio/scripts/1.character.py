@@ -14,6 +14,9 @@ print = partial(_builtins.print, flush=True)
 LANGUAGE = "en"
 REGION = "in"
 
+# LLM backend base URL — telecode default (port 1235), flip to 1234 for LM Studio.
+LLM_BASE_URL = "http://127.0.0.1:1235/v1"
+
 # Model constants for easy switching
 MODEL_CHARACTER_CHAPTER_SUMMARY = "qwen3.5-35b-a3b"  # Model for chapter summarization
 MODEL_CHARACTER_TITLE_GENERATION = "qwen3.5-35b-a3b"  # Model for story title generation
@@ -219,7 +222,7 @@ character_voices = {
     "male_detective_holmes": "ramesh_en"
 }
 class CharacterManager:
-    def __init__(self, language=LANGUAGE, region=REGION, lm_studio_url="http://localhost:1234/v1", model=MODEL_CHARACTER_CHAPTER_SUMMARY):
+    def __init__(self, language=LANGUAGE, region=REGION, lm_studio_url=LLM_BASE_URL, model=MODEL_CHARACTER_CHAPTER_SUMMARY):
         self.language = language
         self.region = region
         self.character_voices = character_voices.copy()

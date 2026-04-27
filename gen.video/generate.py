@@ -108,6 +108,16 @@ NEEDS_LMSTUDIO = {"1.character.py", "1.story.py", "5.timeline.py", "6.timing.py"
 COMFYUI_MANAGE_ONLY = True
 LMSTUDIO_MANAGE_ONLY = True
 
+# ───── LLM backend (telecode is the default; lmstudio kept as fallback) ─────
+# Edit this constant to switch backends. Both speak OpenAI-compatible
+# /v1/chat/completions; only the lifecycle plumbing differs.
+LLM_BACKEND = "telecode"   # "telecode" | "lmstudio"
+
+LLM_BASE_URL = (
+    "http://127.0.0.1:1235/v1" if LLM_BACKEND == "telecode"
+    else "http://127.0.0.1:1234/v1"
+)
+
 # Centralized non-interactive defaults (only change this file)
 SCRIPT_ARGS = {
     # "1.story.py": ["--bypass-validation"],
@@ -529,7 +539,52 @@ def run_script(script_name: str, working_dir: str, log_handle) -> int:
     return result.returncode
 
 
-def start_lmstudio(log_handle) -> bool:
+def _lms_base_cmd() -> list:
+    """Resolve the `lms` CLI invocation (env override → PATH → default install)."""
+    cmd_env = os.environ.get("LM_STUDIO_CMD")
+    if cmd_env:
+        try:
+            return shlex.split(cmd_env, posix=False)
+        except Exception:
+            return [cmd_env]
+    if shutil.which("lms"):
+        return ["lms"]
+    if os.name == "nt":
+        userprofile = os.environ.get("USERPROFILE", "")
+        return [os.path.join(userprofile, ".lmstudio", "bin", "lms.exe")]
+    return [os.path.expanduser(os.path.join("~", ".lmstudio", "bin", "lms"))]
+
+
+def _llm_http(method: str, path: str, log_handle, timeout: float = 600.0):
+    """Tiny HTTP helper for the LLM proxy (used by the telecode backend)."""
+    url = urljoin(LLM_BASE_URL if LLM_BASE_URL.endswith('/') else LLM_BASE_URL + '/', path.lstrip('/'))
+    req = urllib.request.Request(url, method=method, headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return resp.status, resp.read()
+    except urllib.error.HTTPError as ex:
+        body = b""
+        try:
+            body = ex.read() or b""
+        except Exception:
+            pass
+        return ex.code, body
+    except Exception as ex:
+        log_handle.write(f"WARNING: HTTP {method} {url} failed: {ex}\n")
+        log_handle.flush()
+        return 0, b""
+
+
+def start_llm(log_handle) -> bool:
+    """Telecode: external long-running tray app — never started by us, just probed.
+    LM Studio: spawn `lms server start` unless LMSTUDIO_MANAGE_ONLY=True."""
+    if LLM_BACKEND == "telecode":
+        log_handle.write(
+            f"LLM backend = telecode (external service at {LLM_BASE_URL}); not starting.\n"
+        )
+        log_handle.flush()
+        return True
+
     if LMSTUDIO_MANAGE_ONLY:
         log_handle.write(
             "LMSTUDIO_MANAGE_ONLY=True: not starting LM Studio; assuming it is already running.\n"
@@ -537,25 +592,7 @@ def start_lmstudio(log_handle) -> bool:
         log_handle.flush()
         return True
 
-    cmd_env = os.environ.get("LM_STUDIO_CMD")
-    if cmd_env:
-        try:
-            base_cmd = shlex.split(cmd_env, posix=False)
-        except Exception:
-            base_cmd = [cmd_env]
-    else:
-        if shutil.which("lms"):
-            base_cmd = ["lms"]
-        else:
-            if os.name == "nt":
-                userprofile = os.environ.get("USERPROFILE", "")
-                candidate = os.path.join(userprofile, ".lmstudio", "bin", "lms.exe")
-            else:
-                candidate = os.path.expanduser(os.path.join("~", ".lmstudio", "bin", "lms"))
-            base_cmd = [candidate]
-
-    args = base_cmd + ["server", "start"]
-
+    args = _lms_base_cmd() + ["server", "start"]
     log_handle.write("Starting LM Studio backend via lms CLI...\n")
     log_handle.write("Command: " + " ".join(args) + "\n")
     log_handle.flush()
@@ -563,21 +600,16 @@ def start_lmstudio(log_handle) -> bool:
     creation_flags = 0
     if os.name == "nt" and hasattr(subprocess, "CREATE_NEW_PROCESS_GROUP"):
         creation_flags = subprocess.CREATE_NEW_PROCESS_GROUP
-
     try:
         result = subprocess.run(
-            args,
-            stdout=log_handle,
-            stderr=log_handle,
-            text=True,
+            args, stdout=log_handle, stderr=log_handle, text=True,
             creationflags=creation_flags,
         )
         if result.returncode == 0:
             return True
-        else:
-            log_handle.write(f"ERROR: lms server start exited with {result.returncode}\n")
-            log_handle.flush()
-            return False
+        log_handle.write(f"ERROR: lms server start exited with {result.returncode}\n")
+        log_handle.flush()
+        return False
     except FileNotFoundError as ex:
         log_handle.write(f"ERROR: Failed to start LM Studio. Command not found: {args[0]} ({ex})\n")
         log_handle.flush()
@@ -588,42 +620,54 @@ def start_lmstudio(log_handle) -> bool:
         return False
 
 
-def unload_lmstudio_all_models(log_handle) -> None:
-    # Build base command for lms
-    cmd_env = os.environ.get("LM_STUDIO_CMD")
-    if cmd_env:
+def load_llm_model(log_handle) -> bool:
+    """Telecode: explicitly preload the configured default model so the first
+    chat call doesn't pay the cold-load penalty mid-script. LM Studio: no-op
+    (LM Studio loads on demand on first /chat/completions request)."""
+    if LLM_BACKEND != "telecode":
+        return True
+    log_handle.write(f"Preloading default model via POST {LLM_BASE_URL}/models/load ...\n")
+    log_handle.flush()
+    status, body = _llm_http("POST", "models/load", log_handle, timeout=600.0)
+    if status == 200:
         try:
-            base_cmd = shlex.split(cmd_env, posix=False)
+            preview = body[:300].decode("utf-8", errors="replace")
         except Exception:
-            base_cmd = [cmd_env]
-    else:
-        if shutil.which("lms"):
-            base_cmd = ["lms"]
+            preview = ""
+        log_handle.write(f"Telecode model loaded: {preview}\n")
+        log_handle.flush()
+        return True
+    log_handle.write(
+        f"WARNING: Telecode load failed (status={status}, body={body[:300]!r}). "
+        "First chat call will retry via lazy load.\n"
+    )
+    log_handle.flush()
+    return False
+
+
+def unload_llm_models(log_handle) -> None:
+    """Telecode: POST /v1/models/unload. LM Studio: `lms unload --all`."""
+    if LLM_BACKEND == "telecode":
+        log_handle.write(f"Unloading model via POST {LLM_BASE_URL}/models/unload ...\n")
+        log_handle.flush()
+        status, body = _llm_http("POST", "models/unload", log_handle, timeout=60.0)
+        if status == 200:
+            log_handle.write("Telecode reports model unloaded.\n")
         else:
-            if os.name == "nt":
-                userprofile = os.environ.get("USERPROFILE", "")
-                candidate = os.path.join(userprofile, ".lmstudio", "bin", "lms.exe")
-            else:
-                candidate = os.path.expanduser(os.path.join("~", ".lmstudio", "bin", "lms"))
-            base_cmd = [candidate]
+            log_handle.write(f"WARNING: Telecode unload returned status={status}, body={body[:300]!r}\n")
+        log_handle.flush()
+        return
 
-    # Use default local server; no explicit host needed
-    args = base_cmd + ["unload", "--all"]
-
+    args = _lms_base_cmd() + ["unload", "--all"]
     log_handle.write("Unloading all models from LM Studio...\n")
     log_handle.write("Command: " + " ".join(args) + "\n")
     log_handle.flush()
-
     creation_flags = 0
     if os.name == "nt" and hasattr(subprocess, "CREATE_NEW_PROCESS_GROUP"):
         creation_flags = subprocess.CREATE_NEW_PROCESS_GROUP
-
     try:
         result = subprocess.run(
-            args,
-            stdout=log_handle,
-            stderr=log_handle,
-            text=True,
+            args, stdout=log_handle, stderr=log_handle, text=True,
             creationflags=creation_flags,
         )
         if result.returncode != 0:
@@ -637,58 +681,37 @@ def unload_lmstudio_all_models(log_handle) -> None:
         log_handle.flush()
 
 
-def stop_lmstudio(log_handle) -> None:
+def stop_llm(log_handle) -> None:
+    """Telecode: just unload (we never own the service). LM Studio: unload + lms server stop unless MANAGE_ONLY."""
+    if LLM_BACKEND == "telecode":
+        unload_llm_models(log_handle)
+        return
+
     if LMSTUDIO_MANAGE_ONLY:
         log_handle.write(
             "LMSTUDIO_MANAGE_ONLY=True: not stopping LM Studio; unloading models instead.\n"
         )
         log_handle.flush()
-        unload_lmstudio_all_models(log_handle)
+        unload_llm_models(log_handle)
         return
 
-    cmd_env = os.environ.get("LM_STUDIO_CMD")
-    if cmd_env:
-        try:
-            base_cmd = shlex.split(cmd_env, posix=False)
-        except Exception:
-            base_cmd = [cmd_env]
-    else:
-        if shutil.which("lms"):
-            base_cmd = ["lms"]
-        else:
-            if os.name == "nt":
-                userprofile = os.environ.get("USERPROFILE", "")
-                candidate = os.path.join(userprofile, ".lmstudio", "bin", "lms.exe")
-            else:
-                candidate = os.path.expanduser(os.path.join("~", ".lmstudio", "bin", "lms"))
-            base_cmd = [candidate]
-
-    args = base_cmd + ["server", "stop"]
-
+    args = _lms_base_cmd() + ["server", "stop"]
     log_handle.write("Stopping LM Studio backend via lms CLI...\n")
     log_handle.write("Command: " + " ".join(args) + "\n")
     log_handle.flush()
-
     creation_flags = 0
     if os.name == "nt" and hasattr(subprocess, "CREATE_NEW_PROCESS_GROUP"):
         creation_flags = subprocess.CREATE_NEW_PROCESS_GROUP
-
     try:
-        # First try to unload all models to allow graceful shutdown
-        unload_lmstudio_all_models(log_handle)
-
+        unload_llm_models(log_handle)
         result = subprocess.run(
-            args,
-            stdout=log_handle,
-            stderr=log_handle,
-            text=True,
+            args, stdout=log_handle, stderr=log_handle, text=True,
             creationflags=creation_flags,
         )
         if result.returncode != 0:
             log_handle.write(f"WARNING: 'lms server stop' exited with code {result.returncode}.\n")
             log_handle.flush()
-        # After requesting stop, wait until port is closed to ensure shutdown
-        wait_for_lmstudio_stopped(log_handle)
+        wait_for_llm_stopped(log_handle)
     except Exception as ex:
         log_handle.write(f"WARNING: Failed to stop LM Studio cleanly: {ex}\n")
         log_handle.flush()
@@ -772,12 +795,14 @@ def wait_for_comfyui_stopped(proc, log_handle, interval_seconds: int = 3) -> Non
         time.sleep(interval_seconds)
 
 
-def wait_for_lmstudio_ready(log_handle, interval_seconds: int = 15) -> bool:
-    base_url = os.environ.get("LM_STUDIO_BASE_URL", "http://127.0.0.1:1234/v1")
-    parsed = urlparse(base_url)
+def wait_for_llm_ready(log_handle, interval_seconds: int = 15) -> bool:
+    """Probe /v1/models on the configured backend port. Backend-agnostic."""
+    parsed = urlparse(LLM_BASE_URL)
     host = parsed.hostname or "127.0.0.1"
-    port = parsed.port or (1234 if (parsed.scheme or "http") == "http" else 1234)
-    models_url = urljoin(base_url if base_url.endswith('/') else base_url + '/', 'models')
+    default_port = 1235 if LLM_BACKEND == "telecode" else 1234
+    port = parsed.port or default_port
+    models_url = urljoin(LLM_BASE_URL if LLM_BASE_URL.endswith('/') else LLM_BASE_URL + '/', 'models')
+    label = "Telecode" if LLM_BACKEND == "telecode" else "LM Studio"
 
     start_ts = time.perf_counter()
     attempt = 0
@@ -788,22 +813,23 @@ def wait_for_lmstudio_ready(log_handle, interval_seconds: int = 15) -> bool:
 
         if socket_ok and http_ok:
             elapsed = time.perf_counter() - start_ts
-            log_handle.write(f"LM Studio is ready after {elapsed:.1f}s (attempt {attempt}).\n")
+            log_handle.write(f"{label} is ready after {elapsed:.1f}s (attempt {attempt}).\n")
             log_handle.flush()
             return True
 
-        log_handle.write(f"LM Studio not ready yet (attempt {attempt}). Retrying in {interval_seconds}s...\n")
+        log_handle.write(f"{label} not ready yet (attempt {attempt}). Retrying in {interval_seconds}s...\n")
         log_handle.flush()
         time.sleep(interval_seconds)
 
 
-def wait_for_lmstudio_stopped(log_handle, interval_seconds: int = 3) -> None:
-    base_url = os.environ.get("LM_STUDIO_BASE_URL", "http://127.0.0.1:1234/v1")
-    parsed = urlparse(base_url)
+def wait_for_llm_stopped(log_handle, interval_seconds: int = 3) -> None:
+    """Telecode is not ours to stop — no-op. LM Studio: poll until port closes."""
+    if LLM_BACKEND == "telecode":
+        return
+    parsed = urlparse(LLM_BASE_URL)
     host = parsed.hostname or "127.0.0.1"
-    port = parsed.port or (1234 if (parsed.scheme or "http") == "http" else 1234)
+    port = parsed.port or 1234
     attempts = 0
-    # Poll until TCP connection fails, indicating server is down
     while True:
         attempts += 1
         if not _tcp_connect(host, port, timeout=1.0):
@@ -834,19 +860,19 @@ def main() -> int:
 
         # Manage services across scripts: keep running across consecutive needs
         comfy_proc = None
-        lmstudio_active = False
+        llm_active = False
 
         # Ensure services are shut down even on exceptions or Ctrl+C
         def _cleanup_services():
-            nonlocal comfy_proc, lmstudio_active
+            nonlocal comfy_proc, llm_active
             try:
                 if comfy_proc is not None:
                     stop_comfyui(comfy_proc, log)
                     comfy_proc = None
             finally:
-                if lmstudio_active:
-                    stop_lmstudio(log)
-                    lmstudio_active = False
+                if llm_active:
+                    stop_llm(log)
+                    llm_active = False
 
         atexit.register(_cleanup_services)
 
@@ -899,8 +925,8 @@ def main() -> int:
                 # Stop any running services before exiting
                 if comfy_proc is not None:
                     stop_comfyui(comfy_proc, log)
-                if lmstudio_active:
-                    stop_lmstudio(log)
+                if llm_active:
+                    stop_llm(log)
                 return 1
 
             script_name = os.path.basename(script)
@@ -913,35 +939,36 @@ def main() -> int:
                 if comfy_proc is None:
                     log.write("ABORTING: Could not start ComfyUI backend.\n")
                     log.flush()
-                    if lmstudio_active:
-                        stop_lmstudio(log)
+                    if llm_active:
+                        stop_llm(log)
                     return 1
                 log.write("Waiting for ComfyUI to become ready (polling every 15s)...\n")
                 log.flush()
                 if not wait_for_comfyui_ready(comfy_proc, log):
-                    if lmstudio_active:
-                        stop_lmstudio(log)
+                    if llm_active:
+                        stop_llm(log)
                     if comfy_proc is not None:
                         stop_comfyui(comfy_proc, log)
                     return 1
 
-            if needs_lms and not lmstudio_active:
-                lms_ok = start_lmstudio(log)
-                if not lms_ok:
+            if needs_lms and not llm_active:
+                if not start_llm(log):
                     if comfy_proc is not None:
                         stop_comfyui(comfy_proc, log)
-                    log.write("ABORTING: Could not start LM Studio backend.\n")
+                    log.write(f"ABORTING: Could not start LLM backend ({LLM_BACKEND}).\n")
                     log.flush()
                     return 1
-                lmstudio_active = True
-                log.write("Waiting for LM Studio to become ready (polling every 15s)...\n")
+                llm_active = True
+                log.write(f"Waiting for LLM backend ({LLM_BACKEND}) to become ready (polling every 15s)...\n")
                 log.flush()
-                if not wait_for_lmstudio_ready(log):
+                if not wait_for_llm_ready(log):
                     if comfy_proc is not None:
                         stop_comfyui(comfy_proc, log)
-                    stop_lmstudio(log)
-                    lmstudio_active = False
+                    stop_llm(log)
+                    llm_active = False
                     return 1
+                # Preload model (telecode only — lmstudio is lazy on first request)
+                load_llm_model(log)
 
             code = run_script(script_path, base_dir, log)
  
@@ -959,18 +986,18 @@ def main() -> int:
             if needs_comfy and not next_needs_comfy and comfy_proc is not None:
                 stop_comfyui(comfy_proc, log)
                 comfy_proc = None
-            if needs_lms and not next_needs_lms and lmstudio_active:
-                stop_lmstudio(log)
-                lmstudio_active = False
+            if needs_lms and not next_needs_lms and llm_active:
+                stop_llm(log)
+                llm_active = False
 
             if code != 0:
                 # On error, ensure services are stopped
                 if comfy_proc is not None:
                     stop_comfyui(comfy_proc, log)
                     comfy_proc = None
-                if lmstudio_active:
-                    stop_lmstudio(log)
-                    lmstudio_active = False
+                if llm_active:
+                    stop_llm(log)
+                    llm_active = False
                 log.write(f"ABORTING: {script} exited with code {code}.\n")
                 log.flush()
                 return code
@@ -978,8 +1005,8 @@ def main() -> int:
         # After all scripts, ensure services are stopped
         if comfy_proc is not None:
             stop_comfyui(comfy_proc, log)
-        if lmstudio_active:
-            stop_lmstudio(log)
+        if llm_active:
+            stop_llm(log)
 
         # Summarize logging overhead before final message
         total_log_time = LOG_STATS["write_seconds"] + LOG_STATS["flush_seconds"]

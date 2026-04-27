@@ -9,6 +9,9 @@ from functools import partial
 import builtins as _builtins
 print = partial(_builtins.print, flush=True)
 
+# LLM backend base URL — telecode default (port 1235), flip to 1234 for LM Studio.
+LLM_BASE_URL = "http://127.0.0.1:1235/v1"
+
 # Model constants for easy switching
 MODEL_THUMBNAIL_GENERATION = "qwen3.5-35b-a3b"  # Model for generating thumbnail prompts
 MODEL_MEDIA_TAGS = "qwen3.5-35b-a3b"  # Model for generating YouTube tags
@@ -30,7 +33,7 @@ def _strip_think_tags(text: str) -> str:
 
 
 class DiffusionPromptGenerator:
-    def __init__(self, lm_studio_url: str = "http://localhost:1234/v1", model: str = MODEL_THUMBNAIL_GENERATION):
+    def __init__(self, lm_studio_url: str = LLM_BASE_URL, model: str = MODEL_THUMBNAIL_GENERATION):
         self.lm_studio_url = lm_studio_url
         self.model = model
         self.input_file = "../input/9.summary.txt"
@@ -210,7 +213,7 @@ Your output quality directly impacts thumbnail generation success. Generate a vi
 class YouTubeDescriptionGenerator:
     def __init__(
         self,
-        lm_studio_url: str = "http://localhost:1234/v1",
+        lm_studio_url: str = LLM_BASE_URL,
         model: str = MODEL_MEDIA_TAGS,
         diffusion_file: str = "../input/9.summary.txt",
         title_file: str = "../input/10.title.txt",

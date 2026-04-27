@@ -1529,22 +1529,44 @@ comfyui_output_folder = "../../ComfyUI/output"
 comfyui_input_folder = "../../ComfyUI/input"
 ```
 
-#### LM Studio Configuration
+#### LLM Backend Configuration
+
+The pipeline's LLM calls are backend-agnostic and ship with two interchangeable backends. The choice lives as a top-of-file constant in each `generate.py` (no env var) so it's checked into version control.
+
+| Backend | Default port | Process model | Default? |
+|---|---|---|---|
+| **`telecode`** | 1235 | External long-running tray app (started outside `generate.py`); proxy + llama.cpp managed inside Telecode itself. Models loaded/unloaded via HTTP (`POST /v1/models/load`, `POST /v1/models/unload`). | ✅ yes |
+| **`lmstudio`** | 1234 | LM Studio's `lms` CLI (`lms server start/stop`, `lms unload --all`). | fallback |
+
+Both expose an OpenAI-compatible `/v1/chat/completions` endpoint, so the chat-caller scripts (`1.character.py`, `5.timeline.py`, `6.timing.py`, `9.media.py`, `1.story.py`, `2.motion.py`) are identical for both — only the base URL differs.
+
+In every `generate.py`:
+
 ```python
-LM_STUDIO_BASE_URL = "http://127.0.0.1:1234/v1"  # Default URL
-LM_STUDIO_MODEL = "qwen3.5-35b-a3b"  # Default model
-models_url = "http://127.0.0.1:1234/v1/models"
+LLM_BACKEND = "telecode"   # "telecode" | "lmstudio"
+
+LLM_BASE_URL = (
+    "http://127.0.0.1:1235/v1" if LLM_BACKEND == "telecode"
+    else "http://127.0.0.1:1234/v1"
+)
 ```
+
+In every chat-caller script (`1.character.py`, `5.timeline.py`, `6.timing.py`, `9.media.py`, `1.story.py`, `2.motion.py`):
+
+```python
+LLM_BASE_URL = "http://127.0.0.1:1235/v1"   # flip to 1234 for LM Studio
+```
+
+To switch backends, edit the constants — nothing reads from the environment.
 
 ### Environment Variables
 ```bash
 # Service Configuration
 COMFYUI_BASE_URL=http://127.0.0.1:8188
-LM_STUDIO_BASE_URL=http://127.0.0.1:1234/v1
 COMFYUI_DIR=/path/to/ComfyUI
-LM_STUDIO_CMD=lms
+LM_STUDIO_CMD=lms                  # only used when LLM_BACKEND=lmstudio
 
-# Model Configuration
+# Model Configuration (lmstudio only — telecode reads default_model from settings.json)
 LM_STUDIO_MODEL=qwen3.5-35b-a3b
 PYTHONIOENCODING=utf-8
 PYTHONUNBUFFERED=1
@@ -1553,6 +1575,8 @@ PYTHONUNBUFFERED=1
 YOUTUBE_PRIVACY_STATUS=private
 YOUTUBE_CATEGORY_ID=22
 ```
+
+Under `LLM_BACKEND="telecode"` (the default) the pipeline assumes Telecode is already running locally as a tray application — `generate.py` does **not** spawn it. The runner calls `POST /v1/models/load` before each LLM-needing script group and `POST /v1/models/unload` between groups to free VRAM for ComfyUI. The model that gets loaded is whatever is set as `default_model` in Telecode's `settings.json` — no model name needs to be configured on the `.comfyui` side.
 
 ### Service Timeouts & Polling
 ```python
@@ -1573,9 +1597,9 @@ Each pipeline's `generate.py` exposes two module-level flags that control whethe
 ```python
 # When True, assume the service is already running externally. The runner
 # will not spawn or terminate it; between script groups it only clears the
-# ComfyUI cache / unloads LM Studio models to free VRAM.
+# ComfyUI cache / unloads the LLM model to free VRAM.
 COMFYUI_MANAGE_ONLY = True
-LMSTUDIO_MANAGE_ONLY = True
+LMSTUDIO_MANAGE_ONLY = True   # only consulted when LLM_BACKEND=lmstudio
 ```
 
 | Flag | `True` (default) | `False` |
@@ -1583,7 +1607,9 @@ LMSTUDIO_MANAGE_ONLY = True
 | `COMFYUI_MANAGE_ONLY` | Skip `python main.py`. Between script groups, POST `/free` with `{"unload_models": true, "free_memory": true}` to clear the cache. Readiness is still polled — the run aborts if ComfyUI isn't reachable. | Spawn ComfyUI via `python main.py --async-offload 16`, wait for readiness, `terminate()` on teardown. |
 | `LMSTUDIO_MANAGE_ONLY` | Skip `lms server start`. Between script groups, call `lms unload --all` to free VRAM. | Run `lms server start` / `lms server stop` and poll readiness on `/v1/models`. |
 
-Flip either flag to `False` in a given pipeline's `generate.py` when you want the runner to own the service lifecycle end-to-end.
+Flip `COMFYUI_MANAGE_ONLY` to `False` in a given pipeline's `generate.py` when you want the runner to own ComfyUI's lifecycle end-to-end.
+
+`LMSTUDIO_MANAGE_ONLY` is consulted only when `LLM_BACKEND=lmstudio`. Under `LLM_BACKEND=telecode` (the default), the runner never spawns or stops Telecode itself — Telecode is a long-running tray application — and instead loads/unloads models over HTTP (`POST /v1/models/load`, `POST /v1/models/unload`) between LLM-needing script groups.
 
 ---
 

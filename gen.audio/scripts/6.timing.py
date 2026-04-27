@@ -9,6 +9,9 @@ import builtins as _builtins
 from pathlib import Path
 print = partial(_builtins.print, flush=True)
 
+# LLM backend base URL — telecode default (port 1235), flip to 1234 for LM Studio.
+LLM_BASE_URL = "http://127.0.0.1:1235/v1"
+
 # Model constants for easy switching
 MODEL_TIMING_GENERATION = "qwen3.5-35b-a3b"  # Model for timing SFX generation
 
@@ -100,7 +103,7 @@ class ResumableState:
         return f"Progress: Timing Entries({timing_done}/{timing_total})"
 
 class TimingSFXGenerator:
-    def __init__(self, lm_studio_url="http://localhost:1234/v1", model=MODEL_TIMING_GENERATION, use_json_schema=True):
+    def __init__(self, lm_studio_url=LLM_BASE_URL, model=MODEL_TIMING_GENERATION, use_json_schema=True):
         self.lm_studio_url = lm_studio_url
         self.output_file = "../input/4.sfx.txt"
         self.model = model
