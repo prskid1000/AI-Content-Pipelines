@@ -115,7 +115,7 @@ REM 3. BASIC BUILD TOOLS
 REM ============================================================
 
 echo ============================================================
-echo [1/12] Updating pip / wheel / packaging / ninja / build
+echo [1/11] Updating pip / wheel / packaging / ninja / build
 echo ============================================================
 
 %PIP% install --upgrade pip wheel packaging ninja build
@@ -133,7 +133,7 @@ REM 4. REMOVE OLD ACCELERATOR PACKAGES
 REM ============================================================
 
 echo ============================================================
-echo [2/12] Removing previous Torch / accelerator packages
+echo [2/11] Removing previous Torch / accelerator packages
 echo ============================================================
 
 %PIP% uninstall -y ^
@@ -152,11 +152,11 @@ echo.
 
 
 REM ============================================================
-REM 5. INSTALL EXACT PYTORCH, TORCHAUDIO & PYTHON 3.14 SHIMS
+REM 5. INSTALL EXACT PYTORCH, TORCHAUDIO & AUDIO SHIMS
 REM ============================================================
 
 echo ============================================================
-echo [3/12] Installing PyTorch 2.14.0 + CUDA 13.2, Torchaudio & PyAudioOp
+echo [3/11] Installing PyTorch 2.14.0 + cu132, Torchaudio & Audio Shims
 echo ============================================================
 
 %PIP% install --no-cache-dir ^
@@ -172,12 +172,15 @@ if errorlevel 1 (
 )
 
 echo.
-echo [INFO] Installing torchaudio (no-deps) and pyaudioop shim for Python 3.14...
+echo [INFO] Installing torchaudio (no-deps) to protect CUDA Torch 2.14...
 %PIP% install --no-cache-dir --no-deps torchaudio
-%PIP% install --no-cache-dir pyaudioop
 
 echo.
-echo [OK] PyTorch, torchaudio, and audio shims installed.
+echo [INFO] Installing audioop-lts (Python 3.14 audioop shim for pydub/omnivoice)...
+%PIP% install --no-cache-dir audioop-lts
+
+echo.
+echo [OK] PyTorch, Torchaudio, and audio compatibility layers installed.
 echo.
 
 
@@ -186,7 +189,7 @@ REM 6. VERIFY GPU
 REM ============================================================
 
 echo ============================================================
-echo [4/12] Verifying CUDA / GPU
+echo [4/11] Verifying CUDA / GPU
 echo ============================================================
 
 "%PYTHON%" -c "import torch; print('Torch          :', torch.__version__); print('Torch CUDA     :', torch.version.cuda); print('CUDA available:', torch.cuda.is_available()); print('GPU            :', torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'NONE'); print('Capability     :', torch.cuda.get_device_capability(0) if torch.cuda.is_available() else 'NONE')"
@@ -205,7 +208,7 @@ REM 7. TORCHCODEC
 REM ============================================================
 
 echo ============================================================
-echo [5/12] Installing TorchCodec
+echo [5/11] Installing TorchCodec
 echo ============================================================
 
 %PIP% install --upgrade torchcodec
@@ -223,7 +226,7 @@ REM 8. XFORMERS
 REM ============================================================
 
 echo ============================================================
-echo [6/12] Installing xFormers 0.0.35
+echo [6/11] Installing xFormers 0.0.35
 echo ============================================================
 
 %PIP% install --no-cache-dir xformers==0.0.35
@@ -241,8 +244,11 @@ REM 9. FLASH ATTENTION 3
 REM ============================================================
 
 echo ============================================================
-echo [7/12] Installing FlashAttention 3
+echo [7/11] Installing FlashAttention 3
 echo ============================================================
+
+REM CUDA 13.2 + Torch 2.14 wheel repository:
+REM https://windreamer.github.io/flash-attention3-wheels/
 
 %PIP% install --no-cache-dir ^
     flash_attn_3 ^
@@ -265,7 +271,7 @@ REM 10. TRITON-WINDOWS
 REM ============================================================
 
 echo ============================================================
-echo [8/12] Installing Triton-Windows 3.8.0.post28
+echo [8/11] Installing Triton-Windows 3.8.0.post28
 echo ============================================================
 
 %PIP% install --no-cache-dir triton-windows==3.8.0.post28
@@ -283,8 +289,15 @@ REM 11. SAGEATTENTION - EXACT PREBUILT WHEEL
 REM ============================================================
 
 echo ============================================================
-echo [9/12] Installing SageAttention
+echo [9/11] Installing SageAttention
 echo ============================================================
+
+REM EXACT MATCH:
+REM   SageAttention 2.2.0.post6
+REM   CUDA 13.2
+REM   PyTorch 2.14.0
+REM   Python 3.14
+REM   Windows x64
 
 %PIP% install --no-cache-dir --no-deps ^
 "https://huggingface.co/ussoewwin/Sage-Attention-for-Windows/resolve/main/sageattention-2.2.0.post6+cu132torch2.14.0-cp314-cp314-win_amd64.whl"
@@ -303,7 +316,7 @@ REM 12. ONNX RUNTIME GPU
 REM ============================================================
 
 echo ============================================================
-echo [10/12] Installing ONNX Runtime GPU
+echo [10/11] Installing ONNX Runtime GPU
 echo ============================================================
 
 %PIP% uninstall -y onnxruntime onnxruntime-gpu
@@ -323,7 +336,7 @@ REM 13. COMFYUI
 REM ============================================================
 
 echo ============================================================
-echo [11/12] Installing / updating ComfyUI
+echo [11/11] Installing / updating ComfyUI
 echo ============================================================
 
 if not exist "%COMFYUI%\.git" (
@@ -384,7 +397,7 @@ REM CUSTOM NODES
 REM ============================================================
 
 echo ============================================================
-echo [12/12] Installing custom nodes
+echo Installing custom nodes
 echo ============================================================
 
 call :sync_node "https://github.com/evanspearman/ComfyMath" "%COMFYUI%\custom_nodes\ComfyMath"
@@ -500,27 +513,11 @@ echo ------------------------------------------------------------
 
 echo.
 echo ------------------------------------------------------------
-echo TorchAudio
+echo Audio Stack (Torchaudio / AudioOp / OmniVoice)
 echo ------------------------------------------------------------
 "%PYTHON%" -c "import torchaudio; print('TorchAudio     :',torchaudio.__version__)" 2>nul
-
-echo.
-echo ------------------------------------------------------------
-echo PyAudioOp (Python 3.14 audioop shim)
-echo ------------------------------------------------------------
-"%PYTHON%" -c "import pyaudioop; print('PyAudioOp      : OK')" 2>nul
-if errorlevel 1 (
-    echo [WARNING] PyAudioOp import failed.
-)
-
-echo.
-echo ------------------------------------------------------------
-echo OmniVoice Import Test
-echo ------------------------------------------------------------
-"%PYTHON%" -c "import omnivoice; print('OmniVoice      : OK')" 2>nul
-if errorlevel 1 (
-    echo [WARNING] OmniVoice import failed.
-)
+"%PYTHON%" -c "import audioop; print('AudioOp (LTS)  : OK')" 2>nul || echo [WARNING] audioop missing
+"%PYTHON%" -c "import omnivoice; print('OmniVoice      : OK')" 2>nul || echo [WARNING] omnivoice import failed
 
 echo.
 echo ------------------------------------------------------------
@@ -538,19 +535,13 @@ echo.
 echo ------------------------------------------------------------
 echo SageAttention
 echo ------------------------------------------------------------
-"%PYTHON%" -c "import sageattention; print('SageAttention  : OK')" 2>nul
-if errorlevel 1 (
-    echo [WARNING] SageAttention import failed.
-)
+"%PYTHON%" -c "import sageattention; print('SageAttention  : OK')" 2>nul || echo [WARNING] SageAttention import failed
 
 echo.
 echo ------------------------------------------------------------
 echo FlashAttention
 echo ------------------------------------------------------------
-"%PYTHON%" -c "import flash_attn_3; print('FlashAttention3: OK')" 2>nul
-if errorlevel 1 (
-    echo [WARNING] FlashAttention3 import failed.
-)
+"%PYTHON%" -c "import flash_attn_3; print('FlashAttention3: OK')" 2>nul || echo [WARNING] FlashAttention3 import failed
 
 echo.
 echo ------------------------------------------------------------
