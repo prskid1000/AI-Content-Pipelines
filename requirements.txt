@@ -15,6 +15,7 @@ ffmpeg
 # torchaudio
 #torchcodec
 # triton-windows
+accelerate  # required by transformers device_map (OmniVoice-TTS audio tokenizer)
 
 # Audio transcription
 openai-whisper
