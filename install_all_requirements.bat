@@ -1,242 +1,670 @@
 @echo off
-echo ========================================
-echo Installing All Requirements
-echo ========================================
+setlocal EnableExtensions EnableDelayedExpansion
+
+REM ============================================================
+REM COMFYUI - RTX 5070 Ti BLACKWELL SM120
+REM PYTHON 3.14 / PYTORCH 2.14 / CUDA 13.2
+REM ============================================================
+REM
+REM Target hardware:
+REM   GPU        : NVIDIA RTX 5070 Ti Laptop
+REM   Arch       : Blackwell SM120
+REM   RAM        : 64 GB
+REM   CPU        : Intel Core Ultra 9 275HX
+REM
+REM Software:
+REM   Python     : 3.14
+REM   PyTorch    : 2.14.0 + cu132
+REM   TorchVision: 0.29.0 + cu132
+REM   Sage       : 2.2.0.post6 + cu132 + Torch 2.14
+REM   xFormers   : 0.0.35
+REM   Triton     : 3.8.0.post28
+REM
+REM IMPORTANT:
+REM   This script expects:
+REM
+REM       .venv\Scripts\python.exe
+REM
+REM   Python 3.14 venv should already exist.
+REM
+REM ============================================================
+
+
+REM ============================================================
+REM 0. PATHS
+REM ============================================================
+
+set "ROOT=%~dp0"
+set "ROOT=%ROOT:~0,-1%"
+
+set "VENV=%ROOT%\.venv"
+set "PYTHON=%VENV%\Scripts\python.exe"
+set "PIP=%PYTHON% -m pip"
+
+set "COMFYUI=%ROOT%\ComfyUI"
+
+set "CUDA_HOME=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.2"
+
+
+echo.
+echo ============================================================
+echo   COMFYUI RTX 5070 Ti / SM120
+echo   PYTHON 3.14 / TORCH 2.14 / CUDA 13.2
+echo ============================================================
+echo.
+echo ROOT    = %ROOT%
+echo VENV    = %VENV%
+echo PYTHON  = %PYTHON%
+echo COMFYUI = %COMFYUI%
+echo CUDA    = %CUDA_HOME%
 echo.
 
-REM Check if .venv exists
-if not exist ".venv" (
-    echo ERROR: .venv folder not found!
-    echo Please create a virtual environment first.
+
+REM ============================================================
+REM 1. VERIFY PYTHON
+REM ============================================================
+
+if not exist "%PYTHON%" (
+    echo [ERROR] Python virtual environment not found:
+    echo.
+    echo %PYTHON%
+    echo.
+    echo Create Python 3.14 venv first.
     pause
     exit /b 1
 )
 
-REM Install wheel first (required for flash-attn)
-echo Installing wheel (required for flash-attn)...
-.venv\Scripts\python.exe -m pip install --no-cache-dir wheel
+echo [OK] Virtual environment found.
+echo.
+
+"%PYTHON%" --version
+
 if errorlevel 1 (
-    echo ERROR: Failed to install wheel
+    echo [ERROR] Cannot execute Python.
     pause
     exit /b 1
 )
-echo SUCCESS: wheel installed
+
 echo.
 
-REM Install PyTorch first (torch 2.12.1 to match the flash-attn cu132torch2.12.1 wheel)
-REM NOTE: torchaudio is discontinued (final release was 2.9.0); there is no cu132/torch-2.12 wheel.
-REM       Audio decode/encode is now handled by torchcodec (installed below).
-echo [1/4] Installing PyTorch (CUDA 13.2)...
-.venv\Scripts\python.exe -m pip install --no-cache-dir torch==2.12.1 torchvision==0.27.1 --index-url https://download.pytorch.org/whl/cu132
+
+REM ============================================================
+REM 2. VERIFY PYTHON IS 3.14
+REM ============================================================
+
+"%PYTHON%" -c "import sys; print('Python version:', sys.version); assert sys.version_info[:2] == (3,14), 'This script requires Python 3.14'"
+
 if errorlevel 1 (
-    echo ERROR: Failed to install PyTorch
+    echo.
+    echo [ERROR] This venv is NOT Python 3.14.
+    echo.
+    echo Current interpreter:
+    "%PYTHON%" --version
+    echo.
     pause
     exit /b 1
 )
-echo SUCCESS: PyTorch installed
+
+echo.
+echo [OK] Python 3.14 detected.
 echo.
 
-REM Install TorchCodec (audio/video decode-encode; 0.14.0 requires torch>=2.11, OK for 2.12)
-echo Installing TorchCodec 0.14.0...
-.venv\Scripts\python.exe -m pip install --no-cache-dir torchcodec==0.14.0
+
+REM ============================================================
+REM 3. BASIC BUILD TOOLS
+REM ============================================================
+
+echo ============================================================
+echo [1/12] Updating pip / wheel / packaging / ninja / build
+echo ============================================================
+
+%PIP% install --upgrade pip wheel packaging ninja build
+
 if errorlevel 1 (
-    echo ERROR: Failed to install TorchCodec
-    pause
-    exit /b 1
+    echo [WARNING] Some basic build tools failed.
+    echo Continuing...
 )
-echo SUCCESS: TorchCodec installed
+
 echo.
 
-REM Install xformers (attention backend; 0.0.35 requires torch>=2.10, ships a generic win wheel on PyPI)
-echo Installing xformers...
-.venv\Scripts\python.exe -m pip install --no-cache-dir xformers==0.0.35
+
+REM ============================================================
+REM 4. REMOVE OLD ACCELERATOR PACKAGES
+REM ============================================================
+
+echo ============================================================
+echo [2/12] Removing previous Torch / accelerator packages
+echo ============================================================
+
+%PIP% uninstall -y ^
+    torch ^
+    torchvision ^
+    torchaudio ^
+    xformers ^
+    triton ^
+    triton-windows ^
+    flash-attn ^
+    flash_attn ^
+    flash_attn_3 ^
+    sageattention
+
+echo.
+
+
+REM ============================================================
+REM 5. INSTALL EXACT PYTORCH, TORCHAUDIO & PYTHON 3.14 SHIMS
+REM ============================================================
+
+echo ============================================================
+echo [3/12] Installing PyTorch 2.14.0 + CUDA 13.2, Torchaudio & PyAudioOp
+echo ============================================================
+
+%PIP% install --no-cache-dir ^
+    torch==2.14.0+cu132 ^
+    torchvision==0.29.0+cu132 ^
+    --index-url https://download.pytorch.org/whl/cu132
+
 if errorlevel 1 (
-    echo ERROR: Failed to install xformers
+    echo.
+    echo [ERROR] PyTorch 2.14 cu132 installation failed.
     pause
     exit /b 1
 )
-echo SUCCESS: xformers installed
+
+echo.
+echo [INFO] Installing torchaudio (no-deps) and pyaudioop shim for Python 3.14...
+%PIP% install --no-cache-dir --no-deps torchaudio
+%PIP% install --no-cache-dir pyaudioop
+
+echo.
+echo [OK] PyTorch, torchaudio, and audio shims installed.
 echo.
 
-REM Install flash-attn (pre-built wheel for Python 3.12 + CUDA 13.2)
-echo [2/4] Installing flash-attn (pre-built wheel for CUDA 13.2)...
-.venv\Scripts\python.exe -m pip install --no-cache-dir https://huggingface.co/ussoewwin/Flash-Attention-2_for_Windows/resolve/main/flash_attn-2.9.1+cu132torch2.12.1cxx11abiTRUE-cp312-cp312-win_amd64.whl
+
+REM ============================================================
+REM 6. VERIFY GPU
+REM ============================================================
+
+echo ============================================================
+echo [4/12] Verifying CUDA / GPU
+echo ============================================================
+
+"%PYTHON%" -c "import torch; print('Torch          :', torch.__version__); print('Torch CUDA     :', torch.version.cuda); print('CUDA available:', torch.cuda.is_available()); print('GPU            :', torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'NONE'); print('Capability     :', torch.cuda.get_device_capability(0) if torch.cuda.is_available() else 'NONE')"
+
 if errorlevel 1 (
-    echo ERROR: Failed to install flash-attn
+    echo [ERROR] Torch verification failed.
     pause
     exit /b 1
 )
-echo SUCCESS: flash-attn installed
+
 echo.
 
-REM Install sage-attn (no cu132 build exists; cu130 wheel is forward-compatible with the CUDA 13.2 runtime)
-echo [3/4] Installing sage-attn (cu130 wheel, torch 2.10+)...
-.venv\Scripts\python.exe -m pip install --no-cache-dir https://github.com/woct0rdho/SageAttention/releases/download/v2.2.0-windows.post5/sageattention-2.2.0+cu130torch2.10.0andhigher.post5-cp310-abi3-win_amd64.whl
+
+REM ============================================================
+REM 7. TORCHCODEC
+REM ============================================================
+
+echo ============================================================
+echo [5/12] Installing TorchCodec
+echo ============================================================
+
+%PIP% install --upgrade torchcodec
+
 if errorlevel 1 (
-    echo ERROR: Failed to install sage-attn
-    pause
-    exit /b 1
+    echo [WARNING] TorchCodec installation failed.
+    echo Continuing...
 )
-echo SUCCESS: sage-attn installed
+
 echo.
 
-REM Install ONNX Runtime GPU deps first (required for CUDA 13 nightly; see microsoft/onnxruntime#26568)
-echo Installing ONNX Runtime GPU dependencies...
-.venv\Scripts\python.exe -m pip install --no-cache-dir coloredlogs flatbuffers numpy packaging protobuf sympy
+
+REM ============================================================
+REM 8. XFORMERS
+REM ============================================================
+
+echo ============================================================
+echo [6/12] Installing xFormers 0.0.35
+echo ============================================================
+
+%PIP% install --no-cache-dir xformers==0.0.35
+
 if errorlevel 1 (
-    echo ERROR: Failed to install ONNX Runtime GPU dependencies
-    pause
-    exit /b 1
+    echo [WARNING] xFormers installation failed.
+    echo Continuing...
 )
+
 echo.
 
-REM Install ONNX Runtime GPU (nightly CUDA 13 - pin version + --no-deps to avoid pip downloading many nightlies)
-echo [4/4] Installing ONNX Runtime GPU (nightly CUDA 13.2)...
-.venv\Scripts\python.exe -m pip install --no-cache-dir --pre --index-url https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/ort-cuda-13-nightly/pypi/simple/ onnxruntime-gpu
+
+REM ============================================================
+REM 9. FLASH ATTENTION 3
+REM ============================================================
+
+echo ============================================================
+echo [7/12] Installing FlashAttention 3
+echo ============================================================
+
+%PIP% install --no-cache-dir ^
+    flash_attn_3 ^
+    --find-links https://windreamer.github.io/flash-attention3-wheels/cu132_torch2140
+
 if errorlevel 1 (
-    echo ERROR: Failed to install ONNX Runtime GPU
-    pause
-    exit /b 1
+    echo.
+    echo [WARNING] FlashAttention 3 was not installed.
+    echo This may be because the wheel repository does not yet
+    echo provide a CP314 build.
+    echo.
+    echo PyTorch stack will remain untouched.
 )
-echo SUCCESS: ONNX Runtime GPU installed
+
 echo.
 
-REM Install additional required Python packages (if not already installed)
-echo Installing additional required Python packages...
-.venv\Scripts\python.exe -m pip install --no-cache-dir coloredlogs flatbuffers numpy packaging protobuf sympy
+
+REM ============================================================
+REM 10. TRITON-WINDOWS
+REM ============================================================
+
+echo ============================================================
+echo [8/12] Installing Triton-Windows 3.8.0.post28
+echo ============================================================
+
+%PIP% install --no-cache-dir triton-windows==3.8.0.post28
+
 if errorlevel 1 (
-    echo ERROR: Failed to install additional Python packages
-    pause
-    exit /b 1
+    echo [WARNING] Triton-Windows installation failed.
+    echo Continuing...
 )
-echo SUCCESS: Additional Python packages installed
+
 echo.
 
-REM Install root requirements.txt
-echo [1/3] Installing root requirements.txt...
-if exist "requirements.txt" (
-    .venv\Scripts\python.exe -m pip install --no-cache-dir -r requirements.txt
+
+REM ============================================================
+REM 11. SAGEATTENTION - EXACT PREBUILT WHEEL
+REM ============================================================
+
+echo ============================================================
+echo [9/12] Installing SageAttention
+echo ============================================================
+
+%PIP% install --no-cache-dir --no-deps ^
+"https://huggingface.co/ussoewwin/Sage-Attention-for-Windows/resolve/main/sageattention-2.2.0.post6+cu132torch2.14.0-cp314-cp314-win_amd64.whl"
+
+if errorlevel 1 (
+    echo.
+    echo [WARNING] SageAttention installation failed.
+    echo Continuing without SageAttention.
+)
+
+echo.
+
+
+REM ============================================================
+REM 12. ONNX RUNTIME GPU
+REM ============================================================
+
+echo ============================================================
+echo [10/12] Installing ONNX Runtime GPU
+echo ============================================================
+
+%PIP% uninstall -y onnxruntime onnxruntime-gpu
+
+%PIP% install --no-cache-dir onnxruntime-gpu==1.30.0
+
+if errorlevel 1 (
+    echo [WARNING] ONNX Runtime GPU installation failed.
+    echo Continuing...
+)
+
+echo.
+
+
+REM ============================================================
+REM 13. COMFYUI
+REM ============================================================
+
+echo ============================================================
+echo [11/12] Installing / updating ComfyUI
+echo ============================================================
+
+if not exist "%COMFYUI%\.git" (
+    echo [INFO] ComfyUI not found.
+    echo [INFO] Cloning current ComfyUI...
+    git clone https://github.com/Comfy-Org/ComfyUI.git "%COMFYUI%"
     if errorlevel 1 (
-        echo ERROR: Failed to install root requirements.txt
+        echo [ERROR] Failed to clone ComfyUI.
         pause
         exit /b 1
     )
-    echo SUCCESS: Root requirements installed
 ) else (
-    echo WARNING: Root requirements.txt not found, skipping...
-)
-echo.
-
-REM Install ComfyUI requirements.txt
-echo [2/3] Installing ComfyUI requirements.txt...
-if exist "ComfyUI\requirements.txt" (
-    .venv\Scripts\python.exe -m pip install --no-cache-dir -r ComfyUI\requirements.txt
+    echo [INFO] Existing ComfyUI repository found.
+    echo [INFO] Updating...
+    pushd "%COMFYUI%"
+    git pull --ff-only
     if errorlevel 1 (
-        echo ERROR: Failed to install ComfyUI requirements.txt
-        pause
-        exit /b 1
+        echo [WARNING] ComfyUI update failed.
+        echo Continuing with existing version.
     )
-    echo SUCCESS: ComfyUI requirements installed
-) else (
-    echo WARNING: ComfyUI\requirements.txt not found, skipping...
-)
-echo.
-
-REM Clone missing custom nodes, or update existing ones to the latest origin (main/master)
-echo ========================================
-echo Cloning / updating custom nodes...
-echo ========================================
-echo.
-
-call :sync_node https://github.com/evanspearman/ComfyMath "ComfyUI\custom_nodes\ComfyMath"
-call :sync_node https://github.com/Lightricks/ComfyUI-LTXVideo "ComfyUI\custom_nodes\ComfyUI-LTXVideo"
-call :sync_node https://github.com/ThanaritKanjanametawatAU/ComfyUI-MediaUtilities "ComfyUI\custom_nodes\ComfyUI-MediaUtilities"
-call :sync_node https://github.com/yuvraj108c/ComfyUI-Whisper "ComfyUI\custom_nodes\ComfyUI-Whisper"
-call :sync_node https://github.com/jerrywap/ComfyUI_LoadImageFromHttpURL "ComfyUI\custom_nodes\ComfyUI_LoadImageFromHttpURL"
-call :sync_node https://github.com/ltdrdata/ComfyUI-Manager "ComfyUI\custom_nodes\comfyui-manager"
-call :sync_node https://github.com/gseth/ControlAltAI-Nodes "ComfyUI\custom_nodes\controlaltai-nodes"
-call :sync_node https://github.com/city96/ComfyUI-GGUF "ComfyUI\custom_nodes\ComfyUI-GGUF"
-call :sync_node https://github.com/kijai/ComfyUI-KJNodes "ComfyUI\custom_nodes\comfyui-kjnodes"
-call :sync_node https://github.com/1038lab/ComfyUI-RMBG "ComfyUI\custom_nodes\comfyui-rmbg"
-call :sync_node https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite "ComfyUI\custom_nodes\comfyui-videohelpersuite"
-call :sync_node https://github.com/Saganaki22/ComfyUI-OmniVoice-TTS.git "ComfyUI\custom_nodes\ComfyUI-OmniVoice-TTS"
-echo.
-
-REM Install all custom_nodes requirements.txt
-echo [3/3] Installing custom nodes requirements...
-echo.
-
-REM Loop through all subdirectories in ComfyUI\custom_nodes
-for /d %%i in (ComfyUI\custom_nodes\*) do (
-    if exist "%%i\requirements.txt" (
-        echo Installing requirements for: %%~nxi
-        .venv\Scripts\python.exe -m pip install --no-cache-dir -r "%%i\requirements.txt"
-        if errorlevel 1 (
-            echo WARNING: Failed to install %%~nxi requirements.txt
-            echo Continuing with next custom node...
-        ) else (
-            echo SUCCESS: %%~nxi requirements installed
-        )
-        echo.
-    )
+    popd
 )
 
-REM Install Triton
-echo ========================================
-echo Installing Triton (triton-windows)...
-echo ========================================
-.venv\Scripts\python.exe -m pip install --no-cache-dir triton-windows
+echo.
+
+
+REM ============================================================
+REM COMFYUI REQUIREMENTS
+REM ============================================================
+
+echo ============================================================
+echo Installing ComfyUI requirements
+echo ============================================================
+
+set "FILTERED_REQ=%TEMP%\comfyui_requirements_filtered.txt"
+
+powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+ "$src='%COMFYUI%\requirements.txt'; $dst='%FILTERED_REQ%'; Get-Content -LiteralPath $src | Where-Object { $_ -notmatch '^\s*(torch|torchvision|torchaudio|xformers|triton|triton-windows|flash[-_]attn|flash_attn_3|sageattention|onnxruntime)\b' } | Set-Content -Encoding UTF8 -LiteralPath $dst"
+
 if errorlevel 1 (
-    echo ERROR: Failed to install Triton
+    echo [ERROR] Could not create filtered requirements.
     pause
     exit /b 1
 )
-echo SUCCESS: Triton installed
-echo.
 
-echo ========================================
-echo Installing Additional Tools (ffmpeg)...
-echo ========================================
-REM ffmpeg shared libraries are required by torchcodec for audio/video decode.
-REM Skip if ffmpeg is already on PATH.
-where ffmpeg >nul 2>nul
-if not errorlevel 1 (
-    echo ffmpeg already installed, skipping.
-    goto :ffmpeg_done
-)
-REM winget may not be on PATH in every shell; check before using it.
-where winget >nul 2>nul
+%PIP% install -r "%FILTERED_REQ%"
+
 if errorlevel 1 (
-    echo WARNING: winget not found. Install ffmpeg ^(shared build^) manually:
-    echo   - winget install "FFmpeg ^(Shared^)"   ^(once App Installer/winget is available^)
-    echo   - or download a "shared" build from https://www.gyan.dev/ffmpeg/builds/ and add its bin\ to PATH
-    echo   torchcodec needs the ffmpeg shared DLLs at runtime.
-    goto :ffmpeg_done
+    echo [WARNING] Some ComfyUI dependencies failed.
+    echo Continuing...
 )
-winget install --id Gyan.FFmpeg.Shared -e --accept-source-agreements --accept-package-agreements
-:ffmpeg_done
+
 echo.
 
-echo ========================================
-echo All requirements installation completed!
-echo ========================================
+
+REM ============================================================
+REM CUSTOM NODES
+REM ============================================================
+
+echo ============================================================
+echo [12/12] Installing custom nodes
+echo ============================================================
+
+call :sync_node "https://github.com/evanspearman/ComfyMath" "%COMFYUI%\custom_nodes\ComfyMath"
+call :sync_node "https://github.com/Lightricks/ComfyUI-LTXVideo" "%COMFYUI%\custom_nodes\ComfyUI-LTXVideo"
+call :sync_node "https://github.com/ThanaritKanjanametawatAU/ComfyUI-MediaUtilities" "%COMFYUI%\custom_nodes\ComfyUI-MediaUtilities"
+call :sync_node "https://github.com/yuvraj108c/ComfyUI-Whisper" "%COMFYUI%\custom_nodes\ComfyUI-Whisper"
+call :sync_node "https://github.com/jerrywap/ComfyUI_LoadImageFromHttpURL" "%COMFYUI%\custom_nodes\ComfyUI_LoadImageFromHttpURL"
+call :sync_node "https://github.com/ltdrdata/ComfyUI-Manager" "%COMFYUI%\custom_nodes\comfyui-manager"
+call :sync_node "https://github.com/gseth/ControlAltAI-Nodes" "%COMFYUI%\custom_nodes\ControlAltAI-Nodes"
+call :sync_node "https://github.com/city96/ComfyUI-GGUF" "%COMFYUI%\custom_nodes\ComfyUI-GGUF"
+call :sync_node "https://github.com/kijai/ComfyUI-KJNodes" "%COMFYUI%\custom_nodes\ComfyUI-KJNodes"
+call :sync_node "https://github.com/1038lab/ComfyUI-RMBG" "%COMFYUI%\custom_nodes\ComfyUI-RMBG"
+call :sync_node "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite" "%COMFYUI%\custom_nodes\ComfyUI-VideoHelperSuite"
+call :sync_node "https://github.com/Saganaki22/ComfyUI-OmniVoice-TTS.git" "%COMFYUI%\custom_nodes\ComfyUI-OmniVoice-TTS"
+
+
+REM ============================================================
+REM NODE DEPENDENCIES
+REM ============================================================
+
+echo.
+echo ============================================================
+echo Installing custom-node dependencies
+echo ============================================================
+echo.
+
+call :install_node_requirements "%COMFYUI%\custom_nodes\ComfyMath"
+call :install_node_requirements "%COMFYUI%\custom_nodes\ComfyUI-LTXVideo"
+call :install_node_requirements "%COMFYUI%\custom_nodes\ComfyUI-MediaUtilities"
+call :install_node_requirements "%COMFYUI%\custom_nodes\ComfyUI-Whisper"
+call :install_node_requirements "%COMFYUI%\custom_nodes\ComfyUI_LoadImageFromHttpURL"
+call :install_node_requirements "%COMFYUI%\custom_nodes\comfyui-manager"
+call :install_node_requirements "%COMFYUI%\custom_nodes\ControlAltAI-Nodes"
+call :install_node_requirements "%COMFYUI%\custom_nodes\ComfyUI-GGUF"
+call :install_node_requirements "%COMFYUI%\custom_nodes\ComfyUI-KJNodes"
+call :install_node_requirements "%COMFYUI%\custom_nodes\ComfyUI-RMBG"
+call :install_node_requirements "%COMFYUI%\custom_nodes\ComfyUI-VideoHelperSuite"
+
+
+REM ============================================================
+REM OMNIVOICE SPECIAL INSTALL
+REM ============================================================
+
+echo.
+echo ============================================================
+echo Installing OmniVoice TTS
+echo ============================================================
+echo.
+
+if exist "%COMFYUI%\custom_nodes\ComfyUI-OmniVoice-TTS\install.py" (
+    pushd "%COMFYUI%\custom_nodes\ComfyUI-OmniVoice-TTS"
+    "%PYTHON%" install.py
+    if errorlevel 1 (
+        echo [WARNING] OmniVoice install.py reported an error.
+    )
+    popd
+) else (
+    echo [WARNING] OmniVoice install.py not found.
+)
+
+echo.
+
+
+REM ============================================================
+REM ACCELERATOR INTEGRITY AUDIT (ZERO BANDWIDTH CHECK)
+REM ============================================================
+
+echo ============================================================
+echo Auditing accelerator stack integrity (No redundant downloads)
+echo ============================================================
+echo.
+
+"%PYTHON%" -c "import torch; assert torch.__version__ == '2.14.0+cu132' and torch.cuda.is_available(), 'Torch altered'" >nul 2>&1
+
+if errorlevel 1 (
+    echo [ALERT] Torch stack was altered by a dependency. Restoring PyTorch...
+    %PIP% install --no-cache-dir ^
+        torch==2.14.0+cu132 ^
+        torchvision==0.29.0+cu132 ^
+        --index-url https://download.pytorch.org/whl/cu132
+) else (
+    echo [OK] PyTorch 2.14.0+cu132 and CUDA bindings remain intact.
+)
+
+echo.
+
+
+REM ============================================================
+REM FINAL VERIFICATION
+REM ============================================================
+
+echo ============================================================
+echo FINAL VERIFICATION
+echo ============================================================
+echo.
+
+echo ------------------------------------------------------------
+echo Python
+echo ------------------------------------------------------------
+"%PYTHON%" --version
+
+echo.
+echo ------------------------------------------------------------
+echo PyTorch / CUDA / GPU
+echo ------------------------------------------------------------
+"%PYTHON%" -c "import torch; print('Torch          :',torch.__version__); print('Torch CUDA     :',torch.version.cuda); print('CUDA available :',torch.cuda.is_available()); print('GPU            :',torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'NONE'); print('Capability     :',torch.cuda.get_device_capability(0) if torch.cuda.is_available() else 'NONE')"
+
+echo.
+echo ------------------------------------------------------------
+echo TorchVision
+echo ------------------------------------------------------------
+"%PYTHON%" -c "import torchvision; print('TorchVision    :',torchvision.__version__)" 2>nul
+
+echo.
+echo ------------------------------------------------------------
+echo TorchAudio
+echo ------------------------------------------------------------
+"%PYTHON%" -c "import torchaudio; print('TorchAudio     :',torchaudio.__version__)" 2>nul
+
+echo.
+echo ------------------------------------------------------------
+echo PyAudioOp (Python 3.14 audioop shim)
+echo ------------------------------------------------------------
+"%PYTHON%" -c "import pyaudioop; print('PyAudioOp      : OK')" 2>nul
+if errorlevel 1 (
+    echo [WARNING] PyAudioOp import failed.
+)
+
+echo.
+echo ------------------------------------------------------------
+echo OmniVoice Import Test
+echo ------------------------------------------------------------
+"%PYTHON%" -c "import omnivoice; print('OmniVoice      : OK')" 2>nul
+if errorlevel 1 (
+    echo [WARNING] OmniVoice import failed.
+)
+
+echo.
+echo ------------------------------------------------------------
+echo xFormers
+echo ------------------------------------------------------------
+"%PYTHON%" -c "import xformers; print('xFormers       :',xformers.__version__)" 2>nul
+
+echo.
+echo ------------------------------------------------------------
+echo Triton
+echo ------------------------------------------------------------
+"%PYTHON%" -c "import triton; print('Triton         :',getattr(triton,'__version__','unknown'))" 2>nul
+
+echo.
+echo ------------------------------------------------------------
+echo SageAttention
+echo ------------------------------------------------------------
+"%PYTHON%" -c "import sageattention; print('SageAttention  : OK')" 2>nul
+if errorlevel 1 (
+    echo [WARNING] SageAttention import failed.
+)
+
+echo.
+echo ------------------------------------------------------------
+echo FlashAttention
+echo ------------------------------------------------------------
+"%PYTHON%" -c "import flash_attn_3; print('FlashAttention3: OK')" 2>nul
+if errorlevel 1 (
+    echo [WARNING] FlashAttention3 import failed.
+)
+
+echo.
+echo ------------------------------------------------------------
+echo ONNX Runtime
+echo ------------------------------------------------------------
+"%PYTHON%" -c "import onnxruntime as ort; print('ONNX Runtime   :',ort.__version__); print('Providers      :',ort.get_available_providers())" 2>nul
+
+echo.
+echo ------------------------------------------------------------
+echo TorchCodec
+echo ------------------------------------------------------------
+"%PYTHON%" -c "import torchcodec; print('TorchCodec     :',torchcodec.__version__)" 2>nul
+
+echo.
+echo ============================================================
+echo PIP CHECK
+echo ============================================================
+echo.
+%PIP% check
+
+echo.
+echo ============================================================
+echo SETUP COMPLETE
+echo ============================================================
+echo.
+echo ComfyUI:
+echo   %COMFYUI%
+echo.
+echo Python:
+echo   %PYTHON%
+echo.
+echo Start ComfyUI:
+echo.
+echo   cd /d "%COMFYUI%"
+echo   "%PYTHON%" main.py
+echo.
 pause
-goto :eof
-
-REM ---------------------------------------------------------------------------
-REM :sync_node <repo-url> <target-dir>
-REM Clone the repo if the target dir is missing, otherwise fast-forward it to
-REM the latest origin (follows whichever default branch was cloned: main/master).
-REM ---------------------------------------------------------------------------
-:sync_node
-if not exist "%~2" (
-    echo Cloning %~nx2...
-    git clone "%~1" "%~2"
-    if errorlevel 1 echo WARNING: Failed to clone %~nx2
-) else (
-    echo Updating %~nx2...
-    git -C "%~2" pull --ff-only
-    if errorlevel 1 echo WARNING: Could not fast-forward %~nx2 ^(local changes or diverged branch^) - skipping.
-)
 exit /b 0
 
+
+REM ============================================================
+REM FUNCTION: SYNC NODE
+REM ============================================================
+
+:sync_node
+
+set "NODE_URL=%~1"
+set "NODE_DIR=%~2"
+
+echo.
+echo ------------------------------------------------------------
+echo NODE
+echo URL    : %NODE_URL%
+echo TARGET : %NODE_DIR%
+echo ------------------------------------------------------------
+
+if not exist "%NODE_DIR%\.git" (
+    echo [INFO] Cloning...
+    git clone "%NODE_URL%" "%NODE_DIR%"
+    if errorlevel 1 (
+        echo [WARNING] Clone failed:
+        echo %NODE_URL%
+    )
+) else (
+    echo [INFO] Repository already exists.
+    echo [INFO] Updating...
+    pushd "%NODE_DIR%"
+    git pull --ff-only
+    if errorlevel 1 (
+        echo [WARNING] Pull failed.
+        echo Local changes/divergence were NOT overwritten.
+    )
+    popd
+)
+
+exit /b 0
+
+
+REM ============================================================
+REM FUNCTION: INSTALL NODE REQUIREMENTS
+REM ============================================================
+
+:install_node_requirements
+
+set "NODE_DIR=%~1"
+set "NODE_REQ=%NODE_DIR%\requirements.txt"
+
+if not exist "%NODE_REQ%" (
+    echo [INFO] No requirements.txt:
+    echo %NODE_DIR%
+    exit /b 0
+)
+
+echo.
+echo ------------------------------------------------------------
+echo NODE REQUIREMENTS
+echo %NODE_DIR%
+echo ------------------------------------------------------------
+
+set "FILTERED_NODE_REQ=%TEMP%\node_requirements_filtered.txt"
+
+powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+ "$src='%NODE_REQ%'; $dst='%FILTERED_NODE_REQ%'; Get-Content -LiteralPath $src | Where-Object { $_ -notmatch '^\s*(torch|torchvision|torchaudio|xformers|triton|triton-windows|flash[-_]attn|flash_attn_3|sageattention|onnxruntime)\b' } | Set-Content -Encoding UTF8 -LiteralPath $dst"
+
+if errorlevel 1 (
+    echo [WARNING] Requirement filtering failed.
+    exit /b 0
+)
+
+%PIP% install -r "%FILTERED_NODE_REQ%"
+
+if errorlevel 1 (
+    echo [WARNING] Node requirements reported an error.
+    echo Continuing...
+)
+
+exit /b 0

@@ -11,10 +11,10 @@ pathlib2
 ffmpeg
 
 # AI/ML frameworks
-torch
-torchaudio
+# torch
+# torchaudio
 #torchcodec
-triton-windows
+# triton-windows
 
 # Audio transcription
 openai-whisper
