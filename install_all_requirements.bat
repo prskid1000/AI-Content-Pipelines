@@ -17,7 +17,7 @@ REM   Python     : 3.14
 REM   PyTorch    : 2.14.0 + cu132
 REM   TorchVision: 0.29.0 + cu132
 REM   Sage       : 2.2.0.post6 + cu132 + Torch 2.14
-REM   xFormers   : 0.0.35
+REM   Attention  : PyTorch SDPA (Native CUDA 13.2) / SageAttention
 REM   Triton     : 3.8.0.post28
 REM
 REM IMPORTANT:
@@ -115,7 +115,7 @@ REM 3. BASIC BUILD TOOLS
 REM ============================================================
 
 echo ============================================================
-echo [1/11] Updating pip / wheel / packaging / ninja / build
+echo [1/10] Updating pip / wheel / packaging / ninja / build
 echo ============================================================
 
 %PIP% install --upgrade pip wheel packaging ninja build
@@ -133,7 +133,7 @@ REM 4. REMOVE OLD ACCELERATOR PACKAGES
 REM ============================================================
 
 echo ============================================================
-echo [2/11] Removing previous Torch / accelerator packages
+echo [2/10] Removing incompatible packages (including ABI-mismatched xformers)
 echo ============================================================
 
 %PIP% uninstall -y ^
@@ -156,7 +156,7 @@ REM 5. INSTALL EXACT PYTORCH, TORCHAUDIO & AUDIO SHIMS
 REM ============================================================
 
 echo ============================================================
-echo [3/11] Installing PyTorch 2.14.0 + cu132, Torchaudio & Audio Shims
+echo [3/10] Installing PyTorch 2.14.0 + cu132, Torchaudio & Audio Shims
 echo ============================================================
 
 %PIP% install --no-cache-dir ^
@@ -189,7 +189,7 @@ REM 6. VERIFY GPU
 REM ============================================================
 
 echo ============================================================
-echo [4/11] Verifying CUDA / GPU
+echo [4/10] Verifying CUDA / GPU
 echo ============================================================
 
 "%PYTHON%" -c "import torch; print('Torch          :', torch.__version__); print('Torch CUDA     :', torch.version.cuda); print('CUDA available:', torch.cuda.is_available()); print('GPU            :', torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'NONE'); print('Capability     :', torch.cuda.get_device_capability(0) if torch.cuda.is_available() else 'NONE')"
@@ -208,7 +208,7 @@ REM 7. TORCHCODEC
 REM ============================================================
 
 echo ============================================================
-echo [5/11] Installing TorchCodec
+echo [5/10] Installing TorchCodec
 echo ============================================================
 
 %PIP% install --upgrade torchcodec
@@ -222,33 +222,12 @@ echo.
 
 
 REM ============================================================
-REM 8. XFORMERS
+REM 8. FLASH ATTENTION 3
 REM ============================================================
 
 echo ============================================================
-echo [6/11] Installing xFormers 0.0.35
+echo [6/10] Installing FlashAttention 3
 echo ============================================================
-
-%PIP% install --no-cache-dir xformers==0.0.35
-
-if errorlevel 1 (
-    echo [WARNING] xFormers installation failed.
-    echo Continuing...
-)
-
-echo.
-
-
-REM ============================================================
-REM 9. FLASH ATTENTION 3
-REM ============================================================
-
-echo ============================================================
-echo [7/11] Installing FlashAttention 3
-echo ============================================================
-
-REM CUDA 13.2 + Torch 2.14 wheel repository:
-REM https://windreamer.github.io/flash-attention3-wheels/
 
 %PIP% install --no-cache-dir ^
     flash_attn_3 ^
@@ -257,21 +236,18 @@ REM https://windreamer.github.io/flash-attention3-wheels/
 if errorlevel 1 (
     echo.
     echo [WARNING] FlashAttention 3 was not installed.
-    echo This may be because the wheel repository does not yet
-    echo provide a CP314 build.
-    echo.
-    echo PyTorch stack will remain untouched.
+    echo PyTorch stack will remain untouched; ComfyUI uses SDPA/SageAttention.
 )
 
 echo.
 
 
 REM ============================================================
-REM 10. TRITON-WINDOWS
+REM 9. TRITON-WINDOWS
 REM ============================================================
 
 echo ============================================================
-echo [8/11] Installing Triton-Windows 3.8.0.post28
+echo [7/10] Installing Triton-Windows 3.8.0.post28
 echo ============================================================
 
 %PIP% install --no-cache-dir triton-windows==3.8.0.post28
@@ -285,19 +261,12 @@ echo.
 
 
 REM ============================================================
-REM 11. SAGEATTENTION - EXACT PREBUILT WHEEL
+REM 10. SAGEATTENTION - EXACT PREBUILT WHEEL
 REM ============================================================
 
 echo ============================================================
-echo [9/11] Installing SageAttention
+echo [8/10] Installing SageAttention
 echo ============================================================
-
-REM EXACT MATCH:
-REM   SageAttention 2.2.0.post6
-REM   CUDA 13.2
-REM   PyTorch 2.14.0
-REM   Python 3.14
-REM   Windows x64
 
 %PIP% install --no-cache-dir --no-deps ^
 "https://huggingface.co/ussoewwin/Sage-Attention-for-Windows/resolve/main/sageattention-2.2.0.post6+cu132torch2.14.0-cp314-cp314-win_amd64.whl"
@@ -312,11 +281,11 @@ echo.
 
 
 REM ============================================================
-REM 12. ONNX RUNTIME GPU
+REM 11. ONNX RUNTIME GPU
 REM ============================================================
 
 echo ============================================================
-echo [10/11] Installing ONNX Runtime GPU
+echo [9/10] Installing ONNX Runtime GPU
 echo ============================================================
 
 %PIP% uninstall -y onnxruntime onnxruntime-gpu
@@ -332,11 +301,11 @@ echo.
 
 
 REM ============================================================
-REM 13. COMFYUI
+REM 12. COMFYUI
 REM ============================================================
 
 echo ============================================================
-echo [11/11] Installing / updating ComfyUI
+echo [10/10] Installing / updating ComfyUI
 echo ============================================================
 
 if not exist "%COMFYUI%\.git" (
@@ -518,12 +487,6 @@ echo ------------------------------------------------------------
 "%PYTHON%" -c "import torchaudio; print('TorchAudio     :',torchaudio.__version__)" 2>nul
 "%PYTHON%" -c "import audioop; print('AudioOp (LTS)  : OK')" 2>nul || echo [WARNING] audioop missing
 "%PYTHON%" -c "import omnivoice; print('OmniVoice      : OK')" 2>nul || echo [WARNING] omnivoice import failed
-
-echo.
-echo ------------------------------------------------------------
-echo xFormers
-echo ------------------------------------------------------------
-"%PYTHON%" -c "import xformers; print('xFormers       :',xformers.__version__)" 2>nul
 
 echo.
 echo ------------------------------------------------------------
